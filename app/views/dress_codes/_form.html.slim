@@ -1,0 +1,23 @@
+= simple_form_for([@listing, @dress_code], html: {class: "form--sp"}) do |f|
+  = f.error_notification
+  = f.hidden_field :listing_id, value: @listing.id
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 服装の指定
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11.checkbox
+          = f.input_field :wafuku, as: :boolean, boolean_style: :inline, id: 'wafuku_only'
+          label[for="wafuku_only"] 和服のみ
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 注釈
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :note, as: :text, placeholder: "特別に注意していただきたい点などある場合はこちらに注意点やお願いなどをご記入ください。", rows: "4"
+  .row
+    .col-xs-9.col-offset-3.text-reset-center
+      = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-dress-code-submit'

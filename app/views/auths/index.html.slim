@@ -1,0 +1,27 @@
+h1 Listing auths
+
+table
+  thead
+    tr
+      th User
+      th Provider
+      th Uid
+      th Token
+      th
+      th
+      th
+
+  tbody
+    - @auths.each do |auth|
+      tr
+        td = auth.user
+        td = auth.provider
+        td = auth.uid
+        td = auth.token
+        td = link_to 'Show', auth
+        td = link_to 'Edit', edit_auth_path(auth)
+        td = link_to 'Destroy', auth, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Auth', new_auth_path

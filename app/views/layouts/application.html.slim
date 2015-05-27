@@ -1,0 +1,40 @@
+doctype html
+html
+  head
+    = display_meta_tags :charset => 'utf-8', :og => { :title    => 'サービス名', :type     => 'website', :url      => 'http://yourdomain.jp/', :image    => 'http://yourdomain.jp/assets/og.png', :site_name=> '', :description=> '' }, :fb => {:admins => '1081639010'}, :title => full_title(yield(:title)), :description => full_description(yield(:description)), :keywords => full_words(yield(:words)), :author => '', :viewport => 'width=device-width,initial-scale=1,user-scalable=no', :format => {:detection  => 'telephone=no, address=no, email=no'}
+    meta[http-equiv="X-UA-Compatible" content="IE=edge"]
+    meta[name="apple-mobile-web-app-title" content="app-name"]
+    = favicon_link_tag 'apple-touch-icon.png', rel:'apple-touch-icon-precomposed', type:'image/png'
+    = favicon_link_tag 'favicon.ico'
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag "/modernizr-2.8.3.min.js"
+    /= include_gon
+    = Gon::Base.render_data({})
+    = csrf_meta_tags
+  - if controller_name === "welcome"
+    |  <body class="
+    = controller_name
+    '
+    = action_name
+    |  is-simpleHeader">
+  - else
+    | <body class="
+    = controller_name
+    '
+    = action_name
+    | ">
+  = render partial: 'shared/header'
+  - if notice
+    .alert.alert-notice
+      div
+        = notice
+  - if alert
+    .alert.alert-error
+      div
+        = alert
+  = yield
+  = render partial: 'shared/footer'
+  = render partial: 'shared/tooltip'
+  = render partial: 'shared/modals/flow'
+  = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&language=ja&region=jp'
+  = javascript_include_tag 'application'

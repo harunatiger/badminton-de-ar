@@ -1,0 +1,44 @@
+- @reservations.each do |r|
+  - listing = reservation_to_listing(r)
+  - guest = reservation_to_guest(r)
+  li.card-body
+    .row.row-table
+      .col-md-3
+        - if r.progress == Settings.reservation.progress.requested
+          span.label.text-blue
+            | 回答してください
+        - elsif r.progress == Settings.reservation.progress.canceled
+          span.label.text-light-gray
+            | キャンセルされました
+        - elsif r.progress == Settings.reservation.progress.accepted
+          span.label.text-green
+            | 承諾しました
+        - elsif r.progress == Settings.reservation.progress.rejected
+          span.label
+            | 拒否しました
+        - elsif r.progress == Settings.reservation.progress.holded
+          span.label.text-starlight
+            | 保留中です
+        - else
+          span.label.text-danger
+            | 非公開にしました
+      .col-md-3
+        = link_to listing_path(r.listing_id) do
+          = listing.title
+      .col-md-2
+        = link_to profile_path(r.guest_id) do
+          = user_id_to_name(r.guest_id)
+      .col-md-2
+        = r.schedule
+      .col-md-2
+        = r.num_of_people
+        | 人
+      .link-group.reservation-item-as-host-launch-message
+        = link_to "#", id: "reservation-item-as-host-launch-message-#{r.id}", data: { num: r.id } do
+          - if r.continued?
+            i.fa.fa-reply
+            '   回答する
+          - else
+            i.fa.fa-envelope-o
+            '   メッセージを送る
+    = render partial: 'shared/modals/message_to_guest_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }

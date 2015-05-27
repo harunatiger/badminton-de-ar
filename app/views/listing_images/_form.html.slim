@@ -1,0 +1,31 @@
+= simple_form_for([@listing, @listing_image], html: {class: "form--sp"} ) do |f|
+  = f.error_notification
+  = f.hidden_field :listing_id, value: @listing.id
+  - if @listing_image.id.present?
+    .row.row-space-5.row-space-top-5.row-table
+      .col-xs-4.text-right.col-middle
+        .h4.text-light
+          |  現在のリスティングのイメージ画像
+      .col-xs-8.fieldset.col-middle
+        .row
+          .col-xs-11.regist-pics
+            = image_tag(@listing_image.image.thumb)
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  リスティングのイメージ画像
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11.regist-pics
+          = f.file_field :image, as: :file
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  写真の説明
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :caption, placeholder: "例) こんな感じです"
+  .row
+    .col-xs-9.col-offset-3.text-reset-center
+      = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-image-submit'

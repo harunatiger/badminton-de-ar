@@ -1,0 +1,54 @@
+- # wishlists#_header
+.wishlists-header.row.row-table.row-space-4.reset-display.clearfix
+  .col-sm-12.col-md-6.col-middle.col-reset
+    .media
+      = link_to "#", class: "pull-left media-photo media-round pull-reset-center" do
+        img src="/assets/images/sample/avatar.png"
+      .media-body
+        .row.row-table.wishlist-header-text.reset-display
+          .col-md-12.col-middle.col-reset
+            - if action_name === "edit"
+              span
+                | お気に入りを編集:
+            - else
+              = link_to wishlists_path, class: "h4" do
+                span
+                  | Gaku
+                | さんのお気に入りリスト
+              div
+                - if action_name === "index"
+                  span.text-muted
+                    ' お気に入りリスト:
+                  b
+                    ' 1
+                - elsif action_name === "show"
+                  span.text-muted
+                    = @wishlist.name
+                    '  :
+                  b
+                    ' 1
+                  = link_to '編集', edit_wishlist_path(@wishlist)
+  .col-sm-12.col-md-6.col-middle.col-reset.text-right.text-center--sp
+    - if action_name === "index"
+      = link_to new_wishlist_path, class: "btn pull-right pull-reset" do
+        |  お気に入りリストを新規作成する
+    - elsif action_name === "show"
+      .btn-group.social-share-widget-container
+        .social-share-widget
+          span.share-title
+            | シェア：
+          span.share-triggers
+            = link_to "http://www.facebook.com/sharer.php?u=http://yourdomain.jp&amp;t=テキスト",
+onClick: "window.open(encodeURI(decodeURI(this.href)), 'sharewindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!'); return false;", target: "_blank", class: "share-btn share-facebook-btn" do
+              i.fa.fa-facebook
+            = link_to "http://twitter.com/intent/tweet?text=テキスト&amp;url=http://yourdomain.jp&amp;via=@yourdomain",
+onClick: "window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1'); return false;", class: "share-btn share-twitter-btn" do
+              i.fa.fa-twitter
+            = link_to "#", class: "share-btn share-envelope-btn", id: "share-via-email-trigger" do
+              i.fa.fa-envelope-o
+
+            = link_to "LINEで送る", "http://line.me/R/msg/text/?テキスト http://yourdomain.jp", class: "share-btn share-envelope-btn sns-line-btn show--sp-ib"
+
+      .btn-group.view-btn-group.hide--sp
+        = button_tag 'リスト表示', class: "btn", disabled: "disabled", data: {view: "list"}
+        = button_tag 'マップ表示', class: "btn", data: {view: "map"}

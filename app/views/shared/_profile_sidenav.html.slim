@@ -1,0 +1,13 @@
+ul.sidenav-list
+  - if controller_name == 'profiles'
+    li
+      = link_to "プロフィール編集", edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "true"}
+  - else
+    li
+      = link_to "プロフィール編集", edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"}
+  - if controller_name == 'profile_images'
+    li
+      = link_to "プロフィール画像編集", "#{profile_image_link}", class: "sidenav-item", aria: {selected: "true"}
+  - else
+    li
+      = link_to "プロフィール画像編集", "#{profile_image_link}", class: "sidenav-item", aria: {selected: "false"}

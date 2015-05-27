@@ -1,0 +1,24 @@
+.col-lg-3.col-md-4.hide--sp
+  .card.row-space-4
+    .media.media-photo-block.dashboard-profile-photo.panel-image
+      = image_tag(user_id_to_profile_image(profile.user_id), class: 'img-responsive')
+  .listings.row-space-2.row-space-top-4
+    h2.h4.row-space-3
+      | 開催しているリスティング
+      small
+        | (
+        = listings.count
+        | )
+    ul.hostings-list.list-layout
+      - listings.each do |l|
+        li.row-space-2
+          = link_to listing_path(l.id), class: "media-photo media-photo-block row-space-1" do
+            = image_tag(l.cover_image, class: 'img-responsive')
+            .media-caption
+              div
+                = l.title
+              .text-normal
+                = l.location
+              - if l.delivery_flg.present?
+                .text-normal
+                  | 出張可

@@ -1,0 +1,35 @@
+/ modal wishlist
+#modal-wishlist.modal.show[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .wishlist-modal.modal-content.show_share_fb_checkbox
+        .card-header
+          span.no_fb お気に入りに保存
+          a.modal-close data-dismiss="modal" href="#"
+        .card-body
+          .row
+            .col-2.col-sm-2
+              .media-photo.media-photo-block.dynamic-listing-photo-container
+                .media-cover.text-center
+                  = image_tag(listing.cover_image, class: 'dynamic-listing-photo img-responsive-heigh')
+                  /img.dynamic-listing-photo.img-responsive-height src="/assets/images/sample/jp-room01_min.png"
+            .wishlist.col-sm-10
+              .text-lead 
+                = listing.title
+              p
+                = listing.location
+              .row.row-space-2
+                .col-12.col-sm-12
+                  .select.select-block
+                    select
+                      option
+              .row
+                .noteContainer.col-6.col-sm-6
+                  label メモを追加
+                  textarea.wishlist-note name="note"
+                .col-6.col-sm-6
+                  label タイムラインに追加する:
+                  i.fa.fa-facebook.fa-fb data-behavior="tooltip" title="共有オプションは、「アカウント設定」でいつでも変更できます。"
+                  input#fb_share checked="checked" name="fb_share" type="checkbox" value="true"
+        .card-footer
+          button.btn-primary.save.btn type="submit"  保存する

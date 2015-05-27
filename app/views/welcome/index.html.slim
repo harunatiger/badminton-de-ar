@@ -1,0 +1,24 @@
+- provide(:title, "トップページのタイトル")
+- provide(:description, "トップページの説明")
+.hero-wrapper
+  #hero
+    ul#slideshow.list-unstyled
+      li.active
+        = image_tag 'sample/pic/pic001.jpg'
+      li
+        = image_tag 'sample/pic/pic002.jpg'
+  .hero-contents.text-center
+    .va-container.va-container-wh
+      .hero-inner
+        h1#tagline.uppercase.text-jumbo.text-contrast.row-space-1 タグライン
+        .col-sm-12
+          #subtitle.h4.text-contrast.row-space-4 サイトのサブタイトルはこちらにどうぞ
+          .search--sp.show--sp
+            #sp-search-field.input-addon
+              span.input-stem.input-large.fake-search-field 検索しますか？
+              i.input-suffix.btn.btn-primary.fa.fa-full.fa-search
+          a.guest-flow-trigger.btn.btn-large.btn-transparent.hide--sp[href="#"] サービスの流れ
+        .hero-search.hide--sp
+          .col-xs-12
+            = render partial: 'form'
+= render partial: 'discovery'

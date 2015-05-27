@@ -1,0 +1,8 @@
+- # wishlists#new
+.app_view
+  = render partial: 'shared/subnav'
+  .page-container.wishlists-container.row-space-top-4
+    .new_view
+      = render partial: 'header'
+      = render 'form'
+= link_to 'Back', wishlists_path

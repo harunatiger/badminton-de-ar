@@ -1,0 +1,194 @@
+source 'https://rubygems.org'
+#source "http://bundler-api.herokuapp.com"
+#source 'http://production.s3.rubygems.org'
+
+ruby '2.2.1'
+
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.2.0'
+
+# Use mysql as the database for Active Record
+#gem 'mysql2'
+gem 'pg'
+# PG/MySQL Log Formatter
+gem 'rails-flog'
+
+gem 'rails-i18n'
+
+# Use slim
+# gem for convert .html or .erb to .slim
+# gem 'html2slim'
+# How to use slim: https://github.com/slim-template/slim/blob/master/README.jp.md
+gem 'slim-rails', github: 'slim-template/slim-rails'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.1.0'
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+
+# Use jquery as the JavaScript library(jquery 1.11.2 & 2.1.3, jquery ujs 1.0.3)
+gem 'jquery-rails', '~> 4.0.3'
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'turbolinks'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.0'
+# bundle exec rake doc:rails generates the API under doc/api.
+gem 'sdoc', '~> 0.4.0', group: :doc
+
+# authenticaiton
+gem 'devise', '~> 3.4.1'
+gem 'omniauth'
+gem 'omniauth-facebook'
+
+# form
+gem 'simple_form', '~> 3.1.0'
+
+# Assets log cleaner
+gem 'quiet_assets'
+
+# IMAGE/MOVIE FILE UPLOADER
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'rmagick'
+gem 'fog'
+
+## for AWS upload
+#gem "aws-sdk", "~> 1.33.0"
+
+# Pagenation
+gem 'kaminari'
+
+# check performance
+ gem 'newrelic_rpm'
+
+# Seed Management
+gem 'seed-fu', github: 'mbleigh/seed-fu'
+
+# constant value, settings
+gem 'rails_config'
+
+# Use ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.7'
+
+# Use Unicorn as the app server
+#gem 'unicorn'
+gem 'puma'
+
+# Annotation of Schema
+gem 'annotate'
+
+# Global Config File
+#gem 'global'
+
+# meta tag
+gem 'meta-tags'
+
+# sitemap
+gem 'sitemap_generator'
+
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
+
+# Paypal
+#gem 'paypal-express'
+
+# Elasticsearch Client
+#gem 'elasticsearch-model'
+#gem 'elasticsearch-rails'
+#gem 'bonsai-elasticsearch-rails'
+
+# search
+#gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.2'
+
+# cron management
+gem 'whenever', :require => false
+
+# Active Job
+gem 'resque'
+gem 'resque-scheduler'
+
+# Active Record
+gem 'squeel', :git => 'git://github.com/activerecord-hackery/squeel.git'
+
+# Send Rails variables to JS
+gem 'gon'
+
+# ActiveAdmin
+gem 'activeadmin', github: 'activeadmin'
+
+# gem 'mailcatcher'
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console', '~> 2.0'
+
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem "spring-commands-rspec"
+
+  # guard
+  gem 'guard'
+  gem 'terminal-notifier-guard'
+
+  # test framework
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'database_rewinder'
+  gem 'faker'
+  gem 'rspec-power_assert'
+  gem 'rspec-parameterized'
+  gem "shoulda-matchers"
+  #gem 'webmock'
+  gem 'timecop'
+  gem 'guard-rspec', require: false
+
+  # ruby code checker
+  gem 'rubocop'
+  gem 'guard-rubocop'
+
+  # livereload
+  gem 'guard-livereload', require: false
+
+  # make ER map
+  gem "rails-erd"
+
+  # good to read error screen
+  gem 'better_errors'
+  gem 'binding_of_caller'
+
+  # check unuseful sql
+  gem 'bullet'
+
+  # tells me rails best practice
+  gem 'rails_best_practices'
+
+  # Pry
+  gem 'pry-rails'
+  gem 'pry-coolline'
+  gem 'pry-byebug'
+  gem 'pry-doc'
+  gem 'pry-stack_explorer'
+  gem 'awesome_print'
+
+  # nice show of sql result
+  gem 'hirb'
+  gem 'hirb-unicode'
+
+  # Show Partial Block as Comment-out
+  gem "view_source_map"
+end
+
+group :production, :staging do
+  gem 'rails_12factor' # for heroku
+
+  # for cache
+  gem "memcachier" # for heroku
+  gem 'dalli'
+  gem 'rack-cache'
+  gem 'kgio'
+end

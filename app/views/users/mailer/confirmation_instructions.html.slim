@@ -1,0 +1,8 @@
+p
+  | このサービスへようこそ！ 
+  = @email
+  | !
+p
+  | 下のリンクから、引き続き登録をお願いします。
+p
+  = link_to 'アカウント登録をする', confirmation_url(@resource, confirmation_token: @token)

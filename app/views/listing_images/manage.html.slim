@@ -1,0 +1,14 @@
+/ listings_images#new
+.manage-listings
+  = render partial: 'shared/manage_listing_header', locals: { listing: @listing }
+  .manage-listing-row-container
+    .manage-listing-content.col-md-9.col-offset-3
+      .row-space-top-4
+        h3.text-center.row-space-2 リスティングの写真をもう一枚追加しましょう。
+        p.text-center.row-space-6
+          | ゲストにあなたのリスティングの魅力をよく伝えるために、あなたのリスティングをイメージできる写真を使うことをおすすめします。
+          br
+          | あなた自身が参加したいと思うようなリスティングのイメージ写真があれば完璧です。
+      = render 'form'
+
+    = render partial: 'shared/manage_listing_nav'

@@ -1,0 +1,23 @@
+/ passwords#edit
+.page-container.page-container-auth.row-space-top-6.row-space-8
+  .row
+    .pop
+      .card
+        .card-header パスワードを変更する
+        .card-body
+          = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+            .signin-form
+              = f.error_notification
+              = f.hidden_field :reset_password_token
+              p.row-space-2
+                | パスワードを再設定します。
+              .control-group.row-space-2
+                = f.input_field :password, placeholder: "新しいパスワード", required: true, autofocus: true, class: "row-space-2"
+                
+                = f.input_field :password_confirmation, placeholder: "新しいパスワード(再入力)", required: true
+              .form-actions
+                = f.button :submit, "変更する", class: "btn btn-primary btn-large btn-block"
+        .card-body
+          p.small1.row-space-2
+            | ログイン画面に戻りますか？
+            = link_to "戻る", new_user_session_path

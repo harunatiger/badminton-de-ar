@@ -1,0 +1,23 @@
+#message-to-host.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          a.modal-close[href="#" data-dismiss="modal"]
+          = Settings.message.modal.message_to_host.title.label
+        = form_tag( messages_path, method: 'post', remote: true, class: 'message-to-host-form', id: 'message-to-host-form' )
+          .card-body
+            = hidden_field :message, :to_user_id, value: listing.user_id
+            = hidden_field :message, :from_user_id, value: current_user.id
+            = hidden_field :message, :listing_id, value: listing.id
+            = hidden_field :message, :reservation_id, value: 0
+            p.h5.row-space-1
+              = user_id_to_name(listing.user_id)
+              | さんへ
+            span.share-error
+            p
+              = text_area :message, :content, id: 'email_message', class: 'input-large input-block', rows: '6', placeholder: Settings.message.modal.message_to_host.form.content.placeholder
+          .card-footer
+            div.btn-frame
+              = submit_tag Settings.message.modal.message_to_host.form.submit.label, id: 'message-to-host-btn', class: 'btn btn-primary'
+              .spinner

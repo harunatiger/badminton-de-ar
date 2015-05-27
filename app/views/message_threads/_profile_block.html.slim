@@ -1,0 +1,16 @@
+.col-lg-4
+  .card.row-space-4
+    .mini-profile.va-container.media
+      .va-top.pull-left
+        a.media-photo href="#"
+          = image_tag(their_profile_image, class: "size100", alt: "")
+      .va-middle.msg-pic
+        .h4.row-space-1
+          = link_to profile_path(counterpart.id), class: 'text-normal' do
+            = user_id_to_name(counterpart.id)
+            | さん
+        small
+          = counterpart.profile.try('location') || '住所未登録'
+        small 
+          | メンバー登録: 
+          = counterpart.created_at.strftime("%Y年")

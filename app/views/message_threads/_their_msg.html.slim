@@ -1,0 +1,16 @@
+li#question2_post_372135233.thread-list-item
+  .row.row-condensed
+    .col-sm-10.col-md-push-1
+      .row-space-4
+        .card.card-quote.card-quote-flush.card-quote-right
+          .card-body
+            .message-text
+              p.trans 
+                = m.content
+        .time-container.text-muted.text-right
+          small.time 
+            = m.try('created_at').strftime("%m/%d %H:%M") || ''
+    .col-sm-2.col-md-1.col-md-push-1.text-center
+      = link_to(profile_path(counterpart), class: "media-photo media-round")
+        /img.size36 alt="" src="/assets/images/sample/person1.jpg"
+        = image_tag(their_profile_image, class: "size36")

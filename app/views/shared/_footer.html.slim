@@ -1,0 +1,79 @@
+footer
+  .footerContent-container
+    .row
+      .col-sm-3.col-sm-offset-2.hide--sp
+        h5
+          | 企業情報
+        ul.list-unstyled
+          li
+            = link_to 'このサービスについて', '#'
+          li
+            = link_to 'ブログ', '#'
+          li
+            = link_to 'ヘルプ', '#'
+          li
+            = link_to 'プライバシーポリシー', '#'
+          li
+            = link_to '利用規約', '#'
+      .col-sm-3.hide--sp
+        h5
+          | オススメ情報
+        ul.list-unstyled
+          li
+            = link_to 'おすすめです', '#'
+          li
+            = link_to '初心者お助け帳', '#'
+          li
+            = link_to 'グループ', '#'
+          li
+            = link_to '友達を招待', '#'
+          li
+            = link_to 'サイトマップ', '#'
+      .col-sm-3.hide--sp
+        h5
+          | ホストの方へ
+        ul.list-unstyled
+          li
+            = link_to 'ホストになる理由', '#'
+          li
+            = link_to 'おもてなしの心', '#'
+          li
+            = link_to 'ホストの責任', '#'
+          li
+            = link_to 'こころがけ', '#'
+          li
+            = link_to 'サービスの様子', '#'
+      .col-sm-12.row-space-4.show--sp
+        ul.list-layout.list-inline.text-center.h5.footer-links--sp
+          li
+            = link_to "このサービスについて", "#", class: "link-contrast"
+          li
+            = link_to "ブログ", "#", class: "link-contrast"
+          li
+            = link_to "ヘルプ", "#", class: "link-contrast"
+          li
+            = link_to "プライバシーポリシー", "#", class: "link-contrast"
+          li
+            = link_to "利用規約", "#", class: "link-contrast"
+    hr.hide--sp
+    .sns-container.text-center
+      h5.hide--sp
+        | ソーシャルメディア
+      ul.list-unstyled.list-inline
+        li
+          = link_to '#' do
+            i.fa.fa-facebook
+        li
+          = link_to '#' do
+            i.fa.fa-google-plus
+        li
+          = link_to '#' do
+            i.fa.fa-twitter
+        li
+          = link_to '#' do
+            i.fa.fa-instagram
+        li
+          = link_to '#' do
+            i.fa.fa-pinterest
+    #copyright.row-space-top-2.text-center
+      | © 会社名

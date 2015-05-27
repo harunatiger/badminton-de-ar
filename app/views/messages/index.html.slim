@@ -1,0 +1,52 @@
+/messages#index
+= render partial: 'shared/subnav'
+
+.page-container.page-container-inbox.row-space-6.row-space-top-4
+  .row
+    #inbox.threads.col-sm-12
+      .card
+        - if @messages.blank?
+          .card-body
+            p テスト
+        - else
+          ul.list-layout.card-body
+            - @messages.each do |message|
+              li.card-body.thread
+                .row
+                  .col-sm-9.col-md-3.thread-author
+                    .row.row-table
+                      .thread-avatar.col-md-5
+                        a href="#"
+                          img.media-round.media-photo.size50 alt="" src="/assets/images/sample/person1.jpg"
+                      .col-sm-7.thread-name
+                        | テスト
+                        br
+                        span.thread-date 03/26
+                  = link_to message_threads_path, class: "thread-link link-reset text-muted" do
+                    .col-sm-7.col-md-7.thread-body
+                      span.thread-subject
+                        = message.content
+                      .text-muted.hide--sp
+                        span.address テスト
+                        br
+                        /= message.schedule
+                  .col-sm-7.col-md-2.thread-label
+                    .row
+                      .col-sm-12.col-md-6
+                        span.label 却下
+
+
+
+        /p = message.message_thread
+        /p = message.schedule
+        /p = message.number
+        /p = message.content
+        /p = message.progress
+        /p = message.read
+        /p = link_to 'Show', message
+        /p = link_to 'Edit', edit_message_path(message)
+        /p = link_to 'Destroy', message, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+/br
+
+/ = link_to 'New Message', new_message_path

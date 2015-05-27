@@ -1,0 +1,33 @@
+- # wishlists#index
+= render partial: 'shared/subnav'
+.view-conroller.index_view
+  .page-container.wishlists-container.row-space-top-4
+    = render partial: 'header'
+    .row.wishlists-body.row-space-4
+      - count = 0
+      - @wishlists.each do |wishlist|
+        .col-md-6.col-lg-4.row-space-4
+          .card
+            = link_to wishlist, class: "card-image media-photo media-link media-photo-block wishlist-unit" do
+              .media-cover
+              .row.row-table.row-full-height
+                .col-xs-12.col-middle.text-center
+                  .card-body
+                    .h3.row-space-2
+                      - if count === 0
+                        i.fa.fa-lock
+                        br
+                      strong
+                        = wishlist.name
+                    .hide
+                      = wishlist.range
+                    .btn.btn-guest
+                      |  お気に入り
+                      span
+                        | 1
+                      | 件
+        - count += 1
+- #= wishlist.user
+- #= link_to 'Show', wishlist
+- #= link_to 'Edit', edit_wishlist_path(wishlist)
+- #= link_to 'Destroy', wishlist, method: :delete, data: { confirm: 'Are you sure?' }

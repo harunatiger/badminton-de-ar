@@ -1,0 +1,62 @@
+- # listings#index
+= render 'shared/subnav'
+.page-container.row-space-top-4.row-space-4
+  .row
+    .col-md-3
+      = render partial: "shared/host_sidenav"
+
+    - if @listings.blank?
+      .col-md-9
+        .card
+          .card-body
+            h3
+              | リスティングを開く予定がありません。
+            p.text-lead.row-space-4
+              | あなたのリスティングを待っているゲストがいます。
+              br
+              | あなたの好きな人を招いてリスティングを楽しくしましょう。
+            = link_to new_listing_path, class: "btn btn-host" do
+              |  新しくリスティングを作る
+    - else
+      .col-md-9
+        .card
+          .card-header
+            .row
+              .col-sm-7.col-md-6
+                .select
+                  form#select-listings-filter[action=""]
+                    select#f[name="f"]
+                      option[value="all"]
+                        | 全てのリスティング
+                      option[value="active"]
+                        | 公開中のリスティング
+                      option[value="inactive"]
+                        | 非公開のリスティング
+              .col-sm-5.col-md-6.add-new
+                = link_to "追加", new_listing_path, class: "btn btn-host pull-right show--sp"
+          .suspension-container
+            ul.list-unstyled.list-layout
+              - @listings.each do |listing|
+                li.listing.card-body
+                  .row.row-table
+                    .col-xs-4.col-lg-2
+                      .media-photo.media-photo-block
+                        .media-cover.text-center
+                          = image_tag(listing_cover_image_url(listing.id), class: "img-responsive-height")
+                    .col-xs-8.col-lg-6
+                      span.h4
+                        = link_to listing, class: "text-normal trans" do
+                          = listing.title
+                      .actions.row-space-top-1
+                        = link_to edit_listing_path(listing) do
+                          |  このリスティングを編集する
+                    .col-md-12.col-lg-4
+                      .pull-right.pull-change
+                        .listing-criteria-header.activation-notification
+                          .listing-criteria-header-message
+                            - if listing.open?
+                              = link_to edit_listing_path(listing), class: "btn btn-primary" do
+                                | 掲載中
+                            - else
+                              = link_to edit_listing_path(listing), class: "btn" do
+                                | 非公開中

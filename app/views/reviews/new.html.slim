@@ -1,0 +1,37 @@
+- counterpart = user_id_to_user_obj(@reservation.host_id)
+.page-container.row-space-top-6.row-space-8
+  .row
+    .col-lg-4.col-md-12
+      .card.row-space-4.host_n_listing-info-box
+        .col-xs-4.col-lg-12
+          .media.media-photo-block.dashboard-profile-photo.panel-image
+            = link_to profile_path(counterpart.id)
+              == image_tag(user_id_to_profile_image(counterpart.id), class: 'img-responsive')
+        .col-xs-8.col-lg-12
+          .card-body.card-body-condensed
+            h4.text-center
+              = user_obj_to_name(counterpart)
+            .row.row-condensed
+              .col-md-3.hide--sp
+                = image_tag(listing_cover_image_url(@reservation.listing_id), class: "img-responsive")
+              .col-md-9
+                p
+                  = listing_name(@reservation.listing_id)
+            
+    .col-lg-8.col-md-12
+      .row-space-4
+        .h3.row-space-2
+          = link_to profile_path(counterpart.id)
+             = user_obj_to_name(counterpart)
+             | さん
+          | に評価を送りましょう。
+        p.row-space-3
+          | 先日のリスティングの評価や感想をホストの方に送ることができます。
+          br
+          | あまり難しく考えず、あなたの率直な感想をお伝えしましょう。
+          br
+          | 感謝の内容や、改善の希望など、次回このリスティングに参加される方に大変役立ちます。
+          br
+          | ぜひ一筆お願い申し上げます。
+        .card.card-bald
+          == render 'form'

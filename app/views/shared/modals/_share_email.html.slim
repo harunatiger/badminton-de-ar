@@ -1,0 +1,19 @@
+/ modal share-via-email
+#share-via-email.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          a.modal-close[href="#" data-dismiss="modal"]
+          | リスティングを共有
+        form
+          .card-body
+            p
+              input#send_to.input-block[name="send_to" type="email" multiple="" pattern="^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4},*[\W]*)+$" value="" placeholder="メールアドレスを3つまで入力してください（カンマで区切って）"]
+            span.share-error
+            p
+              label[for="email_message"]
+              textarea#email_message.input-block[name="message" rows="4"]
+                | ご一緒しませんか？
+          .card-footer
+            input.btn.btn-primary[name="commit" type="submit" value="メールを送信する"]

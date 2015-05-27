@@ -1,0 +1,14 @@
+/ confections#new
+.manage-listings
+  = render partial: 'shared/manage_listing_header', locals: { listing: @listing }
+  .manage-listing-row-container
+    .manage-listing-content.col-md-9.col-offset-3
+      .row-space-top-4
+        h3.text-center.row-space-2 お菓子（オプション1）の情報を登録しましょう。
+        p.text-center.row-space-6
+          | お菓子はリスティングの大きな魅力です。
+          br
+          | ぜひ登録して写真も載せてみたらいかがでしょう？
+      = render 'form'
+
+    = render partial: 'shared/manage_listing_nav'

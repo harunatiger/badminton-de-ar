@@ -1,0 +1,862 @@
+/* main.sass */
+
+.hero-wrapper
+  position: relative
+  height: 600px
+  @media (max-width: 767px)
+    height: 400px
+
+#hero
+  z-index: -1
+  position: absolute
+  right: 0
+  left: 0
+  top: 0
+  bottom: 0
+  overflow: hidden
+
+.hero-contents
+  position: relative
+  top: 50px
+  width: 100%
+  height: 550px
+
+.va-container
+  display: table
+  position: relative
+
+.va-container-wh
+  width: 100%
+  height: 100%
+
+.hero-inner
+  display: table-cell
+  vertical-align: middle
+  padding-bottom: 102px
+  @media (max-width: 767px)
+    padding-bottom: 252px
+
+.search--sp
+  display: none
+
+.fake-search-field
+  background-color: #fff
+
+.arrow--sp
+  display: block
+  position: absolute
+  left: 0
+  right: 0
+  text-align: center
+  text-decoration: none
+
+.hero-search
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  padding: 30px 0
+  background: rgba(0, 0, 0, 0.6)
+
+.hero-searchForm
+  .search-form-wrapper
+    position: relative
+    display: inline-block
+    > div
+      position: relative
+      display: inline-block
+      vertical-align: bottom
+      &.location-wrapper
+        margin-right: -5px
+      &.date-wrapper
+        margin-right: -5px
+      input, select
+        height: 44px
+
+.location-width
+  width: 290px
+
+#date
+  width: 130px
+
+.location
+  border-top-right-radius: 0
+  border-bottom-right-radius: 0
+
+.date-wrapper .checkin, #guests
+  border-radius: 0
+
+#submit_location
+  display: inline
+  height: 44px
+  vertical-align: bottom
+  border-top-left-radius: 0
+  border-bottom-left-radius: 0
+
+.top-contents
+  padding: 100px 0
+
+.discovery-section
+  @media (max-width: 767px)
+    overflow: hidden
+
+.discovery-card
+  position: relative
+  height: 344px
+  background-color: #f5f5f5
+  background-size: cover
+  background-position: center
+  .va-container
+    background-color: rgba(0, 0, 0, 0.1)
+    .h2
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25)
+
+
+/* sign up
+ ================================================== */
+.remember-me
+  float: left
+  padding: 0
+
+/* wishlists
+ ================================================== */
+.wishlists-header
+  .media
+    .media-photo
+      width: 50px
+      height: 50px
+      img
+        width: 46px
+        height: 46px
+
+.wishlist-unit
+  display: block
+  height: 320px
+
+.users.show
+  .wishlist-unit
+    height: 234px
+
+.wishlist-bg-img
+  background-size: cover
+  background-position: center
+
+.share-triggers
+  margin-right: -8px
+
+.share-btn
+  display: inline-block
+  min-width: 16px
+  margin-right: 14px
+  .fa
+    font-size: 22px
+
+.view-btn-group
+  margin-left: 20px
+
+.wishlist-header-text
+  display: table
+  height: 50px
+  min-height: 50px
+  @media (max-width: 767px)
+    text-align: center
+    height: auto
+    min-height: 1px
+
+.results-list
+  .note-container
+    .add-note
+      opacity: 0
+      transition: all ease-in-out 200ms
+      &.show
+        opacity: 1 !important
+  img.img-round
+    width: 28px
+    height: 28px
+  @media (max-width: 767px)
+    > li
+      padding-top: 10px
+      border-top: 1px solid $border1
+
+.listing_slideshow_thumb_view
+  position: relative
+  float: left
+
+.listing-slideshow
+  position: relative
+  width: 218px
+  height: 144px
+  img
+    position: absolute
+    width: 218px
+    height: 144px
+
+.photo-paginate
+  display: block
+  position: absolute
+  top: 0
+  height: 100%
+  z-index: 100
+  i
+    display: block
+    position: absolute
+    top: 58px
+    width: 16px
+    height: 32px
+    color: white
+    font-size: 24px
+    opacity: 0
+    transition: opacity ease-in-out 100ms
+  &.next
+    width: 60%
+    right: 0
+    i
+      right: 10px
+  &.prev
+    width: 40%
+    left: 0
+    i
+      left: 10px
+  &:hover
+    i
+      opacity: 1 !important
+
+.results-map
+  min-height: 400px
+
+.show_view
+  .results-list
+    display: block
+  .results-map
+    display: none
+  &.map_view
+    .results-list
+      display: none
+    .results-map
+      display: block
+
+.social-share-widget-container
+  @media (max-width: 1100px)
+    margin: 20px 0
+  @media (max-width: 767px)
+    margin: 10px 0 0
+
+.wish_list_button_container
+  display: none
+  @media (max-width: 1100px)
+    display: block !important
+    float: left !important
+    margin: -34px 0 0 42px
+
+#wishlist-edit-privacy-setting
+  @media (max-width: 1100px)
+    margin-bottom: 20px
+
+.listing-criteria-header
+  text-align: right
+  @media (max-width: 1100px)
+    margin: 15px 0 0
+
+a.delete
+  @media (max-width: 1100px)
+    width: 100%
+    margin-top: 10px
+
+.question-icon-container
+  margin-top: 5px
+  line-height:  29px
+  &.inline
+    display: inline-block
+    margin: 0 0 0 8px
+    line-height: 20px
+    vertical-align: middle
+  .fa
+    width: 22px
+    color: $gray1
+    font-size: 20px
+
+/* listings
+ ================================================== */
+
+.add-new
+  @media (max-width: 767px)
+    padding-top: 2px
+
+/* #photo */
+#photos
+  position: relative
+  width: 100%
+  height: 402px
+  transition: height 0.2s
+  .cover-img-container
+    display: inline
+    .cover-img
+      height: 100%
+      background-repeat: no-repeat
+      background-size: cover
+      background-position: 50% 50%
+      background-color: #f5f5f5
+  .photo-chevron
+    position: absolute
+    top: 0
+    width: 75px
+    height: 100%
+    background: none
+    border: 0
+    color: #fff
+    font-size: 100px
+    outline: none
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8)
+    opacity: 0.8
+    transition: opacity 0.2s
+    z-index: 10
+    &:hover
+      opacity: 1
+    &.left
+      left: 0
+    &.right
+      right: 0
+  &.with-photos
+    &.medium
+      height: 552px
+    &.large
+      height: 702px
+    &.xlarge
+      height: 852px
+  &.with-modal .cover-img
+    /*cursor: pointer*/
+
+@media (max-width: 1099px)
+  #photos .photo-chevron
+    font-size: 5em
+    width: 40px
+    padding: 0
+
+@media screen and (min-height: 700px)
+  #photos.with-photos
+    height: 552px
+
+@media screen and (min-height: 850px)
+  #photos.with-photos
+    height: 702px
+
+@media screen and (min-height: 1000px)
+  #photos.with-photos
+    height: 852px
+
+@media screen and (max-width: 1099px) and (min-height: 700px)
+  #photos.with-photos
+    height: 441.6px
+
+@media screen and (max-width: 1099px) and (min-height: 850px)
+  #photos.with-photos
+    height: 561.6px
+
+@media screen and (max-width: 1099px) and (min-height: 1000px)
+  #photos.with-photos
+    height: 681.6px
+
+@media (max-width: 767px)
+  #photos.with-photos
+    height: 320px
+
+@media screen and (max-width: 767px) and (min-height: 700px)
+  #photos.with-photos
+    height: 368px
+
+@media screen and (max-width: 767px) and (min-height: 850px)
+  #photos.with-photos
+    height: 468px
+
+@media screen and (max-width: 767px) and (min-height: 1000px)
+  #photos.with-photos
+    height: 568px
+
+.with-photos+.card
+  border-top: 0
+
+#summary
+  .host-profile-image
+    width: 90px
+    height: 90px
+
+.listing-section
+  margin-top: -40px
+  padding-top: 40px
+
+.suspension-container
+  .media-photo
+    height: 63px
+
+.responsive-table-container
+  .card-body
+    padding: 15px 20px 35px
+  li:first-child
+    padding: 15px 20px 10px
+
+#book_it_form
+  margin-top: -40px
+  width: 315px
+
+#pricing
+  background-color: rgba(0, 0, 0, 0.5)
+  border: 0
+  color: white
+  height: 40px
+  padding: 0 20px
+  text-transform: capitalize
+  width: 315px
+  z-index: 1001
+  @media (min-width: 1100px)
+    &.fixed
+      position: fixed
+      top: 0
+
+#price_amount
+  padding: 6px 0
+
+#payment-period-container
+  border: 0
+
+#per_attend
+  padding: 9px 0
+
+#book_it
+  position: absolute
+  width: 315px
+  z-index: 10
+  border-top: none
+  @media (min-width: 1100px)
+    &.fixed
+      position: fixed
+      top: 40px
+      z-index: 1001
+
+@media (max-width: 1099px)
+  #book_it_form
+    margin-top: 0
+  #book_it, #pricing, #book_it_form
+    width: auto
+    position: static
+
+#neighborhood
+  .location-card
+    position: relative
+    height: 650px
+
+#map
+  height: 100%
+
+/* listing.show */
+.listing.show
+  .listing-name
+    max-width: 100%
+    font-weight: 400
+  @media (min-width: 1100px)
+    .listing-name
+      float: right
+
+.listing-description
+  font-size: 15px
+  margin-bottom: 30px
+
+/* search */
+.listings.search
+  .map
+    position: fixed
+    top: 47px
+    right: 0
+    left: auto
+    bottom: 0
+    width: 100%
+  .sidebar
+    .filters
+      left: 0
+      display: none
+      .card-header.show--sp
+        background-color: $bg1
+    .sidebar-header
+      display: none
+    &.filters-open
+      background-color: white
+      .search-results
+        display: none
+      .filters, .sidebar-header
+        display: block
+    .filters-section
+      padding-top: 15px
+      padding-bottom: 15px
+      background-color: white
+      label
+        &.text-truncate
+          overflow: hidden
+    .checkbox
+      cursor: pointer
+      input
+        cursor: pointer
+      &.card
+        padding-left: 7px
+        .icon
+          margin-right: 2px
+    .filters-more
+      transition: max-height 0.2s ease-in
+      max-height: 1250px
+      overflow: hidden
+      &.collapse
+        max-height: 0
+        transition: max-height 0.2s ease-out
+    @media (min-width: 768px)
+      .filters-footer
+        width: 60%
+        position: fixed
+        transform: translateZ(1px)
+        bottom: 0
+        background-color: #fff
+        padding: 20px
+
+  .outer-listings-container
+    overflow-x: hidden
+
+  .breadcrumbs
+    float: right
+    clear: right
+    font-size: 14px
+
+  .breadcrumbs,.breadcrumbs a
+    color: #999999
+
+  .breadcrumb-spacer
+    margin: 0 5px 0 7px
+    font-size: 16px
+
+  .results-footer
+    overflow: hidden
+    padding: 20px
+
+  .results_count
+    margin: 0px 0px 5px 2px
+
+  .search-header .location,.search-header .search-button
+    margin-right: 4px
+
+  .search-header .location
+    width: 240px
+
+  @media (min-width: 768px)
+    .map-search
+      position: absolute
+      top: 47px
+      bottom: 0
+      left: 0
+      right: 0
+    .sidebar
+      position: fixed
+      top: 47px
+      left: 0
+      bottom: 0
+      width: 60%
+      overflow-y: scroll
+      -webkit-overflow-scrolling: touch
+      background: $bg1
+      .filters, .sidebar-header
+        display: block
+      &.filters-open
+        overflow-y: hidden
+    .map
+      display: block
+      width: 40%
+      &:before
+        content: ''
+        position: absolute
+        right: 0
+        width: 2px
+        height: 100%
+        box-shadow: inset -1px 0 1px rgba(0,0,0,0.3)
+        z-index: 2
+    .filters
+      position: fixed
+      z-index: 11
+      top: 47px
+      left: 0
+      right: 40%
+      bottom: 0
+      overflow-y: scroll
+      overflow-x: hidden
+      background-color: white
+      &.collapse
+        overflow: hidden
+        position: static
+        padding-bottom: 0
+        .filters-section, .filters-footer
+          display: none
+        .filters-section.intro-filter
+          display: block
+    .sidebar-header-placeholder
+      height: 66px
+      width: 100%
+      display: none
+    .sidebar-header
+      padding-top: 15px
+      padding-bottom: 15px
+      transition: opacity 0.2s, z-index 0 ease 0
+      &.transparent
+        z-index: 0 !important
+        transition: opacity 0.2s, z-index 0 ease 0.2s
+    .outer-listings-container
+      padding: 0 20px
+
+  &.stuck
+    .sidebar-header
+      position: fixed
+      top: 47px
+      right: 40%
+      left: 0
+      border-bottom: 1px solid $border1
+      z-index: 100
+    &.with-new-header .sidebar-header
+      top: 61px
+    .sidebar-header-placeholder
+      display: block
+
+  /* WIP */
+  #ex12c
+    height: 21px !important
+    overflow: hidden
+
+  footer
+    display: none
+    @media (max-width: 767px)
+      display: block
+
+/* manage */
+.manage-listings
+  height: 100%
+  background-color: white
+
+.manage-listing-row-container
+  position: relative
+  height: 100%
+  margin: 0
+  padding: 0
+  zoom: 1
+
+.manage-listing-content
+  float: none
+  position: relative
+  min-height: 100%
+  padding: 20px 20px 80px 20px
+  background: $bg1
+  border-right: 1px solid $border1
+  border-left: 1px solid $border1
+  @media (max-width: 767px)
+    margin-left: 0 !important
+
+.manage-listing-nav
+  position: absolute
+  top: 0
+  left: 0
+  background: white
+  transition: left ease-out 160ms
+  transform: translateZ(0)
+  overflow: hidden
+  z-index: 10
+  &.pinned
+    position: fixed
+    top: 40px
+  @media (max-width: 767px)
+    position: relative !important
+    top: auto !important
+    left: auto !important
+  .nav-item
+    a
+      .fa
+        position: absolute
+        top: 11px
+        right: 12px
+        font-size: 20px
+        &.fa-check
+          color: $green1
+        &.fa-exclamation-circle
+          color: $red1
+
+/* profile */
+.profiles.show
+  .wishlist-unit
+    height: 234px
+
+.nav-sections
+  padding: 25px 0
+  overflow-y: scroll
+  overflow-x: hidden
+
+.listings.edit, .listing_images, .confections, .tools, .dress_codes
+  footer
+    display: none
+
+.hide-this-listing
+  display: inline-block
+  margin: 20px 0 0
+  color: $host-theme
+  font-weight: 700
+  .fa
+    margin: 0 4px 3px 0
+    font-size: 20px
+    vertical-align: middle
+  &:hover
+    color: $host-theme
+
+@media (max-width: 767px)
+  .avatar-wrapper
+    text-align: center
+@media (min-width: 768px)
+  .profile-name
+    max-width: 68px
+  .avatar-wrapper
+    float: right
+
+@media (min-width: 768px) and (max-width: 1099px)
+  .avatar-wrapper
+    float: left
+
+@media (min-width: 1100px)
+  .listing-name
+    float: right
+    max-width: 100%
+
+.unpublished
+  height: 35px
+  line-height: 34px
+  text-align: center
+  color: $red1
+  border: 1px solid $red1
+  border-radius: 4px
+  i
+    margin: 0 6px 2px 0
+    font-size: 18px
+    vertical-align: middle
+
+/* no-listings */
+.no-listings-block
+  padding: 60px 0 0
+  text-align: center
+  .tea_cup
+    width: 80px
+    height: auto
+  p
+    margin: 20px 0 60px
+    font-size: 18px
+    font-weight: 700
+  @media (max-width: 767px)
+    min-height: 300px
+    padding-top: 120px
+
+.no-listings-map
+  display: table
+  width: 100%
+  height: 100%
+  background-color: $earth1
+  text-align: center
+  div
+    display: table-cell
+    vertical-align: middle
+    .fa-map-marker
+      color: $gray1
+      font-size: 44px
+    p
+      line-height: 26px
+      margin: 10px 0 0
+      font-size: 16px
+
+
+/* message */
+.thread-date
+  font-size: 12px
+
+.thread-avatar
+  text-align: center
+
+.msg-pic
+  padding: 0 10px 0 0
+  small
+    display: block
+    line-height: 18px
+
+// ellipsis
+$container-bg: white
+$font-size-base: 14px
+$line-height-computed: 1.4
+$lines-to-show: 3
+
+.message-content
+  background: white
+  overflow: hidden
+  width: 100%
+  span
+    position: relative
+    display: block
+    font-size: $font-size-base
+    max-height: $font-size-base * $line-height-computed * $lines-to-show
+    line-height: $line-height-computed
+    &:before,
+    &:after
+      background: $container-bg
+      position: absolute
+    &:before
+      content: '...'
+      top: $font-size-base * $line-height-computed * ($lines-to-show - 1)
+      right: 0
+      padding: 0 5px
+    &:after
+      content: ''
+      height: 100%
+      width: 100%
+
+@media (max-width: 767px)
+  .thread-link
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    z-index: 1
+    .address
+      display: none
+  .thread-author, .thread-name, .thread-body, .thread-label
+    position: static
+  .thread-name
+    font-weight: 700
+    font-size: 16px
+    margin-top: 0px
+  .thread-date
+    font-weight: normal
+    font-size: 12px
+    position: absolute
+    bottom: 10px
+    right: 20px
+    color: $gray1
+  .thread-avatar
+    float: left
+    padding-right: 0
+  .thread-subject
+    position: absolute
+    top: 36px
+    left: 83px
+    width: calc(100% - 105px)
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+  .thread-label
+    position: absolute
+    top: 44px
+    left: 70px
+
+/* Blackbox */
+@media (max-width: 1099px) and (min-width: 768px)
+  .col-switch
+    margin-top: -739px
+
+/* fo-dev */
+.to-edit
+  position: fixed
+  bottom: 20px
+  right: 0

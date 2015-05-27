@@ -1,0 +1,23 @@
+/ modal guest-flow
+#guest-flow.modal[role="dialog" aria-hidden="true"]
+  .modal-paper
+    .page-container
+      .row
+        .col-md-4.row-space-4
+          .illust-box.text-center
+            = image_tag "illust/no-illust01.jpg"
+            .h3.row-space-top-3.row-space-2 1.検索する
+            p 近くのリスティング、お気に入りのホスト、あなた好みのリスティングを見つけてください。
+        .col-md-4.row-space-4
+          .illust-box.text-center
+            = image_tag "illust/no-illust01.jpg"
+            .h3.row-space-top-3.row-space-2 2.予約する
+            p 簡単に予約ができます。ホストにお願いがある場合など、メッセージを送ってやりとりが可能です。
+        .col-md-4.row-space-4
+          .illust-box.text-center
+            = image_tag "illust/no-illust01.jpg"
+            .h3.row-space-top-3.row-space-2 3.楽しむ
+            p あなたの近くにあなたの知らない至高の時間があなたを待っています。ぜひ新しいリスティングに挑戦ください。
+    a.panel-close.close-guest-flow[href="#" data-dismiss="modal"]
+      i.fa.fa-times
+      '  閉じる

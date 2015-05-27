@@ -1,0 +1,12 @@
+/ dress_codes#new
+.manage-listings
+  = render partial: 'shared/manage_listing_header', locals: { listing: @listing }
+  .manage-listing-row-container
+    .manage-listing-content.col-md-9.col-offset-3
+      .row-space-top-4
+        h3.text-center.row-space-2 服装（オプション3）に関して
+        p.text-center.row-space-6
+          | 必要があれば下のチェックボックスにチェックを入れてください。
+      = render 'form'
+
+    = render partial: 'shared/manage_listing_nav'

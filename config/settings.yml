@@ -1,0 +1,186 @@
+site_info:
+  base_title: "サービス名｜メインタイトル"
+  base_description: "基本discription"
+  base_words: "基本キーワード"
+oauth:
+  facebook:
+    scope: "public_profile,email,user_friends"
+profile:
+  save:
+    success: "プロフィールを更新しました。"
+profile_images:
+  save:
+    success: "プロフィールを更新しました。"
+listings:
+  save:
+    success: "リスティングの登録に成功しました。次に、他の情報も入力してください。"
+  set_lon_lat:
+    error: "緯度経度情報の取得に失敗しました。以下より正確な場所を入力してください。"
+  publish:
+    success: "リスティングを公開しました。"
+    failure: "リスティングの公開にはもう少し準備が必要です。"
+  unpublish:
+    success: "リスティングを非公開にしました。"
+    failure: "リスティングの非公開に失敗しました。"
+  delivery:
+    ok: "出張可"
+  error:
+    invalid_listing_id: "該当のお茶会が見つかりません。"
+listing_images:
+  save:
+    success: "リスティングのイメージ画像の登録に成功しました。"
+    failure: "画像の登録に失敗しました。"
+confections:
+  save:
+    success: "お菓子（オプション1）の情報を登録いたしました。"
+    failure: "お菓子（オプション1）の情報の登録に失敗しました。"
+tools:
+  save:
+    success: "お道具（オプション2）の情報を登録しました。"
+    failure: "お道具（オプション2）情報の登録に失敗しました。"
+dress_codes:
+  save:
+    success: "服装（オプション3）に関する情報を登録しました。"
+    failure: "服装（オプション3）に関する情報の登録に失敗しました。"
+  wafuku:
+    only: "和服でお願いします。"
+    not_only: "和服でなくて結構です。"
+reservation:
+  save:
+    success: "予約を申し込みました。ご確認いただき、ホストの方からの返信をお待ちください。"
+    failure:
+      no_date: "予約する日付を入力してください。"
+  requirement:
+    profile:
+      not_yet: "プロフィールを完成させてください。"
+    profile_image:
+      not_yet: "プロフィール画像をアップロードしてください。"
+  msg:
+    request: "予約リクエストをお送りしました。"
+  progress:
+    select: "予約を承認しますか？"
+    select_by_guest: "予約をキャンセルする場合は、選択してください。"
+    requested: "requested"
+    canceled: "canceled"
+    holded: "holded"
+    accepted: "accepted"
+    rejected: "rejected"
+    listing_closed: "listing_closed"
+message_thread:
+  show:
+    message_form:
+      content:
+        placeholder: "ここに個人宛てのお便りをご記入ください。"
+message:
+  save:
+    success: "送信完了しました。"
+    failure: "送信できませんでした。"
+  read:
+    string: "既読 "
+  unread:
+    string: "未読 "
+  modal:
+    message_to_host:
+      title:
+        label: "ホストに連絡をする"
+      form:
+        submit:
+          label: "メッセージを送る"
+        content:
+          placeholder: "例）お茶会にはどの様な服装で伺えばいいでしょう？"
+    message_to_guest_from_reservation_manager:
+      title:
+        label: "予約依頼に回答する"
+      form:
+        submit:
+          label: "回答を送る"
+        content:
+          placeholder: "例）当日は公共交通機関でおこしください。よろしくお願いいたします。"
+    message_to_host_from_reservation_manager:
+      title:
+        label: "ホストに連絡をする"
+      form:
+        submit:
+          label: "メッセージを送る"
+        content:
+          placeholder: "例）どうぞよろしくおねがいします。"
+user:
+  host:
+    noname: "ホスト"
+    noname2: '名無し'
+    this: 'こちらのホスト'
+  noname: '名無し'
+  left: '退会済みユーザー'
+image:
+  noimage:
+    url: 'no-image-1024x640.gif'
+    caption: '画像が登録されていません。'
+  noimage2:
+    url: 'no-image-225x225.gif'
+    caption: ''
+page:
+  home: 'ホーム'
+  dashboard: 'ダッシュボード'
+  host_reservation_manager: '予約管理'
+  guest_reservation_manager: '参加する'
+  listing_new: 'リスティングを作る'
+  listings: 'リスティング'
+  messages: 'メッセージ'
+  wishlists: 'お気に入り'
+  profile: 'プロフィール'
+  account: 'アカウント'
+  guest_flow: 'リスティングの流れ'
+  search: '検索'
+  signup: 'アカウント作成'
+  login: 'ログイン'
+  logout: 'ログアウト'
+  help: 'ヘルプ'
+  subnav:
+    photos: '写真'
+    details: 'このリスティングについて'
+    reviews: 'レビュー'
+    host_profile: 'ホスト紹介'
+    neighborhood: '開催地'
+mailer:
+  from:
+    default: "default-from-email@example.com"
+  new_message:
+    subject:
+      arrived: "新しいメッセージが届きました！"
+  new_reservation:
+    subject:
+      arrived: "新しい予約リクエストが届きました！"
+  update_reservation:
+    subject:
+      canceled: "予約がキャンセルされました。"
+      holded: "予約が保留されました。"
+      accepted: "予約が成立しました！"
+      rejected: "予約が不成立となりました。"
+  review_notification:
+    subject: "レビューの記入をしませんか？"
+  review_reply_notification:
+    subject: "レビューへの返信を記入しましょう。"
+left_steps:
+  listing_image: "listing_image"
+  confection: "confection"
+  tool: "tool"
+  dress_code: "dress_code"
+regulate_user:
+  reservation_id:
+    failure: "このページにはアクセスできません。予約IDが不正です。"
+  user_id:
+    failure: "このページにはアクセスできません。IDが不正です。"
+  entry:
+    duplicated: "既に投稿済みです。"
+  review_not_found: "このページにはアクセスできません。レビューが見つかりません。"
+regulate_term:
+  expired: "レビューの書き込み期間が経過しました。"
+review:
+  save:
+    success: "レビューを投稿しました。ホストの方からの返信をお待ちください。"
+    failure: "レビューを投稿できませんでした。"
+  expiration_date: 14
+review_reply:
+  save:
+    success: "レビューへの返信をしました。レビューが公開されましたので、ご確認ください。"
+    failure: "レビューへの返信ができませんでした。"

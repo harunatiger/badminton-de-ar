@@ -1,0 +1,78 @@
+= simple_form_for(:search, url: '/listings/search', html: {class: "trip-form", method: 'get'}) do |f|
+  .filters.collapse
+    = f.error_notification
+    = f.hidden_field :where, value: 'listing_search'
+    = f.hidden_field :location, value: @conditions['location']
+    .card-header.filters-section.show--sp
+      a.modal-close.js-small-filters-close href="#"
+      | 検索条件
+    .filters-section.intro-filter.card-body
+      .row
+        .col-lg-2.col-md-12.text-center-sm.text-center-md.row-space-1--sp.filter-label
+          label 日程
+        .col-lg-9
+          .row.row-condensed
+            .col-md-4.col-sm-6.row-space-1--sp
+              = f.input_field :schedule, placeholder: "参加する日", class: "tour-target datepicker"
+            .col-md-4.col-sm-12
+              .select.select-block
+                = f.input_field :num_of_guest, as: :select, class: "guest-select", collection: [['参加人数 1人', :'1'], ['参加人数 2人', :'2'], ['参加人数 3人', :'3'], ['参加人数 4人', :'4'], ['参加人数 5人', :'5'], ['参加人数 6人', :'6'], ['参加人数 7人', :'7'], ['参加人数 8人', :'8'], ['参加人数 9人', :'9'], ['参加人数 10人', :'10'], ['参加人数 11人', :'11'], ['参加人数 12人', :'12'], ['参加人数 13人', :'13'], ['参加人数 14人', :'14'], ['参加人数 15人', :'15'], ['参加人数 16人以上', :'16+']], default: ['1']
+    .filters-section.intro-filter.card-body
+      .row
+        .col-lg-2.col-md-12.text-center-sm.text-center-md.filter-label
+          label 価格帯
+        .col-lg-9.col-md-12
+          = f.input_field :price, id: "price-range"
+    .checkbox-group.hosting_amenities.filters-section.card-body
+      .row
+        .col-lg-2.col-md-12.filter-label
+          label お菓子の記述あり（オプション1）
+        .col-lg-9.col-md-11
+          .row.row-condensed.filters-columns
+            .col-md-4
+              label.media.checkbox.text-truncate title="オプション1"
+                = f.input_field :confection, as: :boolean, boolean_style: :inline, class: "pull-left"
+                | お菓子（オプション1）の情報があるものだけ表示
+    .checkbox-group.hosting_amenities.filters-section.card-body
+      .row
+        .col-lg-2.col-md-12.filter-label
+          label お道具（オプション2）
+        .col-lg-9.col-md-11
+          .row.row-condensed.filters-columns
+            .col-md-4
+              label.media.checkbox.text-truncate title="オプション2"
+                = f.input_field :tool, as: :boolean, boolean_style: :inline, class: "pull-left"
+                | お道具（オプション2）の情報があるものだけ表示
+    .checkbox-group.property_type_id.filters-section.card-body
+      .row
+        .col-lg-2.col-md-12.filter-label
+          label 服装（オプション3）
+        .col-lg-9.col-md-11
+          .row.row-condensed.filters-columns
+            .col-md-4
+              label.media.checkbox.text-truncate title="オプション3"
+                = f.input_field :wafuku, as: :boolean, boolean_style: :inline, class: "pull-left"
+                | 和服のみ（オプション3）
+    .keywords.filters-section.card-body
+      .row
+        .col-lg-2.col-md-12.filter-label
+          label その他
+        .col-lg-9
+          .row.row-condensed
+            .col-md-12
+              = f.input_field :keywords, placeholder: "キーワード情報", class: "input-block"
+    .filters-footer.card-btn--sp
+      = f.button :submit, "リスティングを表示", class: "btn btn-block btn-large btn-primary search-button row-space-4--sp"
+  .filters-placeholder.hide.hide--sp
+
+
+  .sidebar-header.card-body.card-bg-medium.hide--sp.clearfix
+    = link_to "#", class: "btn show-filters pull-left" do
+      span.text-more-filters 検索条件を追加
+    = f.button :submit, "再検索する", class: "btn btn-primary pull-left"
+    .results-count-item.pull-right.text-right
+      h1.results-count.h5
+        = hit_count
+        |件
+        |·
+        = conditions['location']

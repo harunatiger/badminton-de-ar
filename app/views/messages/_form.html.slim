@@ -1,0 +1,27 @@
+= form_for @message do |f|
+  - if @message.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@message.errors.count, "error")} prohibited this message from being saved:"
+      ul
+        - @message.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :message_thread
+    = f.text_field :message_thread
+  .field
+    = f.label :schedule
+    /= f.datetime_select :schedule
+  .field
+    = f.label :number
+    /= f.number_field :number
+  .field
+    = f.label :content
+    = f.text_area :content
+  .field
+    = f.label :progress
+    = f.text_field :progress
+  .field
+    = f.label :read
+    = f.check_box :read
+  .actions = f.submit

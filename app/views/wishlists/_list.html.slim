@@ -1,0 +1,59 @@
+- # wishlists#_list
+- if action_name === "edit"
+
+- else
+
+ul.results-list.list-unstyled.row-space-4
+  li.row.listing.row-space-2.row-space-top-2
+    label.col-xs-12
+      .row
+        .col-md-4.col-lg-3.hide--sp
+          .slideshow-container
+            .listing_slideshow_thumb_view
+              .listing-slideshow
+                img src="/assets/images/sample/jp-room01_min.png" alt=""
+                img src="/assets/images/sample/jp-room02_min.png" alt=""
+                .cycle-pager
+              = link_to "#", class: "photo-paginate next" do
+                i.fa.fa-chevron-right
+              = link_to "#", class: "photo-paginate prev" do
+                i.fa.fa-chevron-left
+        .col-sm-12.col-md-8.col-lg-9
+          .room-info.row.row-space-2
+            .col-md-12.col-lg-9
+              h2.h3.row-space-1
+                = link_to "#" do
+                  |  タイトル
+              p.text-muted.row-space-1
+                |  アドレス
+              ul.list-unstyled.list-inline.text-muted
+                li
+                  | カテゴリ
+                li
+                  | 残り
+            .col-md-12.col-lg-3
+              .text-center.pull-right
+                sup.h5
+                  | ¥
+                span.h2.price-amount
+                  | 0,000
+                br
+                span.text-muted
+                  | １席
+          .row
+            .media.col-md-12.col-lg-8
+              img.pull-left.img-round src="/assets/images/sample/avatar.png"
+              form#add-note-form.note-container.media-body.text-right
+                textarea.row-space-2[name="note" placeholder="メモの追加"]
+                  | タイトル
+                button.btn.add-note.pull-right[type="submit"]
+                  |  メモの保存
+            .col-md-12.col-lg-4
+              .btn-group.pull-right.wish_list_button_container
+                = link_to "#", class: "wish_list_button saved btn", title: "このリスティングを保存して後で確認します。" do
+                  span.fa.fa-heart
+                  |  変更
+                = link_to "#", class: "btn remove_listing_button", title: "" do
+                  span.fa.fa-remove
+                  |  削除
+#wishlists-map.results-map.row-space-8[data-map-container=""]

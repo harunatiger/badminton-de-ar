@@ -1,0 +1,29 @@
+- reviews.each do |review|
+  .row
+    = link_to profile_path(review.guest_id)
+      .col-md-3.text-center.row-space-2
+        .media-photo.media-round.row-space-1.text-center
+          = link_to profile_path(review.guest_id) do
+            = image_tag(user_id_to_profile_image(review.guest_id), style: 'display: inline;', width: 68)
+        .name
+          .text-muted.link-reset
+            = link_to profile_path(review.guest_id) do
+              = user_id_to_name(review.guest_id)
+    .col-md-9
+      .row-space-2
+        .review-text.expandable.expandable-trigger-more.expanded
+          .expandable-content
+            p
+              = review.msg
+            .expandable-indicator.expandable-indicator-light
+      .media.row-space-2
+        .media-photo.media-round.pull-left[href="3"]
+          = link_to profile_path(host_info.user_id) do
+            = image_tag(host_image(host_image), width: 68)
+        .media-body
+          b ホストの方より返答：
+          p
+            = review_id_to_review_reply_msg(review.id)
+  .row.row-space-2
+      .col-md-9.col-md-push-3
+        hr

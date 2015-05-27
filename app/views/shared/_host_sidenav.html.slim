@@ -1,0 +1,13 @@
+ul.sidenav-list
+  - if action_name == "host_reservation_manager"
+    li
+      = link_to "あなたのリスティング", listings_path, aria: {selected: "false"}, class: "sidenav-item"
+    li
+      = link_to "参加希望者", dashboard_host_reservation_manager_path, aria: {selected: "true"}, class: "sidenav-item"
+  - else
+    li
+      = link_to "あなたのリスティング", listings_path, aria: {selected: "true"}, class: "sidenav-item"
+    li
+      = link_to "参加希望者", dashboard_host_reservation_manager_path, aria: {selected: "false"}, class: "sidenav-item"
+  li.hide
+    = link_to "設定", "#", aria: {selected: "false"}, class: "sidenav-item"

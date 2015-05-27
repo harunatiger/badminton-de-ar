@@ -1,0 +1,14 @@
+/ tools#new
+.manage-listings
+  = render partial: 'shared/manage_listing_header', locals: { listing: @listing }
+  .manage-listing-row-container
+    .manage-listing-content.col-md-9.col-offset-3
+      .row-space-top-4
+        h3.text-center.row-space-2 お道具（オプション2）の情報を登録しましょう。
+        p.text-center.row-space-6
+          | お道具を重視するゲストも大勢います。
+          br
+          | ぜひ登録して写真も載せてみたらいかがでしょう？
+      = render 'form'
+
+    = render partial: 'shared/manage_listing_nav'

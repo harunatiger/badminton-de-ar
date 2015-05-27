@@ -1,0 +1,430 @@
+#photoslider img
+  max-width: 100%
+
+.sldr-bg
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 1042
+  overflow: hidden
+  position: fixed
+  background: #0b0b0b
+  opacity: 0.9
+  filter: alpha(opacity = 80)
+
+.sldr-wrap
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 1043
+  position: fixed
+  outline: none !important
+  -webkit-backface-visibility: hidden
+
+.sldr-container
+  text-align: center
+  position: absolute
+  width: 100%
+  height: 85%
+  left: 0
+  top: 15%
+  padding: 0 8px
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  &:before
+    content: ''
+    display: inline-block
+    height: 100%
+    vertical-align: middle
+
+/* The shadow behind the image
+
+.sldr-figure
+  line-height: 0
+  position: relative
+  height: 100%;
+  &:after
+    content: ''
+    position: absolute
+    left: 0
+    top: 40px
+    bottom: 40px
+    display: block
+    right: 0
+    width: auto
+    height: auto
+    z-index: -1
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6)
+    background-color: rgba(0,0,0,0.85)
+  small
+    color: #BDBDBD
+    display: block
+    font-size: 12px
+    line-height: 14px
+  figure
+    margin: 0 10%
+
+.sldr-title
+  word-wrap: break-word
+
+.sldr-image-holder .sldr-content
+  max-width: 100%
+
+.sldr-gallery .sldr-image-holder .sldr-figure
+  cursor: pointer
+
+.sldr-media-caption
+  overflow: hidden
+  padding-bottom: 0
+  z-index: 2
+  padding: 25px 15px 15px
+  border-radius: 0
+  position: absolute
+  right: 0
+  bottom: 0
+  left: 0
+  background-color: transparent
+  background-image: -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.8))
+  background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.8))
+  filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#CC000000', GradientType=0);"
+  color: #fff
+  text-align: center
+
+.sldr-caption-viewport
+  overflow: hidden
+
+.sldr-caption-container
+  &.collapsed
+    top: 67px
+  margin-left: auto
+  margin-right: auto
+  position: relative
+  top: 0
+  -webkit-transition: top 0.2s
+  -moz-transition: top 0.2s
+  -o-transition: top 0.2s
+  transition: top 0.2s
+
+.sldr-caption
+  line-height: 20px
+
+.page-container-responsive
+  width: auto
+  padding-left: 12.5px
+  padding-right: 12.5px
+
+.sldr-thumb-viewport
+  position: relative
+  overflow: hidden
+  height: 67px;
+
+.row-space-top-2
+  margin-top: 12.5px
+
+.sldr-thumb-slide-panel
+  position: absolute
+  width: 4000px
+  -webkit-transition: left 0.3s ease-in-out
+  -moz-transition: left 0.3s ease-in-out
+  -o-transition: left 0.3s ease-in-out
+  transition: left 0.3s ease-in-out
+  li
+    float: left
+    background: #000
+    display: list-item
+    text-align: -webkit-match-parent
+
+.photo-modal .media-photo
+  background-color: transparent
+
+/*.media-photo
+/*  -webkit-backface-visibility: hidden
+/*  backface-visibility: hidden
+/*  position: relative
+/*  display: inline-block
+/*  vertical-align: bottom
+/*  overflow: hidden
+/*  background-color: #cacccd
+
+.sldr-thumbitem
+  li
+    img
+      height: 67px
+      opacity: .4
+      &:hover
+        opacity: 1
+    &.active
+      img
+        opacity: 1
+
+.sldr-thumbitem
+  list-style: none
+
+
+
+.sldr-align-top .sldr-container:before
+  display: none
+
+.sldr-content
+  position: relative
+  display: inline-block
+  vertical-align: middle
+  margin: 0 auto
+  text-align: left
+  z-index: 1045
+  height: 100%
+
+.sldr-inline-holder .sldr-content, .sldr-ajax-holder .sldr-content
+  width: 100%
+  cursor: auto
+
+.sldr-ajax-cur
+  cursor: progress
+
+.sldr-close
+  cursor: pointer
+
+.sldr-zoom
+  cursor: pointer
+  cursor: -webkit-zoom-in
+  cursor: -moz-zoom-in
+  cursor: zoom-in
+
+.sldr-auto-cursor .sldr-content
+  cursor: auto
+
+.sldr-close, .sldr-arrow, .sldr-preloader, .sldr-counter
+  -webkit-user-select: none
+  -moz-user-select: none
+  user-select: none
+
+.sldr-loading.sldr-figure
+  display: none
+
+.sldr-hide
+  display: none !important
+
+.sldr-preloader
+  color: #CCC
+  position: absolute
+  top: 50%
+  width: auto
+  text-align: center
+  margin-top: -0.8em
+  left: 8px
+  right: 8px
+  z-index: 1044
+  a
+    color: #CCC
+    &:hover
+      color: #FFF
+
+.sldr-s-ready .sldr-preloader, .sldr-s-error .sldr-content
+  display: none
+
+button
+  &.sldr-close, &.sldr-arrow
+    overflow: visible
+    cursor: pointer
+    background: transparent
+    border: 0
+    -webkit-appearance: none
+    display: block
+    outline: none
+    padding: 0
+    z-index: 1046
+    -webkit-box-shadow: none
+    box-shadow: none
+  &::-moz-focus-inner
+    padding: 0
+    border: 0
+
+.sldr-close
+  width: 44px
+  height: 44px
+  line-height: 44px
+  position: absolute
+  right: 0
+  top: 0
+  text-decoration: none
+  text-align: center
+  opacity: 0.65
+  filter: alpha(opacity = 65)
+  padding: 0 0 18px 10px
+  color: #FFF
+  font-style: normal
+  font-size: 28px
+  font-family: Arial, Baskerville, monospace
+  &:hover, &:focus
+    opacity: 1
+    filter: alpha(opacity = 100)
+  &:active
+    top: 1px
+
+.sldr-close-btn-in .sldr-close
+  color: #333
+
+.sldr-image-holder .sldr-close, .sldr-iframe-holder .sldr-close
+  color: #FFF
+  right: -6px
+  text-align: right
+  padding-right: 6px
+  width: 100%
+
+.sldr-counter
+  white-space: nowrap
+
+.sldr-arrow
+  position: absolute
+  opacity: 0.65
+  filter: alpha(opacity = 65)
+  margin: 0
+  top: 25%
+  margin-top: -55px
+  padding: 0
+  width: 90px
+  height: 50%
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+  &:active
+    margin-top: -54px
+  &:hover, &:focus
+    opacity: 1
+    filter: alpha(opacity = 100)
+
+.listings.show
+  .fa-angle-right, .fa-angle-left
+    font-size: 70px
+    color: #fff
+
+.sldr-arrow-left
+  left: 0
+  &:after, .sldr-a
+    margin-left: 31px
+  &:before, .sldr-b
+    margin-left: 25px
+
+.sldr-arrow-right
+  right: 0
+  &:after, .sldr-a
+    margin-left: 39px
+
+.sldr-iframe-holder
+  padding-top: 40px
+  padding-bottom: 40px
+  .sldr-content
+    line-height: 0
+    width: 100%
+    max-width: 900px
+  .sldr-close
+    top: -40px
+
+.sldr-iframe-scaler
+  width: 100%
+  height: 0
+  overflow: hidden
+  padding-top: 56.25%
+  iframe
+    position: absolute
+    display: block
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6)
+    background: #000
+
+/* Main image in popup
+
+img.sldr-img
+  width: auto
+  max-width: 100%
+  height: auto
+  display: block
+  line-height: 0
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+  padding: 40px 0 40px
+  margin: 0 auto
+
+
+
+@media screen and (max-width: 800px) and (orientation: landscape), screen and (max-height: 300px)
+  /**
+   *   * Remove all paddings around the image on small screen
+  .sldr-img-mobile
+    .sldr-image-holder
+      padding-left: 0
+      padding-right: 0
+    img.sldr-img
+      padding: 0
+    .sldr-figure
+      figure
+        margin: 0
+      &:after
+        top: 0
+        bottom: 0
+      small
+        display: inline
+        margin-left: 5px
+    .sldr-bottom-bar
+      background: rgba(0, 0, 0, 0.6)
+      bottom: 0
+      margin: 0
+      top: auto
+      padding: 3px 5px
+      position: fixed
+      -webkit-box-sizing: border-box
+      -moz-box-sizing: border-box
+      box-sizing: border-box
+      &:empty
+        padding: 0
+    .sldr-counter
+      right: 5px
+      top: 3px
+    .sldr-close
+      top: 0
+      right: 0
+      width: 35px
+      height: 35px
+      line-height: 35px
+      background: rgba(0, 0, 0, 0.6)
+      position: fixed
+      text-align: center
+      padding: 0
+
+@media all and (max-width: 900px)
+  .sldr-arrow
+    -webkit-transform: scale(0.75)
+    transform: scale(0.75)
+  .sldr-arrow-left
+    -webkit-transform-origin: 0
+    transform-origin: 0
+  .sldr-arrow-right
+    -webkit-transform-origin: 100%
+    transform-origin: 100%
+  .sldr-container
+    padding-left: 6px
+    padding-right: 6px
+
+.sldr-ie7
+  .sldr-img
+    padding: 0
+  .sldr-bottom-bar
+    width: 600px
+    left: 50%
+    margin-left: -300px
+    margin-top: 5px
+    padding-bottom: 5px
+  .sldr-container
+    padding: 0
+  .sldr-content
+    padding-top: 44px
+  .sldr-close
+    top: 0
+    right: 0
+    padding-top: 0

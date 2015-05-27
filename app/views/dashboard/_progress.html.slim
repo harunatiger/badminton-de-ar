@@ -1,0 +1,15 @@
+- if r.requested?
+  span.label.status-request.text-pink
+    = r.string_of_progress
+- elsif r.canceled? || r.listing_closed?
+  span.label.status-contact
+    = r.string_of_progress
+- elsif r.holded?
+  span.label.status-withhold.text-blue
+    = r.string_of_progress
+- elsif r.accepted?
+  span.label.status-ok.text-green
+    = r.string_of_progress
+- elsif r.rejected?
+  span.label.status-reject
+    = r.string_of_progress

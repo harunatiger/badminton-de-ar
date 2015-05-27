@@ -1,0 +1,60 @@
+- # registrations#new
+.page-container.page-container-auth.row-space-top-6.row-space-8
+  .row
+    .pop
+      .card
+        .card-body
+          .sns-buttons
+            - resource_class.omniauth_providers.each do |provider|
+              = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-large btn-block icon-btn' do
+                i.fa.fa-facebook
+                | Facebookで登録する
+          .text-center.social-links.hide
+            - resource_class.omniauth_providers.each do |provider|
+              = link_to "facebook", omniauth_authorize_path(resource_name, provider), class: ''
+              | で登録
+          .textInclude-separator
+            h6.text
+              | または
+            hr
+          .text-center
+            = link_to "#", id: "to-signup-form", class: 'btn btn-primary btn-large btn-block' do
+              i.fa.fa-envelope-o
+              | メールアドレスで新規登録
+          = simple_form_for(resource, as: resource_name, url: user_registration_path) do |f|
+            .signup-form.hide
+              = f.error_notification
+              .control-group.row-space-1
+                = f.input_field :email, class: "decorative-input", placeholder: "メールアドレス", required: true
+              .control-group.row-space-1
+                = f.input_field :password, class: "decorative-input", placeholder: "パスワード", required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable)
+              .control-group.row-space-1
+                = f.input_field :password_confirmation, class: "decorative-input", placeholder: "パスワード確認", required: true
+              .row-space-2.row-space-top-2
+                small
+                  | 登録することで、
+                  = link_to "サービス利用規約", "#"
+                  | 、
+                  = link_to "個人情報保護ポリシー", "#"
+                  | 、
+                  = link_to "返金ポリシー", "#"
+                  | 、
+                  = link_to "ホスト保証規約", "#"
+                  | に同意したことになります。
+              .form-actions
+                = f.button :submit, "登録する", class: "btn btn-primary btn-large btn-block"
+          .policy-wrapper.row-space-top-2
+            small
+              | 登録することで、
+              = link_to "サービス利用規約", "#"
+              | 、
+              = link_to "個人情報保護ポリシー", "#"
+              | 、
+              = link_to "返金ポリシー", "#"
+              | 、
+              = link_to "ホスト保証規約", "#"
+              | に同意したことになります。
+        .card-body
+          p.small1
+            | すでにメンバーですか？
+            = link_to "ログイン", new_user_session_path, class: ''

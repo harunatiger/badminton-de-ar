@@ -1,0 +1,11 @@
+ul.sidenav-list
+  - if action_name == "guest_reservation_manager"
+    li
+      = link_to "参加の予定", dashboard_guest_reservation_manager_path, aria: {selected: "true"}, class: "sidenav-item"
+    /li
+      = link_to "参加したリスティング", dashboard_guest_reservation_manager_path, aria: {selected: "false"}, class: "sidenav-item"
+  - else
+    li
+      = link_to "参加の予定", dashboard_guest_reservation_manager_path, aria: {selected: "false"}, class: "sidenav-item"
+    /li
+      = link_to "参加したリスティング", dashboard_guest_reservation_manager_path, aria: {selected: "true"}, class: "sidenav-item"

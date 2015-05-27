@@ -1,0 +1,15 @@
+<%= @to_user_name %>
+さん、こんにちは！
+
+<%= @listing.title %> (<%= @reservation.schedule %>)
+に参加していただいた、<%= @guest_user_name %>さんへのレビューを記入しましょう。
+
+以下のリンクから、レビューの記入ができます。
+
+<%= new_reservation_reviews_review_replies_url(@reservation.id) %>
+
+レビューは、記入すると、プロフィールページなどに公開されます。
+
+
+--
+サービス名

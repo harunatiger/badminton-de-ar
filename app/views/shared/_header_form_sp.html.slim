@@ -1,0 +1,20 @@
+= simple_form_for(:search, url: '/listings/search', html: { method: 'get', class: 'search_form', id: 'search-form-sp' }) do |f|
+  = f.hidden_field :where, value: 'top'
+  .row
+    .col-sm-12
+      label[for="header-location--sp"]
+        = f.input_field :location, placeholder: "どこで探す？", autocomplete: "off", class: 'input-large location', id: 'header-location--sp'
+  .row.row-condensed.row-space-2
+    .col-sm-6
+      label.checkin
+        = f.input_field :schedule, placeholder: "日付", class: 'checkin input-large datepicker'
+    .col-sm-6
+      label.count
+        .select.select-block.select-large
+          = f.input_field :num_of_guest, as: :select, id: 'header-search-guests', collection: [["参加 1人", 1], ["参加 2人", 2], ["参加 3人", 3], ["参加 4人", 4], ["参加 5人", 5], ["参加 6人", 6], ["参加 7人", 7], ["参加 7人", 7], ["参加 8人", 8], ["参加 8人", 8], ["参加 9人", 9], ["参加 10人", 10], ["参加 11人", 12], ["参加 13人", 13], ["参加 14人", 14], ["参加 15人", 15], ["参加 16人", 16]], selected: ["参加 1人", 1]
+  .row.row-space-top-2
+    .col-sm-12
+      /button.btn.btn-primary.btn-large.btn-block
+      = button_tag(type: 'submit', class: 'btn btn-primary btn-large btn-block') do
+        i.fa.fa-search
+        | 検索してみる

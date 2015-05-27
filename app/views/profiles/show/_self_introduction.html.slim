@@ -1,0 +1,14 @@
+.row.row-space-2
+  .col-sm-4.show--sp
+    .media-photo.media-photo-block.media-round
+      = image_tag(user_id_to_profile_image(profile.user_id), class: 'img-responsive', width: 225, height: 225)
+  .col-sm-8.col-md-12.col-lg-12
+    .h2
+      | こんにちは、
+      = user_id_to_name(profile.user_id)
+      | と申します。
+    .row-space-top-2
+      = profile.try('location') || ''
+div
+  p
+    = profile.try('self_introduction') || ''

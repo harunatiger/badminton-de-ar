@@ -1,0 +1,39 @@
+= simple_form_for([@listing, @confection], html: {class: "url-check form--sp"}) do |f|
+  = f.error_notification
+  = f.hidden_field :listing_id, value: @listing.id
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  お菓子の説明
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :name
+  - if @confection.image.present?
+    .row.row-space-5.row-space-top-5.row-table
+      .col-xs-4.text-right.col-middle
+        .h4.text-light
+          |  現在のお菓子のイメージ画像
+      .col-xs-8.fieldset.col-middle
+        .row
+          .col-xs-11.regist-pics
+            = image_tag(@confection.image.thumb)
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  お菓子のイメージ画像
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11.regist-pics
+            = f.file_field :image, as: :file
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  参考ウェブサイトのURL
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :url, placeholder: "http://okashi.com"
+  .row
+    .col-xs-9.col-offset-3.text-reset-center
+      = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-confection-submit'

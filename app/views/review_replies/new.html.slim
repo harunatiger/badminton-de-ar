@@ -1,0 +1,25 @@
+- counterpart = user_id_to_user_obj(@reservation.guest_id)
+.page-container.row-space-top-6.row-space-8
+  .row
+    .col-md-3.hide--sp
+      .row-space-4
+        .media.media-photo-block.dashboard-profile-photo.panel-image
+          = link_to profile_path(counterpart.id)
+            = image_tag(user_id_to_profile_image(counterpart.id), class: 'img-responsive')
+        h4.text-center
+          .row-space-top-2
+            = user_obj_to_name(counterpart)
+            
+    .col-md-9
+      .row-space-4
+        .h3.row-space-2
+           = link_to profile_path(counterpart.id)
+             = user_obj_to_name(counterpart)
+             | さん
+           | に返信しましょう。
+        p.row-space-3
+          | 先日のリスティングのレビューが届いています。
+          br
+          | ぜひ返信ください。
+        .card.card-bald
+          == render 'form'

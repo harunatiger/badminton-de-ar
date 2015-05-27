@@ -1,0 +1,5 @@
+= simple_form_for(:search, url: '/listings/search', html: { method: 'get', class: 'header-searchForm'}) do |f|
+  = f.hidden_field :where, value: 'header'
+  = f.hidden_field :num_of_guest, value: 1
+  i.fa.fa-search
+  = f.input_field :location, autocomplete: 'off', placeholder: 'どこで探しますか？', id: 'location', class: 'location'

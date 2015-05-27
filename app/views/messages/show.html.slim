@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Message thread:
+  = @message.message_thread
+p
+  strong Schedule:
+  = @message.schedule
+p
+  strong Number:
+  = @message.number
+p
+  strong Content:
+  = @message.content
+p
+  strong Progress:
+  = @message.progress
+p
+  strong Read:
+  = @message.read
+
+= link_to 'Edit', edit_message_path(@message)
+'|
+= link_to 'Back', messages_path

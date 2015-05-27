@@ -1,0 +1,42 @@
+
+.nav-menu-wrapper
+  .va-container.va-container-v.va-container-h
+    .va-middle.nav-menu.card-body
+      ul.menu-group.list-unstyled.row-space-3
+        - if user_signed_in?
+          li
+            = link_to Settings.page.home, root_path, class: "link-reset menu-item", rel: "nofollow"
+          li
+            = link_to Settings.page.dashboard, dashboard_path, class: "link-reset menu-item", rel: "nofollow"
+          li
+            = link_to Settings.page.listing_new, new_listing_path, class: "link-reset menu-item", rel: "nofollow"
+          li
+            = link_to message_threads_path, class: "link-reset menu-item", rel: "nofollow" do
+              = Settings.page.messages
+              i.alert-count.unread-count--sp.fade.text-center
+              |  （未読: 
+              = unread_messages
+              | ）
+          li
+            = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, class: "link-reset menu-item", rel: "nofollow"
+          /li
+            /= link_to Settings.page.wishlists, wishlists_path, class: "link-reset menu-item", rel: "nofollow"
+          li
+            = link_to Settings.page.profile, profile_path(current_user.id), class: "link-reset menu-item", rel: "nofollow" 
+          li
+            = link_to Settings.page.account, edit_user_registration_path, class: "link-reset menu-item", rel: "nofollow" 
+        - else
+          li
+            = link_to Settings.page.home, root_path, class: "link-reset menu-item", rel: "nofollow"
+          li
+            = link_to Settings.page.login, new_user_session_path, class: "link-reset menu-item", rel: "nofollow"
+          li
+            = link_to Settings.page.guest_flow, "#", class: "link-reset menu-item guest-flow-trigger", rel: "nofollow"
+        li
+          = link_to Settings.page.search, "#", class: "search-modal-trigger link-reset menu-item", rel: "nofollow"
+      ul.menu-group.list-unstyled.row-space-3
+        li.hide
+          = link_to Settings.page.help, "#", class: "link-reset menu-item", rel: "nofollow"
+        - if user_signed_in?
+          li
+            = link_to Settings.page.logout, destroy_user_session_path, method: :delete, class: "link-reset menu-item", rel: "nofollow"

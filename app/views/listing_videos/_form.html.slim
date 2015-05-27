@@ -1,0 +1,9 @@
+= form_for @listing_video do |f|
+  - if @listing_video.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@listing_video.errors.count, "error")} prohibited this listing_video from being saved:"
+      ul
+        - @listing_video.errors.full_messages.each do |message|
+          li = message
+
+  .actions = f.submit

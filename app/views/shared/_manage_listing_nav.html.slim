@@ -1,0 +1,111 @@
+- left_steps = left_step_count_and_elements(@listing)
+- left_step_count = left_steps[0]
+- left_step_array = left_steps[1]
+- listing_image_active = true
+- confection_active = true
+- tool_active = true
+- dress_code_active = true
+- left_step_array.each do |i|
+  - if i == 'listing_image'
+    - listing_image_active = false
+  - if i == 'confection'
+    - confection_active = false
+  - if i == 'tool'
+    - tool_active = false
+  - if i == 'dress_code'
+    - dress_code_active = false
+.manage-listing-nav.col-md-3
+  .row.nav-sections
+    .section-header.row-space-1
+      | リスティング情報
+    ul.list-unstyled.row-space-4
+      - if controller_name == "listings"
+        li.nav-item.nav-active
+          = link_to new_or_edit_path(@listing) do
+            | 基本情報
+            i.fa.fa-check
+      - else
+        li.nav-item
+          = link_to new_or_edit_path(@listing) do
+            | 基本情報
+            i.fa.fa-check
+      - if controller_name == "listing_images"
+        li.nav-item.nav-active
+          = link_to manage_listing_listing_images_path(@listing.id) do
+            | イメージ画像
+            - if listing_image_active.blank?
+              i.fa.fa-exclamation-circle
+            - else
+              i.fa.fa-check
+      - else
+        li.nav-item
+          = link_to manage_listing_listing_images_path(@listing.id) do
+            | イメージ画像
+            - if listing_image_active.blank?
+              i.fa.fa-exclamation-circle
+            - else
+              i.fa.fa-check
+      - if controller_name == "confections"
+        li.nav-item.nav-active
+          = link_to manage_listing_confections_path(@listing.id) do
+            | お菓子画像（オプション1）
+            - if confection_active.blank?
+              i.fa.fa-exclamation-circle
+            - else
+              i.fa.fa-check
+      - else
+        li.nav-item
+          = link_to manage_listing_confections_path(@listing.id) do
+            | お菓子画像（オプション1）
+            - if confection_active.blank?
+              i.fa.fa-exclamation-circle
+            - else
+              i.fa.fa-check
+      - if controller_name == "tools"
+        li.nav-item.nav-active
+          = link_to manage_listing_tools_path(@listing.id) do
+            | お道具画像（オプション2）
+            - if tool_active.blank?
+              i.fa.fa-exclamation-circle
+            - else
+              i.fa.fa-check
+      - else
+        li.nav-item
+          = link_to manage_listing_tools_path(@listing.id) do
+            | お道具画像（オプション2）
+            - if tool_active.blank?
+              i.fa.fa-exclamation-circle
+            - else
+              i.fa.fa-check
+      - if controller_name == "dress_codes"
+        li.nav-item.nav-active
+          = link_to manage_listing_dress_codes_path(@listing.id) do
+            | 服装（オプション3）
+            - if dress_code_active.blank?
+              i.fa.fa-exclamation-circle
+            - else
+              i.fa.fa-check
+      - else
+        li.nav-item
+          = link_to manage_listing_dress_codes_path(@listing.id) do
+            | 服装（オプション3）
+            - if dress_code_active.blank?
+              i.fa.fa-exclamation-circle
+            - else
+              i.fa.fa-check
+    .col-xs-12.text-center
+      - if left_step_count.zero?
+        = link_to "この内容で公開する", listing_publish_path(@listing), class: "btn btn-primary btn-block", id: "listing-manager-open"
+      - else
+        = link_to "#", class: "btn btn-primary btn-block disabled" do
+          | あと
+          = left_step_count
+          |  ステップ
+      - if @listing.open.present?
+        = link_to listing_unpublish_path(@listing), class: "hide-this-listing" do
+          i.fa.fa-ban
+          | 一時的に非公開にする
+      - else
+        .unpublished.row-space-top-2
+          i.fa.fa-ban.fa-danger
+          | 現在非公開です

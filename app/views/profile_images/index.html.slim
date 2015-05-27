@@ -1,0 +1,19 @@
+h1 Listing profile_images
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @profile_images.each do |profile_image|
+      tr
+        td = link_to 'Show', profile_image
+        td = link_to 'Edit', edit_profile_image_path(profile_image)
+        td = link_to 'Destroy', profile_image, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Profile image', new_profile_image_path

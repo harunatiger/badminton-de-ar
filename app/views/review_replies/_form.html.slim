@@ -1,0 +1,14 @@
+= simple_form_for([@reservation, @review, @review_reply], url: reservation_reviews_review_replies_path) do |f|
+  .card-body
+    - if @review_reply.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(@review_reply.errors.count, "error")} prohibited this review_reply from being saved:"
+        ul
+          - @review_reply.errors.full_messages.each do |message|
+            li = message
+    = f.hidden_field :review_id, value: @review.id
+    .row-space-5
+      = f.text_area :msg, required: true, rows: "7", placeholder: "例）こちらこそ楽しいひと時を過ごさせていただきました。どうぞまたご参加ください。"
+      
+  .card-footer
+    = f.submit "この内容で返信する", class: "btn btn-primary"

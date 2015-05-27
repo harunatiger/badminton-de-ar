@@ -1,0 +1,40 @@
+= simple_form_for([@listing, @tool], html: {class: "url-check form--sp"}) do |f|
+  = f.error_notification
+  = f.hidden_field :listing_id, value: @listing.id
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  お道具の名前
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :name
+  - if @tool.image.present?
+    .row.row-space-5.row-space-top-5.row-table
+      .col-xs-4.text-right.col-middle
+        .h4.text-light
+          |  現在のお道具のイメージ画像
+      .col-xs-8.fieldset.col-middle
+        .row
+          .col-xs-11.regist-pics
+            = image_tag(@tool.image.thumb)
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  お道具のイメージ画像
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11.regist-pics
+            = f.input_field :image, as: :file
+            /= link_to "写真を追加する", "#", class: "add-file-input"
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  参考ウェブサイトのURL
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :url, placeholder: "http://odougu.com"
+  .row
+    .col-xs-9.col-offset-3.text-reset-center
+      = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-tool-submit'

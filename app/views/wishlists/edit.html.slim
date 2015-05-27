@@ -1,0 +1,53 @@
+- # wishlists#edit
+.app_view
+  = render partial: 'shared/subnav'
+  = render partial: 'shared/facebook_connect_bar'
+  .page-container.wishlists-container.row-space-top-4
+    .edit_view.row-space-8
+      = render partial: 'header'
+      = render 'form'
+      .wishlists-body.row
+        .col-md-6.col-lg-4.hide--sp
+          .card
+            = link_to wishlists_path, class: "card-image media-photo media-link media-photo-block wishlist-unit" do
+              .media-cover.media-cover-dark.wishlist-bg-img
+              .row.row-table.row-full-height
+                .col-xs-12.col-middle.text-center.text-contrast
+                  .card-body
+                    .h2
+                      strong
+                        = @wishlist.name
+                  .btn.btn-guest
+                    | お気に入り 
+                    span
+                      | 2
+                    | 件
+        .col-md-6.col-lg-8
+          = simple_form_for(@wishlist) do |f|
+            = f.error_notification
+            .row.row-space-2
+              .col-xs-12
+                .card
+                  .card-body
+                    .row
+                      .col-md-12.col-lg-8
+                        label[for="wish-list-name"]
+                          | タイトル
+                        = f.input_field :name, id: "wish-list-name"
+                      .col-md-12.col-lg-4
+                        label[for="wishlist-ed it-privacy-setting"]
+                          | 誰に公開しますか？
+                        .media
+                          .pull-right.question-icon-container
+                            i#privacy-tooltip.fa.fa-question-circle.pull-right.tooltip-trigger
+                          .media-body
+                            #wishlist-edit-privacy-setting.select.select-block
+                              = f.input_field :range, as: :select, :collection => [["全てのユーザー", :全てのユーザー], ["自分のみ", :自分のみ]], :default => ["全てのユーザー"]
+            .row
+              .col-xs-12
+                = f.submit "変更を保存", class: "btn btn-primary"
+                = button_tag wishlist_path, class: "btn cancel" do
+                  |  キャンセル 
+                = link_to "ウィッシュリストを削除する", "#", class: "delete pull-right", method: :delete, data: { confirm: '本当に削除してよろしいですか？' }
+- #= link_to 'Show', @wishlist
+- #= link_to 'Back', wishlists_path

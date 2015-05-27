@@ -1,0 +1,33 @@
+- # wishlists#_form
+div
+  - if action_name === "edit"
+
+  - else
+    .modal-dialog
+      .modal-content
+        = simple_form_for(@wishlist) do |f|
+          .modal-header
+            button.close[type="button" data-dismiss="modal" aria-label="Close"]
+              span[aria-hidden="true"]
+                | ×
+            h4.modal-title
+              | お気に入りを新規作成
+          = f.error_notification
+          .modal-body
+            .hide
+              = f.association :user
+            label[for="wishlist_name"]
+              | お気に入りリストの名前
+            = f.input_field :name
+            label.row-space-top-2
+              | 誰に公開しますか？
+            .row.row-table
+              .col-4.col-middle
+                #wishlist-edit-privacy-setting.select.select-block
+                  = f.input_field :range, as: :select, :collection => [["全てのユーザー", :全てのユーザー], ["自分のみ", :自分のみ]], :selected => ["全てのユーザー"]
+              .col-8.col-middle
+                i#privacy-tooltip.fa.fa-question-circle
+          .modal-footer
+            = f.button :submit, "保存する", class: "btn btn-primary save"
+            button.btn.cancel[type="button"]
+              | キャンセル

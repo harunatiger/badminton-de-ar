@@ -1,0 +1,19 @@
+li#question2_post_383287996.thread-list-item
+  .row.row-condensed
+    .col-sm-2.col-md-1.text-center
+      /a.media-photo.media-round href="#"
+      = link_to '#', class: 'media-photo media-round'
+        = image_tag(my_profile_image, class: "size36")
+    .col-sm-10
+      .row-space-4
+        .card.card-quote.card-quote-flush
+          .card-body
+            .message-text
+              p.trans
+                = m.try('content') || ''
+        .time-container.text-muted
+          small.time
+            - if m.read.present?
+              = Settings.message.read.string
+            |
+            = m.try('created_at').strftime("%m/%d %H:%M") || ''

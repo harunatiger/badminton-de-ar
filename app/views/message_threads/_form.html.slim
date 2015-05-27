@@ -1,0 +1,14 @@
+li.thread-list-item
+  .row.row-condensed.row-space-4
+    .col-sm-12.col-md-10.col-md-push-1
+      .card-quote-flush.card
+        .card-body.normal-form-fields
+          = simple_form_for(@message, html: { id: "non_special_offer_form", class: "message_form clearfix" }) do |f|
+            = f.hidden_field :to_user_id, value: @counterpart.id
+            = f.hidden_field :from_user_id, value: current_user.id
+            = f.hidden_field :listing_id, value: 0
+            = f.hidden_field :reservation_id, value: 0
+            = f.input_field :content, id: "message_inquiry", class: "row-space-2 input-resize-vert", placeholder: Settings.message_thread.show.message_form.content.placeholder, style: "overflow: hidden; word-wrap: break-word; resize: none; height: 62px;"
+            .pull-right
+              = f.submit "お便りを送信", class: "btn btn-primary"
+	

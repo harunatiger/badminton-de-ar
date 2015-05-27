@@ -1,0 +1,23 @@
+/ confirmations#new
+.page-container.page-container-auth.row-space-top-6.row-space-8
+  .row
+    .pop
+      .card
+        .card-header 確認メールの再送信
+        .card-body
+          = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+            .signin-form
+              = f.error_notification
+              = f.full_error :confirmation_token
+              p.row-space-2
+                | 登録用の確認メールを再送信できます。
+                br
+                | 下のボックス内に送信したいメールアドレスを入力して「再送信する」をクリックしてください。
+              .control-group.row-space-2
+                = f.input_field :email, class: "decorative-input", placeholder: "メールアドレス", required: true
+              .form-actions
+                = f.button :submit, "再送信する", class: "btn btn-primary btn-large btn-block"
+        .card-body
+          p.small1.row-space-2
+            | ログイン画面に戻りますか？
+            = link_to "戻る", new_user_session_path

@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong User:
+  = @auth.user
+p
+  strong Provider:
+  = @auth.provider
+p
+  strong Uid:
+  = @auth.uid
+p
+  strong Token:
+  = @auth.token
+
+= link_to 'Edit', edit_auth_path(@auth)
+'|
+= link_to 'Back', auths_path

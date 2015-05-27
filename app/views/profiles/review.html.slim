@@ -1,0 +1,35 @@
+/ users#review
+= render partial: 'shared/subnav'
+.page-container.row-space-top-4.row-space-4
+  .row
+    .col-lg-3
+      = render partial: 'shared/profile_sidenav'
+    .col-lg-9
+      ul.tabs[role="tablist"]
+        li.active
+          = link_to "あなた宛のレビュー", "#received", class: "tab-item", role: "tab", aria: {controls: "r eceived"}, data: {toggle: "tab"}
+        li
+          = link_to "あなたが書いたレビュー", "#sent", class: "tab-item", role: "tab", aria: {controls: "sent"}, data: {toggle: "tab"}
+
+      .tab-content
+        .row-space-top-4
+          .tab-panel.active[role="tabpanel" id="received"]
+            .card
+              .card-header レビュー
+              .card-body
+                p.text-lead レビューはリスティングの予定が終わってから書かれます。あなたに関するレビューは、こことあなたのプロフィールの両方に表示されます。
+                ul.list-layout.reviews-list.row-space-top-4
+                  li.reviews-list-item あなたに関するレビューはまだ0件です。
+
+          .tab-panel[role="tabpanel" id="sent"]
+            .card
+              .card-header 自分が書いたレビュー
+              .card-body
+                ul.list-layout.reviews-list
+                  li.reviews-list-item レビューを書く相手は今はおりません。
+
+            .card.row-space-top-4
+              .card-header 過去に書いたレビュー
+              .card-body
+                ul.list-layout.reviews-list
+                  li.reviews-list-item レビューを書いた相手はおりません。

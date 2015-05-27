@@ -1,0 +1,36 @@
+- # dashboard#guest_reservation_manager
+= render 'shared/subnav'
+.page-container.row-space-top-4.row-space-4
+  .row
+    .col-md-3
+      = render partial: "shared/guest_sidenav"
+
+    - if @reservations.size.zero?
+      .col-md-9
+        .card
+          .card-header
+            | 参加する予定のリスティング
+          .card-body
+            p.text-lead.row-space-4
+              | 予定がございません。
+            form.hero-searchForm[action="/listings/search", method="get"]
+              input[type="hidden" name="search[where]" value="top"]
+              input[type="hidden" name="search[num_of_guest]" value="1"]
+              .search-form-wrapper
+                .location-wrapper
+                  input#location2.location-width.location[type="text" autocomplete="off" name="search[location]" placeholder="どこで探しますか？"]
+              = button_tag("", type: "submit", class: "btn btn-primary btn-large", id: "submit_location") do
+                |  検索
+    - else
+      .col-lg-9
+        .card
+          .card-header 参加の予定
+          .responsive-table-container
+            ul.list-unstyled.list-layout
+              li.card-body.hide--sp
+                .row.row-table.row-table-header
+                  .col-xs-4.col-md-3 状況
+                  .col-xs-8.col-md-5 リスティングについて
+                  .col-xs-12.col-md-2 ホスト
+                  .col-xs-12.col-md-2 日程
+                  = render partial: 'reservation_item_as_guest', locals: { reservations: @reservations }

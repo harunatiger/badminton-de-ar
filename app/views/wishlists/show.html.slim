@@ -1,0 +1,13 @@
+- # wishlists#new
+.app_view
+  = render partial: 'shared/subnav'
+  = render partial: 'shared/facebook_connect_bar'
+  .page-container.wishlists-container.row-space-top-4
+    .show_view
+      = render partial: 'header'
+      = render partial: 'list'
+= render partial: 'shared/modals/share_email'
+
+- #= link_to 'Edit', edit_wishlist_path(@wishlist)
+- #= link_to 'Back', wishlists_path
+- #= @wishlist.user
