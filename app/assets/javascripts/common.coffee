@@ -148,6 +148,8 @@ $ ->
         temp = $(this).attr('id')
         $('.' + temp).html()
 
+  # tooltip 2
+  $('[data-toggle="tooltip"]').tooltip()
 
   # welcome#index
   if $('body').hasClass('welcome index')

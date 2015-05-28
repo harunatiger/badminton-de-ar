@@ -3,16 +3,18 @@
 .hero-wrapper
   #hero
     ul#slideshow.list-unstyled
-      li.active
-        = image_tag 'sample/pic/pic001.jpg'
-      li
-        = image_tag 'sample/pic/pic002.jpg'
+      li.bg1.active
+        //= image_tag 'sample/top-slider/slider-01-mountain.jpg'
+      li.bg2
+        //= image_tag 'sample/top-slider/slider-02-people.jpg'
+      li.bg3
+        //= image_tag 'sample/top-slider/slider-03-guide.jpg'
   .hero-contents.text-center
     .va-container.va-container-wh
       .hero-inner
-        h1#tagline.uppercase.text-jumbo.text-contrast.row-space-1 タグライン
+        h1#tagline.uppercase.text-jumbo.text-contrast.row-space-1 世界中で友達を作ろう！
         .col-sm-12
-          #subtitle.h4.text-contrast.row-space-4 サイトのサブタイトルはこちらにどうぞ
+          #subtitle.h4.text-contrast.row-space-4 旅する準備はできていますか？
           .search--sp.show--sp
             #sp-search-field.input-addon
               span.input-stem.input-large.fake-search-field 検索しますか？
