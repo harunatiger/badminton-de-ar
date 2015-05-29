@@ -3,7 +3,7 @@ html
   head
     = display_meta_tags :charset => 'utf-8', :og => { :title    => 'サービス名', :type     => 'website', :url      => 'http://yourdomain.jp/', :image    => 'http://yourdomain.jp/assets/og.png', :site_name=> '', :description=> '' }, :fb => {:admins => '1081639010'}, :title => full_title(yield(:title)), :description => full_description(yield(:description)), :keywords => full_words(yield(:words)), :author => '', :viewport => 'width=device-width,initial-scale=1,user-scalable=no', :format => {:detection  => 'telephone=no, address=no, email=no'}
     meta[http-equiv="X-UA-Compatible" content="IE=edge"]
-    meta[name="apple-mobile-web-app-title" content="app-name"]
+    meta[name="apple-mobile-web-app-title" content="Huber."]
     = favicon_link_tag 'apple-touch-icon.png', rel:'apple-touch-icon-precomposed', type:'image/png'
     = favicon_link_tag 'favicon.ico'
     = stylesheet_link_tag 'application', media: 'all'
