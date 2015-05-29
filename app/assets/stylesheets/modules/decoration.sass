@@ -609,15 +609,7 @@ body.paper
         margin-bottom: 5px
 
 
-
-
-
-
-
-
-
 /****** Style Star Rating Widget ****/
-
 .rating
   border: none
   float: left
@@ -702,6 +694,34 @@ label.error
   background-image: image-url('sample/pic/pic010.jpg')
 .wall10
   background-image: image-url('sample/pic/pic011.jpg')
+.wall11
+  background-image: image-url('sample/pic/pic012.jpg')
+.wall12
+  background-image: image-url('sample/pic/pic013.jpg')
+.wall13
+  background-image: image-url('sample/pic/pic014.jpg')
+.wall14
+  background-image: image-url('sample/pic/pic015.jpg')
+
+/* likes */
+.likes
+  height: 24px
+  line-height: 24px
+  padding: 0 8px
+  text-decoration: none
+  background-color: $host-theme
+  border-radius: 12px
+  i.fa-heart
+    display: inline-block
+    margin: 0 5px 2px 0
+    color: white
+    font-size: 16px
+    vertical-align: middle
+  .count
+    display: inline-block
+    color: white
+    font-size: 13px
+    font-weight: 700
 
 
 /* .huber-card */
@@ -711,23 +731,6 @@ label.error
     position: absolute
     top: 10px
     right: 10px
-    height: 24px
-    line-height: 24px
-    padding: 0 8px
-    text-decoration: none
-    background-color: $host-theme
-    border-radius: 12px
-    i.fa-heart
-      display: inline-block
-      margin: 0 5px 2px 0
-      color: white
-      font-size: 16px
-      vertical-align: middle
-    .count
-      display: inline-block
-      color: white
-      font-size: 13px
-      font-weight: 700
   .huber-card-background
     display: block
     height: 100px
@@ -778,11 +781,11 @@ label.error
     .huber-inner
       padding: 10px 15px 5px
       .name
+        padding-bottom: 5px
         font-size: 16px
         font-weight: 700
-      .introducing
     .language
-      padding: 5px 15px
+      padding: 5px 15px 15px
       span
         display: inline-block
         height: 24px
@@ -794,7 +797,9 @@ label.error
         border: 1px solid #BADAF9
         border-radius: 2px
     .trip-list
-      padding: 10px 1px 1px
+      padding: 0 1px 1px
+      @media (max-width: 767px)
+        display: none
       ul
         display: table
         list-style: none
