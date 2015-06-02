@@ -1,5 +1,3 @@
-// Only for Huber prototype
-
 - if user_signed_in? && @listing.user_id == current_user.id
   = render partial: "edit_link"
 = render partial: "subnav"
@@ -19,5 +17,8 @@
   .card.location-card
     #map
     
+/#similar-listings.row-space-6.row-space-top-4
+  /= render partial: 'similar_listings'
 = render partial: '/shared/modals/share_email'
 = render partial: '/shared/modals/message_to_host', locals: { listing: @listing } if user_signed_in?
+/= render partial: '/shared/modals/wishlist', locals: { listing: @listing,  }
