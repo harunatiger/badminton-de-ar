@@ -1,0 +1,824 @@
+/* decoration.sass */
+
+/* slideout */
+body.slideout
+  position: fixed
+  height: 100%
+  width: 100%
+  overflow: hidden
+  .common-header .header--sp .nav--sp
+    visibility: visible
+    .nav-content--sp
+      left: 0
+    .nav-mask--sp
+      opacity: 0.6
+
+/* ui component */
+.card-close, .alert-close, .modal-close
+  float: right
+  cursor: pointer
+  line-height: 1
+  vertical-align: middle
+  color: $lightgray1
+  font-size: 1.4em
+  font-style: normal
+  font-weight: normal
+
+/* card */
+.card
+  border: 1px solid $border1
+  background-color: $bg4
+  border-radius: 0
+  &.card-bald
+    border-top: 0
+  &.card-waxing
+    border-bottom: 0
+
+.card-dark
+  background-color: $bg1
+
+.card-header, .card-body, ul.card-body > li, ol.card-body > li, .card-footer
+  position: relative
+  margin: 0
+  padding: 20px
+  border-top: 1px solid $border1
+
+.card-header
+  padding: 14px 20px
+  color: $gray1
+  font-size: 16px
+  border-bottom: 1px solid $border1
+  background-color: $bg1
+
+.card-body
+  position: relative
+  padding: 20px
+  > *:first-child
+    margin-top: 0
+  > *:last-child
+    margin-bottom: 0
+  &.card-medium
+    padding: 20px 0
+    background: $bg1
+
+.card-body + .card-body:before
+  content: ''
+  position: absolute
+  top: -1px
+  height: 1px
+  left: 20px
+  right: 20px
+  border-top: 1px solid $border1
+  border-color: rgba(220, 224, 224, 0.5)
+
+ul.card-body, ol.card-body
+  padding: 0
+  list-style: none
+
+.card-footer
+  text-align: right
+
+.card-light
+  background-color: white
+
+.card-overlay-top-left, .card-overlay-top-right, .card-overlay-bottom-left, .card-overlay-bottom-right
+  position: absolute
+
+.card-overlay-top-left
+  top: 15px
+  left: 15px
+
+.card-overlay-top-right
+  top: 15px
+  right: 15px
+
+.card-overlay-bottom-left
+  bottom: 15px
+  left: 15px
+
+.card-overlay-bottom-right
+  bottom: 15px
+  right: 15px
+
+.card-overlay-label
+  background-color: rgba(62, 62, 62, 0.9)
+  padding: 10px
+  color: white
+  &.flush-top
+    padding-top: 20px
+  &.flush-bottom
+    padding-bottom: 20px
+  &.flush-left
+    padding-left: 20px
+  &.flush-right
+    padding-right: 20px
+
+.card-image
+  position: relative
+
+a.card-image
+  display: block
+
+.card-overlay-listing-label
+  bottom: 30px
+  left: 0
+  padding: 7px 10px
+
+.card-profile-picture
+  width: 60px
+  height: 60px
+  img
+    width: 56px
+    height: 56px
+
+.card-profile-picture-offset
+  position: relative
+  top: -40px
+  margin-bottom: -40px
+
+.card-card-section
+  padding: 10px
+
+.card-header + .card-body, .card-body + .card-body, ul.card-body > li + .card-body, ol.card-body > li + .card-body, .card-footer + .card-body
+  border-top: none
+
+.card-header:first-child, .card-body:first-child, ul.card-body > li:first-child, ol.card-body > li:first-child, .card-footer:first-child
+  border-top: 0
+
+.card-bg-medium
+  background: $bg1
+
+.card-quote
+  position: relative
+  &:before
+    content: ''
+    display: inline-block
+    position: absolute
+    left: -10px
+    top: 15px
+    right: auto
+    border: 10px solid transparent
+    border-left: 0
+    border-right-color: $border1
+  &:after
+    content: ''
+    display: inline-block
+    position: absolute
+    left: -9px
+    top: 16px
+    right: auto
+    border: 9px solid transparent
+    border-left: 0
+    border-right-color: #fff
+  &.card-quote-right
+    &:before
+      right: -10px
+      left: auto
+      border: 10px solid transparent
+      border-right: 0
+      border-left-color: $border1
+    &:after
+      right: -9px
+      left: auto
+      border: 9px solid transparent
+      border-right: 0
+      border-left-color: #fff
+
+.card-quote-flush
+  margin-left: 0
+
+
+@media (max-width: 767px)
+  .card-header
+    font-size: 15px
+  .card-btn--sp
+    padding: 10px 20px
+    left: 0
+    right: 0
+    z-index: 100
+    &.bottom
+      position: absolute
+    &.fixed
+      position: fixed
+      bottom: 40px
+  .card-btn-fixed--sp
+    position: fixed
+    bottom: 40px
+    left: 0
+    right: 0
+    z-index: 100
+
+/* modal */
+.modal
+  z-index: 2000
+  transform: translate3d(0, 0, 0)
+  transition: opacity 0.2s
+  opacity: 0
+  &[aria-hidden="false"]
+    opacity: 1
+  &[aria-hidden="true"]
+    z-index: -1
+
+.modal-table
+  display: table
+  table-layout: fixed
+  height: 100%
+  width: 100%
+
+.modal-cell
+  display: table-cell
+  height: 100%
+  width: 100%
+  vertical-align: middle
+  padding: 50px
+
+.modal-content
+  max-width: 520px
+  margin: 0 auto
+  border: 0
+  border-radius: 2px
+  box-shadow: none
+  overflow: hidden
+  .card-body
+    border-top: 0
+
+.modal-close
+  padding: 8px
+  margin-right: -8px
+  margin-top: -8px
+  &:before
+    content: '\f00d'
+    font-family: 'FontAwesome'
+
+.modal-paper
+  position: absolute
+  top: 50%
+  left: 0
+  right: 0
+  margin: -200px 0 0
+  .panel-close
+    position: fixed
+    top: 35px
+    right: 35px
+    color: $brand-theme
+    .fa
+      font-size: 28px
+      vertical-align: middle
+      margin: 0 0 5px
+  .illust-box
+    padding: 0 15px
+    img
+      display: block
+      width: 100%
+      height: auto
+      max-width: 240px
+      margin: 0 auto
+
+.wishlist-modal
+  width: 700px
+  max-width: 700px
+  overflow: visible
+  .dynamic-listing-photo-container
+    height: 64px
+  .fa-fb
+    display: inline-block
+    margin: 0 10px 0 0
+    font-size: 22px
+
+body.paper
+  .modal-backdrop
+    background-color: white
+    &.in
+      opacity: 0.985
+
+@media (max-width: 767px)
+  .modal
+    background: none
+  .modal-table, .modal-cell
+    display: block
+  .modal-cell
+    padding: 0
+  .modal-content
+    max-width: none
+    height: 100%
+    border-radius: 0
+    overflow: auto
+  .modal-header
+    text-align: center
+  .modal-paper
+    position: absolute
+    top: 80px
+    margin: 0
+    .panel-close
+      position: fixed
+      top: 20px
+      right: 20px
+      padding: 0 10px
+      border-radius: 4px
+      background-color: rgba(255, 255, 255, 0.5)
+
+/* slideshow */
+#slideshow
+  margin: 0
+  li
+    position: absolute
+    width: 100%
+    height: 100%
+    background-repeat: no-repeat
+    background-position: center center
+    background-size: cover
+    overflow: hidden
+    z-index: 8
+    &.active
+      z-index: 10
+    &.last-active
+      z-index: 9
+    img
+      position: absolute
+      bottom: 0
+      width: 100%
+      height: auto
+    &.bg1
+      background-image: image-url('sample/top-slider/slider-01-mountain.jpg')
+    &.bg2
+      background-image: image-url('sample/top-slider/slider-02-people.jpg')
+    &.bg3
+      background-image: image-url('sample/top-slider/slider-03-guide.jpg')
+#ceremony-video
+  bottom: 0
+  position: absolute
+  width: 100%
+
+@media (max-width: 1067px)
+  #slideshow
+    li
+      background-color: #000
+      img
+        height: 100%
+        width: auto
+
+/* wishlists-slide */
+
+/* pager */
+.cycle-pager
+  position: absolute
+  top: 122px
+  width: 100%
+  text-align: center
+  overflow: hidden
+  z-index: 500
+  span
+    display: inline-block
+    width: 18px
+    height: 16px
+    color: $border1
+    font-size: 44px
+    font-family: arial
+    text-align: center
+    cursor: pointer
+    &.cycle-pager-active
+      color: #666
+    .cycle-pager
+      > *
+        cursor: pointer
+
+/* google map infowindow */
+
+.infoBox
+  padding: 10px
+  background: #fff
+  border-radius: 2px
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3)
+  &:before
+    border-color: #fff transparent transparent transparent
+    border-width: 15px
+    border-style: solid
+    content: ''
+    display: inline-block
+    position: absolute
+    bottom: -30px
+    margin: 0 0 0 115px
+
+.listing-map-popover
+  margin: 0
+  width: 260px
+  height: auto
+  .card-profile-picture
+    display: none
+  .panel-overlay-top-right
+    top: 10px
+    right: 10px
+  .panel-overlay-bottom-left
+    bottom: 0
+  .panel-card-section
+    padding: 5px
+  .listing-name
+    font-size: 14px
+    margin-bottom: 0
+  .listing-location
+    font-size: 12px
+
+
+/* carousel */
+@media (max-width: 767px)
+  .carousel-item-list
+    max-width: 100%
+  .carousel-item:not(:first-of-type)
+    display: none
+  .carousel-item-list
+    padding: 0
+    margin: 0 auto
+  .carousel-item
+    padding: 0
+    .listing
+      margin-bottom: 30px
+
+.carousel-item
+  padding-left: 0
+
+@media (min-width: 768px)
+  .sliding-carousel
+    position: relative
+    .carousel-view
+      overflow: hidden
+      position: relative
+    .carousel-item-list
+      left: 0
+      position: absolute
+      transition: left 0.2s ease-in-out
+    .carousel-item
+      float: left
+    .carousel-chevron
+      cursor: pointer
+      position: absolute
+      z-index: 999
+  .similar-listings-results
+    height: 290px
+  .sliding-carousel.similar-listings .carousel-chevron
+    top: 84px
+    &.left
+      left: -30px
+    &.right
+      right: -30px
+
+@media (min-width: 768px) and (max-width: 767px)
+  .sliding-carousel.similar-listings .carousel-chevron
+    &.left, &.right
+      top: 50%
+      margin-top: -15px
+    &.left
+      left: 0
+    &.right
+      right: 0
+
+@media (min-width: 768px)
+  .sliding-carousel.similar-listings .listing .card-image
+    height: 210px
+
+.listing-img
+  padding-bottom: 67%
+
+/* bootstrap slider */
+#price-range
+  height: 10px
+  opacity: 0
+.slider
+  margin-top: 7px
+  &.slider-horizontal
+    /**/
+    width: 100%
+    height: 20px
+    .slider-track
+      height: 14px
+      width: 100%
+      margin-top: -5px
+      top: 50%
+      left: 0
+    .slider-selection
+      height: auto
+      top: 5px
+      bottom: 5px
+    .slider-track-low, .slider-track-high
+      height: auto
+      top: 6px
+      bottom: 6px
+    .slider-handle
+      margin-left: -10px
+      margin-top: -3px
+    .slider-handle.triangle
+      border-width: 0 10px 10px 10px
+      width: 0
+      height: 0
+      border-bottom-color: #0480be
+      margin-top: 0
+  input
+    display: none
+  .tooltip.top
+    margin-top: -36px
+  .tooltip-inner
+    white-space: nowrap
+  .hide
+    display: none
+
+.slider-track
+  position: absolute
+  cursor: pointer
+  /**/
+  background: #eee
+  box-shadow: none
+  border-radius: 0
+  &:before, &:after
+    content: ''
+    display: block
+    position: absolute
+    top: 0
+    left: 0
+    width: 6px
+    height: 12px
+    background: #eee
+    z-index: 99999
+  &:after
+    left: auto
+    right: 0
+
+.slider-selection
+  position: absolute
+  /**/
+  background: $brand-theme
+  box-shadow: none
+  box-sizing: border-box
+  border-radius: 0
+
+.slider-track-low, .slider-track-high
+  position: absolute
+  background: transparent
+  box-sizing: border-box
+  background-color: #ddd
+  border-radius: 0
+
+.slider-handle
+  width: 20px
+  height: 20px
+  /**/
+  background: #eee
+  box-shadow: none
+  border: 1px solid #ccc
+
+/* badge-illust */
+.badge-illust1
+  width: 140px
+  height: 140px
+  line-height: 120px
+  margin: 0 auto
+  border: 8px solid $brand-theme
+  background-color: white
+  border-radius: 50%
+  img
+    width: 40%
+    height: auto
+
+
+/* btn-frame */
+.btn-frame
+  display: inline-block
+  position: relative
+  .btn
+    z-index: 0
+    transition: color 0.25s
+    &.text-disappear
+      color: transparent
+  .spinner
+    position: absolute
+    top: 50%
+    left: 50%
+    z-index: 5
+
+/* host_n_listing-info-box */
+.host_n_listing-info-box
+  overflow: hidden
+  .col-xs-4
+    padding: 0
+  .card-body
+    padding: 20px 12.5px 12.5px
+    @media (max-width: 767px)
+      padding: 10px 5px 5px
+    h4
+      @media (max-width: 1099px)
+        text-align: left
+      @media (max-width: 767px)
+        margin-bottom: 5px
+
+
+/****** Style Star Rating Widget ****/
+.rating
+  border: none
+  float: left
+  margin: 0
+  padding: 0
+  >
+    input
+      display: none
+    label:before
+      color: #ddd
+      font-size: 24px
+      font-family: FontAwesome
+      display: inline-block
+      content: "\f005"
+    .half:before
+      content: "\f089"
+      position: absolute
+    label
+      float: right
+      color: transparent !important
+      margin: 0
+      padding: 0
+      cursor: pointer
+    input:checked ~ label:before
+      color: #ffb400
+  &:not(:checked) > label:hover, &:not(:checked) > label:hover:before
+    color: #ffb400
+    ~ label:before
+      color: #ffb400
+  >
+    input:checked
+      + label:hover:before, ~ label:hover:before
+        color: #ffb400
+      + label:before
+        +animation(0.025s, 0.3s, scaleinout)
+    label:hover:before ~ input:checked ~ label:before, input:checked ~ label:hover:before ~ label:before
+      color: #ffb400
+
+
+/* css3 animation */
++keyframe(scaleinout)
+  0%
+    +scale(1.0)
+  50%
+    +scale(1.5)
+  100%
+    +scale(1.0)
+
+/* validation error */
+label.error
+  padding: 5px 10px
+  margin: 0 0 10px
+  color: $red1
+  font-weight: 700
+  background-color: #ffeeee
+  border: 1px solid #FFD5D6
+  border-radius: 2px
+.url-check
+  label.error
+    padding: 5px
+    border: 0
+    background-color: transparent
+
+/* discovery */
+.wall1
+  background-image: image-url('sample/pic/pic003.jpg')
+.wall2
+  background-image: image-url('sample/pic/pic004.jpg')
+.wall3
+  background-image: image-url('sample/pic/pic005.jpg')
+.wall4
+  background-image: image-url('sample/pic/pic006.jpg')
+.wall5
+  background-image: image-url('sample/pic/pic007.jpg')
+.wall6
+  background-image: image-url('sample/pic/pic004.jpg')
+.wall7
+  background-image: image-url('sample/pic/pic008.jpg')
+.wall8
+  background-image: image-url('sample/pic/pic009.jpg')
+.wall9
+  background-image: image-url('sample/pic/pic010.jpg')
+.wall10
+  background-image: image-url('sample/pic/pic011.jpg')
+.wall11
+  background-image: image-url('sample/pic/pic012.jpg')
+.wall12
+  background-image: image-url('sample/pic/pic013.jpg')
+.wall13
+  background-image: image-url('sample/pic/pic014.jpg')
+.wall14
+  background-image: image-url('sample/pic/pic015.jpg')
+
+/* likes */
+.likes
+  height: 24px
+  line-height: 24px
+  padding: 0 8px
+  text-decoration: none
+  background-color: $host-theme
+  border-radius: 12px
+  i.fa-heart
+    display: inline-block
+    margin: 0 5px 2px 0
+    color: white
+    font-size: 16px
+    vertical-align: middle
+  .count
+    display: inline-block
+    color: white
+    font-size: 13px
+    font-weight: 700
+
+
+/* .huber-card */
+.huber-card
+  position: relative
+  .huber-likes
+    position: absolute
+    top: 10px
+    right: 10px
+  .huber-card-background
+    display: block
+    height: 100px
+    border-radius: 4px 4px 0 0
+    border-bottom: 1px solid #e1e8ed
+    background-size: 100%
+    background-position: 0 50%
+    background-repeat: no-repeat
+    &.user-bg001
+      background-image: image-url('sample/pic/pic003.jpg')
+    &.user-bg002
+      background-image: image-url('sample/pic/pic004.jpg')
+    &.user-bg003
+      background-image: image-url('sample/pic/pic005.jpg')
+  .huber-card-content
+    position: relative
+    background-color: white
+    border: 1px solid #e1e8ed
+    border-radius: 0 0 4px 4px
+    .huber-card-face
+      display: inline-block
+      margin: -45px 0 0 5px
+      border-radius: 50%
+      padding: 4px
+      background-color: white
+      img
+        display: block
+        width: 70px
+        height: 70px
+        border-radius: 50%
+    .capability
+      position: absolute
+      display: inline-block
+      right: 0
+      padding: 5px 10px 0 0
+      a
+        display: inline-block
+        width: 32px
+        height: 32px
+        line-height: 32px
+        margin: 5px 3px
+        color: white
+        font-size: 16px
+        text-align: center
+        background-color: $brand-theme
+        border-radius: 50%
+        cursor: pointer
+    .huber-inner
+      padding: 10px 15px 5px
+      .name
+        padding-bottom: 5px
+        font-size: 16px
+        font-weight: 700
+    .language
+      padding: 5px 15px 15px
+      span
+        display: inline-block
+        height: 24px
+        line-height: 24px
+        padding: 0 10px
+        margin: 0 5px 0 0
+        color: #0084B4
+        font-size: 13px
+        border: 1px solid #BADAF9
+        border-radius: 2px
+    .trip-list
+      padding: 0 1px 1px
+      @media (max-width: 767px)
+        display: none
+      ul
+        display: table
+        list-style: none
+        margin: 0
+        padding: 0
+        border-radius: 0 0 4px 4px
+        overflow: hidden
+        li
+          display: table-cell
+          width: 33.33333%
+          a
+            display: block
+            height: 60px
+            overflow: hidden
+            cursor: pointer
+            img
+              display: block
+              width: 100%
+              height: auto
+            &:hover
+              img
+                opacity: 0.8

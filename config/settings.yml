@@ -47,7 +47,7 @@ dress_codes:
     not_only: "和服でなくて結構です。"
 reservation:
   save:
-    success: "予約を申し込みました。ご確認いただき、ホストの方からの返信をお待ちください。"
+    success: "予約を申し込みました。ご確認いただき、ガイドの方からの返信をお待ちください。"
     failure:
       no_date: "予約する日付を入力してください。"
   requirement:
@@ -82,7 +82,7 @@ message:
   modal:
     message_to_host:
       title:
-        label: "ホストに連絡をする"
+        label: "ガイドに連絡をする"
       form:
         submit:
           label: "メッセージを送る"
@@ -98,7 +98,7 @@ message:
           placeholder: "例）当日は公共交通機関でおこしください。よろしくお願いいたします。"
     message_to_host_from_reservation_manager:
       title:
-        label: "ホストに連絡をする"
+        label: "ガイドに連絡をする"
       form:
         submit:
           label: "メッセージを送る"
@@ -106,9 +106,9 @@ message:
           placeholder: "例）どうぞよろしくおねがいします。"
 user:
   host:
-    noname: "ホスト"
+    noname: "ガイド"
     noname2: '名無し'
-    this: 'こちらのホスト'
+    this: 'こちらのガイド'
   noname: '名無し'
   left: '退会済みユーザー'
 image:
@@ -137,10 +137,10 @@ page:
   help: 'ヘルプ'
   subnav:
     photos: '写真'
-    details: 'このリスティングについて'
+    details: 'このガイドについて'
     reviews: 'レビュー'
-    host_profile: 'ホスト紹介'
-    neighborhood: '開催地'
+    host_profile: 'ガイド紹介'
+    neighborhood: '対応エリア'
 mailer:
   from:
     default: "default-from-email@example.com"
@@ -177,7 +177,7 @@ regulate_term:
   expired: "レビューの書き込み期間が経過しました。"
 review:
   save:
-    success: "レビューを投稿しました。ホストの方からの返信をお待ちください。"
+    success: "レビューを投稿しました。ガイドの方からの返信をお待ちください。"
     failure: "レビューを投稿できませんでした。"
   expiration_date: 14
 review_reply:

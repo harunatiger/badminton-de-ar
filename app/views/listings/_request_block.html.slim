@@ -1,4 +1,11 @@
 .col-lg-4
+  .bust
+    = image_tag 'sample/detail/bust.jpg'
+    .wishlist-wrapper
+      .rich-toggle.wish_list_button.row-space-top-3.not_saved.wishlist-button
+        label.btn.btn-block.btn-large.wishlist-button[title="お気に入りに保存"]
+          span
+            i.fa.fa-heart-o.fa-light-gray
   = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
     - user_id = 0
     - user_id = current_user.id if user_signed_in?
@@ -12,7 +19,7 @@
         = @listing.price
       #payment-period-container.pull-right
         #per_attend
-          | 1回の料金
+          | 1人分の料金
     #book_it
       .card
         .card-body.card-light
@@ -50,20 +57,6 @@
                   | さんのリスティングを見た人は今週
                   = listing_id_to_weekly_pv(listing.id)
                   |人
-          /.wishlist-wrapper
-            .rich-toggle.wish_list_button.row-space-top-3.not_saved.wishlist-button
-              p#hogehogehogehoge hhhhhhhhhhhhhhh
-              label.btn.btn-block.btn-large.wishlist-button#hogehogehogehoge
-                - if listing.current_user_bookmarked?(current_user.id)
-                  /span.rich-toggle-checked
-                  span
-                    i.fa.fa-heart.fa-pink
-                    |  お気に入りに保存しました
-                - else
-                  /span.rich-toggle-unchecked
-                  span
-                    i.fa.fa-heart-o.fa-light-gray
-                    |  お気に入りに保存
           .other-actions.hide-sm.text-center
             .social-share-widget.row-space-top-3
               span.share-title

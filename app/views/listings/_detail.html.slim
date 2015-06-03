@@ -3,108 +3,80 @@
     #details-column.col-lg-8
       .row-space-8.row-space-top-8
         h4.row-space-4
-          |  このリスティングについて
+          |  ガイドからのメッセージ
         p.listing-description
           = listing.description
-        p.text-center--sp
+        p.text-center--sp.row-space-8
           - if user_signed_in?
             - if current_user.id == listing.user_id
               button.btn.btn-small.btn-primary.disabled
-                | こちらのホストに連絡
+                | こちらのガイドに連絡
             - else
               button#message-host-link.btn.btn-small.btn-primary
-                | こちらのホストに連絡
+                | こちらのガイドに連絡
           - else
             = link_to new_user_session_path do
               button.btn.btn-small.btn-primary
-                | こちらのホストに連絡
-        .row-space-4.row-space-top-4
+                | こちらのガイドに連絡
+        .photo-list-wrapper
+          .row-space-4.row-space-top-4
+            .photo-trigger
+              = image_tag('sample/detail/izu001.jpg', class: 'listed-img')
+            .row
+              .col-md-12
+                p.text-muted.pull-left.row-space-top-2.row-space-8
+                  | 綺麗な海があなたを待ってます！
+            .photo-trigger
+              = image_tag('sample/detail/izu002.jpg', class: 'listed-img')
+            .row
+              .col-md-12
+                p.text-muted.pull-left.row-space-top-2.row-space-8
+                  | 綺麗な海があなたを待ってます！
           .photo-trigger
-            = image_tag(listing_image.try('image') || Settings.image.noimage2.url, class: 'img-responsive')
+            = image_tag('sample/detail/izu003.jpg', class: 'listed-img')
           .row
-            .col-lg-9
-              p.text-muted.pull-left.row-space-top-1
-                = listing_image.try('caption') || Settings.image.noimage2.caption
-            .col-lg-3
-        hr
-        .row
-          .col-md-3.text-muted
-            | 受入最大人数
-          .col-md-9
-            .row-space-1
-              span
-                = listing.capacity
-                | 人
-        hr
-        .row
-          .col-md-3.text-muted
-            | お菓子（オプション1）
-          .col-md-9
-            .row-space-1
-              span
-                - if '' == confection.url
-                  = confection.name
-                - else
-                  = link_to confection.url, target: "_blank" do
-                    b
-                      = confection.name
-              - if confection.image.present?
-                = image_tag(confection.image, class: 'img-responsive row-space-top-2')                
-              p.text-muted.pull-left.row-space-top-1
-                = confection.try('caption') || Settings.image.noimage2.caption
-        hr
-        .row
-          .col-md-3.text-muted
-            | お道具（オプション2）
-          .col-md-9
-            .row-space-1
-              span
-                - if tool.url.present?
-                  - if '' == tool.url
-                    = tool.name
-                  - else
-                    = link_to tool.url, target: "_blank" do
-                      b
-                        = tool.name
-                - else
-                  = tool.name
-              - if tool.image.present?
-                = image_tag(tool.image, class: 'img-responsive row-space-top-2') 
-              p.text-muted.pull-left.row-space-top-1
-                = tool.try('caption') || Settings.image.noimage2.caption
-        hr
-        .row
-          .col-md-3.text-muted
-            | 服装（オプション3）
-          .col-md-9
-            .row-space-1
-              span
-                b
-                  = dress_code.present? && dress_code.wafuku.present? ? Settings.dress_codes.wafuku.only : Settings.dress_codes.wafuku.not_only
-            .row-space-1
-              span
-                b
-                  - if dress_code.present? && dress_code.note.present?
-                    = dress_code.note
-        hr
-        .row
-          .col-md-3
-            .text-muted
-              | 出張
-          .col-md-9
-            .row
-              .col-md-6
-                = render partial: 'delivery_ok_button', locals: { listing: listing }
-        hr
-        .row
-          .col-md-3
-            .text-muted
-              | 料金
-          .col-md-9
-            .row
-              .col-md-6
-                div
-                  b
-                    span#extra_price_strin
-                      | ￥
-                      = listing.price
+            .col-md-12
+              p.text-muted.pull-left.row-space-top-2.row-space-8
+                | 綺麗な海があなたを待ってます！
+          .photo-trigger
+            = image_tag('sample/detail/izu004.jpg', class: 'listed-img')
+          .row
+            .col-md-12
+              p.text-muted.pull-left.row-space-top-2.row-space-8
+                | 綺麗な海があなたを待ってます！
+          .photo-trigger
+            = image_tag('sample/detail/izu005.jpg', class: 'listed-img')
+          .row
+            .col-md-12
+              p.text-muted.pull-left.row-space-top-2.row-space-8
+                | 綺麗な海があなたを待ってます！
+          .photo-trigger
+            = image_tag('sample/detail/izu006.jpg', class: 'listed-img')
+          .row
+            .col-md-12
+              p.text-muted.pull-left.row-space-top-2.row-space-8
+                | 綺麗な海があなたを待ってます！
+          .photo-trigger
+            = image_tag('sample/detail/izu007.jpg', class: 'listed-img')
+          .row
+            .col-md-12
+              p.text-muted.pull-left.row-space-top-2.row-space-8
+                | 綺麗な海があなたを待ってます！
+          .photo-trigger
+            = image_tag('sample/detail/izu008.jpg', class: 'listed-img')
+          .row
+            .col-md-12
+              p.text-muted.pull-left.row-space-top-2.row-space-8
+                | 綺麗な海があなたを待ってます！
+          .photo-trigger
+            = image_tag('sample/detail/izu009.jpg', class: 'listed-img')
+          .row
+            .col-md-12
+              p.text-muted.pull-left.row-space-top-2.row-space-8
+                | 綺麗な海があなたを待ってます！
+          .photo-trigger
+            = image_tag('sample/detail/izu010.jpg', class: 'listed-img')
+          .row
+            .col-md-12
+              p.text-muted.pull-left.row-space-top-2.row-space-8
+                | 綺麗な海があなたを待ってます！
