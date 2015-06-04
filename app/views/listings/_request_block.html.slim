@@ -40,14 +40,21 @@
                 = link_to "LINEで送る", "http://line.me/R/msg/text/?テキスト http://yourdomain.jp", class: "share-btn share-envelope-btn sns-line-btn show--sp-ib"
 
           .form-fields
-            .row.row-condensed.row-space-3
-              .col-md-8
+            .row.row-condensed.row-space-3.row-space-top-3
+              .col-md-5
+                span.price-title.text-muted ガイド料金
+              .col-md-7
+                span.price-value
+                  | ¥
+                  b 2,890
+                  small 1名分
+              /.col-md-8
                 .row.row-condensed
                   .col-sm-12
                     label[for="checkin"]
                       |  参加する日付
                     input#checkin.checkin.datepicker[name="reservation[schedule]" placeholder="年/月/日" type="text"]
-              .col-md-4
+              /.col-md-4
                 label[for="number_of_guests"]
                   |  人数
                 .select.select-block
