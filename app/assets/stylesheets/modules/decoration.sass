@@ -828,6 +828,55 @@ label.error
 .cover01
   background-image: image-url('sample/pic/huber_pic001.jpg')
 
-
 body.listings.show
   background-color: white
+
+#map_jp
+  position: absolute
+  top: 50%
+  left: 50%
+  width: 305px
+  height: 210px
+  margin: -105px 0 0 -125px
+  background-image: image-url('map_jp.png')
+  background-repeat: no-repeat
+  background-position: center center
+  background-size: 305px 210px
+  .pointer
+    position: absolute
+    width: 10px
+    height: 10px
+    border-radius: 50%
+    background-color: $brand-theme
+    &.po01
+      top: 151px
+      left: 169px
+      &:after
+        content: ''
+        display: block
+        position: absolute
+        top: -5px
+        left: -5px
+        width: 20px
+        height: 20px
+        border-radius: 50%
+        background-color: $brand-theme-hover
+        animation: pulsate 1.2s infinite
+    &.po02
+      top: 150px
+      left: 120px
+      opacity: 0.5
+    &.po03
+      top: 43px
+      left: 221px
+      opacity: 0.5
+
+@keyframes pulsate
+  0%
+    transform: scale(0.1, 0.1)
+    opacity: 0.0
+  50%
+    opacity: 1.0
+  100%
+    transform: scale(1.2, 1.2)
+    opacity: 0.0

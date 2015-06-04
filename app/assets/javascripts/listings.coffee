@@ -176,7 +176,7 @@ $ ->
       bounds = new google.maps.LatLngBounds()
       mapOptions =
         scrollwheel: false
-        zoom: 15
+        zoom: 13
         center: new (google.maps.LatLng)(gon.listings[0].latitude, gon.listings[0].longitude)
         mapTypeId: google.maps.MapTypeId.TERRAIN
 
@@ -289,17 +289,17 @@ $ ->
     initialize = ->
       mapOptions =
         scrollwheel: false
-        zoom: 15
+        zoom: 13
         center: new (google.maps.LatLng)(gon.listing.latitude, gon.listing.longitude)
         mapTypeId: google.maps.MapTypeId.TERRAIN
 
       map = new (google.maps.Map)(document.getElementById('map'), mapOptions)
 
       circleOptions =
-        strokeColor: '#5F9E1B'
+        strokeColor: '#17AEDF'
         strokeOpacity: 0.8
         strokeWeight: 1
-        fillColor: '#5F9E1B'
+        fillColor: '#17AEDF'
         fillOpacity: 0.35
         map: map
         #center: new (google.maps.LatLng)(43.051645, 141.384605)

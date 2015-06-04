@@ -19,7 +19,14 @@
   = render partial: 'host_info', locals: { host_info: @host_info, host_image: @host_image, listing: @listing }
 #neighborhood.listing-section
   .card.location-card
-    #map
-    
+    .row
+      .col-md-6.map_jp-wrapper
+        #map_jp
+          span.pointer.po01
+          span.pointer.po02
+          span.pointer.po03
+      .col-md-6
+        #map
+      
 = render partial: '/shared/modals/share_email'
 = render partial: '/shared/modals/message_to_host', locals: { listing: @listing } if user_signed_in?

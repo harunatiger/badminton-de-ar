@@ -577,10 +577,12 @@ a.delete
 #neighborhood
   .location-card
     position: relative
-    height: 650px
+    overflow: hidden
 
-#map
-  height: 100%
+#map, .map_jp-wrapper
+  height: 500px
+  @media (max-width: 767px)
+    height: 300px
 
 /* listing.show */
 .listing.show
