@@ -89,25 +89,27 @@ $ ->
         headerHeight = $('#header').outerHeight()
         footerHeight = $('footer').outerHeight()
         neighborHeight = $('#neighborhood').outerHeight()
-        similarHeight = $('#similar-listings').outerHeight()
-        priceHeight = $('#pricing').outerHeight()
+        # similarHeight = $('#similar-listings').outerHeight()
+        # priceHeight = $('#pricing').outerHeight()
         bookHeight = $('#book_it').outerHeight()
-        tempCount = bodyHeight - (footerHeight + neighborHeight + similarHeight + bookHeight + 37.5 + 25)
+        tempCount = bodyHeight - (footerHeight + neighborHeight + bookHeight + 37.5)
         stickyBoxTop = $('#summary').offset().top - 1
 
       stickyNav = ->
         scrollTop = $(window).scrollTop()
-
         if $('body').hasClass('listings show')
-          if scrollTop >= stickyBoxTop && scrollTop < tempCount
-            $('#pricing, #book_it').addClass('fixed').removeAttr 'style'
-            $('.subnav').attr 'aria-hidden','false'
+          if scrollTop > 67 && scrollTop < tempCount
+            $('#book_it').addClass('fixed').removeAttr 'style'
           else if scrollTop >= tempCount
-            tempPos1 = tempCount - (photoHeight + headerHeight) + priceHeight
+            tempPos1 = tempCount - (photoHeight + headerHeight)
             $('#book_it').removeClass 'fixed'
             $('#book_it').css('top', tempPos1 + 'px')
           else
-            $('#pricing, #book_it').removeClass('fixed').removeAttr 'style'
+            $('#book_it').removeClass('fixed').removeAttr 'style'
+
+          if scrollTop >= stickyBoxTop && scrollTop < tempCount
+            $('.subnav').attr 'aria-hidden','false'
+          else
             $('.subnav').attr 'aria-hidden','true'
           return
         else

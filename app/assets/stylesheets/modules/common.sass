@@ -1190,7 +1190,7 @@ select
     padding-left: 25px
     padding-right: 25px
   @media (min-width: 1100px)
-    width: 1024px
+    width: 1045px
 
 .page-container-auth
   @media (max-width: 767px)
@@ -1887,8 +1887,9 @@ select
 /* subnav */
 .subnav
   position: relative
-  background: $bg3
+  background: white
   user-select: none
+  border-bottom: 1px solid $border1
   &[data-sticky="true"].pinned, &[data-transition-at]
     position: fixed
     top: 0
@@ -1943,20 +1944,20 @@ select
     a
       display: block
       position: relative
-      color: $border1
+      color: $brand-theme
       padding: 10px 14px
       &:hover
-        color: white
+        color: $brand-theme-hover
         text-decoration: none
       &[aria-selected="true"]
-        color: white
+        color: $brand-theme
         &:before
           position: absolute
           content: ''
           left: 14px
           right: 14px
           bottom: 0
-          border: 2px solid $border1
+          border: 2px solid $brand-theme
       @media (max-width: 767px)
         display: none
         &:before

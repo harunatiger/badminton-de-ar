@@ -405,12 +405,66 @@ a.delete
   li:first-child
     padding: 15px 20px 10px
 
-#book_it_form
-  margin-top: -40px
+.new-o2-form-inline
+  margin-top: -264px
   width: 315px
 
+.name_bar
+  max-width: 640px
+  margin-left: auto
+  margin-right: auto
+
+.star-rating-wrap
+  display: inline-block
+  margin-left: 10px
+
+.guide-name
+  display: block
+  height: 40px
+  line-height: 40px
+  font-size: 16px
+  font-weight: 700
 .bust
-  margin-top: -282px
+  position: relative
+  img
+    width: 100%
+    height: auto
+    border-radius: 4px
+  .huber-likes
+    position: absolute
+    bottom: 12px
+    right: 10px
+    color: white
+    height: 28px
+    line-height: 28px
+    padding: 0 13px
+    border-radius: 14px
+    span
+      font-weight: 700
+  .other-actions
+    position: absolute
+    bottom: 10px
+    left: 10px
+    .share-triggers
+      display: block
+      a
+        width: 32px
+        height: 32px
+        line-height: 32px
+        margin-right: 10px
+        text-align: center
+        background-color: rgba(255, 255, 255, 0.75)
+        border-radius: 50%
+        .fa
+          height: 32px
+          line-height: 32px
+          font-size: 16px
+        .fa-envelope
+          color: #1abc9c
+        .fa-facebook
+          color: #3b5998
+        .fa-twitter
+          color: #55acee
 
 #pricing
   background-color: rgba(0, 0, 0, 0.5)
@@ -440,10 +494,16 @@ a.delete
   width: 315px
   z-index: 10
   border-top: none
+  .card
+    background-color: rgba(255, 255, 255, 0.8)
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15)
+    .card-body
+      padding-top: 0
+      background: transparent
   @media (min-width: 1100px)
     &.fixed
       position: fixed
-      top: 40px
+      top: -1px
       z-index: 1001
 
 @media (max-width: 1099px)
@@ -457,9 +517,62 @@ a.delete
   display: block
   margin: 0 auto
 
+.tag-list-wrapper
+  ul
+    list-style: none
+    margin: 0 0 10px
+    padding: 0
+    overflow: hidden
+    li
+      float: left
+      margin: 0 10px 10px 0
+      a
+        display: block
+        width: 38px
+        height: 38px
+        line-height: 38px
+        color: white
+        font-size: 16px
+        text-align: center
+        background-color: $brand-theme
+        border-radius: 50%
+
+.lang-list-wrapper
+  ul
+    list-style: none
+    margin: 0 0 20px
+    padding: 0
+    overflow: hidden
+    li
+      float: left
+      margin: 0 10px 10px 0
+      span
+        display: block
+        height: 30px
+        line-height: 28px
+        padding: 0 12px 0 8px
+        color: $brand-theme
+        font-size: 14px
+        font-weight: 700
+        text-align: center
+        background-color: white
+        border: 1px solid $brand-theme
+        border-radius: 2px
+        .fa
+          display: inline-block
+          margin: 0 5px 2px 0
+          font-size: 18px
+          vertical-align: middle
+
 .photo-list-wrapper
   max-width: 480px
   margin: 0 auto
+  .photo-trigger
+    margin: 0 0 10px
+  h5
+    font-size: 18px
+  p
+    font-size: 16px
 
 #neighborhood
   .location-card
@@ -480,7 +593,6 @@ a.delete
 
 .listing-description
   font-size: 15px
-  margin-bottom: 30px
 
 /* search */
 .listings.search
