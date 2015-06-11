@@ -1,0 +1,64 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* line 9, ../sass/main.sass */
+body {
+  margin-bottom: 80px;
+  color: white;
+  font-family: "lato";
+  background-color: #34495e;
+}
+
+/* line 15, ../sass/main.sass */
+h1 {
+  font-size: 64px;
+  font-weight: 100;
+  text-align: center;
+}
+
+/* line 20, ../sass/main.sass */
+h2 {
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* line 25, ../sass/main.sass */
+.card-wrapper {
+  padding: 20px 0 80px;
+  text-align: center;
+}
+/* line 28, ../sass/main.sass */
+.card-wrapper img {
+  display: inline-block;
+  margin: 0 20px;
+}
+
+/* line 33, ../sass/main.sass */
+#card-A img, #card-C img {
+  width: 216px;
+  height: auto;
+}
+
+/* line 37, ../sass/main.sass */
+#card-B {
+  background-color: #2c3e50;
+}
+/* line 39, ../sass/main.sass */
+#card-B img {
+  width: 356px;
+  height: auto;
+}
+
+@media screen and (max-width: 620px) {
+  /* line 44, ../sass/main.sass */
+  h1 {
+    font-size: 32px;
+  }
+
+  /* line 47, ../sass/main.sass */
+  .card-wrapper img {
+    margin-bottom: 30px;
+  }
+}
