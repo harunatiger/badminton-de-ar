@@ -2,11 +2,68 @@
   .discovery-container
     #discover-recommendations.discovery-section.page-container.page-container-no-padding.row-space-6
       .section-intro.text-center.row-space-6.row-space-top-8
-        h2.row-space-1.strong 人気Huber.のご紹介
+        h2.row-space-1.strong とっておきのローカルトリップ
+        p.text-lead Huber.が推薦するユニークでオリジナリティ溢れる10の旅
+      .discovery-tiles
+        .row
+          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.change-sp
+            .discovery-card.rm-padding--sp.row-space-6.wall12
+              a.link-reset[href="#" data-hook="discovery-card"]
+                .va-container.va-container-v.va-container-h
+                  .va-middle.text-center.text-contrast
+                    .h4 グランドキャニオン一周旅行
+                    span.period 3泊4日
+                span.arrow-direction
+                  i.fa.fa-chevron-right
+              a.likes.discovery-heart
+                i.fa.fa-heart
+                span.count 2,876
+              a.planner-circle[title="Rachel & Amy" data-toggle="tooltip"]
+                = image_tag "sample/face/girl01.jpg"
+                  
+          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.change-sp
+            .discovery-card.rm-padding--sp.row-space-6.wall13
+              a.link-reset[href="#" data-hook="discovery-card"]
+                .va-container.va-container-v.va-container-h
+                  .va-middle.text-center.text-contrast
+                    .h4 秘境トンブクトゥ探訪
+                    span.period 日帰り
+                span.arrow-direction
+                  i.fa.fa-chevron-right
+              a.likes.discovery-heart
+                i.fa.fa-heart
+                span.count 99
+              a.planner-circle[title="まさみ & 太郎" data-toggle="tooltip"]
+                = image_tag "sample/face/man01.jpg"
+                  
+          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.change-sp
+            .discovery-card.rm-padding--sp.row-space-6.wall14
+              a.link-reset[href="#" data-hook="discovery-card"]
+                .va-container.va-container-v.va-container-h
+                  .va-middle.text-center.text-contrast
+                    .h4 マンハッタンのスポット
+                    span.period 7泊8日
+                span.arrow-direction
+                  i.fa.fa-chevron-right
+              a.likes.discovery-heart
+                i.fa.fa-heart
+                span.count 3
+              a.planner-circle[title="Kim & Kanye" data-toggle="tooltip"]
+                = image_tag "sample/face/girl02.jpg"
+                  
+        .col-sm-12.rm-padding--sp.row-space-4.text-center
+          a.btn.btn-large.btn-more
+            | もっと見る
+            i.fa.fa-caret-down
+
+  .discovery-container
+    #discover-recommendations.discovery-section.page-container.page-container-no-padding.row-space-8
+      .section-intro.text-center.row-space-6.row-space-top-4
+        h2.row-space-1.strong スターガイドのご紹介
         p.text-lead ユニークな旅、心づくしのおもてなし。人気のStarGuideたちに依頼しよう!
       .discovery-tiles
         .row
-          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-4.change-sp
+          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
             div
               .huber-card
                 a.huber-card-background.user-bg001[href="#"]
@@ -44,7 +101,7 @@
                         a.trip-bullet[title="秘境探索2泊3日カトマンデュ冒険旅行！予約受け付け中"]
                           = image_tag 'sample/small/pic006.jpg'
                           
-          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-4.change-sp
+          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
             div
               .huber-card
                 a.huber-card-background.user-bg002[href="#"]
@@ -75,7 +132,7 @@
                       li
                         a.trip-bullet[title="秘境探索2泊3日カトマンデュ冒険旅行！予約受け付け中"]
                           = image_tag 'sample/small/pic009.jpg'
-          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-4.change-sp
+          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
             div
               .huber-card
                 a.huber-card-background.user-bg003[href="#"]
@@ -110,55 +167,24 @@
                         a.trip-bullet[title="秘境探索2泊3日カトマンデュ冒険旅行！予約受け付け中"]
                           = image_tag 'sample/small/pic007.jpg'
 
-    .discovery-container
-      #discover-recommendations.discovery-section.page-container.page-container-no-padding.row-space-8
-        .section-intro.text-center.row-space-6.row-space-top-8
-          h2.row-space-1.strong 人気のローカルトリップご紹介
-          p.text-lead ユニークでオリジナリティ溢れる人気プランがいっぱいです！
-        .discovery-tiles
-          .row
-            .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.change-sp
-              .discovery-card.rm-padding--sp.row-space-8.wall12
-                a.link-reset[href="#" data-hook="discovery-card"]
-                  .va-container.va-container-v.va-container-h
-                    .va-middle.text-center.text-contrast
-                      .h4 グランドキャニオン一周旅行
-                      span.period 3泊4日
-                  span.arrow-direction
-                    i.fa.fa-chevron-right
-                a.likes.discovery-heart
-                  i.fa.fa-heart
-                  span.count 2,876
-                a.planner-circle[title="Rachel & Amy" data-toggle="tooltip"]
-                  = image_tag "sample/face/girl01.jpg"
-                    
-            .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.change-sp
-              .discovery-card.rm-padding--sp.row-space-8.wall13
-                a.link-reset[href="#" data-hook="discovery-card"]
-                  .va-container.va-container-v.va-container-h
-                    .va-middle.text-center.text-contrast
-                      .h4 秘境トンブクトゥ探訪
-                      span.period 日帰り
-                  span.arrow-direction
-                    i.fa.fa-chevron-right
-                a.likes.discovery-heart
-                  i.fa.fa-heart
-                  span.count 99
-                a.planner-circle[title="まさみ & 太郎" data-toggle="tooltip"]
-                  = image_tag "sample/face/man01.jpg"
-                    
-            .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.change-sp
-              .discovery-card.rm-padding--sp.row-space-8.wall14
-                a.link-reset[href="#" data-hook="discovery-card"]
-                  .va-container.va-container-v.va-container-h
-                    .va-middle.text-center.text-contrast
-                      .h4 マンハッタンのスポット
-                      span.period 7泊8日
-                  span.arrow-direction
-                    i.fa.fa-chevron-right
-                a.likes.discovery-heart
-                  i.fa.fa-heart
-                  span.count 3
-                a.planner-circle[title="Kim & Kanye" data-toggle="tooltip"]
-                  = image_tag "sample/face/girl02.jpg"
-                    
+          .col-sm-12.rm-padding--sp.row-space-6.text-center
+            a.btn.btn-large.btn-more
+              | 他のガイドを見る
+              i.fa.fa-caret-down
+
+  .charmer.row-space-8
+    .carousel-inner
+      .item.active
+        .row.row-table.row-full-height
+          .col-md-12.col-middle
+            h3 
+              | 世界中で友達を作ろう！
+              span.row-space-top-2 Huber.の旅が人気の理由
+    a.left.carousel-control[href="#carousel-example-generic" role="button" data-slide="prev"]
+      i.fa.fa-chevron-left[aria-hidden="true"]
+      span.sr-only Previous
+    a.right.carousel-control[href="#carousel-example-generic" role="button" data-slide="next"]
+      i.fa.fa-chevron-right[aria-hidden="true"]
+      span.sr-only Next
+
+  div[style="height: 60px;"]

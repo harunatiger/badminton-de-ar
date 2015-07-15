@@ -1,4 +1,6 @@
 - reviewed_count = @reviewed.count
+- if user_signed_in? && @profile.user_id == current_user.id
+  = render partial: "edit_link"
 .page-container.row-space-top-4.row-space-8
   .row
     = render partial: '/profiles/show/left_column', locals: { profile: @profile, listings: @listings }
@@ -10,7 +12,8 @@
             span.badge-pill-count
               | レビュー数
               span.h5
-              |
+              |  
               = reviewed_count
       .social_connections_and_reviews
+        /= render partial: '/profiles/show/wishlists'
         = render partial: '/profiles/show/reviewed', locals: { reviewed: @reviewed, reviewed_count: reviewed_count }
