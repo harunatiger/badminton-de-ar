@@ -1,23 +1,26 @@
-.col-lg-8
-  .name_bar.row-space-4.row-space-top-4
-    .row.row-table.row-reset
-      .col-md-12.col-middle.col-reset
-        h1#listing_name.overflow.h3.row-space-2.text-center--sp
-          = listing.title
-        .text-muted.text-center--sp.row-space-4
-          a.link-reset[href="#neighborhood"]
-            /= listing.location
-            | 北海道・函館〜札幌〜網走
-          a.link-reset.star-rating-wrap[href="#reviews"]
-            .star-rating
-              = render partial: 'listings/stars', locals: { rate: listing.ave_total }
-          |  (
-          span[itemprop="reviewCount"]
-            = reviews.count
-          | )
-        = render partial: 'delivery_ok_button', locals: { listing: listing }
+.col-md-12.row-space-top-4.row-space-2
+  .tour-title.pull-left
+    h1#listing_name.overflow.h3.text-center--sp
+      = listing.title
+    .text-muted.row-space-top-2.text-center--sp
+      a.link-reset[href="#neighborhood"]
+        /= listing.location
+        | 北海道・函館〜札幌〜網走
+      a.link-reset.star-rating-wrap[href="#reviews"]
+        .star-rating
+          = render partial: 'listings/stars', locals: { rate: listing.ave_total }
+      |  (
+      span[itemprop="reviewCount"]
+        = reviews.count
+      | )
+    = render partial: 'delivery_ok_button', locals: { listing: listing }
 
-    .tag-list-wrapper.row-space-2
+  .tour-title.pull-right.text-right
+    #tour-price.price.h3.text-special.row-space-2
+      span ツアー料金 
+      | ¥
+      = @listing.price
+    .tag-list-wrapper
       ul
         li.tl01
           = link_to '#', title: "法人運営", data: {toggle: "tooltip"} do
@@ -44,42 +47,3 @@
           = link_to '#', title: "特別な注意点", data: {toggle: "tooltip"} do
             i.fa.fa-exclamation-triangle
       
-    .lang-list-wrapper.row-space-3
-      ul
-        li
-          span
-            i.fa.fa-comments-o
-            | English
-        li
-          span
-            i.fa.fa-comments-o
-            | 日本語
-        li
-          span
-            i.fa.fa-comments-o
-            | 中国語
-          
-    /p.listing-description.row-space-3
-      = listing.description
-      
-    /#book-it-urgency-commitment.row-space-3
-      .row[data-hook="visitor-count-simple"]
-        .col-12
-          .text-muted[data-hook="visitor-count-simple-content"]
-            = listing.user.try('name') || Settings.user.host.this
-            | さんのリスティングを見た人は今週
-            = listing_id_to_weekly_pv(listing.id)
-            |人
-            
-    /p.text-center--sp.row-space-8
-      - if user_signed_in?
-        - if current_user.id == listing.user_id
-          button.btn.btn-small.btn-primary.disabled
-            | こちらのガイドに連絡
-        - else
-          button#message-host-link.btn.btn-small.btn-primary
-            | こちらのガイドに連絡
-      - else
-        = link_to new_user_session_path do
-          button.btn.btn-small.btn-primary
-            | こちらのガイドに連絡

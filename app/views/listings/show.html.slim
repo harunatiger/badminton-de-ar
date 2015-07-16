@@ -1,32 +1,58 @@
 // Only for Huber prototype
-
-/- if user_signed_in? && @listing.user_id == current_user.id
-  = render partial: "edit_link"
   
-= render partial: "subnav"
+.page-container-full
+  .row.row-flat
+    = render partial: 'name_bar', locals: { listing: @listing, reviews: @reviews }
 
 = render partial: "slideshow", locals: { listing_image: @listing_image, listing: @listing }
-#summary.card.listing-section
+
+#summary.listing-section
   .page-container
     .row
-      = render partial: 'name_bar', locals: { listing: @listing, reviews: @reviews }
-      = render partial: 'request_block', locals: { listing: @listing }
-#details.details-section
-  = render partial: 'detail', locals: { listing: @listing, listing_image: @listing_image, confection: @confection, tool: @tool, dress_code: @dress_code}
-#reviews.listing-section
-  = render partial: 'review_block', locals: { listing: @listing, reviews: @reviews, host_info: @host_info, host_image: @host_image }
-#host-profile.listing-section
-  = render partial: 'host_info', locals: { host_info: @host_info, host_image: @host_image, listing: @listing }
-#neighborhood.listing-section
-  .card.location-card
-    .row
-      .col-md-6.map_jp-wrapper
-        #map_jp
-          span.pointer.po01
-          span.pointer.po02
-          span.pointer.po03
       .col-md-6
-        #map
-      
+        .planner-box.row-space-6
+          .planner-info
+            .planner-thumbnail
+              = image_tag 'apple-touch-icon.png'
+            .planner-name
+              | Presented by Huber.
+          .plan-info
+            | 人気の東北海道へ行こう！フライト＋ホテル＋レンタカーの、シンプル＝お値打ちフリープラン♪
+            | 滞在中レンタカー（ＵＳクラス／1予約に1台）付♪乗捨て代金不要！全車禁煙車でご用意！
+            | フライトは、旭川、とかち帯広、女満別、釧路、中標津、オホーツク紋別、新千歳空港、どの空港、どの便選んでも同代金♪
+            | 選べるホテルは旭川、富良野、札幌北広島でご用意！追加割増代金で、知床ウトロ温泉、阿寒湖畔、トマム、十勝川温泉、層雲峡温泉、網走、釧路など、1泊ずつでも、連泊でも、17軒から自由に選べます♪
+        .comment-box
+          h3.row-space-4 ツアーのレビュー
+          .comment-box-inner.text-center
+            ul
+              li
+                a href="#"
+                  = image_tag('sample/face/review01.jpg')
+                  | 水原 希子さん
+              li
+                a href="#"
+                  = image_tag('sample/face/review02.jpg')
+                  | ローラさん
+              li
+                a href="#"
+                  = image_tag('sample/face/review03.jpg')
+                  | Beyonceさん
+              li
+                a href="#"
+                  = image_tag('sample/face/review01.jpg')
+                  | 水原 希子さん
+              li
+                a href="#"
+                  = image_tag('sample/face/review02.jpg')
+                  | ローラさん
+
+      .col-md-6
+        .map-wrapper.row-space-top-4.row-space-4
+          #map
+
+= render partial: 'list'
+  
+  
+
 = render partial: '/shared/modals/share_email'
 = render partial: '/shared/modals/message_to_host', locals: { listing: @listing } if user_signed_in?

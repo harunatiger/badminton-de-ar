@@ -213,8 +213,6 @@
     font-size: 20px
 
 
-    
-
 /* sign up
  ================================================== */
 .remember-me
@@ -389,7 +387,7 @@ a.delete
 #photos
   position: relative
   width: 100%
-  height: 282px
+  height: 680px
   transition: height 0.2s
   .cover-img-container
     display: inline
@@ -397,7 +395,7 @@ a.delete
       height: 100%
       background-repeat: no-repeat
       background-size: cover
-      background-position: 50% 30%
+      background-position: 50% 80%
       background-color: #f5f5f5
   .photo-chevron
     position: absolute
@@ -419,6 +417,43 @@ a.delete
       left: 0
     &.right
       right: 0
+  .img-scroll-list
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    height: 100%
+    background-color: rgba(0, 0, 0, 0.5)
+    overflow: auto
+    ul
+      list-style: none
+      padding: 10px 0 0
+      margin: 0
+      li
+        padding: 0 10px 10px
+        margin: 0
+        .vessel
+          width: 200px
+          height: 150px
+          background-size: cover
+          background-position: center center
+          &.pic001
+            background-image: image-url('sample/pic/tour001.jpg')
+          &.pic002
+            background-image: image-url('sample/pic/tour002.jpg')
+          &.pic003
+            background-image: image-url('sample/pic/tour003.jpg')
+          &.pic004
+            background-image: image-url('sample/pic/tour004.jpg')
+          &.pic005
+            background-image: image-url('sample/pic/tour005.jpg')
+          &.pic006
+            background-image: image-url('sample/pic/tour006.jpg')
+          &.pic007
+            background-image: image-url('sample/pic/tour007.jpg')
+          &.pic008
+            background-image: image-url('sample/pic/tour008.jpg')
+
 
 @media (max-width: 1099px)
   #photos .photo-chevron
@@ -463,7 +498,6 @@ a.delete
     margin: 0 auto 30px
 
 .name_bar
-  max-width: 640px
   margin-left: auto
   margin-right: auto
 
@@ -1063,3 +1097,80 @@ $lines-to-show: 3
   position: fixed
   bottom: 20px
   right: 0
+
+
+/* tour detail */
+.tour-title
+  &.pull-left
+    padding-left: 22px
+  &.pull-right
+    padding-right: 22px
+  .tag-list-wrapper
+    ul
+      li
+        margin: 0 5px 0 0
+        a
+          width: 32px
+          height: 32px
+          line-height: 32px
+          font-size: 14px
+#tour-price
+  color: $brand-theme
+  font-weight: 700
+  padding-right: 10px
+  span
+    display: inline-block
+    height: 26px
+    line-height: 24px
+    margin: 0 10px 2px 0
+    padding: 0 5px
+    color: #999
+    font-size: 14px
+    border: 1px solid #ccc
+    vertical-align: middle
+
+.planner-box
+  .planner-info
+    position: relative
+    min-height: 100px
+    padding: 15px 0 0 132px
+    .planner-thumbnail
+      position: absolute
+      top: -40px
+      left: 0
+      img
+        width: 120px
+        height: auto
+        border-radius: 50%
+        border: 4px solid #eef1f4
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1)
+    .planner-name
+      font-size: 16px
+  .plan-info
+    font-size: 16px
+
+
+/* comment-box */
+.comment-box
+  h3
+    font-size: 20px
+  .comment-box-inner
+    width: 100%
+    height: 130px
+    overflow-x: auto
+    ul
+      list-style: none
+      width: 600px
+      height: 120px
+      padding: 0
+      margin: 0
+      li
+        float: left
+        margin: 0 10px 0 0
+        padding: 0
+        a
+          img
+            display: block
+            width: 100px
+            height: auto
+            border-radius: 50%
