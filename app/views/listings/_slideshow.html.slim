@@ -2,5 +2,7 @@
   #photos.with-photos.with-modal
     .photo-slider-items.hide
       = link_to(listing_image.image.url, class: 'photo-slider-item', title: listing_image.caption)
+      /a.photo-slider-item[href="#{listing_image.image.url}" title="#{listing_image.caption}"]
+        = image_tag(listing_image.image.url)
     .cover-img-container
-      .cover-img.cover01
+      | <div class="cover-img" style="background-image:url(#{@listing.try('cover_image') || ''})">

@@ -95,21 +95,30 @@ $ ->
         tempCount = bodyHeight - (footerHeight + neighborHeight + bookHeight + 37.5)
         stickyBoxTop = $('#summary').offset().top - 1
 
+      if $('body').hasClass('listings show')
+        photoHeight = $('#photos').outerHeight()
+        headerHeight = $('#header').outerHeight()
+        footerHeight = $('footer').outerHeight()
+        neighborHeight = $('#neighborhood').outerHeight()
+        similarHeight = $('#similar-listings').outerHeight()
+        priceHeight = $('#pricing').outerHeight()
+        bookHeight = $('#book_it').outerHeight()
+        tempCount = bodyHeight - (footerHeight + neighborHeight + similarHeight + bookHeight + 37.5 + 25)
+        stickyBoxTop = $('#summary').offset().top - 1
+
       stickyNav = ->
         scrollTop = $(window).scrollTop()
+
         if $('body').hasClass('listings show')
-          if scrollTop > 67 && scrollTop < tempCount
-            $('#book_it').addClass('fixed').removeAttr 'style'
+          if scrollTop >= stickyBoxTop && scrollTop < tempCount
+            $('#pricing, #book_it').addClass('fixed').removeAttr 'style'
+            $('.subnav').attr 'aria-hidden','false'
           else if scrollTop >= tempCount
-            tempPos1 = tempCount - (photoHeight + headerHeight)
+            tempPos1 = tempCount - (photoHeight + headerHeight) + priceHeight
             $('#book_it').removeClass 'fixed'
             $('#book_it').css('top', tempPos1 + 'px')
           else
-            $('#book_it').removeClass('fixed').removeAttr 'style'
-
-          if scrollTop >= stickyBoxTop && scrollTop < tempCount
-            $('.subnav').attr 'aria-hidden','false'
-          else
+            $('#pricing, #book_it').removeClass('fixed').removeAttr 'style'
             $('.subnav').attr 'aria-hidden','true'
           return
         else
@@ -164,6 +173,8 @@ $ ->
       autoclose: true,
       startDate: '+1d',
       language: 'ja'
+
+    $('#charmer').carousel()
 
   # google place-auto-complete
   initialize()

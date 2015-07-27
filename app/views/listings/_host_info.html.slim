@@ -1,7 +1,7 @@
 .page-container.row-space-2
   .row
     .col-lg-8
-      .row-space-8.row-space-top-8
+      .row-space-4.row-space-top-8
         h4.row-space-4.text-center--sp
           = host_info.try('name') || Settings.user.host.this
           |  さんの紹介
@@ -19,19 +19,20 @@
                     b
                       | プロフィールをすべて表示
             .row.row-condensed.row-space-2
-              .col-md-12
-                div.row-space-1
+              .col-md-6
+                div
                   = host_info.try('location') || ''
-                div.row-space-1
+                div
                   |  メンバー登録:
                   = host_info.created_at.strftime("%Y年%m月")
-                div.row-space-1
+              .col-md-6
+                div
                   |  返答率：
                   b
                     | 100%
                   small.response-details.text-muted.hide
                     | (最新の連絡10件)
-                div.row-space-1
+                div
                   |  返答時間:
                   b
                     | 数時間以内
@@ -46,7 +47,7 @@
               = link_to new_user_session_path do
                 button.btn.btn-small.btn-primary
                   | こちらのホストに連絡 
-      /.row-space-8.row-space-top-4
+      .row-space-8.row-space-top-4
         .row
           .col-md-3
           .col-md-9
