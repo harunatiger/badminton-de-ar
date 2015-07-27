@@ -1890,9 +1890,9 @@ select
 /* subnav */
 .subnav
   position: relative
-  background: white
+  background: rgba(23,174,223, 0.75)
   user-select: none
-  border-bottom: 1px solid $border1
+  //border-bottom: 1px solid $border1
   &[data-sticky="true"].pinned, &[data-transition-at]
     position: fixed
     top: 0
@@ -1947,13 +1947,13 @@ select
     a
       display: block
       position: relative
-      color: $brand-theme
+      color: #cbecf7
       padding: 10px 14px
       &:hover
-        color: $brand-theme-hover
+        color: white
         text-decoration: none
       &[aria-selected="true"]
-        color: $brand-theme
+        color: white
         &:before
           position: absolute
           content: ''
@@ -1976,7 +1976,7 @@ select
           left: 14px
           right: 14px
           bottom: 0
-          border: 2px solid $border1
+          border: 2px solid white
 
 /* sidenav */
 .sidenav
