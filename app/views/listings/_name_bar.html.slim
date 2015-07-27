@@ -1,49 +1,25 @@
-.col-md-12.row-space-top-4.row-space-2
-  .tour-title.pull-left
-    h1#listing_name.overflow.h3.text-center--sp
-      = listing.title
-    .text-muted.row-space-top-2.text-center--sp
-      a.link-reset[href="#neighborhood"]
-        /= listing.location
-        | 北海道・函館〜札幌〜網走
-      a.link-reset.star-rating-wrap[href="#reviews"]
-        .star-rating
-          = render partial: 'listings/stars', locals: { rate: listing.ave_total }
-      |  (
-      span[itemprop="reviewCount"]
-        = reviews.count
-      | )
-    = render partial: 'delivery_ok_button', locals: { listing: listing }
-
-  .tour-title.pull-right.text-right
-    #tour-price.price.h3.text-special.row-space-2
-      span ツアー料金 
-      | ¥
-      = @listing.price
-    .tag-list-wrapper
-      ul
-        li.tl01
-          = link_to '#', title: "法人運営", data: {toggle: "tooltip"} do
-            i.fa.fa-building
-        li.tl02
-          = link_to '#', title: "バス・車での移動", data: {toggle: "tooltip"} do
-            i.fa.fa-car
-        li.tl03
-          = link_to '#', title: "船・ボートでの移動", data: {toggle: "tooltip"} do
-            i.fa.fa-ship
-        li.tl04
-          = link_to '#', title: "買い物", data: {toggle: "tooltip"} do
-            i.fa.fa-shopping-cart
-        li.tl05
-          = link_to '#', title: "食事", data: {toggle: "tooltip"} do
-            i.fa.fa-cutlery
-        li.tl06
-          = link_to '#', title: "お酒", data: {toggle: "tooltip"} do
-            i.fa.fa-glass
-        li.tl07
-          = link_to '#', title: "宿泊施設", data: {toggle: "tooltip"} do
-            i.fa.fa-bed
-        li.tl08
-          = link_to '#', title: "特別な注意点", data: {toggle: "tooltip"} do
-            i.fa.fa-exclamation-triangle
-      
+.col-lg-8
+  .row-space-4.row-space-top-4
+    .row.row-table.row-reset
+      .col-md-3.col-middle.text-center.col-reset
+        = link_to profile_path(listing.user_id), class: 'media-photo media-round' do
+          = image_tag(user_id_to_profile_image(listing.user_id), class: "size90")
+      .col-md-9.col-middle.col-reset
+        h1#listing_name.overflow.h3.row-space-1.text-center--sp
+          = listing.title
+        .text-muted.text-center--sp.row-space-1
+          a.link-reset[href="#neighborhood"]
+            = listing.location
+          a.link-reset[href="#reviews"]
+            .star-rating
+              = render partial: 'listings/stars', locals: { rate: listing.ave_total }
+          |  (
+          span[itemprop="reviewCount"]
+            = reviews.count
+          | )
+        = render partial: 'delivery_ok_button', locals: { listing: listing }
+    .row.hide--sp
+      .col-md-3.text-muted.text-center
+        = link_to profile_path(listing.user_id), class: 'link-reset.text-wrap' do
+          = user_id_to_name(listing.user_id)
+          | さん

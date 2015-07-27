@@ -1,7 +1,0 @@
-.alert.alert-absolute
-  div
-    | あなたのリスティングです。
-    = link_to edit_listing_path do
-      | このリスティングを編集する
-      '
-      i.fa.fa-chevron-right

@@ -1,6 +1,0 @@
-.listing
-  #photos.with-photos.with-modal
-    .photo-slider-items.hide
-      = link_to(listing_image.image.url, class: 'photo-slider-item', title: listing_image.caption)
-    .cover-img-container
-      .cover-img.cover01
