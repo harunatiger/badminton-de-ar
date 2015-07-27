@@ -53,7 +53,8 @@ class Listing < ActiveRecord::Base
   end
 =end
 
-  belongs_to :user
+  has_many :listing_users, dependent: :destroy
+  has_many :users, through: :listing_users, dependent: :destroy
   has_many :listing_images, dependent: :destroy
   has_many :listing_videos, dependent: :destroy
   has_one :confection, dependent: :destroy
