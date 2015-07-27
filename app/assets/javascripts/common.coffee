@@ -174,6 +174,8 @@ $ ->
       startDate: '+1d',
       language: 'ja'
 
+    $('#charmer').carousel()
+
   # google place-auto-complete
   initialize()
   # google place-auto-complete2
