@@ -1,0 +1,15 @@
+.card
+  .page-container.row-space-2
+    .row
+      .col-lg-8
+        .row-space-6.row-space-top-8
+          h4.row-space-4
+            |  レビュー
+            = reviews.count
+            | 件
+            .star-rating
+              = render partial: 'listings/stars', locals: { rate: listing.ave_total }
+        .review-content
+          .card-body
+            = render partial: 'review_item', locals: { reviews: reviews, host_info: host_info, host_image: host_image }
+            = paginate reviews
