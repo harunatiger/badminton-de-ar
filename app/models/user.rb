@@ -48,7 +48,8 @@ class User < ActiveRecord::Base
   #has_many :emergency, through: :user_emergencies
   has_one :profile_image, dependent: :destroy
   has_one :profile_video, dependent: :destroy
-  has_many :listings, dependent: :destroy
+  has_many :listing_users, class_name: 'ListingUser', foreign_key: 'host_id', dependent: :destroy
+  has_many :listings, through: :listing_users, dependent: :destroy
   has_many :message_thread_users, dependent: :destroy
   has_many :message_threads, through: :message_thread_users, dependent: :destroy
 
