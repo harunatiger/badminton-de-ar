@@ -174,6 +174,10 @@
       background-image: image-url('sample/pic/sample1400x600.jpg')
       background-position: center center
       background-size: cover
+      &.item2
+        background-image: image-url('sample/pic/sample1400x600_2.jpg')
+      &.item3
+        background-image: image-url('sample/pic/sample1400x600_3.jpg')
       h3
         color: white
         font-size: 44px
@@ -183,6 +187,8 @@
         span
           display: block
           font-size: 32px
+  @media (max-width: 767px)
+    display: none
 
 .carousel-control
   .fa
@@ -211,9 +217,6 @@
     top: 9px
     right: 10px
     font-size: 20px
-
-
-    
 
 /* sign up
  ================================================== */
@@ -389,7 +392,7 @@ a.delete
 #photos
   position: relative
   width: 100%
-  height: 282px
+  height: 402px
   transition: height 0.2s
   .cover-img-container
     display: inline
@@ -397,7 +400,7 @@ a.delete
       height: 100%
       background-repeat: no-repeat
       background-size: cover
-      background-position: 50% 30%
+      background-position: 50% 50%
       background-color: #f5f5f5
   .photo-chevron
     position: absolute
@@ -419,12 +422,45 @@ a.delete
       left: 0
     &.right
       right: 0
+  &.with-photos
+    &.medium
+      height: 552px
+    &.large
+      height: 702px
+    &.xlarge
+      height: 852px
+  &.with-modal .cover-img
+    /*cursor: pointer*/
 
 @media (max-width: 1099px)
   #photos .photo-chevron
     font-size: 5em
     width: 40px
     padding: 0
+
+@media screen and (min-height: 700px)
+  #photos.with-photos
+    height: 552px
+
+@media screen and (min-height: 850px)
+  #photos.with-photos
+    height: 702px
+
+@media screen and (min-height: 1000px)
+  #photos.with-photos
+    height: 852px
+
+@media screen and (max-width: 1099px) and (min-height: 700px)
+  #photos.with-photos
+    height: 441.6px
+
+@media screen and (max-width: 1099px) and (min-height: 850px)
+  #photos.with-photos
+    height: 561.6px
+
+@media screen and (max-width: 1099px) and (min-height: 1000px)
+  #photos.with-photos
+    height: 681.6px
 
 @media (max-width: 767px)
   #photos.with-photos
@@ -433,6 +469,14 @@ a.delete
 @media screen and (max-width: 767px) and (min-height: 700px)
   #photos.with-photos
     height: 368px
+
+@media screen and (max-width: 767px) and (min-height: 850px)
+  #photos.with-photos
+    height: 468px
+
+@media screen and (max-width: 767px) and (min-height: 1000px)
+  #photos.with-photos
+    height: 568px
 
 .with-photos+.card
   border-top: 0
@@ -456,68 +500,9 @@ a.delete
   li:first-child
     padding: 15px 20px 10px
 
-.new-o2-form-inline
-  margin-top: -264px
+#new_reservation
+  margin-top: -40px
   width: 315px
-  @media (max-width: 1099px)
-    margin: 0 auto 30px
-
-.name_bar
-  max-width: 640px
-  margin-left: auto
-  margin-right: auto
-
-.star-rating-wrap
-  display: inline-block
-  margin-left: 10px
-
-.guide-name
-  display: block
-  height: 40px
-  line-height: 40px
-  font-size: 16px
-  font-weight: 700
-.bust
-  position: relative
-  img
-    width: 100%
-    height: auto
-    border-radius: 4px
-  .huber-likes
-    position: absolute
-    bottom: 12px
-    right: 10px
-    color: white
-    height: 28px
-    line-height: 28px
-    padding: 0 13px
-    border-radius: 14px
-    span
-      font-weight: 700
-  .other-actions
-    position: absolute
-    bottom: 10px
-    left: 10px
-    .share-triggers
-      display: block
-      a
-        width: 32px
-        height: 32px
-        line-height: 32px
-        margin-right: 10px
-        text-align: center
-        background-color: rgba(255, 255, 255, 0.75)
-        border-radius: 50%
-        .fa
-          height: 32px
-          line-height: 32px
-          font-size: 16px
-        .fa-envelope
-          color: #1abc9c
-        .fa-facebook
-          color: #3b5998
-        .fa-twitter
-          color: #55acee
 
 #pricing
   background-color: rgba(0, 0, 0, 0.5)
@@ -547,16 +532,10 @@ a.delete
   width: 315px
   z-index: 10
   border-top: none
-  .card
-    background-color: rgba(255, 255, 255, 0.8)
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15)
-    .card-body
-      padding-top: 0
-      background: transparent
   @media (min-width: 1100px)
     &.fixed
       position: fixed
-      top: -1px
+      top: 40px
       z-index: 1001
 
 @media (max-width: 1099px)
@@ -566,90 +545,13 @@ a.delete
     width: auto
     position: static
 
-.listed-img
-  display: block
-  margin: 0 auto
-
-.tag-list-wrapper
-  ul
-    list-style: none
-    margin: 0 0 10px
-    padding: 0
-    overflow: hidden
-    li
-      float: left
-      margin: 0 10px 10px 0
-      a
-        display: block
-        width: 38px
-        height: 38px
-        line-height: 38px
-        color: white
-        font-size: 16px
-        text-align: center
-        background-color: $brand-theme
-        border-radius: 50%
-  @media (max-width: 1099px)
-    ul
-      text-align: center
-      li
-        float: none
-        display: inline-block
-        a
-          width: 32px
-          height: 32px
-          line-height: 32px
-          font-size: 14px
-
-.lang-list-wrapper
-  ul
-    list-style: none
-    margin: 0 0 20px
-    padding: 0
-    overflow: hidden
-    li
-      float: left
-      margin: 0 10px 10px 0
-      span
-        display: block
-        height: 30px
-        line-height: 28px
-        padding: 0 12px 0 8px
-        color: $brand-theme
-        font-size: 14px
-        font-weight: 700
-        text-align: center
-        background-color: white
-        border: 1px solid $brand-theme
-        border-radius: 2px
-        .fa
-          display: inline-block
-          margin: 0 5px 2px 0
-          font-size: 18px
-          vertical-align: middle
-
-.photo-list-wrapper
-  max-width: 480px
-  margin: 0 auto
-  .photo-trigger
-    margin: 0 0 10px
-    img.listed-img
-      width: 100%
-      height: auto
-  h5
-    font-size: 18px
-  p
-    font-size: 16px
-
 #neighborhood
   .location-card
     position: relative
-    overflow: hidden
+    height: 650px
 
-#map, .map_jp-wrapper
-  height: 500px
-  @media (max-width: 767px)
-    height: 300px
+#map
+  height: 100%
 
 /* listing.show */
 .listing.show
@@ -662,6 +564,7 @@ a.delete
 
 .listing-description
   font-size: 15px
+  margin-bottom: 30px
 
 /* search */
 .listings.search

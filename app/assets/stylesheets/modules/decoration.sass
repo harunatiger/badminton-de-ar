@@ -27,12 +27,14 @@ body.slideout
 /* card */
 .card
   border: 1px solid $border1
-  background-color: $bg4
+  background-color: white
   border-radius: 0
   &.card-bald
     border-top: 0
   &.card-waxing
     border-bottom: 0
+  &.card-discovery
+    background-color: $bg4
 
 .card-dark
   background-color: $bg1
@@ -824,78 +826,7 @@ label.error
                 opacity: 0.8
 
 
-// for sample
-.cover01
-  background-image: image-url('sample/pic/huber_pic001.jpg')
-
-body.listings.show
-  background-color: white
-
-span.price-title
-  display: inline-block
-  width: 100%
-  height: 32px
-  line-height: 30px
-  padding: 0 8px
-  text-align: center
-  border: 1px solid $border1
-  border-radius: 2px
-
-span.price-value
-  display: inline-block
-  line-height: 32px
-  font-size: 18px
-  small
-    display: inline-block
-    margin: 0 0 0 5px
-    color: #999
-
-#map_jp
-  position: absolute
-  top: 50%
-  left: 50%
-  width: 305px
-  height: 210px
-  margin: -105px 0 0 -125px
-  background-image: image-url('map_jp.png')
-  background-repeat: no-repeat
-  background-position: center center
-  background-size: 305px 210px
-  .pointer
-    position: absolute
-    width: 10px
-    height: 10px
-    border-radius: 50%
-    background-color: $brand-theme
-    &.po01
-      top: 151px
-      left: 169px
-      &:after
-        content: ''
-        display: block
-        position: absolute
-        top: -5px
-        left: -5px
-        width: 20px
-        height: 20px
-        border-radius: 50%
-        background-color: $brand-theme-hover
-        animation: pulsate 1.2s infinite
-    &.po02
-      top: 150px
-      left: 120px
-      opacity: 0.5
-    &.po03
-      top: 43px
-      left: 221px
-      opacity: 0.5
-
-@keyframes pulsate
-  0%
-    transform: scale(0.1, 0.1)
-    opacity: 0.0
-  50%
-    opacity: 1.0
-  100%
-    transform: scale(1.2, 1.2)
-    opacity: 0.0
+.copy-single
+  padding: 80px 0
+  font-size: 20px
+  font-weight: 700

@@ -37,12 +37,12 @@
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        |  一人あたりの金額（円）
+        |  一人あたりの金額
     .col-xs-8.fieldset.col-middle
       .row
-        /.col-xs-5.add-value--price.add--help
-        .col-xs-5.add--help
-          = f.input_field :price, placeholder: "4000"
+        .col-xs-5.add-value--price.add--help
+          = f.input_field :price, as: :string, value: "", placeholder: "例) 5000"
+          p.help.text-pink カンマ( , )は使わないでください
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light

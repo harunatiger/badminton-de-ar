@@ -1,10 +1,6 @@
-// Only for Huber prototype
-
-/- if user_signed_in? && @listing.user_id == current_user.id
+- if user_signed_in? && @listing.user_id == current_user.id
   = render partial: "edit_link"
-  
 = render partial: "subnav"
-
 = render partial: "slideshow", locals: { listing_image: @listing_image, listing: @listing }
 #summary.card.listing-section
   .page-container
@@ -19,14 +15,10 @@
   = render partial: 'host_info', locals: { host_info: @host_info, host_image: @host_image, listing: @listing }
 #neighborhood.listing-section
   .card.location-card
-    .row
-      .col-md-6.map_jp-wrapper
-        #map_jp
-          span.pointer.po01
-          span.pointer.po02
-          span.pointer.po03
-      .col-md-6
-        #map
-      
+    #map
+    
+/#similar-listings.row-space-6.row-space-top-4
+  /= render partial: 'similar_listings'
 = render partial: '/shared/modals/share_email'
 = render partial: '/shared/modals/message_to_host', locals: { listing: @listing } if user_signed_in?
+/= render partial: '/shared/modals/wishlist', locals: { listing: @listing,  }
