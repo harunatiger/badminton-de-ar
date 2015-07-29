@@ -46,8 +46,7 @@
             .row.row-space-top-3[data-hook="visitor-count-simple"]
               .col-10.col-center
                 .text-center.text-muted[data-hook="visitor-count-simple-content"]
-                  /listing.userは利用できないためコメントアウト
-                  /= listing.user.try('name') || Settings.user.host.this
+                  = listing.user.try('name') || Settings.user.host.this
                   | さんのリスティングを見た人は今週
                   = listing_id_to_weekly_pv(listing.id)
                   |人
