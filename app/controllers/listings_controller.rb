@@ -7,7 +7,7 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
-    @listings = current_user.listings.order_by_updated_at_desc
+    @listings = Listing.mine(current_user.id).order_by_updated_at_desc
   end
 
   # GET /listings/1
@@ -40,7 +40,6 @@ class ListingsController < ApplicationController
     if @listing.set_lon_lat
       respond_to do |format|
         if @listing.save
-          ListingUser.create(listing_id: @listing.id, host_id: current_user.id)
           format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
         else
           format.html { render :new }
