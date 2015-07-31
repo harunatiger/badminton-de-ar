@@ -50,7 +50,7 @@
             .col-7
               = f.input_field :phone
               .text-muted.row-space-top-1 この情報は参加が確定したユーザーのみに公開されます。
-          .row.row-condensed.row-space-4
+          /.row.row-condensed.row-space-4
             label.text-right.col-3[for="user_phone"]
               | 郵便番号
               i.fa.fa-lock.fa-green
@@ -58,7 +58,7 @@
               /input#user-zipcode[type="text" placeholder="例) 012-3456"]
               = f.input_field :zipcode, id: 'user-zipcode', placeholder: '例） 012-3456'
               .text-muted.row-space-top-1 この情報は他のユーザーに公開されません。
-          .row.row-condensed.row-space-4
+          /.row.row-condensed.row-space-4
             label.text-right.col-3[for="user_phone"]
               | 住所
             .col-7
