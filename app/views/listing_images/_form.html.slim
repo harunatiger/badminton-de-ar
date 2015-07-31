@@ -6,7 +6,7 @@
     = f.fields_for :listing_images, listing_image do |image_form|
       = image_form.hidden_field :listing_id
       -if listing_image.image.present?
-        .row.row-space-5.row-space-top-5.row-table
+        .row.row-space-4.row-space-top-4.row-table
           .col-xs-4.text-right.col-middle
             .h4.text-light
               |  現在の画像
@@ -14,7 +14,7 @@
             .row
               .col-xs-11.regist-pics
                 = image_tag(listing_image.image.thumb)
-      .row.row-space-5.row-space-top-5.row-table
+      .row.row-space-4.row-space-top-4.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light
             | ガイドのイメージ画像
@@ -23,7 +23,7 @@
           .row
             .col-xs-11.regist-pics
               = image_form.file_field :image, as: :file
-      .row.row-space-5.row-space-top-5.row-table
+      .row.row-space-4.row-space-top-4.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light
             |  写真のタイトル
@@ -32,7 +32,7 @@
           .row
             .col-xs-11
               = image_form.input_field :caption, placeholder: "例) ショッピングはここで！"
-      .row.row-space-5.row-space-top-5.row-table
+      .row.row-space-8.row-space-top-4.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light
             |  写真の説明
@@ -40,7 +40,7 @@
         .col-xs-8.fieldset.col-middle
           .row
             .col-xs-11
-              = image_form.text_area :description, as: :text, placeholder: "例) スープカレーからラーメン、焼肉、お寿司まで！特におすすめするのはイカです❤︎帰る前には絶対食べていただきます笑"
+              = image_form.text_area :description, as: :text, placeholder: "例) スープカレーからラーメン、焼肉、お寿司まで！特におすすめするのはイカです❤︎帰る前には絶対食べていただきます笑", rows: '6'
     - count += 1
   .row
     .col-xs-9.col-offset-3.text-reset-center
