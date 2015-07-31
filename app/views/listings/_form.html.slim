@@ -68,8 +68,9 @@
       .row
         .col-xs-11.regist-pics
           = f.file_field :cover_image, as: :file
-          = f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2"
-  .row.row-space-5.row-space-top-5.row-table
+          = f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2 row-space-1"
+          span.text-pink 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
+  /.row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
         |  開催場所の郵便番号
@@ -79,7 +80,7 @@
           = f.input_field :zipcode, placeholder: "例) 012-3456"
         .question-icon-container
           i#zipcode-tooltip.fa.fa-question-circle.tooltip-trigger
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
         |  開催場所の住所
