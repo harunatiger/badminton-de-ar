@@ -360,6 +360,7 @@ Rails.application.routes.draw do
     end
     resources :listing_images, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
+      post 'update_all', on: :collection
     end
     #resources :listing_videos do
     #  get 'manage', on: :collection

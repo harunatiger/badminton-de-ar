@@ -4,13 +4,16 @@ class ListingImagesController < ApplicationController
   before_action :set_listing
 
   def manage
-    listing_images = ListingImage.records(params[:listing_id])
-    if listing_images.size.zero?
-      @listing_image = ListingImage.new
-      return
+    listing_images = ListingImage.records(@listing.id)
+    @listing_images = ListingImageCollection.new({},@listing.id)
+  end
+  
+  def update_all
+    @listing_images = ListingImageCollection.new(listing_image_collection_params, @listing.id)
+    if @listing_images.save
+      redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.save.success
     else
-      @listing_image = listing_images[0]
-      return
+      redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.save.failure
     end
   end
 
@@ -56,6 +59,12 @@ class ListingImagesController < ApplicationController
 
     def listing_image_params
       params.require(:listing_image).permit(:listing_id, :image, :caption)
+    end
+  
+    def listing_image_collection_params
+      params
+        .require(:listing_image_collection)
+      .permit(listing_images_attributes: [:id, :listing_id, :image, :caption, :description])
     end
 
 end
