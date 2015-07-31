@@ -131,16 +131,6 @@ ActiveRecord::Schema.define(version: 20150730115518) do
   add_index "listing_pvs", ["listing_id"], name: "index_listing_pvs_on_listing_id", using: :btree
   add_index "listing_pvs", ["viewed_at", "listing_id"], name: "index_listing_pvs_on_viewed_at_and_listing_id", unique: true, using: :btree
 
-  create_table "listing_users", force: :cascade do |t|
-    t.integer  "listing_id", null: false
-    t.integer  "host_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "listing_users", ["host_id"], name: "index_listing_users_on_host_id", using: :btree
-  add_index "listing_users", ["listing_id"], name: "index_listing_users_on_listing_id", using: :btree
-
   create_table "listing_videos", force: :cascade do |t|
     t.integer  "listing_id"
     t.string   "video",      default: ""
@@ -398,8 +388,6 @@ ActiveRecord::Schema.define(version: 20150730115518) do
   add_foreign_key "emergencies", "users"
   add_foreign_key "listing_images", "listings"
   add_foreign_key "listing_pvs", "listings"
-  add_foreign_key "listing_users", "listings"
-  add_foreign_key "listing_users", "users", column: "host_id"
   add_foreign_key "listing_videos", "listings"
   add_foreign_key "listings", "users"
   add_foreign_key "message_thread_users", "message_threads"
