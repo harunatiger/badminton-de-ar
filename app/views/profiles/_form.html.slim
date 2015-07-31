@@ -66,7 +66,23 @@
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_self_introduction"]
               | 自己紹介
-            .col-8
-              = f.input_field :self_introduction, as: :text, cols: "30", rows: "5"
-              .text-muted.row-space-top-1 自己紹介を充実させることであなたの人柄、リスティングの内容など詳しく知ってもらいましょう。
+            .col-8.self_introduction_wrapper
+              = f.input_field :self_introduction, as: :text, cols: "30", rows: "20", placeholder: "例）ようこそ 私の名前は風馬太郎です。私はあなたと同じ旅を楽しみ、人生を楽しんでいます。出身は北海道。1年前から東京で仕事をしています。あらゆるジャンルの飲食を紹介することが出来ます。あなたが望むならご飯もご一緒できます。観光ガイドブックにのることはない、私がオススメするランチ・ディナーを紹介することも出来ます。それはきっと、あなたにとって記憶に残る素晴らしい体験になるはず。あなたをお待ちしております。風馬太郎"
+              .text-special.row-space-top-2.row-space-4
+                p 自己紹介を充実させることであなたの人柄、リスティングの内容など詳しく知ってもらいましょう。
+                p Huberは旅行者と友達ガイドが楽しく旅を楽しむための出会いを提供するサービスです。
+                p
+                  | すなわちHuberの基本は人間関係です。
+                  br
+                  | まずは自分を知ってもらう努力をしましょう。
+                p
+                  | 自分は旅行者もしくはガイドとしてどうでしょう?
+                  br
+                  | 旅のスタイル（こだわり、流儀）、自分のHuberでの活動スタイルを教えてください。
+                p
+                  | 好きな場所やアクティビティはなんですか?
+                  br
+                  | これなしでは生きていけないものを3つ挙げるとしたら?
+                  br
+                  | お気に入りの旅先、本、映画、番組、音楽、食べ物は?
       = f.button :submit, "保存する", class: "btn btn-primary btn-large row-space-4"
