@@ -21,10 +21,10 @@
         li
           = link_to Settings.page.listings, listings_path
 
-      - if action_name =="guest_reservation_manager"
+      /- if action_name =="guest_reservation_manager"
         li.active
           = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path
-      - else
+      /- else
         li
           = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path
 
