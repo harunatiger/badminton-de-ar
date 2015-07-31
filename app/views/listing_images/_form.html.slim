@@ -1,6 +1,7 @@
 = simple_form_for([@listing, @listing_images], url: update_all_listing_listing_images_path, html: {class: "form--sp"} ) do |f|
   = f.error_notification
   /= f.hidden_field :listing_id, value: @listing.id
+  - count = 1
   - @listing_images.listing_images.each do |listing_image|
     = f.fields_for :listing_images, listing_image do |image_form|
       = image_form.hidden_field :listing_id
@@ -8,7 +9,7 @@
         .row.row-space-5.row-space-top-5.row-table
           .col-xs-4.text-right.col-middle
             .h4.text-light
-              |  現在のリスティングのイメージ画像
+              |  現在の画像
           .col-xs-8.fieldset.col-middle
             .row
               .col-xs-11.regist-pics
@@ -16,7 +17,8 @@
       .row.row-space-5.row-space-top-5.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light
-            |  リスティングのイメージ画像
+            | ガイドのイメージ画像
+            = count
         .col-xs-8.fieldset.col-middle
           .row
             .col-xs-11.regist-pics
@@ -25,18 +27,21 @@
         .col-xs-4.text-right.col-middle
           .h4.text-light
             |  写真のタイトル
+            = count
         .col-xs-8.fieldset.col-middle
           .row
             .col-xs-11
-              = image_form.input_field :caption, placeholder: "例) こんな感じです"
+              = image_form.input_field :caption, placeholder: "例) ショッピングはここで！"
       .row.row-space-5.row-space-top-5.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light
             |  写真の説明
+            = count
         .col-xs-8.fieldset.col-middle
           .row
             .col-xs-11
-              = image_form.text_field :description, placeholder: "例) こんな感じです"
+              = image_form.text_area :description, as: :text, placeholder: "例) スープカレーからラーメン、焼肉、お寿司まで！特におすすめするのはイカです❤︎帰る前には絶対食べていただきます笑"
+    - count += 1
   .row
     .col-xs-9.col-offset-3.text-reset-center
       = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-image-submit'

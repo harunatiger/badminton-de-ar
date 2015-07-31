@@ -8,11 +8,11 @@
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        |  リスティングのタイトル
+        |  ページのタイトル
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :title, placeholder: "例) 初心者でも楽しめるリスティング"
+          = f.input_field :title, placeholder: "例) 葛飾区のことならなんでもお任せ！"
   / .row.row-space-5.row-space-top-5.row-table
   /   .col-xs-4.text-right.col-middle
   /     .h4.text-light
@@ -25,7 +25,7 @@
   /           | 可能です
   /         .question-icon-container.inline
   /           i#togo-tooltip.fa.fa-question-circle.tooltip-trigger[data-placement="bottom"]
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
         |  参加可能人数
@@ -34,7 +34,7 @@
         .col-xs-6.col-md-3
           .select.select-block
             = f.input_field :capacity, as: :select, :collection => [["1人", :"1"], ["2人", :"2"], ["3人", :"3"], ["4人", :"4"], ["5人", :"5"], ["6人", :"6"], ["7人", :"7"], ["8人", :"8"], ["9人", :"9"], ["10人", :"10"], ["11人", :"11"], ["12人", :"12"], ["13人", :"13"], ["14人", :"14"], ["15人", :"15"], ["16人以上", :"16+"]], :default => ["1"]
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
         |  一人あたりの金額
@@ -46,16 +46,16 @@
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        |  リスティングの説明
+        | ガイドについて
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :description, rows: "6", placeholder: "例) 初心者の方でも気軽に楽しめるリスティングです。ぜひお友達も誘ってお越しください。"
+          = f.input_field :description, rows: "6", placeholder: "例) 葛飾区近郊〜歌舞伎町までのエリアならなんでもお任せください。英語・中国語大得意です！！"
   - if @listing.cover_image.present?
     .row.row-space-5.row-space-top-5.row-table
       .col-xs-4.text-right.col-middle
         .h4.text-light
-          |  現在のリスティングのカバーイメージ画像
+          |  現在のカバーイメージ画像
       .col-xs-8.fieldset.col-middle
         .row
           .col-xs-11.regist-pics
@@ -63,12 +63,12 @@
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        |  リスティングのカバーイメージ画像
+        | ガイドページのカバーイメージ画像
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11.regist-pics
           = f.file_field :cover_image, as: :file
-          = f.input_field :cover_image_caption, placeholder: "イメージ画像の説明を入力できます", class: "row-space-top-2"
+          = f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -87,7 +87,7 @@
       .row
         .col-xs-11
           = f.input_field :location, placeholder: "郵便番号を入力すれば自動で出力されます"
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
         | 開催場所までの道順の説明
@@ -95,7 +95,7 @@
       .row
         .col-xs-11
           = f.input_field :direction, rows: "4", placeholder: "開催場所までのオススメの移動方法や、迷いそうなポイントなど記入ください"
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
         |  出張は？
