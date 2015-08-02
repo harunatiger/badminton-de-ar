@@ -32,8 +32,8 @@
                 p.text-muted.pull-left.row-space-top-1
                   = listing_image.try('description') || Settings.image.noimage2.caption
               .col-lg-3
-        hr
-        .row
+        /hr
+        /.row
           .col-md-3.text-muted
             | 受入最大人数
           .col-md-9
@@ -41,8 +41,8 @@
               span
                 = listing.capacity
                 | 人
-        hr
-        .row
+        /hr
+        /.row
           .col-md-3.text-muted
             | お菓子（オプション1）
           .col-md-9
@@ -58,8 +58,8 @@
                 = image_tag(confection.image, class: 'img-responsive row-space-top-2')                
               p.text-muted.pull-left.row-space-top-1
                 = confection.try('caption') || Settings.image.noimage2.caption
-        hr
-        .row
+        /hr
+        /.row
           .col-md-3.text-muted
             | お道具（オプション2）
           .col-md-9
@@ -78,8 +78,8 @@
                 = image_tag(tool.image, class: 'img-responsive row-space-top-2') 
               p.text-muted.pull-left.row-space-top-1
                 = tool.try('caption') || Settings.image.noimage2.caption
-        hr
-        .row
+        /hr
+        /.row
           .col-md-3.text-muted
             | 服装（オプション3）
           .col-md-9
@@ -92,8 +92,8 @@
                 b
                   - if dress_code.present? && dress_code.note.present?
                     = dress_code.note
-        hr
-        .row
+        /hr
+        /.row
           .col-md-3
             .text-muted
               | 出張
@@ -101,8 +101,8 @@
             .row
               .col-md-6
                 = render partial: 'delivery_ok_button', locals: { listing: listing }
-        hr
-        .row
+        /hr
+        /.row
           .col-md-3
             .text-muted
               | 料金
