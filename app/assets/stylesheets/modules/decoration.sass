@@ -825,8 +825,43 @@ label.error
               img
                 opacity: 0.8
 
+.copy-single
+  padding: 80px 0
+  font-size: 20px
+  font-weight: 700
+
 
 // Huber edit ==================================================
+
+#talk_to
+  position: fixed
+  top: 80px
+  width: 315px
+  z-index: 10
+  border-top: none
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25)
+  .card
+    border: 0
+  @media (min-width: 1100px)
+    //&.fixed
+      position: fixed
+      top: 40px
+      z-index: 1001
+
+@media (max-width: 1099px)
+  #talk_to
+    width: auto
+    position: static
+
+.guide_face
+  margin: -10px -10px 0 !important
+  img
+    width: 100%
+    height: auto
+
+.photo-list-wrapper
+  max-width: 480px
+  margin: 0 auto
 
 // profile_self_introduction
 .self_introduction_wrapper
@@ -834,7 +869,7 @@ label.error
     p
       color: $gray2
       font-size: 13px
-
+// subnav
 .subnav
   .page-container
     > .pull-right
@@ -844,11 +879,3 @@ label.error
       padding: 10px 14px
       &:hover
         color: white
-
-
-
-
-.copy-single
-  padding: 80px 0
-  font-size: 20px
-  font-weight: 700

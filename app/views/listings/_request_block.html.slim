@@ -1,22 +1,31 @@
 .col-lg-4
-  = link_to profile_path(listing.user_id), class: 'media-photo media-round' do
-    = image_tag(user_id_to_profile_image(listing.user_id), class: "size90")
-  = link_to profile_path(listing.user_id), class: 'link-reset.text-wrap' do
-    = user_id_to_name(listing.user_id)
-    | さん
-  .social-share-widget.row-space-top-3
-    span.share-title
-      | シェア：
-    span.share-triggers
-      = link_to "javascript:void(0)", class: "share-btn share-envelope-btn", id: "share-via-email-trigger" do
-        i.fa.fa-envelope-o.fa-gray.social-icon-size
-      = link_to "http://www.facebook.com/sharer.php?u=http://yourdomain.jp&amp;t=テキスト",
-      onClick: "window.open(encodeURI(decodeURI(this.href)), 'sharewindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!'); return false;", target: "_blank", class: "share-btn share-facebook-btn" do
-        i.fa.fa-facebook.fa-gray.social-icon-size
-      = link_to "http://twitter.com/intent/tweet?text=テキスト&amp;url=http://yourdomain.jp&amp;via=@yourdomain",
-  onClick: "window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1'); return false;", class: "share-btn share-twitter-btn" do
-        i.fa.fa-twitter.fa-gray.social-icon-size
-      = link_to "LINEで送る", "http://line.me/R/msg/text/?テキスト http://yourdomain.jp", class: "share-btn share-envelope-btn sns-line-btn show--sp-ib"
+  #talk_to
+    .card
+      .card-body.card-light
+        /= link_to profile_path(listing.user_id), class: '' do
+        .guide_face
+          = image_tag(user_id_to_profile_image(listing.user_id), class: "")
+        
+        = link_to profile_path(listing.user_id), class: 'link-reset.text-wrap' do
+          = user_id_to_name(listing.user_id)
+          | さん
+        br
+        button#message-host-link.btn.btn-small.btn-primary
+          | こちらのホストに連絡
+        br
+        br
+        br
+        .social-share-widget.row-space-top-3
+          span.share-triggers
+            = link_to "javascript:void(0)", class: "share-btn share-envelope-btn", id: "share-via-email-trigger" do
+              i.fa.fa-envelope-o.fa-gray.social-icon-size
+            = link_to "http://www.facebook.com/sharer.php?u=http://yourdomain.jp&amp;t=テキスト",
+            onClick: "window.open(encodeURI(decodeURI(this.href)), 'sharewindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!'); return false;", target: "_blank", class: "share-btn share-facebook-btn" do
+              i.fa.fa-facebook.fa-gray.social-icon-size
+            = link_to "http://twitter.com/intent/tweet?text=テキスト&amp;url=http://yourdomain.jp&amp;via=@yourdomain",
+        onClick: "window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1'); return false;", class: "share-btn share-twitter-btn" do
+              i.fa.fa-twitter.fa-gray.social-icon-size
+            = link_to "LINEで送る", "http://line.me/R/msg/text/?テキスト http://yourdomain.jp", class: "share-btn share-envelope-btn sns-line-btn show--sp-ib"
 
 
   // old ================================================================================
