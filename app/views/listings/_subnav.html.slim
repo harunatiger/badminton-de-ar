@@ -12,14 +12,14 @@
       ul.subnav-list
         li
           = link_to "#photos", aria: {selected: "true"}, class: "subnav-item" do
-            = Settings.page.subnav.photos
+            = Settings.page.subnav.top
         li
           = link_to "#summary", aria: {selected: "false"}, class: "subnav-item" do
             = Settings.page.subnav.details
         li
           = link_to "#reviews", aria: {selected: "false"}, class: "subnav-item" do
             = Settings.page.subnav.reviews
-        li
+        /li
           = link_to "#host-profile", aria: {selected: "false"}, class: "subnav-item" do
             = Settings.page.subnav.host_profile
         li

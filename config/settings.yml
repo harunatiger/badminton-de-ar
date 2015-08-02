@@ -136,6 +136,7 @@ page:
   logout: 'ログアウト'
   help: 'ヘルプ'
   subnav:
+    top: 'トップ'
     photos: '写真'
     details: 'このガイドについて'
     reviews: 'レビュー'

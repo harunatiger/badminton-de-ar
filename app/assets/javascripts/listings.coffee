@@ -250,7 +250,7 @@ $ ->
         '#photos': 0
         '#summary': 0
         '#reviews': 0
-        '#host-profile': 0
+        #'#host-profile': 0
         '#neighborhood': 0
       $globalNavi = new Array
       for key of array

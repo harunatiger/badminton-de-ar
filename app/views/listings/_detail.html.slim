@@ -2,11 +2,11 @@
   .row
     #details-column.col-lg-8
       .row-space-8.row-space-top-8
-        h4.row-space-4
+        /h4.row-space-4
           |  このリスティングについて
-        p.listing-description
+        /p.listing-description
           = listing.description
-        p.text-center--sp
+        /p.text-center--sp
           - if user_signed_in?
             - if current_user.id == listing.user_id
               button.btn.btn-small.btn-primary.disabled

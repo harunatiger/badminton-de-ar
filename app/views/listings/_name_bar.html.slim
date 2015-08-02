@@ -1,13 +1,14 @@
 .col-lg-8
   .row-space-4.row-space-top-4
     .row.row-table.row-reset
-      .col-md-3.col-middle.text-center.col-reset
+      /.col-md-3.col-middle.text-center.col-reset
         = link_to profile_path(listing.user_id), class: 'media-photo media-round' do
           = image_tag(user_id_to_profile_image(listing.user_id), class: "size90")
-      .col-md-9.col-middle.col-reset
+      .col-md-12.col-middle.col-reset
         h1#listing_name.overflow.h3.row-space-1.text-center--sp
           = listing.title
         .text-muted.text-center--sp.row-space-1
+          span.subject ガイドエリア
           a.link-reset[href="#neighborhood"]
             = listing.location
           a.link-reset[href="#reviews"]
@@ -17,8 +18,8 @@
           span[itemprop="reviewCount"]
             = reviews.count
           | )
-        = render partial: 'delivery_ok_button', locals: { listing: listing }
-    .row.hide--sp
+        /= render partial: 'delivery_ok_button', locals: { listing: listing }
+    /.row.hide--sp
       .col-md-3.text-muted.text-center
         = link_to profile_path(listing.user_id), class: 'link-reset.text-wrap' do
           = user_id_to_name(listing.user_id)
