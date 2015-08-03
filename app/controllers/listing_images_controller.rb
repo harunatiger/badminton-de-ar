@@ -4,7 +4,6 @@ class ListingImagesController < ApplicationController
   before_action :set_listing
 
   def manage
-    listing_images = ListingImage.records(@listing.id)
     @listing_images = ListingImageCollection.new({},@listing.id)
   end
   

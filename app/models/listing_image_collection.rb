@@ -5,9 +5,6 @@ class ListingImageCollection < Base
   def initialize(attributes = {}, listing_id)
     images = ListingImage.where(listing_id: listing_id)
     super attributes
-    p listing_images.present?
-    p images.present?
-    super attributes
     unless listing_images.present?
       self.listing_images = images.present? ? images + (DEFAULT_ITEM_COUNT - images.count).times.map { ListingImage.new(listing_id: listing_id) } : DEFAULT_ITEM_COUNT.times.map { ListingImage.new(listing_id: listing_id) } 
     end
@@ -40,6 +37,6 @@ class ListingImageCollection < Base
   end
 
   def target_listing_images
-    self.listing_images.select { |v| v.image.present? or v.caption.present? or v.description.present?}
+    self.listing_images.select { |v| v.id.present? or v.image.present? or v.caption.present? or v.description.present?}
   end
 end
