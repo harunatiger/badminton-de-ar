@@ -4,19 +4,13 @@
       .row-space-8.row-space-top-8
         .photo-list-wrapper
           - listing_images.each do |listing_image|
-            .row-space-4.row-space-top-4
+            .row-space-6.row-space-top-4
               .photo-trigger
                 = image_tag(listing_image.try('image') || Settings.image.noimage2.url, class: 'img-responsive')
-              .row
-                .col-lg-9
-                  p.text-muted.pull-left.row-space-top-1
-                    = listing_image.try('caption') || Settings.image.noimage2.caption
-                .col-lg-3
-              .row
-                .col-lg-9
-                  p.text-muted.pull-left.row-space-top-1
-                    = simple_format(listing_image.try('description') || Settings.image.noimage2.caption)
-                .col-lg-3
+              .h4.row-space-top-3
+                = listing_image.try('caption') || Settings.image.noimage2.caption
+              .text-blog.row-space-top-2
+                = simple_format(listing_image.try('description') ||  Settings.image.noimage2.caption)
 
         /h4.row-space-4
           |  このリスティングについて
