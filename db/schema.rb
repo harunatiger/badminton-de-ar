@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730115518) do
+ActiveRecord::Schema.define(version: 20150803135023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -213,6 +213,19 @@ ActiveRecord::Schema.define(version: 20150730115518) do
   add_index "messages", ["reservation_id"], name: "index_messages_on_reservation_id", using: :btree
   add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id", using: :btree
 
+  create_table "profile_identities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "profile_id"
+    t.string   "image",      default: "",    null: false
+    t.string   "caption",    default: ""
+    t.boolean  "authorized", default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "profile_identities", ["profile_id"], name: "index_profile_identities_on_profile_id", using: :btree
+  add_index "profile_identities", ["user_id"], name: "index_profile_identities_on_user_id", using: :btree
+
   create_table "profile_images", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "profile_id"
@@ -395,6 +408,8 @@ ActiveRecord::Schema.define(version: 20150730115518) do
   add_foreign_key "messages", "message_threads"
   add_foreign_key "messages", "users", column: "from_user_id"
   add_foreign_key "messages", "users", column: "to_user_id"
+  add_foreign_key "profile_identities", "profiles"
+  add_foreign_key "profile_identities", "users"
   add_foreign_key "profile_images", "profiles"
   add_foreign_key "profile_images", "users"
   add_foreign_key "profile_videos", "profiles"
