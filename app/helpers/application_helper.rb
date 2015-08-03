@@ -108,11 +108,45 @@ module ApplicationHelper
       return Settings.image.noimage2.url
     end
   end
-
+  
   def profile_image_exists?
     ProfileImage.exists?(user_id: current_user.id, profile_id: current_user.profile.id)
   end
+  
+  def user_id_to_profile_identity(user_id)
+    result = ProfileIdentity.mine(user_id)
+    result[0].try('image') || Settings.image.noimage2.url
+  end
 
+  def user_id_to_profile_identity_thumb(user_id)
+    result = ProfileIdentity.mine(user_id)
+    result[0].try('image').thumb || Settings.image.noimage2.url
+  end
+
+  def profile_identity
+    if profile_identity = ProfileIdentity.where(user_id: current_user.id).first
+      profile_identity.try('image') || Settings.image.noimage2.url
+    else
+      return Settings.image.noimage2.url
+    end
+  end
+
+  def profile_identity_thumb
+    if profile_identity = ProfileIdentity.where(user_id: current_user.id).first
+      profile_identity.try('image').thumb || Settings.image.noimage2.url
+    else
+      return Settings.image.noimage2.url
+    end
+  end
+  
+  def profile_identity_exists?
+    ProfileIdentity.exists?(user_id: current_user.id, profile_id: current_user.profile.id)
+  end
+  
+  def profile_identity_authorized?
+    ProfileIdentity.where(user_id: current_user.id, profile_id: current_user.profile.id).first.authorized
+  end
+  
   def new_or_edit_path(obj)
     obj ? edit_listing_path(obj) : new_listing_path(obj)
   end
@@ -168,6 +202,15 @@ module ApplicationHelper
 
   def reservation_id_to_messages(reservation_id)
     Message.reservation(reservation_id)
+  end
+  
+  def profile_identity_link
+    profile_identity = ProfileIdentity.where(user_id: current_user.id, profile_id: current_user.profile.id).first
+    if profile_identity.present?
+      return edit_profile_profile_identity_path(current_user.profile.id, profile_identity.id)
+    else
+      new_profile_profile_identity_path(current_user.profile.id)
+    end
   end
 
   def profile_image_link

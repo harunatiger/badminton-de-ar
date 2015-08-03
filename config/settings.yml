@@ -11,6 +11,9 @@ profile:
 profile_images:
   save:
     success: "プロフィールを更新しました。"
+profile_identities:
+  save:
+    success: "プロフィールを更新しました。"
 listings:
   save:
     success: "リスティングの登録に成功しました。次に、他の情報も入力してください。"

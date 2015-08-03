@@ -40,6 +40,7 @@ class Profile < ActiveRecord::Base
   belongs_to :user
   has_one :profile_image, dependent: :destroy
   has_one :profile_video, dependent: :destroy
+  has_one :profile_identity, dependent: :destroy
 
   enum gender: { female: 0, male: 1, others: 2, not_specified: 3 }
 

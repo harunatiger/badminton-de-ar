@@ -334,6 +334,7 @@ Rails.application.routes.draw do
 
   resources :profiles do
     resources :profile_images
+    resources :profile_identities
   end
 
 #  resources :auths

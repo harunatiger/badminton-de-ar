@@ -11,7 +11,7 @@
             = user_id_to_name(listing.user_id)
           | さん 
         .guide_greeting.text-muted
-          | こんにちわ！鎌倉の地元で育った姉妹です。うちらの庭にぜひおいでください❤︎
+          = listing.user.profile_image.caption
         button#message-host-link.btn.btn-large.btn-block.btn-primary
           | メッセージを送る
 
