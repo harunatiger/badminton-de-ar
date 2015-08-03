@@ -10,7 +10,8 @@
         .text-muted.text-center--sp.row-space-1
           span.subject ガイドエリア
           a.link-reset[href="#neighborhood"]
-            = listing.location
+            /= listing.location
+            | 関東・鎌倉
           a.link-reset[href="#reviews"]
             .star-rating
               = render partial: 'listings/stars', locals: { rate: listing.ave_total }

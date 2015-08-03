@@ -15,7 +15,7 @@
               .row
                 .col-lg-9
                   p.text-muted.pull-left.row-space-top-1
-                    = listing_image.try('description') || Settings.image.noimage2.caption
+                    = simple_format(listing_image.try('description') || Settings.image.noimage2.caption)
                 .col-lg-3
 
         /h4.row-space-4

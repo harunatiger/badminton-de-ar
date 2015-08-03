@@ -11,4 +11,4 @@
       = profile.try('location') || ''
 div
   p
-    = profile.try('self_introduction') || ''
+    = simple_format(profile.try('self_introduction') || '')
