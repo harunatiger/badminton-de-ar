@@ -35,7 +35,7 @@
         /li
           /= link_to Settings.page.wishlists, wishlists_path
 
-      - if controller_name =="profiles" || action_name == "review" || controller_name == 'profile_images'
+      - if controller_name =="profiles" || action_name == "review" || controller_name == 'profile_images' || controller_name == 'profile_identities'
         li.active
           = link_to Settings.page.profile, edit_profile_path(current_user.profile.id)
       - else

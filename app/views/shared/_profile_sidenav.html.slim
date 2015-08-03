@@ -13,7 +13,7 @@ ul.sidenav-list
       = link_to "プロフィール画像編集", "#{profile_image_link}", class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profile_identities'
     li
-      = link_to "信頼情報編集", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"}
+      = link_to "信頼情報認証・編集", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"}
   - else
     li
-      = link_to "信頼情報編集", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"}
+      = link_to "信頼情報認証・編集", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"}

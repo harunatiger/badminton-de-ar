@@ -18,8 +18,8 @@
           span.text-pink 正方形の画像だときれいに表示されます。
       .row.row-condensed.row-space-4
         label.text-right.col-3
-          | 画像にひとこと
+          | あいさつ
         .col-8
           = f.input_field :caption
-          .text-muted.row-space-top-1 この情報は参加が確定したユーザーのみに公開されます。
+          .text-muted.row-space-top-1 この情報はあなたがガイドになった時に表示されます。
   = f.button :submit, "保存する", class: "btn btn-primary btn-large row-space-4"

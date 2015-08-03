@@ -7,25 +7,32 @@
     .card-body
       - if profile_identity_exists?
         .row.row-condensed.row-space-4
-          label.text-right.col-3
+          .text-center.row-space-top-2
             -if profile_identity_authorized?
-              | 承認されています
+              .h4
+                | 承認されています。登録ありがとうございます。
             -else
-              | 承認申請中です
-        .row.row-condensed.row-space-4
+              .h4
+                | ただいま承認申請中です。もう少々お待ちください。
+        /.row.row-condensed.row-space-4
           label.text-right.col-3
             | 現在のパスポート画像
           = image_tag(profile_identity_thumb)
-      .row.row-condensed.row-space-4
-        label.text-right.col-3
-          | パスポート画像
+      - else
+        .row.row-condensed.row-space-3
+          .col-md-12
+            .h5.row-space-2
+              | 信頼情報の登録
+            p
+              | Huber.で信用を高めるために信頼情報の登録を行ってください。
+              br
+              | 登録は、あなたのオンラインアカウントと公式の身分証明書の情報を照合して行います。
+      hr
+      .row.row-condensed
+        label.text-right.col-3.row-space-4
+          | 身分証名できる画像
         .col-8
           = f.file_field :image, class: "row-space-top-1-file"
-          span.text-pink 正方形の画像だときれいに表示されます。
-      /.row.row-condensed.row-space-4
-        label.text-right.col-3
-          | 画像にひとこと
-        .col-8
-          = f.input_field :caption
-          .text-muted.row-space-top-1 この情報は参加が確定したユーザーのみに公開されます。          
-  = f.button :submit, "保存する", class: "btn btn-primary btn-large row-space-4"
+          span.text-pink 運転免許証、またはパスポートの写真画像をアップロードしてください
+          
+  = f.button :submit, "登録する", class: "btn btn-primary btn-large row-space-4"
