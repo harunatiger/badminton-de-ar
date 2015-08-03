@@ -91,10 +91,11 @@ $ ->
         #similarHeight = $('#similar-listings').outerHeight()
         #priceHeight = $('#pricing').outerHeight()
         bookHeight = $('#talk_to').outerHeight()
+        alertHeight = $('.alert-absolute').outerHeight()
+        alertErrorHeight = $('.alert-error').outerHeight()
         #tempCount = bodyHeight - (footerHeight + neighborHeight + similarHeight + bookHeight + 37.5 + 25)
-        tempCount = bodyHeight - (footerHeight + neighborHeight + bookHeight + 37.5 + 40)
+        tempCount = bodyHeight - (footerHeight + neighborHeight + bookHeight + alertErrorHeight + alertHeight + 37.5 + 40)
         stickyBoxTop = $('#summary').offset().top - 1
-
       stickyNav = ->
         scrollTop = $(window).scrollTop()
         if $('body').hasClass('listings show')
