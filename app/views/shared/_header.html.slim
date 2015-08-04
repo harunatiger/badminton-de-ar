@@ -47,7 +47,7 @@
         = link_to "#", class: "" do
           |  ヘルプ
       li.list-your-thing.pull-left
-        -if current_user and current_user.listings.blank?
+        -if !current_user or current_user.listings.blank?
           = link_to Settings.page.listing_new, new_listing_path, class: "btn btn-host"
     - if user_signed_in?
       ul.nav.pull-right

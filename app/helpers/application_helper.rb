@@ -240,7 +240,7 @@ module ApplicationHelper
     if current_user
       edit_profile_path(current_user.id, send_message: 'yes')
     else
-      new_user_registration_path
+      new_user_session_path
     end
   end
 
