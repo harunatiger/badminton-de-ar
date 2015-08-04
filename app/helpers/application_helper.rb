@@ -148,8 +148,16 @@ module ApplicationHelper
     ProfileIdentity.exists?(user_id: current_user.id, profile_id: current_user.profile.id)
   end
 
-  def profile_identity_authorized?
-    ProfileIdentity.where(user_id: current_user.id, profile_id: current_user.profile.id).first.authorized
+  def profile_identity_authorized?(user_id)
+    ProfileIdentity.where(user_id: user_id, profile_id: Profile.where(user_id: user_id).first.id).first.authorized
+  end
+  
+  def profile_self_introduction_exists?
+    if current_user.present? and current_user.profile.present?
+      current_user.profile.self_introduction.present?
+    else
+      false
+    end
   end
 
   def new_or_edit_path(obj)
@@ -224,6 +232,14 @@ module ApplicationHelper
       return edit_profile_profile_image_path(current_user.profile.id, profile_image.id)
     else
       new_profile_profile_image_path(current_user.profile.id)
+    end
+  end
+  
+  def profile_link
+    if current_user
+      edit_profile_path(current_user.id, send_message: 'yes')
+    else
+      new_user_registration_path
     end
   end
 

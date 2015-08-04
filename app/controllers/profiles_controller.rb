@@ -24,7 +24,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
-
+    flash[:notice] = Settings.profile.send_message if params[:send_message] == 'yes'
   end
 
   # POST /profiles
