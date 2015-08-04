@@ -102,11 +102,11 @@ $ ->
           if scrollTop >= stickyBoxTop && scrollTop < tempCount
             $('.subnav').attr 'aria-hidden','false'
             # media query
-            if ($('div.talk_to-wrapper').css('float') == 'left')
+            if ($('div.talk_to-wrapper').css('float') == 'right')
               $('#talk_to').addClass('fixed').removeAttr 'style'
           else if scrollTop >= tempCount
             # media query
-            if ($('div.talk_to-wrapper').css('float') == 'left')
+            if ($('div.talk_to-wrapper').css('float') == 'right')
               #tempPos1 = tempCount - (photoHeight + headerHeight) + priceHeight
               tempPos1 = tempCount - (photoHeight + headerHeight)+ 37.5 + 40
               $('#talk_to').removeClass 'fixed'
