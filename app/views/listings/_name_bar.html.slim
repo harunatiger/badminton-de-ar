@@ -5,20 +5,23 @@
         = link_to profile_path(listing.user_id), class: 'media-photo media-round' do
           = image_tag(user_id_to_profile_image(listing.user_id), class: "size90")
       .col-md-12.col-middle.col-reset
-        h1#listing_name.overflow.h3.row-space-1.text-center--sp
+        h1#listing_name.overflow.h3.row-space-2.text-center--md
           = listing.title
-        .text-muted.text-center--sp.row-space-1
-          span.subject ガイドエリア
-          a.link-reset[href="#neighborhood"]
-            /= listing.location
-            | 関東・鎌倉
-          a.link-reset[href="#reviews"]
-            .star-rating
-              = render partial: 'listings/stars', locals: { rate: listing.ave_total }
-          |  (
-          span[itemprop="reviewCount"]
-            = reviews.count
-          | )
+        .text-muted.text-center--md.row-space-1
+          span.block--sp
+            span.text-boxed ガイドエリア
+            a.link-reset[href="#neighborhood"]
+              /= listing.location
+              span.text-lead
+                | 関東・鎌倉
+          span.block--sp
+            a.link-reset[href="#reviews"]
+              .star-rating
+                = render partial: 'listings/stars', locals: { rate: listing.ave_total }
+            |  (
+            span[itemprop="reviewCount"]
+              = reviews.count
+            | )
         /= render partial: 'delivery_ok_button', locals: { listing: listing }
     /.row.hide--sp
       .col-md-3.text-muted.text-center

@@ -833,6 +833,9 @@ label.error
 
 // Huber edit ==================================================
 
+.talk_to-wrapper
+  float: right
+
 #talk_to
   position: fixed
   top: 80px
@@ -851,9 +854,16 @@ label.error
       z-index: 1001
 
 @media (max-width: 1099px)
+  .talk_to-wrapper
+    float: none
+  #talk_to
+    position: static
+    margin: -240px auto 40px
+
+@media (max-width: 767px)
   #talk_to
     width: auto
-    position: static
+    max-width: 315px
 
 .guide_face
   //margin: -10px -10px 0 !important

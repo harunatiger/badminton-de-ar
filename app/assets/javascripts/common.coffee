@@ -100,16 +100,20 @@ $ ->
         scrollTop = $(window).scrollTop()
         if $('body').hasClass('listings show')
           if scrollTop >= stickyBoxTop && scrollTop < tempCount
-            $('#talk_to').addClass('fixed').removeAttr 'style'
             $('.subnav').attr 'aria-hidden','false'
+            # media query
+            if ($('div.talk_to-wrapper').css('float') == 'left')
+              $('#talk_to').addClass('fixed').removeAttr 'style'
           else if scrollTop >= tempCount
-            #tempPos1 = tempCount - (photoHeight + headerHeight) + priceHeight
-            tempPos1 = tempCount - (photoHeight + headerHeight)+ 37.5 + 40
-            $('#talk_to').removeClass 'fixed'
-            $('#talk_to').css({
-              'top': tempPos1 + 'px',
-              'position': 'absolute'
-            })
+            # media query
+            if ($('div.talk_to-wrapper').css('float') == 'left')
+              #tempPos1 = tempCount - (photoHeight + headerHeight) + priceHeight
+              tempPos1 = tempCount - (photoHeight + headerHeight)+ 37.5 + 40
+              $('#talk_to').removeClass 'fixed'
+              $('#talk_to').css({
+                'top': tempPos1 + 'px',
+                'position': 'absolute'
+              })
           else
             $('#talk_to').removeClass('fixed').removeAttr 'style'
             $('.subnav').attr 'aria-hidden','true'

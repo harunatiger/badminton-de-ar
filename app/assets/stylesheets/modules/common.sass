@@ -322,6 +322,27 @@ select
   &:hover
     background: rgba(0, 0, 0, 0.5)
 
+.btn.btn-nav
+  float: right
+  padding: 0 21px
+  height: 40px
+  line-height: 40px
+  color: white
+  border: 0
+  border-radius: 0
+
+.fixed-btn-wrapper
+  position: fixed
+  bottom: 40px
+  left: 0
+  right: 0
+  padding: 10px 20px
+  z-index: 999
+  .btn.btn-fixed-bottom
+    display: block
+    width: 100%
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15)
+
 /* btn complicated */
 .btn.fa
   line-height: inherit
@@ -419,7 +440,16 @@ select
 .text-fb, .fa-fb
   color: #3b5998
 
+.text-boxed
+  display: inline-block
+  padding: 0 8px
+  line-height: 1.8
+  margin-right: 8px
+  border: 1px solid $border1
+
 @media (max-width: 1099px)
+  .text-center--md
+    text-align: center
   .text-left--md
     text-align: left
 
@@ -448,9 +478,9 @@ select
     font-size: 15px
   h4 small, .h4 small
     font-size: 14px
-  .text-muted
-    .link-reset
-      display: block
+  .block--sp
+    display: block
+    margin-bottom: 10px
 
 /* fontawesome styling */
 .fa-c-heart
@@ -1894,7 +1924,7 @@ select
 /* subnav */
 .subnav
   position: relative
-  background: rgba(23,174,223, 0.9)
+  background: rgba(23,174,223, 0.95)
   user-select: none
   //border-bottom: 1px solid $border1
   &[data-sticky="true"].pinned, &[data-transition-at]

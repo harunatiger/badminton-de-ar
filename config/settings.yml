@@ -90,7 +90,7 @@ message:
         submit:
           label: "メッセージを送る"
         content:
-          placeholder: "例）お茶会にはどの様な服装で伺えばいいでしょう？"
+          placeholder: "ここにメッセージを入力ください"
     message_to_guest_from_reservation_manager:
       title:
         label: "予約依頼に回答する"

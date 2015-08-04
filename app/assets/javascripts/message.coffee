@@ -15,6 +15,12 @@ $ ->
   $('#message-host-link-bottom').on 'click', ->
     $('#message-to-host').modal()
 
+  $('#message-host-link-subnav').on 'click', ->
+    $('#message-to-host').modal()
+
+  $('#message-host-link-fixed').on 'click', ->
+    $('#message-to-host').modal()
+
   # Start Message Sending Process
   ## message from lisitng detail page
   $('#message-to-host-btn').on 'click', (e) ->
