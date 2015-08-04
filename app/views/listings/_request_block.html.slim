@@ -11,7 +11,7 @@
             = user_id_to_name(listing.user_id)
           | さん 
         .guide_greeting.text-muted
-          = listing.user.profile_image.caption
+          = user_id_to_profile_image_caption(listing.user_id)
         button#message-host-link.btn.btn-large.btn-block.btn-primary
           | メッセージを送る
 

@@ -28,11 +28,4 @@ class ProfileIdentity < ActiveRecord::Base
   validates :image, presence: true
   
   scope :mine, -> user_id { where( user_id: user_id ) }
-  
-  before_update :set_authorized
-  
-  def set_authorized
-    self.authorized = false
-    self
-  end
 end
