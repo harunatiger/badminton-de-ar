@@ -9,7 +9,10 @@
         .guide_name
           span
             = user_id_to_name(listing.user_id)
-          | さん 
+          | さん
+        -if profile_identity_authorized?
+          .guide_greeting.text-muted
+            |信頼情報登録済み！
         .guide_greeting.text-muted
           = user_id_to_profile_image_caption(listing.user_id)
         button#message-host-link.btn.btn-large.btn-block.btn-primary
