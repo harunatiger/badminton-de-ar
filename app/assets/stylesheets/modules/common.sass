@@ -544,6 +544,13 @@ select
   @media (max-width: 767px)
     display: inline-block !important
 
+.show--only-md
+  display: none !important
+  @media (max-width: 1099px)
+    display: block !important
+  @media (max-width: 767px)
+    display: none !important
+
 .hide--sp
   @media (max-width: 767px)
     display: none !important
