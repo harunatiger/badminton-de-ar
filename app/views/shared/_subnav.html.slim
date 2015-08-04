@@ -51,6 +51,7 @@
           
           
     /- if controller_name =="listings" || action_name =="host_reservation_manager"
+    - if controller_name =="listings"  && !current_user.listings.blank?
       = link_to listing_path(listing.id), class: "subnav-item pull-right"
         i.fa.fa-eye
         span  プレビュー
