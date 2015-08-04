@@ -65,12 +65,12 @@ class Listing < ActiveRecord::Base
   mount_uploader :cover_image, DefaultImageUploader
 
   validates :user_id, presence: true
-  validates :location, presence: true
-  validates :longitude, presence: true
-  validates :latitude, presence: true
-  validates :price, presence: true
+  #validates :location, presence: true
+  #validates :longitude, presence: true
+  #validates :latitude, presence: true
+  #validates :price, presence: true
   validates :title, presence: true
-  validates :capacity, presence: true
+  #validates :capacity, presence: true
 
   scope :mine, -> user_id { where(user_id: user_id) }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
@@ -156,9 +156,9 @@ class Listing < ActiveRecord::Base
   def complete_steps
     result = []
     result << Settings.left_steps.listing_image unless ListingImage.exists?(listing_id: self.id)
-    result << Settings.left_steps.confection unless Confection.exists?(listing_id: self.id)
-    result << Settings.left_steps.tool unless Tool.exists?(listing_id: self.id)
-    result << Settings.left_steps.dress_code unless DressCode.exists?(listing_id: self.id)
+    #result << Settings.left_steps.confection unless Confection.exists?(listing_id: self.id)
+    #result << Settings.left_steps.tool unless Tool.exists?(listing_id: self.id)
+    #result << Settings.left_steps.dress_code unless DressCode.exists?(listing_id: self.id)
     result
   end
 

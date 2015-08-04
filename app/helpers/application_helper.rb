@@ -149,7 +149,8 @@ module ApplicationHelper
   end
 
   def profile_identity_authorized?(user_id)
-    ProfileIdentity.where(user_id: user_id, profile_id: Profile.where(user_id: user_id).first.id).first.authorized
+    profile_identity = ProfileIdentity.where(user_id: user_id, profile_id: Profile.where(user_id: user_id).first.id).first
+    profile_identity.present? ? profile_identity.authorized : false
   end
   
   def profile_self_introduction_exists?
