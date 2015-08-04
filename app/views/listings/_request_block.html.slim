@@ -10,8 +10,12 @@
           span
             = user_id_to_name(listing.user_id)
           | さん
-        -if profile_identity_authorized?(listing.user_id)
-          |信頼情報登録済み！
+          - if profile_identity_authorized?(listing.user_id)
+            | 信頼情報登録済み！
+          - else
+            .reliable-sign
+              i.fa.fa-check-square-o
+              | 認証済みID
         .guide_greeting.text-muted
           = user_id_to_profile_image_caption(listing.user_id)
         -if profile_self_introduction_exists?

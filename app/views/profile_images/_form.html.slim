@@ -20,6 +20,6 @@
         label.text-right.col-3
           | あいさつ
         .col-8
-          = f.input_field :caption
+          = f.input_field :caption, as: :text, placeholder: "全角36文字以内程度が最適です。"
           .text-muted.row-space-top-1 この情報はあなたがガイドになった時に表示されます。
   = f.button :submit, "保存する", class: "btn btn-primary btn-large row-space-4"
