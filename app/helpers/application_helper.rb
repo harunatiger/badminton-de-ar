@@ -83,6 +83,11 @@ module ApplicationHelper
     result = ProfileImage.mine(user_id)
     result[0].try('image') || Settings.image.noimage2.url
   end
+  
+  def user_id_to_profile_image_caption(user_id)
+    result = ProfileImage.mine(user_id)
+    result[0].try('caption') || ''
+  end
 
   def user_id_to_profile_image_thumb(user_id)
     result = ProfileImage.mine(user_id)

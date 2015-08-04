@@ -42,6 +42,8 @@ class ProfileIdentitiesController < ApplicationController
   # PATCH/PUT /profile_images/1
   # PATCH/PUT /profile_images/1.json
   def update
+    @profile_identity = current_user.profile_identity
+    @profile_identity.authorized = false
     respond_to do |format|
       if @profile_identity.update(profile_identity_params)
         format.html { redirect_to profile_path(@profile.id), notice: Settings.profile_identities.save.success }
