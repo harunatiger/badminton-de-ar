@@ -8,6 +8,7 @@ oauth:
 profile:
   save:
     success: "プロフィールを更新しました。"
+  send_message: 'ツアーの相談には自己紹介の登録が必要です。自己紹介欄を入力してください。'
 profile_images:
   save:
     success: "プロフィールを更新しました。"

@@ -10,12 +10,15 @@
           span
             = user_id_to_name(listing.user_id)
           | さん
-        -if profile_identity_authorized?
+        -if profile_identity_authorized?(listing.user_id)
           |信頼情報登録済み！
         .guide_greeting.text-muted
           = user_id_to_profile_image_caption(listing.user_id)
-        button#message-host-link.btn.btn-large.btn-block.btn-primary.hide--sp
-          | メッセージを送る
+        -if profile_self_introduction_exists?
+          button#message-host-link.btn.btn-large.btn-block.btn-primary.hide--sp
+            | メッセージを送る
+        -else
+          =link_to 'メッセージを送る',profile_link, class: 'btn btn-large btn-block btn-primary hide--sp'
 
   // old ================================================================================
   /= simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
