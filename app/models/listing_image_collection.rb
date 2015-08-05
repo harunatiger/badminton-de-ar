@@ -1,9 +1,9 @@
 class ListingImageCollection < Base
-  DEFAULT_ITEM_COUNT = 15
+  DEFAULT_ITEM_COUNT = 10
   attr_accessor :listing_images
 
   def initialize(attributes = {}, listing_id)
-    images = ListingImage.where(listing_id: listing_id)
+    images = ListingImage.where(listing_id: listing_id).limit_10
     super attributes
     unless listing_images.present?
       self.listing_images = images.present? ? images + (DEFAULT_ITEM_COUNT - images.count).times.map { ListingImage.new(listing_id: listing_id) } : DEFAULT_ITEM_COUNT.times.map { ListingImage.new(listing_id: listing_id) } 
@@ -24,10 +24,11 @@ class ListingImageCollection < Base
   def save
     return false unless valid?
     ListingImage.transaction {
-      target_listing_images.each do |target_listing_image|
+      target_listing_images.each_with_index do |target_listing_image, i|
+        target_listing_image.order_num = i + 1
         if target_listing_image.id.present?
           listing_image = ListingImage.find(target_listing_image.id)
-          listing_image.update_attributes!(image: target_listing_image.image, caption: target_listing_image.caption, description: target_listing_image.description)
+          listing_image.update_attributes!(image: target_listing_image.image, caption: target_listing_image.caption, description: target_listing_image.description, order_num: target_listing_image.order_num)
         else
           target_listing_image.save!
         end
