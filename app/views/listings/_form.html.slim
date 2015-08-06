@@ -108,6 +108,15 @@
             | 可能です
           .question-icon-container.inline
             i#togo-tooltip.fa.fa-question-circle.tooltip-trigger[data-placement="bottom"]
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 好きなカテゴリ
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11.regist-pics
+          =collection_check_boxes(:listing, :category_ids, Category.all, :id, :name) do |b|
+            =b.label { b.check_box + b.text }
   .row
     .col-xs-9.col-offset-3.text-reset-center
       - if 'edit' == controller.action_name

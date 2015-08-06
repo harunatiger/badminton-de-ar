@@ -268,4 +268,36 @@ module ApplicationHelper
       return ''
     end
   end
+  
+  def category_food?(listing)
+    listing.categories.exists?(:id => 1)
+  end
+  
+  def category_alcohol?(listing)
+    listing.categories.exists?(:id => 2)
+  end
+  
+  def category_car?(listing)
+    listing.categories.exists?(:id => 3)
+  end
+  
+  def category_cruising?(listing)
+    listing.categories.exists?(:id => 4)
+  end
+  
+  def category_shopping?(listing)
+    listing.categories.exists?(:id => 5)
+  end
+  
+  def category_accommodation?(listing)
+    listing.categories.exists?(:id => 6)
+  end
+  
+  def category_business?(listing)
+    listing.categories.exists?(:id => 7)
+  end
+  
+  def category_sport?(listing)
+    listing.categories.exists?(:id => 8)
+  end
 end

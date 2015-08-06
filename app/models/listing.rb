@@ -61,6 +61,8 @@ class Listing < ActiveRecord::Base
   has_one :dress_code, dependent: :destroy
   has_many :reservations
   has_many :reviews
+  has_many :listing_categories, dependent: :destroy
+  has_many :categories, :through => :listing_categories, dependent: :destroy
 
   mount_uploader :cover_image, DefaultImageUploader
 

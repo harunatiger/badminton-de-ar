@@ -54,7 +54,7 @@ class ListingsController < ApplicationController
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
   def update
-    if @listing.set_lon_lat
+    #if @listing.set_lon_lat
       respond_to do |format|
         if @listing.update(listing_params)
           format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
@@ -62,9 +62,9 @@ class ListingsController < ApplicationController
           format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.failure }
         end
       end
-    else
+    #else
       #return render json: { success: false, errors: 'lonlat_failure'}
-    end
+    #end
   end
 
   # DELETE /listings/1
@@ -135,7 +135,7 @@ class ListingsController < ApplicationController
         :zipcode, :location, :longitude, :latitude, :delivery_flg, :price, 
         :description, :title, :capacity, :direction, :schedule, :listing_images,
         :cover_image, :cover_image_caption, :cover_video, :cover_video_caption, 
-        listing_image_attributes: [:listing_id, :image, :order, :capacity]
+        listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: []
       )
     end
 

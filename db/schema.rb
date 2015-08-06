@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150803135023) do
+ActiveRecord::Schema.define(version: 20150806104809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,12 @@ ActiveRecord::Schema.define(version: 20150803135023) do
   add_index "browsing_histories", ["user_id"], name: "index_browsing_histories_on_user_id", using: :btree
   add_index "browsing_histories", ["viewed_at"], name: "index_browsing_histories_on_viewed_at", using: :btree
 
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "confections", force: :cascade do |t|
     t.integer  "listing_id"
     t.string   "name",                    null: false
@@ -107,6 +113,16 @@ ActiveRecord::Schema.define(version: 20150803135023) do
 
   add_index "emergencies", ["profile_id"], name: "index_emergencies_on_profile_id", using: :btree
   add_index "emergencies", ["user_id"], name: "index_emergencies_on_user_id", using: :btree
+
+  create_table "listing_categories", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "listing_categories", ["category_id"], name: "index_listing_categories_on_category_id", using: :btree
+  add_index "listing_categories", ["listing_id"], name: "index_listing_categories_on_listing_id", using: :btree
 
   create_table "listing_images", force: :cascade do |t|
     t.integer  "listing_id"
@@ -399,6 +415,8 @@ ActiveRecord::Schema.define(version: 20150803135023) do
   add_foreign_key "dress_codes", "listings"
   add_foreign_key "emergencies", "profiles"
   add_foreign_key "emergencies", "users"
+  add_foreign_key "listing_categories", "categories"
+  add_foreign_key "listing_categories", "listings"
   add_foreign_key "listing_images", "listings"
   add_foreign_key "listing_pvs", "listings"
   add_foreign_key "listing_videos", "listings"

@@ -22,6 +22,26 @@
             span[itemprop="reviewCount"]
               = reviews.count
             | )
+        .text-muted.text-center--md.row-space-1
+          span.block--sp
+            span.text-lead
+              -if category_food?(listing)
+                |食事
+              -if category_alcohol?(listing)
+                |お酒
+              -if category_car?(listing)
+                |車
+              -if category_cruising?(listing)
+                |船旅
+              -if category_shopping?(listing)
+                |ショッピング
+              -if category_accommodation?(listing)
+                |宿泊施設
+              -if category_business?(listing)
+                |ビジネス
+              -if category_sport?(listing)
+                |スポーツ
+              
         /= render partial: 'delivery_ok_button', locals: { listing: listing }
     /.row.hide--sp
       .col-md-3.text-muted.text-center
