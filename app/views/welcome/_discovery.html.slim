@@ -1,108 +1,51 @@
 .card.card-discovery
   .discovery-container
-    #discover-recommendations.discovery-section.page-container.page-container-no-padding.row-space-6
-      .section-intro.text-center.row-space-6.row-space-top-8
-        h2.row-space-1.strong とっておきのローカルトリップ
-        p.text-lead Huber.が推薦するユニークでオリジナリティ溢れる10の旅
-      .discovery-tiles
-        .row
-          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.change-sp
-            .discovery-card.rm-padding--sp.row-space-6.wall12
-              a.link-reset[href="#" data-hook="discovery-card"]
-                .va-container.va-container-v.va-container-h
-                  .va-middle.text-center.text-contrast
-                    .h4 グランドキャニオン一周旅行
-                    span.period 3泊4日
-                span.arrow-direction
-                  i.fa.fa-chevron-right
-              a.likes.discovery-heart
-                i.fa.fa-heart
-                span.count 2,876
-              a.planner-circle[title="Rachel & Amy" data-toggle="tooltip"]
-                = image_tag "sample/face/girl01.jpg"
-                  
-          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.change-sp
-            .discovery-card.rm-padding--sp.row-space-6.wall13
-              a.link-reset[href="#" data-hook="discovery-card"]
-                .va-container.va-container-v.va-container-h
-                  .va-middle.text-center.text-contrast
-                    .h4 秘境トンブクトゥ探訪
-                    span.period 日帰り
-                span.arrow-direction
-                  i.fa.fa-chevron-right
-              a.likes.discovery-heart
-                i.fa.fa-heart
-                span.count 99
-              a.planner-circle[title="まさみ & 太郎" data-toggle="tooltip"]
-                = image_tag "sample/face/man01.jpg"
-                  
-          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.change-sp
-            .discovery-card.rm-padding--sp.row-space-6.wall14
-              a.link-reset[href="#" data-hook="discovery-card"]
-                .va-container.va-container-v.va-container-h
-                  .va-middle.text-center.text-contrast
-                    .h4 マンハッタンのスポット
-                    span.period 7泊8日
-                span.arrow-direction
-                  i.fa.fa-chevron-right
-              a.likes.discovery-heart
-                i.fa.fa-heart
-                span.count 3
-              a.planner-circle[title="Kim & Kanye" data-toggle="tooltip"]
-                = image_tag "sample/face/girl02.jpg"
-                  
-        .col-sm-12.rm-padding--sp.row-space-4.text-center
-          a.btn.btn-large.btn-more
-            | もっと見る
-            i.fa.fa-caret-down
-
-  .discovery-container
     #discover-recommendations.discovery-section.page-container.page-container-no-padding.row-space-8
-      .section-intro.text-center.row-space-6.row-space-top-4
+      .section-intro.text-center.row-space-6.row-space-top-8
         h2.row-space-1.strong スターガイドのご紹介
         p.text-lead ユニークな旅、心づくしのおもてなし。人気のStarGuideたちに依頼しよう!
       .discovery-tiles
-        -@listings.each_with_index do |listing, i|
-          -if (i + 1) % 3 == 0 
+        - @listings.each_with_index do | listing, i |
+          - if (i + 1) % 3 == 0 
             br
           .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
             div
-              .huber-card
-                .huber-card-background
-                  =link_to image_tag(listing_cover_image_thumb_url(listing.id)), listing_path(listing.id)
-                a.likes.huber-likes
-                  i.fa.fa-heart
-                  span.count 1,024
+              = link_to listing_path(listing.id), class: 'huber-card' do
+                .huber-card-background[style="background-image: url('#{listing_cover_image_thumb_url(listing.id)}')"]
                 .huber-card-content
-                  a.huber-card-face[href="#"]
+                  .huber-card-face
                     = image_tag(user_id_to_profile_image(listing.user_id), class: "")
-                  .capability
-                    -if category_food?(listing)
-                      a[title="食" data-toggle="tooltip"]
-                        i.fa.fa-cutlery
-                    -if category_alcohol?(listing)
-                      a[title="お酒" data-toggle="tooltip"]
-                        i.fa.fa-glass
-                    -if category_car?(listing)
-                      a[title="車" data-toggle="tooltip"]
-                        i.fa.fa-car
-                    -if category_cruising?(listing)
-                      a[title="船旅" data-toggle="tooltip"]
-                        i.fa.fa-ship
-                    -if category_shopping?(listing)
-                      a[title="ショッピング" data-toggle="tooltip"]
-                        i.fa.fa-shopping-cart
-                    -if category_business?(listing)
-                      a[title="ビジネス" data-toggle="tooltip"]
-                        i.fa.fa-area-chart
-                    -if category_sport?(listing)
-                      a[title="スポーツ" data-toggle="tooltip"]
-                        i.fa.fa-soccer-ball-o
                   .huber-inner
                     .name
                       = user_id_to_name(listing.user_id)
                     .introducing
-                      = user_id_to_profile_image_caption(listing.user_id)
+                      span
+                        = user_id_to_profile_image_caption(listing.user_id)
+                  .capability
+                    -if category_food?(listing)
+                      span[title="食" data-toggle="tooltip"]
+                        i.fa.fa-cutlery
+                    -if category_alcohol?(listing)
+                      span[title="お酒" data-toggle="tooltip"]
+                        i.fa.fa-glass
+                    -if category_car?(listing)
+                      span[title="車" data-toggle="tooltip"]
+                        i.fa.fa-car
+                    -if category_cruising?(listing)
+                      span[title="船旅" data-toggle="tooltip"]
+                        i.fa.fa-ship
+                    -if category_shopping?(listing)
+                      span[title="ショッピング" data-toggle="tooltip"]
+                        i.fa.fa-shopping-cart
+                    -if category_accommodation?(listing)
+                      span[title="宿泊施設" data-toggle="tooltip"]
+                        i.fa.fa-bed
+                    -if category_business?(listing)
+                      span[title="ビジネス" data-toggle="tooltip"]
+                        i.fa.fa-area-chart
+                    -if category_sport?(listing)
+                      span[title="スポーツ" data-toggle="tooltip"]
+                        i.fa.fa-soccer-ball-o
                   .language
                     -if language_ja?(listing)
                       span 日本語
@@ -110,85 +53,9 @@
                       span English
                     -if language_zh?(listing)
                       span 中国語
-                  .trip-list
-                    ul
-                      li
-                        a.trip-bullet[title="秘境探索2泊3日カトマンデュ冒険旅行！予約受け付け中"]
-                          = image_tag 'sample/small/pic011.jpg'
-                      li
-                        a.trip-bullet[title="秘境探索2泊3日カトマンデュ冒険旅行！予約受け付け中"]
-                          = image_tag 'sample/small/pic010.jpg'
-                      li
-                        a.trip-bullet[title="秘境探索2泊3日カトマンデュ冒険旅行！予約受け付け中"]
-                          = image_tag 'sample/small/pic006.jpg'
-                          
-          /.col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
-            div
-              .huber-card
-                a.huber-card-background.user-bg002[href="#"]
-                a.likes.huber-likes
-                  i.fa.fa-heart
-                  span.count 1,024
-                .huber-card-content
-                  a.huber-card-face[href="#"]
-                    = image_tag 'sample/face/man01.jpg'
-                  .capability
-                    a[title="お酒あり" data-toggle="tooltip"]
-                      i.fa.fa-glass
-                    a[title="車あり" data-toggle="tooltip"]
-                      i.fa.fa-car
-                  .huber-inner
-                    .name まさみ & 太郎
-                    .introducing 鎌倉の事ならなんでもおまかせ！一緒に楽しい旅にするために精一杯がんばります！！気軽に声かけてください。
-                  .language
-                    span 日本語
-                  .trip-list
-                    ul
-                      li
-                        a.trip-bullet[title="秘境探索2泊3日カトマンデュ冒険旅行！予約受け付け中"]
-                          = image_tag 'sample/small/pic005.jpg'
-                      li
-                        a.trip-bullet[title="秘境探索2泊3日カトマンデュ冒険旅行！予約受け付け中"]
-                          = image_tag 'sample/small/pic010.jpg'
-                      li
-                        a.trip-bullet[title="秘境探索2泊3日カトマンデュ冒険旅行！予約受け付け中"]
-                          = image_tag 'sample/small/pic009.jpg'
-          /.col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
-            div
-              .huber-card
-                a.huber-card-background.user-bg003[href="#"]
-                a.likes.huber-likes
-                  i.fa.fa-heart
-                  span.count 1,024
-                .huber-card-content
-                  a.huber-card-face[href="#"]
-                    = image_tag 'sample/face/girl02.jpg'
-                  .capability
-                    a[title="夕食あり" data-toggle="tooltip"]
-                      i.fa.fa-cutlery
-                    a[title="お酒あり" data-toggle="tooltip"]
-                      i.fa.fa-glass
-                    a[title="買い物コースあり" data-toggle="tooltip"]
-                      i.fa.fa-shopping-cart
-                  .huber-inner
-                    .name 玲華 & West
-                    .introducing 如果是镰仓的事不管什么都委托！为了要对一起快乐的旅行竭尽全力努力!!请轻松愉快招呼！
-                  .language
-                    span English
-                    span 中国語
-                  .trip-list
-                    ul
-                      li
-                        a.trip-bullet[title="秘境探索2泊3日カトマンデュ冒険旅行！予約受け付け中"]
-                          = image_tag 'sample/small/pic006.jpg'
-                      li
-                        a.trip-bullet[title="秘境探索2泊3日カトマンデュ冒険旅行！予約受け付け中"]
-                          = image_tag 'sample/small/pic008.jpg'
-                      li
-                        a.trip-bullet[title="秘境探索2泊3日カトマンデュ冒険旅行！予約受け付け中"]
-                          = image_tag 'sample/small/pic007.jpg'
 
-        .col-sm-12.rm-padding--sp.row-space-6.text-center
+
+        /.col-sm-12.rm-padding--sp.row-space-6.text-center
           a.btn.btn-large.btn-more
             | 他のガイドを見る
             i.fa.fa-caret-down

@@ -725,10 +725,14 @@ label.error
     font-size: 13px
     font-weight: 700
 
-
 /* .huber-card */
 .huber-card
   position: relative
+  color: $gray1
+  text-align: center
+  &:hover
+    color: $gray1
+    text-decoration: none
   .huber-likes
     position: absolute
     top: 10px
@@ -737,57 +741,63 @@ label.error
     display: block
     height: 100px
     border-radius: 4px 4px 0 0
-    border-bottom: 1px solid #e1e8ed
-    background-size: 100%
+    border: 1px solid #e1e8ed
+    border-bottom: 0
+    background-size: cover
     background-position: 0 50%
     background-repeat: no-repeat
-    &.user-bg001
-      background-image: image-url('sample/pic/pic003.jpg')
-    &.user-bg002
-      background-image: image-url('sample/pic/pic004.jpg')
-    &.user-bg003
-      background-image: image-url('sample/pic/pic005.jpg')
   .huber-card-content
     position: relative
     background-color: white
     border: 1px solid #e1e8ed
     border-radius: 0 0 4px 4px
     .huber-card-face
-      display: inline-block
-      margin: -45px 0 0 5px
+      display: block
+      width: 100px
+      margin: -55px auto 0
       border-radius: 50%
-      padding: 4px
+      padding: 5px
       background-color: white
       img
         display: block
-        width: 70px
-        height: 70px
+        width: 100%
+        height: auto
         border-radius: 50%
-    .capability
-      position: absolute
-      display: inline-block
-      right: 0
-      padding: 5px 10px 0 0
-      a
-        display: inline-block
-        width: 32px
-        height: 32px
-        line-height: 32px
-        margin: 5px 3px
-        color: white
-        font-size: 16px
-        text-align: center
-        background-color: $brand-theme
-        border-radius: 50%
-        cursor: pointer
     .huber-inner
-      padding: 10px 15px 5px
+      padding: 5px 20px
       .name
         padding-bottom: 5px
         font-size: 16px
         font-weight: 700
+        text-align: center
+      .introducing
+        display: table
+        position: relative
+        height: 80px
+        padding: 8px 0
+        border-top: 1px solid $border2
+        border-bottom: 1px solid $border2
+        overflow: hidden
+        span
+          display: table-cell
+          vertical-align: middle
+    .capability
+      display: block
+      padding: 5px 15px 0
+      span
+        display: inline-block
+        width: 28px
+        height: 28px
+        line-height: 28px
+        margin: 5px 3px
+        color: white
+        font-size: 14px
+        text-align: center
+        background-color: $brand-theme
+        border-radius: 50%
+        cursor: pointer
     .language
-      padding: 5px 15px 15px
+      padding: 10px 15px 18px
       span
         display: inline-block
         height: 24px
@@ -960,6 +970,69 @@ label.error
       padding: 10px 14px
       &:hover
         color: white
+
+.tag-list-wrapper
+  float: left
+  ul
+    list-style: none
+    margin: 0 0 10px
+    padding: 0
+    overflow: hidden
+    li
+      float: left
+      margin: 0 10px 10px 0
+      a
+        display: block
+        width: 38px
+        height: 38px
+        line-height: 38px
+        color: white
+        font-size: 16px
+        text-align: center
+        background-color: $brand-theme
+        border-radius: 50%
+  @media (max-width: 1099px)
+    float: none
+    ul
+      text-align: center
+      li
+        float: none
+        display: inline-block
+        a
+          width: 32px
+          height: 32px
+          line-height: 32px
+          font-size: 14px
+
+.lang-list-wrapper
+  float: left
+  ul
+    list-style: none
+    margin: 0
+    padding: 0
+    overflow: hidden
+    li
+      float: left
+      margin: 5px
+      span
+        display: block
+        height: 30px
+        line-height: 28px
+        padding: 0 12px
+        color: $brand-theme
+        font-size: 14px
+        font-weight: 700
+        text-align: center
+        background-color: white
+        border: 1px solid $brand-theme
+        border-radius: 2px
+  @media (max-width: 1099px)
+    float: none
+    ul
+      text-align: center
+      li
+        float: none
+        display: inline-block
 
 //reliable-sign
 .reliable-sign

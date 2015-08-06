@@ -5,9 +5,9 @@
         = link_to profile_path(listing.user_id), class: 'media-photo media-round' do
           = image_tag(user_id_to_profile_image(listing.user_id), class: "size90")
       .col-md-12.col-middle.col-reset
-        h1#listing_name.overflow.h3.row-space-2.text-center--md
+        h1#listing_name.overflow.h3.row-space-3.text-center--md
           = listing.title
-        .text-muted.text-center--md.row-space-1
+        .text-muted.text-center--md.row-space-3
           span.block--sp
             span.text-boxed ガイドエリア
             a.link-reset[href="#neighborhood"]
@@ -22,34 +22,51 @@
             span[itemprop="reviewCount"]
               = reviews.count
             | )
-        .text-muted.text-center--md.row-space-1
-          span.block--sp
-            span.text-lead
-              -if category_food?(listing)
-                |食
+        .tag-list-wrapper
+          ul
+            - if category_food?(listing)
+              li
+                = link_to 'javascript:void(0)', title: '食', data:{toggle: 'tooltip'} do
+                  i.fa.fa-cutlery
               -if category_alcohol?(listing)
-                |お酒
+                li
+                  = link_to 'javascript:void(0)', title: 'お酒', data:{toggle: 'tooltip'} do
+                    i.fa.fa-glass
               -if category_car?(listing)
-                |車
+                li
+                  = link_to 'javascript:void(0)', title: 'ドライブ', data:{toggle: 'tooltip'} do
+                    i.fa.fa-car
               -if category_cruising?(listing)
-                |船旅
+                li
+                  = link_to 'javascript:void(0)', title: '船旅', data:{toggle: 'tooltip'} do
+                    i.fa.fa-ship
               -if category_shopping?(listing)
-                |ショッピング
+                li
+                  = link_to 'javascript:void(0)', title: 'ショッピング', data:{toggle: 'tooltip'} do
+                    i.fa.fa-shopping-cart
               -if category_accommodation?(listing)
-                |宿泊施設
+                li
+                  = link_to 'javascript:void(0)', title: '宿泊施設', data:{toggle: 'tooltip'} do
+                    i.fa.fa-bed
               -if category_business?(listing)
-                |ビジネス
+                li
+                  = link_to 'javascript:void(0)', title: 'ビジネス', data:{toggle: 'tooltip'} do
+                    i.fa.fa-suitcase
               -if category_sport?(listing)
-                |スポーツ
-        .text-muted.text-center--md.row-space-1
-          span.block--sp
-            span.text-lead
-              -if language_ja?(listing)
-                |日本語
-              -if language_en?(listing)
-                |英語
-              -if language_zh?(listing)
-                |中国語
+                li
+                  = link_to 'javascript:void(0)', title: 'スポーツ', data:{toggle: 'tooltip'} do
+                    i.fa.fa-futbol-o
+        .lang-list-wrapper
+          ul
+            - if language_ja?(listing)
+              li
+                span 日本語
+            - if language_en?(listing)
+              li
+                span 英語
+            - if language_zh?(listing)
+              li
+                span 中国語
               
         /= render partial: 'delivery_ok_button', locals: { listing: listing }
     /.row.hide--sp

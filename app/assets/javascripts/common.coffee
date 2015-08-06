@@ -160,6 +160,19 @@ $ ->
   # welcome#index
   if $('body').hasClass('welcome index')
 
+    # ellipsis
+    $setElm = $('.introducing > span')
+    cutFigure = '50'
+    afterTxt = ' …'
+    $setElm.each ->
+      textLength = $(this).text().length
+      textTrim = $(this).text().substr(0, cutFigure)
+      if cutFigure < textLength
+        $(this).html(textTrim + afterTxt).css visibility: 'visible'
+      else if cutFigure >= textLength
+        $(this).css visibility: 'visible'
+      return
+
     # landing-page slideshow
     setInterval slideSwitch, 5000
 

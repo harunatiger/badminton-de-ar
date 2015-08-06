@@ -2,12 +2,14 @@
   .header--sp
     = link_to "#", class: "burger--sp" do
       i.fa.fa-reorder
-    - unless controller_name == "welcome"
+      .title--sp.text-center
+        = link_to "", root_path, class: "header-logo"
+    /- unless controller_name == "welcome"
       .title--sp.text-center
         = link_to "javascript:void(0)", class: "header-search-dummy" do
           i.fa.fa-search
           | どこで探しますか？
-    - else
+    /- else
       .title--sp.text-center
         = link_to "", root_path, class: "header-logo"
     .action--sp
