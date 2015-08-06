@@ -34,6 +34,15 @@ module ApplicationHelper
       return ci.cover_image
     end
   end
+  
+  def listing_cover_image_thumb_url(listing_id)
+    ci = Listing.find(listing_id)
+    if ci.blank?
+      return ''
+    else
+      return ci.cover_image.thumb
+    end
+  end
 
   def listing_name(listing_id)
     ci = Listing.find(listing_id)
