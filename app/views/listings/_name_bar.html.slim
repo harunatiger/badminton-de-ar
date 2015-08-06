@@ -26,7 +26,7 @@
           span.block--sp
             span.text-lead
               -if category_food?(listing)
-                |食事
+                |食
               -if category_alcohol?(listing)
                 |お酒
               -if category_car?(listing)
@@ -41,6 +41,15 @@
                 |ビジネス
               -if category_sport?(listing)
                 |スポーツ
+        .text-muted.text-center--md.row-space-1
+          span.block--sp
+            span.text-lead
+              -if language_ja?(listing)
+                |日本語
+              -if language_en?(listing)
+                |英語
+              -if language_zh?(listing)
+                |中国語
               
         /= render partial: 'delivery_ok_button', locals: { listing: listing }
     /.row.hide--sp

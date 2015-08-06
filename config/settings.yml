@@ -15,6 +15,19 @@ profile_images:
 profile_identities:
   save:
     success: "プロフィールを更新しました。"
+categories:
+  food: '食'
+  alcohol: 'お酒'
+  car: '車'
+  cruising: '船旅'
+  shopping: 'ショッピング'
+  accommodation: '宿泊施設'
+  business: 'ビジネス'
+  sport: 'スポーツ'
+languages:
+  ja: '日本語'
+  en: '英語'
+  zh: '中国語'
 listings:
   save:
     success: "リスティングの登録に成功しました。次に、他の情報も入力してください。"

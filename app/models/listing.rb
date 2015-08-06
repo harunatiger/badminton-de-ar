@@ -63,6 +63,8 @@ class Listing < ActiveRecord::Base
   has_many :reviews
   has_many :listing_categories, dependent: :destroy
   has_many :categories, :through => :listing_categories, dependent: :destroy
+  has_many :listing_languages, dependent: :destroy
+  has_many :languages, :through => :listing_languages, dependent: :destroy
 
   mount_uploader :cover_image, DefaultImageUploader
 

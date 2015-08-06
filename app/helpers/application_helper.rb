@@ -270,34 +270,46 @@ module ApplicationHelper
   end
   
   def category_food?(listing)
-    listing.categories.exists?(:id => 1)
+    listing.categories.exists?(:name => Settings.categories.food)
   end
   
   def category_alcohol?(listing)
-    listing.categories.exists?(:id => 2)
+    listing.categories.exists?(:name => Settings.categories.alcohol)
   end
   
   def category_car?(listing)
-    listing.categories.exists?(:id => 3)
+    listing.categories.exists?(:name => Settings.categories.car)
   end
   
   def category_cruising?(listing)
-    listing.categories.exists?(:id => 4)
+    listing.categories.exists?(:name => Settings.categories.cruising)
   end
   
   def category_shopping?(listing)
-    listing.categories.exists?(:id => 5)
+    listing.categories.exists?(:name => Settings.categories.shopping)
   end
   
   def category_accommodation?(listing)
-    listing.categories.exists?(:id => 6)
+    listing.categories.exists?(:name => Settings.categories.accommodation)
   end
   
   def category_business?(listing)
-    listing.categories.exists?(:id => 7)
+    listing.categories.exists?(:name => Settings.categories.business)
   end
   
   def category_sport?(listing)
-    listing.categories.exists?(:id => 8)
+    listing.categories.exists?(:name => Settings.categories.sport)
+  end
+  
+  def language_ja?(listing)
+    listing.languages.exists?(:name => Settings.languages.ja)
+  end
+  
+  def language_en?(listing)
+    listing.languages.exists?(:name => Settings.languages.en)
+  end
+  
+  def language_zh?(listing)
+    listing.languages.exists?(:name => Settings.languages.zh)
   end
 end
