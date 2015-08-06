@@ -247,7 +247,7 @@ module ApplicationHelper
   
   def profile_link
     if current_user
-      edit_profile_path(current_user.id, send_message: 'yes')
+      edit_profile_path(current_user.profile.id, send_message: 'yes')
     else
       new_user_session_path
     end
