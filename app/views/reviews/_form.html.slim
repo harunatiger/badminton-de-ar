@@ -18,13 +18,13 @@
       = f.hidden_field :cost_performance, value: 0
       .row.row-space-5
         .col-12
-          = f.input_field :msg, required: true, rows: "7", placeholder: "例）先日のリスティングは大変楽しく過ごすことができました。ありがとうございます。ぜひまた参加させていただきたいと思います。"
+          = f.input_field :msg, required: true, rows: "7", placeholder: "例）先日のツアーは大変楽しく過ごすことができました。ありがとうございます。ぜひまた参加させていただきたいと思います。"
       .row.row-space-5
         label.col-12
           .h5
             | 評価
             small
-              ' 　あなたの判断でリスティングの評価を最高星5つでつけてみてください
+              ' 　あなたの判断でガイドの評価を最高星5つでつけてみてください
         .col-12
           fieldset.rating
             = f.input_field :total, as: :radio_buttons, required: true, boolean_style: :inline, collection: [["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], label_method: :last, item_wrapper_tag: false

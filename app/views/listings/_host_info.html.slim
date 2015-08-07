@@ -39,14 +39,14 @@
             - if user_signed_in?
               - if current_user.id == listing.user_id
                 button.btn.btn-small.btn-primary.disabled
-                  | こちらのホストに連絡
+                  | こちらのガイドに連絡
               - else
                 button#message-host-link-bottom.btn.btn-small.btn-primary
-                  | こちらのホストに連絡
+                  | こちらのガイドに連絡
             - else
               = link_to new_user_session_path do
                 button.btn.btn-small.btn-primary
-                  | こちらのホストに連絡 
+                  | こちらのガイドに連絡 
       .row-space-8.row-space-top-4
         .row
           .col-md-3

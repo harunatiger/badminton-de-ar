@@ -13,21 +13,21 @@
                 = simple_format(listing_image.try('description') ||  Settings.image.noimage2.caption)
 
         /h4.row-space-4
-          |  このリスティングについて
+          |  このガイドさんについて
         /p.listing-description
           = listing.description
         /p.text-center--sp
           - if user_signed_in?
             - if current_user.id == listing.user_id
               button.btn.btn-small.btn-primary.disabled
-                | こちらのホストに連絡
+                | こちらのガイドに連絡
             - else
               button#message-host-link.btn.btn-small.btn-primary
-                | こちらのホストに連絡
+                | こちらのガイドに連絡
           - else
             = link_to new_user_session_path do
               button.btn.btn-small.btn-primary
-                | こちらのホストに連絡
+                | こちらのガイドに連絡
         /hr
         /.row
           .col-md-3.text-muted

@@ -33,7 +33,7 @@ $ ->
       type: $(this).attr('method')
       data: postData
       success: (data, textStatus, jqXHR) ->
-        alert 'リスティング情報を登録しました。'
+        alert 'ガイドページ情報を登録しました。'
         console.log 'success'
       error: (jqXHR, textStatus, errorThrown) ->
         alert '登録に失敗しました。'

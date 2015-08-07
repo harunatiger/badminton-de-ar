@@ -30,35 +30,35 @@ languages:
   zh: '中国語'
 listings:
   save:
-    success: "リスティングの登録に成功しました。次に、他の情報も入力してください。"
+    success: "ガイドページの登録に成功しました。次に、他の情報も入力してください。"
   set_lon_lat:
     error: "緯度経度情報の取得に失敗しました。以下より正確な場所を入力してください。"
   publish:
-    success: "リスティングを公開しました。"
-    failure: "リスティングの公開にはもう少し準備が必要です。"
+    success: "ガイドページを公開しました。"
+    failure: "ガイドページの公開にはもう少し準備が必要です。"
   unpublish:
-    success: "リスティングを非公開にしました。"
-    failure: "リスティングの非公開に失敗しました。"
+    success: "ガイドページを非公開にしました。"
+    failure: "ガイドページの非公開に失敗しました。"
   delivery:
     ok: "出張可"
   error:
-    invalid_listing_id: "該当のお茶会が見つかりません。"
+    invalid_listing_id: "該当するガイドが見つかりません。"
 listing_images:
   save:
-    success: "リスティングのイメージ画像の登録に成功しました。"
+    success: "ガイドページのイメージ画像の登録に成功しました。"
     failure: "画像の登録に失敗しました。"
 confections:
   save:
-    success: "お菓子（オプション1）の情報を登録いたしました。"
-    failure: "お菓子（オプション1）の情報の登録に失敗しました。"
+    success: "オプション1の情報を登録いたしました。"
+    failure: "オプション1の情報の登録に失敗しました。"
 tools:
   save:
-    success: "お道具（オプション2）の情報を登録しました。"
-    failure: "お道具（オプション2）情報の登録に失敗しました。"
+    success: "オプション2の情報を登録しました。"
+    failure: "オプション2情報の登録に失敗しました。"
 dress_codes:
   save:
-    success: "服装（オプション3）に関する情報を登録しました。"
-    failure: "服装（オプション3）に関する情報の登録に失敗しました。"
+    success: "オプション3に関する情報を登録しました。"
+    failure: "オプション3に関する情報の登録に失敗しました。"
   wafuku:
     only: "和服でお願いします。"
     not_only: "和服でなくて結構です。"

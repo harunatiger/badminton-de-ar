@@ -5,7 +5,7 @@
       .card
         - if @message_threads.blank?
           .card-body
-            p ホストにメッセージまたは予約希望を送信した場合、ここでホストからの返信を見られます。
+            p ガイドにメッセージを送信した場合、ここでガイドからの返信を見られます。
         - else
           ul.list-layout.card-body
             - @message_threads.each do |mt|
