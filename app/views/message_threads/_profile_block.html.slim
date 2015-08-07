@@ -9,7 +9,7 @@
           = link_to profile_path(counterpart.id), class: 'text-normal' do
             = user_id_to_name(counterpart.id)
             | さん
-        small
+        /small
           = counterpart.profile.try('location') || '住所未登録'
         small 
           | メンバー登録: 
