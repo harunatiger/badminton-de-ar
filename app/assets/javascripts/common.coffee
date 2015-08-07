@@ -185,10 +185,10 @@ $ ->
     $('#charmer').carousel()
 
   # google place-auto-complete
-  initialize()
+  #initialize()
   # google place-auto-complete2
-  if $('body').hasClass('dashboard guest_reservation_manager')
-    initialize2()
+  #if $('body').hasClass('dashboard guest_reservation_manager')
+    #initialize2()
 
   # registrations#new
   if $('body').hasClass('registrations new')
@@ -202,6 +202,7 @@ $ ->
 # functions ==============================
 
 # google place autocomplete
+###
 initialize = ->
   input = document.getElementById('location')
   options = {
@@ -227,9 +228,10 @@ initialize = ->
       location_being_changed = true
     return
   return
-
+###
 
 # google place autocomplete
+###
 initialize2 = ->
   input = document.getElementById('location2')
   options = {
@@ -255,3 +257,4 @@ initialize2 = ->
       location_being_changed = true
     return
   return
+###
