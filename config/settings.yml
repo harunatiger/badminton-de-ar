@@ -87,7 +87,7 @@ message_thread:
   show:
     message_form:
       content:
-        placeholder: "ここに個人宛てのお便りをご記入ください。"
+        placeholder: "ここにガイドへのメッセージをご記入ください。"
 message:
   save:
     success: "送信完了しました。"
