@@ -42,7 +42,7 @@
                   = render partial: '/shared/header_form_sp'
   .header.clearfix.hide--sp
     = link_to "", root_path, class: "header-logo pull-left"
-    - unless controller_name == "welcome"
+    /- unless controller_name == "welcome"
       = render partial: '/shared/header_form'
     ul.nav.pull-right
       li.help-menu.pull-left.hide
