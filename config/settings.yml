@@ -1,14 +1,14 @@
 site_info:
   base_title: "世界中で友達を作ろう！"
-  base_description: "基本discription"
-  base_words: "基本キーワード"
+  base_description: "世界中で友達を作ろう！Huber.のガイドと素敵な旅を。"
+  base_words: "Huber,ガイド,ツアー,ハーバー,旅,マッチング"
 oauth:
   facebook:
     scope: "public_profile,email,user_friends"
 profile:
   save:
     success: "プロフィールを更新しました。"
-  send_message: 'ツアーの相談には自己紹介の登録が必要です。自己紹介欄を入力してください。'
+  send_message: 'ガイドへの相談には自己紹介の登録が必要です。自己紹介欄を入力してください。'
 profile_images:
   save:
     success: "プロフィールを更新しました。"
