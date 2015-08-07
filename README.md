@@ -22,7 +22,7 @@ and check localhost:3000 or the other specified IP and port from browser
 
 ## ATTENTION
 
-By dafult, you can use Gemfile in which gems' version are specified.
+By default, you can use Gemfile in which gems' version are specified.
 IF YOU WANT TO USE LATEST VERSION OF GEMS, USE "GEMFILE.no_version"
 *(rename this file like Gemfile.version_fixed, and rename Gemfile.no_version to Gemfile)*
 (and bundle update again)
