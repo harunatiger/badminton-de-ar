@@ -28,34 +28,34 @@
               li
                 = link_to 'javascript:void(0)', title: '食', data:{toggle: 'tooltip'} do
                   i.fa.fa-cutlery
-              -if category_alcohol?(listing)
-                li
-                  = link_to 'javascript:void(0)', title: 'お酒', data:{toggle: 'tooltip'} do
-                    i.fa.fa-glass
-              -if category_car?(listing)
-                li
-                  = link_to 'javascript:void(0)', title: 'ドライブ', data:{toggle: 'tooltip'} do
-                    i.fa.fa-car
-              -if category_cruising?(listing)
-                li
-                  = link_to 'javascript:void(0)', title: '船旅', data:{toggle: 'tooltip'} do
-                    i.fa.fa-ship
-              -if category_shopping?(listing)
-                li
-                  = link_to 'javascript:void(0)', title: 'ショッピング', data:{toggle: 'tooltip'} do
-                    i.fa.fa-shopping-cart
-              -if category_accommodation?(listing)
-                li
-                  = link_to 'javascript:void(0)', title: '宿泊施設', data:{toggle: 'tooltip'} do
-                    i.fa.fa-bed
-              -if category_business?(listing)
-                li
-                  = link_to 'javascript:void(0)', title: 'ビジネス', data:{toggle: 'tooltip'} do
-                    i.fa.fa-suitcase
-              -if category_sport?(listing)
-                li
-                  = link_to 'javascript:void(0)', title: 'スポーツ', data:{toggle: 'tooltip'} do
-                    i.fa.fa-futbol-o
+            -if category_alcohol?(listing)
+              li
+                = link_to 'javascript:void(0)', title: 'お酒', data:{toggle: 'tooltip'} do
+                  i.fa.fa-glass
+            -if category_car?(listing)
+              li
+                = link_to 'javascript:void(0)', title: 'ドライブ', data:{toggle: 'tooltip'} do
+                  i.fa.fa-car
+            -if category_cruising?(listing)
+              li
+                = link_to 'javascript:void(0)', title: '船旅', data:{toggle: 'tooltip'} do
+                  i.fa.fa-ship
+            -if category_shopping?(listing)
+              li
+                = link_to 'javascript:void(0)', title: 'ショッピング', data:{toggle: 'tooltip'} do
+                  i.fa.fa-shopping-cart
+            -if category_accommodation?(listing)
+              li
+                = link_to 'javascript:void(0)', title: '宿泊施設', data:{toggle: 'tooltip'} do
+                  i.fa.fa-bed
+            -if category_business?(listing)
+              li
+                = link_to 'javascript:void(0)', title: 'ビジネス', data:{toggle: 'tooltip'} do
+                  i.fa.fa-suitcase
+            -if category_sport?(listing)
+              li
+                = link_to 'javascript:void(0)', title: 'スポーツ', data:{toggle: 'tooltip'} do
+                  i.fa.fa-futbol-o
         .lang-list-wrapper
           ul
             - if language_ja?(listing)
