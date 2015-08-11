@@ -1717,11 +1717,13 @@ select
   border-bottom: 1px solid $border1
   .header-logo
     display: block
-    width: 90px
+    width: 120px
+    //width: 90px //for prod
     height: 32px
     margin: 0 auto
-    background: image-url('logo.png') 0 0 no-repeat
-    background-size: 90px 32px
+    background: image-url('logo-beta.png') 0 0 no-repeat
+    background-size: 120px 32px
+    //background-size: 90px 32px //for prod
   .nav
     margin: 2px 0 0
     > li
@@ -1888,7 +1890,7 @@ select
     border-bottom: none
     z-index: 1000
     .header-logo
-      background-image: image-url('logo-white.png')
+      background-image: image-url('logo-white-beta.png')
     .nav
       > li
         > a
@@ -1921,7 +1923,7 @@ select
   .common-header
     padding: 0
     .header-logo
-      background-image: image-url('logo.png') !important
+      background-image: image-url('logo-beta.png') !important
   .is-simpleHeader
     .common-header
       background: white
