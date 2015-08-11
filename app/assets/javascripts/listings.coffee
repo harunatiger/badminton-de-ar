@@ -2,7 +2,7 @@
 $ ->
 
   # listings#new
-  if $('body').hasClass('listings new')
+  if $('body').hasClass('listings new') || $('body').hasClass('listings edit')
 
     # add input file for pics
     $('.add-file-input').on 'click', ->
