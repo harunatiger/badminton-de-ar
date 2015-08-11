@@ -37,7 +37,7 @@ class ListingsController < ApplicationController
   # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
-    #if @listing.set_lon_lat
+    if @listing.set_lon_lat
       respond_to do |format|
         if @listing.save
           format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
@@ -46,25 +46,26 @@ class ListingsController < ApplicationController
           format.json { render json: @listing.errors, status: :unprocessable_entity }
         end
       end
-    #else
-      #return render :new, notice: Settings.listings.set_lon_lat.error
-    #end
+    else
+      return render :new, notice: Settings.listings.set_lon_lat.error
+    end
   end
 
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
   def update
-    #if @listing.set_lon_lat
+    @listing.location = listing_params['location']
+    if @listing.set_lon_lat
       respond_to do |format|
         if @listing.update(listing_params)
-          format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
+            format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
         else
           format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.failure }
         end
       end
-    #else
-      #return render json: { success: false, errors: 'lonlat_failure'}
-    #end
+    else
+      return render json: { success: false, errors: 'lonlat_failure'}
+    end
   end
 
   # DELETE /listings/1

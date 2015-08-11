@@ -87,7 +87,10 @@ class Listing < ActiveRecord::Base
   scope :available_price_max?, -> price_max { where("price <= ?", price_max) }
 
   def set_lon_lat
-    hash = self.geocode_with_google_map_api
+    hash = Hash.new
+    if self.location.present?
+      hash = self.geocode_with_google_map_api
+    end
     if hash['success'].present?
       self.longitude = hash['lng']
       self.latitude = hash['lat']
