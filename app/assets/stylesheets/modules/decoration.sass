@@ -739,7 +739,7 @@ label.error
     right: 10px
   .huber-card-background
     display: block
-    height: 100px
+    height: 180px
     border-radius: 4px 4px 0 0
     border: 1px solid #e1e8ed
     border-bottom: 0
@@ -751,11 +751,11 @@ label.error
     background-color: white
     border: 1px solid #e1e8ed
     border-radius: 0 0 4px 4px
-    min-height: 264px
+    min-height: 184px
     .huber-card-face
       display: block
       width: 100px
-      margin: -55px auto 0
+      margin: -150px auto 0
       border-radius: 50%
       padding: 5px
       background-color: white
@@ -764,26 +764,27 @@ label.error
         width: 90px
         height: 90px
         border-radius: 50%
-    .huber-inner
-      padding: 5px 20px
-      .name
-        padding-bottom: 5px
-        font-size: 16px
-        font-weight: 700
-        text-align: center
-      .introducing
-        display: table
-        position: relative
-        width: 100%
-        height: 80px
-        padding: 8px 0
-        border-top: 1px solid $border2
-        border-bottom: 1px solid $border2
-        overflow: hidden
-        word-break: break-all
-        span
-          display: table-cell
-          vertical-align: middle
+    .huber-card-name
+      height: 49px
+      line-height: 49px
+      color: white
+      font-size: 16px
+      font-weight: 700
+      text-align: center
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.5))
+    .huber-card-title
+      display: table
+      position: relative
+      width: 100%
+      height: 80px
+      padding: 8px 20px
+      //border-top: 1px solid $border2
+      border-bottom: 1px solid $border2
+      overflow: hidden
+      word-break: break-all
+      span
+        display: table-cell
+        vertical-align: middle
     .capability
       display: block
       padding: 5px 15px 0
@@ -1037,6 +1038,22 @@ label.error
       li
         float: none
         display: inline-block
+
+.title-section
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  background: rgba(23, 174, 223, .5)
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.5))
+  z-index: 1
+  #listing_name
+    line-height: 1.6
+    padding: 16px 0
+    color: white
+    font-size: 24px
+    font-weight: 700
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .25)
 
 //reliable-sign
 .reliable-sign

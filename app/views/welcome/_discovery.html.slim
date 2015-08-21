@@ -13,12 +13,11 @@
                 .huber-card-content
                   .huber-card-face
                     = image_tag(user_id_to_profile_image(listing.user_id), class: "")
-                  .huber-inner
-                    .name
-                      = user_id_to_name(listing.user_id)
-                    .introducing
-                      span
-                        = user_id_to_profile_image_caption(listing.user_id)
+                  .huber-card-name
+                    = user_id_to_name(listing.user_id)
+                  .huber-card-title
+                    span
+                      = user_id_to_profile_image_caption(listing.user_id)
                   .capability
                     -if category_food?(listing)
                       span[title="食" data-toggle="tooltip"]

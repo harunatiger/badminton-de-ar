@@ -6,3 +6,9 @@
         = image_tag(listing_image.image.url)
     .cover-img-container
       | <div class="cover-img" style="background-image:url(#{@listing.try('cover_image') || ''})">
+    .title-section
+      .page-container
+        .row
+          .col-lg-8
+            h1#listing_name.overflow.h3.text-center--md
+              = @listing.title

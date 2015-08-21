@@ -5,9 +5,9 @@
         = link_to profile_path(listing.user_id), class: 'media-photo media-round' do
           = image_tag(user_id_to_profile_image(listing.user_id), class: "size90")
       .col-md-12.col-middle.col-reset
-        h1#listing_name.overflow.h3.row-space-3.text-center--md
+        /h1#listing_name.overflow.h3.row-space-3.text-center--md
           = listing.title
-        .text-muted.text-center--md.row-space-3
+        .text-muted.text-center--md.row-space-4.row-space-top-1
           span.block--sp
             span.text-boxed ガイドエリア
             a.link-reset[href="#neighborhood"]
