@@ -238,7 +238,8 @@ Devise.setup do |config|
   config.omniauth :facebook,
                   '433733076833761',
                   '3642371eaeed2edcd57295f5bfc5d0c4',
-                  scope: Settings.oauth.facebook.scope # change scope as your service's aim
+                  scope: Settings.oauth.facebook.scope, # change scope as your service's aim
+                  info_fields: Settings.oauth.facebook.info_fields
                   #display: 'popup'
 
   # ==> Warden configuration

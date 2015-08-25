@@ -5,6 +5,7 @@ site_info:
 oauth:
   facebook:
     scope: "public_profile,email,user_friends"
+    info_fields: "name, first_name, last_name, email"
 profile:
   save:
     success: "プロフィールを更新しました。"
