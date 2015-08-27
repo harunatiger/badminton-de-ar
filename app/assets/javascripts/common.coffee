@@ -161,7 +161,7 @@ $ ->
   if $('body').hasClass('welcome index')
 
     # ellipsis
-    $setElm = $('.huber-card-title > span')
+    $setElm = $('.introducing > span')
     cutFigure = '50'
     afterTxt = ' …'
     $setElm.each ->

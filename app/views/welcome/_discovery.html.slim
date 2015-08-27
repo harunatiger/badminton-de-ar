@@ -6,6 +6,8 @@
         p.text-lead ユニークな旅、心づくしのおもてなし。人気のStarGuideたちに依頼しよう!
       .discovery-tiles
         - @listings.each_with_index do | listing, i |
+          - if (i + 1) % 3 == 0 
+            br
           .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
             div
               = link_to listing_path(listing.id), class: 'huber-card' do
@@ -13,11 +15,12 @@
                 .huber-card-content
                   .huber-card-face
                     = image_tag(user_id_to_profile_image(listing.user_id), class: "")
-                  .huber-card-name
-                    = user_id_to_name(listing.user_id)
-                  .huber-card-title
-                    span
-                      = user_id_to_profile_image_caption(listing.user_id)
+                  .huber-inner
+                    .name
+                      = user_id_to_name(listing.user_id)
+                    .introducing
+                      span
+                        = user_id_to_profile_image_caption(listing.user_id)
                   .capability
                     -if category_food?(listing)
                       span[title="食" data-toggle="tooltip"]
@@ -39,7 +42,7 @@
                         i.fa.fa-bed
                     -if category_business?(listing)
                       span[title="ビジネス" data-toggle="tooltip"]
-                        i.fa.fa-suitcase
+                        i.fa.fa-area-chart
                     -if category_sport?(listing)
                       span[title="スポーツ" data-toggle="tooltip"]
                         i.fa.fa-soccer-ball-o
