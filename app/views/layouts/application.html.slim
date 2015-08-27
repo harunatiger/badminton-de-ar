@@ -4,6 +4,7 @@ html
     = display_meta_tags :charset => 'utf-8', :og => { :title => 'Huber.', :type => 'website', :url => 'http://huber.herokuapp.com/', :image => 'http://huber.herokuapp.com/assets/og.png', :site_name=> 'Huber.', :description=> 'Huber.世界中で友達を作ろう！旅する準備はできていますか？' }, :fb => {:admins => '1081639010'}, :title => full_title(yield(:title)), :description => full_description(yield(:description)), :keywords => full_words(yield(:words)), :author => '', :viewport => 'width=device-width,initial-scale=1,user-scalable=no', :format => {:detection  => 'telephone=no, address=no, email=no'}
     /meta[http-equiv="X-UA-Compatible" content="IE=edge"]
     meta[name="apple-mobile-web-app-title" content="Huber."]
+    = analytics_init if Rails.env.production?
     = favicon_link_tag 'apple-touch-icon.png', rel:'apple-touch-icon-precomposed', type:'image/png'
     = favicon_link_tag 'favicon.ico'
     = stylesheet_link_tag 'application', media: 'all'
