@@ -375,8 +375,8 @@ Rails.application.routes.draw do
     resources :tools, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
     end
-    #get 'publish',   action: 'publish',   as: 'publish'
-    #get 'unpublish', action: 'unpublish', as: 'unpublish'
+    get 'publish',   action: 'publish',   as: 'publish'
+    get 'unpublish', action: 'unpublish', as: 'unpublish'
   end
 
   resources :reservations, only: [:show, :create, :update] do
