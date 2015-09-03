@@ -105,8 +105,8 @@
         /= link_to listing_unpublish_path(@listing), class: "hide-this-listing" do
           i.fa.fa-ban
           | 一時的に非公開にする
-        .unpublished.row-space-top-2
-          i.fa.fa-ban.fa-danger
+        .published.row-space-top-2
+          i.fa.fa-check
           | 現在公開中です
       - else
         .unpublished.row-space-top-2
