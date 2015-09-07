@@ -321,4 +321,14 @@ module ApplicationHelper
   def language_zh?(listing)
     listing.languages.exists?(:name => Settings.languages.zh)
   end
+  
+  def out_put_error(target)
+    if target.errors.present?
+      content_tag(:div, class: 'alert alert-danger') do
+        target.errors.full_messages.each do |msg|
+          concat content_tag(:p,msg)
+        end
+      end
+    end
+  end
 end
