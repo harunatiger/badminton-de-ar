@@ -290,8 +290,8 @@ $ ->
       mapOptions =
         scrollwheel: false
         zoom: 13
-        #center: new (google.maps.LatLng)(gon.listing.latitude, gon.listing.longitude)
-        center: new (google.maps.LatLng)(35.319225, 139.546687)
+        center: new (google.maps.LatLng)(gon.listing.latitude, gon.listing.longitude)
+        # center: new (google.maps.LatLng)(35.319225, 139.546687)
         mapTypeId: google.maps.MapTypeId.TERRAIN
 
       map = new (google.maps.Map)(document.getElementById('map'), mapOptions)
@@ -303,8 +303,8 @@ $ ->
         fillColor: '#17AEDF'
         fillOpacity: 0.35
         map: map
-        #center: new (google.maps.LatLng)(gon.listing.latitude, gon.listing.longitude)
-        center: new (google.maps.LatLng)(35.319225, 139.546687)
+        center: new (google.maps.LatLng)(gon.listing.latitude, gon.listing.longitude)
+        # center: new (google.maps.LatLng)(35.319225, 139.546687)
         radius: Math.sqrt(100) * 100
       # Add the circle for this city to the map.
       cityCircle = new (google.maps.Circle)(circleOptions)
