@@ -190,14 +190,22 @@ $ ->
   #if $('body').hasClass('dashboard guest_reservation_manager')
     #initialize2()
 
-  # registrations#new
-  if $('body').hasClass('registrations new')
-    $('#to-signup-form').on 'click', ->
+  # registrations#new & registrations#create
+  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create')
+
+    loginReady = ->
       $('.sns-buttons').addClass('hide')
       $('.signup-form').removeClass('hide')
       $('.social-links').removeClass('hide')
-      $(this).addClass('hide')
+      $('#to-signup-form').addClass('hide')
       $('.policy-wrapper').addClass('hide')
+      return
+
+    if $('.alert-error > div').length
+      loginReady()
+
+    $('#to-signup-form').on 'click', ->
+      loginReady()
 
 # functions ==============================
 

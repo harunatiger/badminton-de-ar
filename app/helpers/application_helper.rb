@@ -34,7 +34,7 @@ module ApplicationHelper
       return ci.cover_image
     end
   end
-  
+
   def listing_cover_image_thumb_url(listing_id)
     ci = Listing.find(listing_id)
     if ci.blank?
@@ -92,7 +92,7 @@ module ApplicationHelper
     result = ProfileImage.mine(user_id)
     result[0].try('image') || Settings.image.noimage2.url
   end
-  
+
   def user_id_to_profile_image_caption(user_id)
     result = ProfileImage.mine(user_id)
     result[0].try('caption') || ''
@@ -161,7 +161,7 @@ module ApplicationHelper
     profile_identity = ProfileIdentity.where(user_id: user_id, profile_id: Profile.where(user_id: user_id).first.id).first
     profile_identity.present? ? profile_identity.authorized : false
   end
-  
+
   def profile_self_introduction_exists?
     if current_user.present? and current_user.profile.present?
       current_user.profile.self_introduction.present?
@@ -244,7 +244,7 @@ module ApplicationHelper
       new_profile_profile_image_path(current_user.profile.id)
     end
   end
-  
+
   def profile_link
     if current_user
       edit_profile_path(current_user.profile.id, send_message: 'yes')
@@ -277,56 +277,56 @@ module ApplicationHelper
       return ''
     end
   end
-  
+
   def category_food?(listing)
     listing.categories.exists?(:name => Settings.categories.food)
   end
-  
+
   def category_alcohol?(listing)
     listing.categories.exists?(:name => Settings.categories.alcohol)
   end
-  
+
   def category_car?(listing)
     listing.categories.exists?(:name => Settings.categories.car)
   end
-  
+
   def category_cruising?(listing)
     listing.categories.exists?(:name => Settings.categories.cruising)
   end
-  
+
   def category_shopping?(listing)
     listing.categories.exists?(:name => Settings.categories.shopping)
   end
-  
+
   def category_accommodation?(listing)
     listing.categories.exists?(:name => Settings.categories.accommodation)
   end
-  
+
   def category_business?(listing)
     listing.categories.exists?(:name => Settings.categories.business)
   end
-  
+
   def category_sport?(listing)
     listing.categories.exists?(:name => Settings.categories.sport)
   end
-  
+
   def language_ja?(listing)
     listing.languages.exists?(:name => Settings.languages.ja)
   end
-  
+
   def language_en?(listing)
     listing.languages.exists?(:name => Settings.languages.en)
   end
-  
+
   def language_zh?(listing)
     listing.languages.exists?(:name => Settings.languages.zh)
   end
-  
+
   def out_put_error(target)
     if target.errors.present?
-      content_tag(:div, class: 'alert alert-danger') do
+      content_tag(:div, class: 'alert alert-error') do
         target.errors.full_messages.each do |msg|
-          concat content_tag(:p,msg)
+          concat content_tag(:div, msg)
         end
       end
     end
