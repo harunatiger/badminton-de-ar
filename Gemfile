@@ -1,5 +1,5 @@
 # THIS IS GEM-VERSION FIXED GEMFILE.
-# IF YOU WANT TO USE LATEST VERSION OF GEMS, USE "GEMFILE.no_version" 
+# IF YOU WANT TO USE LATEST VERSION OF GEMS, USE "GEMFILE.no_version"
 # (rename this file like Gemfile.version_fixed, and rename Gemfile.no_version to Gemfile)
 
 source 'https://rubygems.org'
@@ -102,8 +102,10 @@ gem 'gon', '5.2.3'
 gem 'activeadmin', github: 'activeadmin'
 
 # gem 'mailcatcher'
-
 gem 'google-analytics-rails'
+
+# dotenv
+gem 'dotenv-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
