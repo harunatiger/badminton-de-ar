@@ -21,8 +21,6 @@
 #  review_opened_at       :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  express_token          :string           default("")
-#  express_payer_id       :string           default("")
 #
 # Indexes
 #
@@ -36,6 +34,7 @@ class Reservation < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'guest_id'
   belongs_to :listing
   has_one :review
+  has_one :payment
 
   # Check config/settings.yml: Settings.reservation.progress
   enum progress: { requested: 0, canceled: 1, holded: 2, accepted: 3, rejected: 4, listing_closed: 5 }

@@ -383,9 +383,9 @@ Rails.application.routes.draw do
     resource :reviews do
       resource :review_replies
     end
-    post 'checkout', on: :collection
     get 'confirm', on: :collection
     get 'cancel', on: :collection
+    post 'checkout', on: :collection
   end
 
   resources :wishlists

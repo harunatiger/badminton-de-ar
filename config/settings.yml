@@ -68,6 +68,8 @@ reservation:
     success: "予約を申し込みました。ご確認いただき、ガイドの方からの返信をお待ちください。"
     failure:
       no_date: "予約する日付を入力してください。"
+      paypal_access_failure: 'paypalとの連携に失敗しました。'
+      paypal_canceled: '予約をキャンセルしました。'
   requirement:
     profile:
       not_yet: "プロフィールを完成させてください。"

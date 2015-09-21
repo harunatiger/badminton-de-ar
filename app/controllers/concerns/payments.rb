@@ -1,5 +1,5 @@
 include ActiveMerchant::Billing
-module Payment
+module Payments
   def gateway
     @gateway ||= PaypalExpressGateway.new(
       :login => 'salonparu-facilitator_api1.gmail.com',
@@ -9,30 +9,36 @@ module Payment
   
   def set_checkout(reservation)
     setup_response = self.gateway.setup_authorization(
-            1000,
+            100000,
             :ip => request.remote_ip,
             :return_url => confirm_reservations_url,
-            :cancel_return_url => cancel_reservations_url)
+            :cancel_return_url => cancel_reservations_url,
+            :currency => 'JPY',
+            items: item_params(reservation))
+  end
+  
+  def item_params(reservation)
+    [{name: reservation.listing.title,
+      quantity: "1",
+      amount: 100000}]
   end
   
   def purchase(reservation)
-    response = process_purchase(reservation)
+    response = process_purchase(reservation.payment)
     p response
     #transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
     #cart.update_attribute(:purchased_at, Time.now) if response.success?
-    response.success?
+    response
   end
 
-  def set_details(reservation)
-    details = self.gateway.details_for(reservation.express_token)
-    reservation.express_payer_id = details.payer_id
-    reservation
+  def set_details(token)
+    details = self.gateway.details_for(token)
   end
 
   private
 
-  def process_purchase(reservation)
-    self.gateway.purchase(1000, express_purchase_options(reservation))
+  def process_purchase(payment)
+    self.gateway.purchase(payment.amount, express_purchase_options(payment))
   end
 
   def standard_purchase_options
@@ -49,11 +55,11 @@ module Payment
     }
   end
 
-  def express_purchase_options(reservation)
+  def express_purchase_options(payment)
     {
       :ip => request.remote_ip,
-      :token => reservation.express_token,
-      :payer_id => reservation.express_payer_id
+      :token => payment.token,
+      :payer_id => payment.payer_id
     }
   end
 
