@@ -62,5 +62,8 @@ Rails.application.configure do
   }
 
   config.action_controller.action_on_unpermitted_parameters = :raise
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test
+  end
 
 end

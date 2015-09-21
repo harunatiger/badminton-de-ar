@@ -21,6 +21,8 @@
 #  review_opened_at       :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  express_token          :string           default("")
+#  express_payer_id       :string           default("")
 #
 # Indexes
 #

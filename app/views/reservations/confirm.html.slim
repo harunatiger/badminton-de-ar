@@ -1,0 +1,14 @@
+= render partial: 'shared/subnav'
+/ listings#new
+.page-container-full
+  .card.card-bald.card-waxing.row-space-8
+    .card-body.card-light
+      div[role="dummy"]
+      .row.row-space-top-6.row-space-6
+        .col-10.col-center.text-center
+          = form_for @reservation do |f|
+            |予約内容
+            br
+            |金額
+            =@listing.price
+            = f.submit "確定する", class: "btn btn-primary btn-large row-space-4"

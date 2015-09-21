@@ -43,6 +43,11 @@ GEM
     activejob (4.2.0)
       activesupport (= 4.2.0)
       globalid (>= 0.3.0)
+    activemerchant (1.53.0)
+      activesupport (>= 3.2.14, < 5.0.0)
+      builder (>= 2.1.2, < 4.0.0)
+      i18n (>= 0.6.9)
+      nokogiri (~> 1.4)
     activemodel (4.2.0)
       activesupport (= 4.2.0)
       builder (~> 3.1)
@@ -592,6 +597,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
+  activemerchant
   annotate (= 2.6.8)
   awesome_print (= 1.6.1)
   bcrypt (= 3.1.10)
@@ -663,3 +669,6 @@ DEPENDENCIES
   view_source_map (= 0.1.0)
   web-console (~> 2.0)
   whenever (= 0.9.4)
+
+BUNDLED WITH
+   1.10.5
