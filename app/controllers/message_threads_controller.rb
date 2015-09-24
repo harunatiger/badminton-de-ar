@@ -3,6 +3,7 @@ class MessageThreadsController < ApplicationController
   before_action :message_thread_user?, only: [:show, :create, :update, :destroy]
   before_action :set_message_thread, only: [:show, :update, :destroy]
   before_action :set_messages, only: [:show]
+  before_action :set_reservation, only: [:show]
 
   # GET /message_threads
   # GET /message_threads.json
@@ -75,6 +76,15 @@ class MessageThreadsController < ApplicationController
 
     def set_messages
       @messages = Message.message_thread(params[:id]).order_by_created_at_desc
+    end
+  
+    def set_reservation
+      if @messages.present?
+        message = @messages.first
+        @guest_id = message.guest_id
+        @host_id = message.host_id
+        @reservation = Reservation.active_reservation(@guest_id, @host_id)
+      end
     end
 
     def message_thread_user?

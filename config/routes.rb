@@ -379,7 +379,7 @@ Rails.application.routes.draw do
     get 'unpublish', action: 'unpublish', as: 'unpublish'
   end
 
-  resources :reservations, only: [:show, :create, :update] do
+  resources :reservations, only: [:show, :edit, :create, :update] do
     resource :reviews do
       resource :review_replies
     end

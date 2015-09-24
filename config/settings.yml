@@ -68,6 +68,10 @@ reservation:
     success: "予約を申し込みました。ご確認いただき、ガイドの方からの返信をお待ちください。"
     failure:
       no_date: "予約する日付を入力してください。"
+  update:
+    success: "予約内容を更新しました。"
+    failure: "予約内容の更新に失敗しました。"
+    no_date: "予約する日付を入力してください。"
   requirement:
     profile:
       not_yet: "プロフィールを完成させてください。"

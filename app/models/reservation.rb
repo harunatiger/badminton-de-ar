@@ -21,6 +21,13 @@
 #  review_opened_at       :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  time_required          :integer          default(1)
+#  price                  :integer          default(0)
+#  option_price           :integer          default(0)
+#  schedule_hour          :datetime
+#  schedule_minute        :datetime
+#  place                  :string           default("")
+#  description            :text             default("")
 #
 # Indexes
 #
@@ -108,5 +115,9 @@ class Reservation < ActiveRecord::Base
   def save_review_opened_at_now
     self.review_opened_at = Time.zone.now
     self.save
+  end
+  
+  def self.active_reservation(guest_id, host_id)   
+    self.where('guest_id = ? and host_id = ? and (progress = 0 or progress = 2 or progress = 3)', guest_id, host_id).finished_before_yesterday.first
   end
 end

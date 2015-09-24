@@ -58,4 +58,15 @@ class Message < ActiveRecord::Base
   def self.make_all_read(message_thread_id, to_user_id)
     Message.where(message_thread_id: message_thread_id, to_user_id: to_user_id, read: false).update_all(read: true, read_at: Time.zone.now)
   end
+  
+  def host_id
+    listing = Listing.find(self.listing_id)
+    listing.user_id
+  end
+  
+  def guest_id
+    listing = Listing.find(self.listing_id)
+    host_id = listing.user_id
+    self.to_user_id == host_id ? self.from_user_id : self.to_user_id
+  end
 end

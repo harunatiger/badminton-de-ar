@@ -14,3 +14,20 @@
         small 
           | メンバー登録: 
           = counterpart.created_at.strftime("%Y年")
+  -if @host_id == counterpart.id
+    /ホスト用
+    -if @reservation.present?
+      =link_to 'ガイド内容を編集する',edit_reservation_path(@reservation.id) if @reservation.requested?
+      -if @reservation.holded?
+        |承認待ち
+      -if @reservation.accepted?
+        |ガイド予約中
+  -else
+    /ゲスト用
+    -if @reservation.present?
+      =link_to '内容を確認して承認する',reservation_path(@reservation.id) if @reservation.holded?
+      -if @reservation.accepted?
+        |ガイド予約中
+    -else
+      |ガイドをお願いする
+    

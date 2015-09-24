@@ -1,12 +1,18 @@
 class ReservationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_reservation, only: [:show, :update, :destroy]
+  before_action :set_reservation, only: [:show, :update, :destroy, :edit]
+  
+  def edit
+  end
+  
+  def show
+  end
   
   def create
     @reservation = Reservation.new(reservation_params)
     profile_id = User.user_id_to_profile_id(@reservation.guest_id)
-    return redirect_to edit_profile_path(profile_id), notice: Settings.reservation.requirement.profile.not_yet unless Profile.minimun_requirement?(@reservation.guest_id)
-    return redirect_to new_profile_profile_image_path(profile_id), notice: Settings.reservation.requirement.profile_image.not_yet unless ProfileImage.minimun_requirement?(@reservation.guest_id, profile_id)
+    #return redirect_to edit_profile_path(profile_id), notice: Settings.reservation.requirement.profile.not_yet unless Profile.minimun_requirement?(@reservation.guest_id)
+    #return redirect_to new_profile_profile_image_path(profile_id), notice: Settings.reservation.requirement.profile_image.not_yet unless ProfileImage.minimun_requirement?(@reservation.guest_id, profile_id)
     respond_to do |format|
       if @reservation.save
         # ReservationMailer.send_new_reservation_notification(@reservation).deliver_later!(wait: 1.minute) # if you want to use active job, use this line.
@@ -61,6 +67,6 @@ class ReservationsController < ApplicationController
     end
 
     def reservation_params
-      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :schedule, :num_of_people, :content, :progress, :reason)
+      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :schedule, :num_of_people, :content, :progress, :reason,:time_required, :price, :option_price, :schedule_hour, :schedule_minute, :place, :description)
     end
 end
