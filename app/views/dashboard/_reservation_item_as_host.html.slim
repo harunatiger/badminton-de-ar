@@ -6,13 +6,13 @@
       .col-md-3
         - if r.progress == Settings.reservation.progress.requested
           span.label.text-blue
-            | 回答してください
+            | 承認依頼中です
         - elsif r.progress == Settings.reservation.progress.canceled
           span.label.text-light-gray
             | キャンセルされました
         - elsif r.progress == Settings.reservation.progress.accepted
           span.label.text-green
-            | 承諾しました
+            | 予約中です
         - elsif r.progress == Settings.reservation.progress.rejected
           span.label
             | 拒否しました
@@ -22,18 +22,18 @@
         - else
           span.label.text-danger
             | 非公開にしました
-      .col-md-3
+      /.col-md-3
         = link_to listing_path(r.listing_id) do
           = listing.title
-      .col-md-2
-        = link_to profile_path(r.guest_id) do
+      .col-md-4
+        = link_to profile_path(Profile.mine(r.guest_id)) do
           = user_id_to_name(r.guest_id)
-      .col-md-2
-        = r.schedule
-      .col-md-2
+      .col-md-5
+        = r.schedule.to_s
+      /.col-md-2
         = r.num_of_people
         | 人
-      .link-group.reservation-item-as-host-launch-message
+      /.link-group.reservation-item-as-host-launch-message
         = link_to "#", id: "reservation-item-as-host-launch-message-#{r.id}", data: { num: r.id } do
           - if r.continued?
             i.fa.fa-reply

@@ -6,7 +6,7 @@
 #  host_id                :integer
 #  guest_id               :integer
 #  listing_id             :integer
-#  schedule               :date             not null
+#  schedule               :datetime         not null
 #  num_of_people          :integer          not null
 #  msg                    :text             default("")
 #  progress               :integer          default(0), not null
@@ -24,8 +24,6 @@
 #  time_required          :integer          default(1)
 #  price                  :integer          default(0)
 #  option_price           :integer          default(0)
-#  schedule_hour          :datetime
-#  schedule_minute        :datetime
 #  place                  :string           default("")
 #  description            :text             default("")
 #
@@ -37,6 +35,8 @@
 #
 
 class Reservation < ActiveRecord::Base
+  include DatetimeIntegratable
+  
   belongs_to :user, class_name: 'User', foreign_key: 'host_id'
   belongs_to :user, class_name: 'User', foreign_key: 'guest_id'
   belongs_to :listing
@@ -45,7 +45,9 @@ class Reservation < ActiveRecord::Base
   # Check config/settings.yml: Settings.reservation.progress
   enum progress: { requested: 0, canceled: 1, holded: 2, accepted: 3, rejected: 4, listing_closed: 5 }
   #enum progress: [requested, canceled, holded, accepted, rejected, listing_closed]
-
+  
+  attr_accessor :message_thread_id
+  
   validates :host_id, presence: true
   validates :guest_id, presence: true
   validates :listing_id, presence: true
@@ -62,6 +64,11 @@ class Reservation < ActiveRecord::Base
   scope :reviewed, -> { where.not(reviewed_at: nil) }
   scope :review_reply_mail_never_be_sent, -> { where(reply_mail_sent_at: nil) }
   scope :review_open?, -> { where(arel_table[:review_opened_at].not_eq(nil)) }
+  
+  REGISTRABLE_ATTRIBUTES = %i(
+    schedule_date schedule_hour schedule_minute
+  )
+  integrate_datetime_fields :schedule
 
   def continued?
     if self.requested? || self.holded?
@@ -72,10 +79,10 @@ class Reservation < ActiveRecord::Base
   end
 
   def string_of_progress
-    return "参加希望" if self.requested?
+    return "承認依頼中" if self.requested?
     return "キャンセル" if self.canceled?
     return "保留" if self.holded?
-    return "承諾" if self.accepted?
+    return "承認" if self.accepted?
     return "拒否" if self.rejected?
     return "非公開" if self.listing_closed?
   end
@@ -118,6 +125,6 @@ class Reservation < ActiveRecord::Base
   end
   
   def self.active_reservation(guest_id, host_id)   
-    self.where('guest_id = ? and host_id = ? and (progress = 0 or progress = 2 or progress = 3)', guest_id, host_id).finished_before_yesterday.first
+    self.where('guest_id = ? and host_id = ? and (progress = 0 or progress = 3)', guest_id, host_id).first
   end
 end

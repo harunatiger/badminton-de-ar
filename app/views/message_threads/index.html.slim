@@ -16,14 +16,14 @@
                   .col-sm-9.col-md-4.thread-author
                     .row.row-table
                       .thread-avatar.col-md-4
-                        = link_to profile_path(counterpart_id)
+                        = link_to profile_path(Profile.mine(counterpart_id))
                           = image_tag(user_id_to_profile_image(counterpart_id), class: "media-round media-photo size50")
                           /img.media-round.media-photo.size50 alt="" src="#{user_id_to_profile_image(counterpart_id)}"
                       .col-sm-8.thread-name
                         = user_id_to_name(counterpart_id)
                         br
                         span.thread-date
-                          = mt.updated_at.strftime("%Y年%m月%d日 %H時%M分")
+                          = mt.updated_at.to_s
                   = link_to message_thread_path(mt), class: "thread-link link-reset text-muted" do
                     .col-sm-7.col-md-6.thread-body
                       .message-content.text-muted.hide--sp

@@ -12,3 +12,10 @@ $ ->
   $("[id^=reservation-item-as-host-launch-message-]").on 'click', ->
     data_num = $(this).attr('data-num')
     $("#message-to-guest-from-reservation-manager-" + data_num).modal()
+  
+  # bootstrap datepicker
+  $('.datepicker').datepicker
+    autoclose: true,
+    startDate: '+1d',
+    language: 'ja',
+    orientation: 'top auto'

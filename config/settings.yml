@@ -65,12 +65,12 @@ dress_codes:
     not_only: "和服でなくて結構です。"
 reservation:
   save:
-    success: "予約を申し込みました。ご確認いただき、ガイドの方からの返信をお待ちください。"
+    success: "ガイド内容を送信しました。ゲストの方からの返信をお待ちください。"
     failure:
       no_date: "予約する日付を入力してください。"
   update:
-    success: "予約内容を更新しました。"
-    failure: "予約内容の更新に失敗しました。"
+    success: "ガイド内容を更新しました。"
+    failure: "ガイド内容の更新に失敗しました。"
     no_date: "予約する日付を入力してください。"
   requirement:
     profile:
@@ -78,7 +78,9 @@ reservation:
     profile_image:
       not_yet: "プロフィール画像をアップロードしてください。"
   msg:
-    request: "予約リクエストをお送りしました。"
+    request: "ガイド内容をお送りしました。"
+    accepted: "ガイド内容を承認しました。"
+    canceled: "ガイド内容をキャンセルしました。"
   progress:
     select: "予約を承認しますか？"
     select_by_guest: "予約をキャンセルする場合は、選択してください。"
@@ -172,7 +174,7 @@ mailer:
       arrived: "新しいメッセージが届きました！"
   new_reservation:
     subject:
-      arrived: "新しい予約リクエストが届きました！"
+      arrived: "ガイド内容が届きました！"
   update_reservation:
     subject:
       canceled: "予約がキャンセルされました。"

@@ -79,12 +79,12 @@ class MessageThreadsController < ApplicationController
     end
   
     def set_reservation
-      if @messages.present?
-        message = @messages.first
-        @guest_id = message.guest_id
-        @host_id = message.host_id
-        @reservation = Reservation.active_reservation(@guest_id, @host_id)
-      end
+      message = @messages.where.not(listing_id: 0).first
+      @guest_id = message.guest_id
+      @host_id = message.host_id
+      reservation = Reservation.active_reservation(@guest_id, @host_id)
+      @reservation = reservation.present? ? Reservation.new(reservation.attributes) : Reservation.new(listing_id: message.listing_id)
+      @reservation.message_thread_id = @message_thread.id
     end
 
     def message_thread_user?

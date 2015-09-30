@@ -12,9 +12,9 @@
     |予約日時
     label[for="checkin"]
     |  参加する日付
-    input#checkin.checkin.datepicker[name="reservation[schedule]" placeholder="年/月/日" type="text"]
-    = f.select :schedule_hour, [*(0..24)]
-    = f.select :schedule_minute, [*(0..59)]
+    = sprintf(f.datetime_select(:schedule, use_month_numbers: true, date_separator: '%s', datetime_separator: '%s'), '年', '月', '日')
+    /= f.select :schedule_hour, [*(1..24)]
+    /= f.select :schedule_minute, [*(0..59)]
   .field
     |集合場所
     = f.input_field :place

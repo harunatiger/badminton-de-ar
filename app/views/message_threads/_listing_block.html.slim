@@ -1,28 +1,41 @@
 - reservation_obj = reservation_id_to_reservation_obj(m.reservation_id)
-- listing_obj = listing_id_to_listing_obj(m.listing_id)
-li#question2_post_383275631.thread-list-item
-  .row.row-condensed
-    .col-md-10.col-md-offset-1
-      .card.row-space-4
-        .card-body.card-dark
-          .h5.row-space-2
-            | リスティング名：
-            = link_to listing_path m.listing_id do
-              = listing_obj.title
-          p.text-muted.row-space-1
-            | 予約状況: 
-            = render partial: '/dashboard/progress', locals: { r: reservation_obj }
-            br
-            | 日程: 
-            = reservation_obj.schedule
-            br
-            | 人数: 
-            = reservation_obj.num_of_people
-            | 人
-            br
-            b 予想お支払い額 
-            | ¥&nbsp;
-            = listing_obj.price * reservation_obj.num_of_people
-            | （金額は予約が成立次第、確定します）
-          = link_to each_manager_link(reservation_obj) do
-            b 予約詳細を見る
+= simple_form_for(reservation_obj) do |f|
+  = f.hidden_field :message_thread_id, value: m.message_thread_id
+  - listing_obj = listing_id_to_listing_obj(m.listing_id)
+  li#question2_post_383275631.thread-list-item
+    .row.row-condensed
+      .col-md-10.col-md-offset-1
+        .card.row-space-4
+          .card-body.card-dark
+            /.h5.row-space-2
+              | リスティング名：
+              = link_to listing_path m.listing_id do
+                = listing_obj.title
+            p.text-muted.row-space-1
+              | ガイドする目安時間: 
+              = reservation_obj.time_required
+              br
+              | 価格: 
+              | ¥&nbsp;
+              = reservation_obj.price
+              br
+              | 予約日時: 
+              = reservation_obj.schedule
+              br
+              | 集合場所: 
+              = reservation_obj.place
+              br
+              | 備考: 
+              = reservation_obj.description.present? ? reservation_obj.description : 'なし'
+              -if reservation_obj.requested? and current_user.id == guest_id
+                br
+                = f.submit '承認する', name: 'accept'
+                = f.submit 'キャンセル', name: 'cancel'
+              -elsif reservation_obj.accepted? and current_user.id == guest_id
+                br
+                = reservation_obj.string_of_progress
+                br
+                = f.submit 'キャンセル', name: 'cancel'
+              -else
+                br
+                = reservation_obj.string_of_progress

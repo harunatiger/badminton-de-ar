@@ -10,11 +10,13 @@
     .col-lg-8
       ul.list-unstyled
         = render partial: 'form'
+        -if @host_id == current_user.id
+          = render partial: 'reservation_form'
         - @messages.each do |m|
           - if current_user.id == m.from_user_id
             = render partial: 'my_msg', locals: { m: m, my_profile_image: my_profile_image }
           - else
             = render partial: 'their_msg', locals: { m: m, counterpart: @counterpart, their_profile_image: their_profile_image }
           - if !m.reservation_id.zero? && reservation_id_to_messages(m.reservation_id).first.id == m.id
-            = render partial: 'listing_block', locals: { m: m }
+            = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
     = render partial: 'profile_block', locals: { counterpart: @counterpart, their_profile_image: their_profile_image }

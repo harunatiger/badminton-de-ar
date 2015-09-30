@@ -1,0 +1,36 @@
+li.thread-list-item
+  .row.row-condensed.row-space-4
+    .col-sm-12.col-md-10.col-md-push-1
+      .card-quote-flush.card
+        .card-body.normal-form-fields
+          = simple_form_for(@reservation, html: { id: "non_special_offer_form", class: "message_form clearfix" }) do |f|
+            = f.hidden_field :message_thread_id
+            = f.hidden_field :host_id, value: @host_id
+            = f.hidden_field :guest_id, value: @guest_id
+            = f.hidden_field :num_of_people, value: 1
+            = f.hidden_field :listing_id
+            
+            .field
+              |ガイドする目安時間
+              = f.input_field :time_required
+            .field
+              |ベース価格
+              = f.input_field :price
+            .field
+              |オプション価格
+              = f.input_field :option_price
+            .field
+              |  参加する日付
+              .form-inline
+                = f.text_field :schedule_date, class: 'form-control checkin checkin datepicker'
+                = f.select :schedule_hour, (0..23).to_a.map { |v| "%02d" % v }, {}, class: 'form-control'
+                = f.select :schedule_minute, (0..59).to_a.map { |v| "%02d" % v }, {}, class: 'form-control'
+            .field
+              |集合場所
+              = f.input_field :place
+            .field
+              |ガイドの内容・補足事項など
+              = f.input_field :description
+            .pull-right
+              = f.submit "送信", class: "btn btn-primary", reserve_action: 'request'
+	

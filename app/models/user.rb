@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   has_many :message_threads, through: :message_thread_users, dependent: :destroy
 
   #validates :email, presence: true
-  validates :email, uniqueness: true
+  #validates :email, uniqueness: true
   #VALID_EMAIL_REGREX = [a-zA-Z0-9_!#$%&*+=?^`{}~|'\-\/\.]+@[a-zA-Z0-9_!#$%&*+=?^`{}~|'\-\/]+(\.[a-zA-Z0-9_!#$%&*+=?^`{}~|'\-\/]+)+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   #validates :email, format: { with: VALID_EMAIL_REGEX }

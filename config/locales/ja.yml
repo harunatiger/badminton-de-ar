@@ -7,4 +7,7 @@ ja:
       next: "&rsaquo;"
       truncate: "..."
   date:
-    order: ''
+    order:
+      - year
+      - month
+      - day

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921142358) do
+ActiveRecord::Schema.define(version: 20150930054033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -339,7 +339,7 @@ ActiveRecord::Schema.define(version: 20150921142358) do
     t.integer  "host_id"
     t.integer  "guest_id"
     t.integer  "listing_id"
-    t.date     "schedule",                            null: false
+    t.datetime "schedule",                            null: false
     t.integer  "num_of_people",                       null: false
     t.text     "msg",                    default: ""
     t.integer  "progress",               default: 0,  null: false
@@ -357,8 +357,6 @@ ActiveRecord::Schema.define(version: 20150921142358) do
     t.integer  "time_required",          default: 1
     t.integer  "price",                  default: 0
     t.integer  "option_price",           default: 0
-    t.datetime "schedule_hour"
-    t.datetime "schedule_minute"
     t.string   "place",                  default: ""
     t.text     "description",            default: ""
   end

@@ -20,13 +20,13 @@
       - else
         li
           = link_to Settings.page.listings, current_user.listings.blank? ? new_listing_path : edit_listing_path(current_user.listings[0].id)
-          
-      - if action_name =="host_reservation_manager"
-        li.active
-          = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path
-      - else
-        li
-          = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path
+      - if current_user.listings.present?
+        - if action_name =="host_reservation_manager"
+          li.active
+            = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path
+        - else
+          li
+            = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path
 
       /- if action_name =="guest_reservation_manager"
         li.active
