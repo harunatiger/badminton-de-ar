@@ -8,7 +8,7 @@ li.thread-list-item
             = f.hidden_field :from_user_id, value: current_user.id
             = f.hidden_field :listing_id, value: 0
             = f.hidden_field :reservation_id, value: 0
-            = f.input_field :content, id: "message_inquiry", class: "row-space-2 input-resize-vert", placeholder: Settings.message_thread.show.message_form.content.placeholder, style: "overflow: hidden; word-wrap: break-word; resize: none; height: 62px;"
+            = f.input_field :content, id: "message_inquiry", class: "row-space-2 input-resize-vert", placeholder: Settings.message_thread.show.message_form.content.placeholder
             .pull-right
               = f.submit "メッセージを送信", class: "btn btn-primary"
 	

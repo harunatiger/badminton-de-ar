@@ -341,27 +341,51 @@ body.paper
       z-index: 9
     img
       position: absolute
-      bottom: 0
+      top: 0
       width: 100%
       height: auto
-    &.bg1
+    //&.bg1
       background-image: image-url('sample/top-slider/slider-01-mountain.jpg')
     &.bg2
-      background-image: image-url('sample/top-slider/slider-02-people.jpg')
-    &.bg3
+      //background-image: image-url('sample/top-slider/slider-02-people.jpg')
+      img
+        top: auto
+        bottom: 0
+    //&.bg3
       background-image: image-url('sample/top-slider/slider-03-guide.jpg')
 #ceremony-video
   bottom: 0
   position: absolute
   width: 100%
 
-@media (max-width: 1067px)
+//@media (max-width: 1067px)
   #slideshow
     li
       background-color: #000
       img
         height: 100%
         width: auto
+@media (max-width: 890px)
+  #slideshow
+    li
+      background: #000
+      img
+        height: 100%
+        width: auto
+@media (max-width: 767px)
+  #slideshow
+    li
+      img
+        width: 100%
+        height: auto
+@media (max-width: 540px)
+  #slideshow
+    li
+      img
+        left: 50%
+        margin-left: -266.5px
+        width: auto
+        height: 100%
 
 /* wishlists-slide */
 
