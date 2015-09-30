@@ -245,27 +245,6 @@ ActiveRecord::Schema.define(version: 20150930054033) do
   add_index "messages", ["reservation_id"], name: "index_messages_on_reservation_id", using: :btree
   add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id", using: :btree
 
-  create_table "payments", force: :cascade do |t|
-    t.integer  "reservation_id"
-    t.string   "token",            default: ""
-    t.string   "payer_id",         default: ""
-    t.string   "payers_status",    default: ""
-    t.string   "transaction_id",   default: ""
-    t.string   "payment_status",   default: ""
-    t.integer  "amount"
-    t.string   "currency_code",    default: ""
-    t.string   "email",            default: ""
-    t.string   "first_name",       default: ""
-    t.string   "last_name",        default: ""
-    t.string   "country_code",     default: ""
-    t.datetime "transaction_date"
-    t.datetime "refund_date"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-  end
-
-  add_index "payments", ["reservation_id"], name: "index_payments_on_reservation_id", using: :btree
-
   create_table "profile_identities", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "profile_id"
@@ -470,7 +449,6 @@ ActiveRecord::Schema.define(version: 20150930054033) do
   add_foreign_key "messages", "message_threads"
   add_foreign_key "messages", "users", column: "from_user_id"
   add_foreign_key "messages", "users", column: "to_user_id"
-  add_foreign_key "payments", "reservations"
   add_foreign_key "profile_identities", "profiles"
   add_foreign_key "profile_identities", "users"
   add_foreign_key "profile_images", "profiles"
