@@ -2,7 +2,7 @@
 = simple_form_for(reservation_obj) do |f|
   = f.hidden_field :message_thread_id, value: m.message_thread_id
   - listing_obj = listing_id_to_listing_obj(m.listing_id)
-  .row-space-4
+  div
     /.row.row-condensed.row-space-2.row-space-top-1
       .col-md-3.text-left
         | リスティング名：
@@ -29,13 +29,13 @@
         | 集合場所: 
       .col-md-8
         = reservation_obj.place
-    .row.row-condensed.row-space-2
+    .row.row-condensed.row-space-4
       .col-md-3.text-left.text-muted.strong
         | ガイド内容など: 
       .col-md-8
         = simple_format(reservation_obj.description.present? ? reservation_obj.description : 'なし')
     .row.row-condensed.row-space-2
-      .col-md-12
+      .col-md-12.btn-wrapper
         - if reservation_obj.requested? and current_user.id == guest_id
           = f.submit '承認する', name: 'accept', class: 'btn btn-primary'
           = f.submit 'キャンセル', name: 'cancel', class: 'btn'

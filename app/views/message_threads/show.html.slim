@@ -12,11 +12,12 @@
         li.thread-list-item
           .row.row-condensed.row-space-4
             .col-sm-12.col-md-10.col-md-push-1
-              ul.nav.nav-tabs[role="tablist"]
-                li.active
-                  = link_to "メッセージ", "#message_form", aria: {controls: "message_form"}, data:{toggle:"tab"}, role: "tab"
-                li
-                  = link_to "ガイド内容設定", "#reservation_form", aria: {controls: "reservation_form"}, data:{toggle:"tab"}, role: "tab"
+              - if @host_id == current_user.id
+                ul.nav.nav-tabs[role="tablist"]
+                  li.active
+                    = link_to "メッセージ", "#message_form", aria: {controls: "message_form"}, data:{toggle:"tab"}, role: "tab"
+                  li
+                    = link_to "ガイド内容設定", "#reservation_form", aria: {controls: "reservation_form"}, data:{toggle:"tab"}, role: "tab"
               .tab-content
                 = render partial: 'form'
                 - if @host_id == current_user.id

@@ -2,9 +2,15 @@
   .card.row-space-4
     .mini-profile.va-container.media
       .va-top.pull-left
-        a.media-photo href="#"
+        = link_to "#", class: "media-photo" do
           = image_tag(their_profile_image, class: "size100", alt: "")
       .va-middle.msg-pic
+        - if @host_id == counterpart.id
+          span.user-type.user-guide
+            | ガイド
+        - else
+          span.user-type.user-guest
+            | ゲスト
         .h4.row-space-1
           = link_to profile_path(counterpart.profile.id), class: 'text-normal' do
             = user_id_to_name(counterpart.id)
@@ -14,7 +20,3 @@
         small 
           | メンバー登録: 
           = counterpart.created_at.strftime("%Y年")
-        -if @host_id == counterpart.id
-          |ガイド
-        -else
-          |ゲスト
