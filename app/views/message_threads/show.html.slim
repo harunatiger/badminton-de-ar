@@ -6,6 +6,7 @@
   h1.h2.text-center.row-space-5
     = user_id_to_name(@counterpart.id)
     | さんとの会話
+  = render partial: 'reservation_block'
   .row
     .col-lg-8
       ul.list-unstyled

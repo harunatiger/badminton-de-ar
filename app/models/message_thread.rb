@@ -12,6 +12,8 @@ class MessageThread < ActiveRecord::Base
   has_many :message_thread_users, dependent: :destroy
   has_many :users, through: :message_thread_users, dependent: :destroy
 
+  attr_accessor :reservation_progress
+  
   scope :order_by_updated_at_desc, -> { order('updated_at') }
 
   def self.exists_thread?(msg_params)
@@ -66,5 +68,12 @@ class MessageThread < ActiveRecord::Base
       end
     end
     result_array
+  end
+  
+  def set_reservation_progress
+    message = Message.message_thread(self.id).order_by_created_at_desc.first
+    reservation = Reservation.latest_reservation(message.guest_id, message.host_id)
+    self.reservation_progress = reservation.present? ? reservation.string_of_progress : ''
+    self
   end
 end

@@ -118,4 +118,8 @@ class User < ActiveRecord::Base
     user = User.find(user_id)
     user.profile.id
   end
+  
+  def finish_reservation_count
+    Reservation.as_host(self.id).finished_before_yesterday.count
+  end
 end

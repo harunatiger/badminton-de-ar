@@ -11,6 +11,8 @@ class ReservationsController < ApplicationController
   def create
     @reservation = Reservation.new(reservation_params)
     @reservation.progress = 'requested'
+    reservation = Reservation.requested_reservation(@reservation.guest_id, @reservation.host_id)
+    reservation.update(progress: 'rejected') if reservation.present?
     respond_to do |format|
       if @reservation.save
         ReservationMailer.send_new_reservation_notification(@reservation).deliver_now!

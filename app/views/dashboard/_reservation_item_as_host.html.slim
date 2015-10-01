@@ -4,22 +4,24 @@
   li.card-body
     .row.row-table
       .col-md-3
-        - if r.progress == Settings.reservation.progress.requested
+        span.label.text-green
+            | 予約中です
+        /- if r.progress == Settings.reservation.progress.requested
           span.label.text-blue
             | 承認依頼中です
-        - elsif r.progress == Settings.reservation.progress.canceled
+        /- elsif r.progress == Settings.reservation.progress.canceled
           span.label.text-light-gray
             | キャンセルされました
-        - elsif r.progress == Settings.reservation.progress.accepted
+        /- elsif r.progress == Settings.reservation.progress.accepted
           span.label.text-green
             | 予約中です
-        - elsif r.progress == Settings.reservation.progress.rejected
+        /- elsif r.progress == Settings.reservation.progress.rejected
           span.label
             | 拒否しました
-        - elsif r.progress == Settings.reservation.progress.holded
+        /- elsif r.progress == Settings.reservation.progress.holded
           span.label.text-starlight
             | 保留中です
-        - else
+        /- else
           span.label.text-danger
             | 非公開にしました
       /.col-md-3

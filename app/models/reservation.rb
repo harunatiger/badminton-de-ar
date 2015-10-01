@@ -59,6 +59,7 @@ class Reservation < ActiveRecord::Base
   scope :as_host, -> user_id { where(host_id: user_id) }
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :new_requests, -> user_id { where(host_id: user_id, progress: 'requested') }
+  scope :accepts, -> { where(progress: 3) }
   scope :finished_before_yesterday, -> { where("schedule <= ?", Time.zone.yesterday) }
   scope :review_mail_never_be_sent, -> { where(review_mail_sent_at: nil) }
   scope :reviewed, -> { where.not(reviewed_at: nil) }
@@ -83,8 +84,15 @@ class Reservation < ActiveRecord::Base
     return "キャンセル" if self.canceled?
     return "保留" if self.holded?
     return "承認" if self.accepted?
-    return "拒否" if self.rejected?
-    return "非公開" if self.listing_closed?
+    return "取り消し" if self.rejected?
+    return "終了" if self.listing_closed?
+  end
+  
+  def string_of_progress_for_message_thread
+    return Settings.reservation.progress_for_message_thread.requested if self.requested?
+    return Settings.reservation.progress_for_message_thread.canceled if self.canceled?
+    return Settings.reservation.progress_for_message_thread.accepted if self.accepted?
+    return Settings.reservation.progress_for_message_thread.rejected if self.rejected?
   end
 
   def subject_of_update_mail
@@ -125,6 +133,18 @@ class Reservation < ActiveRecord::Base
   end
 
   def self.active_reservation(guest_id, host_id)
-    self.where('guest_id = ? and host_id = ? and (progress = 0 or progress = 3)', guest_id, host_id).first
+    reservations = self.where(guest_id: guest_id, host_id: host_id)
+    reservation = reservations.where(progress: 0).first
+    reservation = reservations.where(progress: 3).order('created_at desc').first if reservation.blank?
+    reservation = reservations.where(progress: 1).order('created_at desc').first if reservation.blank?
+    reservation
+  end
+  
+  def self.requested_reservation(guest_id, host_id)
+    self.where(guest_id: guest_id, host_id: host_id, progress: 'requested').first
+  end
+  
+  def self.latest_reservation(guest_id, host_id)
+    self.where(guest_id: guest_id, host_id: host_id).order('created_at desc').first
   end
 end

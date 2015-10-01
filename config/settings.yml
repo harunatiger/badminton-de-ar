@@ -90,6 +90,11 @@ reservation:
     accepted: "accepted"
     rejected: "rejected"
     listing_closed: "listing_closed"
+  progress_for_message_thread:
+    requested: "承認依頼中です。"
+    canceled: "キャンセルされました。"
+    accepted: "承認されました。"
+    rejected: "取り消しされました。"
 message_thread:
   show:
     message_form:

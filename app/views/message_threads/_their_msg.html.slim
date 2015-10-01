@@ -6,7 +6,14 @@ li#question2_post_372135233.thread-list-item
           .card-body
             .message-text
               p.trans 
-                = m.content
+                - if m.try('content') == Settings.reservation.msg.request
+                  |ガイド内容をお送りしました。
+                -elsif m.try('content') == Settings.reservation.msg.accepted
+                  |ガイド内容を承認しました。
+                -elsif m.try('content') == Settings.reservation.msg.canceled
+                  |ガイド内容をキャンセルしました。
+                -else
+                  = m.try('content')
             - if !m.reservation_id.zero? && reservation_id_to_messages(m.reservation_id).first.id == m.id
               = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
         .time-container.text-muted.text-right

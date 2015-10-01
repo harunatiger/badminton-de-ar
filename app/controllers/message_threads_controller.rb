@@ -11,7 +11,8 @@ class MessageThreadsController < ApplicationController
     message_thread_ids = MessageThreadUser.mine(current_user.id).pluck(:message_thread_id)
     @message_threads = []
     message_thread_ids.each do |mt_id|
-      @message_threads << MessageThread.find(mt_id)
+      message_thread = MessageThread.find(mt_id)
+      @message_threads << message_thread.set_reservation_progress
     end
     # @message_threads.sort_by! { |mt| mt.updated_at }
     @message_threads.sort_by! &:updated_at
