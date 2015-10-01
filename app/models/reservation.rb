@@ -36,7 +36,7 @@
 
 class Reservation < ActiveRecord::Base
   include DatetimeIntegratable
-  
+
   belongs_to :user, class_name: 'User', foreign_key: 'host_id'
   belongs_to :user, class_name: 'User', foreign_key: 'guest_id'
   belongs_to :listing
@@ -45,9 +45,9 @@ class Reservation < ActiveRecord::Base
   # Check config/settings.yml: Settings.reservation.progress
   enum progress: { requested: 0, canceled: 1, holded: 2, accepted: 3, rejected: 4, listing_closed: 5 }
   #enum progress: [requested, canceled, holded, accepted, rejected, listing_closed]
-  
+
   attr_accessor :message_thread_id
-  
+
   validates :host_id, presence: true
   validates :guest_id, presence: true
   validates :listing_id, presence: true
@@ -64,7 +64,7 @@ class Reservation < ActiveRecord::Base
   scope :reviewed, -> { where.not(reviewed_at: nil) }
   scope :review_reply_mail_never_be_sent, -> { where(reply_mail_sent_at: nil) }
   scope :review_open?, -> { where(arel_table[:review_opened_at].not_eq(nil)) }
-  
+
   REGISTRABLE_ATTRIBUTES = %i(
     schedule_date schedule_hour schedule_minute
   )
@@ -123,8 +123,8 @@ class Reservation < ActiveRecord::Base
     self.review_opened_at = Time.zone.now
     self.save
   end
-  
-  def self.active_reservation(guest_id, host_id)   
+
+  def self.active_reservation(guest_id, host_id)
     self.where('guest_id = ? and host_id = ? and (progress = 0 or progress = 3)', guest_id, host_id).first
   end
 end

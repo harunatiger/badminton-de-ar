@@ -7,6 +7,8 @@ li#question2_post_372135233.thread-list-item
             .message-text
               p.trans 
                 = m.content
+            - if !m.reservation_id.zero? && reservation_id_to_messages(m.reservation_id).first.id == m.id
+              = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
         .time-container.text-muted.text-right
           small.time 
             = m.try('created_at').strftime("%m/%d %H:%M") || ''

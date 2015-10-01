@@ -11,6 +11,8 @@ li#question2_post_383287996.thread-list-item
             .message-text
               p.trans
                 = m.try('content') || ''
+            - if !m.reservation_id.zero? && reservation_id_to_messages(m.reservation_id).first.id == m.id
+              = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
         .time-container.text-muted
           small.time
             - if m.read.present?

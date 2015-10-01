@@ -2,40 +2,48 @@
 = simple_form_for(reservation_obj) do |f|
   = f.hidden_field :message_thread_id, value: m.message_thread_id
   - listing_obj = listing_id_to_listing_obj(m.listing_id)
-  li#question2_post_383275631.thread-list-item
-    .row.row-condensed
-      .col-md-10.col-md-offset-1
-        .card.row-space-4
-          .card-body.card-dark
-            /.h5.row-space-2
-              | リスティング名：
-              = link_to listing_path m.listing_id do
-                = listing_obj.title
-            p.text-muted.row-space-1
-              | ガイドする目安時間: 
-              = reservation_obj.time_required
-              br
-              | 価格: 
-              | ¥&nbsp;
-              = reservation_obj.price
-              br
-              | 予約日時: 
-              = reservation_obj.schedule
-              br
-              | 集合場所: 
-              = reservation_obj.place
-              br
-              | 備考: 
-              = reservation_obj.description.present? ? reservation_obj.description : 'なし'
-              -if reservation_obj.requested? and current_user.id == guest_id
-                br
-                = f.submit '承認する', name: 'accept'
-                = f.submit 'キャンセル', name: 'cancel'
-              -elsif reservation_obj.accepted? and current_user.id == guest_id
-                br
-                = reservation_obj.string_of_progress
-                br
-                = f.submit 'キャンセル', name: 'cancel'
-              -else
-                br
-                = reservation_obj.string_of_progress
+  .row-space-4
+    /.row.row-condensed.row-space-2.row-space-top-1
+      .col-md-3.text-left
+        | リスティング名：
+        = link_to listing_path m.listing_id do
+          = listing_obj.title
+    .row.row-condensed.row-space-2.row-space-top-3
+      .col-md-3.text-left.text-muted.strong
+        | ガイド目安時間: 
+      .col-md-8
+        = reservation_obj.time_required
+    .row.row-condensed.row-space-2
+      .col-md-3.text-left.text-muted.strong
+        | 価格: 
+      .col-md-8
+        | ¥&nbsp;
+        = reservation_obj.price
+    .row.row-condensed.row-space-2
+      .col-md-3.text-left.text-muted.strong
+        | 予約日時: 
+      .col-md-8
+        = reservation_obj.schedule
+    .row.row-condensed.row-space-2
+      .col-md-3.text-left.text-muted.strong
+        | 集合場所: 
+      .col-md-8
+        = reservation_obj.place
+    .row.row-condensed.row-space-2
+      .col-md-3.text-left.text-muted.strong
+        | ガイド内容など: 
+      .col-md-8
+        = simple_format(reservation_obj.description.present? ? reservation_obj.description : 'なし')
+    .row.row-condensed.row-space-2
+      .col-md-12
+        - if reservation_obj.requested? and current_user.id == guest_id
+          = f.submit '承認する', name: 'accept', class: 'btn btn-primary'
+          = f.submit 'キャンセル', name: 'cancel', class: 'btn'
+        - elsif reservation_obj.accepted? and current_user.id == guest_id
+          br
+          = reservation_obj.string_of_progress
+          br
+          = f.submit 'キャンセル', name: 'cancel'
+        - else
+          .text-pink.strong
+            = reservation_obj.string_of_progress

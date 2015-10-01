@@ -1,7 +1,4 @@
-li.thread-list-item
-  .row.row-condensed.row-space-4
-    .col-sm-12.col-md-10.col-md-push-1
-      .card-quote-flush.card
+      #message_form.tab-pane.card-quote-flush.card.active
         .card-body.normal-form-fields
           = simple_form_for(@message, html: { id: "non_special_offer_form", class: "message_form clearfix" }) do |f|
             = f.hidden_field :to_user_id, value: @counterpart.id
