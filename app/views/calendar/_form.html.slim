@@ -1,0 +1,12 @@
+/ calendar
+/= render partial: 'shared/subnav'
+.row.row-space-2.row-space-top-4
+  .col-xs-12
+    div
+      h3.text-center.row-space-2 都合の悪い日を設定しましょう。
+      p.text-center.row-space-6
+        | カレンダーの日付をクリック、またはドラッグすると都合の悪い日を設定できます。
+    .calendar-wrapper.ohidden
+      #delete_mode
+        button#delete_btn 日程を削除する
+      #calendar

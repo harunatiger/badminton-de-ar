@@ -27,6 +27,8 @@ class MessageThreadsController < ApplicationController
     @message = Message.new
     @messages
     @counterpart = User.find(counterpart_user_id)
+    
+    gon.ngdates = Ngevent.get_ngdates(User.find(@host_id).listings.first.id)
   end
 
   # POST /message_threads

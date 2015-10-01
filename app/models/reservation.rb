@@ -41,6 +41,7 @@ class Reservation < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'guest_id'
   belongs_to :listing
   has_one :review
+  has_many :ngevents, dependent: :destroy
 
   # Check config/settings.yml: Settings.reservation.progress
   enum progress: { requested: 0, canceled: 1, holded: 2, accepted: 3, rejected: 4, listing_closed: 5 }

@@ -45,6 +45,16 @@
               i.fa.fa-exclamation-circle
             - else
               i.fa.fa-check
+      - if controller_name == "calendar"
+        li.nav-item.nav-active
+          = link_to listing_calendar_index_path(@listing) do
+            | カレンダーの設定
+            i.fa.fa-plus
+      - else
+        li.nav-item
+          = link_to listing_calendar_index_path(@listing) do
+            | カレンダーの設定
+            i.fa.fa-plus
       /- if controller_name == "confections"
         li.nav-item.nav-active
           = link_to manage_listing_confections_path(@listing.id) do

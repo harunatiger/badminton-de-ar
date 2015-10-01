@@ -107,6 +107,11 @@ gem 'google-analytics-rails'
 # dotenv
 gem 'dotenv-rails'
 
+#date Validate
+gem 'date_validator', '~> 0.7.0'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '4.0.3'

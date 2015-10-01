@@ -52,6 +52,7 @@ class User < ActiveRecord::Base
   has_many :listings, dependent: :destroy
   has_many :message_thread_users, dependent: :destroy
   has_many :message_threads, through: :message_thread_users, dependent: :destroy
+  has_many :ngevents, dependent: :destroy
 
   #validates :email, presence: true
   #validates :email, uniqueness: true

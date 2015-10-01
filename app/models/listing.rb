@@ -65,6 +65,7 @@ class Listing < ActiveRecord::Base
   has_many :categories, :through => :listing_categories, dependent: :destroy
   has_many :listing_languages, dependent: :destroy
   has_many :languages, :through => :listing_languages, dependent: :destroy
+  has_many :ngevents
 
   mount_uploader :cover_image, DefaultImageUploader
 
@@ -177,5 +178,37 @@ class Listing < ActiveRecord::Base
   def unpublish
     self.open = false
     self.save
+  end
+
+  def self.check_date(listings, search_params)
+    listings_array = []
+    listings.each do |listing|
+      conflict_listing1 = Ngevent.where('mode = ? AND listing_id = ? AND active = ? AND start >= ? AND end_bk <= ?', 1, listing['id'], 1, search_params['start'], search_params['end'])
+      conflict_listing2 = Ngevent.where('mode = ? AND listing_id = ? AND active = ? AND start <= ? AND end_bk >= ?', 1, listing['id'], 1, search_params['start'], search_params['start'])
+      conflict_listing3 = Ngevent.where('mode = ? AND listing_id = ? AND active = ? AND start <= ? AND end_bk >= ?', 1, listing['id'], 1, search_params['end'], search_params['end'])
+      conflict_ngevent1 = Ngevent.where('listing_id = ? AND mode = ? AND active = ? AND start >= ? AND end_bk <= ?', listing['id'], 0, 1, search_params['start'], search_params['end'])
+      conflict_ngevent2 = Ngevent.where('listing_id = ? AND mode = ? AND active = ? AND start <= ? AND end_bk >= ?', listing['id'], 0, 1, search_params['start'], search_params['start'])
+      conflict_ngevent3 = Ngevent.where('listing_id = ? AND mode = ? AND active = ? AND start <= ? AND end_bk >= ?', listing['id'], 0, 1, search_params['end'], search_params['end'])
+
+      if conflict_listing1.empty? && conflict_listing2.empty? && conflict_listing3.empty? && conflict_ngevent1.empty? && conflict_ngevent2.empty? && conflict_ngevent3.empty?
+        listings_array << listing
+      end
+    end
+    listings_array
+  end
+
+  def self.check_reservation_date(params)
+    conflict_listing1 = Ngevent.where('mode = ? AND listing_id = ? AND active = ? AND start >= ? AND end_bk <= ?', 1, params['listing_id'], 1, params['start'], params['end'])
+    conflict_listing2 = Ngevent.where('mode = ? AND listing_id = ? AND active = ? AND start <= ? AND end_bk >= ?', 1, params['listing_id'], 1, params['start'], params['start'])
+    conflict_listing3 = Ngevent.where('mode = ? AND listing_id = ? AND active = ? AND start <= ? AND end_bk >= ?', 1, params['listing_id'], 1, params['end'], params['end'])
+    conflict_ngevent1 = Ngevent.where('mode = ? AND listing_id = ? AND active = ? AND start >= ? AND end_bk <= ?', 0, params['listing_id'], 1, params['start'], params['end'])
+    conflict_ngevent2 = Ngevent.where('mode = ? AND listing_id = ? AND active = ? AND start <= ? AND end_bk >= ?', 0, params['listing_id'], 1, params['start'], params['start'])
+    conflict_ngevent3 = Ngevent.where('mode = ? AND listing_id = ? AND active = ? AND start <= ? AND end_bk >= ?', 0, params['listing_id'], 1, params['end'], params['end'])
+
+    if conflict_listing1.empty? && conflict_listing2.empty? && conflict_listing3.empty? && conflict_ngevent1.empty? && conflict_ngevent2.empty? && conflict_ngevent3.empty?
+      return true
+    else
+      return false
+    end
   end
 end

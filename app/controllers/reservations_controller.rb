@@ -15,6 +15,18 @@ class ReservationsController < ApplicationController
     reservation.update(progress: 'rejected') if reservation.present?
     respond_to do |format|
       if @reservation.save
+        ngevent_params = Hash[
+          'reservation_id' => @reservation.id,
+          'listing_id' => @reservation.listing_id,
+          'user_id' => @reservation.host_id,
+          'start' => @reservation.schedule,
+          'end' => @reservation.schedule,
+          'end_bk' => @reservation.schedule,
+          'mode' => 1,  # 1:reservation_mode
+          'active' => 0,# 0:no actice
+          'color' => 'red'
+        ]
+        Ngevent.create(ngevent_params)
         ReservationMailer.send_new_reservation_notification(@reservation).deliver_now!
         msg_params = Hash[
           'reservation_id' => @reservation.id,
@@ -58,6 +70,18 @@ class ReservationsController < ApplicationController
     
     respond_to do |format|
       if @reservation.update(para)
+        
+        @ng_event = Ngevent.find_by(reservation_id: @reservation.id)
+        if @reservation.progress == "accepted"
+          @ng_event.update_attribute(:active, 1)
+        else
+          @ng_event.update_attribute(:active, 0)
+        end
+        unless @ng_event.save
+          format.html { return redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.message.save.failure }
+          format.json { return render json: { success: false } } if request.xhr?
+        end
+        
         ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
         msg_params = Hash[
           'reservation_id' => @reservation.id,
