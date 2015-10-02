@@ -962,6 +962,14 @@ a.delete
   height: 100px
   word-break: break-all
 
+.thread-progress, .thread-label
+  .tag
+    min-width: 70px
+    min-height: 28px
+    line-height: 28px
+    padding: 0 10px
+    font-weight: 700
+
 // ellipsis
 $container-bg: white
 $font-size-base: 14px
@@ -1002,6 +1010,10 @@ $lines-to-show: 3
     z-index: 1
     .address
       display: none
+  .thread-progress
+    position: absolute
+    top: 17.5px
+    right: 5px
   .thread-author, .thread-name, .thread-body, .thread-label
     position: static
   .thread-name

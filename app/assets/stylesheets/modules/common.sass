@@ -370,6 +370,26 @@ select
   padding-top: 7px
   padding-bottom: 6px
 
+/* tag */
+.tag
+  display: inline-block
+  border-radius: 2px
+  &.tag-normal
+    background-color: #F5FAFF
+    border: 1px solid #ddd
+  &.tag-primary
+    color: white
+    background-color: $blue1
+  &.tag-success
+    color: white
+    background-color: $green1
+  &.tag-alert
+    color: white
+    background-color: $yellow1
+  &.tag-danger
+    color: white
+    background-color: $red1
+
 .small1, .small2
   margin: 0
   padding: 0
@@ -447,7 +467,7 @@ select
   color: white
 
 .text-starlight, .fa-starlight
-  color: #ffb400
+  color: $yellow1
 
 .text-danger, .fa-danger
   color: $red1

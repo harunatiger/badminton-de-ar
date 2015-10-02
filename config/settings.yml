@@ -105,9 +105,9 @@ message:
     success: "送信完了しました。"
     failure: "送信できませんでした。"
   read:
-    string: "既読 "
+    string: "既読"
   unread:
-    string: "未読 "
+    string: "未読"
   modal:
     message_to_host:
       title:
