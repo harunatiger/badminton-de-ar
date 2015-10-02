@@ -28,6 +28,10 @@
 class Payment < ActiveRecord::Base
   belongs_to :reservation
   
+  def amount_for_paypal
+    self.amount * 100
+  end
+  
   def cancel_available
     self.updated_at.to_date + 60.days >= Date.today
   end

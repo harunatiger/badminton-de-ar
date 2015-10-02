@@ -71,9 +71,14 @@ class MessageThread < ActiveRecord::Base
   end
   
   def set_reservation_progress
-    message = Message.message_thread(self.id).order_by_created_at_desc.first
+    message = Message.message_thread(self.id).where.not(listing_id: 0).first
     reservation = Reservation.latest_reservation(message.guest_id, message.host_id)
     self.reservation_progress = reservation.present? ? reservation.string_of_progress : ''
     self
+  end
+  
+  def same_listing?(listing_id)
+    message = Message.message_thread(self.id).where.not(listing_id: 0).first
+    return message.listing_id == listing_id
   end
 end

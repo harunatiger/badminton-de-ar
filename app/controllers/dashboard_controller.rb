@@ -4,7 +4,7 @@ class DashboardController < ApplicationController
 
   def index
     @unread_messages = MessageThread.unread_messages(current_user.id)
-    @never_replied_reservations = Reservation.new_requests(current_user.id).order_by_created_at_desc
+    @never_replied_reservations = Reservation.as_host(current_user).accepts.order_by_created_at_desc
     pp @never_replied_reservations
   end
 

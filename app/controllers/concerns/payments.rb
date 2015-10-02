@@ -42,7 +42,7 @@ module Payments
   private
 
   def process_purchase(payment)
-    self.gateway.purchase(payment.amount, express_purchase_options(payment))
+    self.gateway.purchase(payment.amount_for_paypal, express_purchase_options(payment))
   end
 
   def express_purchase_options(payment)

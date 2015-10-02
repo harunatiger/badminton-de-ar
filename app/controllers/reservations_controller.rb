@@ -55,9 +55,8 @@ class ReservationsController < ApplicationController
   
   def confirm
     @reservation = Reservation.find(session[:reservation_id])
-    session[:reservation_id] = nil
     details = set_details(params[:token])
-    if details.success? and details.params['payer_status'] == 'verified'
+    if details.success?
       @payment = @reservation.payment.present? ? @reservation.payment : Payment.create(reservation_id: @reservation.id)
       @payment.update(
         token: details.token,
@@ -71,6 +70,10 @@ class ReservationsController < ApplicationController
         country_code: details.params['country'],
         payment_status: 'Confirmed'
       )
+    else
+      respond_to do |format|
+        format.html { redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_payment_failure }
+      end
     end
     @listing = Listing.find(@reservation.listing_id)
   end
