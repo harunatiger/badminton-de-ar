@@ -110,7 +110,7 @@ gem 'dotenv-rails'
 #date Validate
 gem 'date_validator', '~> 0.7.0'
 gem 'fullcalendar-rails'
-gem 'momentjs-rails'
+gem 'momentjs-rails', '~> 2.9', :github => 'derekprior/momentjs-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
