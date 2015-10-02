@@ -1,40 +1,57 @@
 = render partial: 'shared/subnav'
 / listings#new
-.page-container-full
-  .card.card-bald.card-waxing.row-space-8
-    .card-body.card-light
-      div[role="dummy"]
-      .row.row-space-top-6.row-space-6
-        .col-10.col-center.text-center
-          =simple_form_for(@reservation) do |f|
-            =f.hidden_field :time_required
-            |予約内容-------------------
-            br
-            | ガイド目安時間: 
-            = @reservation.time_required
-            br
-            | 予約日時: 
-            = @reservation.schedule
-            br
-            | 集合場所: 
-            = @reservation.place
-            br
-            | ガイド内容など: 
-            = simple_format(@reservation.description.present? ? @reservation.description : 'なし')
-            br
-            br
-            |paypal決済内容-------------------
-            br
-            | 決済者氏名: 
-            = @payment.first_name + ' ' + @payment.last_name
-            br
-            | 決済者メールアドレス: 
-            = @payment.email
-            br
-            | 価格: 
-            | ¥&nbsp;
-            = @payment.amount
-            br
-            
-            = f.submit "支払いを確定する", name: 'payment', class: "btn btn-primary btn-large row-space-4"
-            = f.submit "支払いをキャンセルする", name: 'payment_cancel', class: "btn btn-primary btn-large row-space-4"
+.page-container
+  .pop-large
+    .card.card-bald.row-space-8.row-space-top-6
+      = simple_form_for(@reservation) do |f|
+        = f.hidden_field :time_required
+        .card-header
+          .h5.text-center
+            | 予約内容
+        .card-body
+          .row.row-condensed.row-space-2.row-space-top-6
+            .col-md-4.text-muted.strong.text-right.text-left--sp
+              | ガイド目安時間: 
+            .col-md-8
+              = @reservation.time_required
+              | 時間
+          .row.row-condensed.row-space-2.row-space-top-3
+            .col-md-4.text-muted.strong.text-right.text-left--sp
+              | 予約日時: 
+            .col-md-8
+              = @reservation.schedule
+          .row.row-condensed.row-space-2.row-space-top-3
+            .col-md-4.text-muted.strong.text-right.text-left--sp
+              | 集合場所: 
+            .col-md-8
+              = @reservation.place
+          .row.row-condensed.row-space-8.row-space-top-3
+            .col-md-4.text-muted.strong.text-right.text-left--sp
+              | ガイド内容など: 
+            .col-md-8
+              = simple_format(@reservation.description.present? ? @reservation.description : 'なし')
+        .card-header
+          .h5.text-center
+            | paypal決済内容
+        .card-body
+          .row.row-condensed.row-space-2.row-space-top-6
+            .col-md-4.text-muted.strong.text-right.text-left--sp
+              | 決済者氏名: 
+            .col-md-8
+              = @payment.first_name + ' ' + @payment.last_name
+          .row.row-condensed.row-space-2.row-space-top-3
+            .col-md-4.text-muted.strong.text-right.text-left--sp
+              | 決済者メールアドレス: 
+            .col-md-8
+              = @payment.email
+          .row.row-condensed.row-space-6.row-space-top-3
+            .col-md-4.text-muted.strong.text-right.text-left--sp
+              | 価格: 
+            .col-md-8
+              | ¥&nbsp;
+              = @payment.amount
+        .card-footer
+          .text-center
+            .btn-wrapper
+              = f.submit "支払いを確定する", name: 'payment', class: "btn btn-primary"
+              = f.submit "支払いをキャンセルする", name: 'payment_cancel', class: "btn"
