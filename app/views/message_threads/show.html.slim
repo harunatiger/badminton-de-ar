@@ -2,13 +2,13 @@
 = render partial: 'shared/subnav'
 - my_profile_image = profile_image
 - their_profile_image = user_id_to_profile_image(@counterpart.id)
-.page-container.row-space-top-4
+.page-container.row-space-top-5
   h1.h2.text-center.row-space-5
     = user_id_to_name(@counterpart.id)
     | さんとの会話
-  = render partial: 'reservation_block'
   .row
     .col-lg-8
+      = render partial: 'reservation_block'
       ul.list-unstyled
         li.thread-list-item
           .row.row-condensed.row-space-4

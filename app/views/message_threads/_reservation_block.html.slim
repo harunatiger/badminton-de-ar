@@ -1,8 +1,29 @@
-=@reservation.schedule.to_s
-= "〜(#{@reservation.time_required.to_s}時間)" if @reservation.schedule.present?
-br
-=@reservation.price
-br
-=@reservation.place
-br
-=@reservation.description
+.row.row-condensed.row-space-4
+  .col-sm-12.col-md-10.col-md-push-1
+    .collapse-box
+      = link_to "#reservation_block",  data: {toggle:"collapse"} do
+        | ガイド内容
+      #reservation_block.collapse
+        .collapse-inner
+          .row.row-condensed.row-space-1
+            .col-md-3.text-left.text-muted.strong
+              | 日程： 
+            .col-md-8.text-muted.strong
+              = @reservation.schedule.to_s
+              = "〜(#{@reservation.time_required.to_s}時間)" if @reservation.schedule.present?
+          .row.row-condensed.row-space-1
+            .col-md-3.text-left.text-muted.strong
+              | 価格：
+            .col-md-8.text-muted.strong
+              = @reservation.price
+              | 円
+          .row.row-condensed.row-space-1
+            .col-md-3.text-left.text-muted.strong
+              | 待ち合わせ：
+            .col-md-8
+              = @reservation.place
+          .row.row-condensed.row-space-1
+            .col-md-3.text-left.text-muted.strong
+              | ガイド内容：
+            .col-md-8
+              = simple_format(@reservation.description)
