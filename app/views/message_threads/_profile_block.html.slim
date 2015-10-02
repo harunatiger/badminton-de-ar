@@ -20,6 +20,8 @@
         small 
           | メンバー登録: 
           = counterpart.created_at.strftime("%Y年")
-- if @host_id == counterpart.id
-  |ガイド歴
-  =counterpart.finish_reservation_count
+    - if @host_id == counterpart.id
+      .guide-count.text-muted.text-center
+        | ガイド回数
+        span.strong
+          = counterpart.finish_reservation_count

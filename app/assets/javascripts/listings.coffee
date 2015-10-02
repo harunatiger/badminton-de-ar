@@ -355,7 +355,7 @@ $ ->
       #})
 
   # manage height equlizer
-  if $('.manage-listing-nav').length
+  if $('.manage-listing-nav').length && !$('body').hasClass('calendar')
     mContainerHeight = $('.manage-listing-content').outerHeight()
     setHeight = ->
       headerHeight = $('.common-header').outerHeight()

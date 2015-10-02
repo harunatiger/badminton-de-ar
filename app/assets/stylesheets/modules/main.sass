@@ -789,6 +789,9 @@ a.delete
           color: $green1
         &.fa-exclamation-circle
           color: $red1
+        &.fa-plus
+          right: 14px
+          color: $border1
 
 /* profile */
 .profiles.show
@@ -898,12 +901,31 @@ a.delete
       width: 120px
       margin: 0 5px
 
+.collapse-box
+  background-color: #F5FAFF
+  border: 1px solid #ddd
+  > a
+    display: block
+    height: 38px
+    line-height: 37px
+    padding: 0 15px
+    font-weight: 700
+    &:after
+      content: '\f078'
+      float: right
+      font-family: 'FontAwesome'
+    &:collapsed
+      &:after
+        content: '\f077'
+  .collapse-inner
+    padding: 8px 15px
+
 .user-type
   display: inline-block
   height: 22px
   line-height: 20px
   padding: 0 7px
-  margin: -8px 0 8px
+  margin: -10px 0 8px
   font-size: 12px
   font-weight: 700
   border: 1px solid
@@ -914,6 +936,15 @@ a.delete
   &.user-guest
     color: $brand-theme
     border-color: $brand-theme
+
+.guide-count
+  height: 32px
+  line-height: 32px
+  background-color: #F5FAFF
+  border-top: 1px solid #ddd
+  span
+    display: inline-block
+    margin-left: 5px
 
 .thread-date
   font-size: 12px
@@ -930,6 +961,14 @@ a.delete
 #message_inquiry
   height: 100px
   word-break: break-all
+
+.thread-progress, .thread-label
+  .tag
+    min-width: 70px
+    min-height: 28px
+    line-height: 28px
+    padding: 0 10px
+    font-weight: 700
 
 // ellipsis
 $container-bg: white
@@ -971,6 +1010,10 @@ $lines-to-show: 3
     z-index: 1
     .address
       display: none
+  .thread-progress
+    position: absolute
+    top: 17.5px
+    right: 5px
   .thread-author, .thread-name, .thread-body, .thread-label
     position: static
   .thread-name

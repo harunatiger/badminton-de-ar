@@ -1236,3 +1236,97 @@ label.error
     color: #2ecc71
     background-color: white
     border-radius: 50%
+
+// calendar
+.calendar-wrapper
+  position: relative
+  button
+    height: auto
+    padding: 7px 21px
+    color: #777
+    font-weight: 700
+    background: white
+    text-shadow: none
+    border: 1px solid rgba(0, 0, 0, 0.2)
+    border-radius: 0 !important
+    box-shadow: none
+  #delete_mode
+    position: absolute
+    top: 26px
+    left: 0
+    right: 0
+    text-align: center
+    #delete_btn
+      border: 0
+      color: $guest-theme
+      background: transparent
+    #no_delete
+      border: 0
+      padding: 0
+      color: white
+      background: transparent
+    .calendar-alert
+      position: absolute
+      top: 12px
+      left: 0
+      right: 0
+      width: 100%
+      text-align: center
+      z-index: 9
+      @media (max-width: 767px)
+        top: 16px
+      > div
+        display: inline-block
+        padding: 0 10px
+        height: 28px
+        line-height: 28px
+        color: white
+        background-color: rgb(224, 130, 131)
+        @media (max-width: 767px)
+          span
+            display: none
+
+.fc
+  .fc-toolbar
+    margin-bottom: 3em
+    .fc-center
+      h2
+        font-size: 26px
+        @media (max-width: 767px)
+          font-size: 18px
+          line-height: 32px
+    .fc-left
+      .fc-today-button
+        position: absolute
+        top: 0
+        left: 54px
+        border: 0
+        color: $brand-theme
+        background: transparent
+        @media (max-width: 767px)
+          left: 34px
+      .fc-prev-button
+        margin-left: 0
+    .fc-prev-button, .fc-next-button
+      position: relative
+      color: white
+      text-indent: -9999px
+      &:after
+        content: '\f104'
+        display: block
+        position: absolute
+        top: -2px
+        left: 16px
+        color: #777
+        font-size: 24px
+        font-family: 'FontAwesome'
+        text-indent: 0
+    .fc-next-button
+      &:after
+        content: '\f105'
+        left: auto
+        right: 16px
+.fc-view-container
+  background-color: white
+  .fc-head
+    background-color: $bg1

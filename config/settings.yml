@@ -95,10 +95,10 @@ reservation:
     rejected: "rejected"
     listing_closed: "listing_closed"
   progress_for_message_thread:
-    requested: "承認依頼中です。"
-    canceled: "キャンセルされました。"
-    accepted: "承認されました。"
-    rejected: "取り消しされました。"
+    requested: "ただいま承認依頼中です。"
+    canceled: "残念です…キャンセルされました。"
+    accepted: "おめでとう！ガイド決定です！"
+    rejected: "取り消しされました。新しい内容を確認してください。"
 message_thread:
   show:
     message_form:
@@ -109,9 +109,9 @@ message:
     success: "送信完了しました。"
     failure: "送信できませんでした。"
   read:
-    string: "既読 "
+    string: "既読"
   unread:
-    string: "未読 "
+    string: "未読"
   modal:
     message_to_host:
       title:
