@@ -27,4 +27,8 @@
 
 class Payment < ActiveRecord::Base
   belongs_to :reservation
+  
+  def cancel_available
+    self.updated_at.to_date + 60.days >= Date.today
+  end
 end

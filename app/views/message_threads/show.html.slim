@@ -6,15 +6,29 @@
   h1.h2.text-center.row-space-5
     = user_id_to_name(@counterpart.id)
     | さんとの会話
+  = render partial: 'reservation_block'
   .row
     .col-lg-8
       ul.list-unstyled
-        = render partial: 'form'
+        li.thread-list-item
+          .row.row-condensed.row-space-4
+            .col-sm-12.col-md-10.col-md-push-1
+              - if @host_id == current_user.id
+                ul.nav.nav-tabs[role="tablist"]
+                  li.active
+                    = link_to "メッセージ", "#message_form", aria: {controls: "message_form"}, data:{toggle:"tab"}, role: "tab"
+                  li
+                    = link_to "ガイド内容設定", "#reservation_form", aria: {controls: "reservation_form"}, data:{toggle:"tab"}, role: "tab"
+              .tab-content
+                = render partial: 'form'
+                - if @host_id == current_user.id
+                  = render partial: 'reservation_form'
         - @messages.each do |m|
           - if current_user.id == m.from_user_id
             = render partial: 'my_msg', locals: { m: m, my_profile_image: my_profile_image }
           - else
             = render partial: 'their_msg', locals: { m: m, counterpart: @counterpart, their_profile_image: their_profile_image }
-          - if !m.reservation_id.zero? && reservation_id_to_messages(m.reservation_id).first.id == m.id
-            = render partial: 'listing_block', locals: { m: m }
+          /- if !m.reservation_id.zero? && reservation_id_to_messages(m.reservation_id).first.id == m.id
+            = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
+            
     = render partial: 'profile_block', locals: { counterpart: @counterpart, their_profile_image: their_profile_image }

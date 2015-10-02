@@ -6,11 +6,20 @@ li#question2_post_372135233.thread-list-item
           .card-body
             .message-text
               p.trans 
-                = m.content
+                - if m.try('content') == Settings.reservation.msg.request
+                  |ガイド内容をお送りしました。
+                -elsif m.try('content') == Settings.reservation.msg.accepted
+                  |ガイド内容を承認しました。
+                -elsif m.try('content') == Settings.reservation.msg.canceled
+                  |ガイド内容をキャンセルしました。
+                -else
+                  = m.try('content')
+            - if !m.reservation_id.zero? && reservation_id_to_messages(m.reservation_id).first.id == m.id
+              = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
         .time-container.text-muted.text-right
           small.time 
             = m.try('created_at').strftime("%m/%d %H:%M") || ''
     .col-sm-2.col-md-1.col-md-push-1.text-center
-      = link_to(profile_path(counterpart), class: "media-photo media-round")
+      = link_to(profile_path(counterpart.profile.id), class: "media-photo media-round")
         /img.size36 alt="" src="/assets/images/sample/person1.jpg"
         = image_tag(their_profile_image, class: "size36")

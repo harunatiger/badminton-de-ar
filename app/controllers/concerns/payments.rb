@@ -2,14 +2,14 @@ include ActiveMerchant::Billing
 module Payments
   def gateway
     @gateway ||= PaypalExpressGateway.new(
-      :login => 'salonparu-facilitator_api1.gmail.com',
-      :password => 'SN3GLNUM86SBGKRC',    
-      :signature => 'AFcWxV21C7fd0v3bYYYRCpSSRl31AECo27pDqwd4TKHoUN8nIthar-6j')
+      :login => Rails.application.secrets.paypal_express_user_name,
+      :password => Rails.application.secrets.paypal_express_user_password,    
+      :signature => Rails.application.secrets.paypal_express_signature)
   end
   
   def set_checkout(reservation)
     setup_response = self.gateway.setup_authorization(
-            100000,
+            reservation.paypal_amount,
             :ip => request.remote_ip,
             :return_url => confirm_reservations_url,
             :cancel_return_url => cancel_reservations_url,
@@ -20,14 +20,18 @@ module Payments
   def item_params(reservation)
     [{name: reservation.listing.title,
       quantity: "1",
-      amount: 100000}]
+      amount: reservation.paypal_amount}]
   end
   
-  def purchase(reservation)
-    response = process_purchase(reservation.payment)
+  def purchase(payment)
+    response = process_purchase(payment)
     p response
-    #transactions.create!(:action => "purchase", :amount => price_in_cents, :response => response)
-    #cart.update_attribute(:purchased_at, Time.now) if response.success?
+    response
+  end
+  
+  def refund(payment)
+    response = self.gateway.refund(nil,payment.transaction_id)
+    p response
     response
   end
 
@@ -41,24 +45,11 @@ module Payments
     self.gateway.purchase(payment.amount, express_purchase_options(payment))
   end
 
-  def standard_purchase_options
-    {
-      :ip => ip_address,
-      :billing_address => {
-        :name     => "Ryan Bates",
-        :address1 => "123 Main St.",
-        :city     => "New York",
-        :state    => "NY",
-        :country  => "US",
-        :zip      => "10001"
-      }
-    }
-  end
-
   def express_purchase_options(payment)
     {
       :ip => request.remote_ip,
       :token => payment.token,
+      :currency => 'JPY',
       :payer_id => payment.payer_id
     }
   end

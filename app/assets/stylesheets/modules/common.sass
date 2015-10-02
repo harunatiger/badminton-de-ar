@@ -62,7 +62,7 @@ label
   font-size: inherit
   color: $gray1
 
-[type="text"],[type="password"],[type="search"],[type="email"],[type="url"],[type="tel"],textarea,select,input[type="radio"],input[type="checkbox"],.input-prefix,.input-suffix
+[type="text"],[type="number"],[type="password"],[type="search"],[type="email"],[type="url"],[type="tel"],textarea,select,input[type="radio"],input[type="checkbox"],.input-prefix,.input-suffix
   border: 1px solid #c4c4c4
   border-radius: 2px
   background-color: #fff
@@ -77,41 +77,44 @@ input::-moz-placeholder,textarea::-moz-placeholder,.input-prefix::-moz-placehold
 input:-ms--placeholder,textarea:-ms--placeholder,.input-prefix:-ms--placeholder,.input-suffix:-ms--placeholder
   color: #82888a
 
-[type="text"],[type="password"],[type="search"],[type="email"],[type="url"],[type="tel"],textarea,select,input[type="radio"],input[type="checkbox"]
+[type="text"],[type="number"],[type="password"],[type="search"],[type="email"],[type="url"],[type="tel"],textarea,select,input[type="radio"],input[type="checkbox"]
   transition: border-color 0.2s
 
-.focus[type="text"],.focus[type="password"],.focus[type="search"],.focus[type="email"],.focus[type="url"],.focus[type="tel"],textarea.focus,select.focus,input.focus[type="radio"],input.focus[type="checkbox"],[type="text"]:focus,[type="password"]:focus,[type="search"]:focus,[type="email"]:focus,[type="url"]:focus,[type="tel"]:focus,textarea:focus,select:focus,input[type="radio"]:focus,input[type="checkbox"]:focus
+.focus[type="text"],.focus[type="number"],.focus[type="date"],.focus[type="password"],.focus[type="search"],.focus[type="email"],.focus[type="url"],.focus[type="tel"],textarea.focus,select.focus,input.focus[type="radio"],input.focus[type="checkbox"],[type="text"]:focus,[type="password"]:focus,[type="search"]:focus,[type="email"]:focus,[type="url"]:focus,[type="tel"]:focus,textarea:focus,select:focus,input[type="radio"]:focus,input[type="checkbox"]:focus
   border-color: #aaa
 
-.invalid[type="text"],.invalid[type="password"],.invalid[type="search"],.invalid[type="email"],.invalid[type="url"],.invalid[type="tel"],textarea.invalid,select.invalid,input.invalid[type="radio"],input.invalid[type="checkbox"],[type="text"]:invalid,[type="password"]:invalid,[type="search"]:invalid,[type="email"]:invalid,[type="url"]:invalid,[type="tel"]:invalid,textarea:invalid,select:invalid,input[type="radio"]:invalid,input[type="checkbox"]:invalid
+.invalid[type="text"],.invalid[type="number"],.invalid[type="date"],.invalid[type="password"],.invalid[type="search"],.invalid[type="email"],.invalid[type="url"],.invalid[type="tel"],textarea.invalid,select.invalid,input.invalid[type="radio"],input.invalid[type="checkbox"],[type="text"]:invalid,[type="password"]:invalid,[type="search"]:invalid,[type="email"]:invalid,[type="url"]:invalid,[type="tel"]:invalid,textarea:invalid,select:invalid,input[type="radio"]:invalid,input[type="checkbox"]:invalid
   border-color: #ffb400
   background-color: #fff8e5
 
-.valid[type="text"],.valid[type="password"],.valid[type="search"],.valid[type="email"],.valid[type="url"],.valid[type="tel"],textarea.valid,select.valid,input.valid[type="radio"],input.valid[type="checkbox"]
+.valid[type="text"],.valid[type="number"],.valid[type="date"],.valid[type="password"],.valid[type="search"],.valid[type="email"],.valid[type="url"],.valid[type="tel"],textarea.valid,select.valid,input.valid[type="radio"],input.valid[type="checkbox"]
   border-color: #3fb34f
 
-[type="text"]:focus,[type="password"]:focus,[type="search"]:focus,[type="email"]:focus,[type="url"]:focus,[type="tel"]:focus,textarea:focus,select:focus,input[type="radio"]:focus,input[type="checkbox"]:focus
+[type="text"]:focus,[type="number"]:focus,[type="date"]:focus,[type="password"]:focus,[type="search"]:focus,[type="email"]:focus,[type="url"]:focus,[type="tel"]:focus,textarea:focus,select:focus,input[type="radio"]:focus,input[type="checkbox"]:focus
   outline: none
 
-.disabled[type="text"],.disabled[type="password"],.disabled[type="search"],.disabled[type="email"],.disabled[type="url"],.disabled[type="tel"],textarea.disabled,select.disabled,input.disabled[type="radio"],input.disabled[type="checkbox"],[disabled][type="text"],[disabled][type="password"],[disabled][type="search"],[disabled][type="email"],[disabled][type="url"],[disabled][type="tel"],textarea[disabled],select[disabled],input[disabled][type="radio"],input[disabled][type="checkbox"],fieldset[disabled] [type="text"],fieldset[disabled] [type="password"],fieldset[disabled] [type="search"],fieldset[disabled] [type="email"],fieldset[disabled] [type="url"],fieldset[disabled] [type="tel"],fieldset[disabled] textarea,fieldset[disabled] select,fieldset[disabled] input[type="radio"],fieldset[disabled] input[type="checkbox"]
+.disabled[type="text"],.disabled[type="number"],.disabled[type="date"],.disabled[type="password"],.disabled[type="search"],.disabled[type="email"],.disabled[type="url"],.disabled[type="tel"],textarea.disabled,select.disabled,input.disabled[type="radio"],input.disabled[type="checkbox"],[disabled][type="text"],[disabled][type="password"],[disabled][type="search"],[disabled][type="email"],[disabled][type="url"],[disabled][type="tel"],textarea[disabled],select[disabled],input[disabled][type="radio"],input[disabled][type="checkbox"],fieldset[disabled] [type="text"],fieldset[disabled] [type="password"],fieldset[disabled] [type="search"],fieldset[disabled] [type="email"],fieldset[disabled] [type="url"],fieldset[disabled] [type="tel"],fieldset[disabled] textarea,fieldset[disabled] select,fieldset[disabled] input[type="radio"],fieldset[disabled] input[type="checkbox"]
   background-color: #edefed
   color: #cacccd
   cursor: default
 
-[disabled][type="text"],[disabled][type="password"],[disabled][type="search"],[disabled][type="email"],[disabled][type="url"],[disabled][type="tel"],textarea[disabled],select[disabled],input[disabled][type="radio"],input[disabled][type="checkbox"],fieldset[disabled] [type="text"],fieldset[disabled] [type="password"],fieldset[disabled] [type="search"],fieldset[disabled] [type="email"],fieldset[disabled] [type="url"],fieldset[disabled] [type="tel"],fieldset[disabled] textarea,fieldset[disabled] select,fieldset[disabled] input[type="radio"],fieldset[disabled] input[type="checkbox"]
+[disabled][type="text"],[disabled][type="number"],[disabled][type="date"],[disabled][type="password"],[disabled][type="search"],[disabled][type="email"],[disabled][type="url"],[disabled][type="tel"],textarea[disabled],select[disabled],input[disabled][type="radio"],input[disabled][type="checkbox"],fieldset[disabled] [type="text"],fieldset[disabled] [type="password"],fieldset[disabled] [type="search"],fieldset[disabled] [type="email"],fieldset[disabled] [type="url"],fieldset[disabled] [type="tel"],fieldset[disabled] textarea,fieldset[disabled] select,fieldset[disabled] input[type="radio"],fieldset[disabled] input[type="checkbox"]
   pointer-events: none
 
-[type="text"],[type="password"],[type="search"],[type="email"],[type="url"],[type="tel"],textarea,select,.input-prefix,.input-suffix
+[type="text"],[type="number"],[type="date"],[type="password"],[type="search"],[type="email"],[type="url"],[type="tel"],textarea,select,.input-prefix,.input-suffix
   display: block
   width: 100%
   padding: 8px 10px
 
-[type="text"],[type="password"],[type="search"],[type="email"],[type="url"],[type="tel"]
+[type="text"],[type="number"],[type="date"],[type="password"],[type="search"],[type="email"],[type="url"],[type="tel"]
   //line-height: normal
   //padding: 4px 10px
 
 textarea
   resize: vertical
+
+.textarea-normal
+  height: 100px
 
 .input-large
   font-size: 16px
@@ -199,12 +202,19 @@ select
   display: block
   width: 100%
 
-.select-opt
+.select-opt, .input-opt
+  position: relative
   margin-right: 24px
   span
     position: absolute
-    bottom: 1px
-    right: -18px
+    top: 10px
+    left: 105%
+    white-space: nowrap
+    @media (max-width: 767px)
+      left: 101%
+.opt-double
+  span
+    left: 105%
 
 @-moz-document url-prefix()
   .select
@@ -461,6 +471,8 @@ select
 @media (max-width: 767px)
   .text-center--sp
     text-align: center
+  .text-left--sp
+    text-align: left
   .text-jumbo
     font-size: 26px
   h1, .h1

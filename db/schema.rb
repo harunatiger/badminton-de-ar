@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921081452) do
+ActiveRecord::Schema.define(version: 20151001135648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -245,6 +245,24 @@ ActiveRecord::Schema.define(version: 20150921081452) do
   add_index "messages", ["reservation_id"], name: "index_messages_on_reservation_id", using: :btree
   add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id", using: :btree
 
+  create_table "ngevents", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "reservation_id"
+    t.integer  "listing_id"
+    t.date     "start",                           null: false
+    t.date     "end",                             null: false
+    t.date     "end_bk"
+    t.integer  "mode",           default: 0,      null: false
+    t.string   "color",          default: "gray"
+    t.integer  "active",         default: 1
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "ngevents", ["mode"], name: "index_ngevents_on_mode", using: :btree
+  add_index "ngevents", ["reservation_id"], name: "index_ngevents_on_reservation_id", using: :btree
+  add_index "ngevents", ["user_id"], name: "index_ngevents_on_user_id", using: :btree
+
   create_table "payments", force: :cascade do |t|
     t.integer  "reservation_id"
     t.string   "token",            default: ""
@@ -339,7 +357,7 @@ ActiveRecord::Schema.define(version: 20150921081452) do
     t.integer  "host_id"
     t.integer  "guest_id"
     t.integer  "listing_id"
-    t.date     "schedule",                            null: false
+    t.datetime "schedule",                            null: false
     t.integer  "num_of_people",                       null: false
     t.text     "msg",                    default: ""
     t.integer  "progress",               default: 0,  null: false
@@ -354,6 +372,11 @@ ActiveRecord::Schema.define(version: 20150921081452) do
     t.datetime "review_opened_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "time_required",          default: 1
+    t.integer  "price",                  default: 0
+    t.integer  "option_price",           default: 0
+    t.string   "place",                  default: ""
+    t.text     "description",            default: ""
   end
 
   add_index "reservations", ["guest_id"], name: "index_reservations_on_guest_id", using: :btree

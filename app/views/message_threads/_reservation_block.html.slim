@@ -1,0 +1,8 @@
+=@reservation.schedule.to_s
+= "〜(#{@reservation.time_required.to_s}時間)" if @reservation.schedule.present?
+br
+=@reservation.price
+br
+=@reservation.place
+br
+=@reservation.description

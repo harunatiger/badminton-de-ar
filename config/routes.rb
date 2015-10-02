@@ -377,18 +377,20 @@ Rails.application.routes.draw do
     end
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
+    resources :ngevents, only: [:index, :create]
+    resources :calendar
   end
 
-  resources :reservations, only: [:show, :create, :update] do
+  resources :reservations, only: [:show, :edit, :create, :update] do
     resource :reviews do
       resource :review_replies
     end
     get 'confirm', on: :collection
     get 'cancel', on: :collection
-    post 'checkout', on: :collection
   end
 
   resources :wishlists
+  resources :ngevents, except: [:index, :create]
 
   devise_for :users, controllers: {
     sessions:            'users/sessions',

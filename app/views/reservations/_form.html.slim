@@ -1,30 +1,24 @@
-= form_for @reservation do |f|
-  - if @reservation.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@reservation.errors.count, "error")} prohibited this reservation from being saved:"
-      ul
-        - @reservation.errors.full_messages.each do |message|
-          li = message
-
+= simple_form_for(@reservation) do |f|
   .field
-    = f.label :host
-    = f.text_field :host
+    |ガイドする目安時間
+    = f.input_field :time_required
   .field
-    = f.label :guest
-    = f.text_field :guest
+    |ベース価格
+    = f.input_field :price
   .field
-    = f.label :schedule
-    = f.date_select :schedule
+    |オプション価格
+    = f.input_field :option_price
   .field
-    = f.label :num_of_people
-    = f.number_field :num_of_people
+    |予約日時
+    label[for="checkin"]
+    |  参加する日付
+    = sprintf(f.datetime_select(:schedule, use_month_numbers: true, date_separator: '%s', datetime_separator: '%s'), '年', '月', '日')
+    /= f.select :schedule_hour, [*(1..24)]
+    /= f.select :schedule_minute, [*(0..59)]
   .field
-    = f.label :content
-    = f.text_area :content
+    |集合場所
+    = f.input_field :place
   .field
-    = f.label :progress
-    = f.text_field :progress
-  .field
-    = f.label :reason
-    = f.text_area :reason
-  .actions = f.submit
+    |ガイドの内容・補足事項など
+    = f.input_field :description
+  = f.submit

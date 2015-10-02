@@ -6,9 +6,35 @@
       div[role="dummy"]
       .row.row-space-top-6.row-space-6
         .col-10.col-center.text-center
-          = form_for @reservation do |f|
-            |予約内容
+          =simple_form_for(@reservation) do |f|
+            =f.hidden_field :time_required
+            |予約内容-------------------
             br
-            |金額
-            =@listing.price
-            = f.submit "確定する", class: "btn btn-primary btn-large row-space-4"
+            | ガイド目安時間: 
+            = @reservation.time_required
+            br
+            | 予約日時: 
+            = @reservation.schedule
+            br
+            | 集合場所: 
+            = @reservation.place
+            br
+            | ガイド内容など: 
+            = simple_format(@reservation.description.present? ? @reservation.description : 'なし')
+            br
+            br
+            |paypal決済内容-------------------
+            br
+            | 決済者氏名: 
+            = @payment.first_name + ' ' + @payment.last_name
+            br
+            | 決済者メールアドレス: 
+            = @payment.email
+            br
+            | 価格: 
+            | ¥&nbsp;
+            = @payment.amount
+            br
+            
+            = f.submit "支払いを確定する", name: 'payment', class: "btn btn-primary btn-large row-space-4"
+            = f.submit "支払いをキャンセルする", name: 'payment_cancel', class: "btn btn-primary btn-large row-space-4"

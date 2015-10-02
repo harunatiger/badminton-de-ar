@@ -47,12 +47,24 @@ class MessagesController < ApplicationController
         reservation_params = params['reservation']
     
         if reservation_params.present? && reservation_params['progress'].present?
-          @reservation = Reservation.find(reservation_params['id'])
+          @reservation = Reservation.find(params['message']['reservation_id'])
           @reservation.progress = reservation_params['progress']
           unless @reservation.save
             format.html { return redirect_to dashboard_path, notice: Settings.message.save.failure }
             format.json { return render json: { success: false } } if request.xhr?
           end
+          
+          @ng_event = Ngevent.find_by(reservation_id: params['message']['reservation_id'])
+          if reservation_params['progress'] == "accepted"
+            @ng_event.update_attribute(:active, 1)
+          else
+            @ng_event.update_attribute(:active, 0)
+          end
+          unless @ng_event.save
+            format.html { return redirect_to dashboard_path, notice: Settings.message.save.failure }
+            format.json { return render json: { success: false } } if request.xhr?
+          end
+      
           if @reservation.accepted? || @reservation.rejected? || @reservation.holded? || @reservation.canceled?
             #ReservationMailer.send_update_reservation_notification(@reservation, current_user.id).deliver_later!(wait: 1.minute) # if you want to use active job, use this line.
             ReservationMailer.send_update_reservation_notification(@reservation, current_user.id).deliver_now! # if you don't want to use active job, use this line.

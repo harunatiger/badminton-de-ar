@@ -52,9 +52,10 @@ class User < ActiveRecord::Base
   has_many :listings, dependent: :destroy
   has_many :message_thread_users, dependent: :destroy
   has_many :message_threads, through: :message_thread_users, dependent: :destroy
+  has_many :ngevents, dependent: :destroy
 
   #validates :email, presence: true
-  validates :email, uniqueness: true
+  #validates :email, uniqueness: true
   #VALID_EMAIL_REGREX = [a-zA-Z0-9_!#$%&*+=?^`{}~|'\-\/\.]+@[a-zA-Z0-9_!#$%&*+=?^`{}~|'\-\/]+(\.[a-zA-Z0-9_!#$%&*+=?^`{}~|'\-\/]+)+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   #validates :email, format: { with: VALID_EMAIL_REGEX }
@@ -117,5 +118,9 @@ class User < ActiveRecord::Base
   def self.user_id_to_profile_id(user_id)
     user = User.find(user_id)
     user.profile.id
+  end
+  
+  def finish_reservation_count
+    Reservation.as_host(self.id).finished_before_yesterday.count
   end
 end

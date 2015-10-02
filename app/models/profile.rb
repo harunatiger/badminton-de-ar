@@ -59,4 +59,8 @@ class Profile < ActiveRecord::Base
       return false
     end
   end
+  
+  def self.mine(user_id)
+    Profile.where(user_id: user_id).first
+  end
 end

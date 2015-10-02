@@ -1,0 +1,7 @@
+.manage-listings
+  = render partial: 'shared/manage_listing_header', locals: { listing: @listing }
+  .manage-listing-row-container
+    .manage-listing-content.col-md-9.col-offset-3
+      = render 'form'
+
+    = render partial: 'shared/manage_listing_nav'

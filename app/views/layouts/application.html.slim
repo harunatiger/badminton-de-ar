@@ -9,7 +9,7 @@ html
     = favicon_link_tag 'favicon.ico'
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag "/modernizr-2.8.3.min.js"
-    /= include_gon
+    = include_gon
     = Gon::Base.render_data({})
     = csrf_meta_tags
   - if controller_name === "welcome"
@@ -39,4 +39,7 @@ html
   = render partial: 'shared/modals/flow'
   = javascript_include_tag '//j.wovn.io/0', 'data-wovnio'=> 'key=CC4ZB'
   = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&language=en'
-  = javascript_include_tag 'application'
+  - if controller_name === "calendar"
+    = javascript_include_tag 'application_calendar'
+  - else
+    = javascript_include_tag 'application'
