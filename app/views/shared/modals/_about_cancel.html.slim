@@ -1,0 +1,20 @@
+/ modal share-via-email
+#about_cancel.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          a.modal-close[href="#" data-dismiss="modal"]
+          | 承認後のキャンセルに関して
+        form
+          .card-body
+            p
+              | 承認済みの予約キャンセルする際、
+              span.strong 承認から60日以内であれば払い戻しを実行
+              | します。
+            p
+              span.strong.text-red 承認から60日以上経過している場合は払い戻しは行われません
+              | のでご了承ください。
+            p
+          .card-footer
+            = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"

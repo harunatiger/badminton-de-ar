@@ -8,6 +8,10 @@ $ ->
     width: 4
     radius: 6
 
+  # Launch Modal at Message Thread page
+  $('a.about_cancel_link').on 'click', ->
+    $('#about_cancel').modal()
+
   # Launch Modal at Listing detail page
   $('#message-host-link').on 'click', ->
     $('#message-to-host').modal()

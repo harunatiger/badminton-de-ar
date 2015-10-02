@@ -44,6 +44,8 @@
             = reservation_obj.string_of_progress_for_message_thread
           .row-space-top-4
             = f.submit 'キャンセル', name: 'cancel', class: "btn btn-host"
+            = link_to "#", class: "about_cancel_link" do
+              | 承認後のキャンセルに関して
         - else
           .h5.text-pink.strong
             = reservation_obj.string_of_progress_for_message_thread
