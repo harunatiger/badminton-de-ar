@@ -117,4 +117,8 @@ Rails.application.configure do
     :authentication => :plain,
     :enable_starttls_auto => true
   }
+
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test
+  end
 end

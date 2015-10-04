@@ -115,4 +115,8 @@ Rails.application.configure do
   }
   
   GA.tracker = "UA-54768854-8"
+  
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :production
+  end
 end
