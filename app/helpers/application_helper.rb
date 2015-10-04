@@ -235,6 +235,15 @@ module ApplicationHelper
       new_profile_profile_identity_path(current_user.profile.id)
     end
   end
+  
+  def profile_bank_link
+    profile_bank = ProfileBank.where(user_id: current_user.id, profile_id: current_user.profile.id).first
+    if profile_bank.present?
+      return edit_profile_profile_bank_path(current_user.profile.id, profile_bank.id)
+    else
+      new_profile_profile_bank_path(current_user.profile.id)
+    end
+  end
 
   def profile_image_link
     profile_image = ProfileImage.where(user_id: current_user.id, profile_id: current_user.profile.id).first

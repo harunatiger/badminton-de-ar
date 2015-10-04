@@ -16,6 +16,10 @@ profile_images:
 profile_identities:
   save:
     success: "プロフィールを更新しました。"
+profile_banks:
+  save:
+    success: "プロフィールを更新しました。"
+    failure: "全ての項目を入力してください。"
 categories:
   food: '食'
   alcohol: 'お酒'

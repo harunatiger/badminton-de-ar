@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001135648) do
+ActiveRecord::Schema.define(version: 20151004123647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -284,6 +284,21 @@ ActiveRecord::Schema.define(version: 20151001135648) do
 
   add_index "payments", ["reservation_id"], name: "index_payments_on_reservation_id", using: :btree
 
+  create_table "profile_banks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "profile_id"
+    t.string   "name"
+    t.string   "branch_name"
+    t.integer  "account_type"
+    t.string   "user_name"
+    t.string   "number"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "profile_banks", ["profile_id"], name: "index_profile_banks_on_profile_id", using: :btree
+  add_index "profile_banks", ["user_id"], name: "index_profile_banks_on_user_id", using: :btree
+
   create_table "profile_identities", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "profile_id"
@@ -489,6 +504,8 @@ ActiveRecord::Schema.define(version: 20151001135648) do
   add_foreign_key "messages", "users", column: "from_user_id"
   add_foreign_key "messages", "users", column: "to_user_id"
   add_foreign_key "payments", "reservations"
+  add_foreign_key "profile_banks", "profiles"
+  add_foreign_key "profile_banks", "users"
   add_foreign_key "profile_identities", "profiles"
   add_foreign_key "profile_identities", "users"
   add_foreign_key "profile_images", "profiles"

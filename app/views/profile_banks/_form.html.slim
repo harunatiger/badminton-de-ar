@@ -1,0 +1,33 @@
+= simple_form_for([@profile, @profile_bank], html: { class: "form--sp" }) do |f|
+  = f.error_notification
+  = f.hidden_field :user_id, value: current_user.id
+  = f.hidden_field :profile_id, value: current_user.profile.id
+  .card.row-space-4
+    .card-header 必須項目
+    .card-body
+      .row.row-condensed.row-space-4
+        label.text-right.col-3
+          | 銀行名
+        .col-8
+           = f.input_field :name
+      .row.row-condensed.row-space-4
+        label.text-right.col-3
+          | 支店名
+        .col-8
+          = f.input_field :branch_name
+      .row.row-condensed.row-space-4
+        label.text-right.col-3
+          | 口座種別
+        .col-8
+          = f.input_field :account_type, as: :select, :collection => [["普通",0], ["当座",1]], :default => 0
+      .row.row-condensed.row-space-4
+        label.text-right.col-3
+          | 口座名義
+        .col-8
+          = f.input_field :user_name
+      .row.row-condensed.row-space-4
+        label.text-right.col-3
+          | 口座番号
+        .col-8
+          = f.input_field :number
+  = f.button :submit, "登録する", class: "btn btn-primary btn-large row-space-4"

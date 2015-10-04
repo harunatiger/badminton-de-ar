@@ -11,6 +11,12 @@ ul.sidenav-list
   - else
     li
       = link_to "プロフィール画像編集", "#{profile_image_link}", class: "sidenav-item", aria: {selected: "false"}
+  - if controller_name == 'profile_banks'
+    li
+      = link_to "銀行情報編集", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"}
+  - else
+    li
+      = link_to "銀行情報編集", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profile_identities'
     li
       = link_to "信頼情報認証・編集", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"}
