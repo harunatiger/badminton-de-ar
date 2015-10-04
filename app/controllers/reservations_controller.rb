@@ -30,14 +30,11 @@ class ReservationsController < ApplicationController
           'to_user_id' => @reservation.guest_id,
           'progress' => @reservation.progress,
           'schedule' => @reservation.schedule,
+          'message_thread_id' => @reservation.message_thread_id,
           'content' => Settings.reservation.msg.request
         ]
 
-        if res = MessageThread.exists_thread?(msg_params)
-          mt_obj = MessageThread.find(res)
-        else
-          mt_obj = MessageThread.create_thread(msg_params)
-        end
+        mt_obj = MessageThread.find(@reservation.message_thread_id)
 
         if Message.send_message(mt_obj, msg_params)
           format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.save.success }
@@ -107,6 +104,7 @@ class ReservationsController < ApplicationController
           payment.save
         end
       end
+      msg = Settings.reservation.msg.canceled
       para[:progress] = 1
     elsif params[:accept]
       session[:message_thread_id] = message_thread_id
@@ -158,14 +156,11 @@ class ReservationsController < ApplicationController
           'to_user_id' => @reservation.host_id,
           'progress' => @reservation.progress,
           'schedule' => @reservation.schedule,
+          'message_thread_id' => message_thread_id,
           'content' => msg
         ]
 
-        if res = MessageThread.exists_thread?(msg_params)
-          mt_obj = MessageThread.find(res)
-        else
-          mt_obj = MessageThread.create_thread(msg_params)
-        end
+        mt_obj = MessageThread.find(message_thread_id)
 
         if Message.send_message(mt_obj, msg_params)
           format.html { redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.update.success }

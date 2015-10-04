@@ -37,7 +37,12 @@ class MessagesController < ApplicationController
   end
 
   def create
-    if res = MessageThread.exists_thread?(message_params)
+    if message_params[:message_thread_id]
+      res = message_params[:message_thread_id]
+    else
+      res = MessageThread.exists_thread?(message_params)
+    end
+    if res
       mt_obj = MessageThread.find(res)
     else
       mt_obj = MessageThread.create_thread(message_params)

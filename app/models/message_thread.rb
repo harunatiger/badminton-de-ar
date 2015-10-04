@@ -27,13 +27,22 @@ class MessageThread < ActiveRecord::Base
     f_threads.each do |ft|
       ft_array << ft.message_thread_id
     end
-    MessageThread.common_threads(tt_array, ft_array)
+    MessageThread.common_threads(tt_array, ft_array, msg_params[:listing_id])
   end
 
-  def self.common_threads(a_array, b_array)
+  def self.common_threads(a_array, b_array, listing_id)
     result = a_array & b_array
-    false if result.size.zero?
-    result.first
+    if result.size.zero?
+      res = false
+    else
+      result.each do |id|
+        if MessageThread.find(id).same_listing?(listing_id)
+          res = id
+          break
+        end
+      end
+    end
+    res
   end
 
   def self.create_thread(msg_params)
@@ -79,6 +88,6 @@ class MessageThread < ActiveRecord::Base
   
   def same_listing?(listing_id)
     message = Message.message_thread(self.id).where.not(listing_id: 0).first
-    return message.listing_id == listing_id
+    return message.listing_id == listing_id.to_i
   end
 end

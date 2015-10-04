@@ -2,7 +2,7 @@
         .card-body.normal-form-fields
           - unless @reservation.completed?
             = simple_form_for(@reservation, html: { id: "non_special_offer_form", class: "message_form clearfix" }) do |f|
-              = f.hidden_field :message_thread_id
+              = f.hidden_field :message_thread_id, value: @message_thread.id
               = f.hidden_field :host_id, value: @host_id
               = f.hidden_field :guest_id, value: @guest_id
               = f.hidden_field :num_of_people, value: 1
