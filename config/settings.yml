@@ -85,6 +85,7 @@ reservation:
     request: "ガイド内容をお送りしました。"
     accepted: "ガイド内容を承認しました。"
     canceled: "ガイド内容をキャンセルしました。"
+    refunded: "払い戻し処理を実行しました。"
   progress:
     select: "予約を承認しますか？"
     select_by_guest: "予約をキャンセルする場合は、選択してください。"

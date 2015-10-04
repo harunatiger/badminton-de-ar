@@ -72,7 +72,7 @@ class ReservationsController < ApplicationController
       )
     else
       respond_to do |format|
-        format.html { redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_payment_failure }
+        format.html { redirect_to message_thread_path(session[:message_thread_id]), notice: Settings.reservation.save.failure.paypal_access_failure + ' エラー：' + details.params['error_codes'] + ' ' + details.params['message']}
       end
     end
     @listing = Listing.find(@reservation.listing_id)
@@ -83,7 +83,7 @@ class ReservationsController < ApplicationController
     session[:reservation_id] = nil
     session[:message_thread_id] = nil
     respond_to do |format|
-      format.html { redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_canceled }
+      format.html { redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_canceled}
     end
   end
 
@@ -97,7 +97,7 @@ class ReservationsController < ApplicationController
         response = refund(payment)
         unless response.success?
           respond_to do |format|
-            format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_refund_failure }
+            format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_refund_failure + ' エラー：' + response.params['error_codes'] + ' ' + response.params['message']}
             format.json { return render :show, status: :ok, location: @reservation }
           end 
         else
@@ -108,11 +108,12 @@ class ReservationsController < ApplicationController
         end
       end
       para[:progress] = 1
-      msg = Settings.reservation.msg.canceled
     elsif params[:accept]
       session[:message_thread_id] = message_thread_id
       session[:reservation_id] = @reservation.id
-      return checkout(@reservation)
+      return checkout(@reservation) if @reservation.price > 0
+      para[:progress] = 3
+      msg = Settings.reservation.msg.accepted
     elsif params[:payment]
       response = purchase(payment)
       if response.success?
@@ -122,7 +123,7 @@ class ReservationsController < ApplicationController
         payment.save
       else
         respond_to do |format|
-          format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_payment_failure }
+          format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_payment_failure + ' エラー：' + response.params['error_codes'] + ' ' + response.params['message']}
           format.json { return render :show, status: :ok, location: @reservation }
         end 
       end
@@ -198,7 +199,8 @@ class ReservationsController < ApplicationController
         else
           message_thread_id = session[:message_thread_id]
           session[:message_thread_id] = nil
-          format.html { redirect_to message_thread_path(message_thread_id), notice: setup_response.success? ? Settings.reservation.save.failure.no_date : Settings.reservation.save.failure.paypal_access_failure}
+          p setup_response
+          format.html { redirect_to message_thread_path(message_thread_id), notice: setup_response.success? ? Settings.reservation.save.failure.no_date : Settings.reservation.save.failure.paypal_access_failure + ' エラー：' + setup_response.params['error_codes'] + ' ' + setup_response.params['message']}
           format.json { render json: reservation.errors, status: :unprocessable_entity }
         end
       end

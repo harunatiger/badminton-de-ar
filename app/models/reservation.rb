@@ -155,4 +155,8 @@ class Reservation < ActiveRecord::Base
   def paypal_amount
     self.price * 100
   end
+  
+  def completed?
+    self.accepted? and self.schedule > Date.today
+  end
 end

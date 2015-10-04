@@ -39,7 +39,7 @@
         - if reservation_obj.requested? and current_user.id == guest_id
           = f.submit '承認する', name: 'accept', class: 'btn btn-primary'
           = f.submit 'キャンセル', name: 'cancel', class: 'btn'
-        - elsif reservation_obj.accepted? and current_user.id == guest_id
+        - elsif reservation_obj.completed? and current_user.id == guest_id
           .h5.text-green.strong
             = reservation_obj.string_of_progress_for_message_thread
           .row-space-top-4

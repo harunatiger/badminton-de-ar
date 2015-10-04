@@ -8,12 +8,15 @@ module Payments
   end
   
   def set_checkout(reservation)
+    host = User.find(reservation.host_id)
+    description = 'ガイドID：' + host.id.to_s + ',ガイド名:' + host.profile.first_name + host.profile.last_name + ',振込先銀行口座'
     setup_response = self.gateway.setup_authorization(
             reservation.paypal_amount,
             :ip => request.remote_ip,
             :return_url => confirm_reservations_url,
             :cancel_return_url => cancel_reservations_url,
             :currency => 'JPY',
+            no_shipping: 1,
             items: item_params(reservation))
   end
   

@@ -1,6 +1,6 @@
       #reservation_form.tab-pane.card-quote-flush.card
         .card-body.normal-form-fields
-          - unless @reservation.accepted?
+          - unless @reservation.completed?
             = simple_form_for(@reservation, html: { id: "non_special_offer_form", class: "message_form clearfix" }) do |f|
               = f.hidden_field :message_thread_id
               = f.hidden_field :host_id, value: @host_id
