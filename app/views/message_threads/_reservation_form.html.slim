@@ -21,13 +21,17 @@
                   .input-opt
                     = f.input_field :price
                     span 円
-              .row.row-condensed.row-space-3
+              .row.row-condensed.row-space-1
                 label.col-md-3.text-right.text-left--sp
                   | オプション価格
                 .col-md-5
                   .input-opt
                     = f.input_field :option_price
                     span 円
+              .row.row-condensed.row-space-3
+                .col-md-3
+                .col-md-9
+                  .text-pink.small1 ベース、オプション価格を足した値がゲストに表示されます。
               .row.row-condensed.row-space-3
                 label.col-md-3.text-right.text-left--sp
                   | 参加する日付
