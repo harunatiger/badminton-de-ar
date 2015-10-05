@@ -109,7 +109,7 @@ class ReservationsController < ApplicationController
     elsif params[:accept]
       session[:message_thread_id] = message_thread_id
       session[:reservation_id] = @reservation.id
-      return checkout(@reservation) if @reservation.price > 0
+      return checkout(@reservation) if @reservation.amount > 0
       para[:progress] = 3
       msg = Settings.reservation.msg.accepted
     elsif params[:payment]

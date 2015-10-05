@@ -83,12 +83,12 @@
                     = render partial: 'progress', locals: { r: r }
                     .small1
                       | ￥
-                      = l.price
+                      = r.amount
                       br
-                      = r.schedule.strftime("%m年%d月")
-                      br
-                      = r.num_of_people
-                      | 人
+                      = r.schedule.to_s
+                      /br
+                      /= r.num_of_people
+                      /| 人
                 - else
                   .col-mod-2
                     span.label.status-contact.text-starlight

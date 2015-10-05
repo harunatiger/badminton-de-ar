@@ -152,8 +152,12 @@ class Reservation < ActiveRecord::Base
     self.where(guest_id: guest_id, host_id: host_id).order('created_at desc').first
   end
   
+  def amount
+    self.price + self.option_price
+  end
+  
   def paypal_amount
-    self.price * 100
+    self.amount * 100
   end
   
   def completed?
