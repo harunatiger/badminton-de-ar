@@ -1,4 +1,4 @@
-class ListingImageCollection < Base
+class ListingImageCollection < Form::Base
   DEFAULT_ITEM_COUNT = 10
   attr_accessor :listing_images
 
