@@ -61,18 +61,18 @@
             - from_user_profile = from_user.profile
             li.card-body.thread
               .row
-                .col-md-3
+                .col-md-5
                   .row.row-table
-                    .col-xs-3.col-md-5
+                    .col-xs-3.col-md-4
                       = link_to message_thread_path(um.message_thread_id) do
                         = image_tag(user_id_to_profile_image(um.from_user_id), class: 'img-round size50')
-                    .col-xs-9.col-md-7
+                    .col-xs-9.col-md-8
                       = user_obj_to_name(from_user)
+                      br
                       = um.created_at.strftime("%m月%d日 %H時%M分")
                 = link_to message_thread_path(um.message_thread_id), class: "link-reset text-muted" do
-                  .col-md-7
+                  .col-md-5
                     = um.content
-                    br
                     br
                     span.text-muted
                       = from_user_profile.location
@@ -90,7 +90,7 @@
                       /= r.num_of_people
                       /| 人
                 - else
-                  .col-mod-2
+                  .col-md-2
                     span.label.status-contact.text-starlight
                       = Settings.message.unread.string
         .card-body
