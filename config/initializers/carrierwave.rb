@@ -5,9 +5,7 @@ CarrierWave.configure do |config|
       :provider               => 'AWS',
       :aws_access_key_id      => ENV['HUBER_AWS_ACCESS_KEY_ID'],
       :aws_secret_access_key  => ENV['HUBER_AWS_SECRET_ACCESS_KEY'],
-      :region                 => ENV['HUBER_AWS_REGION'],
-      :path_style             => true,
-      :endpoint               => 'http://s3.amazonaws.com'
+      :region                 => ENV['HUBER_AWS_REGION']
     }
     config.fog_directory = ENV['HUBER_AWS_S3_BUCKET']
     config.fog_authenticated_url_expiration = 60
