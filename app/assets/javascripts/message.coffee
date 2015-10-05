@@ -11,6 +11,10 @@ $ ->
   # Launch Modal at Message Thread page
   $('a.about_cancel_link').on 'click', ->
     $('#about_cancel').modal()
+    return false
+  $('a.about_payment_link').on 'click', ->
+    $('#about_payment').modal()
+    return false
 
   # Launch Modal at Listing detail page
   $('#message-host-link').on 'click', ->

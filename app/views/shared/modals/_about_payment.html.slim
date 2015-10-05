@@ -1,0 +1,21 @@
+/ modal about_payment
+#about_payment.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          a.modal-close[href="#" data-dismiss="modal"]
+          | ゲストの支払いに関して
+        form
+          .card-body
+            p
+              | Huber.では支払いサービスに、
+              span.strong paypal
+              | を利用しております。
+            p
+              | ガイドの提示金額の
+              span.strong.text-red 「3.6% + ¥40 JPY + 銀行振込手数料」が引かれた金額が支払われる
+              | ことをご了承ください。
+            p
+          .card-footer
+            = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"
