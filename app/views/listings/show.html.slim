@@ -23,8 +23,12 @@
         #map
 
 .fixed-btn-wrapper.show--sp
-  button#message-host-link-fixed.btn.btn-large.btn-fixed-bottom.btn-primary
-    | メッセージを送る
+  - if profile_self_introduction_exists?
+    button#message-host-link-fixed.btn.btn-large.btn-fixed-bottom.btn-primary
+      | メッセージを送る
+  - else
+    =link_to 'メッセージを送る',profile_link, class: 'btn btn-large btn-fixed-bottom btn-primary'
+
 /#similar-listings.row-space-6.row-space-top-4
   /= render partial: 'similar_listings'
 = render partial: '/shared/modals/share_email'
