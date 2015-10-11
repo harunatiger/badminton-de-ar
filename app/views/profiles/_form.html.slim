@@ -65,6 +65,18 @@
               = f.input_field :location, placeholder: "例) 郵便番号を入力すると自動で町名まで出力されます"
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_self_introduction"]
+              | 好きなカテゴリ
+            .col-xs-8.fieldset
+              = collection_check_boxes(:profile, :category_ids, Category.all, :id, :name) do |b|
+                = b.label { b.check_box + b.text }
+          .row.row-condensed.row-space-4
+            label.text-right.col-3[for="user_self_introduction"]
+              | 対応可能言語
+            .col-xs-8.fieldset
+              = collection_check_boxes(:profile, :language_ids, Language.all, :id, :name) do |l|
+                = l.label { l.check_box + l.text }
+          .row.row-condensed.row-space-4
+            label.text-right.col-3[for="user_self_introduction"]
               | 自己紹介
             .col-8.self_introduction_wrapper
               = f.input_field :self_introduction, as: :text, cols: "30", rows: "20", placeholder: "例）ようこそ 私の名前は風馬太郎です。私はあなたと同じ旅を楽しみ、人生を楽しんでいます。出身は北海道。1年前から東京で仕事をしています。あらゆるジャンルの飲食を紹介することが出来ます。あなたが望むならご飯もご一緒できます。観光ガイドブックにのることはない、私がオススメするランチ・ディナーを紹介することも出来ます。それはきっと、あなたにとって記憶に残る素晴らしい体験になるはず。あなたをお待ちしております。風馬太郎"

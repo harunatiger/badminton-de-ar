@@ -42,6 +42,10 @@ class Profile < ActiveRecord::Base
   has_one :profile_video, dependent: :destroy
   has_one :profile_identity, dependent: :destroy
   has_one :profile_bank, dependent: :destroy
+  has_many :profile_categories, dependent: :destroy
+  has_many :categories, :through => :profile_categories, dependent: :destroy
+  has_many :profile_languages, dependent: :destroy
+  has_many :languages, :through => :profile_languages, dependent: :destroy
 
   enum gender: { female: 0, male: 1, others: 2, not_specified: 3 }
 

@@ -11,4 +11,6 @@
 class Category < ActiveRecord::Base
   has_many :listing_categories, dependent: :destroy
   has_many :listings, :through => :listing_categories, dependent: :destroy
+  has_many :profile_categories, dependent: :destroy
+  has_many :profiles, :through => :profile_categories, dependent: :destroy
 end
