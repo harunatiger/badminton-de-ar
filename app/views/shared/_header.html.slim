@@ -49,8 +49,8 @@
         = link_to "#", class: "" do
           |  ヘルプ
       li.list-your-thing.pull-left
-        -if !current_user or current_user.listings.blank?
-          = link_to Settings.page.listing_new, new_listing_path, class: "btn btn-host"
+        /-if !current_user or current_user.listings.blank?
+        = link_to Settings.page.listing_new, new_listing_path, class: "btn btn-host"
     - if user_signed_in?
       ul.nav.pull-right
         li.user-item.pull-left
@@ -64,10 +64,11 @@
             li
               = link_to Settings.page.dashboard, dashboard_path, rel: "nofollow"
             li
-              = link_to Settings.page.listings, current_user.listings.blank? ? new_listing_path : edit_listing_path(current_user.listings[0].id), rel: "nofollow"
-            /li
+              /= link_to Settings.page.listings, current_user.listings.blank? ? new_listing_path : edit_listing_path(current_user.listings[0].id), rel: "nofollow"
+              = link_to Settings.page.listings, listings_path, rel: "nofollow"
+            li
               = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, rel: "nofollow"
-            /li
+            li
               = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path, rel: "nofollow"
             /li
               /= link_to Settings.page.wishlists, wishlists_path, rel: "nofollow"
