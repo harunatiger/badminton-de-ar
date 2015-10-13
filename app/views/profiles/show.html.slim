@@ -4,6 +4,7 @@
     = render partial: '/profiles/show/left_column', locals: { profile: @profile, listings: @listings }
     .col-lg-9.col-md-8.col-sm-12
       = render partial: '/profiles/show/self_introduction', locals: { profile: @profile }
+      = render partial: '/profiles/show/request_block'
       .row-space-6.row-space-top-6.row.row-condenced
         .col-md-12
           = link_to "#reviews", class: 'link-reset btn btn-guest' do
