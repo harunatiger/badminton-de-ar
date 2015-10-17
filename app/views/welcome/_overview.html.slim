@@ -1,13 +1,17 @@
-#guest-overview.card
+#guest-overview.card-dark
   .page-container
-    .row.row-space-top-8
-      .col-md-4
-        .media-cover.media-cover-dark.background-cover.show--sp
-        .va-container.va-container-v.va-container-h
-          .va-middle
-            .row-space-4
-              strong
-                | TOMODACHI Guideに相談してあなただけの日本の旅を楽しもう！
-            = link_to "こんな旅を楽しめます", "#", class: "strong btn btn-host btn-large btn-block"
-      .col-sm-8.hide--sp
-        .guest-overview-image
+    .card.row-space-top-8
+      .row
+        .col-md-4.guest-overview-body
+          .media-cover.media-cover-dark.background-cover.show--sp
+          .va-container.va-container-v.va-container-h
+            .va-middle
+              .row-space-4
+                strong.h3
+                  | TOMODACHI Guideに相談してあなただけの日本の旅を楽しもう！
+              = link_to "#", class: "strong btn btn-host btn-large btn-block" do
+                | 友達ガイドと行く旅は
+                br
+                | こんな旅
+        .col-sm-8.hide--sp
+          .guest-overview-image
