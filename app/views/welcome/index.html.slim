@@ -1,5 +1,5 @@
 - provide(:title, "Huber.")
-- provide(:description, "Huber.")
+- provide(:description, "Huber. | さぁ友達ガイドと旅をしよう！")
 .hero-wrapper
   #hero
     ul#slideshow.list-unstyled
@@ -12,15 +12,19 @@
   .hero-contents.text-center
     .va-container.va-container-wh
       .hero-inner
-        h1#tagline.uppercase.text-jumbo.text-contrast.row-space-1 世界中で友達を作ろう！
-        .col-sm-12
-          #subtitle.h4.text-contrast.row-space-4 旅する準備はできていますか？
-          /.search--sp.show--sp
+        #subtitle.h4.text-contrast ￼そこに住む人しか知らない体験をあなたに
+        h1#tagline.uppercase.text-jumbo.text-contrast.row-space-top-2.row-space-4 さぁ友達ガイドと旅をしよう！
+        = link_to "友達ガイドって？", "#", class: "guest-flow-trigger btn btn-large btn-transparent hide--sp"
+        /.col-sm-12
+          .search--sp.show--sp
             #sp-search-field.input-addon
               span.input-stem.input-large.fake-search-field 検索しますか？
               i.input-suffix.btn.btn-primary.fa.fa-full.fa-search
-          a.guest-flow-trigger.btn.btn-large.btn-transparent.hide--sp[href="#"] サービスの流れ
+          a.guest-flow-trigger.btn.btn-large.btn-transparent.hide--sp[href="#"] 友達ガイドって？
         /.hero-search.hide--sp
           .col-xs-12
             = render partial: 'form'
+= render partial: 'overview'
 = render partial: 'discovery'
+= render partial: 'guide_list'
+= render partial: 'charmer'

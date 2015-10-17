@@ -1,0 +1,27 @@
+#charmer.charmer.carousel.slide[data-ride="carousel"]
+  .carousel-inner
+    .item.active
+      .row.row-table.row-full-height
+        .col-md-12.col-middle
+          h3 
+            | 世界中で友達を作ろう！
+            span.row-space-top-2 Huber.で旅しよう
+    .item.item2
+      .row.row-table.row-full-height
+        .col-md-12.col-middle
+          h3 
+            | 旅先で困ったら…
+            span.row-space-top-2 Huber.にお任せください！
+    .item.item3
+      .row.row-table.row-full-height
+        .col-md-12.col-middle
+          h3 
+            | Huber.で世界に飛び出そう！
+            span.row-space-top-2 いつでもHuber.が一緒です！
+
+  = link_to "#charmer", class: "left carousel-control", role: "button", data: { slide: "prev" } do
+    i.fa.fa-chevron-left[aria-hidden="true"]
+    span.sr-only Previous
+  = link_to "#charmer", class: "right carousel-control", role: "button", data: { slide: "next" } do
+    i.fa.fa-chevron-right[aria-hidden="true"]
+    span.sr-only Next
