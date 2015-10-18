@@ -1,0 +1,59 @@
+.card-dark
+  .page-container.page-container-no-padding.row-space-8
+    .section-intro.text-center.row-space-6.row-space-top-8
+      h2.row-space-1.strong スターガイドのご紹介
+      p.text-lead ユニークな旅、心づくしのおもてなし。人気のStarGuideたちに依頼しよう!
+    .guide_list-tiles
+      - @listings.each_with_index do | listing, i |
+        /- if (i + 1) % 3 == 0 
+          br
+        .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
+          div
+            = link_to listing_path(listing.id), class: 'huber-card' do
+              .huber-card-background[style="background-image: url('#{listing_cover_image_thumb_url(listing.id)}')"]
+              .huber-card-content
+                .huber-card-face
+                  = image_tag(user_id_to_profile_image(listing.user_id), class: "")
+                .huber-inner
+                  .name
+                    = user_id_to_name(listing.user_id)
+                  .introducing
+                    span
+                      = user_id_to_profile_image_caption(listing.user_id)
+                .capability
+                  -if category_food?(listing)
+                    span[title="食" data-toggle="tooltip"]
+                      i.fa.fa-cutlery
+                  -if category_alcohol?(listing)
+                    span[title="お酒" data-toggle="tooltip"]
+                      i.fa.fa-glass
+                  -if category_car?(listing)
+                    span[title="車" data-toggle="tooltip"]
+                      i.fa.fa-car
+                  -if category_cruising?(listing)
+                    span[title="船旅" data-toggle="tooltip"]
+                      i.fa.fa-ship
+                  -if category_shopping?(listing)
+                    span[title="ショッピング" data-toggle="tooltip"]
+                      i.fa.fa-shopping-cart
+                  -if category_accommodation?(listing)
+                    span[title="宿泊施設" data-toggle="tooltip"]
+                      i.fa.fa-bed
+                  -if category_business?(listing)
+                    span[title="ビジネス" data-toggle="tooltip"]
+                      i.fa.fa-area-chart
+                  -if category_sport?(listing)
+                    span[title="スポーツ" data-toggle="tooltip"]
+                      i.fa.fa-soccer-ball-o
+                .language
+                  -if language_ja?(listing)
+                    span 日本語
+                  -if language_en?(listing)
+                    span English
+                  -if language_zh?(listing)
+                    span 中国語
+
+      /.col-sm-12.rm-padding--sp.row-space-6.text-center
+        a.btn.btn-large.btn-more
+          | 他のガイドを見る
+          i.fa.fa-caret-down
