@@ -7,13 +7,13 @@
     height: 300px
 
 #hero
-  z-index: -1
   position: absolute
   right: 0
   left: 0
   top: 0
   bottom: 0
   overflow: hidden
+  z-index: -1
 
 .hero-contents
   position: relative
@@ -102,10 +102,33 @@
 /* guest-overview */
 .guest-overview-body
   height: 344px
+  @media (max-width: 1099px) and (min-width: 768px)
+    height: 270px
   .va-middle
-    padding: 0 15px 0 40px
+    padding-left: 40px
+    padding-right: 15px
     .h3
       line-height: 1.44
+    .btn-host
+      display: block
+    @media (max-width: 1099px) and (min-width: 768px)
+      padding-left: 25px
+      padding-right: 0
+      .h3
+        font-size: 18px
+      .btn-host
+        font-size: 12px
+        padding: 9px 21px
+    @media (max-width: 767px)
+      padding: 0
+      .h3
+        color: white
+
+.guest-overview-cover
+  background-image: image-url('sample/top-slider/slider-03-guide.jpg')
+  background-repeat: no-repeat
+  background-position: center center
+  background-size: cover
 
 .guest-overview-image
   position: relative
@@ -114,11 +137,20 @@
   background-repeat: no-repeat
   background-size: cover
   overflow: hidden
+  @media (max-width: 1099px) and (min-width: 768px)
+    height: 270px
 
 /* discovery */
 .discovery-section
   @media (max-width: 767px)
     overflow: hidden
+
+.discovery-tiles
+  .card-body
+    height: 122px
+    padding: 18px
+    h5
+      line-height: 1.4
 
 .discovery-card
   position: relative
@@ -127,61 +159,12 @@
   background-size: cover
   background-position: center
   border-radius: 4px
+  a:hover
+    text-decoration: none
   .va-container
     background-color: rgba(0, 0, 0, 0.15)
     .h2
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25)
-  a.discovery-heart
-    position: absolute
-    top: 10px
-    right: 10px
-  a.planner-circle
-    display: block
-    position: absolute
-    bottom: 12px
-    left: 12px
-    width: 40px
-    height: 40px
-    cursor: pointer
-    img
-      display: block
-      position: relative
-      width: 100%
-      height: auto
-      border: 2px solid rgba(255, 255, 255, 0.75)
-      border-radius: 50%
-  span.period
-    display: inline-block
-    height: 26px
-    line-height: 24px
-    margin-top: 10px
-    padding: 0 10px
-    font-weight: 700
-    background-color: rgba(0, 0, 0, 0.25)
-    border: 1px solid rgba(255, 255, 255, 0.5)
-  span.arrow-direction
-    display: block
-    position: absolute
-    bottom: 15px
-    right: 20px
-    width: 34px
-    height: 34px
-    line-height: 32px
-    text-align: center
-    color: rgba(255, 255, 255, 0.75)
-    background-color: rgba(0, 0, 0, 0.6)
-    border: 2px solid rgba(255, 255, 255, 0.75)
-    border-radius: 50%
-    &:before
-      content: ''
-      display: block
-      position: absolute
-      top: 50%
-      right: -22px
-      width: 20px
-      height: 2px
-      margin-top: -1px
-      background-color: rgba(255, 255, 255, 0.7)
 
 /* charmer */
 .charmer

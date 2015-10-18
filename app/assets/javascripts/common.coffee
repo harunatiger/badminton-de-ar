@@ -160,7 +160,7 @@ $ ->
   # welcome#index
   if $('body').hasClass('welcome index')
 
-    # ellipsis
+    # ellipsis guide_list comment
     $setElm = $('.introducing > span')
     cutFigure = '50'
     afterTxt = ' …'
@@ -170,6 +170,19 @@ $ ->
       if cutFigure < textLength
         $(this).html(textTrim + afterTxt).css visibility: 'visible'
       else if cutFigure >= textLength
+        $(this).css visibility: 'visible'
+      return
+
+    # ellipsis discovery title
+    $setElm1 = $('.discovery-listing h5')
+    cutFigure1 = '85'
+    afterTxt1 = ' …'
+    $setElm1.each ->
+      textLength1 = $(this).text().length
+      textTrim1 = $(this).text().substr(0, cutFigure1)
+      if cutFigure1 < textLength1
+        $(this).html(textTrim1 + afterTxt1).css visibility: 'visible'
+      else if cutFigure1 >= textLength1
         $(this).css visibility: 'visible'
       return
 
