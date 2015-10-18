@@ -1,4 +1,4 @@
-li#question2_post_383287996.thread-list-item
+li.thread-list-item
   .row.row-condensed
     .col-sm-2.col-md-1.text-center
       /a.media-photo.media-round href="#"
@@ -23,6 +23,7 @@ li#question2_post_383287996.thread-list-item
                   = m.try('content')
             - if !m.reservation_id.zero? && reservation_id_to_messages(m.reservation_id).first.id == m.id
               = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
+
         .time-container.text-muted
           small.time
             - if m.read.present?
