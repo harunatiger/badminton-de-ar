@@ -1,8 +1,23 @@
 /* decoration.sass */
 
+.sample-cover-image1
+  background-image: image-url('top-slider/slider_01.jpg')
+
 /* error_notification */
 .error_notification
   display: none
+
+.badge-pill-count
+  span
+    display: inline-block
+    margin: 0 0 0 5px
+
+.tour-listing
+  .card-body
+    height: 122px
+    padding: 18px
+  h5
+    line-height: 1.4
 
 /* slideout */
 body.slideout
@@ -368,6 +383,11 @@ body.paper
   bottom: 0
   position: absolute
   width: 100%
+
+#slideshow-cover
+  z-index: 11
+  &:after
+    opacity: 0.1
 
 //@media (max-width: 1067px)
   #slideshow
@@ -1000,10 +1020,11 @@ label.error
 
 // Huber edit ==================================================
 
-.talk_to-wrapper
+/* profile */
+.profile-card-wrapper
   float: right
 
-#talk_to
+.profile-card
   position: fixed
   top: 80px
   width: 315px
@@ -1013,45 +1034,46 @@ label.error
   .card
     border: 0
     .card-body
-      //padding: 10px
-  @media (min-width: 1100px)
-    //&.fixed
-      position: fixed
-      top: 40px
-      z-index: 1001
 
 @media (max-width: 1099px)
-  .talk_to-wrapper
+  .profile-card-wrapper
     float: none
-  #talk_to
+  .profile-card
     position: static
     margin: -240px auto 40px
 
 @media (max-width: 767px)
-  #talk_to
+  .profile-card
     width: auto
     max-width: 315px
 
-.guide_face
-  //margin: -10px -10px 0 !important
+.profile-face
   img
     width: 100%
     height: auto
 
-.guide_name
-  padding: 12px 0 10px
+.profile-name
   font-size: 16px
   span
     display: inline-block
     margin-right: 4px
-    color: $host-theme
     font-size: 18px
     font-weight: 700
 
-.guide_greeting
-  line-height: 1.6
-  margin-bottom: 20px
-  word-break: break-all
+.profile-created
+  font-size: 13px
+
+.profile-status
+  .reliable-sign
+
+.profile-rating
+
+.profile-add
+  a
+    color: $red1
+    text-decoration: underline
+  .fa
+    margin-right: 4px
 
 .photo-list-wrapper
   max-width: 480px
@@ -1221,11 +1243,18 @@ label.error
 //reliable-sign
 .reliable-sign
   display: inline-block
-  margin-left: 10px
-  color: #2ecc71
+  height: 28px
+  line-height: 28px
+  padding: 0 12px
+  color: white
   font-size: 13px
+  background-color: $green1
+  border-radius: 2px
+  &.unreliable
+    background-color: $red1
   .fa
-    margin-right: 4px
+    margin-right: 5px
+
 //.reliable-sign
   position: absolute
   top: 20px

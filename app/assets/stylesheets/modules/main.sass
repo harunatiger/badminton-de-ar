@@ -145,13 +145,6 @@
   @media (max-width: 767px)
     overflow: hidden
 
-.discovery-tiles
-  .card-body
-    height: 122px
-    padding: 18px
-    h5
-      line-height: 1.4
-
 .discovery-card
   position: relative
   height: 320px
@@ -384,27 +377,22 @@ a.delete
     color: $gray1
     font-size: 20px
 
-/* listings
+/* photos
  ================================================== */
 
-.add-new
-  @media (max-width: 767px)
-    padding-top: 2px
-
-/* #photo */
+.cover-img-container
+  display: inline
+  .cover-img
+    height: 100%
+    background-repeat: no-repeat
+    background-size: cover
+    background-position: 50% 50%
+    background-color: $bg1
 #photos
   position: relative
   width: 100%
   height: 402px
   transition: height 0.2s
-  .cover-img-container
-    display: inline
-    .cover-img
-      height: 100%
-      background-repeat: no-repeat
-      background-size: cover
-      background-position: 50% 50%
-      background-color: #f5f5f5
   .photo-chevron
     position: absolute
     top: 0
@@ -412,7 +400,7 @@ a.delete
     height: 100%
     background: none
     border: 0
-    color: #fff
+    color: white
     font-size: 100px
     outline: none
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.8)
@@ -432,8 +420,6 @@ a.delete
       height: 702px
     &.xlarge
       height: 852px
-  &.with-modal .cover-img
-    /*cursor: pointer*/
 
 @media (max-width: 1099px)
   #photos .photo-chevron
@@ -443,7 +429,6 @@ a.delete
 
 @media screen and (min-height: 700px)
   #photos.with-photos
-    //height: 552px
     height: 522px
 
 @media screen and (min-height: 850px)
@@ -482,8 +467,15 @@ a.delete
   #photos.with-photos
     height: 568px
 
-.with-photos+.card
+.with-photos + .card
   border-top: 0
+
+/* listings
+ ================================================== */
+
+.add-new
+  @media (max-width: 767px)
+    padding-top: 2px
 
 #summary
   .host-profile-image
@@ -824,7 +816,7 @@ a.delete
     text-align: center
 @media (min-width: 768px)
   .profile-name
-    max-width: 68px
+    //max-width: 68px
   .avatar-wrapper
     float: right
 
