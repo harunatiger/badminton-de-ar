@@ -5,21 +5,26 @@
   .card.row-space-4
     .card-header 必須項目
     .card-body
+      - if profile_cover_image_exists?
+        .row.row-condensed.row-space-4
+          label.text-right.col-3
+            | 現在のカバー画像
+          = image_tag(profile_cover_image_thumb)
+      .row.row-condensed.row-space-4
+        label.text-right.col-3
+          | カバー画像
+        .col-8
+          = f.file_field :cover_image, class: "row-space-top-1-file"
+          span.text-pink 正方形の画像だときれいに表示されます。
       - if profile_image_exists?
         .row.row-condensed.row-space-4
           label.text-right.col-3
-            | 現在のプロフィール画像
+            | 現在のサムネイル画像
           = image_tag(profile_image_thumb)
       .row.row-condensed.row-space-4
         label.text-right.col-3
-          | プロフィール画像
+          | サムネイル画像
         .col-8
           = f.file_field :image, class: "row-space-top-1-file"
           span.text-pink 正方形の画像だときれいに表示されます。
-      .row.row-condensed.row-space-4
-        label.text-right.col-3
-          | あいさつ
-        .col-8
-          = f.input_field :caption, as: :text, placeholder: "全角50文字程度が最適です。" 
-          .text-muted.row-space-top-1 この情報はあなたがガイドになった時に表示されます。
   = f.button :submit, "保存する", class: "btn btn-primary btn-large row-space-4"

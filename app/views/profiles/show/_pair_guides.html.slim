@@ -1,0 +1,3 @@
+- @profiles.each do |profile|
+  = image_tag(user_id_to_profile_image_thumb(profile.user_id), class: 'img-responsive')
+  = user_id_to_name(profile.user_id)

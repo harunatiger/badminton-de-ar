@@ -68,4 +68,10 @@ class Profile < ActiveRecord::Base
   def self.mine(user_id)
     Profile.where(user_id: user_id).first
   end
+  
+  def self.guides
+    user_ids = Listing.pluck(:user_id).uniq
+    users = User.where(id: user_ids)
+    Profile.where(user_id: users.ids)
+  end
 end

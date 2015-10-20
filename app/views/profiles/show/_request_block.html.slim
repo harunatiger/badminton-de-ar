@@ -14,13 +14,16 @@
             .reliable-sign
               i.fa.fa-check-square-o
               | 認証済みID
-        .guide_greeting.text-muted
+          br
+          = "(#{@profile.created_at.strftime("%Y年%m月")}登録)"
+        /.guide_greeting.text-muted
           = user_id_to_profile_image_caption(@profile.user_id)
         - if profile_self_introduction_exists?
           button#message-host-link.btn.btn-large.btn-block.btn-primary.hide--sp
-            | メッセージを送る
+            | コンタクト
         - else
-          =link_to 'メッセージを送る',profile_link, class: 'btn btn-large btn-block btn-primary hide--sp'
+          =link_to 'コンタクト',profile_link, class: 'btn btn-large btn-block btn-primary hide--sp'
+        = render partial: '/profiles/show/pair_guides'
 
   // old ================================================================================
   /= simple_form_for(@reservation, url: checkout_reservations_path, html: {class: 'info new-o2-form-inline'}) do |f|

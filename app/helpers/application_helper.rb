@@ -100,7 +100,20 @@ module ApplicationHelper
 
   def user_id_to_profile_image_thumb(user_id)
     result = ProfileImage.mine(user_id)
-    result[0].try('image').thumb || Settings.image.noimage2.url
+    if result.present?
+      result[0].try('image').thumb || Settings.image.noimage2.url
+    else
+      Settings.image.noimage2.url
+    end
+  end
+  
+  def user_id_to_profile_cover_image(user_id)
+    result = ProfileImage.mine(user_id)
+    if result.present?
+      result[0].try('cover_image') || Settings.image.noimage.url
+    else
+      Settings.image.noimage.url
+    end
   end
 
   def host_image(host_image_obj)
@@ -122,9 +135,31 @@ module ApplicationHelper
       return Settings.image.noimage2.url
     end
   end
+  
+  def profile_cover_image_thumb
+    if profile_image = ProfileImage.where(user_id: current_user.id).first
+      profile_image.try('cover_image').thumb || Settings.image.noimage.url
+    else
+      return Settings.image.noimage.url
+    end
+  end
 
   def profile_image_exists?
-    ProfileImage.exists?(user_id: current_user.id, profile_id: current_user.profile.id)
+    profile_image = ProfileImage.where(user_id: current_user.id, profile_id: current_user.profile.id).first
+    if profile_image.present?
+      profile_image.image.present? ? true : false
+    else
+      false
+    end
+  end
+  
+  def profile_cover_image_exists?
+    profile_image = ProfileImage.where(user_id: current_user.id, profile_id: current_user.profile.id).first
+    if profile_image.present?
+      profile_image.cover_image.present? ? true : false
+    else
+      false
+    end
   end
 
   def user_id_to_profile_identity(user_id)
