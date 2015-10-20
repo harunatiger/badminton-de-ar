@@ -207,8 +207,8 @@ $ ->
     $('#to-signup-form').on 'click', ->
       loginReady()
 
-  #profiles/show
-  if $('body').hasClass('profiles show')
+  #pair_guide_list-trigger
+  if $('body').hasClass('profiles show') || $('body').hasClass('listings show')
     $('a.pair_guide_list-trigger').on 'click', ->
       $('#pair_guide_list').modal()
       return false

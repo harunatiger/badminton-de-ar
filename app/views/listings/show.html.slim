@@ -1,33 +1,20 @@
 - if user_signed_in? && @listing.user_id == current_user.id
   = render partial: "edit_link"
   
-= render partial: "subnav"
+/= render partial: "subnav"
 = render partial: "slideshow", locals: { listing_images: @listing_images, listing: @listing }
 
-#summary.card.listing-section
+#tour-content
   .page-container
-    .row
-      = render partial: 'request_block', locals: { listing: @listing }
-      = render partial: 'name_bar', locals: { listing: @listing, reviews: @reviews }
+    .row.row-space-top-4
+      .col-lg-8.col-left
+        = render partial: 'col_left', locals: { listing: @listing, reviews: @reviews}
+        = render partial: 'review_block', locals: { listing: @listing, reviews: @reviews, host_info: @host_info, host_image: @host_image }
 
-#details.details-section
-  = render partial: 'detail', locals: { listing: @listing, listing_images: @listing_images, confection: @confection, tool: @tool, dress_code: @dress_code}
-
-#reviews.listing-section
-  = render partial: 'review_block', locals: { listing: @listing, reviews: @reviews, host_info: @host_info, host_image: @host_image }
-
-#neighborhood.listing-section
-  .card.location-card
-    .row
-      .col-md-12
-        #map
-
-.fixed-btn-wrapper.show--sp
-  - if profile_self_introduction_exists?
-    button#message-host-link-fixed.btn.btn-large.btn-fixed-bottom.btn-primary
-      | メッセージを送る
-  - else
-    = link_to 'メッセージを送る',profile_link, class: 'btn btn-large btn-fixed-bottom btn-primary'
+      .col-lg-4.col-right
+        = render partial: 'request_block'
+        = render partial: 'option_info'
 
 = render partial: '/shared/modals/share_email'
 = render partial: '/shared/modals/message_to_host', locals: { listing: @listing } if user_signed_in?
+= render partial: '/shared/modals/pair_guide_list'
