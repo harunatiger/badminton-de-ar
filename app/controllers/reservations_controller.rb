@@ -22,20 +22,34 @@ class ReservationsController < ApplicationController
           'color' => 'red'
         ]
         Ngevent.create(ngevent_params)
-        ReservationMailer.send_new_reservation_notification(@reservation).deliver_now!
+        
+        if params[:reserve]
+          ReservationMailer.send_new_reservation_notification(@reservation).deliver_now!
+        else
+          ReservationMailer.send_new_guide_detail_notification(@reservation).deliver_now!
+        end
+        
         msg_params = Hash[
           'reservation_id' => @reservation.id,
           'listing_id' => @reservation.listing_id,
-          'from_user_id' => @reservation.host_id,
-          'to_user_id' => @reservation.guest_id,
+          'from_user_id' => params[:reserve].present? ? @reservation.guest_id : @reservation.host_id,
+          'to_user_id' => params[:reserve].present? ? @reservation.host_id : @reservation.guest_id,
           'progress' => @reservation.progress,
           'schedule' => @reservation.schedule,
           'message_thread_id' => @reservation.message_thread_id,
-          'content' => Settings.reservation.msg.request
+          'content' => params[:reserve].present? ? Settings.reservation.msg.reserve : Settings.reservation.msg.request
         ]
-
-        mt_obj = MessageThread.find(@reservation.message_thread_id)
-
+        if @reservation.message_thread_id
+          mt_obj = MessageThread.find(@reservation.message_thread_id)
+        else
+          if id = MessageThread.exists_thread?(msg_params)
+            mt_obj = MessageThread.find(id)
+          else
+            mt_obj = MessageThread.create_thread(msg_params)
+          end
+          @reservation.message_thread_id = mt_obj.id
+        end
+       
         if Message.send_message(mt_obj, msg_params)
           format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.save.success }
           format.json { render :show, status: :created, location: @reservation }

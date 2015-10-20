@@ -13,6 +13,7 @@
 #  reservation_id    :integer          default(0), not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  message_type      :integer          default(0)
 #
 # Indexes
 #
@@ -37,12 +38,12 @@ class Message < ActiveRecord::Base
   scope :message_thread, -> message_thread_id { where(message_thread_id: message_thread_id) }
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :reservation, -> reservation_id { where(reservation_id: reservation_id) }
-
+  
   def self.send_message(mt_obj, message_params)
     content = message_params['content'].present? ? message_params['content'] : ''
     progress = message_params['progress'].present? ? message_params['progress'] : ''
     listing_id = message_params['listing_id'].present? ? message_params['listing_id'] : 0
-    reservation_id = message_params['reservation_id'].present? ? message_params['reservation_id'] : 0
+    reservation_id = message_params['reservation_id'].present? ? message_params['reservation_id'] : 0 
     obj = Message.new(
       message_thread_id: mt_obj.id,
       content: content,
@@ -52,7 +53,24 @@ class Message < ActiveRecord::Base
       listing_id: listing_id,
       reservation_id: reservation_id
     )
-    obj.save
+    
+    if obj.save
+      if listing_id.to_i != 0 and reservation_id.to_i == 0 
+        Message.create!(
+          message_thread_id: mt_obj.id,
+          content: Listing.find(listing_id.to_i).title + Settings.reservation.msg.contact,
+          read: false,
+          from_user_id: message_params['from_user_id'],
+          to_user_id: message_params['to_user_id'],
+          listing_id: listing_id,
+          reservation_id: reservation_id
+        )
+      else
+        true
+      end
+    else
+      false
+    end
   end
 
   def self.make_all_read(message_thread_id, to_user_id)

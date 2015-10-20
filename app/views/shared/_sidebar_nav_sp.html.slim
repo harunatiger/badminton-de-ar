@@ -12,7 +12,7 @@
             -if current_user.listings.blank?
               = link_to Settings.page.listing_new, new_listing_path, class: "link-reset menu-item", rel: "nofollow"
             -else
-              = link_to Settings.page.listings, edit_listing_path(current_user.listings[0].id), class: "link-reset menu-item", rel: "nofollow"
+              = link_to Settings.page.listings, listings_path, class: "link-reset menu-item", rel: "nofollow"
             /= link_to Settings.page.listing_new, new_listing_path
           li
             = link_to message_threads_path, class: "link-reset menu-item", rel: "nofollow" do

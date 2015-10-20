@@ -86,7 +86,7 @@ class MessageThreadsController < ApplicationController
       @guest_id = message.guest_id
       @host_id = message.host_id
       reservation = Reservation.active_reservation(@guest_id, @host_id)
-      @reservation = reservation.present? ? Reservation.new(reservation.attributes) : Reservation.new(listing_id: message.listing_id)
+      @reservation = reservation.present? ? Reservation.new(reservation.attributes) : Reservation.new
       @reservation.message_thread_id = @message_thread.id
     end
 

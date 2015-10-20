@@ -17,6 +17,7 @@ class ListingsController < ApplicationController
     user_id = current_user.id if user_signed_in?
     BrowsingHistory.insert_record(user_id, @listing.id)
     ListingPv.add_count(@listing.id)
+    @active_reservation = Reservation.active_reservation(user_id, @listing.user_id)
     @reviews = Review.this_listing(@listing.id).joins(:reservation).merge(Reservation.review_open?).order_by_created_at_desc.page(params[:page])
     @host_info = Profile.find_by(user_id: @listing.user_id)
     @host_image = ProfileImage.find_by(user_id: @listing.user_id)

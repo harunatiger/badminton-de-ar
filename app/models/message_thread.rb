@@ -27,7 +27,7 @@ class MessageThread < ActiveRecord::Base
     f_threads.each do |ft|
       ft_array << ft.message_thread_id
     end
-    MessageThread.common_threads(tt_array, ft_array, msg_params[:listing_id])
+    MessageThread.common_threads(tt_array, ft_array, msg_params['listing_id'])
   end
 
   def self.common_threads(a_array, b_array, listing_id)
@@ -87,7 +87,7 @@ class MessageThread < ActiveRecord::Base
   end
   
   def same_listing?(listing_id)
-    message = Message.message_thread(self.id).where.not(listing_id: 0).first
+    message = Message.message_thread(self.id).where.not(listing_id: 0).order('created_at desc').first
     return message.listing_id == listing_id.to_i
   end
 end
