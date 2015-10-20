@@ -1,17 +1,27 @@
 - reviewed_count = @reviewed.count
-.page-container.row-space-top-4.row-space-8
+#photos.with-photo
+  .cover-img-container
+    .cover-img[style="background-image:url(#{asset_path(user_id_to_profile_cover_image(@profile.user_id))})"]
+
+.card
+  .page-container.row-space-top-6.row-space-8
+    .row
+      .col-lg-4.profile-card-wrapper
+        = render partial: '/profiles/show/user_card', locals: { profile: @profile, reviewed_count: reviewed_count}
+      .col-lg-8
+        = render partial: '/profiles/show/user_info', locals: { profile: @profile, listings: @listings }
+
+.card-dark
+  .page-container.row-space-top-6.row-space-8
+    .row
+      .col-lg-8
+        = render partial: '/profiles/show/tour_list'
+
+= render partial: '/profiles/show/reviewed', locals: { reviewed: @reviewed, reviewed_count: reviewed_count }
+
+/.locations
   .row
-    = render partial: '/profiles/show/left_column', locals: { profile: @profile, listings: @listings }
-    .col-lg-9.col-md-8.col-sm-12
-      = render partial: '/profiles/show/self_introduction', locals: { profile: @profile }
-      = render partial: '/profiles/show/request_block'
-      .row-space-6.row-space-top-6.row.row-condenced
-        .col-md-12
-          = link_to "#reviews", class: 'link-reset btn btn-guest' do
-            span.badge-pill-count
-              | レビュー数
-              span.h5
-              |
-              = reviewed_count
-      .social_connections_and_reviews
-        = render partial: '/profiles/show/reviewed', locals: { reviewed: @reviewed, reviewed_count: reviewed_count }
+    .col-md-12
+      #tour-map
+      
+= render partial: '/shared/modals/pair_guide_list'

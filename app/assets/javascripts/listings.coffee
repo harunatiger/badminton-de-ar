@@ -169,7 +169,7 @@ $ ->
         $('.filters').addClass('collapse')
       ), 500
 
-    # circle map
+    # search circle map
     cityCircle = undefined
 
     initialize = ->
@@ -244,7 +244,31 @@ $ ->
     $('#share-via-email-trigger').on 'click', ->
       $('#share-via-email').modal()
 
+    # media query js width 1099px
+    mediaQueryWidth1 = ->
+      listingDescription = $('#listing-description')
+      tourAction = $('#tour-action')
+      tourOptionInfo = $('#tour-option-info')
+      if($('.col-left').css('float') == "left")
+        tourAction.insertBefore(tourOptionInfo)
+      else
+        tourAction.insertBefore(listingDescription)
+
+    mediaQueryWidth1()
+
+    timer = false
+    $(window).resize ->
+      if timer != false
+        clearTimeout timer
+      timer = setTimeout((->
+        mediaQueryWidth1()
+        return
+      ), 200)
+      return
+
+
     #scrollspy
+    ###
     scrollMenu = ->
       array =
         '#photos': 0
@@ -273,7 +297,8 @@ $ ->
     $(window).scroll ->
       scrollMenu()
       return
-
+    ###
+    ###
     # expand text
     $('.expandable-trigger-more').on 'click', ->
       tempP = ''
@@ -282,10 +307,9 @@ $ ->
       tempHeight = $('div.expandable-content > p', tempWrap).height()
       $('div.expandable-content', tempWrap).height(tempHeight)
       $('div.expandable-trigger-more', tempWrap).addClass('expanded')
+    ###
 
-    # circle map
-    cityCircle = undefined
-
+    # show location
     initialize = ->
       mapOptions =
         scrollwheel: false
@@ -294,24 +318,16 @@ $ ->
         # center: new (google.maps.LatLng)(35.319225, 139.546687)
         mapTypeId: google.maps.MapTypeId.TERRAIN
 
-      map = new (google.maps.Map)(document.getElementById('map'), mapOptions)
+      map = new (google.maps.Map)(document.getElementById('location'), mapOptions)
 
-      circleOptions =
-        strokeColor: '#17AEDF'
-        strokeOpacity: 0.8
-        strokeWeight: 1
-        fillColor: '#17AEDF'
-        fillOpacity: 0.35
-        map: map
-        center: new (google.maps.LatLng)(gon.listing.latitude, gon.listing.longitude)
-        # center: new (google.maps.LatLng)(35.319225, 139.546687)
-        radius: Math.sqrt(100) * 100
-      # Add the circle for this city to the map.
-      cityCircle = new (google.maps.Circle)(circleOptions)
+      marker = new (google.maps.Marker)(
+        position:  new (google.maps.LatLng)(gon.listing.latitude, gon.listing.longitude)
+        map: map )
       return
 
     google.maps.event.addDomListener window, 'load', initialize
 
+    ###
     # carousel
     if $('.carousel-item').length > 1
       singleCol = $('.carousel-item').outerWidth()
@@ -333,26 +349,26 @@ $ ->
           $('.carousel-chevron.right').addClass('hide')
         if(colCount == tempCount)
           $('.carousel-chevron.right').addClass('hide')
-
       # click prev
-      #$('.carousel-chevron.left').on 'click', ->
-      #  currentPos = currentPos - singleCol
-      #  $('.listings-container').css('left', '-' + currentPos + 'px')
-      #  tempCount--
+      $('.carousel-chevron.left').on 'click', ->
+        currentPos = currentPos - singleCol
+        $('.listings-container').css('left', '-' + currentPos + 'px')
+        tempCount--
 
-      #  if(tempCount <= 1)
-      #    $('.carousel-chevron.left').addClass('hide')
-      #    $('.carousel-chevron.right').removeClass('hide')
+        if(tempCount <= 1)
+          $('.carousel-chevron.left').addClass('hide')
+          $('.carousel-chevron.right').removeClass('hide')
 
-      #click photo
-      #$('#photos').find('.photo-slider-item').modalSlider({
-      #  type: 'image',
-      #   gallery: {
-      #    enabled: true,
-      #    navigateByImgClick: true
-      #  },
-      #  image: {titleSrc: 'title'}
-      #})
+      # click photo
+      $('#photos').find('.photo-slider-item').modalSlider({
+        type: 'image',
+        gallery: {
+        enabled: true,
+        navigateByImgClick: true
+      },
+      image: {titleSrc: 'title'}
+      })
+    ###
 
   # manage height equlizer
   if $('.manage-listing-nav').length && !$('body').hasClass('calendar')

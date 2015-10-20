@@ -35,22 +35,22 @@ languages:
   zh: '中国語'
 listings:
   save:
-    success: "ガイドページの登録に成功しました。次に、他の情報も入力してください。"
+    success: "ツアーページの登録に成功しました。次に、他の情報も入力してください。"
   set_lon_lat:
     error: "緯度経度情報の取得に失敗しました。以下より正確な場所を入力してください。"
   publish:
-    success: "ガイドページを公開しました。"
-    failure: "ガイドページの公開にはもう少し準備が必要です。"
+    success: "ツアーページを公開しました。"
+    failure: "ツアーページの公開にはもう少し準備が必要です。"
   unpublish:
-    success: "ガイドページを非公開にしました。"
-    failure: "ガイドページの非公開に失敗しました。"
+    success: "ツアーページを非公開にしました。"
+    failure: "ツアーページの非公開に失敗しました。"
   delivery:
     ok: "出張可"
   error:
-    invalid_listing_id: "該当するガイドが見つかりません。"
+    invalid_listing_id: "該当するツアーが見つかりません。"
 listing_images:
   save:
-    success: "ガイドページのイメージ画像の登録に成功しました。"
+    success: "ツアーページのイメージ画像の登録に成功しました。"
     failure: "画像の登録に失敗しました。"
 confections:
   save:
@@ -162,12 +162,12 @@ page:
   host_reservation_manager: '予約管理'
   guest_reservation_manager: '参加する'
   listing_new: 'ガイドになる'
-  listings: 'ガイドページ'
+  listings: 'ツアーページ'
   messages: 'メッセージ'
   wishlists: 'お気に入り'
   profile: 'プロフィール'
   account: 'アカウント'
-  guest_flow: 'リスティングの流れ'
+  guest_flow: 'サービスの流れ'
   search: '検索'
   signup: 'アカウント作成'
   login: 'ログイン'

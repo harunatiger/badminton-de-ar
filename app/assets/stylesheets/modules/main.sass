@@ -145,13 +145,6 @@
   @media (max-width: 767px)
     overflow: hidden
 
-.discovery-tiles
-  .card-body
-    height: 122px
-    padding: 18px
-    h5
-      line-height: 1.4
-
 .discovery-card
   position: relative
   height: 320px
@@ -384,27 +377,22 @@ a.delete
     color: $gray1
     font-size: 20px
 
-/* listings
+/* photos
  ================================================== */
 
-.add-new
-  @media (max-width: 767px)
-    padding-top: 2px
-
-/* #photo */
+.cover-img-container
+  display: inline
+  .cover-img
+    height: 100%
+    background-repeat: no-repeat
+    background-size: cover
+    background-position: 50% 50%
+    background-color: $bg1
 #photos
   position: relative
   width: 100%
   height: 402px
   transition: height 0.2s
-  .cover-img-container
-    display: inline
-    .cover-img
-      height: 100%
-      background-repeat: no-repeat
-      background-size: cover
-      background-position: 50% 50%
-      background-color: #f5f5f5
   .photo-chevron
     position: absolute
     top: 0
@@ -412,7 +400,7 @@ a.delete
     height: 100%
     background: none
     border: 0
-    color: #fff
+    color: white
     font-size: 100px
     outline: none
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.8)
@@ -432,8 +420,6 @@ a.delete
       height: 702px
     &.xlarge
       height: 852px
-  &.with-modal .cover-img
-    /*cursor: pointer*/
 
 @media (max-width: 1099px)
   #photos .photo-chevron
@@ -443,7 +429,6 @@ a.delete
 
 @media screen and (min-height: 700px)
   #photos.with-photos
-    //height: 552px
     height: 522px
 
 @media screen and (min-height: 850px)
@@ -482,17 +467,20 @@ a.delete
   #photos.with-photos
     height: 568px
 
-.with-photos+.card
+.with-photos + .card
   border-top: 0
+
+/* listings
+ ================================================== */
+
+.add-new
+  @media (max-width: 767px)
+    padding-top: 2px
 
 #summary
   .host-profile-image
     width: 90px
     height: 90px
-
-.listing-section
-  margin-top: -40px
-  padding-top: 40px
 
 .suspension-container
   .media-photo
@@ -504,23 +492,28 @@ a.delete
   li:first-child
     padding: 15px 20px 10px
 
-#new_reservation
-  margin-top: -40px
-  width: 315px
+.movie-container
+  .sample
+    width: 100%
+    height: 300px
+    background-color: $bg2
 
-#pricing
-  background-color: rgba(0, 0, 0, 0.5)
-  border: 0
-  color: white
-  height: 40px
-  padding: 0 20px
-  text-transform: capitalize
-  width: 315px
-  z-index: 1001
-  @media (min-width: 1100px)
-    &.fixed
-      position: fixed
-      top: 0
+.tour-price
+  padding-bottom: 12.5px
+  border-bottom: 1px solid $border1
+
+.pair_guide_list-trigger.small1
+  display: inline-block
+  padding-left: 12.5px
+  color: $red1
+  text-decoration: underline
+  .fa
+    font-size: 16px
+    margin-right: 5px
+
+.listing-description
+  font-size: 15px
+  margin-bottom: 30px
 
 #price_amount
   padding: 6px 0
@@ -531,45 +524,19 @@ a.delete
 #per_attend
   padding: 9px 0
 
-#book_it
-  position: absolute
-  width: 315px
-  z-index: 10
-  border-top: none
-  @media (min-width: 1100px)
-    &.fixed
-      position: fixed
-      top: 40px
-      z-index: 1001
-
-@media (max-width: 1099px)
-  #book_it_form
-    margin-top: 0
-  #book_it, #pricing, #book_it_form
-    width: auto
-    position: static
-
 #neighborhood
   .location-card
     position: relative
     height: 650px
     border-top: 0
 
-#map
-  height: 100%
+.location-container
+  width: 100%
+  overflow: hidden
 
-/* listing.show */
-.listing.show
-  .listing-name
-    max-width: 100%
-    font-weight: 400
-  @media (min-width: 1100px)
-    .listing-name
-      float: right
-
-.listing-description
-  font-size: 15px
-  margin-bottom: 30px
+#location
+  width: 100%
+  height: 200px
 
 /* search */
 .listings.search
@@ -824,7 +791,7 @@ a.delete
     text-align: center
 @media (min-width: 768px)
   .profile-name
-    max-width: 68px
+    //max-width: 68px
   .avatar-wrapper
     float: right
 

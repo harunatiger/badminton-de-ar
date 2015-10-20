@@ -1,0 +1,51 @@
+h4.row-space-4
+  | 自己紹介
+.row-space-4
+  p
+    = simple_format(profile.try('self_introduction') || '')
+hr.row-space-4
+.tag-list-wrapper
+  ul
+    - if category_food?(profile)
+      li
+        = link_to 'javascript:void(0)', title: '食', data:{toggle: 'tooltip'} do
+          i.fa.fa-cutlery
+    -if category_alcohol?(profile)
+      li
+        = link_to 'javascript:void(0)', title: 'お酒', data:{toggle: 'tooltip'} do
+          i.fa.fa-glass
+    -if category_car?(profile)
+      li
+        = link_to 'javascript:void(0)', title: 'ドライブ', data:{toggle: 'tooltip'} do
+          i.fa.fa-car
+    -if category_cruising?(profile)
+      li
+        = link_to 'javascript:void(0)', title: '船旅', data:{toggle: 'tooltip'} do
+          i.fa.fa-ship
+    -if category_shopping?(profile)
+      li
+        = link_to 'javascript:void(0)', title: 'ショッピング', data:{toggle: 'tooltip'} do
+          i.fa.fa-shopping-cart
+    -if category_accommodation?(profile)
+      li
+        = link_to 'javascript:void(0)', title: '宿泊施設', data:{toggle: 'tooltip'} do
+          i.fa.fa-bed
+    -if category_business?(profile)
+      li
+        = link_to 'javascript:void(0)', title: 'ビジネス', data:{toggle: 'tooltip'} do
+          i.fa.fa-suitcase
+    -if category_sport?(profile)
+      li
+        = link_to 'javascript:void(0)', title: 'スポーツ', data:{toggle: 'tooltip'} do
+          i.fa.fa-futbol-o
+    .lang-list-wrapper
+      ul
+        - if language_ja?(profile)
+          li
+            span 日本語
+        - if language_en?(profile)
+          li
+            span 英語
+        - if language_zh?(profile)
+          li
+            span 中国語

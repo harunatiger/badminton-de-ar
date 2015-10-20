@@ -165,24 +165,11 @@ $ ->
     cutFigure = '50'
     afterTxt = ' …'
     $setElm.each ->
-      textLength = $(this).text().length
+      textLength = $(this).text().replace(/\s+/g,'').length
       textTrim = $(this).text().substr(0, cutFigure)
       if cutFigure < textLength
         $(this).html(textTrim + afterTxt).css visibility: 'visible'
       else if cutFigure >= textLength
-        $(this).css visibility: 'visible'
-      return
-
-    # ellipsis discovery title
-    $setElm1 = $('.discovery-listing h5')
-    cutFigure1 = '85'
-    afterTxt1 = ' …'
-    $setElm1.each ->
-      textLength1 = $(this).text().length
-      textTrim1 = $(this).text().substr(0, cutFigure1)
-      if cutFigure1 < textLength1
-        $(this).html(textTrim1 + afterTxt1).css visibility: 'visible'
-      else if cutFigure1 >= textLength1
         $(this).css visibility: 'visible'
       return
 
@@ -219,6 +206,61 @@ $ ->
 
     $('#to-signup-form').on 'click', ->
       loginReady()
+
+  #pair_guide_list-trigger
+  if $('body').hasClass('profiles show') || $('body').hasClass('listings show')
+    $('a.pair_guide_list-trigger').on 'click', ->
+      $('#pair_guide_list').modal()
+      return false
+
+  #tour-listing
+  if $('.tour-listing').length
+    # ellipsis discovery title
+    $setElm1 = 0
+    $setElm1 = $('.tour-listing h5')
+    cutFigure1 = '40'
+    afterTxt1 = ' …'
+    $setElm1.each ->
+      textLength1 = $(this).text().replace(/\s+/g,'').length
+      textTrim1 = $(this).text().replace(/\s+/g,'').substr(0, cutFigure1)
+      if cutFigure1 < textLength1
+        $(this).html(textTrim1 + afterTxt1).css visibility: 'visible'
+      else if cutFigure1 >= textLength1
+        $(this).css visibility: 'visible'
+      return
+
+
+    ###
+    # circle map
+    cityCircle = undefined
+
+    initialize = ->
+      mapOptions =
+        scrollwheel: false
+        zoom: 13
+        #center: new (google.maps.LatLng)(gon.listing.latitude, gon.listing.longitude)
+        center: new (google.maps.LatLng)(35.319225, 139.546687)
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+
+      map = new (google.maps.Map)(document.getElementById('tour-map'), mapOptions)
+
+      circleOptions =
+        strokeColor: '#17AEDF'
+        strokeOpacity: 0.8
+        strokeWeight: 1
+        fillColor: '#17AEDF'
+        fillOpacity: 0.35
+        map: map
+        # center: new (google.maps.LatLng)(gon.listing[0].latitude, gon.listing[0].longitude)
+        center: new (google.maps.LatLng)(35.319225, 139.546687)
+        radius: Math.sqrt(100) * 100
+      # Add the circle for this city to the map.
+      cityCircle = new (google.maps.Circle)(circleOptions)
+      return
+
+    google.maps.event.addDomListener window, 'load', initialize
+    ###
+
 
 # functions ==============================
 
