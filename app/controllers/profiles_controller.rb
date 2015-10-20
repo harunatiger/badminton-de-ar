@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :regulate_user!, only: [:edit]
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  before_action :set_guides, only: [:show]
+  before_action :set_pair_guide, only: [:show]
 
   # GET /profiles
   # GET /profiles.json
@@ -82,7 +82,7 @@ class ProfilesController < ApplicationController
       @profile = Profile.find(params[:id])
     end
   
-    def set_guides
+    def set_pair_guide
       @profiles = Profile.guides.where.not(id: @profile.id)
     end
 
