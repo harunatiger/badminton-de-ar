@@ -37,6 +37,8 @@ body.slideout
     border-top: 0
   &.card-waxing
     border-bottom: 0
+  &.card-naked
+    border: 0
 
 .card-dark
   background-color: $bg1
@@ -110,8 +112,12 @@ ul.card-body, ol.card-body
   bottom: 15px
   right: 15px
 
+/* flush */
+.flush-left
+  left: 0
+
 .card-overlay-label
-  background-color: rgba(62, 62, 62, 0.9)
+  background-color: rgba(50, 50, 50, 0.9)
   padding: 10px
   color: white
   &.flush-top
@@ -125,6 +131,7 @@ ul.card-body, ol.card-body
 
 .card-image
   position: relative
+  min-height: 196px
 
 a.card-image
   display: block
@@ -709,13 +716,13 @@ label.error
 
 /* discovery */
 .wall1
-  background-image: image-url('sample/pic/pic003.jpg')
+  background-image: image-url('sample/pic/tokyo.jpg')
 .wall2
-  background-image: image-url('sample/pic/pic004.jpg')
+  background-image: image-url('sample/pic/shopping.jpg')
 .wall3
-  background-image: image-url('sample/pic/pic005.jpg')
+  background-image: image-url('sample/pic/kamakura.jpg')
 .wall4
-  background-image: image-url('sample/pic/pic006.jpg')
+  background-image: image-url('sample/pic/akiba.jpg')
 .wall5
   background-image: image-url('sample/pic/pic007.jpg')
 .wall6
