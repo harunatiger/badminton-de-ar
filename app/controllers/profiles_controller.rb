@@ -2,6 +2,7 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :regulate_user!, only: [:edit]
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :set_pair_guide, only: [:show]
 
   # GET /profiles
   # GET /profiles.json
@@ -80,6 +81,10 @@ class ProfilesController < ApplicationController
     def set_profile
       @profile = Profile.find(params[:id])
     end
+  
+    def set_pair_guide
+      @profiles = Profile.guides.where.not(id: @profile.id)
+    end
 
     def regulate_user!
       unless current_user.profile.id == params[:id].to_i
@@ -95,7 +100,6 @@ class ProfilesController < ApplicationController
         :school, :work, :timezone, :gender, :zipcode,
         :listing_count, :wishlist_count, :bookmark_count, :reviewed_count, :reservation_count,
         :ave_total, :ave_accuracy, :ave_communication, :ave_cleanliness, :ave_location,
-        :ave_check_in, :ave_cost_performance, :created_at, :updated_at
-      )
+        :ave_check_in, :ave_cost_performance, :created_at, :updated_at, category_ids: [],language_ids: [])
     end
 end

@@ -1,0 +1,110 @@
+.col-lg-4.talk_to-wrapper
+  #talk_to
+    .card
+      .card-body.card-light
+        /= link_to profile_path(listing.user_id), class: '' do
+        .guide_face
+          = image_tag(user_id_to_profile_image(listing.user_id), class: "")
+        /= link_to profile_path(listing.user_id), class: 'link-reset.text-wrap' do
+        .guide_name
+          span
+            = user_id_to_name(listing.user_id)
+          | さん
+          - if profile_identity_authorized?(listing.user_id)
+            .reliable-sign
+              i.fa.fa-check-square-o
+              | 認証済みID
+        .guide_greeting.text-muted
+          = user_id_to_profile_image_caption(listing.user_id)
+        - if profile_self_introduction_exists?
+          button#message-host-link.btn.btn-large.btn-block.btn-primary.hide--sp
+            | メッセージを送る
+        - else
+          =link_to 'メッセージを送る',profile_link, class: 'btn btn-large btn-block btn-primary hide--sp'
+
+  // old ================================================================================
+  /= simple_form_for(@reservation, url: checkout_reservations_path, html: {class: 'info new-o2-form-inline'}) do |f|
+    - user_id = 0
+    - user_id = current_user.id if user_signed_in?
+    = f.hidden_field :host_id, value: @listing.user_id
+    = f.hidden_field :guest_id, value: user_id
+    = f.hidden_field :listing_id, value: @listing.id
+    = f.hidden_field :progress, value: "requested"
+    #pricing 
+      #price_amount.pull-left.h3.text-special
+        | ¥
+        = @listing.price
+      #payment-period-container.pull-right
+        #per_attend
+          | 1回の料金
+    #book_it
+      .card
+        .card-body.card-light
+          .form-fields
+            .row.row-condensed.row-space-3
+              .col-md-8
+                .row.row-condensed
+                  .col-sm-12
+                    label[for="checkin"]
+                      |  参加する日付
+                    input#checkin.checkin.datepicker[name="reservation[schedule]" placeholder="年/月/日" type="text"]
+              .col-md-4
+                label[for="number_of_guests"]
+                  |  人数
+                .select.select-block
+                  = f.input_field :num_of_people, as: :select, collection: [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8], [9, 9], ['5', 5], [10, 10], [11, 11], [12, 12], [13, 13], [14, 14], [15, 15], [16, 16]], default: [1]
+          #book_it_status
+            #book_it_enabled.clearfix
+              #subtotal_area
+
+                #book_it_button_container
+                - if user_signed_in?
+                  - if current_user.id == listing.user_id
+                    = f.submit '予約をリクエスト', id: 'book_it_button', class: "btn btn-primary btn-large btn-block disabled"
+                  - else
+                    = f.submit '予約をリクエスト', id: 'book_it_button', class: "btn btn-primary btn-large btn-block"
+                - else
+                  button#book_it_button.btn.btn-primary.btn-large.btn-block 
+                    | 予約をリクエスト
+          #book-it-urgency-commitment
+            .row.row-space-top-3[data-hook="visitor-count-simple"]
+              .col-10.col-center
+                .text-center.text-muted[data-hook="visitor-count-simple-content"]
+                  = listing.user.try('name') || Settings.user.host.this
+                  | さんのリスティングを見た人は今週
+                  = listing_id_to_weekly_pv(listing.id)
+                  |人
+          /.wishlist-wrapper
+            .rich-toggle.wish_list_button.row-space-top-3.not_saved.wishlist-button
+              p#hogehogehogehoge hhhhhhhhhhhhhhh
+              label.btn.btn-block.btn-large.wishlist-button#hogehogehogehoge
+                - if listing.current_user_bookmarked?(current_user.id)
+                  /span.rich-toggle-checked
+                  span
+                    i.fa.fa-heart.fa-pink
+                    |  お気に入りに保存しました
+                - else
+                  /span.rich-toggle-unchecked
+                  span
+                    i.fa.fa-heart-o.fa-light-gray
+                    |  お気に入りに保存
+          .other-actions.hide-sm.text-center
+            .social-share-widget.row-space-top-3
+              span.share-title
+                | シェア：
+              span.share-triggers
+                = link_to "javascript:void(0)", class: "share-btn share-envelope-btn", id: "share-via-email-trigger" do
+                  i.fa.fa-envelope-o.fa-gray.social-icon-size
+                = link_to "http://www.facebook.com/sharer.php?u=http://huber-japan.com&amp;t=世界中で友達を作ろう！旅する準備はできていますか？",
+                onClick: "window.open(encodeURI(decodeURI(this.href)), 'sharewindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!'); return false;", target: "_blank", class: "share-btn share-facebook-btn" do
+                  i.fa.fa-facebook.fa-gray.social-icon-size
+                = link_to "http://twitter.com/intent/tweet?text=世界中で友達を作ろう！旅する準備はできていますか？&amp;url=http://huber-japan.com&amp;via=huber-japan",
+    onClick: "window.open(encodeURI(decodeURI(this.href)), 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1'); return false;", class: "share-btn share-twitter-btn" do
+                  i.fa.fa-twitter.fa-gray.social-icon-size
+                = link_to "LINEで送る", "http://line.me/R/msg/text/?世界中で友達を作ろう！旅する準備はできていますか？ http://huber-japan.com", class: "share-btn share-envelope-btn sns-line-btn show--sp-ib"
+      .cancellation-grace-period-container
+        .card-body
+          .media.va-container
+            i.pull-left.fa.fa-check-circle.va-top.fa-size-2
+            .media-body.va-middle
+              |  キャンセルをすると全額返金を求めることができます。

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151011093934) do
+ActiveRecord::Schema.define(version: 20151020031907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -300,7 +300,6 @@ ActiveRecord::Schema.define(version: 20151011093934) do
   add_index "profile_banks", ["user_id"], name: "index_profile_banks_on_user_id", using: :btree
 
   create_table "profile_categories", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "profile_id"
     t.integer  "category_id"
     t.datetime "created_at",  null: false
@@ -309,7 +308,6 @@ ActiveRecord::Schema.define(version: 20151011093934) do
 
   add_index "profile_categories", ["category_id"], name: "index_profile_categories_on_category_id", using: :btree
   add_index "profile_categories", ["profile_id"], name: "index_profile_categories_on_profile_id", using: :btree
-  add_index "profile_categories", ["user_id"], name: "index_profile_categories_on_user_id", using: :btree
 
   create_table "profile_identities", force: :cascade do |t|
     t.integer  "user_id"
@@ -327,17 +325,17 @@ ActiveRecord::Schema.define(version: 20151011093934) do
   create_table "profile_images", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "profile_id"
-    t.string   "image",      default: "", null: false
-    t.string   "caption",    default: ""
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "image",       default: "", null: false
+    t.string   "caption",     default: ""
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "cover_image", default: ""
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree
   add_index "profile_images", ["user_id"], name: "index_profile_images_on_user_id", using: :btree
 
   create_table "profile_languages", force: :cascade do |t|
-    t.integer  "user_id"
     t.integer  "profile_id"
     t.integer  "language_id"
     t.datetime "created_at",  null: false
@@ -346,7 +344,6 @@ ActiveRecord::Schema.define(version: 20151011093934) do
 
   add_index "profile_languages", ["language_id"], name: "index_profile_languages_on_language_id", using: :btree
   add_index "profile_languages", ["profile_id"], name: "index_profile_languages_on_profile_id", using: :btree
-  add_index "profile_languages", ["user_id"], name: "index_profile_languages_on_user_id", using: :btree
 
   create_table "profile_videos", force: :cascade do |t|
     t.integer  "user_id"
@@ -532,14 +529,12 @@ ActiveRecord::Schema.define(version: 20151011093934) do
   add_foreign_key "profile_banks", "users"
   add_foreign_key "profile_categories", "categories"
   add_foreign_key "profile_categories", "profiles"
-  add_foreign_key "profile_categories", "users"
   add_foreign_key "profile_identities", "profiles"
   add_foreign_key "profile_identities", "users"
   add_foreign_key "profile_images", "profiles"
   add_foreign_key "profile_images", "users"
   add_foreign_key "profile_languages", "languages"
   add_foreign_key "profile_languages", "profiles"
-  add_foreign_key "profile_languages", "users"
   add_foreign_key "profile_videos", "profiles"
   add_foreign_key "profile_videos", "users"
   add_foreign_key "profiles", "users"

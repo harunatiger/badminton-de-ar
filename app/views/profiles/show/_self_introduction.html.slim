@@ -9,6 +9,7 @@
       | と申します。
     /.row-space-top-2
       = profile.try('location') || ''
+  = image_tag(user_id_to_profile_cover_image(profile.user_id), class: 'img-responsive')
 div
   p
     = simple_format(profile.try('self_introduction') || '')

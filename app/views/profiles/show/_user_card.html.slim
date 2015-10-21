@@ -1,0 +1,49 @@
+.card.profile-card
+  .card-body.card-light
+    .profile-face
+      = image_tag(user_id_to_profile_image(profile.user_id), class: 'img-responsive')
+    .profile-name.row-space-top-2.row-space-1
+      span
+        = user_id_to_name(profile.user_id)
+      | さん
+    .profile-created.text-muted.row-space-1
+      = "(#{@profile.created_at.strftime("%Y年%m月")}登録)"
+    .profile-status.row-space-2
+      - if profile_identity_authorized?(profile.user_id)
+        .reliable-sign
+          i.fa.fa-check-square-o
+          | ID認証済
+      - else
+        .reliable-sign.unreliable
+          i.fa.fa-square-o
+          | ID未認証
+    .profile-rating.row-space-2
+      span.badge-pill-count
+        | レビュー数
+        span.h5
+          = reviewed_count
+      .star-rating
+        .foreground
+          i.fa.fa-star.fa-starlight
+          i.fa.fa-star.fa-starlight
+          i.fa.fa-star.fa-starlight
+          i.fa.fa-star-half-o.fa-starlight
+          i.fa.fa-star-o.fa-light-gray
+
+        .background
+          i.fa.fa-star-o.fa-light-gray
+          i.fa.fa-star-o.fa-light-gray
+          i.fa.fa-star-o.fa-light-gray
+          i.fa.fa-star-o.fa-light-gray
+          i.fa.fa-star-o.fa-light-gray
+
+    - if profile_self_introduction_exists?
+      button#message-host-link.btn.btn-large.btn-block.btn-primary.hide--sp
+        | メッセージを送る
+    - else
+      = link_to 'メッセージを送る', profile_link, class: 'btn btn-large btn-block btn-primary hide--sp'
+
+    .profile-add.row-space-top-1.row-space-1
+      = link_to "#", class: "pair_guide_list-trigger small2" do
+        i.fa.fa-exclamation-circle
+        | 当日はもう1名サポートガイドが付きます

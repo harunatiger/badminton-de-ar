@@ -1,0 +1,37 @@
+/ listings/col_left
+.row.row-table.row-reset.row-space-1
+  .col-md-3.col-middle.text-center.col-reset
+    = link_to profile_path(listing.user_id), class: 'media-photo media-round' do
+      = image_tag(user_id_to_profile_image(listing.user_id), class: "size90")
+  .col-md-12.col-middle.col-reset
+    .text-center--md
+      .h3.strong.row-space-1
+        = user_id_to_name(listing.user_id)
+        small さん
+      div
+        = link_to "#reviews", class: "link-reset"
+          .star-rating.star-rating-large
+            = render partial: 'listings/stars', locals: { rate: listing.ave_total }
+        | (
+        span[itemprop="reviewCount"]
+          = reviews.count
+        | )
+.row.row-space-4
+  .col-md-12.text-center--sp
+    = link_to "#", class: "pair_guide_list-trigger small1" do
+      i.fa.fa-exclamation-circle
+      | 当日はもう1名サポートガイドが付きます
+
+#listing-description.listing-description
+  p
+    | あああああああああ
+    br
+    | あああああああああいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいいい
+    br
+    | あああああああああうううううううううううううう
+    br
+    | あああああああああえええええええええええええええええええええええええええええ
+    br
+    | あああああああああ
+    br
+    | あああああああああ

@@ -21,6 +21,7 @@ class ListingsController < ApplicationController
     @reviews = Review.this_listing(@listing.id).joins(:reservation).merge(Reservation.review_open?).order_by_created_at_desc.page(params[:page])
     @host_info = Profile.find_by(user_id: @listing.user_id)
     @host_image = ProfileImage.find_by(user_id: @listing.user_id)
+    @profiles = Profile.guides.where.not(id: @host_info.id)
     @message = Message.new
     #@wishlists = Wishlist.mine(current_user).order_by_created_at_desc
     gon.listing = @listing

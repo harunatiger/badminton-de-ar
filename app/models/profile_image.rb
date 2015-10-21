@@ -2,13 +2,14 @@
 #
 # Table name: profile_images
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  profile_id :integer
-#  image      :string           default(""), not null
-#  caption    :string           default("")
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  user_id     :integer
+#  profile_id  :integer
+#  image       :string           default(""), not null
+#  caption     :string           default("")
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  cover_image :string           default("")
 #
 # Indexes
 #
@@ -21,6 +22,7 @@ class ProfileImage < ActiveRecord::Base
   belongs_to :profile
 
   mount_uploader :image, DefaultImageUploader
+  mount_uploader :cover_image, DefaultImageUploader
 
   validates :user_id, presence: true
   validates :profile_id, presence: true

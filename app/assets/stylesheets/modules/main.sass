@@ -7,13 +7,13 @@
     height: 300px
 
 #hero
-  z-index: -1
   position: absolute
   right: 0
   left: 0
   top: 0
   bottom: 0
   overflow: hidden
+  z-index: -1
 
 .hero-contents
   position: relative
@@ -102,10 +102,33 @@
 /* guest-overview */
 .guest-overview-body
   height: 344px
+  @media (max-width: 1099px) and (min-width: 768px)
+    height: 270px
   .va-middle
-    padding: 0 15px 0 40px
+    padding-left: 40px
+    padding-right: 15px
     .h3
       line-height: 1.44
+    .btn-host
+      display: block
+    @media (max-width: 1099px) and (min-width: 768px)
+      padding-left: 25px
+      padding-right: 0
+      .h3
+        font-size: 18px
+      .btn-host
+        font-size: 12px
+        padding: 9px 21px
+    @media (max-width: 767px)
+      padding: 0
+      .h3
+        color: white
+
+.guest-overview-cover
+  background-image: image-url('sample/top-slider/slider-03-guide.jpg')
+  background-repeat: no-repeat
+  background-position: center center
+  background-size: cover
 
 .guest-overview-image
   position: relative
@@ -114,6 +137,8 @@
   background-repeat: no-repeat
   background-size: cover
   overflow: hidden
+  @media (max-width: 1099px) and (min-width: 768px)
+    height: 270px
 
 /* discovery */
 .discovery-section
@@ -127,61 +152,12 @@
   background-size: cover
   background-position: center
   border-radius: 4px
+  a:hover
+    text-decoration: none
   .va-container
     background-color: rgba(0, 0, 0, 0.15)
     .h2
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25)
-  a.discovery-heart
-    position: absolute
-    top: 10px
-    right: 10px
-  a.planner-circle
-    display: block
-    position: absolute
-    bottom: 12px
-    left: 12px
-    width: 40px
-    height: 40px
-    cursor: pointer
-    img
-      display: block
-      position: relative
-      width: 100%
-      height: auto
-      border: 2px solid rgba(255, 255, 255, 0.75)
-      border-radius: 50%
-  span.period
-    display: inline-block
-    height: 26px
-    line-height: 24px
-    margin-top: 10px
-    padding: 0 10px
-    font-weight: 700
-    background-color: rgba(0, 0, 0, 0.25)
-    border: 1px solid rgba(255, 255, 255, 0.5)
-  span.arrow-direction
-    display: block
-    position: absolute
-    bottom: 15px
-    right: 20px
-    width: 34px
-    height: 34px
-    line-height: 32px
-    text-align: center
-    color: rgba(255, 255, 255, 0.75)
-    background-color: rgba(0, 0, 0, 0.6)
-    border: 2px solid rgba(255, 255, 255, 0.75)
-    border-radius: 50%
-    &:before
-      content: ''
-      display: block
-      position: absolute
-      top: 50%
-      right: -22px
-      width: 20px
-      height: 2px
-      margin-top: -1px
-      background-color: rgba(255, 255, 255, 0.7)
 
 /* charmer */
 .charmer
@@ -401,27 +377,22 @@ a.delete
     color: $gray1
     font-size: 20px
 
-/* listings
+/* photos
  ================================================== */
 
-.add-new
-  @media (max-width: 767px)
-    padding-top: 2px
-
-/* #photo */
+.cover-img-container
+  display: inline
+  .cover-img
+    height: 100%
+    background-repeat: no-repeat
+    background-size: cover
+    background-position: 50% 50%
+    background-color: $bg1
 #photos
   position: relative
   width: 100%
   height: 402px
   transition: height 0.2s
-  .cover-img-container
-    display: inline
-    .cover-img
-      height: 100%
-      background-repeat: no-repeat
-      background-size: cover
-      background-position: 50% 50%
-      background-color: #f5f5f5
   .photo-chevron
     position: absolute
     top: 0
@@ -429,7 +400,7 @@ a.delete
     height: 100%
     background: none
     border: 0
-    color: #fff
+    color: white
     font-size: 100px
     outline: none
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.8)
@@ -449,8 +420,6 @@ a.delete
       height: 702px
     &.xlarge
       height: 852px
-  &.with-modal .cover-img
-    /*cursor: pointer*/
 
 @media (max-width: 1099px)
   #photos .photo-chevron
@@ -460,7 +429,6 @@ a.delete
 
 @media screen and (min-height: 700px)
   #photos.with-photos
-    //height: 552px
     height: 522px
 
 @media screen and (min-height: 850px)
@@ -499,17 +467,20 @@ a.delete
   #photos.with-photos
     height: 568px
 
-.with-photos+.card
+.with-photos + .card
   border-top: 0
+
+/* listings
+ ================================================== */
+
+.add-new
+  @media (max-width: 767px)
+    padding-top: 2px
 
 #summary
   .host-profile-image
     width: 90px
     height: 90px
-
-.listing-section
-  margin-top: -40px
-  padding-top: 40px
 
 .suspension-container
   .media-photo
@@ -521,23 +492,28 @@ a.delete
   li:first-child
     padding: 15px 20px 10px
 
-#new_reservation
-  margin-top: -40px
-  width: 315px
+.movie-container
+  .sample
+    width: 100%
+    height: 300px
+    background-color: $bg2
 
-#pricing
-  background-color: rgba(0, 0, 0, 0.5)
-  border: 0
-  color: white
-  height: 40px
-  padding: 0 20px
-  text-transform: capitalize
-  width: 315px
-  z-index: 1001
-  @media (min-width: 1100px)
-    &.fixed
-      position: fixed
-      top: 0
+.tour-price
+  padding-bottom: 12.5px
+  border-bottom: 1px solid $border1
+
+.pair_guide_list-trigger.small1
+  display: inline-block
+  padding-left: 12.5px
+  color: $red1
+  text-decoration: underline
+  .fa
+    font-size: 16px
+    margin-right: 5px
+
+.listing-description
+  font-size: 15px
+  margin-bottom: 30px
 
 #price_amount
   padding: 6px 0
@@ -548,45 +524,19 @@ a.delete
 #per_attend
   padding: 9px 0
 
-#book_it
-  position: absolute
-  width: 315px
-  z-index: 10
-  border-top: none
-  @media (min-width: 1100px)
-    &.fixed
-      position: fixed
-      top: 40px
-      z-index: 1001
-
-@media (max-width: 1099px)
-  #book_it_form
-    margin-top: 0
-  #book_it, #pricing, #book_it_form
-    width: auto
-    position: static
-
 #neighborhood
   .location-card
     position: relative
     height: 650px
     border-top: 0
 
-#map
-  height: 100%
+.location-container
+  width: 100%
+  overflow: hidden
 
-/* listing.show */
-.listing.show
-  .listing-name
-    max-width: 100%
-    font-weight: 400
-  @media (min-width: 1100px)
-    .listing-name
-      float: right
-
-.listing-description
-  font-size: 15px
-  margin-bottom: 30px
+#location
+  width: 100%
+  height: 200px
 
 /* search */
 .listings.search
@@ -841,7 +791,7 @@ a.delete
     text-align: center
 @media (min-width: 768px)
   .profile-name
-    max-width: 68px
+    //max-width: 68px
   .avatar-wrapper
     float: right
 

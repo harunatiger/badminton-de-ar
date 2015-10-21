@@ -10,20 +10,21 @@
         .card
           .card-body
             h3
-              | リスティングを開く予定がありません。
+              | ガイドするツアーがありません。
             p.text-lead.row-space-4
-              | あなたのリスティングを待っているゲストがいます。
+              | あなたのガイドを待っているゲストがいます。
               br
-              | あなたの好きな人を招いてリスティングを楽しくしましょう。
+              | ガイドになってたくさんの出会いを楽しみましょう。
             = link_to new_listing_path, class: "btn btn-host" do
-              |  新しくリスティングを作る
+              | ガイドになる
     - else
       .col-md-9
         .card
           .card-header
-            .row
+            | 開催しているツアーリスト
+            /.row
               .col-sm-7.col-md-6
-                .select
+                /.select
                   form#select-listings-filter[action=""]
                     select#f[name="f"]
                       option[value="all"]
@@ -49,7 +50,7 @@
                           = listing.title
                       .actions.row-space-top-1
                         = link_to edit_listing_path(listing) do
-                          |  このリスティングを編集する
+                          |  このツアーを編集する
                     .col-md-12.col-lg-4
                       .pull-right.pull-change
                         .listing-criteria-header.activation-notification
