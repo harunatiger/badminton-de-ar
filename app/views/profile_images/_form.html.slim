@@ -15,7 +15,7 @@
           | カバー画像
         .col-8
           = f.file_field :cover_image, class: "row-space-top-1-file"
-          span.text-pink 正方形の画像だときれいに表示されます。
+          span.text-pink 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
       - if profile_image_exists?
         .row.row-condensed.row-space-4
           label.text-right.col-3
