@@ -2,6 +2,8 @@
   .row
     #details-column.col-lg-8
       .row-space-8.row-space-top-8
+        video[src=listing.cover_video.encoded controls width="240" height="240"]
+      .row-space-8.row-space-top-8
         .photo-list-wrapper
           - listing_images.each do |listing_image|
             .row-space-6.row-space-top-4

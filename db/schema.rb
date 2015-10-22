@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020031907) do
+ActiveRecord::Schema.define(version: 20151023013200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,29 +176,31 @@ ActiveRecord::Schema.define(version: 20151020031907) do
 
   create_table "listings", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "review_count",                                 default: 0
-    t.float    "ave_total",                                    default: 0.0
-    t.float    "ave_accuracy",                                 default: 0.0
-    t.float    "ave_communication",                            default: 0.0
-    t.float    "ave_cleanliness",                              default: 0.0
-    t.float    "ave_location",                                 default: 0.0
-    t.float    "ave_check_in",                                 default: 0.0
-    t.float    "ave_cost_performance",                         default: 0.0
-    t.boolean  "open",                                         default: false
+    t.integer  "review_count",                                    default: 0
+    t.float    "ave_total",                                       default: 0.0
+    t.float    "ave_accuracy",                                    default: 0.0
+    t.float    "ave_communication",                               default: 0.0
+    t.float    "ave_cleanliness",                                 default: 0.0
+    t.float    "ave_location",                                    default: 0.0
+    t.float    "ave_check_in",                                    default: 0.0
+    t.float    "ave_cost_performance",                            default: 0.0
+    t.boolean  "open",                                            default: false
     t.string   "zipcode"
-    t.string   "location",                                     default: ""
-    t.decimal  "longitude",            precision: 9, scale: 6, default: 0.0
-    t.decimal  "latitude",             precision: 9, scale: 6, default: 0.0
-    t.boolean  "delivery_flg",                                 default: false
-    t.integer  "price",                                        default: 0
-    t.text     "description",                                  default: ""
-    t.string   "title",                                        default: ""
-    t.integer  "capacity",                                     default: 0
-    t.text     "direction",                                    default: ""
-    t.string   "cover_image",                                  default: ""
-    t.string   "cover_image_caption",                          default: ""
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
+    t.string   "location",                                        default: ""
+    t.decimal  "longitude",               precision: 9, scale: 6, default: 0.0
+    t.decimal  "latitude",                precision: 9, scale: 6, default: 0.0
+    t.boolean  "delivery_flg",                                    default: false
+    t.integer  "price",                                           default: 0
+    t.text     "description",                                     default: ""
+    t.string   "title",                                           default: ""
+    t.integer  "capacity",                                        default: 0
+    t.text     "direction",                                       default: ""
+    t.string   "cover_image",                                     default: ""
+    t.string   "cover_image_caption",                             default: ""
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
+    t.text     "cover_video",                                     default: ""
+    t.text     "cover_video_description",                         default: ""
   end
 
   add_index "listings", ["capacity"], name: "index_listings_on_capacity", using: :btree
