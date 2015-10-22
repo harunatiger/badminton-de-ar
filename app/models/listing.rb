@@ -2,31 +2,33 @@
 #
 # Table name: listings
 #
-#  id                   :integer          not null, primary key
-#  user_id              :integer
-#  review_count         :integer          default(0)
-#  ave_total            :float            default(0.0)
-#  ave_accuracy         :float            default(0.0)
-#  ave_communication    :float            default(0.0)
-#  ave_cleanliness      :float            default(0.0)
-#  ave_location         :float            default(0.0)
-#  ave_check_in         :float            default(0.0)
-#  ave_cost_performance :float            default(0.0)
-#  open                 :boolean          default(FALSE)
-#  zipcode              :string
-#  location             :string           default("")
-#  longitude            :decimal(9, 6)    default(0.0)
-#  latitude             :decimal(9, 6)    default(0.0)
-#  delivery_flg         :boolean          default(FALSE)
-#  price                :integer          default(0)
-#  description          :text             default("")
-#  title                :string           default("")
-#  capacity             :integer          default(0)
-#  direction            :text             default("")
-#  cover_image          :string           default("")
-#  cover_image_caption  :string           default("")
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  id                      :integer          not null, primary key
+#  user_id                 :integer
+#  review_count            :integer          default(0)
+#  ave_total               :float            default(0.0)
+#  ave_accuracy            :float            default(0.0)
+#  ave_communication       :float            default(0.0)
+#  ave_cleanliness         :float            default(0.0)
+#  ave_location            :float            default(0.0)
+#  ave_check_in            :float            default(0.0)
+#  ave_cost_performance    :float            default(0.0)
+#  open                    :boolean          default(FALSE)
+#  zipcode                 :string
+#  location                :string           default("")
+#  longitude               :decimal(9, 6)    default(0.0)
+#  latitude                :decimal(9, 6)    default(0.0)
+#  delivery_flg            :boolean          default(FALSE)
+#  price                   :integer          default(0)
+#  description             :text             default("")
+#  title                   :string           default("")
+#  capacity                :integer          default(0)
+#  direction               :text             default("")
+#  cover_image             :string           default("")
+#  cover_image_caption     :string           default("")
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  cover_video             :text             default("")
+#  cover_video_description :text             default("")
 #
 # Indexes
 #
@@ -68,6 +70,7 @@ class Listing < ActiveRecord::Base
   has_many :ngevents
 
   mount_uploader :cover_image, DefaultImageUploader
+  mount_uploader :cover_video, ListingVideoUploader
 
   validates :user_id, presence: true
   #validates :location, presence: true

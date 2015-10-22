@@ -17,4 +17,6 @@
 
 class ListingVideo < ActiveRecord::Base
   belongs_to :listing
+
+  mount_uploader :video, ListingVideoUploader
 end
