@@ -2,10 +2,11 @@
 #
 # Table name: pickup_tags
 #
-#  id         :integer          not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  name        :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  cover_image :string
 #
 
 class PickupTag < ActiveRecord::Base

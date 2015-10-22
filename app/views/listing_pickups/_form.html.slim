@@ -1,0 +1,27 @@
+= simple_form_for(@listing, url: update_all_listing_listing_pickups_path, html: {class: "form--sp"}) do |f|
+  = f.error_notification
+  - count = 1
+  h3.text-center.row-space-2 エリアを設定しましょう。
+  - PickupArea.all.each do |area|
+    = f.check_box :pickup_areas_ids,
+      {:checked => @listing.pickup_areas.include?(area),
+       :name => "listing[pickup_area_ids][]"}, area.id,''
+    = area.name
+  h3.text-center.row-space-2 カテゴリーを設定しましょう。
+  - PickupCategory.all.each do |category|
+    = f.check_box :pickup_categories_ids,
+                  {:checked => @listing.pickup_categories.include?(category),
+                   :name => "listing[pickup_category_ids][]"}, category.id,''
+    = category.name
+  h3.text-center.row-space-2 タグを設定しましょう。
+  - PickupTag.all.each do |tag|
+    = f.check_box :pickup_tags_ids,
+                  {:checked => @listing.pickup_tags.include?(tag),
+                   :name => "listing[pickup_tag_ids][]"}, tag.id,''
+    = tag.name
+  .row
+    .col-xs-9.col-offset-3.text-reset-center
+      = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-image-submit'
+
+
+

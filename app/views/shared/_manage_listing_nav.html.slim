@@ -74,35 +74,15 @@
           = link_to listing_calendar_index_path(@listing) do
             | カレンダーの設定
             i.fa.fa-plus
-      - if controller_name == "pickup_area"
-        li.nav-item.nav-active
-          = link_to manage_listing_pickup_areas_path(@listing.id) do
-            | エリアの設定
-            i.fa.fa-plus
-      - else
-        li.nav-item
-          = link_to manage_listing_pickup_areas_path(@listing.id) do
-            | エリアの設定
-            i.fa.fa-plus
       - if controller_name == "pickup_category"
         li.nav-item.nav-active
-          = link_to manage_listing_pickup_categories_path(@listing.id) do
-            | カテゴリーの設定
+          = link_to manage_listing_listing_pickups_path(@listing) do
+            | ピックアップの設定
             i.fa.fa-plus
       - else
         li.nav-item
-          = link_to manage_listing_pickup_categories_path(@listing.id) do
-            | カテゴリーの設定
-            i.fa.fa-plus
-      - if controller_name == "pickup_tag"
-        li.nav-item.nav-active
-          = link_to manage_listing_pickup_tags_path(@listing.id) do
-            | タグの設定
-            i.fa.fa-plus
-      - else
-        li.nav-item
-          = link_to manage_listing_pickup_tags_path(@listing.id) do
-            | タグの設定
+          = link_to manage_listing_listing_pickups_path(@listing) do
+            | ピックアップの設定
             i.fa.fa-plus
       /- if controller_name == "confections"
         li.nav-item.nav-active
