@@ -59,7 +59,7 @@
           - @unread_messages.each do |um|
             - from_user = user_id_to_user_obj(um.from_user_id)
             - from_user_profile = from_user.profile
-            li.card-body.thread
+            li.card-body
               .row
                 .col-md-5
                   .row.row-table
@@ -71,12 +71,12 @@
                       br
                       = um.created_at.strftime("%m月%d日 %H時%M分")
                 = link_to message_thread_path(um.message_thread_id), class: "link-reset text-muted" do
-                  .col-md-5
+                  .col-md-7
                     = um.content
                     br
                     span.text-muted
                       = from_user_profile.location
-                - if um.reservation_id.present? && !um.reservation_id.zero?
+                /- if um.reservation_id.present? && !um.reservation_id.zero?
                   - r = reservation_id_to_reservation_obj(um.reservation_id)
                   - l = listing_id_to_listing_obj(um.listing_id)
                   .col-md-2
@@ -89,7 +89,7 @@
                       /br
                       /= r.num_of_people
                       /| 人
-                - else
+                /- else
                   .col-md-2
                     span.label.status-contact.text-starlight
                       = Settings.message.unread.string
