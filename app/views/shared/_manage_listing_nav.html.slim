@@ -74,16 +74,6 @@
           = link_to listing_calendar_index_path(@listing) do
             | カレンダーの設定
             i.fa.fa-plus
-      - if controller_name == "pickup_category"
-        li.nav-item.nav-active
-          = link_to manage_listing_listing_pickups_path(@listing) do
-            | ピックアップの設定
-            i.fa.fa-plus
-      - else
-        li.nav-item
-          = link_to manage_listing_listing_pickups_path(@listing) do
-            | ピックアップの設定
-            i.fa.fa-plus
       /- if controller_name == "confections"
         li.nav-item.nav-active
           = link_to manage_listing_confections_path(@listing.id) do
