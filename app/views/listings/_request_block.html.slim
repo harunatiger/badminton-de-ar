@@ -19,7 +19,7 @@
           input#checkin.checkin.datepicker[name="reservation[schedule]" placeholder="年/月/日" type="text"]
         .row-space-2
           - if profile_self_introduction_exists?
-            button.btn.btn-large.btn-block.btn-primary
+            button#message-host-link.btn.btn-large.btn-block.btn-primary
               | メッセージを送る
           - else
             = link_to 'メッセージを送る', profile_link, class: 'btn btn-large btn-block btn-primary'

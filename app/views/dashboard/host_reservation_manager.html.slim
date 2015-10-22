@@ -8,13 +8,14 @@
     - if @reservations.blank?
       .col-md-9
         .card
+          .card-header 参加希望一覧
           .card-body
-            p.text-lead.row-space-4
-              | 0件の参加希望者がいます。
+            p.text-lead
+              | まだ参加希望者はいません。
     - else
       .col-md-9
         .card
-          .card-header 予約状況一覧
+          .card-header 参加希望一覧
           .responsive-table-container
             ul.list-unstyled.list-layout
               li.card-body.hide--sp

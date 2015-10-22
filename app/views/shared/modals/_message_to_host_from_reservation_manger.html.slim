@@ -4,7 +4,7 @@
       .modal-content
         .card-header
           a.modal-close[href="#" data-dismiss="modal"]
-          = Settings.message.modal.message_to_host_from_reservation_manager.title.lable
+          = Settings.message.modal.message_to_host_from_reservation_manager.title.label
         = form_tag( messages_path, method: 'post', remote: true, class: 'message-to-host-with-reservation-form', id: "message-to-host-with-reservation-form-#{r.id}" )
           .card-body
             = hidden_field :message, :to_user_id, value: listing.user_id

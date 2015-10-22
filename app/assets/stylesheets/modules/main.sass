@@ -954,14 +954,45 @@ a.about_payment_link
   font-size: 12px
   text-decoration: underline
 
+.thread-list
+  > li:first-child
+    > a
+      border: 0
+
+.thread
+  a
+    display: block
+    padding: 20px
+    color: $gray1
+    text-decoration: none
+    background-color: $bg1
+    border-top: 1px solid $border1
+    &.unread
+      color: $gray2
+      background-color: white
+      .thread-author
+        .thread-name
+          font-weight: 700
+      .message-content
+        font-weight: 700
+        background: white
+        span:after
+          background: white
+  .thread-author
+    .thread-name
+      font-weight: 400
+
+.thread-progress
+  padding-top: 15px
+
 // ellipsis
-$container-bg: white
+$container-bg: $bg1
 $font-size-base: 14px
 $line-height-computed: 1.4
-$lines-to-show: 3
+$lines-to-show: 2
 
 .message-content
-  background: white
+  background: $bg1
   overflow: hidden
   width: 100%
   span
@@ -985,6 +1016,9 @@ $lines-to-show: 3
       width: 100%
 
 @media (max-width: 767px)
+  .thread
+    a
+      position: relative
   .thread-link
     position: absolute
     top: 0
@@ -994,26 +1028,24 @@ $lines-to-show: 3
     z-index: 1
     .address
       display: none
-  .thread-progress
+  .thread-author
+    display: block
     position: absolute
-    top: 17.5px
-    right: 5px
-  .thread-author, .thread-name, .thread-body, .thread-label
-    position: static
-  .thread-name
-    font-weight: 700
-    font-size: 16px
-    margin-top: 0px
-  .thread-date
-    font-weight: normal
-    font-size: 12px
-    position: absolute
-    bottom: 10px
-    right: 20px
-    color: $gray1
-  .thread-avatar
+    top: 15px
+    left: 0
+    .row-table
+      display: block
+      width: auto
+  .thread-avatar, .thread-name
+    display: block
     float: left
+    width: auto
     padding-right: 0
+  .thread-name
+    padding-top: 4px
+    font-size: 16px
+  .thread-body
+    padding: 20px 0 0 80px
   .thread-subject
     position: absolute
     top: 36px
