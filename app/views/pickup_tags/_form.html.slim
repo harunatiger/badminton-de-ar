@@ -1,0 +1,11 @@
+/tag
+= simple_form_for(@listing, url: update_all_listing_pickup_tags_path, html: {class: "form--sp"}) do |f|
+  = f.error_notification
+  - count = 1
+  - PickupTag.all.each do |tag|
+    = f.check_box :pickup_tags_ids,
+                  {:checked => @listing.pickup_tags.include?(tag),
+                   :name => "listing[pickup_tags_ids][]"}, tag.id, ''
+    = tag.name
+
+  = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-image-submit'

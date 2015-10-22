@@ -1,0 +1,11 @@
+/area
+= simple_form_for(@listing, url: update_all_listing_pickup_areas_path, html: {class: "form--sp"}) do |f|
+  = f.error_notification
+  - count = 1
+  - PickupArea.all.each do |area|
+    = f.check_box :pickup_areas_ids,
+                  {:checked => @listing.pickup_areas.include?(area),
+                   :name => "listing[pickup_areas_ids][]"}, area.id, ''
+    = area.name
+
+  = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-image-submit'
