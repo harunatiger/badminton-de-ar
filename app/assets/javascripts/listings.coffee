@@ -244,15 +244,23 @@ $ ->
     $('#share-via-email-trigger').on 'click', ->
       $('#share-via-email').modal()
 
+
+    #$('body').on 'fullscreenchange', ->
+    #  alert 666
+
     # media query js width 1099px
     mediaQueryWidth1 = ->
       listingDescription = $('#listing-description')
       tourAction = $('#tour-action')
       tourOptionInfo = $('#tour-option-info')
       if($('.col-left').css('float') == "left")
-        tourAction.insertBefore(tourOptionInfo)
+        # evacuate fullscreen movie
+        if(!$('#tour_movie').hasClass('vjs-fullscreen'))
+          tourAction.insertBefore(tourOptionInfo)
       else
-        tourAction.insertBefore(listingDescription)
+        # evacuate fullscreen movie
+        if(!$('#tour_movie').hasClass('vjs-fullscreen'))
+          tourAction.insertBefore(listingDescription)
 
     mediaQueryWidth1()
 
