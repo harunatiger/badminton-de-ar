@@ -12,6 +12,6 @@ ActiveAdmin.register PickupArea do
 #   permitted << :other if resource.something?
 #   permitted
 # end
-  permit_params :name
+  permit_params :name, :cover_image
 
 end

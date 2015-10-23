@@ -1,0 +1,23 @@
+= render partial: "coverimage", locals: { pickup_cover_image: @pickup_cover_image, pickup_title: @pickup_title }
+.guide_list-tiles
+  .page-container
+    .row
+      - @listings.each do | listing |
+        .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-4
+          .card.tour-listing
+            .card-image
+              = link_to listing_path( listing.id ), class: "media-photo media-photo-block media-cover" do
+                = image_tag(listing.cover_image , height: "210", width: "484", alt: "", class: "img-responsive")
+              .card-overlay-bottom-left.flush-left.card-overlay-label
+                .h3
+                  = listing.price
+            .card-body
+              .media
+                = link_to profile_path, class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                  = image_tag("sample/person1.jpg", alt: "阿部 友暁")
+                = link_to listing_path( listing.id ), class: "text-normal" do
+                  h5.row-space-1
+                    = listing.title
+                .row-space-1.text-muted
+                  = listing.capacity
+                  = listing.review_count

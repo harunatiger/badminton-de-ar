@@ -13,4 +13,6 @@ class PickupArea < ActiveRecord::Base
   has_many :listing_pickup_areas
   has_many :listings, through: :listing_pickup_areas
 
+  mount_uploader :cover_image, DefaultImageUploader
+
 end

@@ -1,0 +1,51 @@
+.card-dark
+  .discovery-container
+    .discovery-section.page-container.page-container-no-padding
+      .section-intro.text-center.row-space-4.row-space-top-8
+        h2.row-space-1.strong 友だちガイドはあなたからの連絡を待ってます！
+        p.text-lead 現地に住む友だちガイドと行くあなただけの旅の計画を始めましょう。
+      .discovery-tiles
+        .row
+          .col-lg-8.col-md-12.rm-padding--sp
+            .discovery-card.rm-padding--sp.row-space-4.wall1
+              - @pickup_categories.each do |category|
+                = link_to pickups_list_path('category',category.id) do
+                  .va-container.va-container-v.va-container-h
+                    .va-middle.text-center.text-contrast
+                      .h2.strong
+                        = category.name
+          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-4
+            .card.tour-listing
+              .card-image
+                = link_to "#", class: "media-photo media-photo-block media-cover" do
+                  = image_tag("sample/pic/pic004.jpg", height: "210", width: "484", alt: "", class: "img-responsive")
+                .card-overlay-bottom-left.flush-left.card-overlay-label
+                  .h3
+                    | ¥&nbsp;7365
+              .card-body
+                .media
+                  = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                    = image_tag("sample/person1.jpg", alt: "阿部 友暁")
+                  = link_to "#", class: "text-normal" do
+                    h5.row-space-1
+                      | すすきの3泊4日、道産子の夜を楽しむ大人のツアー！あなたの好みに合わせてベテランガイドが案内します。
+                  .row-space-1.text-muted
+                    | 72時間 · レビュー67件
+
+          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp
+            .discovery-card.rm-padding--sp.row-space-4.wall2
+              - @pickup_areas.each do |area|
+                = link_to pickups_list_path('area',area.id) do
+                  .va-container.va-container-v.va-container-h
+                    .va-middle.text-center.text-contrast
+                      .h2.strong
+                        = area.name
+
+          - @pickup_tags.each do |tag|
+            .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.hide--sp
+              .discovery-card.rm-padding--sp.row-space-4.wall4
+                = link_to pickups_list_path('tag', tag.id) do
+                  .va-container.va-container-v.va-container-h
+                    .va-middle.text-center.text-contrast
+                      .h2.strong
+                        = tag.name
