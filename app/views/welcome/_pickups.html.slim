@@ -15,8 +15,6 @@
                     .h2.strong
                       = category.name
               | </div>
-          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-4
-            .card.tour-listing
               .card-image
                 = link_to "#", class: "media-photo media-photo-block media-cover" do
                   = image_tag("sample/pic/pic004.jpg", height: "210", width: "484", alt: "", class: "img-responsive")
@@ -51,3 +49,19 @@
                     .h2.strong
                       = tag.name
               | </div>
+            .discovery-card.rm-padding--sp.row-space-4.wall2
+              - @pickup_areas.each do |area|
+                = link_to pickups_list_path('area',area.id) do
+                  .va-container.va-container-v.va-container-h
+                    .va-middle.text-center.text-contrast
+                      .h2.strong
+                        = area.name
+
+          - @pickup_tags.each do |tag|
+            .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.hide--sp
+              .discovery-card.rm-padding--sp.row-space-4.wall4
+                = link_to pickups_list_path('tag', tag.id) do
+                  .va-container.va-container-v.va-container-h
+                    .va-middle.text-center.text-contrast
+                      .h2.strong
+                        = tag.name
