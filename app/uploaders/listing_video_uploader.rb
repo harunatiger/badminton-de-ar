@@ -31,14 +31,44 @@ class ListingVideoUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
   version :encoded do
     process :process_encode
-    def full_filename (for_file = model.logo.file)
-      "encoded.mp4"
-    end
   end
 
   def process_encode
-    encoded_file = File.join(File.dirname(current_path), "encoded.mp4")
-    FileUtils.cp(current_path, encoded_file)
+    tmpfile = File.join(File.dirname(current_path), "encoded")
+    FileUtils.cp(current_path, tmpfile);pp "#{store_dir}/encoded_#{filename}"
+    File.delete(tmpfile)
+
+    #
+    if Rails.env.staging? || Rails.env.production?
+    #if 1 #for development
+      create_elastic_transcoder_job(
+        "#{store_dir}/#{filename}",
+        "#{store_dir}/encoded_#{filename}"
+      )
+    end
+  end
+
+  def create_elastic_transcoder_job(input_key, output_key)
+    Aws.config.update({
+      credentials: Aws::Credentials.new(
+        ENV["HUBER_AWS_ACCESS_KEY_ID"],
+        ENV["HUBER_AWS_SECRET_ACCESS_KEY"]),
+      region: ENV["HUBER_AWS_REGION"]})
+
+    pipeline_id = ENV["HUBER_AWS_TRANSCODER_PIPELINE_ID"]
+    preset_id = '1351620000001-100240' ##System preset: WEB
+    transcoder_client = Aws::ElasticTranscoder::Client.new(region: ENV["HUBER_AWS_REGION"])
+    input = { key: input_key }
+    output = {
+      key: output_key,
+      preset_id: preset_id
+    }
+
+    transcoder_client.create_job(
+      pipeline_id: pipeline_id,
+      input: input,
+      outputs: [ output ]
+    )[:job][:id]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -54,6 +84,7 @@ class ListingVideoUploader < CarrierWave::Uploader::Base
   #end
   def filename
     "#{secure_token}" if original_filename.present?
+  #  "994f0c85-0bbf-482c-bfa6-ed6c9a0c2268" ##for development
   end
   
   protected
