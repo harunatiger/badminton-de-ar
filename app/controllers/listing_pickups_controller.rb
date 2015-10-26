@@ -48,6 +48,7 @@ class ListingPickupsController < ApplicationController
         @pickup_cover_image = pickup_obj.cover_image
 
         @listings = pickup_obj.listings.opened
+        @listings = pickup_obj.listings
         return redirect_to root_path, notice: Settings.listings.error.invalid_listing_id if @listings.blank?
 
       else
