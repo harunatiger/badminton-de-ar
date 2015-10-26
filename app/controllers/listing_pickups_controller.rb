@@ -24,27 +24,34 @@ class ListingPickupsController < ApplicationController
 
     def set_listing
       @listing = Listing.find(params[:listing_id])
+      return redirect_to root_path, notice: Settings.listings.error.invalid_listing_id if @listing.blank?
     end
 
     def set_listings_by_pickup_type
       if params[:type]
         case params[:type]
           when 'area' then
-            pickup_fld = PickupArea.find(params[:id])
+            pickup_obj = PickupArea.find(params[:id])
+
           when 'category' then
-            pickup_fld = PickupCategory.find(params[:id])
+            pickup_obj = PickupCategory.find(params[:id])
+
           when 'tag' then
-            pickup_fld = PickupTag.find(params[:id])
+            pickup_obj = PickupTag.find(params[:id])
+
           else
-
+            return redirect_to root_path, notice: Settings.listings.error.invalid_listing_id
         end
+        return redirect_to root_path, notice: Settings.listings.error.invalid_listing_id if pickup_obj.blank?
 
-        @listings = pickup_fld.listings
-        @pickup_title = pickup_fld.name
-        @pickup_cover_image = pickup_fld.cover_image
+        @pickup_title = pickup_obj.name
+        @pickup_cover_image = pickup_obj.cover_image
+
+        @listings = pickup_obj.listings.opened
+        return redirect_to root_path, notice: Settings.listings.error.invalid_listing_id if @listings.blank?
 
       else
-        @listings = []
+        @listings = Listing.opened
       end
     end
 
