@@ -152,36 +152,6 @@ ActiveRecord::Schema.define(version: 20151023061038) do
   add_index "listing_languages", ["language_id"], name: "index_listing_languages_on_language_id", using: :btree
   add_index "listing_languages", ["listing_id"], name: "index_listing_languages_on_listing_id", using: :btree
 
-  create_table "listing_pickup_areas", force: :cascade do |t|
-    t.integer  "listing_id"
-    t.integer  "pickup_area_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  add_index "listing_pickup_areas", ["listing_id"], name: "index_listing_pickup_areas_on_listing_id", using: :btree
-  add_index "listing_pickup_areas", ["pickup_area_id"], name: "index_listing_pickup_areas_on_pickup_area_id", using: :btree
-
-  create_table "listing_pickup_categories", force: :cascade do |t|
-    t.integer  "listing_id"
-    t.integer  "pickup_category_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-  end
-
-  add_index "listing_pickup_categories", ["listing_id"], name: "index_listing_pickup_categories_on_listing_id", using: :btree
-  add_index "listing_pickup_categories", ["pickup_category_id"], name: "index_listing_pickup_categories_on_pickup_category_id", using: :btree
-
-  create_table "listing_pickup_tags", force: :cascade do |t|
-    t.integer  "listing_id"
-    t.integer  "pickup_tag_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "listing_pickup_tags", ["listing_id"], name: "index_listing_pickup_tags_on_listing_id", using: :btree
-  add_index "listing_pickup_tags", ["pickup_tag_id"], name: "index_listing_pickup_tags_on_pickup_tag_id", using: :btree
-
   create_table "listing_pvs", force: :cascade do |t|
     t.integer  "listing_id"
     t.date     "viewed_at"
