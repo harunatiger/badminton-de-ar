@@ -228,6 +228,44 @@ $ ->
   # listings#show
   if $('body').hasClass('listings show')
 
+    $('a.include_what_trigger').on 'click', ->
+      $('#include_what').modal()
+      return false
+
+    # price culc
+    tourPriceSingleContainer = $('#tour-price-single')
+    tourPriceSingle = 0
+    tourPriceBase = Number($('#tour-price-base').text())
+    tourPriceOption = Number($('#tour-price-option').text())
+    tourMemberCulcedContainer = $('#tour-member_culced')
+    tourPriceBaseCulcedContainer = $('#tour-price-base_culced')
+    tourPriceOptionCulcedContainer = $('#tour-price-option_culced')
+    serviceCostCulcedContainer = $('#service-cost_culced')
+    tourPriceResultCulcedContainer = $('#tour-price-result_culced')
+
+    tourPriceSingle = tourPriceBase + tourPriceOption
+    tourPriceSingleContainer.text(tourPriceSingle)
+
+    priceCulc = ->
+      $('#culc-container').show()
+      numOfPeople = Number($('#num-of-people option:selected').text())
+      tourMemberCulcedContainer.text(numOfPeople)
+      tourPriceOptionCulcedContainer.text(tourPriceOption)
+      tourPriceBaseCulced = tourPriceBase * numOfPeople
+      tourPriceBaseCulcedContainer.text(tourPriceBaseCulced)
+      serviceCostCulced = (tourPriceBaseCulced + tourPriceOption) * 0.125
+      serviceCostCulcedContainer.text(serviceCostCulced)
+      tourPriceResultCulcedContainer.text(tourPriceBaseCulced + tourPriceOption + serviceCostCulced)
+      return
+
+    $('#num-of-people select').on 'change', ->
+      priceCulc()
+    $('#checkin').on 'changeDate', ->
+      priceCulc()
+
+
+
+
     # bootstrap datepicker
     $('.datepicker').datepicker
       autoclose: true,

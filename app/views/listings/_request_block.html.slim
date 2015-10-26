@@ -7,24 +7,84 @@
   .card.row-space-2
     .card-body
       .tour-price.row-space-1
-        .strong.row-space-1 一人当たりの料金
-        .h2
+        .strong.row-space-1 ツアー料金
+        .h3.strong.row-space-2
           | ¥
-          | 3,000
+          span#tour-price-single
           small.time
+            | 1人 
             | 3.5
             | 時間
-      = form_tag("", class: "") do
-        .row-space-4
-          label[for="checkin"]
-            |  参加する日付
-          input#checkin.checkin.datepicker[name="reservation[schedule]" placeholder="年/月/日" type="text"]
+        .row.row-space-1
+          .col-md-6
+            | 基本料金（1人）
+          .col-md-6.text-right.strong
+            | ¥
+            span#tour-price-base
+              | 3000
+        .row.row-space-1
+          .col-md-6
+            | オプション料金
+          .col-md-6.text-right.strong
+            | ¥
+            span#tour-price-option
+              | 12000
+      = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
+        .row.row-space-4
+          .col-md-8
+            label[for="checkin"]
+              |  参加する日付
+            input#checkin.checkin.datepicker[name="reservation[schedule]" placeholder="年/月/日" type="text"]
+          .col-md-4
+            label[for="reservation_num_of_people"]
+              |  人数
+            .select.select-block#num-of-people
+              = f.input_field :num_of_people, as: :select, collection: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12], [13], [14], [15], [16]], default: [1]
+
+        #culc-container.row-space-1
+          .row.row-space-1
+            .col-md-6
+              | 基本料金 x 
+              span#tour-member_culced
+                | 1
+              | 人
+            .col-md-6.text-right.strong
+              | ¥
+              span#tour-price-base_culced
+
+          .row.row-space-1
+            .col-md-6
+              | オプション料金
+            .col-md-6.text-right.strong
+              | ¥
+              span#tour-price-option_culced
+
+          .row.row-space-1
+            .col-md-6
+              | サービス利用料金
+            .col-md-6.text-right.strong
+              | ¥
+              span#service-cost_culced
+
+          .row.row-space-1
+            .col-md-6
+              | 合計金額
+            .col-md-6.text-right.strong.text-red
+              | ¥
+              span#tour-price-result_culced.h4
+
+          .row.row-space-4
+            .col-md-12
+              = link_to "#", class: "include_what_trigger small1 text-blue" do
+                i.fa.fa-exclamation-circle
+                |  料金には何が含まれていますか？
+
         .row-space-2
+          button.btn.btn-large.btn-block.btn-host
+            | 予約リクエスト
+        .row-space-1
           - if profile_self_introduction_exists?
             button#message-host-link.btn.btn-large.btn-block.btn-primary
               | メッセージを送る
           - else
             = link_to 'メッセージを送る', profile_link, class: 'btn btn-large btn-block btn-primary'
-        .row-space-1
-          button.btn.btn-large.btn-block.btn-host
-            | 予約リクエスト
