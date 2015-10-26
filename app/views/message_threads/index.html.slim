@@ -27,20 +27,21 @@
                     .col-md-4.thread-body
                       .message-content.text-muted.hide--sp
                         span
-                          = lm.content
+                          = lm ? lm.content : 'まだメッセージが入力されていません。'
                       .address
-                        - if lm.listing_id.present? && !lm.listing_id.zero?
+                        - if lm && !lm.listing_id.zero?
                           = listing_id_to_listing_obj(lm.listing_id).location
                   .col-md-2.thread-label
                     .row
                       .col-sm-12.col-md-6
                         .tag
-                          - if lm.read.present?
-                            span.label.status-contact.text-starlight
-                              = string_of_read(lm.read)
-                          - else
-                            span.label.status-contact.text-danger
-                              = string_of_read(lm.read)
+                          -if lm
+                            - if lm.read.present?
+                              span.label.status-contact.text-starlight
+                                = string_of_read(lm.read)
+                            - else
+                              span.label.status-contact.text-danger
+                                = string_of_read(lm.read)
                   .col-md-2.thread-progress
                     .row
                       .col-sm-12.text-center
@@ -50,7 +51,7 @@
                         - elsif mt.reservation_progress == "キャンセル"
                           .tag.tag-danger
                             = mt.reservation_progress
-                        - elsif mt.reservation_progress == "保留"
+                        - elsif mt.reservation_progress == "調整中"
                           .tag.tag-alert
                             = mt.reservation_progress
                         - elsif mt.reservation_progress == "承認"

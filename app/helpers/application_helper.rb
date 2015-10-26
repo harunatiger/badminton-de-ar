@@ -261,6 +261,10 @@ module ApplicationHelper
   def reservation_id_to_messages(reservation_id)
     Message.reservation(reservation_id)
   end
+  
+  def message_to_listing(message)
+    Listing.find(message.try('listing_id'))
+  end
 
   def profile_identity_link
     profile_identity = ProfileIdentity.where(user_id: current_user.id, profile_id: current_user.profile.id).first

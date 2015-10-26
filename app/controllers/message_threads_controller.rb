@@ -1,6 +1,6 @@
 class MessageThreadsController < ApplicationController
   before_action :authenticate_user!
-  before_action :message_thread_user?, only: [:show, :create, :update, :destroy]
+  before_action :message_thread_user?, only: [:show, :update, :destroy]
   before_action :set_message_thread, only: [:show, :update, :destroy]
   before_action :set_messages, only: [:show]
   before_action :set_reservation, only: [:show]
@@ -12,7 +12,7 @@ class MessageThreadsController < ApplicationController
     @message_threads = []
     message_thread_ids.each do |mt_id|
       message_thread = MessageThread.find(mt_id)
-      @message_threads << message_thread.set_reservation_progress
+      @message_threads << message_thread.set_reservation_progress if message_thread.messages.present?
     end
     # @message_threads.sort_by! { |mt| mt.updated_at }
     @message_threads.sort_by! &:updated_at
@@ -27,7 +27,7 @@ class MessageThreadsController < ApplicationController
     @message = Message.new
     @messages
     @counterpart = User.find(counterpart_user_id)
-    
+    @listings = User.find(@host_id).listings
     gon.ngdates = Ngevent.get_ngdates(User.find(@host_id).listings.first.id)
   end
 
@@ -35,10 +35,11 @@ class MessageThreadsController < ApplicationController
   # POST /message_threads.json
   def create
     @message_thread = MessageThread.new(message_thread_params)
-
+    @message_thread.message_thread_users.build(user_id: current_user.id)
+    @message_thread.message_thread_users.build(user_id: @message_thread.host_id)
     respond_to do |format|
       if @message_thread.save
-        format.html { redirect_to @message_thread, notice: 'Message thread was successfully created.' }
+        format.html { redirect_to @message_thread}
         format.json { render :show, status: :created, location: @message_thread }
       else
         format.html { render :new }
@@ -82,10 +83,10 @@ class MessageThreadsController < ApplicationController
     end
   
     def set_reservation
-      message = @messages.where.not(listing_id: 0).first
-      @guest_id = message.guest_id
-      @host_id = message.host_id
-      reservation = Reservation.active_reservation(@guest_id, @host_id)
+      counterpart_user_id = MessageThreadUser.counterpart_user(@message_thread.id, @message_thread.host_id)
+      @guest_id = counterpart_user_id
+      @host_id = @message_thread.host_id
+      reservation = Reservation.latest_reservation(@guest_id, @host_id)
       @reservation = reservation.present? ? Reservation.new(reservation.attributes) : Reservation.new
       @reservation.message_thread_id = @message_thread.id
     end
@@ -96,6 +97,6 @@ class MessageThreadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_thread_params
-      params.require(:message_thread).permit(:id)
+      params.require(:message_thread).permit(:id, :host_id)
     end
 end

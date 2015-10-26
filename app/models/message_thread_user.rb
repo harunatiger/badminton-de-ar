@@ -19,7 +19,7 @@ class MessageThreadUser < ActiveRecord::Base
   belongs_to :message_thread
   belongs_to :user
 
-  validates :message_thread_id, presence: true
+  #validates :message_thread_id, presence: true
   validates :user_id, presence: true
 
   scope :user_joins, -> user_id { where(user_id: user_id) }

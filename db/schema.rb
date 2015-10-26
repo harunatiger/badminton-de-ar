@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020031907) do
+ActiveRecord::Schema.define(version: 20151023061038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -152,6 +152,36 @@ ActiveRecord::Schema.define(version: 20151020031907) do
   add_index "listing_languages", ["language_id"], name: "index_listing_languages_on_language_id", using: :btree
   add_index "listing_languages", ["listing_id"], name: "index_listing_languages_on_listing_id", using: :btree
 
+  create_table "listing_pickup_areas", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.integer  "pickup_area_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "listing_pickup_areas", ["listing_id"], name: "index_listing_pickup_areas_on_listing_id", using: :btree
+  add_index "listing_pickup_areas", ["pickup_area_id"], name: "index_listing_pickup_areas_on_pickup_area_id", using: :btree
+
+  create_table "listing_pickup_categories", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.integer  "pickup_category_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "listing_pickup_categories", ["listing_id"], name: "index_listing_pickup_categories_on_listing_id", using: :btree
+  add_index "listing_pickup_categories", ["pickup_category_id"], name: "index_listing_pickup_categories_on_pickup_category_id", using: :btree
+
+  create_table "listing_pickup_tags", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.integer  "pickup_tag_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "listing_pickup_tags", ["listing_id"], name: "index_listing_pickup_tags_on_listing_id", using: :btree
+  add_index "listing_pickup_tags", ["pickup_tag_id"], name: "index_listing_pickup_tags_on_pickup_tag_id", using: :btree
+
   create_table "listing_pvs", force: :cascade do |t|
     t.integer  "listing_id"
     t.date     "viewed_at"
@@ -224,7 +254,10 @@ ActiveRecord::Schema.define(version: 20151020031907) do
   create_table "message_threads", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "host_id"
   end
+
+  add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "message_thread_id",                 null: false
@@ -283,6 +316,27 @@ ActiveRecord::Schema.define(version: 20151020031907) do
   end
 
   add_index "payments", ["reservation_id"], name: "index_payments_on_reservation_id", using: :btree
+
+  create_table "pickup_areas", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "cover_image"
+  end
+
+  create_table "pickup_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "cover_image"
+  end
+
+  create_table "pickup_tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "cover_image"
+  end
 
   create_table "profile_banks", force: :cascade do |t|
     t.integer  "user_id"
@@ -413,6 +467,7 @@ ActiveRecord::Schema.define(version: 20151020031907) do
     t.integer  "option_price",           default: 0
     t.string   "place",                  default: ""
     t.text     "description",            default: ""
+    t.date     "schedule_end"
   end
 
   add_index "reservations", ["guest_id"], name: "index_reservations_on_guest_id", using: :btree
@@ -521,6 +576,7 @@ ActiveRecord::Schema.define(version: 20151020031907) do
   add_foreign_key "listings", "users"
   add_foreign_key "message_thread_users", "message_threads"
   add_foreign_key "message_thread_users", "users"
+  add_foreign_key "message_threads", "users", column: "host_id"
   add_foreign_key "messages", "message_threads"
   add_foreign_key "messages", "users", column: "from_user_id"
   add_foreign_key "messages", "users", column: "to_user_id"

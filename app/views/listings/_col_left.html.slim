@@ -1,7 +1,7 @@
 / listings/col_left
 .row.row-table.row-reset.row-space-1
   .col-md-3.col-middle.text-center.col-reset
-    = link_to profile_path(listing.user_id), class: 'media-photo media-round' do
+    = link_to profile_path(@host_info.id), class: 'media-photo media-round' do
       = image_tag(user_id_to_profile_image(listing.user_id), class: "size90")
   .col-md-12.col-middle.col-reset
     .text-center--md

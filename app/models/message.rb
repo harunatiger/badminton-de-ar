@@ -13,7 +13,6 @@
 #  reservation_id    :integer          default(0), not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  message_type      :integer          default(0)
 #
 # Indexes
 #
@@ -54,23 +53,7 @@ class Message < ActiveRecord::Base
       reservation_id: reservation_id
     )
     
-    if obj.save
-      if listing_id.to_i != 0 and reservation_id.to_i == 0 
-        Message.create!(
-          message_thread_id: mt_obj.id,
-          content: Listing.find(listing_id.to_i).title + Settings.reservation.msg.contact,
-          read: false,
-          from_user_id: message_params['from_user_id'],
-          to_user_id: message_params['to_user_id'],
-          listing_id: listing_id,
-          reservation_id: reservation_id
-        )
-      else
-        true
-      end
-    else
-      false
-    end
+    obj.save
   end
 
   def self.make_all_read(message_thread_id, to_user_id)

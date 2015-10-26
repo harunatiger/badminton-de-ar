@@ -20,10 +20,11 @@ li.thread-list-item
                     =m.try('content')
                 - elsif m.try('content') == Settings.reservation.msg.reserve
                   span.text-pink.strong
-                    |予約リクエストをお送りしました。
+                    = message_to_listing(m).try('title')
+                    |の予約リクエストをお送りしました。
                 - else
                   = m.try('content')
-            - if !m.reservation_id.zero? && reservation_id_to_messages(m.reservation_id).first.id == m.id
+            - if !m.reservation_id.zero? and m.try('content') == Settings.reservation.msg.request
               = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
         .time-container.text-muted.text-right
           small.time 

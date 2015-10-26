@@ -4,12 +4,24 @@ class ReservationsController < ApplicationController
   include Payments
   
   def create
-    @reservation = Reservation.new(reservation_params)
-    @reservation.progress = 'requested'
-    reservation = Reservation.requested_reservation(@reservation.guest_id, @reservation.host_id)
+    reservation_before = Reservation.latest_reservation(reservation_params['guest_id'], reservation_params['host_id'])
+    reservation = Reservation.requested_reservation(reservation_params['guest_id'], reservation_params['host_id'])
     reservation.update(progress: 'rejected') if reservation.present?
+    
+    para = reservation_params
+    para['progress'] = 'holded' if params[:save]
+    para['schedule_end'] = para['schedule_date'] if params[:reserve]
+    
+    if reservation_before and reservation_before.holded?
+      @reservation = reservation_before
+      result = @reservation.update(para)
+    else
+      @reservation = Reservation.new(para)
+      result = @reservation.save
+    end
+    
     respond_to do |format|
-      if @reservation.save
+      if result
         ngevent_params = Hash[
           'reservation_id' => @reservation.id,
           'listing_id' => @reservation.listing_id,
@@ -20,37 +32,41 @@ class ReservationsController < ApplicationController
           'mode' => 1,  # 1:reservation_mode
           'active' => 0,# 0:no actice
           'color' => 'red'
-        ]
+          ]
         Ngevent.create(ngevent_params)
-        
-        if params[:reserve]
-          ReservationMailer.send_new_reservation_notification(@reservation).deliver_now!
-        else
-          ReservationMailer.send_new_guide_detail_notification(@reservation).deliver_now!
-        end
-        
-        msg_params = Hash[
-          'reservation_id' => @reservation.id,
-          'listing_id' => @reservation.listing_id,
-          'from_user_id' => params[:reserve].present? ? @reservation.guest_id : @reservation.host_id,
-          'to_user_id' => params[:reserve].present? ? @reservation.host_id : @reservation.guest_id,
-          'progress' => @reservation.progress,
-          'schedule' => @reservation.schedule,
-          'message_thread_id' => @reservation.message_thread_id,
-          'content' => params[:reserve].present? ? Settings.reservation.msg.reserve : Settings.reservation.msg.request
-        ]
-        if @reservation.message_thread_id
-          mt_obj = MessageThread.find(@reservation.message_thread_id)
-        else
-          if id = MessageThread.exists_thread?(msg_params)
-            mt_obj = MessageThread.find(id)
+        unless params[:save]
+          if params[:reserve]
+            ReservationMailer.send_new_reservation_notification(@reservation).deliver_now!
           else
-            mt_obj = MessageThread.create_thread(msg_params)
+            ReservationMailer.send_new_guide_detail_notification(@reservation).deliver_now!
           end
-          @reservation.message_thread_id = mt_obj.id
+
+          msg_params = Hash[
+            'reservation_id' => @reservation.id,
+            'listing_id' => @reservation.listing_id,
+            'from_user_id' => params[:reserve].present? ? @reservation.guest_id : @reservation.host_id,
+            'to_user_id' => params[:reserve].present? ? @reservation.host_id : @reservation.guest_id,
+            'progress' => @reservation.progress,
+            'schedule' => @reservation.schedule,
+            'message_thread_id' => @reservation.message_thread_id,
+            'content' => params[:reserve].present? ? Settings.reservation.msg.reserve : Settings.reservation.msg.request
+          ]
+          if @reservation.message_thread_id
+            mt_obj = MessageThread.find(@reservation.message_thread_id)
+          else
+            if id = MessageThread.exists_thread?(msg_params)
+              mt_obj = MessageThread.find(id)
+            else
+              mt_obj = MessageThread.create_thread(msg_params)
+            end
+            @reservation.message_thread_id = mt_obj.id
+          end
+          result = Message.send_message(mt_obj, msg_params)
+        else
+          result = true
         end
-       
-        if Message.send_message(mt_obj, msg_params)
+
+        if result
           format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.save.success }
           format.json { render :show, status: :created, location: @reservation }
         else
@@ -58,7 +74,7 @@ class ReservationsController < ApplicationController
           format.json { render json: @reservation.errors, status: :unprocessable_entity }
         end
       else
-        format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.save.failure.no_date }
+        format.html { redirect_to @reservation.message_thread_id ? message_thread_path(@reservation.message_thread_id) : listing_path(@reservation.listing_id), notice: Settings.reservation.save.failure.no_date }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end
@@ -145,7 +161,7 @@ class ReservationsController < ApplicationController
       respond_to do |format|
         format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_canceled }
         format.json { return render :show, status: :ok, location: @reservation }
-      end 
+      end      
     end
 
     respond_to do |format|
@@ -196,7 +212,7 @@ class ReservationsController < ApplicationController
     end
 
     def reservation_params
-      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :option_price, Reservation::REGISTRABLE_ATTRIBUTES, :place, :description, :message_thread_id)
+      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :option_price, Reservation::REGISTRABLE_ATTRIBUTES, :place, :description, :message_thread_id, :schedule_end)
     end
   
     def checkout(reservation)
