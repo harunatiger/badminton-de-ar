@@ -3,6 +3,12 @@
 .sample-cover-image1
   background-image: image-url('top-slider/slider_01.jpg')
 
+/* video.js hack */
+.vjs-default-skin .vjs-big-play-button
+  top: 50%
+  left: 50%
+  margin: -1.3em 0 0 -2em
+
 /* error_notification */
 .error_notification
   display: none
@@ -81,6 +87,9 @@ body.slideout
   &.card-medium
     padding: 20px 0
     background: $bg1
+
+.card-body-vpad30
+  padding: 30px 20px
 
 .card-body + .card-body:before
   content: ''

@@ -12,9 +12,10 @@
         = render partial: 'review_block', locals: { listing: @listing, reviews: @reviews, host_info: @host_info, host_image: @host_image }
 
       .col-lg-4.col-right
-        = render partial: 'request_block'
+        = render partial: 'request_block', locals: { listing: @listing }
         = render partial: 'option_info'
 
 = render partial: '/shared/modals/share_email'
+= render partial: '/shared/modals/include_what'
 = render partial: '/shared/modals/message_to_host', locals: { listing: @listing } if user_signed_in?
 = render partial: '/shared/modals/pair_guide_list'

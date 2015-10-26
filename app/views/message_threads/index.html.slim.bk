@@ -1,0 +1,68 @@
+= render partial: 'shared/subnav'
+.page-container.page-container-inbox.row-space-6.row-space-top-4
+  .row
+    #inbox.threads.col-sm-12
+      .card
+        - if @message_threads.blank?
+          .card-body
+            p ガイドにメッセージを送信した場合、ここでガイドからの返信を見られます。
+        - else
+          ul.list-layout.card-body
+            - @message_threads.each do |mt|
+              - counterpart_id = counterpart_user_id(mt)
+              - lm = latest_message(mt)
+              li.card-body.thread
+                .row
+                  .col-md-4.thread-author
+                    .row.row-table
+                      .thread-avatar.col-md-4
+                        = link_to profile_path(Profile.mine(counterpart_id))
+                          = image_tag(user_id_to_profile_image(counterpart_id), class: "media-round media-photo size50")
+                      .col-sm-8.thread-name
+                        = user_id_to_name(counterpart_id)
+                        br
+                        span.thread-date
+                          = mt.updated_at.to_s
+                  = link_to message_thread_path(mt), class: "thread-link link-reset text-muted" do
+                    .col-md-4.thread-body
+                      .message-content.text-muted.hide--sp
+                        span
+                          = lm.content
+                      .address
+                        - if lm.listing_id.present? && !lm.listing_id.zero?
+                          = listing_id_to_listing_obj(lm.listing_id).location
+                  .col-md-2.thread-label
+                    .row
+                      .col-sm-12.col-md-6
+                        .tag
+                          - if lm.read.present?
+                            span.label.status-contact.text-starlight
+                              = string_of_read(lm.read)
+                          - else
+                            span.label.status-contact.text-danger
+                              = string_of_read(lm.read)
+                  .col-md-2.thread-progress
+                    .row
+                      .col-sm-12.text-center
+                        - if mt.reservation_progress == "承認依頼中"
+                          .tag.tag-primary
+                            = mt.reservation_progress
+                        - elsif mt.reservation_progress == "キャンセル"
+                          .tag.tag-danger
+                            = mt.reservation_progress
+                        - elsif mt.reservation_progress == "保留中"
+                          .tag.tag-alert
+                            = mt.reservation_progress
+                        - elsif mt.reservation_progress == "ツアー決定"
+                          .tag.tag-success
+                            = mt.reservation_progress
+                        - elsif mt.reservation_progress == "取り消し"
+                          .tag.tag-alert
+                            = mt.reservation_progress
+                        - elsif mt.reservation_progress == "終了"
+                          .tag.tag-normal
+                            = mt.reservation_progress
+                        - else
+                          .tag.tag-normal
+                            = mt.reservation_progress
+                            

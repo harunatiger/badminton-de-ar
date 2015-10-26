@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require plugins
+//= require video-js
 
 //= require common
 //= require message

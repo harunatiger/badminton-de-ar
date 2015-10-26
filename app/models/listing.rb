@@ -70,6 +70,7 @@ class Listing < ActiveRecord::Base
   has_many :ngevents
 
   mount_uploader :cover_image, DefaultImageUploader
+  mount_uploader :cover_video, ListingVideoUploader
 
   validates :user_id, presence: true
   #validates :location, presence: true

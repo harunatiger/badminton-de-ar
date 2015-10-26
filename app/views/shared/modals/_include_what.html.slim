@@ -1,0 +1,14 @@
+/ modal include_what
+#include_what.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          a.modal-close[href="#" data-dismiss="modal"]
+          | 料金に含まれるもの
+        form
+          .card-body
+            p
+              | いろいろ
+          .card-footer
+            = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"
