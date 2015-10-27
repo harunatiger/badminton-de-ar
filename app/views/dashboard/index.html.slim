@@ -5,14 +5,14 @@
     .col-lg-3.hide--md.hide--sp
       .card.row-space-4
         .media.media-photo-block.dashboard-profile-photo.panel-image
-          = link_to profile_path(current_user.id)
+          = link_to profile_path(current_user.profile.id)
             == image_tag(profile_image, class: 'img-responsive')
         .card-body
           h3.text-center
             = user_id_to_name(current_user.id)
           ul.list-unstyled.text-center
             li
-              = link_to "プロフィールを見る", profile_path(current_user.id)
+              = link_to "プロフィールを見る", profile_path(current_user.profile.id)
             li
               = link_to "プロフィールを編集", edit_profile_path(current_user.profile.id)
 

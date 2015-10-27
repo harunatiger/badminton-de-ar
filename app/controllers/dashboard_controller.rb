@@ -13,7 +13,7 @@ class DashboardController < ApplicationController
   end
 
   def guest_reservation_manager
-    @reservations = Reservation.as_guest(current_user).order_by_created_at_desc
+    @reservations = Reservation.as_guest(current_user).accepts.order_by_created_at_desc
   end
 
   private

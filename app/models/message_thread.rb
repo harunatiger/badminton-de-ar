@@ -5,6 +5,11 @@
 #  id         :integer          not null, primary key
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  host_id    :integer
+#
+# Indexes
+#
+#  index_message_threads_on_host_id  (host_id)
 #
 
 class MessageThread < ActiveRecord::Base
@@ -27,16 +32,16 @@ class MessageThread < ActiveRecord::Base
     f_threads.each do |ft|
       ft_array << ft.message_thread_id
     end
-    MessageThread.common_threads(tt_array, ft_array, msg_params[:listing_id])
+    MessageThread.common_threads(tt_array, ft_array, msg_params['from_user_id'])
   end
 
-  def self.common_threads(a_array, b_array, listing_id)
+  def self.common_threads(a_array, b_array, from_user_id)
     result = a_array & b_array
     if result.size.zero?
       res = false
     else
       result.each do |id|
-        if MessageThread.find(id).same_listing?(listing_id)
+        if MessageThread.find(id).same_thread?(from_user_id)
           res = id
           break
         end
@@ -46,7 +51,7 @@ class MessageThread < ActiveRecord::Base
   end
 
   def self.create_thread(msg_params)
-    mt = MessageThread.create()
+    mt = MessageThread.create(host_id: msg_params['to_user_id'].to_i)
     MessageThreadUser.create(
       message_thread_id: mt.id,
       user_id: msg_params['to_user_id'].to_i
@@ -80,14 +85,18 @@ class MessageThread < ActiveRecord::Base
   end
   
   def set_reservation_progress
-    message = Message.message_thread(self.id).where.not(listing_id: 0).first
-    reservation = Reservation.latest_reservation(message.guest_id, message.host_id)
-    self.reservation_progress = reservation.present? ? reservation.string_of_progress : ''
+    message = Message.message_thread(self.id).where.not(listing_id: 0).order('created_at desc').first
+    reservation = Reservation.latest_reservation(message.try('guest_id'), message.try('host_id'))
+    self.reservation_progress = reservation.try('string_of_progress') || ''
     self
   end
   
-  def same_listing?(listing_id)
-    message = Message.message_thread(self.id).where.not(listing_id: 0).first
-    return message.listing_id == listing_id.to_i
+  def same_thread?(from_user_id)
+    message = Message.message_thread(self.id).order('created_at asc').first
+    if message.present?
+      message.from_user_id == from_user_id
+    else
+      self.host_id != from_user_id
+    end
   end
 end

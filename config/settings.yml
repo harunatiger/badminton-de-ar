@@ -69,9 +69,9 @@ dress_codes:
     not_only: "和服でなくて結構です。"
 reservation:
   save:
-    success: "ガイド内容を送信しました。ゲストの方からの返信をお待ちください。"
+    success: "ガイド内容を更新しました。"
     failure:
-      no_date: "予約する日付を入力してください。"
+      no_date: "予約日付を入力してください。"
       paypal_access_failure: 'paypalとの連携に失敗しました。'
       paypal_payment_failure: 'paypal決済に失敗しました。'
       paypal_refund_failure: 'paypal決済の取り消しに失敗しました。'
@@ -79,13 +79,15 @@ reservation:
   update:
     success: "ガイド内容を更新しました。"
     failure: "ガイド内容の更新に失敗しました。"
-    no_date: "予約する日付を入力してください。"
+    no_date: "予約日付を入力してください。"
   requirement:
     profile:
       not_yet: "プロフィールを完成させてください。"
     profile_image:
       not_yet: "プロフィール画像をアップロードしてください。"
   msg:
+    contact: "についての相談です。"
+    reserve: "予約リクエストをお送りしました。"
     request: "ガイド内容をお送りしました。"
     accepted: "ガイド内容を承認しました。"
     canceled: "ガイド内容をキャンセルしました。"
@@ -187,6 +189,9 @@ mailer:
     subject:
       arrived: "新しいメッセージが届きました！"
   new_reservation:
+    subject:
+      arrived: "予約リクエストが届きました！"
+  new_guide_detail:
     subject:
       arrived: "ガイド内容が届きました！"
   update_reservation:

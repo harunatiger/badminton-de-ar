@@ -3,6 +3,7 @@ class ProfilesController < ApplicationController
   before_action :regulate_user!, only: [:edit]
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
   before_action :set_pair_guide, only: [:show]
+  before_action :set_message_thread, only: [:show]
 
   # GET /profiles
   # GET /profiles.json
@@ -89,6 +90,15 @@ class ProfilesController < ApplicationController
     def regulate_user!
       unless current_user.profile.id == params[:id].to_i
         redirect_to dashboard_path, notice: Settings.regulate_user.user_id.failure
+      end
+    end
+  
+    def set_message_thread
+      if current_user
+        msg_params = Hash['to_user_id' => @profile.user_id,'from_user_id' => current_user.id]
+        if res = MessageThread.exists_thread?(msg_params)
+          @message_thread = MessageThread.find(res)
+        end
       end
     end
 

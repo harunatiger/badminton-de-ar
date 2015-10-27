@@ -30,16 +30,24 @@
             span#tour-price-option
               | 12000
       = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
+        - user_id = 0
+        - user_id = current_user.id if user_signed_in?
+        = f.hidden_field :host_id, value: @listing.user_id
+        = f.hidden_field :guest_id, value: user_id
+        = f.hidden_field :listing_id, value: @listing.id
+        = f.hidden_field :progress, value: 'holded'
+        = f.hidden_field :schedule_hour, value: 00
+        = f.hidden_field :schedule_minute, value: 00
         .row.row-space-4
           .col-md-8
             label[for="checkin"]
               |  参加する日付
-            input#checkin.checkin.datepicker[name="reservation[schedule]" placeholder="年/月/日" type="text"]
+            input#checkin.checkin.datepicker[name="reservation[schedule_date]" placeholder="年/月/日" type="text"]
           .col-md-4
             label[for="reservation_num_of_people"]
               |  人数
             .select.select-block#num-of-people
-              = f.input_field :num_of_people, as: :select, collection: [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12], [13], [14], [15], [16]], default: [1]
+              = f.input_field :num_of_people, as: :select, collection: [*(1..16)], default: [1]
 
         #culc-container.row-space-1
           .row.row-space-1
@@ -80,11 +88,26 @@
                 |  料金には何が含まれていますか？
 
         .row-space-2
-          button.btn.btn-large.btn-block.btn-host
-            | 予約リクエスト
-        .row-space-1
-          - if profile_self_introduction_exists?
-            button#message-host-link.btn.btn-large.btn-block.btn-primary
-              | メッセージを送る
+          - if user_signed_in?
+            - if current_user.id == @listing.user_id or @active_reservation
+              = f.submit '予約をリクエスト', id: 'book_it_button', class: "btn btn-large btn-block btn-host disabled"
+            - elsif not profile_self_introduction_exists?
+              = link_to '予約をリクエスト', profile_link, class: 'btn btn-large btn-block btn-host'
+            - else
+              = f.submit '予約をリクエスト', id: 'book_it_button', name: 'reserve', class: "btn btn-large btn-block btn-host"
           - else
-            = link_to 'メッセージを送る', profile_link, class: 'btn btn-large btn-block btn-primary'
+            button.btn.btn-large.btn-block.btn-host
+              | 予約をリクエスト
+        .row-space-1
+          - if user_signed_in?
+            - if current_user.id == @listing.user_id
+              = f.submit 'メッセージを送る', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
+            - elsif not profile_self_introduction_exists?
+              = link_to 'メッセージを送る', profile_link, class: 'btn btn-large btn-block btn-primary'
+            - else
+              -if @message_thread
+                = link_to 'メッセージを送る', message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary'
+              -else
+                = link_to 'メッセージを送る', message_threads_path(message_thread: {host_id: @listing.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary'
+          - else
+            = f.submit 'メッセージを送る', class: "btn btn-large btn-block btn-primary"

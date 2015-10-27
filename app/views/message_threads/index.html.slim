@@ -35,7 +35,7 @@
                           - elsif mt.reservation_progress == "キャンセル"
                             .tag.tag-danger
                               = mt.reservation_progress
-                          - elsif mt.reservation_progress == "保留"
+                          - elsif mt.reservation_progress == "調整中"
                             .tag.tag-alert
                               = mt.reservation_progress
                           - elsif mt.reservation_progress == "ツアー決定"
@@ -47,6 +47,6 @@
                           - elsif mt.reservation_progress == "終了"
                             .tag.tag-normal
                               = mt.reservation_progress
-                          - else
+                          /- else
                             .tag.tag-normal
                               = mt.reservation_progress

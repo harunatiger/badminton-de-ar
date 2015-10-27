@@ -36,16 +36,17 @@
         = simple_format(reservation_obj.description.present? ? reservation_obj.description : 'なし')
     .row.row-condensed.row-space-2
       .col-md-12.btn-wrapper
-        - if reservation_obj.requested? and current_user.id == guest_id
-          = f.submit '承認する', name: 'accept', class: 'btn btn-primary'
-          = f.submit 'キャンセル', name: 'cancel', class: 'btn'
-        - elsif reservation_obj.completed? and current_user.id == guest_id
-          .h5.text-green.strong
-            = reservation_obj.string_of_progress_for_message_thread
-          .row-space-top-4
-            = f.submit 'キャンセル', name: 'cancel', class: "btn btn-host"
-            = link_to "#", class: "about_cancel_link" do
-              | 承認後のキャンセルに関して
-        - else
-          .h5.text-pink.strong
-            = reservation_obj.string_of_progress_for_message_thread
+        - unless m.try('content') == Settings.reservation.msg.reserve
+          - if reservation_obj.requested? and current_user.id == guest_id
+            = f.submit '承認する', name: 'accept', class: 'btn btn-primary'
+            = f.submit 'キャンセル', name: 'cancel', class: 'btn'
+          - elsif reservation_obj.completed? and current_user.id == guest_id
+            .h5.text-green.strong
+              = reservation_obj.string_of_progress_for_message_thread
+            .row-space-top-4
+              = f.submit 'キャンセル', name: 'cancel', class: "btn btn-host"
+              = link_to "#", class: "about_cancel_link" do
+                | 承認後のキャンセルに関して
+          - else
+            .h5.text-pink.strong
+              = reservation_obj.string_of_progress_for_message_thread

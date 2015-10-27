@@ -1,14 +1,10 @@
 <%= @to_user_name %> さん、こんにちは！
 
-<%= @from_user_name %> さんより、予約が <%= @progress %> されました！
+<%= @from_user_name %> さんより、ガイド内容が <%= @progress %> されました！
 
 以下のリンクから、内容をご確認ください。
 
-<% if @dest == "host" %>
-  <%= dashboard_host_reservation_manager_url %>
-<% elsif @dest == "guest" %>
-  <%= dashboard_guest_reservation_manager_url %>
-<% end %>
+<%= message_threads_url %>
 
 --
 Huber.

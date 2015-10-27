@@ -3,6 +3,7 @@ class ListingsController < ApplicationController
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
   before_action :set_listing_obj, only: [:publish, :unpublish]
   before_action :set_listing_related_data, only: [:show, :edit]
+  before_action :set_message_thread, only: [:show]
 
   # GET /listings
   # GET /listings.json
@@ -17,6 +18,7 @@ class ListingsController < ApplicationController
     user_id = current_user.id if user_signed_in?
     BrowsingHistory.insert_record(user_id, @listing.id)
     ListingPv.add_count(@listing.id)
+    @active_reservation = Reservation.active_reservation(user_id, @listing.user_id)
     @reviews = Review.this_listing(@listing.id).joins(:reservation).merge(Reservation.review_open?).order_by_created_at_desc.page(params[:page])
     @host_info = Profile.find_by(user_id: @listing.user_id)
     @host_image = ProfileImage.find_by(user_id: @listing.user_id)
@@ -126,6 +128,15 @@ class ListingsController < ApplicationController
       @confection = Confection.find_by(listing_id: @listing.id)
       @dress_code = DressCode.find_by(listing_id: @listing.id)
       @tool = Tool.find_by(listing_id: @listing.id)
+    end
+  
+    def set_message_thread
+      if current_user
+        msg_params = Hash['to_user_id' => @listing.user_id,'from_user_id' => current_user.id]
+        if res = MessageThread.exists_thread?(msg_params)
+          @message_thread = MessageThread.find(res)
+        end
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

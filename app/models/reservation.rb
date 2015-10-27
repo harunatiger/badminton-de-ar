@@ -26,6 +26,7 @@
 #  option_price           :integer          default(0)
 #  place                  :string           default("")
 #  description            :text             default("")
+#  schedule_end           :date
 #
 # Indexes
 #
@@ -55,6 +56,7 @@ class Reservation < ActiveRecord::Base
   validates :guest_id, presence: true
   validates :listing_id, presence: true
   validates :schedule, presence: true
+  validates :schedule_end, presence: true
   validates :num_of_people, presence: true
   validates :progress, presence: true
   validates :price, presence: true
@@ -86,8 +88,8 @@ class Reservation < ActiveRecord::Base
   def string_of_progress
     return "承認依頼中" if self.requested?
     return "キャンセル" if self.canceled?
-    return "保留" if self.holded?
-    return "ツアー決定" if self.accepted?
+    return "調整中" if self.holded?
+    return "承認" if self.accepted?
     return "取り消し" if self.rejected?
     return "終了" if self.listing_closed?
   end
@@ -137,11 +139,8 @@ class Reservation < ActiveRecord::Base
   end
 
   def self.active_reservation(guest_id, host_id)
-    reservations = self.where(guest_id: guest_id, host_id: host_id)
-    reservation = reservations.where(progress: 0).first
-    reservation = reservations.where(progress: 3).order('created_at desc').first if reservation.blank?
-    reservation = reservations.where(progress: 1).order('created_at desc').first if reservation.blank?
-    reservation
+    reservation = self.latest_reservation(guest_id, host_id)
+    reservation ? reservation.schedule_end > Date.today : false
   end
 
   def self.requested_reservation(guest_id, host_id)
@@ -161,6 +160,6 @@ class Reservation < ActiveRecord::Base
   end
 
   def completed?
-    self.accepted? and self.schedule > Date.today
+    self.accepted? and self.schedule_end > Date.today
   end
 end

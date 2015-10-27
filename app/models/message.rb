@@ -37,12 +37,12 @@ class Message < ActiveRecord::Base
   scope :message_thread, -> message_thread_id { where(message_thread_id: message_thread_id) }
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :reservation, -> reservation_id { where(reservation_id: reservation_id) }
-
+  
   def self.send_message(mt_obj, message_params)
     content = message_params['content'].present? ? message_params['content'] : ''
     progress = message_params['progress'].present? ? message_params['progress'] : ''
     listing_id = message_params['listing_id'].present? ? message_params['listing_id'] : 0
-    reservation_id = message_params['reservation_id'].present? ? message_params['reservation_id'] : 0
+    reservation_id = message_params['reservation_id'].present? ? message_params['reservation_id'] : 0 
     obj = Message.new(
       message_thread_id: mt_obj.id,
       content: content,
@@ -52,6 +52,7 @@ class Message < ActiveRecord::Base
       listing_id: listing_id,
       reservation_id: reservation_id
     )
+    
     obj.save
   end
 
