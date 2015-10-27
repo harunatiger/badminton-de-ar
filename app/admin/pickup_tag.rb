@@ -22,7 +22,7 @@ ActiveAdmin.register PickupTag do
       f.input :selected_listing,
               :label => "Select a Listing:",
               :as => :select,
-              :collection =>  Listing.where(id: ListingPickupTag.where(pickup_tag_id: f.object.id).select('listing_id'))
+              :collection =>  Listing.where(id: ListingPickupTag.where(pickup_tag_id: f.object.id).select('listing_id')).opened
     end
     f.actions
   end

@@ -3,9 +3,12 @@ require 'test_helper'
 class ListingPickupsControllerTest < ActionController::TestCase
 
   test "Can get parameter" do
-    get :manage, format: :json
+    user = create_user
+    listing = create_listing
+
+    get :manage
     assert_response :success
-    assert_not_nil assigns(:listing)
+    assert_not_nil assigns(:listing_id)
   end
 =begin
   test "Can render correct layout" do

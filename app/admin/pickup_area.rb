@@ -22,7 +22,7 @@ ActiveAdmin.register PickupArea do
       f.input :selected_listing,
               :label => "Select a Listing:",
               :as => :select,
-              :collection =>  Listing.where(id: ListingPickupArea.where(pickup_area_id: f.object.id).select('listing_id'))
+              :collection =>  Listing.where(id: ListingPickupArea.where(pickup_area_id: f.object.id).select('listing_id')).opened
     end
     f.actions
   end
