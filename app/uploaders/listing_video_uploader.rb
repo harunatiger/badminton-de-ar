@@ -51,13 +51,13 @@ class ListingVideoUploader < CarrierWave::Uploader::Base
   def create_elastic_transcoder_job(input_key, output_key)
     Aws.config.update({
       credentials: Aws::Credentials.new(
-        ENV["HUBER_AWS_ACCESS_KEY_ID"],
-        ENV["HUBER_AWS_SECRET_ACCESS_KEY"]),
-      region: ENV["HUBER_AWS_REGION"]})
+        ENV["HUBER_AWS_TRANSCODER_ACCESS_KEY_ID"],
+        ENV["HUBER_AWS_TRANSCODER_SECRET_ACCESS_KEY"]),
+      region: ENV["HUBER_AWS_TRANSCODER_REGION"]})
 
     pipeline_id = ENV["HUBER_AWS_TRANSCODER_PIPELINE_ID"]
     preset_id = '1351620000001-100240' ##System preset: WEB
-    transcoder_client = Aws::ElasticTranscoder::Client.new(region: ENV["HUBER_AWS_REGION"])
+    transcoder_client = Aws::ElasticTranscoder::Client.new(region: ENV["HUBER_AWS_TRANSCODER_REGION"])
     input = { key: input_key }
     output = {
       key: output_key,

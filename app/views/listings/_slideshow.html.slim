@@ -1,11 +1,22 @@
 .listing
   #photos.with-photos.with-modal
-    /.photo-slider-items.hide
-      = link_to(listing_images[0].image.url, class: 'photo-slider-item', title: listing_images[0].caption)
-      /a.photo-slider-item[href="#{listing_image.image.url}" title="#{listing_image.caption}"]
-        = image_tag(listing_image.image.url)
-    .cover-img-container
+    = link_to "#", class:"galon-trigger", title:"#{@listing_images[0].caption}" do
+      #photos.with-photos.with-modal
+        .cover-img-container
+          .cover-img[style="background-image:url(#{@listing_images[0].image || ''})"]
+        i.fa.fa-angle-left
+        i.fa.fa-angle-right
+    .photo-box
+      - count = 1
+      - listing_images.each do |listing_image|
+        = link_to "#{listing_image.image}", class:"galon", title:"#{listing_image.caption}" do
+          | 写真
+          = count
+        - count += 1
+        
+    /.cover-img-container
       | <div class="cover-img" style="background-image:url(#{@listing.try('cover_image') || ''})">
+
     .title-section
       .page-container
         .row

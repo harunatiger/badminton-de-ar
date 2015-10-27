@@ -1,7 +1,31 @@
 - @reservations.each do |r|
   - listing = reservation_to_listing(r)
   - guest = reservation_to_guest(r)
-  li.card-body
+  li.thread
+    .unread
+      .row
+        .col-md-4.thread-author
+          .row.row-table
+            .col-md-4.col-middle.thread-avatar
+              = image_tag(user_id_to_profile_image(r.guest_id), class: "media-round media-photo size60")
+            .h5.col-sm-8.col-middle.thread-name
+              = user_id_to_name(r.guest_id)
+        .col-md-5.thread-body
+          .row.row-table
+            .col-md-12.col-middle
+              .message-content-single.row-space-1
+                = link_to listing_path(r.listing_id) do
+                  = listing.title
+              .thread-date
+                = r.schedule.to_s
+                |  集合
+        .col-md-3.thread-progress
+          .row.row-table
+            .col-md-12.col-middle.text-center
+              .tag.tag-success
+                | 予約確定
+
+  /li.card-body
     .row.row-table
       .col-md-3
         span.label.text-green
@@ -24,7 +48,7 @@
         /- else
           span.label.text-danger
             | 非公開にしました
-      /.col-md-3
+      .col-md-3
         = link_to listing_path(r.listing_id) do
           = listing.title
       .col-md-4
@@ -32,10 +56,10 @@
           = user_id_to_name(r.guest_id)
       .col-md-5
         = r.schedule.to_s
-      /.col-md-2
+      .col-md-2
         = r.num_of_people
         | 人
-      /.link-group.reservation-item-as-host-launch-message
+      .link-group.reservation-item-as-host-launch-message
         = link_to "#", id: "reservation-item-as-host-launch-message-#{r.id}", data: { num: r.id } do
           - if r.continued?
             i.fa.fa-reply
@@ -43,4 +67,5 @@
           - else
             i.fa.fa-envelope-o
             '   メッセージを送る
-    = render partial: 'shared/modals/message_to_guest_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }
+
+  = render partial: 'shared/modals/message_to_guest_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }

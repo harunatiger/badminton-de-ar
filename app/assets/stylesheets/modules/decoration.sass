@@ -3,6 +3,27 @@
 .sample-cover-image1
   background-image: image-url('top-slider/slider_01.jpg')
 
+// photo-box
+.photo-box
+  display: none
+
+// magnific popup edit
+.mfp-arrow-right, .mfp-arrow-left
+  text-align: center
+  &:after, .mfp-a
+    color: white
+    font-size: 68px
+    font-family: 'FontAwesome'
+  &:after, .mfp-a
+    content: "\f105"
+    border: 0
+    margin-top: 0
+  &:before, .mfp-b
+    display: none
+.mfp-arrow-left
+  &:after, .mfp-a
+    content: "\f104"
+
 /* video.js hack */
 .vjs-default-skin .vjs-big-play-button
   top: 50%

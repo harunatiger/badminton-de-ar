@@ -93,7 +93,7 @@ class Reservation < ActiveRecord::Base
     return "取り消し" if self.rejected?
     return "終了" if self.listing_closed?
   end
-  
+
   def string_of_progress_for_message_thread
     return Settings.reservation.progress_for_message_thread.requested if self.requested?
     return Settings.reservation.progress_for_message_thread.canceled if self.canceled?
@@ -142,23 +142,23 @@ class Reservation < ActiveRecord::Base
     reservation = self.latest_reservation(guest_id, host_id)
     reservation ? reservation.schedule_end > Date.today : false
   end
-  
+
   def self.requested_reservation(guest_id, host_id)
     self.where(guest_id: guest_id, host_id: host_id, progress: 'requested').first
   end
-  
+
   def self.latest_reservation(guest_id, host_id)
     self.where(guest_id: guest_id, host_id: host_id).order('created_at desc').first
   end
-  
+
   def amount
     self.price + self.option_price
   end
-  
+
   def paypal_amount
     self.amount * 100
   end
-  
+
   def completed?
     self.accepted? and self.schedule_end > Date.today
   end
