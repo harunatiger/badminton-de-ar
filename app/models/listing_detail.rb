@@ -67,4 +67,8 @@ class ListingDetail < ActiveRecord::Base
     end
     hash
   end
+    
+  def amount
+    self.price + self.option_price
+  end
 end

@@ -14,7 +14,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    @listings = Listing.mine(@profile.user_id).order_by_updated_at_desc
+    @listings = Listing.mine(@profile.user_id).opened.order_by_updated_at_desc
     #@reviewed = Review.they_do(@profile.user_id).order_by_updated_at_desc
     @reviewed = Review.they_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
   end
