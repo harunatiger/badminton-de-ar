@@ -2,6 +2,14 @@
 
 class ListingVideoUploader < CarrierWave::Uploader::Base
 
+  def move_to_cache
+    true
+  end
+
+  def move_to_store
+    true
+  end
+
   # Include RMagick or MiniMagick support:
   #include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -31,14 +39,16 @@ class ListingVideoUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
   version :encoded do
     process :process_encode
+    after :store, :trigger_encode_job 
   end
 
   def process_encode
     tmpfile = File.join(File.dirname(current_path), "encoded")
     FileUtils.cp(current_path, tmpfile);pp "#{store_dir}/encoded_#{filename}"
     File.delete(tmpfile)
+  end
 
-    #
+  def trigger_encode_job(new_file)
     if Rails.env.staging? || Rails.env.production?
     #if 1 #for development
       create_elastic_transcoder_job(
@@ -64,11 +74,15 @@ class ListingVideoUploader < CarrierWave::Uploader::Base
       preset_id: preset_id
     }
 
-    transcoder_client.create_job(
-      pipeline_id: pipeline_id,
-      input: input,
-      outputs: [ output ]
-    )[:job][:id]
+    begin
+      transcoder_client.create_job(
+        pipeline_id: pipeline_id,
+        input: input,
+        outputs: [ output ]
+      )[:job][:id]
+    rescue => e
+      pp e
+    end
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

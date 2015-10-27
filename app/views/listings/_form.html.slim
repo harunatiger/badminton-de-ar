@@ -89,6 +89,9 @@
           = f.file_field :cover_video, as: :file, class: "row-space-1"
           /= f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2 row-space-1"
           span.text-pink 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
+          - if @listing.errors[:cover_video].present?
+            br
+            span.text-pink アップロードできる動画の容量は#{Listing::UPLOAD_VIDEO_LIMIT_SIZE}MBまでです。
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light

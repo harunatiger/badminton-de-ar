@@ -45,7 +45,7 @@ class ListingsController < ApplicationController
         if @listing.save
           format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
         else
-          format.html { render :new }
+          format.html { render :new, notice: Settings.listings.save.failure }
           format.json { render json: @listing.errors, status: :unprocessable_entity }
         end
       end
@@ -63,7 +63,7 @@ class ListingsController < ApplicationController
         if @listing.update(listing_params)
             format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
         else
-          format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.failure }
+          format.html { render :edit, notice: Settings.listings.save.failure }
         end
       end
     else
