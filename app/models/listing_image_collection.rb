@@ -1,9 +1,11 @@
 class ListingImageCollection < Form::Base
-  DEFAULT_ITEM_COUNT = 10
+  DEFAULT_ITEM_COUNT = 5
   attr_accessor :listing_images
+  attr_accessor :cover_image
+  attr_accessor :cover_video
 
   def initialize(attributes = {}, listing_id)
-    images = ListingImage.where(listing_id: listing_id).limit_10
+    images = ListingImage.where(listing_id: listing_id).limit_5
     super attributes
     unless listing_images.present?
       self.listing_images = images.present? ? images + (DEFAULT_ITEM_COUNT - images.count).times.map { ListingImage.new(listing_id: listing_id) } : DEFAULT_ITEM_COUNT.times.map { ListingImage.new(listing_id: listing_id) } 

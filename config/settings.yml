@@ -36,6 +36,7 @@ languages:
 listings:
   save:
     success: "ツアーページの登録に成功しました。次に、他の情報も入力してください。"
+    failure: "ツアーページのタイトルと紹介文を入力してください。"
   set_lon_lat:
     error: "緯度経度情報の取得に失敗しました。以下より正確な場所を入力してください。"
   publish:

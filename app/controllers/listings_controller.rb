@@ -40,35 +40,37 @@ class ListingsController < ApplicationController
   # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
-    if @listing.set_lon_lat
-      respond_to do |format|
-        if @listing.save
-          format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
-        else
-          format.html { render :new }
-          format.json { render json: @listing.errors, status: :unprocessable_entity }
-        end
+    #if @listing.set_lon_lat
+    respond_to do |format|
+      if @listing.save
+        format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
+      else
+        flash.now[:alert] = Settings.listings.save.failure
+        format.html { render :new}
+        format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
-    else
-      return render :new, notice: Settings.listings.set_lon_lat.error
     end
+    #else
+      #return render :new, notice: Settings.listings.set_lon_lat.error
+    #end
   end
 
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
   def update
-    @listing.location = listing_params['location']
-    if @listing.set_lon_lat
-      respond_to do |format|
-        if @listing.update(listing_params)
-            format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
-        else
-          format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.failure }
-        end
+    #@listing.location = listing_params['location']
+    #if @listing.set_lon_lat
+    respond_to do |format|
+      if @listing.update(listing_params)
+          format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
+      else
+        flash.now[:alert] = Settings.listings.save.failure
+        format.html { render :edit}
       end
-    else
-      return render json: { success: false, errors: 'lonlat_failure'}
     end
+    #else
+      #return render json: { success: false, errors: 'lonlat_failure'}
+    #end
   end
 
   # DELETE /listings/1
@@ -124,7 +126,7 @@ class ListingsController < ApplicationController
     end
 
     def set_listing_related_data
-      @listing_images = ListingImage.where(listing_id: @listing.id).limit_10
+      @listing_images = ListingImage.where(listing_id: @listing.id).limit_5
       @confection = Confection.find_by(listing_id: @listing.id)
       @dress_code = DressCode.find_by(listing_id: @listing.id)
       @tool = Tool.find_by(listing_id: @listing.id)

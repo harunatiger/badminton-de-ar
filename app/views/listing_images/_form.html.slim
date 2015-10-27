@@ -1,8 +1,24 @@
 = simple_form_for([@listing, @listing_images], url: update_all_listing_listing_images_path, html: {class: "form--sp"} ) do |f|
   = f.error_notification
   /= f.hidden_field :listing_id, value: @listing.id
-  - count = 1
-  - @listing_images.listing_images.each do |listing_image|
+  -if @listing_images.cover_image.present?
+    .row.row-space-4.row-space-top-4.row-table
+      .col-xs-4.text-right.col-middle
+        .h4.text-light
+          |  現在のカバー画像 
+      .col-xs-8.fieldset.col-middle
+        .row
+          .col-xs-11.regist-pics
+            = image_tag(@listing_images.cover_image.thumb)
+  .row.row-space-4.row-space-top-4.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | カバー画像 
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11.regist-pics
+          = f.file_field :cover_image, as: :file
+  - @listing_images.listing_images.each_with_index do |listing_image, i|
     = f.fields_for :listing_images, listing_image do |image_form|
       = image_form.hidden_field :listing_id
       -if listing_image.image.present?
@@ -10,7 +26,7 @@
           .col-xs-4.text-right.col-middle
             .h4.text-light
               |  現在の画像 
-              = count
+              = i + 1
           .col-xs-8.fieldset.col-middle
             .row
               .col-xs-11.regist-pics
@@ -19,12 +35,31 @@
         .col-xs-4.text-right.col-middle
           .h4.text-light
             | ガイドのイメージ画像 
-            = count
+            = i + 1
         .col-xs-8.fieldset.col-middle
           .row
             .col-xs-11.regist-pics
               = image_form.file_field :image, as: :file
-      .row.row-space-4.row-space-top-4.row-table
+  - if @listing.cover_video.present?
+    .row.row-space-5.row-space-top-5.row-table
+      .col-xs-4.text-right.col-middle
+        .h4.text-light
+          |  現在のカバー動画
+      .col-xs-8.fieldset.col-middle
+        .row
+          .col-xs-11.regist-pics
+            video[src=@listing.cover_video.encoded controls width="240" height="240"]
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | ガイドページのカバー動画
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11.regist-pics
+          = f.file_field :cover_video, as: :file, class: "row-space-1"
+          /= f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2 row-space-1"
+          span.text-pink 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
+      /.row.row-space-4.row-space-top-4.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light
             |  写真のタイトル 
@@ -33,7 +68,7 @@
           .row
             .col-xs-11
               = image_form.input_field :caption, placeholder: "例) ショッピングはここで！"
-      .row.row-space-8.row-space-top-4.row-table
+      /.row.row-space-8.row-space-top-4.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light
             |  写真の説明 
@@ -42,7 +77,6 @@
           .row
             .col-xs-11
               = image_form.text_area :description, as: :text, placeholder: "例) スープカレーからラーメン、焼肉、お寿司まで！特におすすめするのはイカです❤︎帰る前には絶対食べていただきます笑", rows: '6'
-    - count += 1
   .row
     .col-xs-9.col-offset-3.text-reset-center
       = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-image-submit'
