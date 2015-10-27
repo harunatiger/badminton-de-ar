@@ -12,6 +12,19 @@ ActiveAdmin.register PickupArea do
 #   permitted << :other if resource.something?
 #   permitted
 # end
-  permit_params :name, :cover_image
+  permit_params :id, :name, :cover_image, :selected_listing
+
+  form do |f|
+    f.inputs do
+      f.input :id, :as => :hidden
+      f.input :name
+      f.input :cover_image
+      f.input :selected_listing,
+              :label => "Select a Listing:",
+              :as => :select,
+              :collection =>  Listing.where(id: ListingPickupArea.where(pickup_area_id: f.object.id).select('listing_id'))
+    end
+    f.actions
+  end
 
 end
