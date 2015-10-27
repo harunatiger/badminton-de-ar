@@ -228,9 +228,20 @@ $ ->
   # listings#show
   if $('body').hasClass('listings show')
 
+    # open include_what
     $('a.include_what_trigger').on 'click', ->
       $('#include_what').modal()
       return false
+
+    # gallery
+    $('.photo-box').magnificPopup
+      delegate: '.galon'
+      type: 'image'
+      gallery:
+        enabled: true
+
+    $('.galon-trigger').on 'click', ->
+      $('.photo-box').magnificPopup('open')
 
     # price culc
     tourPriceSingleContainer = $('#tour-price-single')
