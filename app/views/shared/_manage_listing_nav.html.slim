@@ -2,17 +2,20 @@
 - left_step_count = left_steps[0]
 - left_step_array = left_steps[1]
 - listing_image_active = true
-- confection_active = true
-- tool_active = true
-- dress_code_active = true
+- listing_detail_active = true
+/- confection_active = true
+/- tool_active = true
+/- dress_code_active = true
 - left_step_array.each do |i|
   - if i == 'listing_image'
     - listing_image_active = false
-  - if i == 'confection'
+  - if i == 'listing_detail'
+    - listing_detail_active = false
+  /- if i == 'confection'
     - confection_active = false
-  - if i == 'tool'
+  /- if i == 'tool'
     - tool_active = false
-  - if i == 'dress_code'
+  /- if i == 'dress_code'
     - dress_code_active = false
 .manage-listing-nav.col-md-3
   .row.nav-sections
@@ -32,7 +35,7 @@
       - if controller_name == "listing_images"
         li.nav-item.nav-active
           = link_to manage_listing_listing_images_path(@listing.id) do
-            | ガイド詳細
+            | 画像情報
             - if listing_image_active.blank?
               i.fa.fa-exclamation-circle
             - else
@@ -40,8 +43,24 @@
       - else
         li.nav-item
           = link_to manage_listing_listing_images_path(@listing.id) do
-            | ガイド詳細
+            | 画像情報
             - if listing_image_active.blank?
+              i.fa.fa-exclamation-circle
+            - else
+              i.fa.fa-check
+      - if controller_name == "listing_details"
+        li.nav-item.nav-active
+          = link_to manage_listing_listing_details_path(@listing.id) do
+            | ツアー詳細情報
+            - if listing_detail_active.blank?
+              i.fa.fa-exclamation-circle
+            - else
+              i.fa.fa-check
+      - else
+        li.nav-item
+          = link_to manage_listing_listing_details_path(@listing.id) do
+            | ツアー詳細情報
+            - if listing_detail_active.blank?
               i.fa.fa-exclamation-circle
             - else
               i.fa.fa-check

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023061038) do
+ActiveRecord::Schema.define(version: 20151027113428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -129,6 +129,33 @@ ActiveRecord::Schema.define(version: 20151023061038) do
 
   add_index "listing_categories", ["category_id"], name: "index_listing_categories_on_category_id", using: :btree
   add_index "listing_categories", ["listing_id"], name: "index_listing_categories_on_listing_id", using: :btree
+
+  create_table "listing_details", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.string   "zipcode"
+    t.string   "location",                                  default: ""
+    t.string   "place",                                     default: ""
+    t.decimal  "longitude",         precision: 9, scale: 6, default: 0.0
+    t.decimal  "latitude",          precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                     default: 0
+    t.integer  "option_price",                              default: 0
+    t.decimal  "time_required",     precision: 9, scale: 6, default: 0.0
+    t.integer  "max_num_of_people",                         default: 0
+    t.integer  "min_num_of_people",                         default: 0
+    t.text     "included",                                  default: ""
+    t.text     "condition",                                 default: ""
+    t.text     "refund_policy",                             default: ""
+    t.text     "in_case_of_rain",                           default: ""
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+  end
+
+  add_index "listing_details", ["latitude"], name: "index_listing_details_on_latitude", using: :btree
+  add_index "listing_details", ["listing_id"], name: "index_listing_details_on_listing_id", using: :btree
+  add_index "listing_details", ["location"], name: "index_listing_details_on_location", using: :btree
+  add_index "listing_details", ["longitude"], name: "index_listing_details_on_longitude", using: :btree
+  add_index "listing_details", ["price"], name: "index_listing_details_on_price", using: :btree
+  add_index "listing_details", ["zipcode"], name: "index_listing_details_on_zipcode", using: :btree
 
   create_table "listing_images", force: :cascade do |t|
     t.integer  "listing_id"
@@ -519,6 +546,7 @@ ActiveRecord::Schema.define(version: 20151023061038) do
   add_foreign_key "emergencies", "users"
   add_foreign_key "listing_categories", "categories"
   add_foreign_key "listing_categories", "listings"
+  add_foreign_key "listing_details", "listings"
   add_foreign_key "listing_images", "listings"
   add_foreign_key "listing_languages", "languages"
   add_foreign_key "listing_languages", "listings"

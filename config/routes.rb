@@ -328,6 +328,8 @@
 #
 
 Rails.application.routes.draw do
+  resources :listing_details
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -364,18 +366,21 @@ Rails.application.routes.draw do
       get 'manage', on: :collection
       post 'update_all', on: :collection
     end
+    resources :listing_details, only: [:show, :create, :update, :destroy] do
+      get 'manage', on: :collection
+    end
     #resources :listing_videos do
     #  get 'manage', on: :collection
     #end
-    resources :dress_codes, only: [:show, :create, :update, :destroy] do
-      get 'manage', on: :collection
-    end
-    resources :confections, only: [:show, :create, :update, :destroy]  do
-      get 'manage', on: :collection
-    end
-    resources :tools, only: [:show, :create, :update, :destroy] do
-      get 'manage', on: :collection
-    end
+    #resources :dress_codes, only: [:show, :create, :update, :destroy] do
+    #  get 'manage', on: :collection
+    #end
+    #resources :confections, only: [:show, :create, :update, :destroy]  do
+    #  get 'manage', on: :collection
+    #end
+    #resources :tools, only: [:show, :create, :update, :destroy] do
+    #  get 'manage', on: :collection
+    #end
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
     resources :ngevents, only: [:index, :create]

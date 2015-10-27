@@ -1,0 +1,107 @@
+= simple_form_for([@listing,@listing_detail], html: {class: "form--sp"}) do |f|
+  = f.error_notification
+  = f.hidden_field :listing_id, value: @listing.id
+  -if false
+    = f.input_field :longitude, as: :string, placeholder: "経度"
+    = f.input_field :latitude, as: :string, placeholder: "緯度"
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  所要時間
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  基本料金
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :price
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  オプション料金
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :option_price
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  最小催行人数
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.select :min_num_of_people, [*(1..20)]
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  最大催行人数
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.select :max_num_of_people, [*(1..20)]
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  ツアーに含まれるもの
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :included
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  集合場所の郵便番号
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-6.col-md-4
+          = f.input_field :zipcode, placeholder: "例) 012-3456"
+        .question-icon-container
+          i#zipcode-tooltip.fa.fa-question-circle.tooltip-trigger
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        |  集合場所の住所
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :location, placeholder: "郵便番号を入力すれば自動で出力されます"
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 集合場所
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :place
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 参加条件
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :condition
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 返金ポリシー
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :refund_policy
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 雨天の場合
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :in_case_of_rain
+  .row
+    .col-xs-9.col-offset-3.text-reset-center
+      = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-submit'
