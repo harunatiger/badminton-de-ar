@@ -161,8 +161,8 @@ image:
 page:
   home: 'ホーム'
   dashboard: 'ダッシュボード'
-  host_reservation_manager: '予約管理'
-  guest_reservation_manager: '参加する'
+  host_reservation_manager: '依頼受付'
+  guest_reservation_manager: '予約申込'
   listing_new: 'ガイドになる'
   listings: 'ツアーページ'
   messages: 'メッセージ'

@@ -2,27 +2,18 @@
 = render 'shared/subnav'
 .page-container.row-space-top-4.row-space-4
   .row
-    .col-md-3
+    /.col-md-3
       = render partial: "shared/host_sidenav"
 
     - if @reservations.blank?
-      .col-md-9
+      .col-md-12
         .card
-          .card-header 参加希望一覧
+          .card-header 依頼受付
           .card-body
             p.text-lead
-              | まだ参加希望者はいません。
+              | 現在、ガイド依頼の受付を完了したものはありません。
     - else
-      .col-md-9
+      .col-md-12
         .card
-          .card-header 参加希望一覧
-          .responsive-table-container
-            ul.list-unstyled.list-layout
-              li.card-body.hide--sp
-                .row.row-table.row-table-header
-                  .col-xs-4.col-md-3 状況
-                  /.col-xs-8.col-md-3 リスティングについて
-                  .col-xs-12.col-md-4 ゲスト
-                  .col-xs-12.col-md-5 日程
-                  /.col-xs-12.col-md-2 人数
-                  = render partial: 'reservation_item_as_host', locals: { reservations: @reservations }
+          ul.thread-list.list-layout
+            = render partial: 'reservation_item_as_host', locals: { reservations: @reservations }

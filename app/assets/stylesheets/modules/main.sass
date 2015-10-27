@@ -412,7 +412,7 @@ a.delete
       font-size: 36px
   .fa-angle-right
     left: auto
-    right: 20px  
+    right: 20px
   .photo-chevron
     position: absolute
     top: 0
@@ -976,11 +976,11 @@ a.about_payment_link
 
 .thread-list
   > li:first-child
-    > a
+    > a, > div
       border: 0
 
 .thread
-  a
+  > a, > div
     display: block
     padding: 20px
     color: $gray1
@@ -1002,10 +1002,10 @@ a.about_payment_link
     .thread-name
       font-weight: 400
 
-.thread-progress
-  padding-top: 15px
+.thread-body .row, .thread-progress .row
+  height: 60px
 
-// ellipsis
+// message-content ellipsis
 $container-bg: $bg1
 $font-size-base: 14px
 $line-height-computed: 1.4
@@ -1035,9 +1035,16 @@ $lines-to-show: 2
       height: 100%
       width: 100%
 
+.message-content-single
+  width: 100%
+  font-weight: 700
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
+
 @media (max-width: 767px)
   .thread
-    a
+    > a, > div
       position: relative
   .thread-link
     position: absolute
@@ -1065,7 +1072,7 @@ $lines-to-show: 2
     padding-top: 4px
     font-size: 16px
   .thread-body
-    padding: 20px 0 0 80px
+    padding: 24px 0 0 78px
   .thread-subject
     position: absolute
     top: 36px
@@ -1078,6 +1085,17 @@ $lines-to-show: 2
     position: absolute
     top: 44px
     left: 70px
+  .thread-body .row-table, .thread-progress .row-table
+    display: block
+  .thread-progress .row-table
+    height: auto
+    .col-middle
+      display: block
+      .tag
+        width: 100%
+  .thread-body .row-table
+    .col-middle
+      display: block
 
 /* Blackbox */
 @media (max-width: 1099px) and (min-width: 768px)
