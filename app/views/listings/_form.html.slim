@@ -12,7 +12,7 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :title, placeholder: "例) 葛飾区のことならなんでもお任せ！"
+          = f.input_field :title, placeholder: "例) 鎌倉市のガイドマスターが案内します！"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -20,7 +20,17 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :description, placeholder: "例) 葛飾区のことならなんでもお任せ！"
+          .row-space-1.small1.text-muted
+            p
+              | このツアーのあなたならではのおすすめポイントをできるだけ細かく紹介しましょう。
+              br
+              | こんなことを書くと興味を持ってもらえる紹介文になります。
+            ul.list-normal
+              li 場所の説明ではなく、あなたが何故この場所を紹介したいのかを書きましょう。
+              li 例えば、この場所でのあなたの想い出を語るなどが効果的です！
+              li 他にも、裏話、ムダ知識なんかも喜ばれます！
+
+          = f.input_field :description, placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
   / .row.row-space-5.row-space-top-5.row-table
   /   .col-xs-4.text-right.col-middle
   /     .h4.text-light
@@ -123,10 +133,11 @@
       .row
         .col-xs-11
           - PickupArea.all.each do |area|
-            = f.check_box :pickup_areas_ids,
-                          {:checked => @listing.pickup_areas.include?(area),
-                           :name => "listing[pickup_area_ids][]"}, area.id, ''
-            = area.name
+            label
+              = f.check_box :pickup_areas_ids,
+                            {:checked => @listing.pickup_areas.include?(area),
+                             :name => "listing[pickup_area_ids][]"}, area.id, ''
+              = area.name
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -135,11 +146,12 @@
       .row
         .col-xs-11
           - PickupCategory.all.each do |category|
-            = f.check_box :pickup_categories_ids,
-                          {:checked => @listing.pickup_categories.include?(category),
-                           :name => "listing[pickup_category_ids][]"}, category.id, ''
-            = category.name
-  .row.row-space-5.row-space-top-5.row-table
+            label
+              = f.check_box :pickup_categories_ids,
+                            {:checked => @listing.pickup_categories.include?(category),
+                             :name => "listing[pickup_category_ids][]"}, category.id, ''
+              = category.name
+  .row.row-space-6.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
         |  ツアーのタグ
@@ -147,10 +159,11 @@
       .row
         .col-xs-11
           - PickupTag.all.each do |tag|
-            = f.check_box :pickup_tags_ids,
-                          {:checked => @listing.pickup_tags.include?(tag),
-                           :name => "listing[pickup_tag_ids][]"}, tag.id, ''
-            = tag.name
+            label
+              = f.check_box :pickup_tags_ids,
+                            {:checked => @listing.pickup_tags.include?(tag),
+                             :name => "listing[pickup_tag_ids][]"}, tag.id, ''
+              = tag.name
   /.row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light

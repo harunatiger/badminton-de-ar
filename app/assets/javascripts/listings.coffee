@@ -2,18 +2,21 @@
 $ ->
 
   # listings#new
-  if $('body').hasClass('listings new') || $('body').hasClass('listings edit')
+  if $('body').hasClass('listing_details manage')
 
     # add input file for pics
+    ###
     $('.add-file-input').on 'click', ->
       $(this).before('<input type="file">')
       return false
+    ###
 
     # disabled submit-btn to active
+    ###
     $('#new_listing input[type="text"]').on 'blur', ->
       if $('#listing_title').val() != '' && $('#listing_zipcode').val() != '' && $('#listing_location').val() != ''
         $('.btn-primary').removeClass('disabled')
-
+    ###
     # style zip-code
     setPostcode = (postcode) ->
       if postcode.length == 7
@@ -25,7 +28,7 @@ $ ->
       postcode
 
     # auto address
-    $('#listing_zipcode').change ->
+    $('#listing_detail_zipcode').change ->
       zip = setPostcode($(this).val())
       if !zip
         return
@@ -33,7 +36,7 @@ $ ->
       url = '//api.zipaddress.net/?callback=?'
       query = 'zipcode': zip
       $.getJSON url, query, (json) ->
-        $('#listing_location').val(json.pref + json.address).focus()
+        $('#listing_detail_location').val(json.pref + json.address).focus()
         return
       return
 

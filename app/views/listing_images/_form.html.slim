@@ -1,6 +1,25 @@
 = simple_form_for([@listing, @listing_images], url: update_all_listing_listing_images_path, html: {class: "form--sp"} ) do |f|
   = f.error_notification
   /= f.hidden_field :listing_id, value: @listing.id
+  - if @listing.cover_video.present?
+    .row.row-space-5.row-space-top-5.row-table
+      .col-xs-4.text-right.col-middle
+        .h4.text-light
+          | 現在のツアー紹介動画
+      .col-xs-8.fieldset.col-middle
+        .row
+          .col-xs-11.regist-pics
+            = video_player src: { mp4: @listing.cover_video.encoded, webm: @listing.cover_video.encoded }, controls: true, width: "315", height: "315", id: "tour_movie"
+  .row.row-space-8.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | ツアーの紹介動画
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11.regist-pics
+          = f.file_field :cover_video, as: :file, class: "row-space-1"
+          /= f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2 row-space-1"
+          span.text-pink 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
   -if @listing_images.cover_image.present?
     .row.row-space-4.row-space-top-4.row-table
       .col-xs-4.text-right.col-middle
@@ -10,7 +29,7 @@
         .row
           .col-xs-11.regist-pics
             = image_tag(@listing_images.cover_image.thumb)
-  .row.row-space-4.row-space-top-4.row-table
+  .row.row-space-8.row-space-top-4.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
         | カバー画像 
@@ -31,7 +50,7 @@
             .row
               .col-xs-11.regist-pics
                 = image_tag(listing_image.image.thumb)
-      .row.row-space-4.row-space-top-4.row-table
+      .row.row-space-8.row-space-top-4.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light
             | ガイドのイメージ画像 
@@ -40,25 +59,6 @@
           .row
             .col-xs-11.regist-pics
               = image_form.file_field :image, as: :file
-  - if @listing.cover_video.present?
-    .row.row-space-5.row-space-top-5.row-table
-      .col-xs-4.text-right.col-middle
-        .h4.text-light
-          |  現在のカバー動画
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11.regist-pics
-            video[src=@listing.cover_video.encoded controls width="240" height="240"]
-  .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | ガイドページのカバー動画
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11.regist-pics
-          = f.file_field :cover_video, as: :file, class: "row-space-1"
-          /= f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2 row-space-1"
-          span.text-pink 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
       /.row.row-space-4.row-space-top-4.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light

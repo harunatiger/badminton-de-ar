@@ -348,23 +348,26 @@ ActiveRecord::Schema.define(version: 20151027113428) do
 
   create_table "pickup_areas", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "cover_image"
+    t.integer  "selected_listing"
   end
 
   create_table "pickup_categories", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "cover_image"
+    t.integer  "selected_listing"
   end
 
   create_table "pickup_tags", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "cover_image"
+    t.integer  "selected_listing"
   end
 
   create_table "profile_banks", force: :cascade do |t|

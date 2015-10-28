@@ -20,17 +20,17 @@
 .manage-listing-nav.col-md-3
   .row.nav-sections
     .section-header.row-space-1
-      | ガイド情報
+      | ツアー詳細
     ul.list-unstyled.row-space-4
       - if controller_name == "listings"
         li.nav-item.nav-active
           = link_to new_or_edit_path(@listing) do
-            | 基本情報
+            | ツアー基本情報
             i.fa.fa-check
       - else
         li.nav-item
           = link_to new_or_edit_path(@listing) do
-            | 基本情報
+            | ツアー基本情報
             i.fa.fa-check
       - if controller_name == "listing_images"
         li.nav-item.nav-active

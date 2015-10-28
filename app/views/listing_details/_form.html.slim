@@ -7,51 +7,67 @@
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        |  所要時間
+        | 所要時間
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}
+          .select.select-opt.opt-double
+            = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}
+            span 時間
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        |  基本料金
+        | 基本料金
     .col-xs-8.fieldset.col-middle
       .row
-        .col-xs-11
-          = f.input_field :price
+        .col-xs-6
+          .input-opt
+            = f.input_field :price
+            span 円
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        |  オプション料金
+        | オプション料金
     .col-xs-8.fieldset.col-middle
       .row
-        .col-xs-11
-          = f.input_field :option_price
+        .col-xs-6
+          .input-opt
+            = f.input_field :option_price
+            span 円
+      p.row-space-top-1.text-red
+        i.fa.fa-exclamation-circle
+        |  タクシー代やガソリン代など追加で発生する料金
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        |  最小催行人数
+        | 最小催行人数
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.select :min_num_of_people, [*(1..20)]
+          .select.select-opt
+            = f.select :min_num_of_people, [*(1..20)]
+            span 人
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        |  最大催行人数
+        | 最大催行人数
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.select :max_num_of_people, [*(1..20)]
+          .select.select-opt
+            = f.select :max_num_of_people, [*(1..20)]
+            span 人
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        |  ツアーに含まれるもの
+        | ツアーに含まれるもの
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :included
+          = f.input_field :included, placeholder: "ツアーに含まれる内容で料金が発生するものを記入してください", rows: "6"
+          p.row-space-top-1.text-red
+            i.fa.fa-exclamation-circle
+            |  ユーザーが申し込みをする時点で表示される情報です。
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -65,7 +81,7 @@
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        |  集合場所の住所
+        | 集合場所の住所
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
@@ -77,7 +93,7 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :place
+          = f.input_field :place, placeholder: "例）ハチ公前にバラの花を付けて集合"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -85,15 +101,15 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :condition
+          = f.input_field :condition, placeholder: "例) 女子旅なので女子オンリー"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
         | 返金ポリシー
     .col-xs-8.fieldset.col-middle
       .row
-        .col-xs-11
-          = f.input_field :refund_policy
+        .col-xs-11.disabled-text
+          = f.input_field :refund_policy, disabled: true, value: "予約申し込み決定から60日以内のキャンセルで全額返金になります。"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -101,7 +117,7 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :in_case_of_rain
+          = f.input_field :in_case_of_rain, placeholder: "例) 雨天決行！"
   .row
     .col-xs-9.col-offset-3.text-reset-center
       = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-submit'
