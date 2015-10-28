@@ -1,0 +1,2 @@
+class SelfIntroductionsController < ApplicationController
+end
