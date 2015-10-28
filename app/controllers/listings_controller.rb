@@ -122,7 +122,7 @@ class ListingsController < ApplicationController
     end
 
     def set_listing_obj
-      @listing = Listing.find(params[:listing_id])
+      @listing = Listing.find(params[:listing_id]).includes(:listing_detail)
     end
 
     def set_listing_related_data
