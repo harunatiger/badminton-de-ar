@@ -58,16 +58,6 @@ class ListingsController < ApplicationController
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
   def update
-<<<<<<< HEAD
-    @listing.location = listing_params['location']
-    if @listing.set_lon_lat
-      respond_to do |format|
-        if @listing.update(listing_params)
-            format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
-        else
-          format.html { render :edit, notice: Settings.listings.save.failure }
-        end
-=======
     #@listing.location = listing_params['location']
     #if @listing.set_lon_lat
     respond_to do |format|
@@ -76,7 +66,6 @@ class ListingsController < ApplicationController
       else
         flash.now[:alert] = Settings.listings.save.failure
         format.html { render :edit}
->>>>>>> master
       end
     end
     #else
@@ -128,7 +117,7 @@ class ListingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
-      @listing = Listing.where(id: params[:id]).first.includes(:listing_detail)
+      @listing = Listing.where(id: params[:id]).first
       return redirect_to root_path, notice: Settings.listings.error.invalid_listing_id if @listing.blank?
     end
 

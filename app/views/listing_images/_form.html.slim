@@ -1,5 +1,7 @@
 = simple_form_for([@listing, @listing_images], url: update_all_listing_listing_images_path, html: {class: "form--sp"} ) do |f|
-  = f.error_notification
+  /= f.error_notification
+  /= out_put_error(@listing)
+  /= out_put_error(@listing_images)
   /= f.hidden_field :listing_id, value: @listing.id
   -if @listing_images.cover_image.present?
     .row.row-space-4.row-space-top-4.row-table

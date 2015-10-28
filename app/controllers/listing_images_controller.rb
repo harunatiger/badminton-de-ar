@@ -14,17 +14,15 @@ class ListingImagesController < ApplicationController
     @listing.cover_image = @listing_images.cover_image if @listing_images.cover_image.present?
     @listing.cover_video = @listing_images.cover_video if @listing_images.cover_video.present?
     if @listing_images.valid? and @listing.valid?
-      @listing_images.save
-      @listing.save
-      if @listing.listing_images.present? or @listing.cover_image.present?
+      if @listing.listing_images.present? or @listing.cover_image.present? or @listing.cover_video.present?
+        @listing_images.save
+        @listing.save
         redirect_to manage_listing_listing_details_path(@listing.id), notice: Settings.listing_images.save.success
       else
-        flash.now[:alert] = Settings.listing_images.save.failure
-        render 'manage'
+        redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.save.failure
       end
     else
-      flash.now[:alert] = Settings.listing_images.save.failure
-      render 'manage'
+      redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.save.failure_video
     end
   end
 
