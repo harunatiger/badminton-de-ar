@@ -14,6 +14,16 @@ ActiveAdmin.register PickupTag do
 # end
   permit_params :id, :name, :cover_image, :selected_listing
 
+  index do
+    column 'ID', :id
+    column 'Name', :name
+    column 'CoverImage', :cover_image
+    column 'listing' do |pickup_tag|
+      Listing.where(id: pickup_tag.selected_listing).all.pluck(:title).join(',')
+    end
+    actions
+  end
+
   form do |f|
     f.inputs do
       f.input :id, :as => :hidden
@@ -25,6 +35,23 @@ ActiveAdmin.register PickupTag do
               :collection =>  Listing.where(id: ListingPickupTag.where(pickup_tag_id: f.object.id).select('listing_id')).opened
     end
     f.actions
+  end
+
+  show do
+    attributes_table do
+      row 'ID' do
+        resource.id
+      end
+      row 'Name' do
+        resource.name
+      end
+      row 'CoverImage' do
+        resource.cover_image
+      end
+      row 'Listing' do
+        Listing.where(id: resource.selected_listing).all.pluck(:title).join(',')
+      end
+    end
   end
 
 end

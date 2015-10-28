@@ -14,6 +14,17 @@ ActiveAdmin.register PickupCategory do
 # end
   permit_params :id, :name, :cover_image, :selected_listing
 
+
+  index do
+    column 'ID', :id
+    column 'Name', :name
+    column 'CoverImage', :cover_image
+    column 'listing' do |pickup_category|
+      Listing.where(id: pickup_category.selected_listing).all.pluck(:title).join(',')
+    end
+    actions
+  end
+
   form do |f|
     f.inputs do
       f.input :id, :as => :hidden
@@ -25,6 +36,23 @@ ActiveAdmin.register PickupCategory do
               :collection =>  Listing.where(id: ListingPickupCategory.where(pickup_category_id: f.object.id).select('listing_id')).opened
     end
     f.actions
+  end
+
+  show do
+    attributes_table do
+      row 'ID' do
+        resource.id
+      end
+      row 'Name' do
+        resource.name
+      end
+      row 'CoverImage' do
+        resource.cover_image
+      end
+      row 'Listing' do
+        Listing.where(id: resource.selected_listing).all.pluck(:title).join(',')
+      end
+    end
   end
 
 end
