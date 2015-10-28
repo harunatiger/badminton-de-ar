@@ -21,7 +21,11 @@
         .col-xs-11.regist-pics
           = f.file_field :cover_video, as: :file, class: "row-space-1"
           /= f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2 row-space-1"
-          span.text-pink 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
+          span.text-blue
+            = link_to "https://itunes.apple.com/us/app/clipbox-1seccamera/id980538523?mt=8", target: "_blank" do
+              | 1secCamera
+            | を使った動画の撮影を推奨しています。
+
   -if @listing_images.cover_image.present?
     .row.row-space-4.row-space-top-4.row-table
       .col-xs-4.text-right.col-middle
@@ -39,6 +43,8 @@
       .row
         .col-xs-11.regist-pics
           = f.file_field :cover_image, as: :file
+          span.text-blue 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
+
   - @listing_images.listing_images.each_with_index do |listing_image, i|
     = f.fields_for :listing_images, listing_image do |image_form|
       = image_form.hidden_field :listing_id

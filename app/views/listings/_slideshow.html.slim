@@ -7,9 +7,11 @@
         i.fa.fa-angle-left
         i.fa.fa-angle-right
     .photo-box
+      = link_to "#{listing.cover_image}", class:"galon" do
+        | 写真
       - count = 1
       - listing_images.each do |listing_image|
-        = link_to "#{listing_image.image}", class:"galon", title:"#{listing_image.caption}" do
+        = link_to "#{listing_image.image}", class:"galon" do
           | 写真
           = count
         - count += 1

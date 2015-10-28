@@ -51,8 +51,8 @@ listings:
     invalid_listing_id: "該当するツアーが見つかりません。"
 listing_images:
   save:
-    success: "ツアーページの画像の登録に成功しました。"
-    failure: "画像を選択してください。"
+    success: "ツアーページの動画・画像の登録に成功しました。"
+    failure: "動画・画像を選択してください。"
     failure_video: "動画のサイズが大きすぎます。<%= ENV["UPLOAD_VIDEO_LIMIT_SIZE"]%>MB以内の動画を登録してください。"
 listing_details:
   save:
