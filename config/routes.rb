@@ -347,6 +347,7 @@ Rails.application.routes.draw do
   get 'dashboard/guest_reservation_manager' => 'dashboard#guest_reservation_manager'
   # get 'reviews'                             => 'profiles#review', as: 'user_review'
   # get 'introductions'                       => 'profiles#introduction', as: 'introduction'
+  get 'pickups/show/:type/:id'                    => 'listing_pickups#show', as: 'pickups_list'
 
   resources :message_threads, except: [:edit]
 
@@ -386,6 +387,7 @@ Rails.application.routes.draw do
     resources :ngevents, only: [:index, :create]
     resources :calendar
   end
+
 
   resources :reservations, only: [:show, :edit, :create, :update] do
     resource :reviews do
