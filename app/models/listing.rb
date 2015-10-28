@@ -87,6 +87,12 @@ class Listing < ActiveRecord::Base
   #validates :price, presence: true
   validates :title, presence: true
   #validates :capacity, presence: true
+  validates_each :cover_video do |record, attr, value|
+    if value.present? and value.file.size.to_f > UPLOAD_VIDEO_LIMIT_SIZE.megabytes.to_f
+      record.errors.add(attr, "You cannot upload a file greater than #{UPLOAD_VIDEO_LIMIT_SIZE}MB")
+    end
+  end
+  UPLOAD_VIDEO_LIMIT_SIZE = ENV["UPLOAD_VIDEO_LIMIT_SIZE"].to_i.freeze
 
   scope :mine, -> user_id { where(user_id: user_id) }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
@@ -175,7 +181,7 @@ class Listing < ActiveRecord::Base
   def complete_steps
     result = []
     #result << Settings.left_steps.listing_image unless ListingImage.exists?(listing_id: self.id
-    result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_image.present?)
+    result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_image.present? or self.cover_video.present?)
     result << Settings.left_steps.listing_detail unless ListingDetail.exists?(listing_id: self.id)
     #result << Settings.left_steps.confection unless Confection.exists?(listing_id: self.id)
     #result << Settings.left_steps.tool unless Tool.exists?(listing_id: self.id)
