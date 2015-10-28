@@ -117,12 +117,12 @@ class ListingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
-      @listing = Listing.where(id: params[:id]).first
+      @listing = Listing.where(id: params[:id]).first.includes(:listing_detail)
       return redirect_to root_path, notice: Settings.listings.error.invalid_listing_id if @listing.blank?
     end
 
     def set_listing_obj
-      @listing = Listing.find(params[:listing_id])
+      @listing = Listing.find(params[:listing_id]).includes(:listing_detail)
     end
 
     def set_listing_related_data

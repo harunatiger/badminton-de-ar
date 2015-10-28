@@ -338,6 +338,9 @@ Rails.application.routes.draw do
     resources :profile_images
     resources :profile_banks
     resources :profile_identities
+    member do
+      get 'self_introduction',    action: 'self_introduction'
+    end
   end
 
 #  resources :auths
