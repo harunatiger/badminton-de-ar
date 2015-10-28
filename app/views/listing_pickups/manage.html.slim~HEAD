@@ -1,7 +1,0 @@
-/ listings_pickup#manage
-.manage-listings
-  = render partial: 'shared/subnav', locals: { listing: @listing }
-  .manage-listing-row-container
-    .manage-listing-content.col-md-9.col-offset-3
-      = render 'form'
-    = render partial: 'shared/manage_listing_nav'

@@ -5,10 +5,10 @@
       /a.photo-slider-item[href="#{listing_image.image.url}" title="#{listing_image.caption}"]
         = image_tag(listing_image.image.url)
     .cover-img-container
-      | <div class="cover-img" style="background-image:url(#{@pickup_cover_image})">
+      | <div class="cover-img" style="background-image:url(#{pickup_cover_image})">
     .title-section
       .page-container
         .row
           .col-lg-12
             h1#tagline.uppercase.text-jumbo.text-contrast.row-space-top-2.row-space-4
-              = @pickup_title
+              = pickup_title
