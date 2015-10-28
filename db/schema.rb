@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023061038) do
+ActiveRecord::Schema.define(version: 20151028020345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,33 @@ ActiveRecord::Schema.define(version: 20151023061038) do
   add_index "listing_categories", ["category_id"], name: "index_listing_categories_on_category_id", using: :btree
   add_index "listing_categories", ["listing_id"], name: "index_listing_categories_on_listing_id", using: :btree
 
+  create_table "listing_details", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.string   "zipcode"
+    t.string   "location",                                  default: ""
+    t.string   "place",                                     default: ""
+    t.decimal  "longitude",         precision: 9, scale: 6, default: 0.0
+    t.decimal  "latitude",          precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                     default: 0
+    t.integer  "option_price",                              default: 0
+    t.decimal  "time_required",     precision: 9, scale: 6, default: 0.0
+    t.integer  "max_num_of_people",                         default: 0
+    t.integer  "min_num_of_people",                         default: 0
+    t.text     "included",                                  default: ""
+    t.text     "condition",                                 default: ""
+    t.text     "refund_policy",                             default: ""
+    t.text     "in_case_of_rain",                           default: ""
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+  end
+
+  add_index "listing_details", ["latitude"], name: "index_listing_details_on_latitude", using: :btree
+  add_index "listing_details", ["listing_id"], name: "index_listing_details_on_listing_id", using: :btree
+  add_index "listing_details", ["location"], name: "index_listing_details_on_location", using: :btree
+  add_index "listing_details", ["longitude"], name: "index_listing_details_on_longitude", using: :btree
+  add_index "listing_details", ["price"], name: "index_listing_details_on_price", using: :btree
+  add_index "listing_details", ["zipcode"], name: "index_listing_details_on_zipcode", using: :btree
+
   create_table "listing_images", force: :cascade do |t|
     t.integer  "listing_id"
     t.string   "image",       default: ""
@@ -151,6 +178,36 @@ ActiveRecord::Schema.define(version: 20151023061038) do
 
   add_index "listing_languages", ["language_id"], name: "index_listing_languages_on_language_id", using: :btree
   add_index "listing_languages", ["listing_id"], name: "index_listing_languages_on_listing_id", using: :btree
+
+  create_table "listing_pickup_areas", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.integer  "pickup_area_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "listing_pickup_areas", ["listing_id"], name: "index_listing_pickup_areas_on_listing_id", using: :btree
+  add_index "listing_pickup_areas", ["pickup_area_id"], name: "index_listing_pickup_areas_on_pickup_area_id", using: :btree
+
+  create_table "listing_pickup_categories", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.integer  "pickup_category_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "listing_pickup_categories", ["listing_id"], name: "index_listing_pickup_categories_on_listing_id", using: :btree
+  add_index "listing_pickup_categories", ["pickup_category_id"], name: "index_listing_pickup_categories_on_pickup_category_id", using: :btree
+
+  create_table "listing_pickup_tags", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.integer  "pickup_tag_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "listing_pickup_tags", ["listing_id"], name: "index_listing_pickup_tags_on_listing_id", using: :btree
+  add_index "listing_pickup_tags", ["pickup_tag_id"], name: "index_listing_pickup_tags_on_pickup_tag_id", using: :btree
 
   create_table "listing_pvs", force: :cascade do |t|
     t.integer  "listing_id"
@@ -289,6 +346,30 @@ ActiveRecord::Schema.define(version: 20151023061038) do
 
   add_index "payments", ["reservation_id"], name: "index_payments_on_reservation_id", using: :btree
 
+  create_table "pickup_areas", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "cover_image"
+    t.integer  "selected_listing"
+  end
+
+  create_table "pickup_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "cover_image"
+    t.integer  "selected_listing"
+  end
+
+  create_table "pickup_tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "cover_image"
+    t.integer  "selected_listing"
+  end
+
   create_table "profile_banks", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "profile_id"
@@ -390,6 +471,7 @@ ActiveRecord::Schema.define(version: 20151023061038) do
     t.float    "ave_cost_performance", default: 0.0
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.string   "country",              default: ""
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
@@ -519,6 +601,7 @@ ActiveRecord::Schema.define(version: 20151023061038) do
   add_foreign_key "emergencies", "users"
   add_foreign_key "listing_categories", "categories"
   add_foreign_key "listing_categories", "listings"
+  add_foreign_key "listing_details", "listings"
   add_foreign_key "listing_images", "listings"
   add_foreign_key "listing_languages", "languages"
   add_foreign_key "listing_languages", "listings"

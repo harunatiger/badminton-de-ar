@@ -2,59 +2,25 @@ h4.row-space-4
   | ガイドするツアー
   small
     | (
-    | 13
+    =@listings.count
     | )
 .row
-  .col-md-6.row-space-4
-    .card.tour-listing
-      .card-image
-        = link_to "#", class: "media-photo media-photo-block media-cover" do
-          = image_tag("sample/pic/pic004.jpg", height: "210", width: "484", alt: "", class: "img-responsive")
-        .card-overlay-bottom-left.flush-left.card-overlay-label
-          .h3
-            | ¥&nbsp;7365
-      .card-body
-        .media
-          = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-            = image_tag("sample/person1.jpg", alt: "阿部 友暁")
-          = link_to "#", class: "text-normal" do
-            h5.row-space-1
-              | すすきの3泊4日、道産子の夜を楽しむ大人のツアー！あなたの好みに合わせてベテランガイドが案内します。
-          .row-space-1.text-muted
-            | 72時間 · レビュー67件
-
-  .col-md-6.row-space-4
-    .card.tour-listing
-      .card-image
-        = link_to "#", class: "media-photo media-photo-block media-cover" do
-          = image_tag("sample/pic/pic004.jpg", height: "210", width: "484", alt: "", class: "img-responsive")
-        .card-overlay-bottom-left.flush-left.card-overlay-label
-          .h3
-            | ¥&nbsp;7365
-      .card-body
-        .media
-          = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-            = image_tag("sample/person1.jpg", alt: "阿部 友暁")
-          = link_to "#", class: "text-normal" do
-            h5.row-space-1
-              | すすきの3泊4日、道産子の夜を楽しむ大人のツアー！あなたの好みに合わせてベテランガイドが案内します。
-          .row-space-1.text-muted
-            | 72時間 · レビュー67件
-
-  .col-md-6.row-space-4
-    .card.tour-listing
-      .card-image
-        = link_to "#", class: "media-photo media-photo-block media-cover" do
-          = image_tag("sample/pic/pic004.jpg", height: "210", width: "484", alt: "", class: "img-responsive")
-        .card-overlay-bottom-left.flush-left.card-overlay-label
-          .h3
-            | ¥&nbsp;7365
-      .card-body
-        .media
-          = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-            = image_tag("sample/person1.jpg", alt: "阿部 友暁")
-          = link_to "#", class: "text-normal" do
-            h5.row-space-1
-              | すすきの3泊4日、道産子の夜を楽しむ大人のツアー！あなたの好みに合わせてベテランガイドが案内します。
-          .row-space-1.text-muted
-            | 72時間 · レビュー67件
+  - @listings.each do |listing|
+    .col-md-6.row-space-4
+      .card.tour-listing
+        .card-image
+          = link_to listing_path(listing), class: "media-photo media-photo-block media-cover" do
+            = image_tag(listing.try('cover_image'), height: "210", width: "484", alt: "", class: "img-responsive")
+          .card-overlay-bottom-left.flush-left.card-overlay-label
+            .h3
+              | ¥&nbsp;
+              =listing.listing_detail.amount
+        .card-body
+          .media
+            = link_to profile_path(@profile), class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+              = image_tag(user_id_to_profile_image_thumb(@profile.user_id), alt: "#{user_id_to_name(@profile.user_id)}")
+            = link_to listing_path(listing), class: "text-normal" do
+              h5.row-space-1
+                = listing.description
+            .row-space-1.text-muted
+              | #{listing.listing_detail.time_required}時間 · レビュー#{listing.review_count}件

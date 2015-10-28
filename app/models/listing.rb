@@ -61,6 +61,7 @@ class Listing < ActiveRecord::Base
   has_one :confection, dependent: :destroy
   has_one :tool, dependent: :destroy
   has_one :dress_code, dependent: :destroy
+  has_one :listing_detail, dependent: :destroy
   has_many :reservations
   has_many :reviews
   has_many :listing_categories, dependent: :destroy
@@ -68,6 +69,13 @@ class Listing < ActiveRecord::Base
   has_many :listing_languages, dependent: :destroy
   has_many :languages, :through => :listing_languages, dependent: :destroy
   has_many :ngevents
+  has_many :listing_pickup_categories, dependent: :destroy
+  has_many :listing_pickup_tags, dependent: :destroy
+  has_many :listing_pickup_areas, dependent: :destroy
+  has_many :pickup_categories, :through => :listing_pickup_categories, dependent: :destroy
+  has_many :pickup_tags, :through =>  :listing_pickup_tags, dependent: :destroy
+  has_many :pickup_areas, :through =>  :listing_pickup_areas, dependent: :destroy
+
 
   mount_uploader :cover_image, DefaultImageUploader
   mount_uploader :cover_video, ListingVideoUploader
@@ -172,7 +180,9 @@ class Listing < ActiveRecord::Base
 
   def complete_steps
     result = []
-    result << Settings.left_steps.listing_image unless ListingImage.exists?(listing_id: self.id)
+    #result << Settings.left_steps.listing_image unless ListingImage.exists?(listing_id: self.id
+    result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_image.present?)
+    result << Settings.left_steps.listing_detail unless ListingDetail.exists?(listing_id: self.id)
     #result << Settings.left_steps.confection unless Confection.exists?(listing_id: self.id)
     #result << Settings.left_steps.tool unless Tool.exists?(listing_id: self.id)
     #result << Settings.left_steps.dress_code unless DressCode.exists?(listing_id: self.id)

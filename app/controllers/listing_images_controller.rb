@@ -5,14 +5,26 @@ class ListingImagesController < ApplicationController
 
   def manage
     @listing_images = ListingImageCollection.new({},@listing.id)
+    @listing_images.cover_image = @listing.cover_image
+    @listing_images.cover_video = @listing.cover_video
   end
   
   def update_all
     @listing_images = ListingImageCollection.new(listing_image_collection_params, @listing.id)
-    if @listing_images.save
-      redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.save.success
+    @listing.cover_image = @listing_images.cover_image if @listing_images.cover_image.present?
+    @listing.cover_video = @listing_images.cover_video if @listing_images.cover_video.present?
+    if @listing_images.valid? and @listing.valid?
+      @listing_images.save
+      @listing.save
+      if @listing.listing_images.present? or @listing.cover_image.present?
+        redirect_to manage_listing_listing_details_path(@listing.id), notice: Settings.listing_images.save.success
+      else
+        flash.now[:alert] = Settings.listing_images.save.failure
+        render 'manage'
+      end
     else
-      redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.save.failure
+      flash.now[:alert] = Settings.listing_images.save.failure
+      render 'manage'
     end
   end
 
@@ -63,7 +75,7 @@ class ListingImagesController < ApplicationController
     def listing_image_collection_params
       params
         .require(:listing_image_collection)
-      .permit(listing_images_attributes: [:id, :listing_id, :image, :caption, :description])
+      .permit(:cover_image, :cover_video, listing_images_attributes: [:id, :listing_id, :image, :caption, :description])
     end
 
 end

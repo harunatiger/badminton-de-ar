@@ -1,9 +1,9 @@
 .listing
   #photos.with-photos.with-modal
-    = link_to "#", class:"galon-trigger", title:"#{@listing_images[0].caption}" do
+    = link_to "#", class:"galon-trigger", title:"#{listing.cover_image}" do
       #photos.with-photos.with-modal
         .cover-img-container
-          .cover-img[style="background-image:url(#{@listing_images[0].image || ''})"]
+          .cover-img[style="background-image:url(#{listing.try('cover_image') || ''})"]
         i.fa.fa-angle-left
         i.fa.fa-angle-right
     .photo-box

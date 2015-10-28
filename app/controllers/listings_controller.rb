@@ -25,7 +25,7 @@ class ListingsController < ApplicationController
     @profiles = Profile.guides.where.not(id: @host_info.id)
     @message = Message.new
     #@wishlists = Wishlist.mine(current_user).order_by_created_at_desc
-    gon.listing = @listing
+    gon.listing = @listing.listing_detail
     @reservation = Reservation.new
   end
 
@@ -40,23 +40,25 @@ class ListingsController < ApplicationController
   # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
-    if @listing.set_lon_lat
-      respond_to do |format|
-        if @listing.save
-          format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
-        else
-          format.html { render :new, notice: Settings.listings.save.failure }
-          format.json { render json: @listing.errors, status: :unprocessable_entity }
-        end
+    #if @listing.set_lon_lat
+    respond_to do |format|
+      if @listing.save
+        format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
+      else
+        flash.now[:alert] = Settings.listings.save.failure
+        format.html { render :new}
+        format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
-    else
-      return render :new, notice: Settings.listings.set_lon_lat.error
     end
+    #else
+      #return render :new, notice: Settings.listings.set_lon_lat.error
+    #end
   end
 
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
   def update
+<<<<<<< HEAD
     @listing.location = listing_params['location']
     if @listing.set_lon_lat
       respond_to do |format|
@@ -65,10 +67,21 @@ class ListingsController < ApplicationController
         else
           format.html { render :edit, notice: Settings.listings.save.failure }
         end
+=======
+    #@listing.location = listing_params['location']
+    #if @listing.set_lon_lat
+    respond_to do |format|
+      if @listing.update(listing_params)
+          format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
+      else
+        flash.now[:alert] = Settings.listings.save.failure
+        format.html { render :edit}
+>>>>>>> master
       end
-    else
-      return render json: { success: false, errors: 'lonlat_failure'}
     end
+    #else
+      #return render json: { success: false, errors: 'lonlat_failure'}
+    #end
   end
 
   # DELETE /listings/1
@@ -115,16 +128,16 @@ class ListingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
-      @listing = Listing.where(id: params[:id]).first
+      @listing = Listing.where(id: params[:id]).first.includes(:listing_detail)
       return redirect_to root_path, notice: Settings.listings.error.invalid_listing_id if @listing.blank?
     end
 
     def set_listing_obj
-      @listing = Listing.find(params[:listing_id])
+      @listing = Listing.find(params[:listing_id]).includes(:listing_detail)
     end
 
     def set_listing_related_data
-      @listing_images = ListingImage.where(listing_id: @listing.id).limit_10
+      @listing_images = ListingImage.where(listing_id: @listing.id).limit_5
       @confection = Confection.find_by(listing_id: @listing.id)
       @dress_code = DressCode.find_by(listing_id: @listing.id)
       @tool = Tool.find_by(listing_id: @listing.id)
@@ -149,7 +162,8 @@ class ListingsController < ApplicationController
         :description, :title, :capacity, :direction, :schedule, :listing_images,
         :cover_image, :cover_image_caption, :cover_video, :cover_video_caption, 
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
-        language_ids: []
+        language_ids: [],
+        pickup_area_ids: [],pickup_category_ids: [], pickup_tag_ids: []
       )
     end
 

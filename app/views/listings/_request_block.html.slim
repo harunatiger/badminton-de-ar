@@ -13,7 +13,7 @@
           span#tour-price-single
           small.time
             | 1人 
-            | 3.5
+            = listing.listing_detail.time_required
             | 時間
         .row.row-space-1
           .col-md-6
@@ -21,14 +21,14 @@
           .col-md-6.text-right.strong
             | ¥
             span#tour-price-base
-              | 3000
+              =listing.listing_detail.price
         .row.row-space-1
           .col-md-6
             | オプション料金
           .col-md-6.text-right.strong
             | ¥
             span#tour-price-option
-              | 12000
+              =listing.listing_detail.option_price
       = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
         - user_id = 0
         - user_id = current_user.id if user_signed_in?

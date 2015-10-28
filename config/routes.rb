@@ -328,6 +328,8 @@
 #
 
 Rails.application.routes.draw do
+  resources :listing_details
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -336,6 +338,9 @@ Rails.application.routes.draw do
     resources :profile_images
     resources :profile_banks
     resources :profile_identities
+    member do
+      get 'self_introduction',    action: 'self_introduction'
+    end
   end
 
 #  resources :auths
@@ -345,6 +350,7 @@ Rails.application.routes.draw do
   get 'dashboard/guest_reservation_manager' => 'dashboard#guest_reservation_manager'
   # get 'reviews'                             => 'profiles#review', as: 'user_review'
   # get 'introductions'                       => 'profiles#introduction', as: 'introduction'
+  get 'pickups/show/:type/:id'                    => 'listing_pickups#show', as: 'pickups_list'
 
   resources :message_threads, except: [:edit]
 
@@ -364,23 +370,27 @@ Rails.application.routes.draw do
       get 'manage', on: :collection
       post 'update_all', on: :collection
     end
+    resources :listing_details, only: [:show, :create, :update, :destroy] do
+      get 'manage', on: :collection
+    end
     #resources :listing_videos do
     #  get 'manage', on: :collection
     #end
-    resources :dress_codes, only: [:show, :create, :update, :destroy] do
-      get 'manage', on: :collection
-    end
-    resources :confections, only: [:show, :create, :update, :destroy]  do
-      get 'manage', on: :collection
-    end
-    resources :tools, only: [:show, :create, :update, :destroy] do
-      get 'manage', on: :collection
-    end
+    #resources :dress_codes, only: [:show, :create, :update, :destroy] do
+    #  get 'manage', on: :collection
+    #end
+    #resources :confections, only: [:show, :create, :update, :destroy]  do
+    #  get 'manage', on: :collection
+    #end
+    #resources :tools, only: [:show, :create, :update, :destroy] do
+    #  get 'manage', on: :collection
+    #end
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
     resources :ngevents, only: [:index, :create]
     resources :calendar
   end
+
 
   resources :reservations, only: [:show, :edit, :create, :update] do
     resource :reviews do

@@ -36,6 +36,7 @@ languages:
 listings:
   save:
     success: "ツアーページの登録に成功しました。次に、他の情報も入力してください。"
+    failure: "ツアーページのタイトルと紹介文を入力してください。"
   set_lon_lat:
     error: "緯度経度情報の取得に失敗しました。以下より正確な場所を入力してください。"
   publish:
@@ -50,8 +51,12 @@ listings:
     invalid_listing_id: "該当するツアーが見つかりません。"
 listing_images:
   save:
-    success: "ツアーページのイメージ画像の登録に成功しました。"
-    failure: "画像の登録に失敗しました。"
+    success: "ツアーページの画像の登録に成功しました。"
+    failure: "画像を選択してください。"
+listing_details:
+  save:
+    success: "ツアー詳細情報の登録に成功しました。"
+    failure: "集合場所の住所を設定してください。"
 confections:
   save:
     success: "オプション1の情報を登録いたしました。"
@@ -161,8 +166,8 @@ image:
 page:
   home: 'ホーム'
   dashboard: 'ダッシュボード'
-  host_reservation_manager: '予約管理'
-  guest_reservation_manager: '参加する'
+  host_reservation_manager: '依頼受付'
+  guest_reservation_manager: '予約申込'
   listing_new: 'ガイドになる'
   listings: 'ツアーページ'
   messages: 'メッセージ'
@@ -206,6 +211,7 @@ mailer:
     subject: "レビューへの返信を記入しましょう。"
 left_steps:
   listing_image: "listing_image"
+  listing_detail: "listing_detail"
   confection: "confection"
   tool: "tool"
   dress_code: "dress_code"

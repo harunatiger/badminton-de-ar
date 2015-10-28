@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :regulate_user!, only: [:edit]
-  before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_action :set_profile, only: [:show, :edit, :update, :destroy, :self_introduction]
   before_action :set_pair_guide, only: [:show]
   before_action :set_message_thread, only: [:show]
 
@@ -14,7 +14,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    @listings = Listing.mine(@profile.user_id).order_by_updated_at_desc
+    @listings = Listing.mine(@profile.user_id).opened.includes(:listing_detail).order_by_updated_at_desc
     #@reviewed = Review.they_do(@profile.user_id).order_by_updated_at_desc
     @reviewed = Review.they_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
   end
@@ -26,6 +26,9 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+  end
+  
+  def self_introduction
     flash.now[:notice] = Settings.profile.send_message if params[:send_message] == 'yes'
   end
 
@@ -106,7 +109,7 @@ class ProfilesController < ApplicationController
     def profile_params
       params.require(:profile).permit(
         :id, :user_id, :first_name, :last_name, :birthday,
-        :phone, :phone_verification, :location, :self_introduction,
+        :phone, :phone_verification, :country, :location, :self_introduction,
         :school, :work, :timezone, :gender, :zipcode,
         :listing_count, :wishlist_count, :bookmark_count, :reviewed_count, :reservation_count,
         :ave_total, :ave_accuracy, :ave_communication, :ave_cleanliness, :ave_location,

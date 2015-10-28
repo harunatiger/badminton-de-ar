@@ -1,0 +1,19 @@
+h1 Listing listing_details
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @listing_details.each do |listing_detail|
+      tr
+        td = link_to 'Show', listing_detail
+        td = link_to 'Edit', edit_listing_detail_path(listing_detail)
+        td = link_to 'Destroy', listing_detail, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Listing detail', new_listing_detail_path
