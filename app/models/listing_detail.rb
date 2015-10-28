@@ -44,7 +44,9 @@ class ListingDetail < ActiveRecord::Base
       self.latitude = hash['lat']
       self
     else
-      return false
+      self.longitude = 0.0
+      self.latitude = 0.0
+      self
     end
   end
 

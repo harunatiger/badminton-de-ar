@@ -31,8 +31,9 @@ class ListingDetailsController < ApplicationController
   # POST /listing_details.json
   def create
     @listing_detail = ListingDetail.new(listing_detail_params)
+    @listing_detail.set_lon_lat
     respond_to do |format|
-      if @listing_detail.set_lon_lat and @listing_detail.save
+      if @listing_detail.save
         format.html { redirect_to manage_listing_listing_details_path(@listing.id), notice: Settings.listing_details.save.success }
         format.json { render :show, status: :created, location: @listing_detail }
       else
@@ -47,7 +48,9 @@ class ListingDetailsController < ApplicationController
   # PATCH/PUT /listing_details/1.json
   def update
     respond_to do |format|
-      if @listing_detail.set_lon_lat and @listing_detail.update(listing_detail_params)
+      @listing_detail.location = listing_detail_params['location']
+      @listing_detail.set_lon_lat
+      if @listing_detail.update(listing_detail_params)
         format.html { redirect_to manage_listing_listing_details_path(@listing.id), notice: Settings.listing_details.save.success }
         format.json { render :show, status: :ok, location: @listing_detail }
       else
