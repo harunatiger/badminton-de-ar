@@ -25,7 +25,7 @@ class ListingsController < ApplicationController
     @profiles = Profile.guides.where.not(id: @host_info.id)
     @message = Message.new
     #@wishlists = Wishlist.mine(current_user).order_by_created_at_desc
-    gon.listing = @listing
+    gon.listing = @listing.listing_detail
     @reservation = Reservation.new
   end
 
