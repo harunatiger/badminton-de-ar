@@ -3,14 +3,14 @@
       ul.sidenav-list
         li
           a.sidenav-item[href="#" aria-selected="true"]
-            | 基本情報
+            | アカウント情報
     .col-lg-9
       .card.row-space-4
         = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
           = f.error_notification
           #change_your_password
             .card-header
-              |  パスワードを変更
+              |  アカウント情報を変更
             .card-body
               .row
                 .col-md-10
@@ -21,9 +21,9 @@
                   .row.row-condensed.row-space-2
                     .col-md-5.text-right.text-left--md
                       label[for="old_password"]
-                        |  現在のパスワード
+                        |  メールアドレス
                     .col-md-7
-                      = f.input_field :current_password, required: true
+                      = f.input_field :email, required: true
                   .row.row-condensed.row-space-2
                     .col-md-5.text-right.text-left--md
                       label[for="user_password"]
@@ -36,7 +36,13 @@
                         |  新しいパスワード（確認）
                     .col-md-7
                       = f.input_field :password_confirmation, hint: "we need your current password to confirm your changes", required: true, class: "input-block", size: "30"
+                  .row.row-condensed.row-space-2
+                    .col-md-5.text-right.text-left--md
+                      label[for="old_password"]
+                        |  現在のパスワード
+                    .col-md-7
+                      = f.input_field :current_password, required: true
                 .col-md-5
 
             .card-footer
-              = f.button :submit, "パスワードの更新", class: "btn btn-primary"
+              = f.button :submit, "アカウント情報を更新", class: "btn btn-primary"
