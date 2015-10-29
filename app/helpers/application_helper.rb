@@ -161,6 +161,38 @@ module ApplicationHelper
       false
     end
   end
+  
+  def profile_to_image(profile)
+    if profile.profile_image.present?
+      profile.profile_image.try('image') || Settings.image.noimage2.url
+    else
+      Settings.image.noimage2.url
+    end
+  end
+  
+  def profile_to_cover_image(profile)
+    if profile.profile_image.present?
+      profile.profile_image.try('cover_image') || Settings.image.noimage2.url
+    else
+      Settings.image.noimage2.url
+    end
+  end
+  
+  def profile_to_image_thumb(profile)
+    if profile.profile_image.present? and profile.profile_image.image.present?
+      profile.profile_image.image.try('thumb') || Settings.image.noimage2.url
+    else
+      Settings.image.noimage2.url
+    end
+  end
+  
+  def profile_to_cover_image_thumb(profile)
+    if profile.profile_image.present? and profile.profile_image.cover_image.present?
+      profile.profile_image.cover_image.try('thumb') || Settings.image.noimage2.url
+    else
+      Settings.image.noimage2.url
+    end
+  end
 
   def user_id_to_profile_identity(user_id)
     result = ProfileIdentity.mine(user_id)
@@ -326,48 +358,48 @@ module ApplicationHelper
     end
   end
 
-  def category_food?(listing)
-    listing.categories.exists?(:name => Settings.categories.food)
+  def category_food?(profile)
+    profile.categories.exists?(:name => Settings.categories.food)
   end
 
-  def category_alcohol?(listing)
-    listing.categories.exists?(:name => Settings.categories.alcohol)
+  def category_alcohol?(profile)
+    profile.categories.exists?(:name => Settings.categories.alcohol)
   end
 
-  def category_car?(listing)
-    listing.categories.exists?(:name => Settings.categories.car)
+  def category_car?(profile)
+    profile.categories.exists?(:name => Settings.categories.car)
   end
 
-  def category_cruising?(listing)
-    listing.categories.exists?(:name => Settings.categories.cruising)
+  def category_cruising?(profile)
+    profile.categories.exists?(:name => Settings.categories.cruising)
   end
 
-  def category_shopping?(listing)
-    listing.categories.exists?(:name => Settings.categories.shopping)
+  def category_shopping?(profile)
+    profile.categories.exists?(:name => Settings.categories.shopping)
   end
 
-  def category_accommodation?(listing)
-    listing.categories.exists?(:name => Settings.categories.accommodation)
+  def category_accommodation?(profile)
+    profile.categories.exists?(:name => Settings.categories.accommodation)
   end
 
-  def category_business?(listing)
-    listing.categories.exists?(:name => Settings.categories.business)
+  def category_business?(profile)
+    profile.categories.exists?(:name => Settings.categories.business)
   end
 
-  def category_sport?(listing)
-    listing.categories.exists?(:name => Settings.categories.sport)
+  def category_sport?(profile)
+    profile.categories.exists?(:name => Settings.categories.sport)
   end
 
-  def language_ja?(listing)
-    listing.languages.exists?(:name => Settings.languages.ja)
+  def language_ja?(profile)
+    profile.languages.exists?(:name => Settings.languages.ja)
   end
 
-  def language_en?(listing)
-    listing.languages.exists?(:name => Settings.languages.en)
+  def language_en?(profile)
+    profile.languages.exists?(:name => Settings.languages.en)
   end
 
-  def language_zh?(listing)
-    listing.languages.exists?(:name => Settings.languages.zh)
+  def language_zh?(profile)
+    profile.languages.exists?(:name => Settings.languages.zh)
   end
 
   def out_put_error(target)

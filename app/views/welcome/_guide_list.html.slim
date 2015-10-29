@@ -4,53 +4,53 @@
       h2.row-space-1.strong スターガイドのご紹介
       p.text-lead ユニークな旅、心づくしのおもてなし。人気のStarGuideたちに依頼しよう!
     .guide_list-tiles
-      - @listings.each_with_index do | listing, i |
+      - @profiles.each_with_index do | profile, i |
         /- if (i + 1) % 3 == 0 
           br
         .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
           div
-            = link_to listing_path(listing.id), class: 'huber-card' do
-              .huber-card-background[style="background-image: url('#{listing_cover_image_thumb_url(listing.id)}')"]
+            = link_to profile_path(profile), class: 'huber-card' do
+              .huber-card-background[style="background-image: url('#{profile_to_cover_image_thumb(profile)}')"]
               .huber-card-content
                 .huber-card-face
-                  = image_tag(user_id_to_profile_image(listing.user_id), class: "")
+                  = image_tag(profile_to_image_thumb(profile), class: "")
                 .huber-inner
                   .name
-                    = user_id_to_name(listing.user_id)
+                    = "#{profile.last_name} #{profile.first_name}"
                   .introducing
                     span
-                      = user_id_to_profile_image_caption(listing.user_id)
+                      = profile.self_introduction
                 .capability
-                  -if category_food?(listing)
+                  -if category_food?(profile)
                     span[title="食" data-toggle="tooltip"]
                       i.fa.fa-cutlery
-                  -if category_alcohol?(listing)
+                  -if category_alcohol?(profile)
                     span[title="お酒" data-toggle="tooltip"]
                       i.fa.fa-glass
-                  -if category_car?(listing)
+                  -if category_car?(profile)
                     span[title="車" data-toggle="tooltip"]
                       i.fa.fa-car
-                  -if category_cruising?(listing)
+                  -if category_cruising?(profile)
                     span[title="船旅" data-toggle="tooltip"]
                       i.fa.fa-ship
-                  -if category_shopping?(listing)
+                  -if category_shopping?(profile)
                     span[title="ショッピング" data-toggle="tooltip"]
                       i.fa.fa-shopping-cart
-                  -if category_accommodation?(listing)
+                  -if category_accommodation?(profile)
                     span[title="宿泊施設" data-toggle="tooltip"]
                       i.fa.fa-bed
-                  -if category_business?(listing)
+                  -if category_business?(profile)
                     span[title="ビジネス" data-toggle="tooltip"]
                       i.fa.fa-area-chart
-                  -if category_sport?(listing)
+                  -if category_sport?(profile)
                     span[title="スポーツ" data-toggle="tooltip"]
                       i.fa.fa-soccer-ball-o
                 .language
-                  -if language_ja?(listing)
+                  -if language_ja?(profile)
                     span 日本語
-                  -if language_en?(listing)
+                  -if language_en?(profile)
                     span English
-                  -if language_zh?(listing)
+                  -if language_zh?(profile)
                     span 中国語
 
       /.col-sm-12.rm-padding--sp.row-space-6.text-center
