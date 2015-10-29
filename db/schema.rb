@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029065803) do
+ActiveRecord::Schema.define(version: 20151029150851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -504,7 +504,7 @@ ActiveRecord::Schema.define(version: 20151029065803) do
     t.integer  "guest_id"
     t.integer  "listing_id"
     t.datetime "schedule",                                                     null: false
-    t.integer  "num_of_people",                                                null: false
+    t.integer  "num_of_people",                                  default: 0,   null: false
     t.text     "msg",                                            default: ""
     t.integer  "progress",                                       default: 0,   null: false
     t.text     "reason",                                         default: ""
