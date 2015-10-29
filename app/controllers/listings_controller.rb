@@ -31,6 +31,9 @@ class ListingsController < ApplicationController
 
   def new
     @listing = Listing.new
+    @categories = PickupCategory.all
+    @tags = PickupTag.all
+    @areas = PickupArea.all
   end
 
   def edit

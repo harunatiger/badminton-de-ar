@@ -12,6 +12,7 @@ class PickupsController < ApplicationController
   def show
     p @pickup
     @listings = @pickup.listings.opened
+    @pickups = Pickup.all
   end
 
   # GET /pickups/new
