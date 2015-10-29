@@ -34,6 +34,9 @@ class ListingsController < ApplicationController
   end
 
   def edit
+    @categories = PickupCategory.all
+    @tags = PickupTag.all
+    @areas = PickupArea.all
   end
 
   # POST /listings
@@ -151,9 +154,7 @@ class ListingsController < ApplicationController
         :description, :title, :capacity, :direction, :schedule, :listing_images,
         :cover_image, :cover_image_caption, :cover_video, :cover_video_caption, 
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
-        language_ids: [],
-        pickup_area_ids: [],pickup_category_ids: [], pickup_tag_ids: []
-      )
+        language_ids: [], pickup_ids: [])
     end
 
     def search_params

@@ -1,5 +1,5 @@
-= render partial: "coverimage", locals: { pickup_cover_image: @pickup_cover_image, pickup_title: @pickup_title }
-.discovery-tiles
+= render partial: "coverimage", locals: { pickup_cover_image: @pickup.try('cover_image'), pickup_title: @pickup.name }
+.guide_list-tiles
   .page-container
     .row
       - @listings.each do | listing |

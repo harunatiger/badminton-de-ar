@@ -69,12 +69,8 @@ class Listing < ActiveRecord::Base
   has_many :listing_languages, dependent: :destroy
   has_many :languages, :through => :listing_languages, dependent: :destroy
   has_many :ngevents
-  has_many :listing_pickup_categories, dependent: :destroy
-  has_many :listing_pickup_tags, dependent: :destroy
-  has_many :listing_pickup_areas, dependent: :destroy
-  has_many :pickup_categories, :through => :listing_pickup_categories, dependent: :destroy
-  has_many :pickup_tags, :through =>  :listing_pickup_tags, dependent: :destroy
-  has_many :pickup_areas, :through =>  :listing_pickup_areas, dependent: :destroy
+  has_many :listing_pickups, dependent: :destroy
+  has_many :pickups, :through =>  :listing_pickups
 
 
   mount_uploader :cover_image, DefaultImageUploader

@@ -1,19 +1,22 @@
 # == Schema Information
 #
-# Table name: pickup_areas
+# Table name: pickups
 #
 #  id               :integer          not null, primary key
-#  name             :string
+#  name             :string           default("")
+#  cover_image      :string           default("")
+#  selected_listing :integer
+#  type             :string
+#  order_number     :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  cover_image      :string
-#  selected_listing :integer
+#
+# Indexes
+#
+#  index_pickups_on_name  (name)
+#  index_pickups_on_type  (type)
 #
 
-class PickupArea < ActiveRecord::Base
-  has_many :listing_pickup_areas
-  has_many :listings, through: :listing_pickup_areas
-
-  mount_uploader :cover_image, DefaultImageUploader
-
+class PickupArea < Pickup
+  mount_uploader :cover_image, PickupImageUploader
 end

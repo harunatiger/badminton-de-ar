@@ -5,7 +5,7 @@
         = image_tag(listing.cover_image, height: "210", width: "484", alt: "", class: "img-responsive")
       .card-overlay-bottom-left.flush-left.card-overlay-label
         .h3
-          = listing.price
+          = listing.listing_detail.amount
     .card-body
       .media
         = link_to profile_path(listing.user_id), class: 'pull-right media-photo media-round card-profile-picture card-profile-picture-offset' do
@@ -14,4 +14,4 @@
           h5.row-space-1
             = listing.title
         .row-space-1.text-muted
-          | #{listing.capacity}時間 ・ #{listing.review_count}件
+          | #{listing.listing_detail.time_required}時間 ・ #{listing.review_count}件

@@ -1,0 +1,19 @@
+h1 Listing pickups
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @pickups.each do |pickup|
+      tr
+        td = link_to 'Show', pickup
+        td = link_to 'Edit', edit_pickup_path(pickup)
+        td = link_to 'Destroy', pickup, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Pickup', new_pickup_path

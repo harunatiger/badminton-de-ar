@@ -1,0 +1,9 @@
+= form_for @pickup do |f|
+  - if @pickup.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@pickup.errors.count, "error")} prohibited this pickup from being saved:"
+      ul
+        - @pickup.errors.full_messages.each do |message|
+          li = message
+
+  .actions = f.submit

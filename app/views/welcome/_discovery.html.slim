@@ -6,72 +6,30 @@
         p.text-lead 現地に住む友だちガイドと行くあなただけの旅の計画を始めましょう。
       .discovery-tiles
         .row
-          - @pickup_categories.each_with_index do | category,i |
-            - if i==0
-              .col-lg-8.col-md-12.rm-padding--sp
-                | <div class="discovery-card rm-padding--sp row-space-4" style="background-image:url(#{category.cover_image})">
-                = link_to pickups_list_path('category',category.id) do
-                  .va-container.va-container-v.va-container-h
-                    .va-middle.text-center.text-contrast
-                      .h2.strong
-                        = category.name
-                | </div>
-              -if category.selected_listing
-                - select_listing = Listing.find(category.selected_listing)
-                = render partial: 'tour_list', locals: { listing: select_listing }
-            - else
+          - if @pickup_top.present?
+            .col-lg-8.col-md-12.rm-padding--sp
+              | <div class="discovery-card rm-padding--sp row-space-4" style="background-image:url(#{@pickup_top.cover_image})">
+              = link_to pickup_path(@pickup_top) do
+                .va-container.va-container-v.va-container-h
+                  .va-middle.text-center.text-contrast
+                    .h2.strong
+                      = @pickup_top.name
+              | </div>
+            = render partial: 'tour_list', locals: { listing: Listing.find(@pickup_top.selected_listing) }
+          - unless @pickups.all? {|item| item.blank? }
+            - @pickups.each do |pickup|
               .col-lg-4.col-md-6.col-sm-12.rm-padding--sp
-                | <div class="discovery-card rm-padding--sp row-space-4" style="background-image:url(#{category.cover_image})">
-                = link_to pickups_list_path('category',category.id) do
-                  .va-container.va-container-v.va-container-h
-                    .va-middle.text-center.text-contrast
-                      .h2.strong
-                        = category.name
+                - if pickup.present?  
+                  | <div class="discovery-card rm-padding--sp row-space-4" style="background-image:url(#{pickup.try('cover_image')})">
+                  = link_to pickup_path(pickup) do
+                    .va-container.va-container-v.va-container-h
+                      .va-middle.text-center.text-contrast
+                        .h2.strong
+                          = pickup.try('name')
+                - else
+                  | <div class="discovery-card rm-padding--sp row-space-4">
                 | </div>
-          - @pickup_areas.each_with_index do | area,i |
-            - if i==0
-              .col-lg-8.col-md-12.rm-padding--sp
-                | <div class="discovery-card rm-padding--sp row-space-4" style="background-image:url(#{area.cover_image})">
-                = link_to pickups_list_path('area',area.id) do
-                  .va-container.va-container-v.va-container-h
-                    .va-middle.text-center.text-contrast
-                      .h2.strong
-                        = area.name
-                | </div>
-              -if area.selected_listing
-                - select_listing = Listing.find(area.selected_listing)
-                = render partial: 'tour_list', locals: { listing: select_listing }
-            - else
-              .col-lg-4.col-md-6.col-sm-12.rm-padding--sp
-                | <div class="discovery-card rm-padding--sp row-space-4" style="background-image:url(#{area.cover_image})">
-                = link_to pickups_list_path('area',area.id) do
-                  .va-container.va-container-v.va-container-h
-                    .va-middle.text-center.text-contrast
-                      .h2.strong
-                        = area.name
-                  | </div>
-          - @pickup_tags.each_with_index do | tag,i |
-            - if i==0
-              .col-lg-8.col-md-12.rm-padding--sp
-                | <div class="discovery-card rm-padding--sp row-space-4" style="background-image:url(#{tag.cover_image})">
-                = link_to pickups_list_path('tag', tag.id) do
-                  .va-container.va-container-v.va-container-h
-                    .va-middle.text-center.text-contrast
-                      .h2.strong
-                        = tag.name
-                | </div>
-              -if tag.selected_listing
-                - select_listing = Listing.find(tag.selected_listing)
-                = render partial: 'tour_list', locals: {listing: select_listing}
-            - else
-              .col-lg-4.col-md-6.col-sm-12.rm-padding--sp
-                | <div class="discovery-card rm-padding--sp row-space-4" style="background-image:url(#{tag.cover_image})">
-                = link_to pickups_list_path('tag', tag.id) do
-                  .va-container.va-container-v.va-container-h
-                    .va-middle.text-center.text-contrast
-                      .h2.strong
-                        = tag.name
-                | </div>
+          
 /.card-dark
   .discovery-container
     .discovery-section.page-container.page-container-no-padding

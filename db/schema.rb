@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028020345) do
+ActiveRecord::Schema.define(version: 20151028162958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,6 +209,16 @@ ActiveRecord::Schema.define(version: 20151028020345) do
   add_index "listing_pickup_tags", ["listing_id"], name: "index_listing_pickup_tags_on_listing_id", using: :btree
   add_index "listing_pickup_tags", ["pickup_tag_id"], name: "index_listing_pickup_tags_on_pickup_tag_id", using: :btree
 
+  create_table "listing_pickups", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.integer  "pickup_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "listing_pickups", ["listing_id"], name: "index_listing_pickups_on_listing_id", using: :btree
+  add_index "listing_pickups", ["pickup_id"], name: "index_listing_pickups_on_pickup_id", using: :btree
+
   create_table "listing_pvs", force: :cascade do |t|
     t.integer  "listing_id"
     t.date     "viewed_at"
@@ -369,6 +379,19 @@ ActiveRecord::Schema.define(version: 20151028020345) do
     t.string   "cover_image"
     t.integer  "selected_listing"
   end
+
+  create_table "pickups", force: :cascade do |t|
+    t.string   "name",             default: ""
+    t.string   "cover_image",      default: ""
+    t.integer  "selected_listing"
+    t.string   "type"
+    t.integer  "order_number"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "pickups", ["name"], name: "index_pickups_on_name", using: :btree
+  add_index "pickups", ["type"], name: "index_pickups_on_type", using: :btree
 
   create_table "profile_banks", force: :cascade do |t|
     t.integer  "user_id"
