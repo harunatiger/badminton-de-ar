@@ -12,7 +12,7 @@ class PickupsController < ApplicationController
   def show
     p @pickup
     @listings = @pickup.listings.opened
-    @pickups = Pickup.all
+    @pickups = Pickup.where.not(id: @pickup.id)
   end
 
   # GET /pickups/new
