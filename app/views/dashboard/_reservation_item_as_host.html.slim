@@ -2,7 +2,7 @@
   - listing = reservation_to_listing(r)
   - guest = reservation_to_guest(r)
   li.thread
-    .unread
+    = link_to message_thread_path(r.host_id), class: "unread" do
       .row
         .col-md-4.thread-author
           .row.row-table
@@ -14,8 +14,8 @@
           .row.row-table
             .col-md-12.col-middle
               .message-content-single.row-space-1
-                = link_to listing_path(r.listing_id) do
-                  = listing.title
+                /= link_to listing_path(r.listing_id) do
+                = listing.title
               .thread-date
                 = r.schedule.to_s
                 |  集合

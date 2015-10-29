@@ -2,7 +2,7 @@
   - listing = reservation_to_listing(r)
   - host = reservation_to_host(r)
   li.thread
-    .unread
+    = link_to message_thread_path(r.host_id), class: "unread" do
       .row
         .col-md-4.thread-author
           .row.row-table
@@ -14,15 +14,11 @@
           .row.row-table
             .col-md-12.col-middle
               .message-content-single.row-space-1
-                = link_to listing_path(r.listing_id) do
-                  = listing.title
+                /= link_to listing_path(r.listing_id) do
+                = listing.title
               .thread-date
                 = r.schedule.to_s
                 |  集合
-        - if r.completed?
-          = simple_form_for(r) do |f|
-            = f.hidden_field :message_thread_id, value: r.message_thread_id
-            = f.submit 'キャンセル', name: 'cancel', class: 'btn'
         .col-md-3.thread-progress
           .row.row-table
             .col-md-12.col-middle.text-center
@@ -44,6 +40,9 @@
               - else
                 .tag
                   | "非公開になりました"
-
+              - if r.completed?
+                = simple_form_for(r) do |f|
+                  = f.hidden_field :message_thread_id, value: r.message_thread_id
+                  = f.submit 'キャンセルする', name: 'cancel', class: 'btn-link small1 row-space-top-1'
 
   = render partial: 'shared/modals/message_to_host_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }
