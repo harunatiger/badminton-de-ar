@@ -21,10 +21,12 @@
         .col-xs-11.regist-pics
           = f.file_field :cover_video, as: :file, class: "row-space-1"
           /= f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2 row-space-1"
-          span.text-blue
+          span.text-red
             = link_to "https://itunes.apple.com/us/app/clipbox-1seccamera/id980538523?mt=8", target: "_blank" do
               | 1secCamera
-            | を使った動画の撮影を推奨しています。
+            | を使った
+            b 30秒以内
+            | の動画を登録してください。
 
   -if @listing_images.cover_image.present?
     .row.row-space-4.row-space-top-4.row-table
