@@ -205,6 +205,20 @@ class ReservationsController < ApplicationController
       end
     end
   end
+  
+  def set_reservation_by_listing
+    if request.xhr?
+      listing = Listing.find(params[:listing_id])
+      @reservation = Reservation.find(params[:reservation_id])
+      @reservation.listing_id = listing.id
+      @reservation.time_required = listing.listing_detail.time_required
+      @reservation.price = listing.listing_detail.price
+      @reservation.option_price = listing.listing_detail.option_price
+      @reservation.place = listing.listing_detail.place
+      @listings = User.find(listing.user_id).listings.opened
+      render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
+    end
+  end
 
   private
     def set_reservation

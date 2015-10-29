@@ -22,7 +22,7 @@
               .tab-content
                 = render partial: 'form'
                 - if @host_id == current_user.id
-                  = render partial: 'reservation_form'
+                  = render partial: 'reservation_form', locals: { reservation: @reservation }
         - @messages.each do |m|
           - if current_user.id == m.from_user_id
             = render partial: 'my_msg', locals: { m: m, my_profile_image: my_profile_image }

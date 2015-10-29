@@ -399,6 +399,7 @@ Rails.application.routes.draw do
     end
     get 'confirm', on: :collection
     get 'cancel', on: :collection
+    get 'set_reservation_by_listing', action: 'set_reservation_by_listing', on: :collection
   end
 
   resources :wishlists

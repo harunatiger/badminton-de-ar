@@ -1,0 +1,66 @@
+#reservation_detail_form
+  .row.row-condensed.row-space-3.row-space-top-1
+    label.col-md-3.text-right.text-left--sp
+      | ツアー選択
+    .col-md-9
+      =collection_select :reservation, :listing_id, @listings, :id, :title
+  .row.row-condensed.row-space-3.row-space-top-1
+    label.col-md-3.text-right.text-left--sp
+      | ガイド目安時間
+    .col-md-4
+      .input-opt
+        = select :reservation, :time_required, [*(0..48)].map{|i| (i * 0.5)}
+        span 時間
+  .row.row-condensed.row-space-3
+    label.col-md-3.text-right.text-left--sp
+      | ベース価格
+    .col-md-5
+      .input-opt
+        = number_field :reservation, :price
+        span 円
+  .row.row-condensed.row-space-1
+    label.col-md-3.text-right.text-left--sp
+      | オプション価格
+    .col-md-5
+      .input-opt
+        = number_field :reservation, :option_price
+        span 円
+  .row.row-condensed.row-space-3.row-space-top-1
+    label.col-md-3.text-right.text-left--sp
+      | 人数
+    .col-md-9
+      = select :reservation, :num_of_people, [*(1..20)]
+  .row.row-condensed.row-space-3
+    .col-md-3
+    .col-md-9
+      .text-pink.small1 ベース価格 ✕ 人数 に オプション価格とサービス料を足した値がゲストに表示されます。
+  .row.row-condensed.row-space-3
+    label.col-md-3.text-right.text-left--sp
+      | 開始日
+    .col-md-6
+      = text_field :reservation, :schedule_date, class: 'checkin datepicker row-space-2'
+  .row.row-condensed.row-space-3
+    label.col-md-3.text-right.text-left--sp
+      | 終了日
+    .col-md-6
+      = text_field :reservation, :schedule_end, class: 'checkin datepicker row-space-2'
+  .row.row-condensed.row-space-3
+    label.col-md-3.text-right.text-left--sp
+      | 集合場所
+    .col-md-9
+      = text_field :reservation, :place, placeholder: "例）ハチ公前"
+  .row.row-condensed.row-space-3
+    label.col-md-3.text-right.text-left--sp
+      | 集合時間
+    .col-md-6
+      .select.select-opt
+        = select :reservation, :schedule_hour, (0..23).to_a.map { |v| "%02d" % v }, {}
+        span 時
+      .select.select-opt
+        = select :reservation, :schedule_minute, (0..59).to_a.map { |v| "%02d" % v }, {}
+        span 分
+  .row.row-condensed.row-space-4
+    label.col-md-3.text-right.text-left--sp
+      | ガイドの内容など
+    .col-md-9
+      = text_field :reservation, :description, class: "textarea-normal", placeholder: "メモやリマインダーなどにご利用ください"

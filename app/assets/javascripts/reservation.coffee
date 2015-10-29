@@ -26,3 +26,30 @@ $ ->
       if $.inArray(formattedDate.toString(), disabled_dates) != -1
         return { enabled: false }
       return
+    
+  # set reservation by listing_id for message thread
+  $(document).on 'change', '#reservation_listing_id', ->
+    tour = $('#reservation_listing_id option:selected').text() + 'の情報に書き換えます。よろしいですか？これまで編集したガイド内容が上書きされます。ご注意ください。'
+    ret = confirm(tour)
+    if ret
+      $.ajax(
+        type: 'GET'
+        url: '/reservations/set_reservation_by_listing'
+        data: {
+          listing_id: $(this).val(),
+          reservation_id: $('#reservation_id').val()
+        }
+      ).done (data) ->
+        $('#reservation_detail_form').html(data)
+        disabled_dates = gon.ngdates
+        $('.datepicker').datepicker
+          autoclose: true,
+          startDate: '+1d',
+          language: 'ja',
+          orientation: 'top auto'
+          default: 'yyyy.mm.dd',
+          beforeShowDay: (date) ->
+            formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
+            if $.inArray(formattedDate.toString(), disabled_dates) != -1
+              return { enabled: false }
+            return
