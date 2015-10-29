@@ -9,25 +9,26 @@
         label.text-right.col-3
           | 銀行名
         .col-8
-           = f.input_field :name
+           = f.input_field :name, placeholder: "例）三菱東京UFJ銀行"
       .row.row-condensed.row-space-4
         label.text-right.col-3
           | 支店名
         .col-8
-          = f.input_field :branch_name
+          = f.input_field :branch_name, placeholder: "例）東京支店"
       .row.row-condensed.row-space-4
         label.text-right.col-3
           | 口座種別
         .col-8
-          = f.input_field :account_type, as: :select, :collection => [["普通",0], ["当座",1]], :default => 0
+          .select
+            = f.input_field :account_type, as: :select, :collection => [["普通",0], ["当座",1]], :default => 0
       .row.row-condensed.row-space-4
         label.text-right.col-3
           | 口座名義
         .col-8
-          = f.input_field :user_name
+          = f.input_field :user_name, placeholder: "例）TAROU YAMADA"
       .row.row-condensed.row-space-4
         label.text-right.col-3
           | 口座番号
-        .col-8
+        .col-8.row-space-2
           = f.input_field :number
   = f.button :submit, "登録する", class: "btn btn-primary btn-large row-space-4"
