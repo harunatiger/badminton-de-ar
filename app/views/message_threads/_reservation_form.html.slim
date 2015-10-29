@@ -5,7 +5,6 @@
               = f.hidden_field :message_thread_id, value: @message_thread.id
               = f.hidden_field :host_id, value: @host_id
               = f.hidden_field :guest_id, value: @guest_id
-              = f.hidden_field :num_of_people, value: 1
               = f.hidden_field :progress, value: 'requested'
               /= f.hidden_field :listing_id
               .row.row-condensed.row-space-3.row-space-top-1
@@ -18,7 +17,7 @@
                   | ガイド目安時間
                 .col-md-4
                   .input-opt
-                    = f.input_field :time_required
+                    = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}
                     span 時間
               .row.row-condensed.row-space-3
                 label.col-md-3.text-right.text-left--sp
@@ -34,10 +33,15 @@
                   .input-opt
                     = f.input_field :option_price
                     span 円
+              .row.row-condensed.row-space-3.row-space-top-1
+                label.col-md-3.text-right.text-left--sp
+                  | 人数
+                .col-md-9
+                  = f.input_field :num_of_people, as: :select, collection: [*(1..20)]
               .row.row-condensed.row-space-3
                 .col-md-3
                 .col-md-9
-                  .text-pink.small1 ベース、オプション価格を足した値がゲストに表示されます。
+                  .text-pink.small1 ベース価格 ✕ 人数 に オプション価格とサービス料を足した値がゲストに表示されます。
               .row.row-condensed.row-space-3
                 label.col-md-3.text-right.text-left--sp
                   | 開始日

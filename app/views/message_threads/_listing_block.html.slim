@@ -13,12 +13,20 @@
         | ガイド目安時間: 
       .col-md-8
         = reservation_obj.time_required
+        | 時間
     .row.row-condensed.row-space-2
       .col-md-3.text-left.text-muted.strong
         | 価格: 
       .col-md-8
         | ¥&nbsp;
         = reservation_obj.amount
+        |(サービス利用料 ¥ #{reservation_obj.handling_cost} 含)
+    .row.row-condensed.row-space-2
+      .col-md-3.text-left.text-muted.strong
+        | 人数: 
+      .col-md-8
+        = reservation_obj.num_of_people
+        |人
     .row.row-condensed.row-space-2
       .col-md-3.text-left.text-muted.strong
         | 予約日時: 

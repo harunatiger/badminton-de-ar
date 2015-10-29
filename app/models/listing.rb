@@ -82,6 +82,7 @@ class Listing < ActiveRecord::Base
   #validates :latitude, presence: true
   #validates :price, presence: true
   validates :title, presence: true
+  #validates :description, presence: true
   #validates :capacity, presence: true
   validates_each :cover_video do |record, attr, value|
     if value.present? and value.file.size.to_f > UPLOAD_VIDEO_LIMIT_SIZE.megabytes.to_f

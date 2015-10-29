@@ -38,6 +38,10 @@
         = f.hidden_field :progress, value: 'holded'
         = f.hidden_field :schedule_hour, value: 00
         = f.hidden_field :schedule_minute, value: 00
+        = f.hidden_field :price, value: listing.listing_detail.price
+        = f.hidden_field :option_price, value: listing.listing_detail.option_price
+        = f.hidden_field :time_required, value: listing.listing_detail.time_required
+        = f.hidden_field :place, value: listing.listing_detail.place
         .row.row-space-4
           .col-md-8
             label[for="checkin"]
@@ -47,7 +51,7 @@
             label[for="reservation_num_of_people"]
               |  人数
             .select.select-block#num-of-people
-              = f.input_field :num_of_people, as: :select, collection: [*(1..16)], default: [1]
+              = f.input_field :num_of_people, as: :select, collection: [*(1..20)], default: [1]
 
         #culc-container.row-space-1
           .row.row-space-1

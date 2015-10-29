@@ -21,7 +21,7 @@
 #  review_opened_at       :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  time_required          :integer          default(1)
+#  time_required          :decimal(9, 6)    default(0.0)
 #  price                  :integer          default(0)
 #  option_price           :integer          default(0)
 #  place                  :string           default("")
@@ -89,7 +89,7 @@ class Reservation < ActiveRecord::Base
     return "承認依頼中" if self.requested?
     return "キャンセル" if self.canceled?
     return "調整中" if self.holded?
-    return "承認" if self.accepted?
+    return "ツアー決定" if self.accepted?
     return "取り消し" if self.rejected?
     return "終了" if self.listing_closed?
   end
@@ -152,11 +152,27 @@ class Reservation < ActiveRecord::Base
   end
 
   def amount
-    self.price + self.option_price
+    basic_amount < 2000 ? (basic_amount + 500).floor : (basic_amount * 1.125).floor
   end
-
+  
+  def basic_amount
+    self.price * self.num_of_people + self.option_price
+  end
+  
   def paypal_amount
-    self.amount * 100
+    (self.basic_amount + handling_cost) * 100
+  end
+  
+  def paypal_sub_total
+    self.basic_amount * 100
+  end
+  
+  def handling_cost
+    basic_amount < 2000 ? 500 : (basic_amount * 0.125).floor
+  end
+  
+  def paypal_handling_cost
+    basic_amount < 2000 ? 50000 : (basic_amount * 0.125).floor * 100
   end
 
   def completed?

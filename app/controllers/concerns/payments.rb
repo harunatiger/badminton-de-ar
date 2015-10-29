@@ -8,6 +8,9 @@ module Payments
   end
   
   def set_checkout(reservation)
+    p reservation.paypal_amount
+    p reservation.paypal_handling_cost
+    p reservation.paypal_sub_total
     setup_response = self.gateway.setup_authorization(
             reservation.paypal_amount,
             :ip => request.remote_ip,
@@ -21,8 +24,9 @@ module Payments
   
   def item_params(reservation)
     [{name: reservation.listing.title,
-      quantity: "1",
-      amount: reservation.paypal_amount}]
+      amount: reservation.paypal_sub_total},
+      {name: 'サービス手数料',
+      amount: reservation.paypal_handling_cost}]
   end
   
   def purchase(payment)

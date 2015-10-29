@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028162958) do
+ActiveRecord::Schema.define(version: 20151029065803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -503,11 +503,11 @@ ActiveRecord::Schema.define(version: 20151028162958) do
     t.integer  "host_id"
     t.integer  "guest_id"
     t.integer  "listing_id"
-    t.datetime "schedule",                            null: false
-    t.integer  "num_of_people",                       null: false
-    t.text     "msg",                    default: ""
-    t.integer  "progress",               default: 0,  null: false
-    t.text     "reason",                 default: ""
+    t.datetime "schedule",                                                     null: false
+    t.integer  "num_of_people",                                                null: false
+    t.text     "msg",                                            default: ""
+    t.integer  "progress",                                       default: 0,   null: false
+    t.text     "reason",                                         default: ""
     t.datetime "review_mail_sent_at"
     t.datetime "review_expiration_date"
     t.datetime "review_landed_at"
@@ -516,13 +516,13 @@ ActiveRecord::Schema.define(version: 20151028162958) do
     t.datetime "reply_landed_at"
     t.datetime "replied_at"
     t.datetime "review_opened_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.integer  "time_required",          default: 1
-    t.integer  "price",                  default: 0
-    t.integer  "option_price",           default: 0
-    t.string   "place",                  default: ""
-    t.text     "description",            default: ""
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
+    t.decimal  "time_required",          precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                          default: 0
+    t.integer  "option_price",                                   default: 0
+    t.string   "place",                                          default: ""
+    t.text     "description",                                    default: ""
     t.date     "schedule_end"
   end
 
