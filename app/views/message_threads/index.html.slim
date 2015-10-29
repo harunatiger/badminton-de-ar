@@ -20,6 +20,13 @@
                           = image_tag(user_id_to_profile_image(counterpart_id), class: "media-round media-photo size60")
                         .h5.col-sm-8.col-middle.thread-name
                           = user_id_to_name(counterpart_id)
+                          br
+                          -if mt.host_id == current_user.id
+                            span.user-type.user-guide
+                              |ガイド
+                          -else
+                            span.user-type.user-guest
+                              |ゲスト
                     .col-md-5.thread-body
                       .row.row-table
                         .col-md-12.col-middle

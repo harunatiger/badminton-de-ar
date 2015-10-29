@@ -11,6 +11,14 @@
         - else
           span.user-type.user-guest
             | ゲスト
+        - if profile_identity_authorized?(counterpart.id)
+          .reliable-sign
+            i.fa.fa-check-square-o
+            | ID認証済
+        - else
+          .reliable-sign.unreliable
+            i.fa.fa-square-o
+            | ID未認証
         .h4.row-space-1
           = link_to profile_path(counterpart.profile.id), class: 'text-normal' do
             = user_id_to_name(counterpart.id)
