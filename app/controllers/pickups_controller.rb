@@ -11,7 +11,7 @@ class PickupsController < ApplicationController
   # GET /pickups/1.json
   def show
     p @pickup
-    @listings = @pickup.listings.opened
+    @listings = @pickup.listings.opened.includes(:listing_detail)
     @pickups = Pickup.where.not(id: @pickup.id)
   end
 
