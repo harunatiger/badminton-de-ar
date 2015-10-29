@@ -78,6 +78,10 @@ $ ->
       ).done (data) ->
         $('#reservation_detail_form').html(data)
         disabled_dates = gon.ngdates
+        # i'm stupid, hehe
+        strfChange = $('.checkout').val()
+        strfChange = strfChange.replace(/-/g, '/')
+        $('.checkout').val(strfChange)        
         $('.datepicker').datepicker
           autoclose: true,
           startDate: '+1d',
