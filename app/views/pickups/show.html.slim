@@ -1,7 +1,7 @@
 = render partial: "coverimage", locals: { pickup_cover_image: @pickup.try('cover_image'), pickup_title: @pickup.name }
 /= debug @listings
 .discovery-tiles.row-space-8.row-space-top-8
-  .page-container
+  .page-container.row-space-6
     .row
       - @listings.each do | listing |
         .col-lg-4.col-md-6.col-sm-12.row-space-4
@@ -23,4 +23,4 @@
                 .row-space-1.text-muted
                   | #{listing.listing_detail.time_required}時間 ・ #{listing.review_count}件
 
-= render partial: "other_pickups"
+  = render partial: "other_pickups"

@@ -4,7 +4,7 @@
     .modal-cell
       .modal-content
         .card-header
-          a.modal-close[href="#" data-dismiss="modal"]
+          = link_to "", "#", class: "modal-close", data: { dismiss: "modal" }
           | サポートガイド一覧
         form
           .card-body

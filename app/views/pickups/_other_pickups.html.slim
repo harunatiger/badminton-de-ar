@@ -1,8 +1,9 @@
 .page-container
-  .row
+  .other-pickup-links.row.row-space-4
     .col-lg-12
-      h2.row-space-1.strong 全ての体験
-      div
+      h3.h4.text-center.row-space-4 その他のピックアップはこちら
+      .text-center
         - @pickups.each do |pickup|
-          = link_to pickup_path( pickup.id ) do
+          = link_to pickup_path( pickup.id ), class: "tag tag-ghost" do
             = pickup.name
+            i.fa.fa-chevron-right
