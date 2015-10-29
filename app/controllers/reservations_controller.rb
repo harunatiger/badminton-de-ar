@@ -26,14 +26,16 @@ class ReservationsController < ApplicationController
           'reservation_id' => @reservation.id,
           'listing_id' => @reservation.listing_id,
           'user_id' => @reservation.host_id,
+          'guest_id' => @reservation.guest_id,
           'start' => @reservation.schedule,
-          'end' => @reservation.schedule,
-          'end_bk' => @reservation.schedule,
+          'end' => @reservation.schedule_end,
+          'end_bk' => @reservation.schedule_end,
           'mode' => 1,  # 1:reservation_mode
-          'active' => 0,# 0:no actice
+          'active' => 1,# 0:no actice
           'color' => 'red'
           ]
-        Ngevent.create(ngevent_params)
+        
+        Ngevent.change_date(ngevent_params, @reservation.id)
         unless params[:save]
           if params[:reserve]
             ReservationMailer.send_new_reservation_notification(@reservation).deliver_now!
@@ -168,7 +170,7 @@ class ReservationsController < ApplicationController
       if @reservation.update(para)
         
         @ng_event = Ngevent.find_by(reservation_id: @reservation.id)
-        if @reservation.progress == "accepted"
+        if @reservation.progress == "accepted" or @reservation.progress == "requested"
           @ng_event.update_attribute(:active, 1)
         else
           @ng_event.update_attribute(:active, 0)
@@ -209,21 +211,23 @@ class ReservationsController < ApplicationController
   def set_reservation_by_listing
     if request.xhr?
       listing = Listing.find(params[:listing_id])
-      @reservation = Reservation.find(params[:reservation_id])
+      @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
       @reservation.listing_id = listing.id
       @reservation.time_required = listing.listing_detail.time_required
       @reservation.price = listing.listing_detail.price
       @reservation.option_price = listing.listing_detail.option_price
       @reservation.place = listing.listing_detail.place
-      @listings = User.find(listing.user_id).listings.opened
+      @listings = User.find(current_user.id).listings.opened
+      p gon.ngdates = Ngevent.get_ngdates_except_self(@reservation)
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
   end
   
   def set_reservation_default
     if request.xhr?
-      @reservation = Reservation.find(params[:reservation_id])
-      @listings = User.find(@reservation.host_id).listings.opened
+      @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
+      @listings = User.find(current_user.id).listings.opened
+      gon.ngdates = Ngevent.get_ngdates_except_self(@reservation)
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
   end

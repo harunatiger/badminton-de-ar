@@ -28,7 +28,7 @@ class MessageThreadsController < ApplicationController
     @messages
     @counterpart = User.find(counterpart_user_id)
     @listings = User.find(@host_id).listings.opened
-    gon.ngdates = Ngevent.get_ngdates(User.find(@host_id).listings.first.id)
+    gon.ngdates = Ngevent.get_ngdates_except_self(@reservation)
   end
 
   # POST /message_threads

@@ -31,6 +31,14 @@ class Ngevent < ActiveRecord::Base
   validates :start, presence: true
   #validates :end, presence: true, date: { after: :start }
 
+  def self.change_date(ngevent_params, reservation_id)
+    ngevent_before = Ngevent.where(user_id: ngevent_params['user_id'],guest_id: ngevent_params['guest_id']).first
+    if ngevent_before.present?
+      ngevent_before.update(ngevent_params)
+    else
+      self.create(ngevent_params)
+    end
+  end
 
   def is_settable(current_event_id, listing_id)
     current_user_id = self.user_id
@@ -59,6 +67,21 @@ class Ngevent < ActiveRecord::Base
 
   def self.get_ngdates(listing_id)
     ngevents = Ngevent.where(listing_id: listing_id, active: 1)
+    ngdates = []
+    ngevents.each do |ngevent|
+      start_date = ngevent['start']
+      end_date = ngevent['end_bk']
+      while start_date <= end_date do
+        ngdates << (start_date - 1.day).strftime("%Y.%m.%d")
+        start_date = start_date + 1.day
+      end
+    end
+    ngdates
+  end
+  
+  def self.get_ngdates_except_self(reservation)
+    ngevents = Ngevent.where(listing_id: reservation.try('listing_id'), active: 1)
+    ngevents.where.not(guest_id: reservation.try(:guest_id) || 0) if ngevents.present?
     ngdates = []
     ngevents.each do |ngevent|
       start_date = ngevent['start']

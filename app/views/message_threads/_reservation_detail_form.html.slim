@@ -4,7 +4,7 @@
       | ツアー選択
     .col-md-9
       .select
-        = collection_select :reservation, :listing_id, @listings, :id, :title
+        = collection_select :reservation, :listing_id, @listings, :id, :title, include_blank: true
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
       | ガイド目安時間

@@ -230,6 +230,7 @@ $ ->
 
   # listings#show
   if $('body').hasClass('listings show')
+    disabled_dates = gon.ngdates
 
     # open include_what
     $('a.include_what_trigger').on 'click', ->
@@ -284,7 +285,13 @@ $ ->
     $('.datepicker').datepicker
       autoclose: true,
       startDate: '+1d',
-      language: 'ja'
+      language: 'ja',
+      default: 'yyyy.mm.dd',
+      beforeShowDay: (date) ->
+        formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
+        if $.inArray(formattedDate.toString(), disabled_dates) != -1
+          return { enabled: false }
+        return
 
     # book_it_button action
     $('#book_it_button').on 'click', ->

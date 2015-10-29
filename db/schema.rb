@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029150851) do
+ActiveRecord::Schema.define(version: 20151029172323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -329,6 +329,7 @@ ActiveRecord::Schema.define(version: 20151029150851) do
     t.integer  "active",         default: 1
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "guest_id"
   end
 
   add_index "ngevents", ["mode"], name: "index_ngevents_on_mode", using: :btree
