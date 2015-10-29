@@ -7,16 +7,17 @@
               = f.hidden_field :guest_id, value: @guest_id
               = f.hidden_field :progress, value: 'requested'
               /= f.hidden_field :listing_id
-              .row.row-condensed.row-space-3.row-space-top-1
+              .row.row-condensed.row-space-3
                 label.col-md-3.text-right.text-left--sp
                   | ツアー選択
                 .col-md-9
-                  =f.collection_select :listing_id, @listings, :id, :title
-              .row.row-condensed.row-space-3.row-space-top-1
+                  .select
+                    = f.collection_select :listing_id, @listings, :id, :title
+              .row.row-condensed.row-space-3
                 label.col-md-3.text-right.text-left--sp
                   | ガイド目安時間
                 .col-md-4
-                  .input-opt
+                  .select.select-opt.opt-double
                     = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}
                     span 時間
               .row.row-condensed.row-space-3
@@ -26,32 +27,31 @@
                   .input-opt
                     = f.input_field :price
                     span 円
-              .row.row-condensed.row-space-1
+              .row.row-condensed.row-space-3
                 label.col-md-3.text-right.text-left--sp
                   | オプション価格
                 .col-md-5
                   .input-opt
                     = f.input_field :option_price
                     span 円
-              .row.row-condensed.row-space-3.row-space-top-1
+              .row.row-condensed.row-space-3
                 label.col-md-3.text-right.text-left--sp
                   | 人数
                 .col-md-9
-                  = f.input_field :num_of_people, as: :select, collection: [*(1..20)]
-              .row.row-condensed.row-space-3
-                .col-md-3
-                .col-md-9
-                  .text-pink.small1 ベース価格 ✕ 人数 に オプション価格とサービス料を足した値がゲストに表示されます。
+                  .select.select-opt
+                    = f.input_field :num_of_people, as: :select, collection: [*(1..20)]
+                    span 人
+                  .row-space-top-1.text-blue.small2 ベース価格 ✕ 人数にオプション価格とサービス料を足した値がゲストに表示されます。
               .row.row-condensed.row-space-3
                 label.col-md-3.text-right.text-left--sp
                   | 開始日
                 .col-md-6
-                  = f.text_field :schedule_date, class: 'checkin datepicker row-space-2'
+                  = f.text_field :schedule_date, class: 'checkin datepicker'
               .row.row-condensed.row-space-3
                 label.col-md-3.text-right.text-left--sp
                   | 終了日
                 .col-md-6
-                  = f.text_field :schedule_end, class: 'checkin datepicker row-space-2'
+                  = f.text_field :schedule_end, class: 'checkin datepicker'
               .row.row-condensed.row-space-3
                 label.col-md-3.text-right.text-left--sp
                   | 集合場所
@@ -75,8 +75,8 @@
               .row.row-condensed.row-space-3
                 .col-12.text-center
                   = link_to "ゲストの支払いに関しての注意点", "#", class: "about_payment_link"
-                  = f.submit "キャンセル", class: "btn btn-primary", type: "reset"
-                  = f.submit "保存", class: "btn btn-primary", name: "save"
+                  = f.submit "キャンセル", class: "btn", type: "reset"
+                  = f.submit "保存", class: "btn btn-host", name: "save"
                   = f.submit "この内容で送信", class: "btn btn-primary", reserve_action: 'request'
           - else
             | 予約が成立しています。

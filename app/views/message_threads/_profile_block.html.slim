@@ -5,6 +5,10 @@
         = link_to "#", class: "media-photo" do
           = image_tag(their_profile_image, class: "size100", alt: "")
       .va-middle.msg-pic
+        .h4.row-space-1
+          = link_to profile_path(counterpart.profile.id), class: 'text-normal' do
+            = user_id_to_name(counterpart.id)
+            small さん
         - if @host_id == counterpart.id
           span.user-type.user-guide
             | ガイド
@@ -12,20 +16,16 @@
           span.user-type.user-guest
             | ゲスト
         - if profile_identity_authorized?(counterpart.id)
-          .reliable-sign
+          span.reliable-sign
             i.fa.fa-check-square-o
             | ID認証済
         - else
-          .reliable-sign.unreliable
+          span.reliable-sign.unreliable
             i.fa.fa-square-o
             | ID未認証
-        .h4.row-space-1
-          = link_to profile_path(counterpart.profile.id), class: 'text-normal' do
-            = user_id_to_name(counterpart.id)
-            | さん
         /small
           = counterpart.profile.try('location') || '住所未登録'
-        small 
+        .row-space-top-1.small2.text-muted
           | メンバー登録: 
           = counterpart.created_at.strftime("%Y年")
     - if @host_id == counterpart.id
