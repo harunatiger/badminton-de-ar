@@ -12,8 +12,8 @@
               .row.row-condensed.row-space-3
                 .col-12.text-center
                   = link_to "ゲストの支払いに関しての注意点", "#", class: "about_payment_link"
-                  = f.submit "キャンセル", class: "btn btn-primary", type: "reset"
-                  = f.submit "保存", class: "btn btn-primary", name: "save"
+                  = f.submit "キャンセル", class: "btn", type: "reset"
+                  = f.submit "保存", class: "btn btn-host", name: "save"
                   = f.submit "この内容で送信", class: "btn btn-primary", reserve_action: 'request'
           - else
             | 予約が成立しています。

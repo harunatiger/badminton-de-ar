@@ -944,17 +944,41 @@ a.about_cancel_link
   height: 22px
   line-height: 20px
   padding: 0 7px
-  margin: -10px 0 8px
   font-size: 12px
   font-weight: 700
   border: 1px solid
   border-radius: 2px
+  vertical-align: middle
   &.user-guide
     color: $red1
     border-color: $red1
   &.user-guest
     color: $brand-theme
     border-color: $brand-theme
+
+.reliable-sign
+  display: inline-block
+  height: 28px
+  line-height: 28px
+  padding: 0 12px
+  color: white
+  font-size: 13px
+  background-color: $green1
+  border-radius: 2px
+  &.unreliable
+    background-color: $red1
+  .fa
+    margin-right: 5px
+
+.mini-profile
+  .user-type
+  .reliable-sign
+    height: 22px
+    line-height: 22px
+    margin-left: 10px
+    padding: 0 6px
+    font-size: 12px
+    vertical-align: middle
 
 .guide-count
   height: 32px
@@ -973,9 +997,6 @@ a.about_cancel_link
 
 .msg-pic
   padding: 0 10px 0 0
-  small
-    display: block
-    line-height: 18px
 
 #message_inquiry
   height: 100px
