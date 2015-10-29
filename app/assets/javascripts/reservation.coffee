@@ -12,7 +12,7 @@ $ ->
   $("[id^=reservation-item-as-host-launch-message-]").on 'click', ->
     data_num = $(this).attr('data-num')
     $("#message-to-guest-from-reservation-manager-" + data_num).modal()
-  
+
   # bootstrap datepicker
   disabled_dates = gon.ngdates
   $('.datepicker').datepicker
@@ -26,7 +26,12 @@ $ ->
       if $.inArray(formattedDate.toString(), disabled_dates) != -1
         return { enabled: false }
       return
-    
+
+
+  logVal = ''
+  $(document).on 'focus', '#reservation_listing_id', ->
+    logVal = $('#reservation_listing_id').val()
+
   # set reservation by listing_id for message thread
   $(document).on 'change', '#reservation_listing_id', ->
     tour = $('#reservation_listing_id option:selected').text() + 'の情報に書き換えます。よろしいですか？これまで編集したガイド内容が上書きされます。ご注意ください。'
@@ -52,4 +57,6 @@ $ ->
             formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
             if $.inArray(formattedDate.toString(), disabled_dates) != -1
               return { enabled: false }
-            return
+    else
+      $('#reservation_listing_id').val(logVal)
+      return
