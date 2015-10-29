@@ -43,7 +43,7 @@
     label.col-md-3.text-right.text-left--sp
       | 終了日
     .col-md-6
-      = text_field :reservation, :schedule_end, class: 'checkin datepicker'
+      = text_field :reservation, :schedule_end, class: 'checkout datepicker'
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
       | 集合場所
@@ -63,4 +63,4 @@
     label.col-md-3.text-right.text-left--sp
       | ガイドの内容など
     .col-md-9
-      = text_field :reservation, :description, class: "textarea-normal", placeholder: "メモやリマインダーなどにご利用ください"
+      = text_area :reservation, :description, class: "textarea-normal", placeholder: "メモやリマインダーなどにご利用ください"

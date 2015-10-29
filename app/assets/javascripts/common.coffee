@@ -177,11 +177,13 @@ $ ->
     setInterval slideSwitch, 5000
 
     # bootstrap datepicker
+    ###
     $('.datepicker').datepicker
       autoclose: true,
       startDate: '+1d',
       language: 'ja'
-
+    ###
+    
     $('#charmer').carousel()
 
   # google place-auto-complete

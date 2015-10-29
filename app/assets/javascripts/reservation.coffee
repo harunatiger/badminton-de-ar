@@ -19,8 +19,9 @@ $ ->
     autoclose: true,
     startDate: '+1d',
     language: 'ja',
-    orientation: 'top auto'
+    orientation: 'top auto',
     default: 'yyyy.mm.dd',
+    format: 'yyyy/mm/dd',
     beforeShowDay: (date) ->
       formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
       if $.inArray(formattedDate.toString(), disabled_dates) != -1
@@ -47,12 +48,17 @@ $ ->
       ).done (data) ->
         $('#reservation_detail_form').html(data)
         disabled_dates = gon.ngdates
+        # i'm stupid, hehe
+        strfChange = $('.checkout').val()
+        strfChange = strfChange.replace(/-/g, '/')
+        $('.checkout').val(strfChange)
         $('.datepicker').datepicker
           autoclose: true,
           startDate: '+1d',
           language: 'ja',
-          orientation: 'top auto'
+          orientation: 'top auto',
           default: 'yyyy.mm.dd',
+          format: 'yyyy/mm/dd',
           beforeShowDay: (date) ->
             formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
             if $.inArray(formattedDate.toString(), disabled_dates) != -1
@@ -76,8 +82,9 @@ $ ->
           autoclose: true,
           startDate: '+1d',
           language: 'ja',
-          orientation: 'top auto'
+          orientation: 'top auto',
           default: 'yyyy.mm.dd',
+          format: 'yyyy/mm/dd',
           beforeShowDay: (date) ->
             formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
             if $.inArray(formattedDate.toString(), disabled_dates) != -1
