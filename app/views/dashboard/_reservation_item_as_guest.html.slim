@@ -19,6 +19,10 @@
               .thread-date
                 = r.schedule.to_s
                 |  集合
+        - if r.completed?
+          = simple_form_for(r) do |f|
+            = f.hidden_field :message_thread_id, value: r.message_thread_id
+            = f.submit 'キャンセル', name: 'cancel', class: 'btn'
         .col-md-3.thread-progress
           .row.row-table
             .col-md-12.col-middle.text-center
