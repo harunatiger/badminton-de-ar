@@ -4,15 +4,18 @@
     .modal-cell
       .modal-content
         .card-header
-          a.modal-close[href="#" data-dismiss="modal"]
+          = link_to "", "#", class: "modal-close", data: { dismiss: "modal" }
           | サポートガイド一覧
         form
           .card-body
             p
-              | 当日にメインガイドの他に、このガイド一覧の中から1名のガイドが付きます。
-            p
+              | 当日はメインガイドの他に、こちらのガイドの中から1名のサポートガイドがご一緒します。
+            .row
               - @profiles.each do |profile|
-                = image_tag(user_id_to_profile_image_thumb(profile.user_id), class: 'img-responsive')
-                = user_id_to_name(profile.user_id)
+                .col-xs-4.col-md-3.row-space-1
+                  .media-photo.media-round
+                    = image_tag(user_id_to_profile_image_thumb(profile.user_id), class: 'img-responsive')
+                  .row-space-top-1.text-center.text-truncate
+                    = user_id_to_name(profile.user_id)
           .card-footer
             = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"

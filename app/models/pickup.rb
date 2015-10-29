@@ -22,7 +22,7 @@ class Pickup < ActiveRecord::Base
   has_many :listings, through: :listing_pickups
   
   validates :name, :cover_image, :type, presence: true
-  validates :order_number, uniqueness: true
+  validates :order_number, uniqueness: true, :allow_nil => true
   mount_uploader :cover_image, PickupImageUploader
   
   def self.pickup_obj_by_order_number(order_number)
