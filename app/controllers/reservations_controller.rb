@@ -219,6 +219,14 @@ class ReservationsController < ApplicationController
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
   end
+  
+  def set_reservation_default
+    if request.xhr?
+      @reservation = Reservation.find(params[:reservation_id])
+      @listings = User.find(@reservation.host_id).listings.opened
+      render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
+    end
+  end
 
   private
     def set_reservation

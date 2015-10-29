@@ -1,6 +1,9 @@
       #reservation_form.tab-pane.card-quote-flush.card
         .card-body.normal-form-fields
-          - unless @reservation.completed?
+          -if @listings.blank?
+            span.text-pink.strong
+              |ツアーを登録してガイド内容を作成しましょう！
+          - elsif !@reservation.completed?
             = simple_form_for(@reservation, html: { id: "non_special_offer_form", class: "message_form clearfix" }) do |f|
               = f.hidden_field :message_thread_id, value: @message_thread.id
               = f.hidden_field :host_id, value: @host_id
@@ -12,7 +15,7 @@
               .row.row-condensed.row-space-3
                 .col-12.text-center
                   = link_to "ゲストの支払いに関しての注意点", "#", class: "about_payment_link"
-                  = f.submit "キャンセル", class: "btn", type: "reset"
+                  = f.submit "キャンセル", class: "btn", type: "reset", id: 'cancel_detail'
                   = f.submit "保存", class: "btn btn-host", name: "save"
                   = f.submit "この内容で送信", class: "btn btn-primary", reserve_action: 'request'
           - else

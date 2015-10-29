@@ -400,6 +400,7 @@ Rails.application.routes.draw do
     get 'confirm', on: :collection
     get 'cancel', on: :collection
     get 'set_reservation_by_listing', action: 'set_reservation_by_listing', on: :collection
+    get 'set_reservation_default', action: 'set_reservation_default', on: :collection
   end
 
   resources :wishlists

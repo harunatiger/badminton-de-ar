@@ -7,7 +7,7 @@
 #  guest_id               :integer
 #  listing_id             :integer
 #  schedule               :datetime         not null
-#  num_of_people          :integer          not null
+#  num_of_people          :integer          default(0), not null
 #  msg                    :text             default("")
 #  progress               :integer          default(0), not null
 #  reason                 :text             default("")
