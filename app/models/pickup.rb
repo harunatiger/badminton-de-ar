@@ -18,7 +18,7 @@
 #
 
 class Pickup < ActiveRecord::Base
-  has_many :listing_pickups
+  has_many :listing_pickups, dependent: :destroy
   has_many :listings, through: :listing_pickups
   
   validates :name, :cover_image, :type, presence: true
