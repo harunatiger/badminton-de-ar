@@ -52,6 +52,7 @@ $ ->
 
 
   # listings#search
+  ###
   if $('body').hasClass('listings search')
     # sp filter toggle
     $('.js-small-filter-toggle').on 'click', ->
@@ -134,7 +135,8 @@ $ ->
       autoclose: true,
       startDate: '+1d',
       language: 'ja',
-      orientation: 'top auto'
+      orientation: 'top auto',
+      format: "yyyy-mm-dd"
 
     # range slider
     $("#price-range").slider
@@ -227,6 +229,7 @@ $ ->
         #)
 
     google.maps.event.addDomListener window, 'load', initialize
+  ###
 
   # listings#show
   if $('body').hasClass('listings show')
@@ -277,9 +280,6 @@ $ ->
       priceCulc()
     $('#checkin').on 'changeDate', ->
       priceCulc()
-
-
-
 
     # bootstrap datepicker
     $('.datepicker').datepicker

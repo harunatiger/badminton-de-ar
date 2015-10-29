@@ -21,10 +21,10 @@
           label.text-right.col-3
             | 現在のサムネイル画像
           = image_tag(profile_image_thumb)
-      .row.row-condensed.row-space-4
+      .row.row-condensed.row-space-2
         label.text-right.col-3
           | サムネイル画像
-        .col-8
+        .col-8.row-space-4
           = f.file_field :image, class: "row-space-top-1-file"
           span.text-pink 正方形の画像だときれいに表示されます。
   = f.button :submit, "保存する", class: "btn btn-primary btn-large row-space-4"
