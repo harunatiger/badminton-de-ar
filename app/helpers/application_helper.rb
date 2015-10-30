@@ -90,7 +90,7 @@ module ApplicationHelper
 
   def user_id_to_profile_image(user_id)
     result = ProfileImage.mine(user_id)
-    result.try('image') || Settings.image.noimage2.url
+    result[0].try('image') || Settings.image.noimage2.url
   end
 
   def user_id_to_profile_image_caption(user_id)
@@ -110,7 +110,7 @@ module ApplicationHelper
   def user_id_to_profile_cover_image(user_id)
     result = ProfileImage.mine(user_id)
     if result.present?
-      result.try('cover_image') || Settings.image.noimage.url
+      result[0].try('cover_image') || Settings.image.noimage.url
     else
       Settings.image.noimage.url
     end
