@@ -1,7 +1,7 @@
 .card.profile-card
   .card-body.card-light
     .profile-face
-      = image_tag(user_id_to_profile_image(profile.user_id), class: 'img-responsive')
+      = image_tag(profile_to_image_thumb(profile), class: 'img-responsive')
     .profile-name.row-space-top-2.row-space-1
       span
         = user_id_to_name(profile.user_id)

@@ -18,7 +18,7 @@ h4.row-space-4
         .card-body
           .media
             = link_to profile_path(@profile), class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-              = image_tag(user_id_to_profile_image_thumb(@profile.user_id), alt: "#{user_id_to_name(@profile.user_id)}")
+              = image_tag(profile_to_image_thumb(profile), alt: "#{user_id_to_name(@profile.user_id)}")
             = link_to listing_path(listing), class: "text-normal" do
               h5.row-space-1
                 = listing.description

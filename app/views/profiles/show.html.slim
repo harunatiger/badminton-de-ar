@@ -15,7 +15,7 @@
   .page-container.row-space-top-6.row-space-8
     .row
       .col-lg-8
-        = render partial: '/profiles/show/tour_list'
+        = render partial: '/profiles/show/tour_list', locals: { profile: @profile}
 
 = render partial: '/profiles/show/reviewed', locals: { reviewed: @reviewed, reviewed_count: reviewed_count }
 
