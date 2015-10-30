@@ -152,7 +152,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def amount
-    basic_amount < 2000 ? (basic_amount + 500).floor : (basic_amount * 1.125).floor
+    basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.125).ceil
   end
   
   def basic_amount
@@ -168,11 +168,11 @@ class Reservation < ActiveRecord::Base
   end
   
   def handling_cost
-    basic_amount < 2000 ? 500 : (basic_amount * 0.125).floor
+    basic_amount < 2000 ? 500 : (basic_amount * 0.125).ceil
   end
   
   def paypal_handling_cost
-    basic_amount < 2000 ? 50000 : (basic_amount * 0.125).floor * 100
+    basic_amount < 2000 ? 50000 : (basic_amount * 0.125).ceil * 100
   end
 
   def completed?

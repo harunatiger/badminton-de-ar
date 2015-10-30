@@ -226,7 +226,7 @@ class ReservationsController < ApplicationController
       @reservation.option_price = listing.listing_detail.option_price
       @reservation.place = listing.listing_detail.place
       @listings = User.find(current_user.id).listings.opened
-      p gon.ngdates = Ngevent.get_ngdates_except_self(@reservation)
+      gon.watch.ngdates = Ngevent.get_ngdates(@reservation)
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
   end
@@ -235,7 +235,7 @@ class ReservationsController < ApplicationController
     if request.xhr?
       @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
       @listings = User.find(current_user.id).listings.opened
-      gon.ngdates = Ngevent.get_ngdates_except_self(@reservation)
+      gon.watch.ngdates = Ngevent.get_ngdates(@reservation)
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
   end

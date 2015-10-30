@@ -66,8 +66,9 @@ class Ngevent < ActiveRecord::Base
     ng_array
   end
 
-  def self.get_ngdates(listing_id)
-    ngevents = Ngevent.where(listing_id: listing_id, active: 1)
+  def self.get_ngdates(reservation)
+    ngevents = Ngevent.where(listing_id: reservation.try('listing_id'), active: 1)
+    p ngevents
     ngdates = []
     ngevents.each do |ngevent|
       start_date = ngevent['start']
@@ -81,8 +82,7 @@ class Ngevent < ActiveRecord::Base
   end
   
   def self.get_ngdates_except_self(reservation)
-    ngevents = Ngevent.where(listing_id: reservation.try('listing_id'), active: 1)
-    ngevents.where.not(guest_id: reservation.try(:guest_id) || 0) if ngevents.present?
+    ngevents = Ngevent.all.where(listing_id: reservation.try('listing_id'), active: 1).where.not(guest_id: reservation.try(:guest_id))
     ngdates = []
     ngevents.each do |ngevent|
       start_date = ngevent['start']
