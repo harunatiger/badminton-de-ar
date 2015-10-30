@@ -2,7 +2,7 @@
     .col-lg-3
       ul.sidenav-list
         li
-          a.sidenav-item[href="#" aria-selected="true"]
+          = link_to "#", class: "sidenav-item", aria: { selected: true }
             | アカウント情報
     .col-lg-9
       .card.row-space-4
