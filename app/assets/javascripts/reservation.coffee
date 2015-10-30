@@ -36,7 +36,7 @@ $ ->
 
   $(document).on 'change', '#reservation_listing_id', ->
     tour = $('#reservation_listing_id option:selected').text() + 'の情報に書き換えます。よろしいですか？これまで編集したガイド内容が上書きされます。ご注意ください。'
-    ret = confirm(tour)
+    ret = confirm(tour) if $(this).val() != ''
     if ret
       $.ajax(
         type: 'GET'

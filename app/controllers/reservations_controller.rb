@@ -4,6 +4,14 @@ class ReservationsController < ApplicationController
   include Payments
   
   def create
+    if params[:request].present? and !current_user.already_authrized
+      if profile_identity = ProfileIdentity.where(user_id: current_user.id, profile_id: current_user.profile.id).first
+        return redirect_to edit_profile_profile_identity_path(profile_id: current_user.profile.id, id:profile_identity.id), notice: Settings.reservation.save.failure.not_authorized_yet  
+      else
+        return redirect_to new_profile_profile_identity_path(current_user.profile), notice: Settings.reservation.save.failure.not_authorized_yet
+      end
+    end
+   
     reservation_before = Reservation.latest_reservation(reservation_params['guest_id'], reservation_params['host_id'])
     reservation = Reservation.requested_reservation(reservation_params['guest_id'], reservation_params['host_id'])
     reservation.update(progress: 'rejected') if reservation.present?
