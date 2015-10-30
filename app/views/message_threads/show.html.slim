@@ -1,7 +1,7 @@
 / message_threads#show
 = render partial: 'shared/subnav'
 - my_profile_image = profile_to_image_thumb(current_user.profile)
-- their_profile_image = user_id_to_profile_image(@counterpart.id)
+- their_profile_image = profile_to_image_thumb(@counterpart.profile)
 .page-container.row-space-top-5
   h1.h2.text-center.row-space-5
     = user_id_to_name(@counterpart.id)
