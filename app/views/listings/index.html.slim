@@ -45,19 +45,19 @@
                         .media-cover.text-center
                           = image_tag(listing_cover_image_url(listing.id), class: "img-responsive-height")
                     .col-xs-8.col-lg-6
-                      span.h4
+                      .actions.row-space-1
+                        - if listing.open?
+                          .tag.tag-primary
+                            | 公開
+                        - else
+                          .tag.tag-danger
+                            | 未公開
+                      .h4
                         = link_to listing, class: "text-normal trans" do
                           = listing.title
-                      .actions.row-space-top-1
-                        = link_to edit_listing_path(listing) do
-                          |  このツアーを編集する
                     .col-md-12.col-lg-4
                       .pull-right.pull-change
                         .listing-criteria-header.activation-notification
                           .listing-criteria-header-message
-                            - if listing.open?
-                              = link_to edit_listing_path(listing), class: "btn btn-primary" do
-                                | 掲載中
-                            - else
-                              = link_to edit_listing_path(listing), class: "btn" do
-                                | 非公開中
+                            = link_to edit_listing_path(listing), class: "btn btn-primary" do
+                              | 編集

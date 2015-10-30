@@ -1,13 +1,17 @@
 ul.sidenav-list
   - if action_name == "host_reservation_manager"
     li
-      = link_to "あなたのツアー", listings_path, aria: {selected: "false"}, class: "sidenav-item"
+      = link_to "ツアー一覧", listings_path, aria: {selected: "false"}, class: "sidenav-item row-space-2"
     li
+      = link_to "新規追加", new_listing_path, aria: {selected: "false"}, class: "btn btn-block btn-primary"
+    /li
       = link_to "参加希望者", dashboard_host_reservation_manager_path, aria: {selected: "true"}, class: "sidenav-item"
   - else
     li
-      = link_to "あなたのツアー", listings_path, aria: {selected: "true"}, class: "sidenav-item"
+      = link_to "ツアー一覧", listings_path, aria: {selected: "true"}, class: "sidenav-item row-space-2"
     li
+      = link_to "新規追加", new_listing_path, aria: {selected: "false"}, class: "btn btn-block btn-primary"
+    /li
       = link_to "参加希望者", dashboard_host_reservation_manager_path, aria: {selected: "false"}, class: "sidenav-item"
-  li.hide
+  /li
     = link_to "設定", "#", aria: {selected: "false"}, class: "sidenav-item"
