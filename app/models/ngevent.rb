@@ -68,7 +68,20 @@ class Ngevent < ActiveRecord::Base
 
   def self.get_ngdates(reservation)
     ngevents = Ngevent.where(listing_id: reservation.try('listing_id'), active: 1)
-    p ngevents
+    ngdates = []
+    ngevents.each do |ngevent|
+      start_date = ngevent['start']
+      end_date = ngevent['end_bk']
+      while start_date <= end_date do
+        ngdates << (start_date - 1.day).strftime("%Y.%m.%d")
+        start_date = start_date + 1.day
+      end
+    end
+    ngdates
+  end
+  
+  def self.get_ngdates_from_listing(id)
+    ngevents = Ngevent.where(listing_id: id, active: 1)
     ngdates = []
     ngevents.each do |ngevent|
       start_date = ngevent['start']
