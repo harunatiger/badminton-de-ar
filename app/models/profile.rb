@@ -71,7 +71,7 @@ class Profile < ActiveRecord::Base
   end
   
   def self.guides
-    user_ids = Listing.pluck(:user_id).uniq
+    user_ids = Listing.where(open: true).pluck(:user_id).uniq
     users = User.where(id: user_ids)
     Profile.where(user_id: users.ids)
   end
