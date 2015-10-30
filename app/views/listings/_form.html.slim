@@ -136,7 +136,7 @@
             = collection_check_boxes(:listing, :pickup_ids, @categories, :id, :name) do |b|
               = b.label { b.check_box + b.text }
   - if @tags.present?
-    .row.row-space-6.row-space-top-5.row-table
+    .row.row-space-5.row-space-top-5.row-table
       .col-xs-4.text-right.col-middle
         .h4.text-light
           |  ツアーのタグ
