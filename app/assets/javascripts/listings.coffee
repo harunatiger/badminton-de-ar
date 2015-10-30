@@ -271,7 +271,7 @@ $ ->
       tourPriceOptionCulcedContainer.text(tourPriceOption)
       tourPriceBaseCulced = tourPriceBase * numOfPeople
       tourPriceBaseCulcedContainer.text(tourPriceBaseCulced)
-      serviceCostCulced = Math.floor((tourPriceBaseCulced + tourPriceOption) * 0.125)
+      serviceCostCulced = Math.ceil((tourPriceBaseCulced + tourPriceOption) * 0.125)
       serviceCostCulcedContainer.text(serviceCostCulced)
       tourPriceResultCulcedContainer.text(tourPriceBaseCulced + tourPriceOption + serviceCostCulced)
       return
