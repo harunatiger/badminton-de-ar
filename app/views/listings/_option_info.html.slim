@@ -5,11 +5,11 @@
   .card-body
     .h6.row-space-1 集合場所
     .text-muted
-      = listing_detail.place
+      = listing_detail.place if listing_detail.present?
   .card-body
     .h6.row-space-1 参加条件
     .text-muted
-      = listing_detail.condition
+      = listing_detail.condition if listing_detail.present?
   .card-body
     .h6.row-space-1 返金ポリシー
     .text-muted
@@ -18,4 +18,4 @@
   .card-body
     .h6.row-space-1 雨天の場合
     .text-muted
-      = listing_detail.in_case_of_rain
+      = listing_detail.in_case_of_rain if listing_detail.present?
