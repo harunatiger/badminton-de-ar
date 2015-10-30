@@ -6,7 +6,7 @@
       .card.row-space-4
         .media.media-photo-block.dashboard-profile-photo.panel-image
           = link_to profile_path(current_user.profile.id)
-            == image_tag(profile_image, class: 'img-responsive')
+            == image_tag(profile_to_image_thumb(current_user.profile), class: 'img-responsive')
         .card-body
           h3.text-center
             = user_id_to_name(current_user.id)
