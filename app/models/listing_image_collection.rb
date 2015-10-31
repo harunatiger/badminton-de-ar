@@ -23,6 +23,10 @@ class ListingImageCollection < Form::Base
     super && valid_listing_images
   end
 
+  def image_present?
+    target_listing_images.present?
+  end
+  
   def save
     return false unless valid?
     ListingImage.transaction {

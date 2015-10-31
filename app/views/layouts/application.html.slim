@@ -9,7 +9,7 @@ html
     = favicon_link_tag 'favicon.ico'
     = stylesheet_link_tag 'application', media: 'all'
     = javascript_include_tag "/modernizr-2.8.3.min.js"
-    = include_gon
+    = include_gon(watch: true)
     = Gon::Base.render_data({})
     = csrf_meta_tags
   - if controller_name === "welcome"

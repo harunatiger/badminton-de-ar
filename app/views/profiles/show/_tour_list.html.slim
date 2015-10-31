@@ -14,7 +14,7 @@ h4.row-space-4
           .card-overlay-bottom-left.flush-left.card-overlay-label
             .h3
               | ¥&nbsp;
-              =listing.listing_detail.amount
+              =listing.listing_detail.amount if listing.listing_detail.present?
         .card-body
           .media
             = link_to profile_path(@profile), class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
@@ -23,4 +23,4 @@ h4.row-space-4
               h5.row-space-1
                 = listing.description
             .row-space-1.text-muted
-              | #{listing.listing_detail.time_required}時間 · レビュー#{listing.review_count}件
+              | #{listing.listing_detail.time_required if listing.listing_detail.present?}時間 · レビュー#{listing.review_count}件
