@@ -304,9 +304,6 @@ $ ->
       $('#share-via-email').modal()
 
 
-    #$('body').on 'fullscreenchange', ->
-    #  alert 666
-
     # media query js width 1099px
     mediaQueryWidth1 = ->
       listingDescription = $('#listing-description')
@@ -323,16 +320,20 @@ $ ->
 
     mediaQueryWidth1()
 
+    ###
     timer = false
     $(window).resize ->
       if timer != false
         clearTimeout timer
       timer = setTimeout((->
+         #if videoFlag == true
+          #alert 999
+        #if(!$('#tour_movie').hasClass('vjs-fullscreen'))
         mediaQueryWidth1()
         return
       ), 200)
       return
-
+    ###
 
     #scrollspy
     ###
