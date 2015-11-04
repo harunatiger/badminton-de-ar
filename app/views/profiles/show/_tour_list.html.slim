@@ -14,13 +14,13 @@ h4.row-space-4
           .card-overlay-bottom-left.flush-left.card-overlay-label
             .h3
               | ¥&nbsp;
-              =listing.listing_detail.amount if listing.listing_detail.present?
+              = listing.listing_detail.amount if listing.listing_detail.present?
         .card-body
           .media
             = link_to profile_path(@profile), class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
               = image_tag(profile_to_image_thumb(profile), alt: "#{user_id_to_name(@profile.user_id)}")
             = link_to listing_path(listing), class: "text-normal" do
-              h5.row-space-1
+              h5.row-space-1.overflow
                 = listing.description
             .row-space-1.text-muted
               | #{listing.listing_detail.time_required if listing.listing_detail.present?}時間 · レビュー#{listing.review_count}件

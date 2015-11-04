@@ -10,7 +10,7 @@
               = link_to listing_path( listing.id ), class: "media-photo media-photo-block media-cover" do
                 = image_tag(listing.cover_image , height: "210", width: "484", alt: "", class: "img-responsive")
               .card-overlay-bottom-left.flush-left.card-overlay-label
-                .h3
+                .h3.overflow
                   | ¥
                   = listing.listing_detail.amount
             .card-body
