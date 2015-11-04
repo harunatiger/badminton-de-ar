@@ -33,6 +33,7 @@
 
 class ListingDetail < ActiveRecord::Base
   belongs_to :listing
+  before_save :set_price
   
   def set_lon_lat
     hash = Hash.new
@@ -72,5 +73,11 @@ class ListingDetail < ActiveRecord::Base
     
   def amount
     self.price + self.option_price
+  end
+    
+  def set_price
+    self.price = 0 if self.price.blank?
+    self.option_price = 0 if self.option_price.blank?
+    self
   end
 end

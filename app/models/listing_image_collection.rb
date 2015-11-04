@@ -19,7 +19,7 @@ class ListingImageCollection < Form::Base
   end
 
   def valid?
-    valid_listing_images = target_listing_images.map(&:valid?).all?
+    valid_listing_images = self.listing_images.map(&:valid?).all?
     super && valid_listing_images
   end
 

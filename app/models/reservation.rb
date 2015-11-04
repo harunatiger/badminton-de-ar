@@ -37,6 +37,7 @@
 
 class Reservation < ActiveRecord::Base
   include DatetimeIntegratable
+  before_save :set_price
 
   belongs_to :user, class_name: 'User', foreign_key: 'host_id'
   belongs_to :user, class_name: 'User', foreign_key: 'guest_id'
@@ -59,7 +60,7 @@ class Reservation < ActiveRecord::Base
   validates :schedule_end, presence: true
   validates :num_of_people, presence: true
   validates :progress, presence: true
-  validates :price, presence: true
+  #validates :price, presence: true
 
   scope :as_guest, -> user_id { where(guest_id: user_id) }
   scope :as_host, -> user_id { where(host_id: user_id) }
@@ -185,5 +186,11 @@ class Reservation < ActiveRecord::Base
     else
       false
     end
+  end
+  
+  def set_price
+    self.price = 0 if self.price.blank?
+    self.option_price = 0 if self.option_price.blank?
+    self
   end
 end
