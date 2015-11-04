@@ -5,7 +5,7 @@
         = link_to "#", class: "media-photo" do
           = image_tag(their_profile_image, class: "size100", alt: "")
       .va-middle.msg-pic
-        .h4.row-space-1
+        .h5.row-space-1
           = link_to profile_path(counterpart.profile.id), class: 'text-normal' do
             = user_id_to_name(counterpart.id)
             small さん
