@@ -10,7 +10,7 @@ h4.row-space-4
       .card.tour-listing
         .card-image
           = link_to listing_path(listing), class: "media-photo media-photo-block media-cover" do
-            = image_tag(listing.try('cover_image'), height: "210", width: "484", alt: "", class: "img-responsive")
+            | <div class="tour-cover" style="background-image:url(#{listing.cover_image})"></div>
           .card-overlay-bottom-left.flush-left.card-overlay-label
             .h3
               | ¥&nbsp;
