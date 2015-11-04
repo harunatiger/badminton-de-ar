@@ -87,7 +87,7 @@ class Listing < ActiveRecord::Base
   validates_each :cover_video do |record, attr, value|
     if value.present? and value.file.size.to_f > UPLOAD_VIDEO_LIMIT_SIZE.megabytes.to_f
       #record.errors.add(attr, "You cannot upload a file greater than #{UPLOAD_VIDEO_LIMIT_SIZE}MB")
-      record.errors.add(attr, I18n.t('errors.messages.size_over',size: ENV["UPLOAD_VIDEO_LIMIT_SIZE"].to_i))
+      record.errors.add(attr, I18n.t('errors.messages.size_over',size: UPLOAD_VIDEO_LIMIT_SIZE))
     end
   end
   UPLOAD_VIDEO_LIMIT_SIZE = ENV["UPLOAD_VIDEO_LIMIT_SIZE"].to_i.freeze
