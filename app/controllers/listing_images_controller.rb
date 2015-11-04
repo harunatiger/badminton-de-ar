@@ -13,7 +13,15 @@ class ListingImagesController < ApplicationController
     @listing_images = ListingImageCollection.new(listing_image_collection_params, @listing.id)
     @listing.cover_image = @listing_images.cover_image if @listing_images.cover_image.present?
     @listing.cover_video = @listing_images.cover_video if @listing_images.cover_video.present?
-    if @listing_images.valid? and @listing.valid?
+    @listing_with_errors = @listing
+    @listing_images_with_errors = @listing_images
+    if !@listing_with_errors.valid? or !@listing_images_with_errors.valid?
+      set_listing
+      @listing_images = ListingImageCollection.new({},@listing.id)
+      @listing_images.cover_image = @listing.cover_image
+      @listing_images.cover_video = @listing.cover_video
+      render 'manage'
+    else
       if @listing_images.image_present? or @listing.listing_images.present? or @listing.cover_image.present? or @listing.cover_video.present?
         @listing_images.save
         @listing.save
@@ -21,8 +29,6 @@ class ListingImagesController < ApplicationController
       else
         redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.save.failure
       end
-    else
-      redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.save.failure_video
     end
   end
 

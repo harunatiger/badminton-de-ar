@@ -1,4 +1,8 @@
 / listings_images#new
+= out_put_error(@listing_with_errors) if @listing_with_errors
+- if @listing_images_with_errors
+  -@listing_images_with_errors.listing_images.each do |listing_image|
+    = out_put_error(listing_image) 
 .manage-listings
   /= render partial: 'shared/manage_listing_header', locals: { listing: @listing }
   = render partial: 'shared/subnav', locals: { listing: @listing }

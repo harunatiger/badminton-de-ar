@@ -1,7 +1,5 @@
 = simple_form_for([@listing, @listing_images], url: update_all_listing_listing_images_path, html: {class: "form--sp"} ) do |f|
   /= f.error_notification
-  /= out_put_error(@listing)
-  /= out_put_error(@listing_images)
   /= f.hidden_field :listing_id, value: @listing.id
   - if @listing.cover_video.present?
     .row.row-space-5.row-space-top-5.row-table

@@ -11,3 +11,14 @@ ja:
       - year
       - month
       - day
+  errors:
+    messages:
+      extension_white_list_error: "のファイル形式が正しくありません。"
+      size_over: "のサイズが大きすぎます。%{size}MB以内の動画を登録してください。"
+  activerecord:
+    attributes:
+      listing:
+        cover_video: 'ツアー紹介動画'
+        cover_image: 'カバー画像'
+      listing_image:
+        image: 'イメージ画像'
