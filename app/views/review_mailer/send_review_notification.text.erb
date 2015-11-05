@@ -1,17 +1,17 @@
-<%= @to_user_name %>
-さん、こんにちは！
+Hello,  <%= @to_user_name %>
 
-<%= @host_user_name %>さんのガイド、<%= @listing.title %> (<%= @reservation.schedule %>)
-へのレビューの記入をしませんか？
 
-以下のリンクから、レビューの記入ができます。
+Would you like to fill in the review of <%= @listing.title %> (<%= @reservation.schedule %>) planned by <%= @host_user_name %>
+
+You can fill in the review from the following link.
 
 <%= new_reservation_reviews_url(@reservation.id) %>
 
-レビューを記入すると、ガイドの方より返信がきます。
-返信が来ると、レビューは公開されます。
+When you write a review, a guide will reply.
+When the reply comes, your review will be published.
 
-なおレビューの書き込みは、<%= Settings.review.expiration_date %> 日間有効です。
 
+
+The writing your review is valid for <%= Settings.review.expiration_date %> days
 --
-Huber.
+Huber.					
