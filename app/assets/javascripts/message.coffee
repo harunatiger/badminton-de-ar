@@ -105,3 +105,24 @@ $ ->
       modal_target.modal('hide')
       $('.btn-frame > .btn', thiser).removeClass('text-disappear')
     return
+
+  ## # modal view the attachment using ajax
+  $(document).on 'click', 'a.preview-attached-trigger', ->
+    $.ajax(
+      type: 'GET'
+      url: '/messages/show_preview'
+      data: {
+        'id': $(this).data('image')
+      }
+    ).done (data,status) ->
+      if status == 'success'
+        $('#preview-show').html(data)
+        $('#preview-attached').modal()
+        return false
+      else
+        return false
+
+
+
+
+

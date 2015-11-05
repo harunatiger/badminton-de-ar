@@ -357,6 +357,8 @@ Rails.application.routes.draw do
   resources :messages do
     collection do
       post 'send_message'
+      get 'show_preview'
+      get 'download_attached_file'
     end
   end
 

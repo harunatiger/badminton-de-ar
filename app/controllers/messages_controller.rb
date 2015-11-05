@@ -90,6 +90,29 @@ class MessagesController < ApplicationController
     end
   end
 
+
+  def show_preview
+    if request.xhr?
+      @message = Message.find(params[:id])
+      render partial: 'message_threads/image_preview', locals: {m: @message}
+    end
+  end
+
+  def download_attached_file
+    message = Message.find(params[:id])
+
+    file = message.attached_file.path
+    file_extension = message.attached_extension.to_s
+    file_name = message.attached_name.to_s
+
+    options = {}
+    options[:type] = file_extension ? file_extension : 'text/plain'
+    options[:filename] = file_name if file_name.present?
+
+    ret = send_file file, options
+
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
@@ -99,6 +122,6 @@ class MessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:message_thread_id, :from_user_id, :to_user_id, :schedule, :num_of_people, :content, :progress, :read, :reservation_id, :listing_id)
+      params.require(:message).permit(:message_thread_id, :from_user_id, :to_user_id, :schedule, :num_of_people, :content, :attached_file, :progress, :read, :reservation_id, :listing_id)
     end
 end

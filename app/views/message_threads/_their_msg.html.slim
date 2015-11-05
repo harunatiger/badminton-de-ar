@@ -24,6 +24,10 @@ li.thread-list-item
                     |の予約リクエストをお送りしました。
                 - else
                   = m.try('content')
+                  - if m.attached_file.present?
+                    = link_to show_preview_messages_path, class: "preview-attached-trigger messagethread-link-preview", remote: true, data: {:image => m.id} do
+                      = m.attached_name
+                    div#preview-show
             - if !m.reservation_id.zero? and m.try('content') == Settings.reservation.msg.request
               = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
         .time-container.text-muted.text-right
