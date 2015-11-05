@@ -220,6 +220,10 @@ mailer:
   review_reply_notification:
     #subject: "レビューへの返信を記入しましょう。"
     subject: "Let's reply to review!"
+  week_before_notification:
+    subject: "It is a week to the appointment day!"
+  day_before_notification:
+    subject: "Tomorrow is the appointment day!"
 left_steps:
   listing_image: "listing_image"
   listing_detail: "listing_detail"

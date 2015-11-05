@@ -1,7 +1,7 @@
 namespace :review_mail do
   desc 'send review mails'
   task send: :environment do
-    reservations = Reservation.finished_before_yesterday.review_mail_never_be_sent.accepts
+    reservations = Reservation.accepts.finished_before_yesterday.review_mail_never_be_sent
     reservations.each do |r|
 
       #ReviewMailer.send_review_notification(r).deliver_later!(wait: 1.minute) # if you want to use active job(delayedjob, resque....), use this line.

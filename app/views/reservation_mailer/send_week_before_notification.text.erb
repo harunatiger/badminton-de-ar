@@ -1,0 +1,20 @@
+Hello, <%= @to_user_name %> 
+
+It is a week to the appointment day of <%= @listing.title %> (<%= @reservation.schedule %>) .
+In order to meet smoothly, let finish the following preparation.
+
+
+1.Check the resavation details again, let's confirm if there is an unclear point.
+Especially let's make sure about the meeting time and place.
+
+In a case of emergency, let's note and check the contact of <%= @another_user_name %>.
+
+You can confirm the booking content from here.
+<% if @to_user_id_is_host %>
+  <%= dashboard_host_reservation_manager_url %>
+<% else %>
+  <%= dashboard_guest_reservation_manager_url %>
+<% end %>
+
+As your day will become a great journey.
+Huber. support team				

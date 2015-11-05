@@ -1,0 +1,18 @@
+Hello, <%= @to_user_name %>
+
+Finally tomorrow is the appointment day of <%= @listing.title %> (<%= @reservation.schedule %>)  
+
+Is everything okay for the appointment of time and place?
+Do you have the contact of <%= @another_user_name %> ?
+
+If you stil have something unclear, please check with <%= @another_user_name %> by messages.
+
+You can confirm the booking contents from here.
+<% if @to_user_id_is_host %>
+  <%= dashboard_host_reservation_manager_url %>
+<% else %>
+  <%= dashboard_guest_reservation_manager_url %>
+<% end %>
+
+As your day will be a great journey.
+Huber. support team

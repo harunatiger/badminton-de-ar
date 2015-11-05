@@ -54,4 +54,38 @@ class ReservationMailer < ApplicationMailer
       format.text
     end
   end
+  
+  def send_week_before_notification(reservation, to_user_id)
+    @reservation = reservation
+    @listing = reservation.listing
+    to_user = User.find(to_user_id)
+    @to_user_name = "#{to_user.profile.last_name} #{to_user.profile.first_name}"
+    @to_user_id_is_host = to_user_id == reservation.host_id
+    another_user_id = @to_user_id_is_host ? reservation.guest_id : reservation.host_id
+    another_user = User.find(another_user_id)
+    @another_user_name = "#{another_user.profile.last_name} #{another_user.profile.first_name}"
+    mail(
+      to:      to_user.email,
+      subject: Settings.mailer.week_before_notification.subject
+    ) do |format|
+      format.text
+    end
+  end
+  
+  def send_day_before_notification(reservation, to_user_id)
+    @reservation = reservation
+    @listing = reservation.listing
+    to_user = User.find(to_user_id)
+    @to_user_name = "#{to_user.profile.last_name} #{to_user.profile.first_name}"
+    @to_user_id_is_host = to_user_id == reservation.host_id
+    another_user_id = @to_user_id_is_host ? reservation.guest_id : reservation.host_id
+    another_user = User.find(another_user_id)
+    @another_user_name = "#{another_user.profile.last_name} #{another_user.profile.first_name}"
+    mail(
+      to:      to_user.email,
+      subject: Settings.mailer.day_before_notification.subject
+    ) do |format|
+      format.text
+    end
+  end
 end
