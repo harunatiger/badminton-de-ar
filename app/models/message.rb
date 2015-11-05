@@ -2,17 +2,18 @@
 #
 # Table name: messages
 #
-#  id                :integer          not null, primary key
-#  message_thread_id :integer          not null
-#  from_user_id      :integer          not null
-#  to_user_id        :integer          not null
-#  content           :text             default(""), not null
-#  read              :boolean          default(FALSE)
-#  read_at           :datetime
-#  listing_id        :integer          default(0), not null
-#  reservation_id    :integer          default(0), not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id                 :integer          not null, primary key
+#  message_thread_id  :integer          not null
+#  from_user_id       :integer          not null
+#  to_user_id         :integer          not null
+#  content            :text             default(""), not null
+#  read               :boolean          default(FALSE)
+#  read_at            :datetime
+#  listing_id         :integer          default(0), not null
+#  reservation_id     :integer          default(0), not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  attached_extension :string
 #
 # Indexes
 #
@@ -33,6 +34,8 @@ class Message < ActiveRecord::Base
   validates :to_user_id, presence: true
   validates :content, presence: true
 
+  mount_uploader :attached_file, MessageUploader
+
   scope :unread_messages, -> user_id { where(to_user_id: user_id, read: false) }
   scope :message_thread, -> message_thread_id { where(message_thread_id: message_thread_id) }
   scope :order_by_created_at_desc, -> { order('created_at desc') }
@@ -40,12 +43,14 @@ class Message < ActiveRecord::Base
   
   def self.send_message(mt_obj, message_params)
     content = message_params['content'].present? ? message_params['content'] : ''
+    attached_file =  message_params['attached_file'].present? ? message_params['attached_file'] : ''
     progress = message_params['progress'].present? ? message_params['progress'] : ''
     listing_id = message_params['listing_id'].present? ? message_params['listing_id'] : 0
     reservation_id = message_params['reservation_id'].present? ? message_params['reservation_id'] : 0 
     obj = Message.new(
       message_thread_id: mt_obj.id,
       content: content,
+      attached_file: attached_file,
       read: false,
       from_user_id: message_params['from_user_id'],
       to_user_id: message_params['to_user_id'],
@@ -70,4 +75,6 @@ class Message < ActiveRecord::Base
     host_id = listing.user_id
     self.to_user_id == host_id ? self.from_user_id : self.to_user_id
   end
+
+
 end
