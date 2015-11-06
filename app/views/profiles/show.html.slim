@@ -19,9 +19,13 @@
 
 = render partial: '/profiles/show/reviewed', locals: { reviewed: @reviewed, reviewed_count: reviewed_count }
 
-/.locations
-  .row
-    .col-md-12
-      #tour-map
+.card-dark
+  .page-container.row-space-top-6.row-space-8
+    .row
+      .col-lg-8
+        h2.h4.row-space-3
+          | ツアーの集合場所
+        .locations
+          #tour-map
       
 = render partial: '/shared/modals/pair_guide_list'
