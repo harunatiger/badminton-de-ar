@@ -978,11 +978,14 @@ label.error
       border-radius: 50%
       padding: 5px
       background-color: white
-      img
-        display: block
+      div
         width: 90px
         height: 90px
         border-radius: 50%
+        background-size: cover
+        background-position: center top
+        background-repeat: no-repeat
+        overflow: hidden
     .huber-inner
       padding: 5px 20px
       .name
@@ -1130,7 +1133,7 @@ label.error
     background-color: $bg1
     overflow: hidden
 
-#map, .map_jp-wrapper
+#map, #tour-map, .map_jp-wrapper
   height: 500px
   @media (max-width: 767px)
     height: 300px

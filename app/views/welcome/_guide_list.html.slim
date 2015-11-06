@@ -13,7 +13,7 @@
               .huber-card-background[style="background-image: url('#{profile_to_cover_image_thumb(profile)}')"]
               .huber-card-content
                 .huber-card-face
-                  = image_tag(profile_to_image_thumb(profile), class: "")
+                  div[style="background-image: url('#{profile_to_image_thumb(profile)}')"]
                 .huber-inner
                   .name
                     = "#{profile.last_name} #{profile.first_name}"
