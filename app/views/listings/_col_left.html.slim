@@ -2,7 +2,7 @@
 .row.row-table.row-reset.row-space-1
   .col-md-3.col-middle.text-center.col-reset
     = link_to profile_path(@host_info.id), class: 'media-photo media-round' do
-      = image_tag(user_id_to_profile_image(listing.user_id), class: "size90")
+      = image_tag(user_id_to_profile_image_thumb_one(listing.user_id), class: "size90")
   .col-md-12.col-middle.col-reset
     .text-center--md
       .h3.strong.row-space-1

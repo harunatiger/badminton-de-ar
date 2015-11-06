@@ -21,6 +21,6 @@ h4.row-space-4
               = image_tag(profile_to_image_thumb(profile), alt: "#{user_id_to_name(@profile.user_id)}")
             = link_to listing_path(listing), class: "text-normal" do
               h5.row-space-1.overflow
-                = listing.description
+                = listing.title
             .row-space-1.text-muted
               | #{listing.listing_detail.time_required if listing.listing_detail.present?}時間 · レビュー#{listing.review_count}件
