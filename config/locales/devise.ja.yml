@@ -30,18 +30,24 @@ ja:
         unconfirmed: "続ける前に、アカウントの確認をお願いします。"
     mailer:
       confirmation_instructions:
-        subject: "アカウントの登録方法"
+        #subject: "アカウントの登録方法"
+        subject: "Confirmation instructions"
       reset_password_instructions:
-        subject: "パスワードの再設定"
+        #subject: "パスワードの再設定"
+        subject: "Reset password instructions"
       unlock_instructions:
-        subject: "アカウントのロック解除"
+        #subject: "アカウントのロック解除"
+        subject: "Unlock instructions"
       user:
         confirmation_instructions:
-          subject: "アカウントの登録方法"
+          #subject: "アカウントの登録方法"
+          subject: "Confirmation instructions"
         reset_password_instructions:
-          subject: "パスワードの再設定"
+          #subject: "パスワードの再設定"
+          subject: "Reset password instructions"
         unlock_instructions:
-          subject: "アカウントのロック解除"
+          #subject: "アカウントのロック解除"
+          subject: "Unlock instructions"
     omniauth_callbacks:
       failure: "%{kind} から承認されませんでした。理由：%{reason}"
       success: "%{kind} から承認されました。"

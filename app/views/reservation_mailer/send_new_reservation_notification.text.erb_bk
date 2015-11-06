@@ -1,0 +1,11 @@
+<%= @to_user_name %> さん、こんにちは！
+
+<%= @from_user_name %> さんより予約リクエストが届きました！
+
+以下のリンクから、内容をご確認ください。
+
+<%= message_threads_url %>
+
+
+--
+Huber.

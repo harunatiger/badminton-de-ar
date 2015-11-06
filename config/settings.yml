@@ -194,23 +194,36 @@ mailer:
     default: "default-from-email@example.com"
   new_message:
     subject:
-      arrived: "新しいメッセージが届きました！"
+      #arrived: "新しいメッセージが届きました！"
+      arrived: "Receive new message!"
   new_reservation:
     subject:
-      arrived: "予約リクエストが届きました！"
+      #arrived: "予約リクエストが届きました！"
+      arrived: "Receive new request!"
   new_guide_detail:
     subject:
-      arrived: "ガイド内容が届きました！"
+      #arrived: "ガイド内容が届きました！"
+      arrived: "Receive guide information!"
   update_reservation:
     subject:
-      canceled: "予約がキャンセルされました。"
-      holded: "予約が保留されました。"
-      accepted: "予約が成立しました！"
-      rejected: "予約が不成立となりました。"
+      #canceled: "予約がキャンセルされました。"
+      canceled: "Reservation has been canceled."
+      #holded: "予約が保留されました。"
+      holded: "Reservation has been holded."
+      #accepted: "予約が成立しました！"
+      accepted: "Reservation has been accepted!"
+      #rejected: "予約が不成立となりました。"
+      rejected: "Reservation has been rejected."
   review_notification:
-    subject: "レビューの記入をしませんか？"
+    #subject: "レビューの記入をしませんか？"
+    subject: "Let's fill in the review!"
   review_reply_notification:
-    subject: "レビューへの返信を記入しましょう。"
+    #subject: "レビューへの返信を記入しましょう。"
+    subject: "Let's reply to review!"
+  week_before_notification:
+    subject: "It is a week to the appointment day!"
+  day_before_notification:
+    subject: "Tomorrow is the appointment day!"
 left_steps:
   listing_image: "listing_image"
   listing_detail: "listing_detail"

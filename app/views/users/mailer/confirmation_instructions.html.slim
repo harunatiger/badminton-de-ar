@@ -1,24 +1,26 @@
 - if @resource.unconfirmed_email
-  p
-    | Huber.へようこそ！ 
-    = @email
-    | さん!
-  p
-    | アカウントを更新するには、
-  p
-    | 下のリンクから、引き続き登録をお願いします。
-  p
-    = link_to 'アカウント情報を更新をする', confirmation_url(@resource, confirmation_token: @token)
+  |Hello!
+  br
+  br
+  |Mr./Ms. #{@email}
+  br
+  |Please continue your registration from the following link.
+  br
+  br
+  = link_to 'Account registration', confirmation_url(@resource, confirmation_token: @token)
 - else
-  p
-    | Huber.へようこそ！ 
-    = @email
-    | さん!
-  p
-    | ※現在BETAテストバージョンです。
-    br
-    | BETAテストバージョン中は無料でご利用いただけます。
-  p
-    | 下のリンクから、引き続き登録をお願いします。
-  p
-    = link_to 'アカウント登録をする', confirmation_url(@resource, confirmation_token: @token)
+  |Welcome to Huber.
+  br
+  |Mr./Ms. #{@email}
+  br
+  br
+  |※This is a Beta test version
+  br
+  br
+  |In Beta test version available for free.
+  br
+  br
+  |Please continue your registration from the following link.
+  br
+  br
+  = link_to 'Account registration', confirmation_url(@resource, confirmation_token: @token)

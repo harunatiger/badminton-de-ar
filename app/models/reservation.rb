@@ -72,6 +72,8 @@ class Reservation < ActiveRecord::Base
   scope :reviewed, -> { where.not(reviewed_at: nil) }
   scope :review_reply_mail_never_be_sent, -> { where(reply_mail_sent_at: nil) }
   scope :review_open?, -> { where(arel_table[:review_opened_at].not_eq(nil)) }
+  scope :week_before, -> { where("to_date(to_char(schedule, 'YYYY/MM/DD'), 'YYYY/MM/DD') = ?", Time.zone.today + 7.day) }
+  scope :day_before, -> { where("to_date(to_char(schedule, 'YYYY/MM/DD'), 'YYYY/MM/DD') = ?", Time.zone.tomorrow) }
 
   REGISTRABLE_ATTRIBUTES = %i(
     schedule_date schedule_hour schedule_minute
@@ -93,6 +95,15 @@ class Reservation < ActiveRecord::Base
     return "ツアー決定" if self.accepted?
     return "取り消し" if self.rejected?
     return "終了" if self.listing_closed?
+  end
+  
+  def string_of_progress_english
+    return "requested" if self.requested?
+    return "canceled" if self.canceled?
+    return "holded" if self.holded?
+    return "accepted" if self.accepted?
+    return "rejected" if self.rejected?
+    return "closed" if self.listing_closed?
   end
 
   def string_of_progress_for_message_thread
