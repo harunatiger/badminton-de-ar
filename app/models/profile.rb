@@ -31,6 +31,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  country              :string           default("")
+#  progress             :integer
 #
 # Indexes
 #
@@ -75,4 +76,48 @@ class Profile < ActiveRecord::Base
     users = User.where(id: user_ids)
     Profile.where(user_id: users.ids)
   end
+
+  def self.set_percentage(id)
+    has_allotate = {
+      :first_name => 5,
+      :last_name  => 5,
+      :birthday   => 10,
+      :phone      => 10,
+      :location   => 10,
+      :self_introduction  => 10,
+      :school     => 10,
+      :work       => 10,
+      :bank       => 10,
+      :authorized => 10,
+      :category   => 10,
+      :image      => 10,
+      :coverimage => 10
+    }
+      
+    array_result = []
+    profile=Profile.find(id)
+    array_result << has_allotate[:first_name] if profile.first_name.present?
+    array_result << has_allotate[:last_name] if profile.last_name.present?
+    array_result << has_allotate[:birthday] if profile.birthday.present?
+    array_result << has_allotate[:phone] if profile.phone.present?
+    array_result << has_allotate[:location] if profile.location.present?
+    array_result << has_allotate[:self_introduction] if profile.self_introduction.present?
+    array_result << has_allotate[:school] if profile.school.present?
+    array_result << has_allotate[:work] if profile.work.present?
+    array_result << has_allotate[:bank] if ProfileBank.where(profile_id: profile.id).where.not(number: '').present?
+    if profile_identity = ProfileIdentity.find_by(profile_id: profile.id)
+      array_result << has_allotate[:authorized] if profile_identity.authorized? 
+    end
+    array_result << has_allotate[:category] if ProfileCategory.where(profile_id: profile.id).present?
+    array_result << has_allotate[:image] if ProfileImage.where(profile_id: profile.id).where.not(image: '').present?
+    array_result << has_allotate[:coverimage] if ProfileImage.where(profile_id: profile.id).where.not(cover_image: '').present? 
+
+    # Calicurate Percentage
+    ret = array_result.inject(0) { |sum, i| sum + i }
+
+    profile.progress = ret
+    profile.update({:listing_count => ret})
+
+  end
+
 end

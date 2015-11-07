@@ -34,6 +34,12 @@ class ProfileImage < ActiveRecord::Base
 
   scope :mine, -> user_id { where( user_id: user_id ) }
 
+  after_save :set_percentage
+
+  def set_percentage
+    Profile.set_percentage(self.profile_id)
+  end
+
   def self.minimun_requirement?(user_id, profile_id)
     profile_image = ProfileImage.where(user_id: user_id, profile_id: profile_id).first
     if profile_image.present?

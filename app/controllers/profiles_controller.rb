@@ -39,6 +39,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
+        Profile.set_percentage(@profile.id)
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
         format.json { render :show, status: :created, location: @profile }
       else
@@ -53,6 +54,7 @@ class ProfilesController < ApplicationController
   def update
     respond_to do |format|
       if @profile.update(profile_params)
+        Profile.set_percentage(@profile.id)
         format.html { redirect_to @profile, notice: Settings.profile.save.success }
         format.json { render :show, status: :ok, location: @profile }
       else

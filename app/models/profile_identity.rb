@@ -28,4 +28,10 @@ class ProfileIdentity < ActiveRecord::Base
   validates :image, presence: true
   
   scope :mine, -> user_id { where( user_id: user_id ) }
+
+  after_save :set_percentage
+
+  def set_percentage
+  	Profile.set_percentage(self.profile_id)
+  end
 end
