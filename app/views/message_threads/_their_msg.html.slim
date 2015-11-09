@@ -30,6 +30,5 @@ li.thread-list-item
           small.time 
             = m.try('created_at').strftime("%m/%d %H:%M") || ''
     .col-sm-2.col-md-1.col-md-push-1.text-center
-      = link_to(profile_path(counterpart.profile.id), class: "media-photo media-round")
-        /img.size36 alt="" src="/assets/images/sample/person1.jpg"
-        = image_tag(their_profile_image, class: "size36")
+      = link_to profile_path(counterpart.profile.id), class: "media-photo media-round media-avatar"
+        .size36[style="background-image: url('#{their_profile_image}')"]

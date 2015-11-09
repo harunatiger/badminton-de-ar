@@ -18,7 +18,8 @@
                     .col-md-4.thread-author
                       .row.row-table
                         .col-md-4.col-middle.thread-avatar
-                          = image_tag(profile_to_image_thumb(counterpart_user.profile), class: "media-round media-photo size60")
+                          .media-round.media-photo.media-avatar
+                            .size60[style="background-image: url('#{profile_to_image_thumb(counterpart_user.profile)}')"]
                         .h5.col-sm-8.col-middle.thread-name
                           -if mt.host_id == current_user.id
                             span.user-type.user-guest

@@ -7,9 +7,10 @@
         .col-md-4.thread-author
           .row.row-table
             .col-md-4.col-middle.thread-avatar
-              = image_tag(user_id_to_profile_image(r.guest_id), class: "media-round media-photo size60")
+              .media-round.media-photo.media-avatar
+                .size60[style="background-image: url('#{user_id_to_profile_image(r.host_id)}')"]
             .h5.col-sm-8.col-middle.thread-name
-              = user_id_to_name(r.guest_id)
+              = user_id_to_name(r.host_id)
         .col-md-5.thread-body
           .row.row-table
             .col-md-12.col-middle

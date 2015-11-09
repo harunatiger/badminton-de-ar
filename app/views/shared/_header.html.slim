@@ -21,8 +21,9 @@
             .nav-profile.clearfix
               .user-item.pull-left
                 = link_to profile_path(current_user.profile.id), class: "link-reset user-profile-link" do
-                  .media-photo.media-round.user-profile-image
-                    = image_tag profile_to_image_thumb(current_user.profile), class: 'size28'
+                  .media-photo.media-round.user-profile-image.media-avatar
+                    /= image_tag profile_to_image_thumb(current_user.profile), class: 'size28'
+                    .size28[style="background-image: url('#{profile_to_image_thumb(current_user.profile)}')"]
                   = current_user.email
             hr
           = render partial: "/shared/sidebar_nav_sp"
@@ -55,8 +56,10 @@
       ul.nav.pull-right
         li.user-item.pull-left
           = link_to profile_path(current_user.profile.id), class: "", data: { toggle: "dropdown", hover: "dropdown", delay: "250" } do
-            .media-photo.media-round.user-profile-image
-              = image_tag(profile_to_image_thumb(current_user.profile), class: 'size28')
+            .media-photo.media-round.user-profile-image.media-avatar
+              /= image_tag(profile_to_image_thumb(current_user.profile), class: 'size28')
+              .size28[style="background-image: url('#{profile_to_image_thumb(current_user.profile)}')"]
+
             span.name
               = current_user.email
             i.fa.fa-caret-down
