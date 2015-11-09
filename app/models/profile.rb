@@ -77,47 +77,54 @@ class Profile < ActiveRecord::Base
     Profile.where(user_id: users.ids)
   end
 
-  def self.set_percentage(id)
-    has_allotate = {
-      :first_name => 5,
-      :last_name  => 5,
-      :birthday   => 10,
-      :phone      => 10,
-      :location   => 10,
-      :self_introduction  => 10,
-      :school     => 10,
-      :work       => 10,
-      :bank       => 10,
-      :authorized => 10,
-      :category   => 10,
-      :image      => 10,
-      :coverimage => 10
-    }
-      
+  def self.get_percentage(id)
+    user = User.find(id)
     array_result = []
-    profile=Profile.find(id)
-    array_result << has_allotate[:first_name] if profile.first_name.present?
-    array_result << has_allotate[:last_name] if profile.last_name.present?
-    array_result << has_allotate[:birthday] if profile.birthday.present?
-    array_result << has_allotate[:phone] if profile.phone.present?
-    array_result << has_allotate[:location] if profile.location.present?
-    array_result << has_allotate[:self_introduction] if profile.self_introduction.present?
-    array_result << has_allotate[:school] if profile.school.present?
-    array_result << has_allotate[:work] if profile.work.present?
-    array_result << has_allotate[:bank] if ProfileBank.where(profile_id: profile.id).where.not(number: '').present?
-    if profile_identity = ProfileIdentity.find_by(profile_id: profile.id)
-      array_result << has_allotate[:authorized] if profile_identity.authorized? 
+    if user
+      profile = user.profile
+      if profile
+        #birthday
+        array_result << 'birthday' if profile.birthday.blank?
+        #country
+        array_result << 'country' if profile.country.blank?
+        #location
+        array_result << 'location' if profile.location.blank?
+        #email
+        array_result << 'email' if user.email.blank?
+        #phone
+        array_result << 'phone' if profile.phone.blank?
+        #self_introduction
+        array_result << 'self_introduction' if profile.self_introduction.blank?
+      end
     end
-    array_result << has_allotate[:category] if ProfileCategory.where(profile_id: profile.id).present?
-    array_result << has_allotate[:image] if ProfileImage.where(profile_id: profile.id).where.not(image: '').present?
-    array_result << has_allotate[:coverimage] if ProfileImage.where(profile_id: profile.id).where.not(cover_image: '').present? 
+    array_result
+  end
 
-    # Calicurate Percentage
-    ret = array_result.inject(0) { |sum, i| sum + i }
-
-    profile.progress = ret
-    profile.update({:listing_count => ret})
-
+  def self.set_percentage(id)
+    user = User.find(id)
+    if user
+      profile = user.profile
+      if profile
+        array_result = []
+        #birthday
+        array_result << 'birthday' if profile.birthday.present?
+        #country
+        array_result << 'country' if profile.country.present?
+        #location
+        array_result << 'location' if profile.location.present?
+        #email
+        array_result << 'email' if user.email.present?
+        #phone
+        array_result << 'phone' if profile.phone.present?
+        #self_introduction
+        array_result << 'self_introduction' if profile.self_introduction.present?
+        
+        # Caliculate Percentage
+        ret = ((100/6.to_f) * array_result.length).round
+        profile.progress = ret.to_i
+        profile.update({:listing_count => ret})
+      end
+    end
   end
 
 end

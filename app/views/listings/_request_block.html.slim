@@ -29,6 +29,11 @@
             | ¥
             span#tour-price-option
               =listing.listing_detail.option_price
+        .row.row-space-1
+          .col-md-12
+            = link_to "#", class: "include_what_trigger small1 text-blue" do
+              i.fa.fa-exclamation-circle
+              |  料金には何が含まれていますか？
       = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
         - user_id = 0
         - user_id = current_user.id if user_signed_in?
@@ -51,7 +56,7 @@
             label[for="reservation_num_of_people"]
               |  人数
             .select.select-block#num-of-people
-              = f.input_field :num_of_people, as: :select, collection: [*(1..20)], default: [1]
+              = f.input_field :num_of_people, as: :select, collection: [*(1..15)], default: [1]
 
         #culc-container.row-space-1
           .row.row-space-1
@@ -84,12 +89,6 @@
             .col-md-6.text-right.strong.text-red
               | ¥
               span#tour-price-result_culced.h4
-
-          .row.row-space-4
-            .col-md-12
-              = link_to "#", class: "include_what_trigger small1 text-blue" do
-                i.fa.fa-exclamation-circle
-                |  料金には何が含まれていますか？
 
         .row-space-2
           - if user_signed_in?

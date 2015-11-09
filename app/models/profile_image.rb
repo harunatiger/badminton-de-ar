@@ -37,7 +37,7 @@ class ProfileImage < ActiveRecord::Base
   after_save :set_percentage
 
   def set_percentage
-    Profile.set_percentage(self.profile_id)
+    Profile.set_percentage(self.user_id)
   end
 
   def self.minimun_requirement?(user_id, profile_id)

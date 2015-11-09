@@ -1,6 +1,11 @@
-.profile-progress-container
-  .progress-label
-    | プロフィール完成度
+- if @profile.progress > 80
+  .reliable-sign
     span.percent #{@profile.progress}%
-  .progress-holder
-  	.progress-bar style='width: #{@profile.progress}%'
+- else
+  .reliable-sign.unreliable
+    span.percent #{@profile.progress}%
+dl
+- if @progress.present?
+	- @progress.each do |key,value|
+		dt #{key}
+		dd + #{value}%
