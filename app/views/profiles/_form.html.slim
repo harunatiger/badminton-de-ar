@@ -25,8 +25,8 @@
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_birthdate"]
               - if @progress.present?
-                - if @progress.include?("birthday")
-                  .inputrate.inputrate-red +16%
+                - if @progress.include?('birthday')
+                  .inputrate.inputrate-red  +#{@progress['rate']}%
               | 生年月日
               i.fa.fa-lock.fa-green
             .col-9
@@ -49,8 +49,8 @@
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_phone"]
               - if @progress.present?
-                - if @progress.include?("phone")
-                  .inputrate.inputrate-red +16%
+                - if @progress.include?('phone')
+                  .inputrate.inputrate-red +#{@progress['rate']}%
               | 電話番号
               i.fa.fa-lock.fa-green
             .col-7
@@ -59,8 +59,8 @@
           .row.row-condensed.row-space-4
             label.text-right.col-3
               - if @progress.present?
-                - if @progress.include?("company")
-                  .inputrate.inputrate-red +16%
+                - if @progress.include?('company')
+                  .inputrate.inputrate-red +#{@progress['rate']}%
               | 居住国
               i.fa.fa-lock.fa-green
             .col-8
@@ -76,8 +76,8 @@
           .row.row-condensed.row-space-2
             label.text-right.col-3[for="user_phone"]
               - if @progress.present?
-                -if @progress.include?("location")
-                  .inputrate.inputrate-red +16%
+                -if @progress.include?('location')
+                  .inputrate.inputrate-red +#{@progress['rate']}%
               | 住所
             .col-7.row-space-4
               = f.input_field :location, placeholder: "例) 郵便番号を入力すると自動で町名まで出力されます"
@@ -96,8 +96,8 @@
           /.row.row-condensed.row-space-4
             label.text-right.col-3[for="user_self_introduction"]
               - if @progress.present?
-                - if @progress.include?("self_introduction")
-                  .inputrate.inputrate-red +16%
+                - if @progress.include?('self_introduction')
+                  .inputrate.inputrate-red +#{@progress['rate']}%
               | 自己紹介
             .col-8.self_introduction_wrapper
               = f.input_field :self_introduction, as: :text, cols: "30", rows: "20", placeholder: "例）ようこそ 私の名前は風馬太郎です。私はあなたと同じ旅を楽しみ、人生を楽しんでいます。出身は北海道。1年前から東京で仕事をしています。あらゆるジャンルの飲食を紹介することが出来ます。あなたが望むならご飯もご一緒できます。観光ガイドブックにのることはない、私がオススメするランチ・ディナーを紹介することも出来ます。それはきっと、あなたにとって記憶に残る素晴らしい体験になるはず。あなたをお待ちしております。風馬太郎"

@@ -79,25 +79,30 @@ class Profile < ActiveRecord::Base
 
   def self.get_percentage(id)
     user = User.find(id)
-    array_result = []
+    hash_result = {}
     if user
       profile = user.profile
       if profile
         #birthday
-        array_result << 'birthday' if profile.birthday.blank?
+        hash_result.store('birthday', 'true') if profile.birthday.blank?
         #country
-        array_result << 'country' if profile.country.blank?
+        hash_result.store('country', 'true') if profile.country.blank?
         #location
-        array_result << 'location' if profile.location.blank?
+        hash_result.store('location', 'true') if profile.location.blank?
         #email
-        array_result << 'email' if user.email.blank?
+        hash_result.store('email', 'true') if user.email.blank?
         #phone
-        array_result << 'phone' if profile.phone.blank?
+        hash_result.store('phone', 'true') if profile.phone.blank?
         #self_introduction
-        array_result << 'self_introduction' if profile.self_introduction.blank?
+        hash_result.store('self_introduction', 'true') if profile.self_introduction.blank?
+
+        # Caliculate Remain Percentage
+        ret = (((100 * hash_result.length).to_f / 6).round) / hash_result.length
+        hash_result.store('rate', ret) if ret
+        
       end
     end
-    array_result
+    hash_result
   end
 
   def self.set_percentage(id)
@@ -120,7 +125,7 @@ class Profile < ActiveRecord::Base
         array_result << 'self_introduction' if profile.self_introduction.present?
         
         # Caliculate Percentage
-        ret = ((100/6.to_f) * array_result.length).round
+        ret = ((100 / 6.to_f) * array_result.length).round
         profile.progress = ret.to_i
         profile.update({:listing_count => ret})
       end
