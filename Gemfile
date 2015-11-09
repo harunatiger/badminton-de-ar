@@ -124,7 +124,6 @@ gem 'aws-sdk', '~>2'
 #country select
 gem 'country_select'
 
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '4.0.3'

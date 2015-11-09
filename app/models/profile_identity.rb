@@ -32,6 +32,10 @@ class ProfileIdentity < ActiveRecord::Base
   after_save :set_percentage
 
   def set_percentage
+<<<<<<< HEAD
   	Profile.set_percentage(self.user_id)
+=======
+  	Profile.set_percentage(self.profile_id)
+>>>>>>> 29c14722e9248496f2fcc2b4110a43862a1c7452
   end
 end
