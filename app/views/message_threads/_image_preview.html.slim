@@ -4,12 +4,10 @@
     .modal-table
       .modal-cell
         .modal-content
-          .card-header
+          .card-body style="background-image:url('#{m.attached_file.preview.url}')"
             = link_to "", "#", class: "modal-close", data: { dismiss: "modal" }
-            = m.attached_name
-          .card-body
-            = image_tag(m.attached_file.preview.url)
-            .card-footer
-              = link_to "ダウンロード", download_attached_file_messages_path(:id => m.id) , class: "btn"
-              = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"
+            /= image_tag(m.attached_file.preview.url)
+          .card-footer
+            = link_to "ダウンロード", download_attached_file_messages_path(:id => m.id) , class: "btn"
+            = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"
 
