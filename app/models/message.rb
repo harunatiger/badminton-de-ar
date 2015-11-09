@@ -34,7 +34,10 @@ class Message < ActiveRecord::Base
   validates :message_thread_id, presence: true
   validates :from_user_id, presence: true
   validates :to_user_id, presence: true
-  validates :content, presence: true
+  validates :content, presence: true, if: 'attached_file.blank?'
+  validates :attached_file, presence: true, if: 'content.blank?'
+  validates :attached_name, presence: true, if: 'attached_file.present?'
+  validates :attached_extension, presence: true, if: 'attached_file.present?'
 
   mount_uploader :attached_file, MessageUploader
 

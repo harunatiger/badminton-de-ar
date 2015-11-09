@@ -1,3 +1,6 @@
-.alert.alert-absolute
-  div
-    | プロフィール完成度は #{@profile.progress}% です
+.profile-progress-container
+  .progress-label
+    | プロフィール完成度
+    span.percent #{@profile.progress}%
+  .progress-holder
+  	.progress-bar style='width: #{@profile.progress}%'
