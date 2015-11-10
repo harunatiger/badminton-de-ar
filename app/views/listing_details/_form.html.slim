@@ -4,6 +4,11 @@
   -if false
     = f.input_field :longitude, as: :string, placeholder: "経度"
     = f.input_field :latitude, as: :string, placeholder: "緯度"
+  
+  .row-space-top-4
+    h3.text-center.row-space-2 所要時間・料金など
+    p.text-center.row-space-6
+      | 予定している所要時間や料金、ツアーに参加できる人数の上限、下限の制限条件などを設定してください。
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -84,6 +89,10 @@
           p.row-space-top-1.text-red
             i.fa.fa-exclamation-circle
             |  ユーザーが申し込みをする時点で表示される情報です。
+  .row-space-top-4
+    h3.text-center.row-space-2 集合場所・その他の条件
+    p.text-center.row-space-6
+      | 集合場所を設定してください。スムーズに出会えるように駅近辺のお店などを待合わせ場所にしましょう。
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
