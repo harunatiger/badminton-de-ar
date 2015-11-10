@@ -2,17 +2,20 @@
 #
 # Table name: messages
 #
-#  id                :integer          not null, primary key
-#  message_thread_id :integer          not null
-#  from_user_id      :integer          not null
-#  to_user_id        :integer          not null
-#  content           :text             default(""), not null
-#  read              :boolean          default(FALSE)
-#  read_at           :datetime
-#  listing_id        :integer          default(0), not null
-#  reservation_id    :integer          default(0), not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id                 :integer          not null, primary key
+#  message_thread_id  :integer          not null
+#  from_user_id       :integer          not null
+#  to_user_id         :integer          not null
+#  content            :text             default(""), not null
+#  read               :boolean          default(FALSE)
+#  read_at            :datetime
+#  listing_id         :integer          default(0), not null
+#  reservation_id     :integer          default(0), not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  attached_file      :string
+#  attached_extension :string
+#  attached_name      :string
 #
 # Indexes
 #

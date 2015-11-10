@@ -2,24 +2,25 @@
 #
 # Table name: listing_details
 #
-#  id                :integer          not null, primary key
-#  listing_id        :integer
-#  zipcode           :string
-#  location          :string           default("")
-#  place             :string           default("")
-#  longitude         :decimal(9, 6)    default(0.0)
-#  latitude          :decimal(9, 6)    default(0.0)
-#  price             :integer          default(0)
-#  option_price      :integer          default(0)
-#  time_required     :decimal(9, 6)    default(0.0)
-#  max_num_of_people :integer          default(0)
-#  min_num_of_people :integer          default(0)
-#  included          :text             default("")
-#  condition         :text             default("")
-#  refund_policy     :text             default("")
-#  in_case_of_rain   :text             default("")
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id                      :integer          not null, primary key
+#  listing_id              :integer
+#  zipcode                 :string
+#  location                :string           default("")
+#  place                   :string           default("")
+#  longitude               :decimal(9, 6)    default(0.0)
+#  latitude                :decimal(9, 6)    default(0.0)
+#  price                   :integer          default(0)
+#  option_price            :integer          default(0)
+#  time_required           :decimal(9, 6)    default(0.0)
+#  max_num_of_people       :integer          default(0)
+#  min_num_of_people       :integer          default(0)
+#  included                :text             default("")
+#  condition               :text             default("")
+#  refund_policy           :text             default("")
+#  in_case_of_rain         :text             default("")
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  option_price_per_person :integer          default(0)
 #
 # Indexes
 #
@@ -72,12 +73,13 @@ class ListingDetail < ActiveRecord::Base
   end
     
   def amount
-    self.price + self.option_price
+    self.price + self.option_price + self.option_price_per_person
   end
     
   def set_price
     self.price = 0 if self.price.blank?
     self.option_price = 0 if self.option_price.blank?
+    self.option_price_per_person = 0 if self.option_price_per_person.blank?
     self
   end
 end

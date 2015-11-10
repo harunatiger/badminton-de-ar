@@ -2,31 +2,32 @@
 #
 # Table name: reservations
 #
-#  id                     :integer          not null, primary key
-#  host_id                :integer
-#  guest_id               :integer
-#  listing_id             :integer
-#  schedule               :datetime         not null
-#  num_of_people          :integer          default(0), not null
-#  msg                    :text             default("")
-#  progress               :integer          default(0), not null
-#  reason                 :text             default("")
-#  review_mail_sent_at    :datetime
-#  review_expiration_date :datetime
-#  review_landed_at       :datetime
-#  reviewed_at            :datetime
-#  reply_mail_sent_at     :datetime
-#  reply_landed_at        :datetime
-#  replied_at             :datetime
-#  review_opened_at       :datetime
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  time_required          :decimal(9, 6)    default(0.0)
-#  price                  :integer          default(0)
-#  option_price           :integer          default(0)
-#  place                  :string           default("")
-#  description            :text             default("")
-#  schedule_end           :date
+#  id                      :integer          not null, primary key
+#  host_id                 :integer
+#  guest_id                :integer
+#  listing_id              :integer
+#  schedule                :datetime         not null
+#  num_of_people           :integer          default(0), not null
+#  msg                     :text             default("")
+#  progress                :integer          default(0), not null
+#  reason                  :text             default("")
+#  review_mail_sent_at     :datetime
+#  review_expiration_date  :datetime
+#  review_landed_at        :datetime
+#  reviewed_at             :datetime
+#  reply_mail_sent_at      :datetime
+#  reply_landed_at         :datetime
+#  replied_at              :datetime
+#  review_opened_at        :datetime
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  time_required           :decimal(9, 6)    default(0.0)
+#  price                   :integer          default(0)
+#  option_price            :integer          default(0)
+#  place                   :string           default("")
+#  description             :text             default("")
+#  schedule_end            :date
+#  option_price_per_person :integer          default(0)
 #
 # Indexes
 #
@@ -172,7 +173,7 @@ class Reservation < ActiveRecord::Base
   end
   
   def basic_amount
-    self.price * self.num_of_people + self.option_price
+    self.price + self.option_price + (self.option_price_per_person * self.num_of_people)
   end
   
   def paypal_amount
@@ -202,6 +203,7 @@ class Reservation < ActiveRecord::Base
   def set_price
     self.price = 0 if self.price.blank?
     self.option_price = 0 if self.option_price.blank?
+    self.option_price_per_person = 0 if self.option_price_per_person.blank?
     self
   end
 end

@@ -17,17 +17,20 @@
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        | 基本料金
+        | ガイド料金
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-6
           .input-opt
             = f.input_field :price
             span 円
+      p.row-space-top-1.text-red
+        i.fa.fa-exclamation-circle
+        |  はじめてのガイドの時は、多く方が時給1500円前後を設定しています。
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        | オプション料金
+        | 共通のオプション料金
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-6
@@ -36,7 +39,20 @@
             span 円
       p.row-space-top-1.text-red
         i.fa.fa-exclamation-circle
-        |  タクシー代やガソリン代など追加で発生する料金
+        |  レンタカー代やガソリン代など共通の追加料金があれば設定してください。
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 1人あたりのオプション料金
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-6
+          .input-opt
+            = f.input_field :option_price_per_person
+            span 円
+      p.row-space-top-1.text-red
+        i.fa.fa-exclamation-circle
+        | 入場料など参加人数に応じて変動する追加料金があれば設定してください。
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light

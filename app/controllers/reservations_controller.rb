@@ -224,6 +224,7 @@ class ReservationsController < ApplicationController
       @reservation.time_required = listing.listing_detail.time_required
       @reservation.price = listing.listing_detail.price
       @reservation.option_price = listing.listing_detail.option_price
+      @reservation.option_price_per_person = listing.listing_detail.option_price_per_person
       @reservation.place = listing.listing_detail.place
       @listings = User.find(current_user.id).listings.opened
       gon.watch.ngdates = Ngevent.get_ngdates(@reservation)
@@ -246,7 +247,7 @@ class ReservationsController < ApplicationController
     end
 
     def reservation_params
-      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :option_price, Reservation::REGISTRABLE_ATTRIBUTES, :place, :description, :message_thread_id, :schedule_end)
+      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :option_price, :option_price_per_person, Reservation::REGISTRABLE_ATTRIBUTES, :place, :description, :message_thread_id, :schedule_end)
     end
   
     def checkout(reservation)

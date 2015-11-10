@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029172323) do
+ActiveRecord::Schema.define(version: 20151110040717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,21 +133,22 @@ ActiveRecord::Schema.define(version: 20151029172323) do
   create_table "listing_details", force: :cascade do |t|
     t.integer  "listing_id"
     t.string   "zipcode"
-    t.string   "location",                                  default: ""
-    t.string   "place",                                     default: ""
-    t.decimal  "longitude",         precision: 9, scale: 6, default: 0.0
-    t.decimal  "latitude",          precision: 9, scale: 6, default: 0.0
-    t.integer  "price",                                     default: 0
-    t.integer  "option_price",                              default: 0
-    t.decimal  "time_required",     precision: 9, scale: 6, default: 0.0
-    t.integer  "max_num_of_people",                         default: 0
-    t.integer  "min_num_of_people",                         default: 0
-    t.text     "included",                                  default: ""
-    t.text     "condition",                                 default: ""
-    t.text     "refund_policy",                             default: ""
-    t.text     "in_case_of_rain",                           default: ""
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
+    t.string   "location",                                        default: ""
+    t.string   "place",                                           default: ""
+    t.decimal  "longitude",               precision: 9, scale: 6, default: 0.0
+    t.decimal  "latitude",                precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                           default: 0
+    t.integer  "option_price",                                    default: 0
+    t.decimal  "time_required",           precision: 9, scale: 6, default: 0.0
+    t.integer  "max_num_of_people",                               default: 0
+    t.integer  "min_num_of_people",                               default: 0
+    t.text     "included",                                        default: ""
+    t.text     "condition",                                       default: ""
+    t.text     "refund_policy",                                   default: ""
+    t.text     "in_case_of_rain",                                 default: ""
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
+    t.integer  "option_price_per_person",                         default: 0
   end
 
   add_index "listing_details", ["latitude"], name: "index_listing_details_on_latitude", using: :btree
@@ -178,36 +179,6 @@ ActiveRecord::Schema.define(version: 20151029172323) do
 
   add_index "listing_languages", ["language_id"], name: "index_listing_languages_on_language_id", using: :btree
   add_index "listing_languages", ["listing_id"], name: "index_listing_languages_on_listing_id", using: :btree
-
-  create_table "listing_pickup_areas", force: :cascade do |t|
-    t.integer  "listing_id"
-    t.integer  "pickup_area_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  add_index "listing_pickup_areas", ["listing_id"], name: "index_listing_pickup_areas_on_listing_id", using: :btree
-  add_index "listing_pickup_areas", ["pickup_area_id"], name: "index_listing_pickup_areas_on_pickup_area_id", using: :btree
-
-  create_table "listing_pickup_categories", force: :cascade do |t|
-    t.integer  "listing_id"
-    t.integer  "pickup_category_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-  end
-
-  add_index "listing_pickup_categories", ["listing_id"], name: "index_listing_pickup_categories_on_listing_id", using: :btree
-  add_index "listing_pickup_categories", ["pickup_category_id"], name: "index_listing_pickup_categories_on_pickup_category_id", using: :btree
-
-  create_table "listing_pickup_tags", force: :cascade do |t|
-    t.integer  "listing_id"
-    t.integer  "pickup_tag_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "listing_pickup_tags", ["listing_id"], name: "index_listing_pickup_tags_on_listing_id", using: :btree
-  add_index "listing_pickup_tags", ["pickup_tag_id"], name: "index_listing_pickup_tags_on_pickup_tag_id", using: :btree
 
   create_table "listing_pickups", force: :cascade do |t|
     t.integer  "listing_id"
@@ -299,16 +270,19 @@ ActiveRecord::Schema.define(version: 20151029172323) do
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
-    t.integer  "message_thread_id",                 null: false
-    t.integer  "from_user_id",                      null: false
-    t.integer  "to_user_id",                        null: false
-    t.text     "content",           default: "",    null: false
-    t.boolean  "read",              default: false
+    t.integer  "message_thread_id",                  null: false
+    t.integer  "from_user_id",                       null: false
+    t.integer  "to_user_id",                         null: false
+    t.text     "content",            default: "",    null: false
+    t.boolean  "read",               default: false
     t.datetime "read_at"
-    t.integer  "listing_id",        default: 0,     null: false
-    t.integer  "reservation_id",    default: 0,     null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.integer  "listing_id",         default: 0,     null: false
+    t.integer  "reservation_id",     default: 0,     null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "attached_file"
+    t.string   "attached_extension"
+    t.string   "attached_name"
   end
 
   add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id", using: :btree
@@ -496,6 +470,7 @@ ActiveRecord::Schema.define(version: 20151029172323) do
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.string   "country",              default: ""
+    t.integer  "progress",             default: 0,     null: false
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
@@ -504,11 +479,11 @@ ActiveRecord::Schema.define(version: 20151029172323) do
     t.integer  "host_id"
     t.integer  "guest_id"
     t.integer  "listing_id"
-    t.datetime "schedule",                                                     null: false
-    t.integer  "num_of_people",                                  default: 0,   null: false
-    t.text     "msg",                                            default: ""
-    t.integer  "progress",                                       default: 0,   null: false
-    t.text     "reason",                                         default: ""
+    t.datetime "schedule",                                                      null: false
+    t.integer  "num_of_people",                                   default: 0,   null: false
+    t.text     "msg",                                             default: ""
+    t.integer  "progress",                                        default: 0,   null: false
+    t.text     "reason",                                          default: ""
     t.datetime "review_mail_sent_at"
     t.datetime "review_expiration_date"
     t.datetime "review_landed_at"
@@ -517,14 +492,15 @@ ActiveRecord::Schema.define(version: 20151029172323) do
     t.datetime "reply_landed_at"
     t.datetime "replied_at"
     t.datetime "review_opened_at"
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
-    t.decimal  "time_required",          precision: 9, scale: 6, default: 0.0
-    t.integer  "price",                                          default: 0
-    t.integer  "option_price",                                   default: 0
-    t.string   "place",                                          default: ""
-    t.text     "description",                                    default: ""
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
+    t.decimal  "time_required",           precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                           default: 0
+    t.integer  "option_price",                                    default: 0
+    t.string   "place",                                           default: ""
+    t.text     "description",                                     default: ""
     t.date     "schedule_end"
+    t.integer  "option_price_per_person",                         default: 0
   end
 
   add_index "reservations", ["guest_id"], name: "index_reservations_on_guest_id", using: :btree
