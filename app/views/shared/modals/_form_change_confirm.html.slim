@@ -1,10 +1,10 @@
-/ modal pair_guide_list
-#form_change_confirm.modal.fade[data-toggle="draftModal" data-target="#draftModal"]
+#form_change_confirm.modal[data-toggle="draftModal" data-target="#draftModal"]
   .modal-dialog
     .modal-content
       .modal-body
         button.button[data-dismiss="modal" aria-hidden="true"]
-          | You are about to leave the deal. Would you like to save as a draft?
+          | まだ編集内容が保存されていません。
+          | 本当にページから移動しますか?
         .modal-footer
-          button.btn.btn-default[data-dismiss="modal"]Close
-          button.btn.btn-primary[data-dismiss="modal"]Save changes
+          button.btn.btn-default[data-dismiss="modal"]移動しない
+          button#pagemove.btn.btn-primary 移動する

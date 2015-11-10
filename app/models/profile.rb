@@ -95,10 +95,12 @@ class Profile < ActiveRecord::Base
         hash_result.store('phone', 'true') if profile.phone.blank?
         #self_introduction
         hash_result.store('self_introduction', 'true') if profile.self_introduction.blank?
-
+        
         # Caliculate Remain Percentage
-        ret = (((100 * hash_result.length).to_f / 6).round) / hash_result.length
-        hash_result.store('rate', ret) if ret
+        if hash_result.present?
+          ret = (((100 * hash_result.length).to_f / 6).round) / hash_result.length
+          hash_result.store('rate', ret) if ret
+        end
         
       end
     end
