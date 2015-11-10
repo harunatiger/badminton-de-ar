@@ -289,7 +289,7 @@ $ ->
       return
 
   #Form Change Confirm
-  if $('body').is('.profiles.edit') || $('body').is('.profile_images.self_introduction') || $('body').is('.profile_images.edit') || $('body').is('.profile_identities.edit') || $('body').is('.profile_banks.edit')
+  if $('body').is('.profiles.edit') || $('body').is('.profiles.self_introduction') || $('body').is('.profile_images.edit') || $('body').is('.profile_identities.edit') || $('body').is('.profile_banks.edit') || $('body').is('.listings.edit') || $('body').is('.listings.new') || $('body').is('.listing_images.manage') || $('body').is('.listing_details.manage') || $('body').is('.listing_details.manage')
     isChanged = false
     form_change_target = ''  
 
@@ -310,7 +310,6 @@ $ ->
     $('form').submit -> isChanged = false
     $('a').on 'click', -> handleClick($(this).attr('href'))
     $('#form_change_confirm #pagemove').on 'click', -> modalyesClick()
-
   ### 
     # circle map
     cityCircle = undefined
