@@ -250,30 +250,34 @@ $ ->
     $('.galon-trigger').on 'click', ->
       $('.photo-box').magnificPopup('open')
 
-    # price culc
+    # price calc
     tourPriceSingleContainer = $('#tour-price-single')
     tourPriceSingle = 0
     tourPriceBase = Number($('#tour-price-base').text())
     tourPriceOption = Number($('#tour-price-option').text())
-    tourMemberCulcedContainer = $('#tour-member_culced')
-    tourPriceBaseCulcedContainer = $('#tour-price-base_culced')
-    tourPriceOptionCulcedContainer = $('#tour-price-option_culced')
-    serviceCostCulcedContainer = $('#service-cost_culced')
-    tourPriceResultCulcedContainer = $('#tour-price-result_culced')
+    tourPriceOptionSingle = Number($('#tour-price-option-single').text())
 
-    tourPriceSingle = tourPriceBase + tourPriceOption
+    tourMemberCalcedContainer = $('#tour-member_calced')
+    tourPriceBaseCalcedContainer = $('#tour-price-base_calced')
+    tourPriceOptionCalcedContainer = $('#tour-price-option_calced')
+    tourPriceOptionSingleCalcedContainer = $('#tour-price-option-single_calced')
+    serviceCostCalcedContainer = $('#service-cost_calced')
+    tourPriceResultCalcedContainer = $('#tour-price-result_calced')
+
+    tourPriceSingle = tourPriceBase + tourPriceOption + tourPriceOptionSingle
     tourPriceSingleContainer.text(tourPriceSingle)
 
     priceCulc = ->
       $('#culc-container').show()
       numOfPeople = Number($('#num-of-people option:selected').text())
-      tourMemberCulcedContainer.text(numOfPeople)
-      tourPriceOptionCulcedContainer.text(tourPriceOption)
-      tourPriceBaseCulced = tourPriceBase * numOfPeople
-      tourPriceBaseCulcedContainer.text(tourPriceBaseCulced)
-      serviceCostCulced = Math.ceil((tourPriceBaseCulced + tourPriceOption) * 0.125)
-      serviceCostCulcedContainer.text(serviceCostCulced)
-      tourPriceResultCulcedContainer.text(tourPriceBaseCulced + tourPriceOption + serviceCostCulced)
+      tourPriceBaseCalcedContainer.text(tourPriceBase)
+      tourMemberCalcedContainer.text(numOfPeople)
+      tourPriceOptionCalcedContainer.text(tourPriceOption)
+      tourPriceOptionSingleCalced = tourPriceOptionSingle * numOfPeople
+      tourPriceOptionSingleCalcedContainer.text(tourPriceOptionSingleCalced)
+      serviceCostCalced = Math.ceil((tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced) * 0.125)
+      serviceCostCalcedContainer.text(serviceCostCalced)
+      tourPriceResultCalcedContainer.text(tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced + serviceCostCalced)
       return
 
     $('#num-of-people select').on 'change', ->

@@ -16,26 +16,31 @@
             = listing.listing_detail.time_required
             | 時間
         .row.row-space-1
-          .col-md-6
-            | ガイド料金（1人）
-          .col-md-6.text-right.strong
+          .col-md-7.small1
+            | ガイド料金(1人)
+          .col-md-5.text-right.strong
             | ¥
             span#tour-price-base
               =listing.listing_detail.price
         .row.row-space-1
-          .col-md-6
-            | 共通のオプション料金
-          .col-md-6.text-right.strong
+          .col-md-7.small1
+            | オプション(共通)
+          .col-md-5.text-right.strong
             | ¥
             span#tour-price-option
               =listing.listing_detail.option_price
         .row.row-space-1
-          .col-md-6
-            | 1人あたりのオプション料金
-          .col-md-6.text-right.strong
+          .col-md-7.small1
+            | オプション(1人あたり)
+          .col-md-5.text-right.strong
             | ¥
-            span#tour-price-option
+            span#tour-price-option-single
               =listing.listing_detail.option_price_per_person
+        .row
+          .col-md-12
+            = link_to "#", class: "include_what_trigger small1 text-blue" do
+              i.fa.fa-exclamation-circle
+              |  料金には何が含まれていますか？
       = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
         - user_id = 0
         - user_id = current_user.id if user_signed_in?
@@ -63,41 +68,43 @@
 
         #culc-container.row-space-1
           .row.row-space-1
-            .col-md-6
-              | 基本料金 x 
-              span#tour-member_culced
+            .col-md-7.small1
+              | ガイド料金
+            .col-md-5.text-right.strong
+              | ¥
+              span#tour-price-base_calced
+
+          .row.row-space-1
+            .col-md-7.small1
+              | オプション(共通)
+            .col-md-5.text-right.strong
+              | ¥
+              span#tour-price-option_calced
+
+          .row.row-space-1
+            .col-md-7.small1
+              | オプション(1人あたり) x 
+              span#tour-member_calced
                 | 1
               | 人
-            .col-md-6.text-right.strong
+            .col-md-5.text-right.strong
               | ¥
-              span#tour-price-base_culced
+              span#tour-price-option-single_calced
 
           .row.row-space-1
-            .col-md-6
-              | オプション料金
-            .col-md-6.text-right.strong
-              | ¥
-              span#tour-price-option_culced
-
-          .row.row-space-1
-            .col-md-6
+            .col-md-7.small1
               | サービス利用料金
-            .col-md-6.text-right.strong
+            .col-md-5.text-right.strong
               | ¥
-              span#service-cost_culced
-
-          .row.row-space-1
-            .col-md-6
-              | 合計金額
-            .col-md-6.text-right.strong.text-red
-              | ¥
-              span#tour-price-result_culced.h4
+              span#service-cost_calced
 
           .row.row-space-4
-            .col-md-12
-              = link_to "#", class: "include_what_trigger small1 text-blue" do
-                i.fa.fa-exclamation-circle
-                |  料金には何が含まれていますか？
+            .col-md-7.small1
+              | 合計金額
+            .col-md-5.text-right.strong.text-red
+              | ¥
+              span#tour-price-result_calced.h4
+
 
         .row-space-2
           - if user_signed_in?
