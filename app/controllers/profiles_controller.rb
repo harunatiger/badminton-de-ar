@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy, :self_introduction]
   before_action :set_pair_guide, only: [:show]
   before_action :set_message_thread, only: [:show]
+  before_action :get_progress, only: [:edit, :self_introduction, :new]
 
   # GET /profiles
   # GET /profiles.json
@@ -40,6 +41,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
+        Profile.set_percentage(@profile.user_id)
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
         format.json { render :show, status: :created, location: @profile }
       else
@@ -54,6 +56,7 @@ class ProfilesController < ApplicationController
   def update
     respond_to do |format|
       if @profile.update(profile_params)
+        Profile.set_percentage(@profile.user_id)
         format.html { redirect_to @profile, notice: Settings.profile.save.success }
         format.json { render :show, status: :ok, location: @profile }
       else
@@ -104,6 +107,10 @@ class ProfilesController < ApplicationController
           @message_thread = MessageThread.find(res)
         end
       end
+    end
+
+    def get_progress
+      @progress = Profile.get_percentage(@profile.user_id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

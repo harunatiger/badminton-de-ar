@@ -64,7 +64,7 @@
             label[for="reservation_num_of_people"]
               |  人数
             .select.select-block#num-of-people
-              = f.input_field :num_of_people, as: :select, collection: [*(1..20)], default: [1]
+              = f.input_field :num_of_people, as: :select, collection: listing.listing_detail.min_num_of_people..listing.listing_detail.max_num_of_people, default: [1]
 
         #culc-container.row-space-1
           .row.row-space-1

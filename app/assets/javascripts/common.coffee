@@ -288,8 +288,31 @@ $ ->
         $(this).css visibility: 'visible'
       return
 
+  #Form Change Confirm
+  if $('body').is('.profiles.edit') || $('body').is('.profiles.self_introduction') || $('body').is('.profile_images.edit') || $('body').is('.profile_identities.edit') || $('body').is('.profile_banks.edit') || $('body').is('.listings.edit') || $('body').is('.listings.new') || $('body').is('.listing_images.manage') || $('body').is('.listing_details.manage') || $('body').is('.listing_details.manage')
+    isChanged = false
+    form_change_target = ''  
 
-    ###
+    handleClick = (target) ->
+      if isChanged == true
+        form_change_target = target
+        $('#form_change_confirm').modal('show')
+        return false
+      else
+        return
+
+    modalyesClick = ->
+      $('#form_change_confirm').modal('hide')
+      window.location.href = form_change_target
+      isChanged == false
+
+    $('form').change -> isChanged = true
+    $('form').submit -> 
+      isChanged = false
+      return
+    $('a').on 'click', -> handleClick($(this).attr('href'))
+    $('#form_change_confirm #pagemove').on 'click', -> modalyesClick()
+  ### 
     # circle map
     cityCircle = undefined
 

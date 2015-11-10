@@ -31,6 +31,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  country              :string           default("")
+#  progress             :integer          default(0), not null
 #
 # Indexes
 #
@@ -75,4 +76,62 @@ class Profile < ActiveRecord::Base
     users = User.where(id: user_ids)
     Profile.where(user_id: users.ids)
   end
+
+  def self.get_percentage(id)
+    user = User.find(id)
+    hash_result = {}
+    if user
+      profile = user.profile
+      if profile
+        #birthday
+        hash_result.store('birthday', 'true') if profile.birthday.blank?
+        #country
+        hash_result.store('country', 'true') if profile.country.blank?
+        #location
+        hash_result.store('location', 'true') if profile.location.blank?
+        #email
+        hash_result.store('email', 'true') if user.email.blank?
+        #phone
+        hash_result.store('phone', 'true') if profile.phone.blank?
+        #self_introduction
+        hash_result.store('self_introduction', 'true') if profile.self_introduction.blank?
+        
+        # Caliculate Remain Percentage
+        if hash_result.present?
+          ret = (((100 * hash_result.length).to_f / 6).round) / hash_result.length
+          hash_result.store('rate', ret) if ret
+        end
+        
+      end
+    end
+    hash_result
+  end
+
+  def self.set_percentage(id)
+    user = User.find(id)
+    if user
+      profile = user.profile
+      if profile
+        array_result = []
+        #birthday
+        array_result << 'birthday' if profile.birthday.present?
+        #country
+        array_result << 'country' if profile.country.present?
+        #location
+        array_result << 'location' if profile.location.present?
+        #email
+        array_result << 'email' if user.email.present?
+        #phone
+        array_result << 'phone' if profile.phone.present?
+        #self_introduction
+        array_result << 'self_introduction' if profile.self_introduction.present?
+        
+        # Caliculate Percentage
+        ret = ((100 / 6.to_f) * array_result.length).round
+        profile.progress = ret.to_i
+        profile.update({:listing_count => ret})
+      end
+    end
+  end
+
 end

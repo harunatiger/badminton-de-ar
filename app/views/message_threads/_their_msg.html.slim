@@ -24,6 +24,14 @@ li.thread-list-item
                     |の予約リクエストをお送りしました。
                 - else
                   = m.try('content')
+            - if m.attached_file.present?
+              div
+                - if m.attached_extension.include?('pdf')
+                  = link_to m.attached_name, download_attached_file_messages_path(:id => m.id)
+                - else
+                  = link_to '#', class: "preview-attached-trigger messagethread-link-preview", data: { :image => m.id } do
+                    = m.attached_name
+                div#preview-show
             - if !m.reservation_id.zero? and m.try('content') == Settings.reservation.msg.request
               = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
         .time-container.text-muted.text-right

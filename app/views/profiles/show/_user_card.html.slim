@@ -9,6 +9,22 @@
     .profile-created.text-muted.row-space-1
       = "(#{@profile.created_at.strftime("%Y年%m月")}登録)"
     .profile-status.row-space-2
+      | 情報登録
+      - if profile.progress <= 19
+        .inputrate.inputrate-red
+          span.rate #{profile.progress}%
+      - elsif profile.progress >= 20 && profile.progress <= 39
+        .inputrate.inputrate-orange
+          span.rate #{profile.progress}%
+      - elsif profile.progress >= 40 && profile.progress <= 59
+        .inputrate.inputrate-yellow
+          span.rate #{profile.progress}%
+      - elsif profile.progress >= 60 && profile.progress <= 79
+        .inputrate.inputrate-lightgreen
+          span.rate #{profile.progress}%
+      - elsif profile.progress >= 80
+        .inputrate.inputrate-green
+          span.percent #{profile.progress}%
       - if profile_identity_authorized?(profile.user_id)
         .reliable-sign
           i.fa.fa-check-square-o
