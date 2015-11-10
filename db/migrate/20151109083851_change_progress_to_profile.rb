@@ -6,4 +6,8 @@ class ChangeProgressToProfile < ActiveRecord::Migration
   def down
     change_column :profiles, :progress, :integer
   end
+
+  Profile.all.each do |p|
+    Profile.set_percentage(p.user_id)
+	end
 end

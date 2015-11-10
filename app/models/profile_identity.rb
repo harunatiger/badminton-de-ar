@@ -29,9 +29,4 @@ class ProfileIdentity < ActiveRecord::Base
   
   scope :mine, -> user_id { where( user_id: user_id ) }
 
-  after_save :set_percentage
-
-  def set_percentage
-  	Profile.set_percentage(self.user_id)
-  end
 end

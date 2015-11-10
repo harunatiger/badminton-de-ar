@@ -22,12 +22,6 @@
 class ProfileBank < ActiveRecord::Base
   belongs_to :user
   belongs_to :profile
-
-  after_save :set_percentage
-
-  def set_percentage
-  	Profile.set_percentage(self.user_id)
-  end
   
   #validates :name, presence: true
   #validates :branch_name, presence: true
