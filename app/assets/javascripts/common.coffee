@@ -307,7 +307,9 @@ $ ->
       isChanged == false
 
     $('form').change -> isChanged = true
-    $('form').submit -> isChanged = false
+    $('form').submit -> 
+      isChanged = false
+      return
     $('a').on 'click', -> handleClick($(this).attr('href'))
     $('#form_change_confirm #pagemove').on 'click', -> modalyesClick()
   ### 
