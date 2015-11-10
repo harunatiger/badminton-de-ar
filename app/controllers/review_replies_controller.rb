@@ -20,7 +20,8 @@ class ReviewRepliesController < ApplicationController
         format.html { redirect_to root_path, notice: Settings.review_reply.save.success }
         format.json { render :show, status: :created, location: @review_reply }
       else
-        format.html { redirect_to root_path, notice: Settings.review_reply.save.failure }
+        flash.now[:alert] = Settings.review_reply.save.failure
+        format.html { render 'new'}
         format.json { render json: @review_reply.errors, status: :unprocessable_entity }
       end
     end
@@ -62,6 +63,6 @@ class ReviewRepliesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def review_reply_params
-      params.require(:review_reply).permit(:review_id, :msg)
+      params.require(:review_reply).permit(:review_id, :accuracy, :communication, :clearliness, :location, :check_in, :cost_performance, :total, :msg)
     end
 end

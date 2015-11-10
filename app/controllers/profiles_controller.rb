@@ -18,6 +18,7 @@ class ProfilesController < ApplicationController
     gon.listings = @listings.map{|l| l.listing_detail}
     #@reviewed = Review.they_do(@profile.user_id).order_by_updated_at_desc
     @reviewed = Review.they_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
+    @reviewed_as_guest = Review.i_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc.includes(:review_reply)
   end
 
   # GET /profiles/new

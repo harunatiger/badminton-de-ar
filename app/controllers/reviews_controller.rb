@@ -21,7 +21,8 @@ class ReviewsController < ApplicationController
           format.json { render :show, status: :created, location: @review }
         end
       else
-        format.html { redirect_to root_path, alert: Settings.review.save.failure }
+        flash.now[:alert] = Settings.review.save.failure
+        format.html { render 'new'}
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
     end

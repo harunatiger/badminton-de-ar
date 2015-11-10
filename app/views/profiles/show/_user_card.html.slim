@@ -23,19 +23,7 @@
         span.h5
           = reviewed_count
       .star-rating
-        .foreground
-          i.fa.fa-star-o.fa-light-gray
-          i.fa.fa-star-o.fa-light-gray
-          i.fa.fa-star-o.fa-light-gray
-          i.fa.fa-star-o.fa-light-gray
-          i.fa.fa-star-o.fa-light-gray
-
-        .background
-          i.fa.fa-star-o.fa-light-gray
-          i.fa.fa-star-o.fa-light-gray
-          i.fa.fa-star-o.fa-light-gray
-          i.fa.fa-star-o.fa-light-gray
-          i.fa.fa-star-o.fa-light-gray
+        = render partial: 'listings/stars', locals: { rate: @profile.ave_total }
 
     - if user_signed_in?
       - if current_user.id == @profile.user_id

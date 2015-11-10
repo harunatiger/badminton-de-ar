@@ -33,6 +33,6 @@ class Payment < ActiveRecord::Base
   end
   
   def cancel_available
-    self.updated_at.to_date + 60.days >= Date.today
+    self.updated_at.to_date + 60.days >= Time.zone.today
   end
 end

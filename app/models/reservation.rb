@@ -68,7 +68,7 @@ class Reservation < ActiveRecord::Base
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :new_requests, -> user_id { where(host_id: user_id, progress: 'requested') }
   scope :accepts, -> { where(progress: 3) }
-  scope :finished_before_yesterday, -> { where("schedule <= ?", Time.zone.yesterday) }
+  scope :finished_before_yesterday, -> { where("schedule_end <= ?", Time.zone.yesterday.in_time_zone('UTC')) }
   scope :review_mail_never_be_sent, -> { where(review_mail_sent_at: nil) }
   scope :reviewed, -> { where.not(reviewed_at: nil) }
   scope :review_reply_mail_never_be_sent, -> { where(reply_mail_sent_at: nil) }

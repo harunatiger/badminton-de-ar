@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110040717) do
+ActiveRecord::Schema.define(version: 20151110104242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -505,9 +505,16 @@ ActiveRecord::Schema.define(version: 20151110040717) do
 
   create_table "review_replies", force: :cascade do |t|
     t.integer  "review_id"
-    t.text     "msg",        default: ""
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.text     "msg",              default: ""
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "accuracy",         default: 0
+    t.integer  "communication",    default: 0
+    t.integer  "clearliness",      default: 0
+    t.integer  "location",         default: 0
+    t.integer  "check_in",         default: 0
+    t.integer  "cost_performance", default: 0
+    t.integer  "total",            default: 0
   end
 
   add_index "review_replies", ["review_id"], name: "index_review_replies_on_review_id", using: :btree
