@@ -154,7 +154,7 @@ class Reservation < ActiveRecord::Base
   def self.active_reservation(guest_id, host_id)
     reservation = self.latest_reservation(guest_id, host_id)
     if reservation.present?
-      reservation.schedule_end.present? ? reservation.schedule_end > Date.today : false
+      reservation.schedule_end.present? ? reservation.schedule_end > Time.zone.today : false
     else
       false
     end
@@ -194,7 +194,7 @@ class Reservation < ActiveRecord::Base
 
   def completed?
     if self.schedule_end.present?
-      self.accepted? and self.schedule_end > Date.today
+      self.accepted? and self.schedule_end > Time.zone.today
     else
       false
     end

@@ -122,11 +122,10 @@ class User < ActiveRecord::Base
   end
   
   def finish_reservation_count
-    Reservation.as_host(self.id).finished_before_yesterday.count
+    Reservation.as_host(self.id).accepts.finished_before_yesterday.count
   end
   
   def already_authrized
-    p 'bbbbbbbbbbbbbbbbbbbb'
     ProfileIdentity.where(user_id: self.id).first.try('authorized') || false
   end
 end

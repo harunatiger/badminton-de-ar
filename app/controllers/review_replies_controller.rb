@@ -17,6 +17,7 @@ class ReviewRepliesController < ApplicationController
         @reservation.save_replied_at_now
         @reservation.save_review_opened_at_now
         @review.calc_average
+        ReviewMailer.send_review_accept_notification(@review).deliver_now!
         format.html { redirect_to root_path, notice: Settings.review_reply.save.success }
         format.json { render :show, status: :created, location: @review_reply }
       else

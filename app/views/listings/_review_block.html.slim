@@ -5,7 +5,7 @@
       = reviews.count
       | 件
     .star-rating
-      = render partial: 'listings/stars', locals: { rate: listing.ave_total }
+      = render partial: 'shared/stars', locals: { rate: listing.ave_total }
 .review-content
   .card-body
     = render partial: 'review_item', locals: { reviews: reviews, host_info: host_info, host_image: host_image }

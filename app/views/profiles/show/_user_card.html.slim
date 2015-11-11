@@ -23,7 +23,7 @@
         span.h5
           = reviewed_count
       .star-rating
-        = render partial: 'listings/stars', locals: { rate: @profile.ave_total }
+        = render partial: 'shared/stars', locals: { rate: @profile.ave_total }
 
     - if user_signed_in?
       - if current_user.id == @profile.user_id

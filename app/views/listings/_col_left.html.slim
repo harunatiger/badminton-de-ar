@@ -11,10 +11,10 @@
       div
         = link_to "#reviews", class: "link-reset"
           .star-rating.star-rating-large
-            = render partial: 'listings/stars', locals: { rate: listing.ave_total }
+            = render partial: 'listings/stars', locals: { rate: @host_info.ave_total }
         | (
         span[itemprop="reviewCount"]
-          = reviews.count
+          = @all_reviewed_count
         | )
 .row.row-space-4
   .col-md-12.text-center--sp

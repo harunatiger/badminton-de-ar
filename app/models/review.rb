@@ -51,6 +51,7 @@ class Review < ActiveRecord::Base
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
   scope :i_do, -> user_id { where(guest_id: user_id) }
   scope :they_do, -> user_id { where(host_id: user_id) }
+  scope :all_do, -> user_id { where('reviews.host_id = ? or reviews.guest_id = ?', user_id, user_id)}
 
   def calc_average
     self.calc_ave_of_listing
@@ -60,7 +61,11 @@ class Review < ActiveRecord::Base
   def calc_ave_of_listing
     l = Listing.find(self.listing_id)
     r_count = Review.where(listing_id: self.listing_id).count
-    ave_total = (l.ave_total + self.total) / r_count
+    if r_count == 1
+      ave_total = self.total
+    else
+      ave_total = (l.ave_total * (r_count - 1) + self.total) / r_count 
+    end
     l.ave_total = ave_total
     l.save
   end
@@ -68,7 +73,11 @@ class Review < ActiveRecord::Base
   def calc_ave_of_profile
     prof = Profile.find(self.host_id)
     r_count = Review.where(host_id: self.host_id).count
-    ave_total = (prof.ave_total + self.total) / r_count 
+    if r_count == 1
+      ave_total = self.total
+    else
+      ave_total = (prof.ave_total * (r_count - 1) + self.total) / r_count 
+    end
     prof.ave_total = ave_total
     prof.save
   end
