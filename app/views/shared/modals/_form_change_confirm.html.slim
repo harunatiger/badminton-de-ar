@@ -2,9 +2,11 @@
   .modal-table
     .modal-cell
       .modal-content
+        .card-header 確認ダイアログ
       	.card-body
-			    | まだ編集内容が保存されていません。
-			    | 本当にページから移動しますか?
-			    .card-footer
-			    	button.btn.btn-primary[data-dismiss="modal"]移動しない
-			    	button#pagemove.btn.btn-default 移動する
+          p
+            span.text-red まだ編集内容が保存されていません。
+            | 本当にページから移動しますか？
+        .card-footer
+          button.btn.btn-default[data-dismiss="modal"]移動しない
+          button#pagemove.btn.btn-primary 移動する

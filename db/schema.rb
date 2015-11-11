@@ -300,16 +300,19 @@ ActiveRecord::Schema.define(version: 20151110040717) do
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
-    t.integer  "message_thread_id",                 null: false
-    t.integer  "from_user_id",                      null: false
-    t.integer  "to_user_id",                        null: false
-    t.text     "content",           default: "",    null: false
-    t.boolean  "read",              default: false
+    t.integer  "message_thread_id",                  null: false
+    t.integer  "from_user_id",                       null: false
+    t.integer  "to_user_id",                         null: false
+    t.text     "content",            default: "",    null: false
+    t.boolean  "read",               default: false
     t.datetime "read_at"
-    t.integer  "listing_id",        default: 0,     null: false
-    t.integer  "reservation_id",    default: 0,     null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.integer  "listing_id",         default: 0,     null: false
+    t.integer  "reservation_id",     default: 0,     null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "attached_file"
+    t.string   "attached_extension"
+    t.string   "attached_name"
   end
 
   add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id", using: :btree
@@ -497,6 +500,7 @@ ActiveRecord::Schema.define(version: 20151110040717) do
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.string   "country",              default: ""
+    t.integer  "progress",             default: 0,     null: false
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
