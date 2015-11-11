@@ -246,8 +246,10 @@ $ ->
   # google place-auto-complete
   #initialize()
   # google place-auto-complete2
-  #if $('body').hasClass('dashboard guest_reservation_manager')
-    #initialize2()
+
+  if $('body').hasClass('dashboard guest_reservation_manager')
+    $('.cancel-reservation-form').on 'submit', ->
+      return confirm('この予約をキャンセルします。本当によろしいですか？')
 
   # registrations#new & registrations#create
   if $('body').hasClass('registrations new') || $('body').hasClass('registrations create')
@@ -291,7 +293,7 @@ $ ->
   #Form Change Confirm
   if $('body').is('.profiles.edit') || $('body').is('.profiles.self_introduction') || $('body').is('.profile_images.edit') || $('body').is('.profile_identities.edit') || $('body').is('.profile_banks.edit') || $('body').is('.listings.edit') || $('body').is('.listings.new') || $('body').is('.listing_images.manage') || $('body').is('.listing_details.manage') || $('body').is('.listing_details.manage')
     isChanged = false
-    form_change_target = ''  
+    form_change_target = ''
 
     handleClick = (target) ->
       if isChanged == true
@@ -307,12 +309,12 @@ $ ->
       isChanged == false
 
     $('form').change -> isChanged = true
-    $('form').submit -> 
+    $('form').submit ->
       isChanged = false
       return
     $('a').on 'click', -> handleClick($(this).attr('href'))
     $('#form_change_confirm #pagemove').on 'click', -> modalyesClick()
-  ### 
+  ###
     # circle map
     cityCircle = undefined
 
