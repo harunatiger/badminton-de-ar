@@ -20,6 +20,7 @@ class ListingsController < ApplicationController
     ListingPv.add_count(@listing.id)
     @active_reservation = Reservation.active_reservation(user_id, @listing.user_id)
     @reviews = Review.this_listing(@listing.id).joins(:reservation).merge(Reservation.review_open?).order_by_created_at_desc.page(params[:page])
+    @all_reviewed_count = Review.all_do(@listing.user_id).joins(:reservation).merge(Reservation.review_open?).count
     @host_info = Profile.find_by(user_id: @listing.user_id)
     @host_image = ProfileImage.find_by(user_id: @listing.user_id)
     @profiles = Profile.guides.where.not(id: @host_info.id)

@@ -1,0 +1,9 @@
+Hello,<%= @to_user_name %>
+
+You got a review from <%= @from_user_name %>.
+
+Please check the contents from the following link.
+<%= profile_url(@to_user.profile.id) %>
+
+--
+Huber.

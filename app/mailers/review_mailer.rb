@@ -40,4 +40,17 @@ class ReviewMailer < ApplicationMailer
       format.text
     end
   end
+  
+  def send_review_accept_notification(review)
+    from_user = User.find(review.host_id)
+    @to_user = User.find(review.guest_id)
+    @to_user_name = "#{@to_user.profile.last_name} #{@to_user.profile.first_name}"
+    @from_user_name = "#{from_user.profile.last_name} #{from_user.profile.first_name}"
+    mail(
+      to:      @to_user.email,
+      subject: Settings.mailer.review_accept_notification.subject
+    ) do |format|
+      format.text
+    end
+  end
 end

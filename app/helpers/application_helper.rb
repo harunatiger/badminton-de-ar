@@ -79,6 +79,10 @@ module ApplicationHelper
     end
   end
 
+  def user_id_to_profile_id(user_id)
+    User.find(user_id).profile.id
+  end
+  
   def review_count_of_host(host_id)
     results = Listing.mine(host_id).pluck('review_count')
     review_count = 0

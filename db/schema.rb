@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110040717) do
+ActiveRecord::Schema.define(version: 20151110104242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,36 +179,6 @@ ActiveRecord::Schema.define(version: 20151110040717) do
 
   add_index "listing_languages", ["language_id"], name: "index_listing_languages_on_language_id", using: :btree
   add_index "listing_languages", ["listing_id"], name: "index_listing_languages_on_listing_id", using: :btree
-
-  create_table "listing_pickup_areas", force: :cascade do |t|
-    t.integer  "listing_id"
-    t.integer  "pickup_area_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  add_index "listing_pickup_areas", ["listing_id"], name: "index_listing_pickup_areas_on_listing_id", using: :btree
-  add_index "listing_pickup_areas", ["pickup_area_id"], name: "index_listing_pickup_areas_on_pickup_area_id", using: :btree
-
-  create_table "listing_pickup_categories", force: :cascade do |t|
-    t.integer  "listing_id"
-    t.integer  "pickup_category_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-  end
-
-  add_index "listing_pickup_categories", ["listing_id"], name: "index_listing_pickup_categories_on_listing_id", using: :btree
-  add_index "listing_pickup_categories", ["pickup_category_id"], name: "index_listing_pickup_categories_on_pickup_category_id", using: :btree
-
-  create_table "listing_pickup_tags", force: :cascade do |t|
-    t.integer  "listing_id"
-    t.integer  "pickup_tag_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "listing_pickup_tags", ["listing_id"], name: "index_listing_pickup_tags_on_listing_id", using: :btree
-  add_index "listing_pickup_tags", ["pickup_tag_id"], name: "index_listing_pickup_tags_on_pickup_tag_id", using: :btree
 
   create_table "listing_pickups", force: :cascade do |t|
     t.integer  "listing_id"
@@ -539,9 +509,16 @@ ActiveRecord::Schema.define(version: 20151110040717) do
 
   create_table "review_replies", force: :cascade do |t|
     t.integer  "review_id"
-    t.text     "msg",        default: ""
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.text     "msg",              default: ""
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "accuracy",         default: 0
+    t.integer  "communication",    default: 0
+    t.integer  "clearliness",      default: 0
+    t.integer  "location",         default: 0
+    t.integer  "check_in",         default: 0
+    t.integer  "cost_performance", default: 0
+    t.integer  "total",            default: 0
   end
 
   add_index "review_replies", ["review_id"], name: "index_review_replies_on_review_id", using: :btree
