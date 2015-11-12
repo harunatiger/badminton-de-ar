@@ -4,12 +4,12 @@ $ ->
     #---------------------------------------------------------------------
     # GoogleMap for Place
     #---------------------------------------------------------------------
-    map = undefined
-    marker = undefined
+    map = null
+    marker = null
     location = document.getElementById('listing_detail_place')
     autocomplete = new (google.maps.places.Autocomplete)(location)
     geocoder = new (google.maps.Geocoder)
-    show = undefined
+    show = true
     #---------------------------------------------------------------------
     # Create MapCanvas
     #---------------------------------------------------------------------
@@ -25,6 +25,7 @@ $ ->
           marker = new (google.maps.Marker)(
             map: map
             position: results[0].geometry.location
+            anchorPoint: new google.maps.Point(0,-24)
             draggable: true)
           $('#map').parents('.row').slideDown()
           $('#map').css 'height', '300px'
@@ -91,7 +92,7 @@ $ ->
           map: map
           position: place.geometry.location
           draggable: true)
-      $('#listing_detail_place').val place.formatted_address + ' ' + place.name
+      $('#listing_detail_place').val place.formatted_address
       google.maps.event.addListener marker, 'dragend', (e) ->
         geocodeLatLng e.latLng.lat(), e.latLng.lng()
         return
