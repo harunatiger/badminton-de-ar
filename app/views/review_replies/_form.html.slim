@@ -7,10 +7,10 @@
     = f.hidden_field :location, value: 0
     = f.hidden_field :check_in, value: 0
     = f.hidden_field :cost_performance, value: 0
-    = f.hidden_field :total, value: 0
+    /= f.hidden_field :total, value: 0
     .row-space-5
       = f.text_area :msg, required: true, rows: "7", placeholder: "例）こちらこそ楽しいひと時を過ごさせていただきました。どうぞまたご参加ください。"
-    /.row.row-space-5
+    .row.row-space-5
         label.col-12
           .h5
             | 評価

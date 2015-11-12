@@ -72,11 +72,21 @@ class Review < ActiveRecord::Base
 
   def calc_ave_of_profile
     prof = Profile.find(self.host_id)
-    r_count = Review.where(host_id: self.host_id).count
+    r_count = Review.all_do(self.host_id).joins(:reservation).merge(Reservation.review_open?).count
     if r_count == 1
       ave_total = self.total
     else
       ave_total = (prof.ave_total * (r_count - 1) + self.total) / r_count 
+    end
+    prof.ave_total = ave_total
+    prof.save
+    
+    prof = Profile.find(self.guest_id)
+    r_count = Review.all_do(self.guest_id).joins(:reservation).merge(Reservation.review_open?).count
+    if r_count == 1
+      ave_total = self.review_reply.total
+    else
+      ave_total = (prof.ave_total * (r_count - 1) + self.review_reply.total) / r_count 
     end
     prof.ave_total = ave_total
     prof.save

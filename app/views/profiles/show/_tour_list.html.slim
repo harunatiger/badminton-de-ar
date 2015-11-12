@@ -23,4 +23,4 @@ h4.row-space-4
               h5.row-space-1.overflow
                 = listing.title
             .row-space-1.text-muted
-              | #{listing.listing_detail.time_required if listing.listing_detail.present?}時間 · レビュー#{listing.reviews.count}件
+              | #{listing.listing_detail.time_required if listing.listing_detail.present?}時間 · レビュー#{listing.open_reviews_count}件
