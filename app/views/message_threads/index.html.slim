@@ -19,7 +19,7 @@
                       .row.row-table
                         .col-md-4.col-middle.thread-avatar
                           .media-round.media-photo.media-avatar
-                            .size60[style="background-image: url('#{profile_to_image_thumb(counterpart_user.profile)}')"]
+                            .size60[style="background-image: url('#{asset_path profile_to_image_thumb(counterpart_user.profile)}')"]
                         .h5.col-sm-8.col-middle.thread-name
                           -if mt.host_id == current_user.id
                             span.user-type.user-guest

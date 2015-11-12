@@ -2,7 +2,7 @@
   .card.tour-listing
     .card-image
       = link_to listing_path(listing.id), class: "media-photo media-photo-block media-cover" do
-        = image_tag(listing.cover_image, height: "210", width: "484", alt: "", class: "img-responsive")
+        = image_tag(listing_cover_image_url(listing.id), height: "210", width: "484", alt: "", class: "img-responsive")
       .card-overlay-bottom-left.flush-left.card-overlay-label
         .h3
           | ¥
@@ -10,7 +10,7 @@
     .card-body
       .media
         = link_to profile_path(listing.user_id), class: 'pull-right media-photo media-round card-profile-picture card-profile-picture-offset' do
-          div[style="background-image: url('#{user_id_to_profile_image(listing.user_id)}')" title="#{user_id_to_name(listing.user_id)}"]
+          div[style="background-image: url('#{asset_path user_id_to_profile_image(listing.user_id)}')" title="#{user_id_to_name(listing.user_id)}"]
         = link_to listing_path(listing.id), class: "text-normal" do
           h5.row-space-1
             = listing.title

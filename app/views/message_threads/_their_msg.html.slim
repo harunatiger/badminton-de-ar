@@ -39,4 +39,4 @@ li.thread-list-item
             = m.try('created_at').strftime("%m/%d %H:%M") || ''
     .col-sm-2.col-md-1.col-md-push-1.text-center
       = link_to profile_path(counterpart.profile.id), class: "media-photo media-round media-avatar"
-        .size36[style="background-image: url('#{their_profile_image}')"]
+        .size36[style="background-image: url('#{asset_path their_profile_image}')"]

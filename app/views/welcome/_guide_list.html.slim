@@ -10,10 +10,10 @@
         .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
           div
             = link_to profile_path(profile), class: 'huber-card' do
-              .huber-card-background[style="background-image: url('#{profile_to_cover_image_thumb(profile)}')"]
+              .huber-card-background[style="background-image: url('#{asset_path profile_to_cover_image_thumb(profile)}')"]
               .huber-card-content
                 .huber-card-face
-                  div[style="background-image: url('#{profile_to_image_thumb(profile)}')"]
+                  div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
                 .huber-inner
                   .name
                     = "#{profile.last_name} #{profile.first_name}"

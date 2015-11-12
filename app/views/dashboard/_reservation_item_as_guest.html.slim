@@ -8,7 +8,7 @@
           .row.row-table
             .col-md-4.col-middle.thread-avatar
               .media-round.media-photo.media-avatar
-                .size60[style="background-image: url('#{user_id_to_profile_image(r.host_id)}')"]
+                .size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.host_id)}')"]
             .h5.col-sm-8.col-middle.thread-name
               = user_id_to_name(r.host_id)
         .col-md-5.thread-body

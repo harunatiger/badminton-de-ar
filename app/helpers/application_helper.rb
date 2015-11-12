@@ -28,8 +28,8 @@ module ApplicationHelper
 
   def listing_cover_image_url(listing_id)
     ci = Listing.find(listing_id)
-    if ci.blank?
-      return ''
+    if ci.cover_image.blank?
+      return Settings.image.noimage.url
     else
       return ci.cover_image
     end
@@ -37,8 +37,8 @@ module ApplicationHelper
 
   def listing_cover_image_thumb_url(listing_id)
     ci = Listing.find(listing_id)
-    if ci.blank?
-      return ''
+    if ci.cover_image.blank?
+      return Settings.image.noimage.url
     else
       return ci.cover_image.thumb
     end
@@ -93,15 +93,14 @@ module ApplicationHelper
   end
 
   def user_id_to_profile_image(user_id)
-    result = ProfileImage.mine(user_id)
-    result[0].try('image') || Settings.image.noimage2.url
+    result = ProfileImage.mine(user_id).first
+    result.image.present? ? result.image : Settings.image.noimage2.url
   end
 
   def user_id_to_profile_image_thumb_one(user_id)
-    user = User.find(user_id)
-    result = user.profile_image.try('image')
-    if result.present?
-      result.thumb.url
+    result = User.find(user_id).profile
+    if result.profile_image.present? and result.profile_image.image.present?
+      result.profile_image.image.thumb.url
     else
       Settings.image.noimage2.url
     end
@@ -122,9 +121,9 @@ module ApplicationHelper
   end
   
   def user_id_to_profile_cover_image(user_id)
-    result = ProfileImage.mine(user_id)
-    if result.present?
-      result[0].try('cover_image') || Settings.image.noimage.url
+    result = ProfileImage.mine(user_id).first
+    if result.present? and result.cover_image.present?
+      result.cover_image
     else
       Settings.image.noimage.url
     end
@@ -177,24 +176,24 @@ module ApplicationHelper
   end
   
   def profile_to_image(profile)
-    if profile.profile_image.present?
-      profile.profile_image.try('image') || Settings.image.noimage2.url
+    if profile.profile_image.present? and profile.profile_image.image.present?
+      profile.profile_image.image
     else
       Settings.image.noimage2.url
     end
   end
   
   def profile_to_cover_image(profile)
-    if profile.profile_image.present?
-      profile.profile_image.try('cover_image') || Settings.image.noimage2.url
+    if profile.profile_image.present? and profile.profile_image.cover_image.present?
+      profile.profile_image.cover_image
     else
-      Settings.image.noimage2.url
+      Settings.image.noimage.url
     end
   end
   
   def profile_to_image_thumb(profile)
     if profile.profile_image.present? and profile.profile_image.image.present?
-      profile.profile_image.image.try('thumb') || Settings.image.noimage2.url
+      profile.profile_image.image.thumb
     else
       Settings.image.noimage2.url
     end
@@ -202,9 +201,9 @@ module ApplicationHelper
   
   def profile_to_cover_image_thumb(profile)
     if profile.profile_image.present? and profile.profile_image.cover_image.present?
-      profile.profile_image.cover_image.try('thumb') || Settings.image.noimage2.url
+      profile.profile_image.cover_image.thumb
     else
-      Settings.image.noimage2.url
+      Settings.image.noimage.url
     end
   end
 
