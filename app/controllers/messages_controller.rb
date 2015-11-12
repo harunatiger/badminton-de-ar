@@ -100,16 +100,23 @@ class MessagesController < ApplicationController
 
   def download_attached_file
     message = Message.find(params[:id])
-
-    file = message.attached_file.path
+    
+    if Rails.env.development?
+      file = message.attached_file.path
+    else
+      file = message.attached_file.url
+    end
+    
     file_extension = message.attached_extension.to_s
     file_name = message.attached_name.to_s
 
     options = {}
     options[:type] = file_extension ? file_extension : 'text/plain'
     options[:filename] = file_name if file_name.present?
-
-    ret = send_file file, options
+    
+    data = open(file)
+    ret = send_data data.read, options
+    #ret = send_file file, options
 
   end
 

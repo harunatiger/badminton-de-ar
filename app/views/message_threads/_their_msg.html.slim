@@ -27,7 +27,7 @@ li.thread-list-item
             - if m.attached_file.present?
               div
                 - if m.attached_extension.include?('pdf')
-                  = link_to m.attached_name, m.attached_file.url, download: m.attached_name.to_s
+                  = link_to m.attached_name, download_attached_file_messages_path(id: m.id)
                 - else
                   = link_to '#', class: "preview-attached-trigger messagethread-link-preview", data: { :image => m.id } do
                     = m.attached_name
