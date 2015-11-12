@@ -19,3 +19,4 @@
 //= require message
 //= require listings
 //= require reservation
+//= require listingdetails

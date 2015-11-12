@@ -4,7 +4,7 @@
   -if false
     = f.input_field :longitude, as: :string, placeholder: "経度"
     = f.input_field :latitude, as: :string, placeholder: "緯度"
-  
+
   .row-space-top-4
     h3.text-center.row-space-2 所要時間・料金など
     p.text-center.row-space-6
@@ -96,6 +96,28 @@
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
+        | 集合場所
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :place, placeholder: "例）ハチ公前広場"
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          #map
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 集合場所のメモ
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :place_memo, placeholder: "例）ハチ公前にバラの花を付けて集合"
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
         |  集合場所の郵便番号
     .col-xs-8.fieldset.col-middle
       .row
@@ -110,15 +132,10 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :location, placeholder: "郵便番号を入力すれば自動で出力されます"
-  .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | 集合場所
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11
-          = f.input_field :place, placeholder: "例）ハチ公前にバラの花を付けて集合"
+         = f.input_field :location, placeholder: "郵便番号を入力すれば自動で出力されます"
+         p.row-space-top-1.text-red
+            i.fa.fa-exclamation-circle
+            |  ex. 186-3 Yamanouchi Kamakurashi Kanagawa
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light

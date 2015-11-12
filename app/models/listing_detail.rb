@@ -21,6 +21,7 @@
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  option_price_per_person :integer          default(0)
+#  place_memo              :string           default("")
 #
 # Indexes
 #

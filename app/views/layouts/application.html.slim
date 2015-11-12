@@ -38,7 +38,8 @@ html
   = render partial: 'shared/tooltip'
   = render partial: 'shared/modals/flow'
   /= javascript_include_tag '//j.wovn.io/0', 'data-wovnio'=> 'key=CC4ZB'
-  = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&language=en'
+  = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?libraries=places&language=en', acync: 'acync'
+
   - if controller_name === "calendar"
     = javascript_include_tag 'application_calendar'
   - else
