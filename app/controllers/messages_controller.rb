@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
+  before_action :regulate_user!, only: [:download_attached_file]
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -99,16 +100,14 @@ class MessagesController < ApplicationController
   end
 
   def download_attached_file
-    message = Message.find(params[:id])
-    
     if Rails.env.development?
-      file = message.attached_file.path
+      file = @message.attached_file.path
     else
-      file = message.attached_file.url
+      file = @message.attached_file.url
     end
     
-    file_extension = message.attached_extension.to_s
-    file_name = message.attached_name.to_s
+    file_extension = @message.attached_extension.to_s
+    file_name = @message.attached_name.to_s
 
     options = {}
     options[:type] = file_extension ? file_extension : 'text/plain'
@@ -116,8 +115,7 @@ class MessagesController < ApplicationController
     
     data = open(file)
     ret = send_data data.read, options
-    #ret = send_file file, options
-
+    
   end
 
   private
@@ -126,7 +124,13 @@ class MessagesController < ApplicationController
     def set_message
       @message = Message.find(params[:id])
     end
-
+    
+    def regulate_user!
+      @message = Message.find(params[:id])
+      unless current_user.id == @message.to_user_id or current_user.id == @message.from_user_id
+        redirect_to root_path, alert: Settings.regulate_user.user_id.failure
+      end
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
       params.require(:message).permit(:message_thread_id, :from_user_id, :to_user_id, :schedule, :num_of_people, :content, :attached_file, :progress, :read, :reservation_id, :listing_id)
