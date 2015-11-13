@@ -37,6 +37,9 @@
         | 集合場所: 
       .col-md-8
         = reservation_obj.place
+        -if reservation_obj.place_memo.present?
+          br
+          |(#{reservation_obj.place_memo})
     .row.row-condensed.row-space-4
       .col-md-3.text-left.text-muted.strong
         | ガイド内容など: 
