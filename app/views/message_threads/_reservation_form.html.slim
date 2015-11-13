@@ -3,7 +3,7 @@
           -if @listings.blank?
             = link_to new_listing_path do
               span.text-pink.strong
-                |ツアーを登録してガイド内容を作成しましょう！
+                | ツアーを登録してガイド内容を作成しましょう！
           - elsif !@reservation.completed?
             = simple_form_for(@reservation, html: { id: "non_special_offer_form", class: "message_form clearfix" }) do |f|
               = f.hidden_field :message_thread_id, value: @message_thread.id
