@@ -16,7 +16,7 @@
                     .avatar-wrapper
                       = link_to profile_path(user_id_to_profile_id(r.host_id)), class: "text-muted" do
                         .media-photo.media-round.row-space-1.text-center
-                          = image_tag(user_id_to_profile_image(r.host_id), style: 'display: inline;', width: 68)
+                          .size68[style="background-image: url('#{user_id_to_profile_image(r.host_id)}')"]
                         .text-center.profile-name.text-wrap
                           = user_id_to_name(r.host_id)
                       /.text-muted.date.show-sm 
@@ -40,7 +40,8 @@
                     /.media
                       .media-photo.media-round.pull-left
                         = link_to profile_path(r.host_id)
-                          = image_tag(user_id_to_profile_image(r.host_id), width: 36, style: "display: inline;")
+                          .size36[style="background-image: url('#{user_id_to_profile_image(r.host_id)}')"]
+
                       /.media-body
                         strong
                           | 返信：
