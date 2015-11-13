@@ -100,7 +100,9 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :place, placeholder: "例）ハチ公前広場"
+          = f.hidden_field :place_longitude
+          = f.hidden_field :place_latitude
+          = f.input_field :place, placeholder: "Googleマップから検索できます"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
     .col-xs-8.fieldset.col-middle

@@ -22,6 +22,8 @@
 #  updated_at              :datetime         not null
 #  option_price_per_person :integer          default(0)
 #  place_memo              :string           default("")
+#  place_longitude         :decimal(9, 6)    default(0.0)
+#  place_latitude          :decimal(9, 6)    default(0.0)
 #
 # Indexes
 #
