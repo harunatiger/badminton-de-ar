@@ -194,8 +194,8 @@ class Reservation < ActiveRecord::Base
   end
 
   def completed?
-    if self.schedule_end.present?
-      self.accepted? and self.schedule_end > Time.zone.today
+    if self.schedule.present?
+      self.accepted? and self.schedule > Time.zone.today
     else
       false
     end

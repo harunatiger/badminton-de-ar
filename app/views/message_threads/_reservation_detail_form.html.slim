@@ -40,7 +40,7 @@
       .select.select-opt
         = select :reservation, :num_of_people, [*(1..20)]
         span 人
-      .row-space-top-1.text-blue.small2 ベース価格 ✕ 人数にオプション価格とサービス料を足した値がゲストに表示されます。
+      .row-space-top-1.text-blue.small2 ベース価格 + 共通のオプション価格 + 1人あたりのオプション価格 ✕ 人数にサービス料を足した値がゲストに表示されます。
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
       | 開始日

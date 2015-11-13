@@ -29,7 +29,6 @@
             .col-md-8
               = @reservation.place
               -if @reservation.place_memo.present?
-                br
                 |(#{@reservation.place_memo})
           .row.row-condensed.row-space-1
             .col-md-3.text-left.text-muted.strong
