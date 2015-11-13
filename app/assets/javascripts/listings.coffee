@@ -386,14 +386,14 @@ $ ->
       mapOptions =
         scrollwheel: false
         zoom: 13
-        center: new (google.maps.LatLng)(gon.listing.latitude, gon.listing.longitude)
+        center: new (google.maps.LatLng)(gon.listing.place_latitude, gon.listing.place_longitude)
         # center: new (google.maps.LatLng)(35.319225, 139.546687)
         mapTypeId: google.maps.MapTypeId.TERRAIN
 
       map = new (google.maps.Map)(document.getElementById('location'), mapOptions)
 
       marker = new (google.maps.Marker)(
-        position:  new (google.maps.LatLng)(gon.listing.latitude, gon.listing.longitude)
+        position:  new (google.maps.LatLng)(gon.listing.place_latitude, gon.listing.place_longitude)
         map: map )
       return
 

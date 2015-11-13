@@ -41,7 +41,7 @@ class ListingDetail < ActiveRecord::Base
   
   def set_lon_lat
     hash = Hash.new
-    if self.place.present?
+    if self.location.present?
       hash = self.geocode_with_google_map_api
     end
     if hash['success'].present?
@@ -57,7 +57,7 @@ class ListingDetail < ActiveRecord::Base
 
   def geocode_with_google_map_api
     base_url = "http://maps.google.com/maps/api/geocode/json"
-    address = URI.encode(self.place)
+    address = URI.encode(self.location)
     hash = Hash.new
     reqUrl = "#{base_url}?address=#{address}&sensor=false&language=ja"
     response = Net::HTTP.get_response(URI.parse(reqUrl))
