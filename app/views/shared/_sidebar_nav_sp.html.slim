@@ -9,12 +9,6 @@
           li
             = link_to Settings.page.dashboard, dashboard_path, class: "link-reset menu-item", rel: "nofollow"
           li
-            -if current_user.listings.blank?
-              = link_to Settings.page.listing_new, new_listing_path, class: "link-reset menu-item", rel: "nofollow"
-            -else
-              = link_to Settings.page.listings, listings_path, class: "link-reset menu-item", rel: "nofollow"
-            /= link_to Settings.page.listing_new, new_listing_path
-          li
             = link_to message_threads_path, class: "link-reset menu-item", rel: "nofollow" do
               = Settings.page.messages
               i.alert-count.unread-count--sp.fade.text-center
@@ -22,7 +16,15 @@
               = unread_messages
               | ）
           li
+            -if current_user.listings.blank?
+              = link_to Settings.page.listing_new, new_listing_path, class: "link-reset menu-item", rel: "nofollow"
+            -else
+              = link_to Settings.page.listings, listings_path, class: "link-reset menu-item", rel: "nofollow"
+            /= link_to Settings.page.listing_new, new_listing_path
+          li
             = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, class: "link-reset menu-item", rel: "nofollow"
+          li
+            = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path, class: "link-reset menu-item", rel: "nofollow"
           /li
             /= link_to Settings.page.wishlists, wishlists_path, class: "link-reset menu-item", rel: "nofollow"
           li
