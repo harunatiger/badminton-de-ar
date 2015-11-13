@@ -58,6 +58,11 @@
       = text_field :reservation, :place, placeholder: "例）ハチ公前"
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
+      | 集合場所のメモ
+    .col-md-9
+      = text_field :reservation, :place_memo, placeholder: "例）ハチ公前にバラの花を付けて集合"
+  .row.row-condensed.row-space-3
+    label.col-md-3.text-right.text-left--sp
       | 集合時間
     .col-md-6
       .select.select-opt

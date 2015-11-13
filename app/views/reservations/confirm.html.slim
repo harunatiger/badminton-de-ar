@@ -30,6 +30,9 @@
               | 集合場所: 
             .col-md-8
               = @reservation.place
+              -if @reservation.place_memo.present?
+                br
+                |(#{@reservation.place_memo})
           .row.row-condensed.row-space-8.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
               | ガイド内容など: 

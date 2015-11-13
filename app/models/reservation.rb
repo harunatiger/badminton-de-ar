@@ -28,6 +28,7 @@
 #  description             :text             default("")
 #  schedule_end            :date
 #  option_price_per_person :integer          default(0)
+#  place_memo              :text             default("")
 #
 # Indexes
 #
