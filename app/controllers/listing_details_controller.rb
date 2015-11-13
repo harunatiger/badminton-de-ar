@@ -48,7 +48,7 @@ class ListingDetailsController < ApplicationController
   # PATCH/PUT /listing_details/1.json
   def update
     respond_to do |format|
-      @listing_detail.location = listing_detail_params['location']
+      @listing_detail.place = listing_detail_params['place']
       @listing_detail.set_lon_lat
       if @listing_detail.update(listing_detail_params)
         format.html { redirect_to manage_listing_listing_details_path(@listing.id), notice: Settings.listing_details.save.success }
