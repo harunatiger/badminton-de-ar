@@ -6,7 +6,7 @@
         .col-xs-4.col-lg-12
           .media.media-photo-block.dashboard-profile-photo.panel-image
             = link_to profile_path(counterpart.id)
-              == image_tag(user_id_to_profile_image(counterpart.id), class: 'img-responsive')
+              = image_tag(user_id_to_profile_image(counterpart.id), class: 'img-responsive')
         .col-xs-8.col-lg-12
           .card-body.card-body-condensed
             h4.text-center
