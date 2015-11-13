@@ -1,6 +1,10 @@
 # listing_details#manage
 $ ->
   if $('body').hasClass('listing_details manage')
+    $('#listing_detail_place').keypress (e) ->
+      if (e.which == 13)
+        $('#listing_detail_place_memo').focus()
+        e.preventDefault()
     #---------------------------------------------------------------------
     # GoogleMap for Place
     #---------------------------------------------------------------------
@@ -134,3 +138,6 @@ $ ->
         return
       return
     return
+    #---------------------------------------------------------------------
+    # SearchBox Enterkey controll
+    #---------------------------------------------------------------------
