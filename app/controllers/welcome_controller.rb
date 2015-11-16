@@ -1,7 +1,6 @@
 class WelcomeController < ApplicationController
   def index
     @profiles = Profile.guides.includes(:profile_image)
-    @pickup_top = Pickup.pickup_obj_by_order_number(1)
-    @pickups = Pickup.pickup_arry
+    @pickups = Pickup.find(Pickup.where.not(selected_listing: nil))
   end
 end
