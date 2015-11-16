@@ -10,7 +10,7 @@
 #  order_number      :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  cover_image_small :string
+#  cover_image_small :string           default("")
 #
 # Indexes
 #
