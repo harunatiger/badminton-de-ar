@@ -18,15 +18,30 @@
                           = pickup.name
                   | </div>
                 = render partial: 'tour_list', locals: { listing: Listing.find(pickup.selected_listing) }
-              - else
+              - elsif i >= 1 && i <= 3
                 .col-lg-4.col-md-6.col-sm-12.rm-padding--sp
-                  | <div class="discovery-card rm-padding--sp row-space-4" style="background-image:url(#{pickup.cover_image})">
+                  - if pickup.cover_image_small.present?
+                    | <div class="discovery-card rm-padding--sp row-space-4" style="background-image:url(#{pickup.cover_image_small})">
+                  - else
+                    | <div class="discovery-card rm-padding--sp row-space-4" style="background-image:url(#{pickup.cover_image})">
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
                         .h2.strong
                           = pickup.name
                   | </div>
+              - else
+                - @hash_other_pickups = Hash.new() if @hash_other_pickups.blank?
+                - @hash_other_pickups.store(pickup.id, pickup.name)
+        - if @hash_other_pickups.present?
+          .other-pickup-links.row.row-space-4
+            .col-lg-12
+              h3.h4.text-center.row-space-4 その他のピックアップはこちら
+              .text-center
+                - @hash_other_pickups.each do |key, value|
+                  = link_to pickup_path( key ), class: "tag tag-ghost" do
+                    = value
+                    i.fa.fa-chevron-right
 /.card-dark
   .discovery-container
     .discovery-section.page-container.page-container-no-padding

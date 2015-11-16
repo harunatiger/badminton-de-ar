@@ -1,11 +1,12 @@
 ActiveAdmin.register Pickup do
 
-  permit_params :id, :name, :cover_image, :selected_listing, :type, :order_number
+  permit_params :id, :name, :cover_image, :cover_image_small, :selected_listing, :type, :order_number
 
   index do
     column 'ID', :id
     column 'Name', :name
     column 'CoverImage', :cover_image
+    column 'CoverImageSmall', :cover_image_small
     column 'Listing', :selected_listing
     column 'Type', :type
     column 'OrderNum', :order_number
@@ -17,6 +18,7 @@ ActiveAdmin.register Pickup do
       f.input :id, :as => :hidden
       f.input :name
       f.input :cover_image
+      f.input :cover_image_small
       f.input :selected_listing,
               :label => "Select a Listing:",
               :as => :select,
@@ -41,6 +43,9 @@ ActiveAdmin.register Pickup do
       end
       row 'CoverImage' do
         resource.cover_image
+      end
+      row 'CoverImageSmall' do
+        resource.cover_image_small
       end
       row 'Listing' do
         Listing.where(id: resource.selected_listing).all.pluck(:title).join(',')
