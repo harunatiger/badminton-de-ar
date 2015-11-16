@@ -1,6 +1,6 @@
 ActiveAdmin.register Pickup do
 
-  permit_params :id, :name, :cover_image, :cover_image_small, :selected_listing, :type, :order_number
+  permit_params :id, :name, :cover_image, :cover_image_small, :selected_listing, :type
 
   index do
     column 'ID', :id
@@ -9,7 +9,6 @@ ActiveAdmin.register Pickup do
     column 'CoverImageSmall', :cover_image_small
     column 'Listing', :selected_listing
     column 'Type', :type
-    column 'OrderNum', :order_number
     actions
   end
 
@@ -26,9 +25,6 @@ ActiveAdmin.register Pickup do
       f.input :type,
               :as => :select,
               :collection => ['PickupCategory', 'PickupTag', 'PickupArea']
-      f.input :order_number,
-              :as => :select,
-              :collection => [*1..4]
     end
     f.actions
   end
@@ -52,9 +48,6 @@ ActiveAdmin.register Pickup do
       end
       row 'Type' do
         resource.type
-      end
-      row 'OrderNumber' do
-        resource.order_number
       end
     end
   end
