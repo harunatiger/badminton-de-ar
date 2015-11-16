@@ -23,7 +23,7 @@ $ ->
       mapOptions =
         scrollwheel: false
         zoom: 13
-        center: new (google.maps.LatLng)(gon.listings[0].latitude, gon.listings[0].longitude)
+        center: new (google.maps.LatLng)(gon.listings[0].place_latitude, gon.listings[0].place_longitude)
         mapTypeId: google.maps.MapTypeId.TERRAIN
 
       map = new (google.maps.Map)(document.getElementById('tour-map'), mapOptions)
@@ -35,7 +35,7 @@ $ ->
       gon.listings.map (l) ->
         tmp_marker = new Array()
         #tmp_info = new Array()
-        tmp_marker.push(l.title, l.latitude, l.longitude)
+        tmp_marker.push(l.title, l.place_latitude, l.place_longitude)
         markers.push(tmp_marker)
         #tmp_info.push('<div class="info_content">aaa<h3>' + l.title + '</h3><p>' + l.description  + '</p></div>')
         #infoWindowContent.push(tmp_info)
