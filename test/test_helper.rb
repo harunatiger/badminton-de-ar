@@ -12,13 +12,4 @@ end
 class ActionController::TestCase
   include Devise::TestHelpers
 
-  public
-
-  def create_user ( name = random_string,options={} )
-
-  end
-
-  def create_listing(user = create_user)
-
-  end
 end
