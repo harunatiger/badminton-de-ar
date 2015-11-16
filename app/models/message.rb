@@ -38,6 +38,7 @@ class Message < ActiveRecord::Base
   validates :attached_file, presence: true, if: 'content.blank?'
   validates :attached_name, presence: true, if: 'attached_file.present?'
   validates :attached_extension, presence: true, if: 'attached_file.present?'
+  validate :file_size_validation, if: 'attached_file.present?'
 
   mount_uploader :attached_file, MessageUploader
 
@@ -45,13 +46,13 @@ class Message < ActiveRecord::Base
   scope :message_thread, -> message_thread_id { where(message_thread_id: message_thread_id) }
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :reservation, -> reservation_id { where(reservation_id: reservation_id) }
-  
+
   def self.send_message(mt_obj, message_params)
     content = message_params['content'].present? ? message_params['content'] : ''
     attached_file =  message_params['attached_file'].present? ? message_params['attached_file'] : ''
     progress = message_params['progress'].present? ? message_params['progress'] : ''
     listing_id = message_params['listing_id'].present? ? message_params['listing_id'] : 0
-    reservation_id = message_params['reservation_id'].present? ? message_params['reservation_id'] : 0 
+    reservation_id = message_params['reservation_id'].present? ? message_params['reservation_id'] : 0
     obj = Message.new(
       message_thread_id: mt_obj.id,
       content: content,
@@ -62,24 +63,33 @@ class Message < ActiveRecord::Base
       listing_id: listing_id,
       reservation_id: reservation_id
     )
-    
+
     obj.save
   end
 
   def self.make_all_read(message_thread_id, to_user_id)
     Message.where(message_thread_id: message_thread_id, to_user_id: to_user_id, read: false).update_all(read: true, read_at: Time.zone.now)
   end
-  
+
   def host_id
     listing = Listing.find(self.listing_id)
     listing.user_id
   end
-  
+
   def guest_id
     listing = Listing.find(self.listing_id)
     host_id = listing.user_id
     self.to_user_id == host_id ? self.from_user_id : self.to_user_id
   end
 
+  def file_size_validation
+    extn = self.attached_extension
+    size = self.attached_file.size
+    if extn.include?("pdf")
+      errors.add(:attached_file, "5MBを超えたPDFファイルは送信できません") if size > 5.megabytes
+    else
+      errors.add(:attached_file, "1MBを超えた画像ファイルは送信できません") if size > 1.megabytes
+    end
+  end
 
 end
