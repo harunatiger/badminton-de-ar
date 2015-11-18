@@ -81,11 +81,18 @@ $ ->
         error: ->
           calendar.fullCalendar 'refetchEvents'
           console.log 'removeEvent-fail'
-    else 
+    else
       calendar.fullCalendar 'refetchEvents'
     return false
 
-
+  smDick = ->
+    calendarPosition = $('.fc-body').offset().top
+    winHeight = $(window).height()
+    rowSize = $('.fc-body .fc-row').size()
+    addSize = (winHeight - calendarPosition - 60) / rowSize
+    alert addSize
+    $('.fc-body .fc-row').height(addSize)
+    return
 
   calendar = $('#calendar').fullCalendar(
     header: {
@@ -136,7 +143,27 @@ $ ->
     eventClick: removeEvent,
     eventResize: resizeEvent,
     eventDrop: dropEvent,
+    eventAfterAllRender: ->
+      smDick()
+      return
+    windowResize: ->
+      alert 555
+      smDick()
+      return
   )
+
+  ###
+  timer = false
+
+  $(window).resize ->
+    if timer != false
+      clearTimeout timer
+    timer = setTimeout((->
+      #smDick()
+      return
+    ), 200)
+    return
+  ###
 
   # delete_btn
   $('#delete_mode').on 'click', ->
