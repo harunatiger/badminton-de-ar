@@ -22,3 +22,23 @@ ja:
         cover_image: 'カバー画像'
       listing_image:
         image: 'イメージ画像'
+  mailer:
+    new_message:
+      subject:
+        arrived: "You have a new message from %{name}"
+    new_reservation:
+      subject:
+        arrived: "You have a reservation request from %{name}"
+    review_notification:
+      subject: "Please write a review for %{name}"
+    review_reply_notification:
+      subject: "Please write a review for %{name}"
+    week_before_notification:
+      subject: "You will meet %{name} soon!"
+    day_before_notification:
+      subject:
+        to_host: "Your guest %{name} is coming  tomorrow!"
+        to_guest: "Your TOMODACHI Guide %{name} is coming tomorrow!"
+    review_accept_notification:
+      subject: "Read %{name}'s review"
+    

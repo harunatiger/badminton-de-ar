@@ -13,7 +13,7 @@ class MessageMailer < ApplicationMailer
     @to_user_name = "#{to_user.profile.last_name} #{to_user.profile.first_name}"
     mail(
       to:      to_user.email,
-      subject: Settings.mailer.new_message.subject.arrived,
+      subject: I18n.t('mailer.new_message.subject.arrived', name: @from_user_name)
     ) do |format|
       format.text
     end

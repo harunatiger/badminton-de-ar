@@ -93,8 +93,12 @@ module ApplicationHelper
   end
 
   def user_id_to_profile_image(user_id)
-    result = ProfileImage.mine(user_id).first
-    result.image.present? ? result.image : Settings.image.noimage2.url
+    result = User.find(user_id).profile
+    if result.present? and result.profile_image.present? and result.profile_image.image.present?
+      result.profile_image.image
+    else
+      Settings.image.noimage2.url
+    end
   end
 
   def user_id_to_profile_image_thumb_one(user_id)

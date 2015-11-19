@@ -12,7 +12,7 @@ class ReservationMailer < ApplicationMailer
     @to_user_name = "#{to_user.profile.last_name} #{to_user.profile.first_name}"
     mail(
       to:      to_user.email,
-      subject: Settings.mailer.new_reservation.subject.arrived
+      subject: I18n.t('mailer.new_reservation.subject.arrived', name: @from_user_name)
     ) do |format|
       format.text
     end
@@ -66,7 +66,7 @@ class ReservationMailer < ApplicationMailer
     @another_user_name = "#{another_user.profile.last_name} #{another_user.profile.first_name}"
     mail(
       to:      to_user.email,
-      subject: Settings.mailer.week_before_notification.subject
+      subject: I18n.t('mailer.week_before_notification.subject', name: @another_user_name)
     ) do |format|
       format.text
     end
@@ -81,9 +81,10 @@ class ReservationMailer < ApplicationMailer
     another_user_id = @to_user_id_is_host ? reservation.guest_id : reservation.host_id
     another_user = User.find(another_user_id)
     @another_user_name = "#{another_user.profile.last_name} #{another_user.profile.first_name}"
+    subject = @to_user_id_is_host ? I18n.t('mailer.day_before_notification.subject.to_host', name: @another_user_name) : I18n.t('mailer.day_before_notification.subject.to_guest', name: @another_user_name)
     mail(
       to:      to_user.email,
-      subject: Settings.mailer.day_before_notification.subject
+      subject: subject
     ) do |format|
       format.text
     end

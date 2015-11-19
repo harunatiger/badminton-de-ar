@@ -31,13 +31,13 @@ ja:
     mailer:
       confirmation_instructions:
         #subject: "アカウントの登録方法"
-        subject: "Confirmation instructions"
+        subject: "Complete your registration"
       reset_password_instructions:
         #subject: "パスワードの再設定"
         subject: "Reset password instructions"
       unlock_instructions:
         #subject: "アカウントのロック解除"
-        subject: "Unlock instructions"
+        subject: "You have exceeded your login attempts"
       user:
         confirmation_instructions:
           #subject: "アカウントの登録方法"

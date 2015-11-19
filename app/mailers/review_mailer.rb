@@ -14,7 +14,7 @@ class ReviewMailer < ApplicationMailer
     @host_user_name = "#{host_user.profile.last_name} #{host_user.profile.first_name}"
     mail(
       to:      to_user.email,
-      subject: Settings.mailer.review_notification.subject
+      subject: I18n.t('mailer.review_notification.subject', name: @host_user_name)
     ) do |format|
       format.text
     end
@@ -35,7 +35,7 @@ class ReviewMailer < ApplicationMailer
     @guest_user_name = "#{guest_user.profile.last_name} #{guest_user.profile.first_name}"
     mail(
       to:      to_user.email,
-      subject: Settings.mailer.review_reply_notification.subject
+      subject: I18n.t('mailer.review_reply_notification.subject', name: @guest_user_name)
     ) do |format|
       format.text
     end
@@ -48,7 +48,7 @@ class ReviewMailer < ApplicationMailer
     @from_user_name = "#{from_user.profile.last_name} #{from_user.profile.first_name}"
     mail(
       to:      @to_user.email,
-      subject: Settings.mailer.review_accept_notification.subject
+      subject: I18n.t('mailer.review_accept_notification.subject', name: @from_user_name)
     ) do |format|
       format.text
     end

@@ -197,15 +197,15 @@ mailer:
   new_message:
     subject:
       #arrived: "新しいメッセージが届きました！"
-      arrived: "Receive new message!"
+      arrived: "You have a new message from"
   new_reservation:
     subject:
       #arrived: "予約リクエストが届きました！"
-      arrived: "Receive new request!"
+      arrived: "You have a reservation request from "
   new_guide_detail:
     subject:
       #arrived: "ガイド内容が届きました！"
-      arrived: "Receive guide information!"
+      arrived: "Reservation status updated"
   update_reservation:
     subject:
       #canceled: "予約がキャンセルされました。"
@@ -218,10 +218,10 @@ mailer:
       rejected: "Reservation has been rejected."
   review_notification:
     #subject: "レビューの記入をしませんか？"
-    subject: "Let's fill in the review!"
+    subject: "Please write a review for "
   review_reply_notification:
     #subject: "レビューへの返信を記入しましょう。"
-    subject: "Let's reply to review!"
+    subject: "Please write a review for "
   review_accept_notification:
     subject: "You got a review!"
   week_before_notification:
