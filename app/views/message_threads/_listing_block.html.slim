@@ -1,5 +1,5 @@
 - reservation_obj = reservation_id_to_reservation_obj(m.reservation_id)
-= simple_form_for(reservation_obj) do |f|
+= simple_form_for(reservation_obj, html: {class: ("cancel-reservation-form" if reservation_obj.completed? and current_user.id == guest_id)}) do |f|
   = f.hidden_field :message_thread_id, value: m.message_thread_id
   - listing_obj = listing_id_to_listing_obj(m.listing_id)
   div
@@ -42,17 +42,19 @@
         = reservation_obj.place
         -if reservation_obj.place_memo.present?
           |(#{reservation_obj.place_memo})
-    .row.row-condensed.row-space-4
+    .row.row-condensed.row-space-2
       .col-md-3.text-left.text-muted.strong
         | ガイド内容など: 
       .col-md-8
         = simple_format(reservation_obj.description.present? ? reservation_obj.description : 'なし')
     .row.row-condensed.row-space-2
-      .col-md-12.btn-wrapper
+      .col-md-10.btn-wrapper
         - unless m.try('content') == Settings.reservation.msg.reserve
           - if reservation_obj.requested? and current_user.id == guest_id
-            | キャンペーンコード
-            = f.input_field :campaign_code
+            .row-space-1.strong.text-muted
+              | キャンペーンコード
+            .row-space-3
+              = f.input_field :campaign_code, placeholder: "こちらにキャンペーンコードを入力ください"
             = f.submit '承認する', name: 'accept', class: 'btn btn-primary'
             = f.submit 'キャンセル', name: 'cancel', class: 'btn'
           - elsif reservation_obj.completed? and current_user.id == guest_id

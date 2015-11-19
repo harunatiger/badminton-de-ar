@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117155159) do
+ActiveRecord::Schema.define(version: 20151118114411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -305,6 +305,16 @@ ActiveRecord::Schema.define(version: 20151117155159) do
   add_index "messages", ["message_thread_id"], name: "index_messages_on_message_thread_id", using: :btree
   add_index "messages", ["reservation_id"], name: "index_messages_on_reservation_id", using: :btree
   add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id", using: :btree
+
+  create_table "ngevent_weeks", force: :cascade do |t|
+    t.integer  "listing_id", null: false
+    t.integer  "dow",        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "ngevent_weeks", ["dow"], name: "index_ngevent_weeks_on_dow", using: :btree
+  add_index "ngevent_weeks", ["listing_id"], name: "index_ngevent_weeks_on_listing_id", using: :btree
 
   create_table "ngevents", force: :cascade do |t|
     t.integer  "user_id"
