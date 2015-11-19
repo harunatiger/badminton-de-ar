@@ -3,8 +3,8 @@ $ ->
   # fullcalendar setting init
   #---------------------------------------------------------------------
   listing_id = gon.listing_id
-  #console.log(listing_id)
- 　#delete_mode = false
+  console.log(listing_id)
+  delete_mode = false
   current_dow = []
 
   #---------------------------------------------------------------------
@@ -160,7 +160,6 @@ $ ->
   setWeekevent = (event, element) ->
     $('.fc-content-skeleton tbody tr').css('background', 'red')
     $('thead.fc-head .fc-widget-header').on 'click', ->
-      #clearColor()
       if $(this).hasClass("fc-sun")
         dow = 0
       else if  $(this).hasClass("fc-mon")
@@ -187,6 +186,15 @@ $ ->
     $('.fc-day').css('background', 'white')
     $('.fc-day-number').css('color', 'black')
     $('.fc-day-header').css('background', 'transparent')
+
+  smDick = ->
+    calendarPosition = $('.fc-body').offset().top
+    winHeight = $(window).height()
+    rowSize = $('.fc-body .fc-row').size()
+    addSize = (winHeight - calendarPosition - 40) / rowSize
+    #alert addSize
+    $('.fc-body .fc-row').height(addSize)
+    return
 
   ## Week Element(ex. all monday)
   setWeekElement = (element) ->
@@ -258,10 +266,10 @@ $ ->
       if $.inArray(event.dow[0], current_dow) == -1
         current_dow.push(event.dow[0])
     else
-      eventDay = new Date(event._start._i)
-      if $.inArray(eventDay.getDay(), current_dow) != -1
+      #eventDay = new Date(event._start._i)
+      #if $.inArray(eventDay.getDay(), current_dow) != -1
         #$('.fc-day[data-date="' + event._start._i + '"]').css('background', 'white')
-      else
+      #else
         $('.fc-day[data-date="' + event._start._i + '"]').css('background', event.color)
         $('.fc-day-number[data-date="' + event._start._i + '"]').css('color','white')
     return
@@ -273,6 +281,10 @@ $ ->
   ## if exist event, disallow add event when dayClick
   eventExist = (start) ->
     evExist = true
+    eventDay = new Date(start)
+    if $.inArray(eventDay.getDay(), current_dow) != -1
+      evExist = false
+      return false
     $.each $('#calendar').fullCalendar('clientEvents'), (index, elem) ->
       if start == elem._start._i
         evExist = false
@@ -343,6 +355,12 @@ $ ->
       { url: '/listings/' + listing_id + '/ngevents.json' },
       { url: '/listings/' + listing_id + '/ngevent_weeks.json' }
     ]
+    eventAfterAllRender: ->
+      #smDick()
+      return
+    windowResize: ->
+      #smDick()
+      return
   )
 
   ###
