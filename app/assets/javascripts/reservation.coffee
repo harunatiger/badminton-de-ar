@@ -15,6 +15,7 @@ $ ->
 
   # bootstrap datepicker
   disabled_dates = gon.ngdates
+  disabled_weeks = gon.ngweeks
   $('.datepicker').datepicker
     autoclose: true,
     startDate: '+1d',
@@ -25,6 +26,8 @@ $ ->
     beforeShowDay: (date) ->
       formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
       if $.inArray(formattedDate.toString(), disabled_dates) != -1
+        return { enabled: false }
+      if $.inArray(date.getDay(), disabled_weeks) != -1
         return { enabled: false }
       return
 
@@ -63,6 +66,8 @@ $ ->
             formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
             if $.inArray(formattedDate.toString(), disabled_dates) != -1
               return { enabled: false }
+            if $.inArray(date.getDay(), disabled_weeks) != -1
+              return { enabled: false }
     else
       $('#reservation_listing_id').val(logVal)
       return
@@ -81,7 +86,7 @@ $ ->
         # i'm stupid, hehe
         strfChange = $('.checkout').val()
         strfChange = strfChange.replace(/-/g, '/')
-        $('.checkout').val(strfChange)        
+        $('.checkout').val(strfChange)
         $('.datepicker').datepicker
           autoclose: true,
           startDate: '+1d',

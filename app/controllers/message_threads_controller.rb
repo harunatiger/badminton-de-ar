@@ -29,6 +29,7 @@ class MessageThreadsController < ApplicationController
     @counterpart = User.find(counterpart_user_id)
     @listings = User.find(@host_id).listings.opened
     gon.watch.ngdates = Ngevent.get_ngdates(@reservation)
+    gon.watch.ngweeks = NgeventWeek.where(listing_id: @reservation.try('listing_id')).pluck(:dow)
   end
 
   # POST /message_threads
@@ -81,7 +82,7 @@ class MessageThreadsController < ApplicationController
     def set_messages
       @messages = Message.message_thread(params[:id]).order_by_created_at_desc
     end
-  
+
     def set_reservation
       counterpart_user_id = MessageThreadUser.counterpart_user(@message_thread.id, @message_thread.host_id)
       @guest_id = counterpart_user_id

@@ -27,6 +27,7 @@ class ListingsController < ApplicationController
     @message = Message.new
     #@wishlists = Wishlist.mine(current_user).order_by_created_at_desc
     gon.ngdates = Ngevent.get_ngdates_from_listing(@listing.id)
+    gon.ngweeks = NgeventWeek.where(listing_id: @listing.id).pluck(:dow)
     gon.listing = @listing.listing_detail
     @reservation = Reservation.new
   end
@@ -121,7 +122,7 @@ class ListingsController < ApplicationController
       end
     end
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
@@ -139,7 +140,7 @@ class ListingsController < ApplicationController
       @dress_code = DressCode.find_by(listing_id: @listing.id)
       @tool = Tool.find_by(listing_id: @listing.id)
     end
-  
+
     def set_message_thread
       if current_user
         msg_params = Hash['to_user_id' => @listing.user_id,'from_user_id' => current_user.id]
@@ -152,12 +153,12 @@ class ListingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
       params.require(:listing).permit(
-        :user_id, :evaluation_count, 
-        :ave_total, :ave_accuracy, :ave_communication, :ave_cleanliness, 
-        :ave_location, :ave_check_in, :ave_cost_performance, :open, 
-        :zipcode, :location, :longitude, :latitude, :delivery_flg, :price, 
+        :user_id, :evaluation_count,
+        :ave_total, :ave_accuracy, :ave_communication, :ave_cleanliness,
+        :ave_location, :ave_check_in, :ave_cost_performance, :open,
+        :zipcode, :location, :longitude, :latitude, :delivery_flg, :price,
         :description, :title, :capacity, :direction, :schedule, :listing_images,
-        :cover_image, :cover_image_caption, :cover_video, :cover_video_caption, 
+        :cover_image, :cover_image_caption, :cover_video, :cover_video_caption,
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
         language_ids: [], pickup_ids: [])
     end

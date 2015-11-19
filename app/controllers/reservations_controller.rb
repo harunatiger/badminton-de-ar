@@ -2,25 +2,25 @@ class ReservationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_reservation, only: [:show, :update, :destroy]
   include Payments
-  
+
   def create
     if params[:request].present? and !current_user.already_authrized
       if profile_identity = ProfileIdentity.where(user_id: current_user.id, profile_id: current_user.profile.id).first
-        return redirect_to edit_profile_profile_identity_path(profile_id: current_user.profile.id, id:profile_identity.id), notice: Settings.reservation.save.failure.not_authorized_yet  
+        return redirect_to edit_profile_profile_identity_path(profile_id: current_user.profile.id, id:profile_identity.id), notice: Settings.reservation.save.failure.not_authorized_yet
       else
         return redirect_to new_profile_profile_identity_path(current_user.profile), notice: Settings.reservation.save.failure.not_authorized_yet
       end
     end
-    
+
     reservation_before = Reservation.latest_reservation(reservation_params['guest_id'], reservation_params['host_id'])
     reservation = Reservation.requested_reservation(reservation_params['guest_id'], reservation_params['host_id'])
     reservation.update(progress: 'rejected') if reservation.present?
-    
+
     para = reservation_params
     para['progress'] = 'holded' if params[:save]
     para['schedule_end'] = para['schedule_date'] if params[:reserve]
     para['campaign_id'] = nil if reservation_before and reservation_before.accepted?
-    
+
     if reservation_before and reservation_before.holded?
       @reservation = reservation_before
       result = @reservation.update(para)
@@ -28,7 +28,7 @@ class ReservationsController < ApplicationController
       @reservation = Reservation.new(para)
       result = @reservation.save
     end
-    
+
     respond_to do |format|
       if result
         ngevent_params = Hash[
@@ -43,7 +43,7 @@ class ReservationsController < ApplicationController
           'active' => 1,# 0:no actice
           'color' => 'red'
           ]
-        
+
         Ngevent.change_date(ngevent_params, @reservation.id)
         unless params[:save]
           if params[:reserve]
@@ -90,7 +90,7 @@ class ReservationsController < ApplicationController
       end
     end
   end
-  
+
   def confirm
     @reservation = Reservation.find(session[:reservation_id])
     @reservation.campaign = Campaign.find(session[:campaign_id]) if session[:campaign_id].present?
@@ -116,7 +116,7 @@ class ReservationsController < ApplicationController
     end
     @listing = Listing.find(@reservation.listing_id)
   end
-  
+
   def cancel
     message_thread_id = session[:message_thread_id]
     session[:reservation_id] = nil
@@ -139,7 +139,7 @@ class ReservationsController < ApplicationController
           respond_to do |format|
             format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_refund_failure + ' エラー：' + response.params['error_codes'] + ' ' + response.params['message']}
             format.json { return render :show, status: :ok, location: @reservation }
-          end 
+          end
         else
           payment.transaction_id = response.params['refund_transaction_id']
           payment.refund_date = response.params['timestamp']
@@ -152,7 +152,7 @@ class ReservationsController < ApplicationController
     elsif params[:accept]
       session[:message_thread_id] = message_thread_id
       session[:reservation_id] = @reservation.id
-      
+
       if para[:campaign_code].present?
         campaign = Campaign.where(code: para[:campaign_code]).first
         if campaign.blank?
@@ -176,14 +176,14 @@ class ReservationsController < ApplicationController
         payment.transaction_date = response.params['payment_date']
         payment.payment_status = response.params['payment_status']
         payment.save
-        
+
         UserCampaign.create(user_id: current_user.id, campaign_id: para[:campaign_id]) if para[:campaign_id].present?
         session[:campaign_id] = nil
       else
         respond_to do |format|
           format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_payment_failure + ' エラー：' + response.params['error_codes'] + ' ' + response.params['message']}
           format.json { return render :show, status: :ok, location: @reservation }
-        end 
+        end
       end
       para[:progress] = 3
       msg = Settings.reservation.msg.accepted
@@ -191,12 +191,12 @@ class ReservationsController < ApplicationController
       respond_to do |format|
         format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_canceled }
         format.json { return render :show, status: :ok, location: @reservation }
-      end      
+      end
     end
 
     respond_to do |format|
       if @reservation.update(para)
-        
+
         @ng_event = Ngevent.find_by(reservation_id: @reservation.id)
         if @reservation.progress == "accepted" or @reservation.progress == "requested"
           @ng_event.update_attribute(:active, 1)
@@ -207,7 +207,7 @@ class ReservationsController < ApplicationController
           format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.message.save.failure }
           format.json { return render json: { success: false } } if request.xhr?
         end
-        
+
         ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
         msg_params = Hash[
           'reservation_id' => @reservation.id,
@@ -235,7 +235,7 @@ class ReservationsController < ApplicationController
       end
     end
   end
-  
+
   def set_reservation_by_listing
     if request.xhr?
       listing = Listing.find(params[:listing_id])
@@ -249,15 +249,17 @@ class ReservationsController < ApplicationController
       @reservation.place_memo = listing.listing_detail.place_memo
       @listings = User.find(current_user.id).listings.opened
       gon.watch.ngdates = Ngevent.get_ngdates(@reservation)
+      gon.ngweeks = NgeventWeek.where(listing_id: params[:listing_id]).pluck(:dow)
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
   end
-  
+
   def set_reservation_default
     if request.xhr?
       @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
       @listings = User.find(current_user.id).listings.opened
       gon.watch.ngdates = Ngevent.get_ngdates(@reservation)
+      gon.watch.ngweeks = NgeventWeek.where(listing_id: @reservation.try('listing_id')).pluck(:dow)
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
   end
@@ -270,11 +272,11 @@ class ReservationsController < ApplicationController
     def reservation_params
       params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :option_price, :option_price_per_person, Reservation::REGISTRABLE_ATTRIBUTES, :place, :place_memo, :description, :message_thread_id, :schedule_end, :campaign_id, :campaign_code)
     end
-  
+
     def checkout(reservation)
       respond_to do |format|
         setup_response = set_checkout(reservation)
-        if reservation.valid? and setup_response.success?        
+        if reservation.valid? and setup_response.success?
           format.html {redirect_to gateway.redirect_url_for(setup_response.token)}
         else
           message_thread_id = session[:message_thread_id]

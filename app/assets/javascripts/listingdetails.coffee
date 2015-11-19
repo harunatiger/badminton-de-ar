@@ -1,6 +1,9 @@
 # listing_details#manage
 $ ->
   if $('body').hasClass('listing_details manage')
+    #---------------------------------------------------------------------
+    # SearchBox Enterkey controll
+    #---------------------------------------------------------------------
     $('#listing_detail_place').keypress (e) ->
       if (e.which == 13)
         $('#listing_detail_place_memo').focus()
@@ -138,6 +141,3 @@ $ ->
         return
       return
     return
-    #---------------------------------------------------------------------
-    # SearchBox Enterkey controll
-    #---------------------------------------------------------------------

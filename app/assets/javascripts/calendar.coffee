@@ -6,6 +6,9 @@ $ ->
 
   # Create Event
   select = (start, end) ->
+    if eventExist(start.format()) == false
+      return false
+
     data = event:
       start: start._d,
       end: end._d,
@@ -20,6 +23,25 @@ $ ->
       error: ->
         calendar.fullCalendar 'refetchEvents'
         console.log 'error-select'
+    return
+
+  selectWeek = (dow) ->
+    data = event:
+      dow: dow,
+    $.ajax
+      type: 'POST'
+      url: '/listings/' + listing_id + '/ngevent_weeks'
+      data: data
+      dataType: 'json'
+      success: ->
+        calendar.fullCalendar 'refetchEvents'
+        return
+      error: (status) ->
+        if status.status == 4001
+          removeWeek(status.responseJSON.event.dow)
+        else
+          calendar.fullCalendar 'refetchEvents'
+          console.log 'error-select'
     return
 
 
@@ -44,6 +66,9 @@ $ ->
 
 
   dropEvent = (event, revertFunc) ->
+    if event.className.indexOf('ng-event-week') != -1
+      calendar.fullCalendar 'refetchEvents'
+      return false
     data =
       _method: 'PUT'
       event:
@@ -55,6 +80,7 @@ $ ->
       data: data
       dataType: 'json'
       success: ->
+        clearColor()
         calendar.fullCalendar 'refetchEvents'
         return false
       error: ->
@@ -64,9 +90,22 @@ $ ->
 
 
   removeEvent = (event, revertFunc) ->
-    if delete_mode == true
-      res = confirm '削除します。よろしいですか？'
-      if res == false
+    if event.className.indexOf('ng-event-week') != -1
+      return false
+    #if delete_mode == true
+      #res = confirm '削除します。よろしいですか？'
+      #if res == false
+        #return false
+    data =
+      _method: 'DELETE'
+    $.ajax
+      type: 'DELETE'
+      url: '/ngevents/' + event.id
+      data: data
+      dataType: 'json'
+      success: ->
+        clearColor()
+        calendar.fullCalendar 'refetchEvents'
         return false
       data =
         _method: 'DELETE'
@@ -93,6 +132,173 @@ $ ->
     alert addSize
     $('.fc-body .fc-row').height(addSize)
     return
+
+  removeWeek = (dow) ->
+    data =
+      _method: 'unset'
+      event:
+        dow: dow
+    $.ajax
+      type: 'GET'
+      url: '/listings/' + listing_id + '/ngevent_weeks/unset'
+      data: data
+      dataType: 'json'
+      success: ->
+        calendar.fullCalendar 'refetchEvents'
+        return false
+      error: ->
+        calendar.fullCalendar 'refetchEvents'
+        console.log 'removeEvent-fail'
+
+  clearColor = ->
+    $('.fc-day').css('background', 'white')
+    $('.fc-day-number').css('color', 'black')
+    $('.fc-day-header').css('background', 'transparent')
+
+  setWeekevent = (event, element) ->
+    $('thead.fc-head .fc-widget-header').on 'click', ->
+      clearColor()
+      if $(this).hasClass("fc-sun")
+        dow = 0
+      else if  $(this).hasClass("fc-mon")
+        dow = 1
+      else if  $(this).hasClass("fc-tue")
+        dow = 2
+      else if  $(this).hasClass("fc-wed")
+        dow = 3
+      else if  $(this).hasClass("fc-thu")
+        dow = 4
+      else if  $(this).hasClass("fc-fri")
+        dow = 5
+      else if  $(this).hasClass("fc-sat")
+        dow = 6
+
+      selectWeek(dow)
+      return false
+    #SUN = '日曜日'
+    #MON = '月曜日'
+    #TUE = '火曜日'
+    #WED = '水曜日'
+    #THU = '木曜日'
+    #FRI = '金曜日'
+    #SAT = '土曜日'
+    #DESCRIPTION = 'をNG日に設定します。'
+    #$('thead.fc-head .fc-widget-header').on
+    #  'mouseenter': ->
+    #    if $(this).hasClass("fc-sun")
+    #      $(this).attr 'title', SUN + DESCRIPTION
+          #$('tbody.fc-body .fc-sun').css 'background-color', 'gray'
+    #    else if  $(this).hasClass("fc-mon")
+    #      $(this).attr 'title', MON + DESCRIPTION
+          #$('tbody.fc-body .fc-mon').css 'background-color', 'gray'
+    #    else if  $(this).hasClass("fc-tue")
+    #      $(this).attr 'title', TUE + DESCRIPTION
+          #$('tbody.fc-body .fc-tue').css 'background-color', 'gray'
+    #    else if  $(this).hasClass("fc-wed")
+    #      $(this).attr 'title', WED + DESCRIPTION
+          #$('tbody.fc-body .fc-wed').css 'background-color', 'gray'
+    #    else if  $(this).hasClass("fc-thu")
+    #      $(this).attr 'title', THU + DESCRIPTION
+          #$('tbody.fc-body .fc-thu').css 'background-color', 'gray'
+    #    else if  $(this).hasClass("fc-fri")
+    #      $(this).attr 'title', FRI + DESCRIPTION
+          #$('tbody.fc-body .fc-fri').css 'background-color', 'gray'
+    #    else if  $(this).hasClass("fc-sat")
+    #      $(this).attr 'title', SAT + DESCRIPTION
+          #$('tbody.fc-body .fc-sat').css 'background-color', 'gray'
+
+      #'mouseleave': ->
+        #if $(this).hasClass("fc-sun")
+          #$('tbody.fc-body .fc-sun').css 'background-color', 'white'
+        #else if  $(this).hasClass("fc-mon")
+          #$('tbody.fc-body .fc-mon').css 'background-color', 'white'
+        #else if  $(this).hasClass("fc-tue")
+          #$('tbody.fc-body .fc-tue').css 'background-color', 'white'
+        #else if  $(this).hasClass("fc-wed")
+          #$('tbody.fc-body .fc-wed').css 'background-color', 'white'
+        #else if  $(this).hasClass("fc-thu")
+          #$('tbody.fc-body .fc-thu').css 'background-color', 'white'
+        #else if  $(this).hasClass("fc-fri")
+          ##$('tbody.fc-body .fc-fri').css 'background-color', 'white'
+        #else if  $(this).hasClass("fc-sat")
+          #$('tbody.fc-body .fc-sat').css 'background-color', 'white'
+  setWeekElement = (element) ->
+    switch element
+      when 0
+        $fcweek = $('.fc-day.fc-sun')
+      when 1
+        $fcweek = $('.fc-day.fc-mon')
+      when 2
+        $fcweek = $('.fc-day.fc-tue')
+      when 3
+        $fcweek = $('.fc-day.fc-wed')
+      when 4
+        $fcweek = $('.fc-day.fc-thu')
+      when 5
+        $fcweek = $('.fc-day.fc-fri')
+      when 6
+        $fcweek = $('.fc-day.fc-sat')
+      else
+    $fcweek
+
+  setWeekNumElement = (element) ->
+    switch element
+      when 0
+        $fcnum = $('.fc-day-number.fc-sun')
+      when 1
+        $fcnum = $('.fc-day-number.fc-mon')
+      when 2
+        $fcnum = $('.fc-day-number.fc-tue')
+      when 3
+        $fcnum = $('.fc-day-number.fc-wed')
+      when 4
+        $fcnum = $('.fc-day-number.fc-thu')
+      when 5
+        $fcnum = $('.fc-day-number.fc-fri')
+      when 6
+        $fcnum = $('.fc-day-number.fc-sat')
+      else
+    $fcnum
+
+  setWeekHeaderElement = (element) ->
+    switch element
+      when 0
+        $fcheader = $('.fc-day-header.fc-sun')
+      when 1
+        $fcheader = $('.fc-day-header.fc-mon')
+      when 2
+        $fcheader = $('.fc-day-header.fc-tue')
+      when 3
+        $fcheader = $('.fc-day-header.fc-wed')
+      when 4
+        $fcheader = $('.fc-day-header.fc-thu')
+      when 5
+        $fcheader = $('.fc-day-header.fc-fri')
+      when 6
+        $fcheader = $('.fc-day-header.fc-sat')
+      else
+    $fcheader
+
+  eventSetting = (event, element, view) ->
+    if event.className.indexOf('ng-event-week') != -1
+      setWeekElement(event.dow[0]).css('background', event.color)
+      setWeekNumElement(event.dow[0]).css('color','white')
+      setWeekHeaderElement(event.dow[0]).css('background',event.color)
+    else
+      $('.fc-day[data-date="' + event._start._i + '"]').css('background', event.color)
+      $('.fc-day-number[data-date="' + event._start._i + '"]').css('color','white')
+    return
+
+  disallowOverlap = (stillEvent, movingEvent) ->
+    return false
+
+  eventExist = (start) ->
+    evExist = true
+    $.each $('#calendar').fullCalendar('clientEvents'), (index, elem) ->
+      if start == elem._start._i
+        evExist = false
+        return false
+    return evExist
 
   calendar = $('#calendar').fullCalendar(
     header: {
@@ -134,7 +340,6 @@ $ ->
     # 曜日略称
     dayNamesShort: ['日', '月', '火', '水', '木', '金', '土'],
     slotEventOverlap: false,
-    events: '/listings/' + listing_id + '/ngevents.json',
     selectable: true,
     selectHelper: true,
     ignoreTimezone: false,
@@ -150,6 +355,13 @@ $ ->
       alert 555
       smDick()
       return
+    viewRender: setWeekevent,
+    eventRender: eventSetting,
+    eventOverlap: disallowOverlap,
+    eventSources: [
+      { url: '/listings/' + listing_id + '/ngevents.json' },
+      { url: '/listings/' + listing_id + '/ngevent_weeks.json' }
+    ]
   )
 
   ###

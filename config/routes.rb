@@ -390,11 +390,14 @@ Rails.application.routes.draw do
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
     resources :ngevents, only: [:index, :create]
+    resources :ngevent_weeks, only: [:index, :create] do
+      get 'unset', on: :collection
+    end
     resources :calendar
   end
-  
+
   resources :pickups, only: [:show]
-  
+
   resources :reservations, only: [:show, :edit, :create, :update] do
     resource :reviews do
       resource :review_replies
@@ -407,6 +410,7 @@ Rails.application.routes.draw do
 
   resources :wishlists
   resources :ngevents, except: [:index, :create]
+  resources :ngevent_weeks, except: [:index, :create]
 
   devise_for :users, controllers: {
     sessions:            'users/sessions',

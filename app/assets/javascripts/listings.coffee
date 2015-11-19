@@ -234,6 +234,7 @@ $ ->
   # listings#show
   if $('body').hasClass('listings show')
     disabled_dates = gon.ngdates
+    disabled_weeks = gon.ngweeks
 
     # open include_what
     $('a.include_what_trigger').on 'click', ->
@@ -294,6 +295,8 @@ $ ->
       beforeShowDay: (date) ->
         formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
         if $.inArray(formattedDate.toString(), disabled_dates) != -1
+          return { enabled: false }
+        if $.inArray(date.getDay(), disabled_weeks) != -1
           return { enabled: false }
         return
 
