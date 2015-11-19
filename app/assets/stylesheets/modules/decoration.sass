@@ -7,8 +7,17 @@
 // full calendar responsive bug-fix
 .fc-day-grid-container
   @media (max-width: 525px)
-    height: 337px !important
+    height: auto !important
 
+@media (max-width: 525px)
+  .row-calendar
+    margin-top: 0
+    margin-bottom: 0
+  .calendar-header-container
+    p
+      margin: 0 0 12.5px
+  .fc-today-button
+    display: none
 // text inside disabled form item
 .disabled-text
   textarea
@@ -1345,8 +1354,7 @@ label.error
       background: transparent
     #no_delete
       border: 0
-      padding: 0
-      color: white
+      padding: 7px 0
       background: transparent
     .calendar-alert
       position: absolute
@@ -1371,7 +1379,7 @@ label.error
 
 .fc
   .fc-toolbar
-    margin-bottom: 3em
+    margin-bottom: 2em
     .fc-center
       h2
         font-size: 26px
@@ -1413,3 +1421,5 @@ label.error
   background-color: white
   .fc-head
     background-color: $bg1
+.fc-basic-view .fc-body .fc-row
+  min-height: 0

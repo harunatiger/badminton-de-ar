@@ -128,7 +128,7 @@ $ ->
     calendarPosition = $('.fc-body').offset().top
     winHeight = $(window).height()
     rowSize = $('.fc-body .fc-row').size()
-    addSize = (winHeight - calendarPosition - 60) / rowSize
+    addSize = (winHeight - calendarPosition - 40) / rowSize
     alert addSize
     $('.fc-body .fc-row').height(addSize)
     return
@@ -352,7 +352,6 @@ $ ->
       smDick()
       return
     windowResize: ->
-      alert 555
       smDick()
       return
     viewRender: setWeekevent,
@@ -381,10 +380,10 @@ $ ->
   $('#delete_mode').on 'click', ->
     $(this).empty()
     if delete_mode == false
-      $(this).append("<button id='no_delete'>削除モード動作中</button> <font color='red'>削除したいeventをクリックしてください</font>")
+      $(this).append('<button id="no_delete">戻る</button> <span class="text-red">削除したいeventをクリック</span>')
       delete_mode = true
     else
-      $(this).append("<button id=‘delete_btn’>削除モードへ</button>")
+      $(this).append('<button id="delete_btn">日程を削除する</button>')
       delete_mode = false
     console.log delete_mode
     return
