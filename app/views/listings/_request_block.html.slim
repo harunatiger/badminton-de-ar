@@ -17,7 +17,7 @@
             | 時間
         .row.row-space-1
           .col-md-7.small1
-            | ガイド料金(1人)
+            | ガイド料金(共通)
           .col-md-5.text-right.strong
             | ¥
             span#tour-price-base
@@ -66,7 +66,6 @@
               |  人数
             .select.select-block#num-of-people
               = f.input_field :num_of_people, as: :select, collection: listing.listing_detail.min_num_of_people..listing.listing_detail.max_num_of_people, default: [1]
-
         #culc-container.row-space-1
           .row.row-space-1
             .col-md-7.small1

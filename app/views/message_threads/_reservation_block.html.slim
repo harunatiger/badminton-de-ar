@@ -15,7 +15,10 @@
             .col-md-3.text-left.text-muted.strong
               | 価格：
             .col-md-8.text-muted.strong
-              = @reservation.amount
+              - if @host_id == current_user.id
+                = @reservation.amount
+              - else
+                = @reservation.amount_for_campaign
               | 円 (サービス利用料 #{@reservation.handling_cost}円 含)
           .row.row-condensed.row-space-1
             .col-md-3.text-left.text-muted.strong

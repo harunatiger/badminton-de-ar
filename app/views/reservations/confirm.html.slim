@@ -5,6 +5,7 @@
     .card.card-bald.row-space-8.row-space-top-6
       = simple_form_for(@reservation) do |f|
         = f.hidden_field :time_required
+        = f.hidden_field :campaign_id, value: @reservation.campaign.id if @reservation.campaign.present?
         .card-header
           .h5.text-center
             | 予約内容
@@ -63,6 +64,13 @@
             .col-md-8
               | ¥&nbsp;
               = @reservation.handling_cost
+          - if @reservation.campaign.present?
+            .row.row-condensed.row-space-2.row-space-top-3
+              .col-md-4.text-muted.strong.text-right.text-left--sp
+                | キャンペーン値引き: 
+              .col-md-8
+                | ¥&nbsp;
+                = 0 - @reservation.campaign.discount
           .row.row-condensed.row-space-6.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
               | 合計価格: 
