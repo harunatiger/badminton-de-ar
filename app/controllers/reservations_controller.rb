@@ -249,7 +249,7 @@ class ReservationsController < ApplicationController
       @reservation.place_memo = listing.listing_detail.place_memo
       @listings = User.find(current_user.id).listings.opened
       gon.watch.ngdates = Ngevent.get_ngdates(@reservation)
-      gon.ngweeks = NgeventWeek.where(listing_id: params[:listing_id]).pluck(:dow)
+      gon.ngweeks = NgeventWeek.where(listing_id: listing.id).pluck(:dow)
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
   end

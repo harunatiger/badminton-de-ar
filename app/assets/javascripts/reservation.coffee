@@ -51,7 +51,7 @@ $ ->
       ).done (data) ->
         $('#reservation_detail_form').html(data)
         disabled_dates = gon.watch.ngdates
-        disabled_weeks = gon.watch.ngweeks
+        disabled_weeks = gon.ngweeks
         # i'm stupid, hehe
         strfChange = $('.checkout').val()
         strfChange = strfChange.replace(/-/g, '/')
@@ -84,6 +84,7 @@ $ ->
       ).done (data) ->
         $('#reservation_detail_form').html(data)
         disabled_dates = gon.watch.ngdates
+        disabled_weeks = gon.watch.ngweeks
         # i'm stupid, hehe
         strfChange = $('.checkout').val()
         strfChange = strfChange.replace(/-/g, '/')
@@ -98,5 +99,7 @@ $ ->
           beforeShowDay: (date) ->
             formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
             if $.inArray(formattedDate.toString(), disabled_dates) != -1
+              return { enabled: false }
+            if $.inArray(date.getDay(), disabled_weeks) != -1
               return { enabled: false }
             return

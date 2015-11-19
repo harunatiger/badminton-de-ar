@@ -5,6 +5,7 @@ $ ->
   listing_id = gon.listing_id
   #console.log(listing_id)
  　#delete_mode = false
+  current_dow = []
 
   #---------------------------------------------------------------------
   # Create Event
@@ -157,6 +158,7 @@ $ ->
 
   ## Week Click Event
   setWeekevent = (event, element) ->
+    $('.fc-content-skeleton tbody tr').css('background', 'red')
     $('thead.fc-head .fc-widget-header').on 'click', ->
       #clearColor()
       if $(this).hasClass("fc-sun")
@@ -248,13 +250,20 @@ $ ->
 
   ## BackgroundColor initiarized when event render
   eventSetting = (event, element, view) ->
-    if event.className.indexOf('ng-event-week') != -1
+    if $.inArray('ng-event-week', event.className) != -1
+      #event.className.indexOf('ng-event-week') != -1
       setWeekElement(event.dow[0]).css('background', event.color)
       setWeekNumElement(event.dow[0]).css('color','white')
       setWeekHeaderElement(event.dow[0]).css('background',event.color)
+      if $.inArray(event.dow[0], current_dow) == -1
+        current_dow.push(event.dow[0])
     else
-      $('.fc-day[data-date="' + event._start._i + '"]').css('background', event.color)
-      $('.fc-day-number[data-date="' + event._start._i + '"]').css('color','white')
+      eventDay = new Date(event._start._i)
+      if $.inArray(eventDay.getDay(), current_dow) != -1
+        #$('.fc-day[data-date="' + event._start._i + '"]').css('background', 'white')
+      else
+        $('.fc-day[data-date="' + event._start._i + '"]').css('background', event.color)
+        $('.fc-day-number[data-date="' + event._start._i + '"]').css('color','white')
     return
 
   ## if exist event, disallow add event when drop
