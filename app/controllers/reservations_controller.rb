@@ -94,7 +94,6 @@ class ReservationsController < ApplicationController
   def confirm
     @reservation = Reservation.find(session[:reservation_id])
     @reservation.campaign = Campaign.find(session[:campaign_id]) if session[:campaign_id].present?
-    session[:campaign_id] = nil
     details = set_details(params[:token])
     if details.success?
       @payment = @reservation.payment.present? ? @reservation.payment : Payment.create(reservation_id: @reservation.id)
@@ -165,9 +164,11 @@ class ReservationsController < ApplicationController
           session[:campaign_id] = campaign.id
         end
       end
-      return checkout(@reservation) if @reservation.amount > 0
+      return checkout(@reservation) if @reservation.amount_for_campaign > 0
       para[:progress] = 3
       msg = Settings.reservation.msg.accepted
+      UserCampaign.create(user_id: current_user.id, campaign_id: campaign.id) if campaign.present?
+      session[:campaign_id] = nil
     elsif params[:payment]
       response = purchase(payment)
       if response.success?
@@ -177,6 +178,7 @@ class ReservationsController < ApplicationController
         payment.save
         
         UserCampaign.create(user_id: current_user.id, campaign_id: para[:campaign_id]) if para[:campaign_id].present?
+        session[:campaign_id] = nil
       else
         respond_to do |format|
           format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_payment_failure + ' エラー：' + response.params['error_codes'] + ' ' + response.params['message']}
