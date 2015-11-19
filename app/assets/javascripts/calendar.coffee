@@ -1,10 +1,15 @@
 $ ->
-
-  delete_mode = false
+  #---------------------------------------------------------------------
+  # fullcalendar setting init
+  #---------------------------------------------------------------------
   listing_id = gon.listing_id
-  console.log(listing_id)
+  #console.log(listing_id)
+ 　#delete_mode = false
 
+  #---------------------------------------------------------------------
   # Create Event
+  #---------------------------------------------------------------------
+  ## Set Event day
   select = (start, end) ->
     if eventExist(start.format()) == false
       return false
@@ -25,6 +30,7 @@ $ ->
         console.log 'error-select'
     return
 
+  ## Set Event each week
   selectWeek = (dow) ->
     data = event:
       dow: dow,
@@ -44,7 +50,7 @@ $ ->
           console.log 'error-select'
     return
 
-
+  ## Resize Event
   resizeEvent = (event, revertFunc) ->
     data =
       _method: 'PUT'
@@ -64,7 +70,7 @@ $ ->
         console.log 'resizeEvent-fail'
     return false
 
-
+  ## Drag and Drop Event
   dropEvent = (event, revertFunc) ->
     if event.className.indexOf('ng-event-week') != -1
       calendar.fullCalendar 'refetchEvents'
@@ -88,14 +94,11 @@ $ ->
         console.log 'dropEvent-fail'
     return false
 
-
+  ## remove event day
   removeEvent = (event, revertFunc) ->
     if event.className.indexOf('ng-event-week') != -1
       return false
-    #if delete_mode == true
-      #res = confirm '削除します。よろしいですか？'
-      #if res == false
-        #return false
+
     data =
       _method: 'DELETE'
     $.ajax
@@ -133,6 +136,7 @@ $ ->
     $('.fc-body .fc-row').height(addSize)
     return
 
+  ## Remove Event each week
   removeWeek = (dow) ->
     data =
       _method: 'unset'
@@ -144,20 +148,17 @@ $ ->
       data: data
       dataType: 'json'
       success: ->
+        clearColor()
         calendar.fullCalendar 'refetchEvents'
         return false
       error: ->
         calendar.fullCalendar 'refetchEvents'
         console.log 'removeEvent-fail'
 
-  clearColor = ->
-    $('.fc-day').css('background', 'white')
-    $('.fc-day-number').css('color', 'black')
-    $('.fc-day-header').css('background', 'transparent')
-
+  ## Week Click Event
   setWeekevent = (event, element) ->
     $('thead.fc-head .fc-widget-header').on 'click', ->
-      clearColor()
+      #clearColor()
       if $(this).hasClass("fc-sun")
         dow = 0
       else if  $(this).hasClass("fc-mon")
@@ -175,53 +176,17 @@ $ ->
 
       selectWeek(dow)
       return false
-    #SUN = '日曜日'
-    #MON = '月曜日'
-    #TUE = '火曜日'
-    #WED = '水曜日'
-    #THU = '木曜日'
-    #FRI = '金曜日'
-    #SAT = '土曜日'
-    #DESCRIPTION = 'をNG日に設定します。'
-    #$('thead.fc-head .fc-widget-header').on
-    #  'mouseenter': ->
-    #    if $(this).hasClass("fc-sun")
-    #      $(this).attr 'title', SUN + DESCRIPTION
-          #$('tbody.fc-body .fc-sun').css 'background-color', 'gray'
-    #    else if  $(this).hasClass("fc-mon")
-    #      $(this).attr 'title', MON + DESCRIPTION
-          #$('tbody.fc-body .fc-mon').css 'background-color', 'gray'
-    #    else if  $(this).hasClass("fc-tue")
-    #      $(this).attr 'title', TUE + DESCRIPTION
-          #$('tbody.fc-body .fc-tue').css 'background-color', 'gray'
-    #    else if  $(this).hasClass("fc-wed")
-    #      $(this).attr 'title', WED + DESCRIPTION
-          #$('tbody.fc-body .fc-wed').css 'background-color', 'gray'
-    #    else if  $(this).hasClass("fc-thu")
-    #      $(this).attr 'title', THU + DESCRIPTION
-          #$('tbody.fc-body .fc-thu').css 'background-color', 'gray'
-    #    else if  $(this).hasClass("fc-fri")
-    #      $(this).attr 'title', FRI + DESCRIPTION
-          #$('tbody.fc-body .fc-fri').css 'background-color', 'gray'
-    #    else if  $(this).hasClass("fc-sat")
-    #      $(this).attr 'title', SAT + DESCRIPTION
-          #$('tbody.fc-body .fc-sat').css 'background-color', 'gray'
 
-      #'mouseleave': ->
-        #if $(this).hasClass("fc-sun")
-          #$('tbody.fc-body .fc-sun').css 'background-color', 'white'
-        #else if  $(this).hasClass("fc-mon")
-          #$('tbody.fc-body .fc-mon').css 'background-color', 'white'
-        #else if  $(this).hasClass("fc-tue")
-          #$('tbody.fc-body .fc-tue').css 'background-color', 'white'
-        #else if  $(this).hasClass("fc-wed")
-          #$('tbody.fc-body .fc-wed').css 'background-color', 'white'
-        #else if  $(this).hasClass("fc-thu")
-          #$('tbody.fc-body .fc-thu').css 'background-color', 'white'
-        #else if  $(this).hasClass("fc-fri")
-          ##$('tbody.fc-body .fc-fri').css 'background-color', 'white'
-        #else if  $(this).hasClass("fc-sat")
-          #$('tbody.fc-body .fc-sat').css 'background-color', 'white'
+  #---------------------------------------------------------------------
+  # UI Setting
+  #---------------------------------------------------------------------
+  ## Color Init
+  clearColor = ->
+    $('.fc-day').css('background', 'white')
+    $('.fc-day-number').css('color', 'black')
+    $('.fc-day-header').css('background', 'transparent')
+
+  ## Week Element(ex. all monday)
   setWeekElement = (element) ->
     switch element
       when 0
@@ -241,6 +206,7 @@ $ ->
       else
     $fcweek
 
+  ## Week Number Element(day)
   setWeekNumElement = (element) ->
     switch element
       when 0
@@ -260,6 +226,7 @@ $ ->
       else
     $fcnum
 
+  ## Week Header Element(ex. '月')
   setWeekHeaderElement = (element) ->
     switch element
       when 0
@@ -279,6 +246,7 @@ $ ->
       else
     $fcheader
 
+  ## BackgroundColor initiarized when event render
   eventSetting = (event, element, view) ->
     if event.className.indexOf('ng-event-week') != -1
       setWeekElement(event.dow[0]).css('background', event.color)
@@ -289,9 +257,11 @@ $ ->
       $('.fc-day-number[data-date="' + event._start._i + '"]').css('color','white')
     return
 
+  ## if exist event, disallow add event when drop
   disallowOverlap = (stillEvent, movingEvent) ->
     return false
 
+  ## if exist event, disallow add event when dayClick
   eventExist = (start) ->
     evExist = true
     $.each $('#calendar').fullCalendar('clientEvents'), (index, elem) ->
@@ -300,6 +270,9 @@ $ ->
         return false
     return evExist
 
+  #---------------------------------------------------------------------
+  # fullcalendar settings
+  #---------------------------------------------------------------------
   calendar = $('#calendar').fullCalendar(
     header: {
       left: 'today prev',

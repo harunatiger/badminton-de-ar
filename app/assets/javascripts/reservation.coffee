@@ -51,6 +51,7 @@ $ ->
       ).done (data) ->
         $('#reservation_detail_form').html(data)
         disabled_dates = gon.watch.ngdates
+        disabled_weeks = gon.watch.ngweeks
         # i'm stupid, hehe
         strfChange = $('.checkout').val()
         strfChange = strfChange.replace(/-/g, '/')
