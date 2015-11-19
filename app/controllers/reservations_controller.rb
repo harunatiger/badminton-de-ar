@@ -11,7 +11,7 @@ class ReservationsController < ApplicationController
         return redirect_to new_profile_profile_identity_path(current_user.profile), notice: Settings.reservation.save.failure.not_authorized_yet
       end
     end
-   
+    
     reservation_before = Reservation.latest_reservation(reservation_params['guest_id'], reservation_params['host_id'])
     reservation = Reservation.requested_reservation(reservation_params['guest_id'], reservation_params['host_id'])
     reservation.update(progress: 'rejected') if reservation.present?
@@ -19,6 +19,7 @@ class ReservationsController < ApplicationController
     para = reservation_params
     para['progress'] = 'holded' if params[:save]
     para['schedule_end'] = para['schedule_date'] if params[:reserve]
+    para['campaign_id'] = nil if reservation_before and reservation_before.accepted?
     
     if reservation_before and reservation_before.holded?
       @reservation = reservation_before
@@ -92,6 +93,8 @@ class ReservationsController < ApplicationController
   
   def confirm
     @reservation = Reservation.find(session[:reservation_id])
+    @reservation.campaign = Campaign.find(session[:campaign_id]) if session[:campaign_id].present?
+    session[:campaign_id] = nil
     details = set_details(params[:token])
     if details.success?
       @payment = @reservation.payment.present? ? @reservation.payment : Payment.create(reservation_id: @reservation.id)
@@ -119,6 +122,7 @@ class ReservationsController < ApplicationController
     message_thread_id = session[:message_thread_id]
     session[:reservation_id] = nil
     session[:message_thread_id] = nil
+    session[:campaign_id] = nil
     respond_to do |format|
       format.html { redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_canceled}
     end
@@ -149,6 +153,18 @@ class ReservationsController < ApplicationController
     elsif params[:accept]
       session[:message_thread_id] = message_thread_id
       session[:reservation_id] = @reservation.id
+      
+      if para[:campaign_code].present?
+        campaign = Campaign.where(code: para[:campaign_code]).first
+        if campaign.blank?
+          return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.invalid_campaign_code
+        elsif campaign.users.exists?(current_user)
+          return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.used_campaign_code
+        else
+          @reservation.campaign = campaign
+          session[:campaign_id] = campaign.id
+        end
+      end
       return checkout(@reservation) if @reservation.amount > 0
       para[:progress] = 3
       msg = Settings.reservation.msg.accepted
@@ -159,6 +175,8 @@ class ReservationsController < ApplicationController
         payment.transaction_date = response.params['payment_date']
         payment.payment_status = response.params['payment_status']
         payment.save
+        
+        UserCampaign.create(user_id: current_user.id, campaign_id: para[:campaign_id]) if para[:campaign_id].present?
       else
         respond_to do |format|
           format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_payment_failure + ' エラー：' + response.params['error_codes'] + ' ' + response.params['message']}
@@ -248,14 +266,13 @@ class ReservationsController < ApplicationController
     end
 
     def reservation_params
-      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :option_price, :option_price_per_person, Reservation::REGISTRABLE_ATTRIBUTES, :place, :place_memo, :description, :message_thread_id, :schedule_end)
+      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :option_price, :option_price_per_person, Reservation::REGISTRABLE_ATTRIBUTES, :place, :place_memo, :description, :message_thread_id, :schedule_end, :campaign_id, :campaign_code)
     end
   
     def checkout(reservation)
       respond_to do |format|
         setup_response = set_checkout(reservation)
         if reservation.valid? and setup_response.success?        
-          session[:reservation] = reservation
           format.html {redirect_to gateway.redirect_url_for(setup_response.token)}
         else
           message_thread_id = session[:message_thread_id]

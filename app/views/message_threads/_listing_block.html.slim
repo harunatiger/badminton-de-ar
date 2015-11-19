@@ -19,7 +19,10 @@
         | 価格: 
       .col-md-8
         | ¥&nbsp;
-        = reservation_obj.amount
+        - if @host_id == current_user.id
+          = reservation_obj.amount
+        - else
+          = reservation_obj.amount_for_campaign
         |(サービス利用料 ¥ #{reservation_obj.handling_cost} 含)
     .row.row-condensed.row-space-2
       .col-md-3.text-left.text-muted.strong
@@ -48,6 +51,8 @@
       .col-md-12.btn-wrapper
         - unless m.try('content') == Settings.reservation.msg.reserve
           - if reservation_obj.requested? and current_user.id == guest_id
+            | キャンペーンコード
+            = f.input_field :campaign_code
             = f.submit '承認する', name: 'accept', class: 'btn btn-primary'
             = f.submit 'キャンセル', name: 'cancel', class: 'btn'
           - elsif reservation_obj.completed? and current_user.id == guest_id

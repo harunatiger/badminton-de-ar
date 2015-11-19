@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113075716) do
+ActiveRecord::Schema.define(version: 20151117155159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,18 @@ ActiveRecord::Schema.define(version: 20151113075716) do
   add_index "browsing_histories", ["listing_id"], name: "index_browsing_histories_on_listing_id", using: :btree
   add_index "browsing_histories", ["user_id"], name: "index_browsing_histories_on_user_id", using: :btree
   add_index "browsing_histories", ["viewed_at"], name: "index_browsing_histories_on_viewed_at", using: :btree
+
+  create_table "campaigns", force: :cascade do |t|
+    t.string   "code",       null: false
+    t.integer  "discount"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "campaigns", ["code"], name: "index_campaigns_on_code", using: :btree
+  add_index "campaigns", ["discount"], name: "index_campaigns_on_discount", using: :btree
+  add_index "campaigns", ["type"], name: "index_campaigns_on_type", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -336,36 +348,40 @@ ActiveRecord::Schema.define(version: 20151113075716) do
 
   create_table "pickup_areas", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "cover_image"
     t.integer  "selected_listing"
+    t.string   "cover_image_small", default: ""
   end
 
   create_table "pickup_categories", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "cover_image"
     t.integer  "selected_listing"
+    t.string   "cover_image_small", default: ""
   end
 
   create_table "pickup_tags", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "cover_image"
     t.integer  "selected_listing"
+    t.string   "cover_image_small", default: ""
   end
 
   create_table "pickups", force: :cascade do |t|
-    t.string   "name",             default: ""
-    t.string   "cover_image",      default: ""
+    t.string   "name",              default: ""
+    t.string   "cover_image",       default: ""
     t.integer  "selected_listing"
     t.string   "type"
     t.integer  "order_number"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "cover_image_small", default: ""
   end
 
   add_index "pickups", ["name"], name: "index_pickups_on_name", using: :btree
@@ -505,8 +521,10 @@ ActiveRecord::Schema.define(version: 20151113075716) do
     t.date     "schedule_end"
     t.integer  "option_price_per_person",                         default: 0
     t.text     "place_memo",                                      default: ""
+    t.integer  "campaign_id"
   end
 
+  add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree
   add_index "reservations", ["guest_id"], name: "index_reservations_on_guest_id", using: :btree
   add_index "reservations", ["host_id"], name: "index_reservations_on_host_id", using: :btree
   add_index "reservations", ["listing_id"], name: "index_reservations_on_listing_id", using: :btree
@@ -560,6 +578,16 @@ ActiveRecord::Schema.define(version: 20151113075716) do
 
   add_index "tools", ["listing_id", "name"], name: "index_tools_on_listing_id_and_name", unique: true, using: :btree
   add_index "tools", ["listing_id"], name: "index_tools_on_listing_id", using: :btree
+
+  create_table "user_campaigns", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "campaign_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "user_campaigns", ["campaign_id"], name: "index_user_campaigns_on_campaign_id", using: :btree
+  add_index "user_campaigns", ["user_id"], name: "index_user_campaigns_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -648,5 +676,7 @@ ActiveRecord::Schema.define(version: 20151113075716) do
   add_foreign_key "reviews", "users", column: "guest_id"
   add_foreign_key "reviews", "users", column: "host_id"
   add_foreign_key "tools", "listings"
+  add_foreign_key "user_campaigns", "campaigns"
+  add_foreign_key "user_campaigns", "users"
   add_foreign_key "wishlists", "users"
 end

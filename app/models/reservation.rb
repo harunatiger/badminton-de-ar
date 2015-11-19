@@ -29,12 +29,14 @@
 #  schedule_end            :date
 #  option_price_per_person :integer          default(0)
 #  place_memo              :text             default("")
+#  campaign_id             :integer
 #
 # Indexes
 #
-#  index_reservations_on_guest_id    (guest_id)
-#  index_reservations_on_host_id     (host_id)
-#  index_reservations_on_listing_id  (listing_id)
+#  index_reservations_on_campaign_id  (campaign_id)
+#  index_reservations_on_guest_id     (guest_id)
+#  index_reservations_on_host_id      (host_id)
+#  index_reservations_on_listing_id   (listing_id)
 #
 
 class Reservation < ActiveRecord::Base
@@ -44,6 +46,7 @@ class Reservation < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'host_id'
   belongs_to :user, class_name: 'User', foreign_key: 'guest_id'
   belongs_to :listing
+  belongs_to :campaign
   has_one :review
   has_one :payment
   has_many :ngevents, dependent: :destroy
@@ -53,6 +56,7 @@ class Reservation < ActiveRecord::Base
   #enum progress: [requested, canceled, holded, accepted, rejected, listing_closed]
 
   attr_accessor :message_thread_id
+  attr_accessor :campaign_code
   accepts_nested_attributes_for :payment
 
   validates :host_id, presence: true
@@ -154,7 +158,7 @@ class Reservation < ActiveRecord::Base
 
   def self.active_reservation(guest_id, host_id)
     reservation = self.latest_reservation(guest_id, host_id)
-    if reservation.present?
+    if reservation.present? and not reservation.canceled? 
       reservation.schedule_end.present? ? reservation.schedule_end > Time.zone.today : false
     else
       false
@@ -170,7 +174,14 @@ class Reservation < ActiveRecord::Base
   end
 
   def amount
-    basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.125).ceil
+    result = basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.125).ceil
+  end
+  
+  def amount_for_campaign
+    result = basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.125).ceil
+    result = result - self.campaign.discount if self.campaign.present?
+    result = 0 if result < 0
+    result
   end
   
   def basic_amount
@@ -178,7 +189,9 @@ class Reservation < ActiveRecord::Base
   end
   
   def paypal_amount
-    (self.basic_amount + handling_cost) * 100
+    result = self.basic_amount + handling_cost
+    result = result - self.campaign.discount if self.campaign.present?
+    return result * 100
   end
   
   def paypal_sub_total
@@ -191,6 +204,10 @@ class Reservation < ActiveRecord::Base
   
   def paypal_handling_cost
     basic_amount < 2000 ? 50000 : (basic_amount * 0.125).ceil * 100
+  end
+  
+  def paypal_campaign_discount
+    0 - self.campaign.discount * 100
   end
 
   def completed?

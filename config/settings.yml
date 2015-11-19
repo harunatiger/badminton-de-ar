@@ -83,6 +83,8 @@ reservation:
       paypal_refund_failure: 'paypal決済の取り消しに失敗しました。'
       paypal_canceled: '決済がキャンセルされました。'
       not_authorized_yet: 'ゲストにガイド内容を送信するには、信頼情報の登録と管理者による承認が必要です。'
+      invalid_campaign_code: 'キャンペーンコードが正しくありません。'
+      used_campaign_code: 'キャンペーンコードは1度しか利用できません。'
   update:
     success: "ガイド内容を更新しました。"
     failure: "ガイド内容の更新に失敗しました。"
