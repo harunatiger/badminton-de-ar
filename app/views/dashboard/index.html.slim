@@ -73,7 +73,7 @@
                       = um.created_at.strftime("%m月%d日 %H時%M分")
                 = link_to message_thread_path(um.message_thread_id), class: "link-reset text-muted" do
                   .col-md-7
-                    = um.content
+                    = um.english_content
                     br
                     span.text-muted
                       = from_user_profile.location

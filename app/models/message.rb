@@ -66,6 +66,20 @@ class Message < ActiveRecord::Base
 
     obj.save
   end
+  
+  def english_content
+    if self.try('content') == Settings.reservation.msg.request
+      Settings.reservation.msg.request_en
+    elsif self.try('content') == Settings.reservation.msg.accepted
+      Settings.reservation.msg.accepted_en
+    elsif self.try('content') == Settings.reservation.msg.canceled
+      Settings.reservation.msg.canceled_en
+    elsif self.try('content') == Settings.reservation.msg.reserve
+      Settings.reservation.msg.reserve_en
+    else
+      self.try('content')
+    end
+  end
 
   def self.make_all_read(message_thread_id, to_user_id)
     Message.where(message_thread_id: message_thread_id, to_user_id: to_user_id, read: false).update_all(read: true, read_at: Time.zone.now)

@@ -8,20 +8,20 @@ li.thread-list-item
               p.trans
                 - if m.try('content') == Settings.reservation.msg.request
                   span.text-blue.strong
-                    | ガイド内容をお送りしました。
+                    | I sent you a tour plan
                 - elsif m.try('content') == Settings.reservation.msg.accepted
                   span.text-green.strong
-                    | ガイド内容を承認しました。
+                    | I approved your tour plan
                 - elsif m.try('content') == Settings.reservation.msg.canceled
                   span.text-pink.strong
-                    | ガイド内容をキャンセルしました。
+                    | I cancelled your tour plan
                 - elsif m.try('content').end_with?(Settings.reservation.msg.contact)
                   span.text-pink.strong
                     =m.try('content')
                 - elsif m.try('content') == Settings.reservation.msg.reserve
                   span.text-pink.strong
-                    = message_to_listing(m).try('title')
-                    |の予約リクエストをお送りしました。
+                    /= message_to_listing(m).try('title')
+                    |I sent you reservation request
                 - else
                   = m.try('content')
             - if m.attached_file.present?

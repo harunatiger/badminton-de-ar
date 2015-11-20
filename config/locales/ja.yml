@@ -14,14 +14,14 @@ ja:
   errors:
     messages:
       extension_white_list_error: "のファイル形式が正しくありません。"
-      size_over: "のサイズが大きすぎます。%{size}MB以内の動画を登録してください。"
+      size_over: "size is too big. Please ensure file size is less than %{size}MB"
   activerecord:
     attributes:
       listing:
-        cover_video: 'ツアー紹介動画'
-        cover_image: 'カバー画像'
+        cover_video: 'video'
+        cover_image: 'cover photo'
       listing_image:
-        image: 'イメージ画像'
+        image: 'photo'
   mailer:
     new_message:
       subject:
