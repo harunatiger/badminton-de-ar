@@ -35,8 +35,11 @@ $ ->
   selectWeek = (dow) ->
     if $.inArray(dow, current_dow) == -1
       res = confirm 'この曜日は全てNG日に設定されます。よろしいですか？'
-      if res == false
-        return false
+    else
+      res = confirm 'この曜日のNG日を全て解除します。よろしいですか？'
+
+    if res == false
+      return false
 
     data = event:
       dow: dow,
