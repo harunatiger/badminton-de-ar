@@ -33,6 +33,11 @@ $ ->
 
   ## Set Event each week
   selectWeek = (dow) ->
+    if $.inArray(dow, current_dow) == -1
+      res = confirm 'この曜日は全てNG日に設定されます。よろしいですか？'
+      if res == false
+        return false
+
     data = event:
       dow: dow,
     $.ajax
@@ -41,6 +46,7 @@ $ ->
       data: data
       dataType: 'json'
       success: ->
+        current_dow.push(dow)
         calendar.fullCalendar 'refetchEvents'
         return
       error: (status) ->
@@ -150,7 +156,9 @@ $ ->
       dataType: 'json'
       success: ->
         clearColor()
-        current_dow = []
+        i = $.inArray(dow, current_dow)
+        if i != -1
+          current_dow.splice(i)
         calendar.fullCalendar 'refetchEvents'
         return false
       error: ->
@@ -260,20 +268,36 @@ $ ->
   ## BackgroundColor initiarized when event render
   eventSetting = (event, element, view) ->
     if $.inArray('ng-event-week', event.className) != -1
-      #event.className.indexOf('ng-event-week') != -1
+      arry_redDay = []
+      if $.inArray(event.dow[0], current_dow) == -1
+        current_dow.push(event.dow[0])
+
+      $.each $('#calendar').fullCalendar('clientEvents'), (index, elem) ->
+        if elem.color == 'red'
+          eventDay = new Date(elem._start._i)
+          redWeek = eventDay.getDay()
+          if redWeek == event.dow[0]
+            arry_redDay.push(elem._start._i)
+
       setWeekElement(event.dow[0]).css('background', event.color)
       setWeekNumElement(event.dow[0]).css('color','white')
       setWeekHeaderElement(event.dow[0]).css('background',event.color)
-      if $.inArray(event.dow[0], current_dow) == -1
-        current_dow.push(event.dow[0])
+
+      $.each arry_redDay, (index, elem) ->
+        $('.fc-day[data-date="' + elem + '"]').css('background', 'red')
+
+      return
     else
-      #eventDay = new Date(event._start._i)
-      #if $.inArray(eventDay.getDay(), current_dow) != -1
-        #$('.fc-day[data-date="' + event._start._i + '"]').css('background', 'white')
-      #else
-        $('.fc-day[data-date="' + event._start._i + '"]').css('background', event.color)
-        $('.fc-day-number[data-date="' + event._start._i + '"]').css('color','white')
-    return
+      if event.color == 'red'
+        $('.fc-day[data-date="' + event._start._i + '"]').css('background', 'red')
+      else
+        eventDay = new Date(event._start._i)
+        if $.inArray(eventDay.getDay(), current_dow) != -1
+          $('.fc-day[data-date="' + event._start._i + '"]').css('background', 'lightgray')
+        else
+          $('.fc-day[data-date="' + event._start._i + '"]').css('background', event.color)
+          $('.fc-day-number[data-date="' + event._start._i + '"]').css('color','white')
+      return
 
   ## if exist event, disallow add event when drop
   disallowOverlap = (stillEvent, movingEvent) ->
