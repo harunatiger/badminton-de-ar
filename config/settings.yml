@@ -83,7 +83,7 @@ reservation:
       paypal_refund_failure: 'Failed to withdraw authorization'
       paypal_canceled: 'Authorization cancelled'
       not_authorized_yet: 'We need to do a virtual ID check in order to send your tour plan to guests'
-      invalid_campaign_code: 'Your campaign code is not right'
+      invalid_campaign_code: 'Your campaign code is invalid'
       used_campaign_code: 'You have already used the campaign code'
   update:
     success: "Your tour plan has been uploaded successfully"
