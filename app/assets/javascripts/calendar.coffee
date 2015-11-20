@@ -193,7 +193,7 @@ $ ->
     winHeight = $(window).height()
     rowSize = $('.fc-body .fc-row').size()
     addSize = (winHeight - calendarPosition - 40) / rowSize
-    alert addSize
+    # alert addSize
     $('.fc-body .fc-row').height(addSize)
     return
 
