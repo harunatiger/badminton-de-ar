@@ -150,6 +150,7 @@ $ ->
       dataType: 'json'
       success: ->
         clearColor()
+        current_dow = []
         calendar.fullCalendar 'refetchEvents'
         return false
       error: ->
