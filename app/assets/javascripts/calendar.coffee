@@ -120,31 +120,9 @@ $ ->
         clearColor()
         calendar.fullCalendar 'refetchEvents'
         return false
-      data =
-        _method: 'DELETE'
-      $.ajax
-        type: 'DELETE'
-        url: '/ngevents/' + event.id
-        data: data
-        dataType: 'json'
-        success: ->
-          calendar.fullCalendar 'refetchEvents'
-          return false
-        error: ->
-          calendar.fullCalendar 'refetchEvents'
-          console.log 'removeEvent-fail'
-    else
-      calendar.fullCalendar 'refetchEvents'
-    return false
-
-  smDick = ->
-    calendarPosition = $('.fc-body').offset().top
-    winHeight = $(window).height()
-    rowSize = $('.fc-body .fc-row').size()
-    addSize = (winHeight - calendarPosition - 40) / rowSize
-    alert addSize
-    $('.fc-body .fc-row').height(addSize)
-    return
+      error: ->
+        calendar.fullCalendar 'refetchEvents'
+        console.log 'removeEvent-fail'
 
   ## Remove Event each week
   removeWeek = (dow) ->
@@ -370,12 +348,6 @@ $ ->
     eventClick: removeEvent,
     eventResize: resizeEvent,
     eventDrop: dropEvent,
-    eventAfterAllRender: ->
-      smDick()
-      return
-    windowResize: ->
-      smDick()
-      return
     viewRender: setWeekevent,
     eventRender: eventSetting,
     eventOverlap: disallowOverlap,
