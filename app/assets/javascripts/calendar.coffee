@@ -361,6 +361,14 @@ $ ->
     windowResize: ->
       smDick()
       return
+    dayClick: (date, jsEvent, view) ->
+      count = 0
+      startDate = new Date(date.year(), date.month(), date.date(), 0, 0, 0)
+      endDate = new Date(date.year(), date.month(), date.date(), 23, 59, 59)
+      $('#calendar').fullCalendar 'clientEvents', (event) ->
+        if event.start >= startDate && event.start <= endDate || event.end >= startDate && event.end <= endDate
+          removeEvent(event)
+        return
   )
 
   ###
