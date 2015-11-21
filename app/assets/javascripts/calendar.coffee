@@ -364,10 +364,18 @@ $ ->
     dayClick: (date, jsEvent, view) ->
       count = 0
       startDate = new Date(date.year(), date.month(), date.date(), 0, 0, 0)
-      endDate = new Date(date.year(), date.month(), date.date(), 23, 59, 59)
+      endDate = new Date(date.year(), date.month(), date.date()+1, 23, 59, 59)
       $('#calendar').fullCalendar 'clientEvents', (event) ->
-        if event.start >= startDate && event.start <= endDate || event.end >= startDate && event.end <= endDate
+        if event.start >= startDate && event.start <= endDate
+          #alert event.start
+          #alert startDate
+          #alert event.end
+          #alert endDate
           removeEvent(event)
+        #if event.start >= startDate && event.start <= endDate
+          #alert 111
+        #if event.end >= startDate && event.end <= endDate
+          #alert 222
         return
   )
 
