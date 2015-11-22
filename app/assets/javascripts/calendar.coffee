@@ -106,6 +106,9 @@ $ ->
 
   ## remove event day
   removeEvent = (event, revertFunc) ->
+    # remove smDick header
+    $('.fc-day-number').removeClass('smd-td')
+
     if event.className.indexOf('ng-event-week') != -1
       return false
 
@@ -184,6 +187,28 @@ $ ->
     addSize = (winHeight - calendarPosition - 40) / rowSize
     # alert addSize
     $('.fc-body .fc-row').height(addSize)
+    $('.fc-content-skeleton table').height(addSize)
+
+    # for drag multiselect
+    $('.fc-event-container').each ->
+      bgColor = $('a', this).attr('style')
+      colNum = Number($(this).attr('colspan'))
+      if colNum && bgColor == 'background-color:gray;border-color:gray'
+        $(this).css('background', 'gray')
+        #arcIndex = Number($(this).index())
+        arcIndex = 0
+        $(this).prevAll('td').each ->
+          arcIndex += @colSpan
+          return
+        thead = $(this).closest('tbody').prev()
+        colCount = arcIndex + colNum
+        i = arcIndex
+        while i < colCount
+          targetTd = $('td', thead).eq(i)
+          targetTd.addClass('smd-td')
+          i++
+      else
+
     return
 
   ## Week Element(ex. all monday)
@@ -266,12 +291,12 @@ $ ->
 
       $.each arry_redDay, (index, elem) ->
         $('.fc-day[data-date="' + elem + '"]').css('background', 'red')
-
       return
     else
       if event.color == 'red'
         $('.fc-day[data-date="' + event._start._i + '"]').css('background', 'red')
       else
+        #alert event._start._i
         eventDay = new Date(event._start._i)
         if $.inArray(eventDay.getDay(), current_dow) != -1
           $('.fc-day[data-date="' + event._start._i + '"]').css('background', 'lightgray')
@@ -355,16 +380,17 @@ $ ->
       { url: '/listings/' + listing_id + '/ngevents.json' },
       { url: '/listings/' + listing_id + '/ngevent_weeks.json' }
     ]
+    eventStartEditable: false,
     eventAfterAllRender: ->
       smDick()
       return
     windowResize: ->
       smDick()
       return
-    dayClick: (date, jsEvent, view) ->
+    dayClick: (date) ->
       count = 0
       startDate = new Date(date.year(), date.month(), date.date(), 0, 0, 0)
-      endDate = new Date(date.year(), date.month(), date.date()+1, 23, 59, 59)
+      endDate = new Date(date.year(), date.month(), date.date(), 23, 59, 59)
       $('#calendar').fullCalendar 'clientEvents', (event) ->
         if event.start >= startDate && event.start <= endDate
           #alert event.start
