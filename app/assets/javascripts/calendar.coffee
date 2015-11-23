@@ -398,22 +398,22 @@ $ ->
       endDate = new Date(date.year(), date.month(), date.date(), 23, 59, 59)
       jsEvent.preventDefault()
       $('#calendar').fullCalendar 'clientEvents', (event) ->
-        eventStart = new Date(event.start.year(), event.start.month(), event.start.date())
-        eventEnd = new Date(event.end.year(), event.end.month(), event.end.date())
+        eventStart = event.start
+        eventEnd = event.end
+        #alert startDate
+        #alert endDate
+        #alert eventStart
+        #alert eventEnd
         if eventStart >= startDate && eventStart <= endDate
           removeEvent(event)
           delFlag = 1
         else if eventEnd >= startDate && eventEnd >= endDate
           if startDate <= eventStart && endDate <= eventStart
           else
-            #alert startDate
-            #alert endDate
-            #alert eventStart
-            #alert eventEnd
             removeEvent(event)
             delFlag = 1
         else
-        return false
+        return
   )
 
   ###
