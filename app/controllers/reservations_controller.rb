@@ -248,8 +248,6 @@ class ReservationsController < ApplicationController
       @reservation.place = listing.listing_detail.place
       @reservation.place_memo = listing.listing_detail.place_memo
       @listings = User.find(current_user.id).listings.opened
-      gon.watch.ngdates = Ngevent.get_ngdates(@reservation)
-      gon.ngweeks = NgeventWeek.where(listing_id: listing.id).pluck(:dow)
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
   end
@@ -258,9 +256,27 @@ class ReservationsController < ApplicationController
     if request.xhr?
       @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
       @listings = User.find(current_user.id).listings.opened
-      gon.watch.ngdates = Ngevent.get_ngdates(@reservation)
-      gon.watch.ngweeks = NgeventWeek.where(listing_id: @reservation.try('listing_id')).pluck(:dow)
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
+    end
+  end
+
+  def set_ngday_reservation_by_listing
+    if request.xhr?
+      listing = Listing.find(params[:listing_id])
+      @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
+      @reservation.listing_id = listing.id
+      ngdates = Ngevent.get_ngdates(@reservation)
+      ngweeks = NgeventWeek.where(listing_id: listing.id).pluck(:dow)
+      render json: { ngdates: ngdates, ngweeks: ngweeks}
+    end
+  end
+
+  def set_ngday_reservation_default
+    if request.xhr?
+      @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
+      ngdates = Ngevent.get_ngdates(@reservation)
+      ngweeks = NgeventWeek.where(listing_id: @reservation.try('listing_id')).pluck(:dow)
+      render json: { ngdates: ngdates, ngweeks: ngweeks}
     end
   end
 

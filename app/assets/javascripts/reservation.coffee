@@ -41,6 +41,7 @@ $ ->
     tour = $('#reservation_listing_id option:selected').text() + 'の情報に書き換えます。よろしいですか？これまで編集したガイド内容が上書きされます。ご注意ください。'
     ret = confirm(tour) if $(this).val() != ''
     if ret
+      set_ngday_reservation_by_listing($(this).val(), $('#reservation_id').val())
       $.ajax(
         type: 'GET'
         url: '/reservations/set_reservation_by_listing'
@@ -50,8 +51,6 @@ $ ->
         }
       ).done (data) ->
         $('#reservation_detail_form').html(data)
-        disabled_dates = gon.watch.ngdates
-        disabled_weeks = gon.ngweeks
         # i'm stupid, hehe
         strfChange = $('.checkout').val()
         strfChange = strfChange.replace(/-/g, '/')
@@ -75,6 +74,7 @@ $ ->
 
   # set reservation default for message thread
   $(document).on 'click', '#cancel_detail', ->
+    set_ngday_reservation_default($('#reservation_id').val())
     $.ajax(
         type: 'GET'
         url: '/reservations/set_reservation_default'
@@ -83,8 +83,6 @@ $ ->
         }
       ).done (data) ->
         $('#reservation_detail_form').html(data)
-        disabled_dates = gon.watch.ngdates
-        disabled_weeks = gon.watch.ngweeks
         # i'm stupid, hehe
         strfChange = $('.checkout').val()
         strfChange = strfChange.replace(/-/g, '/')
@@ -103,3 +101,26 @@ $ ->
             if $.inArray(date.getDay(), disabled_weeks) != -1
               return { enabled: false }
             return
+
+  set_ngday_reservation_by_listing = (listing_id, reservation_id) ->
+    $.ajax(
+        type: 'GET'
+        url: '/reservations/set_ngday_reservation_by_listing'
+        data: {
+          listing_id: listing_id,
+          reservation_id: reservation_id
+        }
+      ).done (data) ->
+        disabled_dates = data.ngdates
+        disabled_weeks = data.ngweeks
+
+  set_ngday_reservation_default = (reservation_id) ->
+    $.ajax(
+        type: 'GET'
+        url: '/reservations/set_ngday_reservation_default'
+        data: {
+          reservation_id: reservation_id
+        }
+      ).done (data) ->
+        disabled_dates = data.ngdates
+        disabled_weeks = data.ngweeks
