@@ -6,30 +6,34 @@ $ ->
   console.log(listing_id)
   delete_mode = false
   current_dow = []
+  delFlag = 0
 
   #---------------------------------------------------------------------
   # Create Event
   #---------------------------------------------------------------------
   ## Set Event day
   select = (start, end) ->
-    if eventExist(start.format()) == false
-      return false
+    if delFlag == 0
+      if eventExist(start.format()) == false
+        return false
 
-    data = event:
-      start: start._d,
-      end: end._d,
-    $.ajax
-      type: 'POST'
-      url: '/listings/' + listing_id + '/ngevents'
-      data: data
-      dataType: 'json'
-      success: ->
-        calendar.fullCalendar 'refetchEvents'
-        return
-      error: ->
-        calendar.fullCalendar 'refetchEvents'
-        console.log 'error-select'
-    return
+      data = event:
+        start: start._d,
+        end: end._d,
+      $.ajax
+        type: 'POST'
+        url: '/listings/' + listing_id + '/ngevents'
+        data: data
+        dataType: 'json'
+        success: ->
+          calendar.fullCalendar 'refetchEvents'
+          return
+        error: ->
+          calendar.fullCalendar 'refetchEvents'
+          console.log 'error-select'
+    else
+      delFlag = 0
+      return
 
   ## Set Event each week
   selectWeek = (dow) ->
@@ -107,6 +111,7 @@ $ ->
   ## remove event day
   removeEvent = (event, revertFunc) ->
     # remove smDick header
+    #alert 'removeEvent'
     $('.fc-day-number').removeClass('smd-td')
 
     if event.className.indexOf('ng-event-week') != -1
@@ -196,6 +201,7 @@ $ ->
       if colNum && bgColor == 'background-color:gray;border-color:gray'
         $(this).css('background', 'gray')
         #arcIndex = Number($(this).index())
+        #alert 'smDick'
         arcIndex = 0
         $(this).prevAll('td').each ->
           arcIndex += @colSpan
@@ -208,7 +214,6 @@ $ ->
           targetTd.addClass('smd-td')
           i++
       else
-
     return
 
   ## Week Element(ex. all monday)
@@ -387,22 +392,28 @@ $ ->
     windowResize: ->
       smDick()
       return
-    dayClick: (date) ->
+    dayClick: (date, jsEvent) ->
       count = 0
       startDate = new Date(date.year(), date.month(), date.date(), 0, 0, 0)
       endDate = new Date(date.year(), date.month(), date.date(), 23, 59, 59)
+      jsEvent.preventDefault()
       $('#calendar').fullCalendar 'clientEvents', (event) ->
-        if event.start >= startDate && event.start <= endDate
-          #alert event.start
-          #alert startDate
-          #alert event.end
-          #alert endDate
+        eventStart = new Date(event.start.year(), event.start.month(), event.start.date())
+        eventEnd = new Date(event.end.year(), event.end.month(), event.end.date())
+        if eventStart >= startDate && eventStart <= endDate
           removeEvent(event)
-        #if event.start >= startDate && event.start <= endDate
-          #alert 111
-        #if event.end >= startDate && event.end <= endDate
-          #alert 222
-        return
+          delFlag = 1
+        else if eventEnd >= startDate && eventEnd >= endDate
+          if startDate <= eventStart && endDate <= eventStart
+          else
+            #alert startDate
+            #alert endDate
+            #alert eventStart
+            #alert eventEnd
+            removeEvent(event)
+            delFlag = 1
+        else
+        return false
   )
 
   ###
