@@ -31,7 +31,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  country              :string           default("")
-#  progress             :integer          default(0), not null
+#  progress             :integer
 #
 # Indexes
 #

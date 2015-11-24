@@ -47,22 +47,22 @@ $ ->
 
     data = event:
       dow: dow,
-    $.ajax
-      type: 'POST'
-      url: '/listings/' + listing_id + '/ngevent_weeks'
-      data: data
-      dataType: 'json'
-      success: ->
-        current_dow.push(dow)
-        calendar.fullCalendar 'refetchEvents'
-        return
-      error: (status) ->
-        if status.status == 4001
-          removeWeek(status.responseJSON.event.dow)
-        else
+    if $.inArray(dow, current_dow) == -1
+      $.ajax
+        type: 'POST'
+        url: '/listings/' + listing_id + '/ngevent_weeks'
+        data: data
+        dataType: 'json'
+        success: ->
+          current_dow.push(dow)
+          calendar.fullCalendar 'refetchEvents'
+          return
+        error: (status) ->
           calendar.fullCalendar 'refetchEvents'
           console.log 'error-select'
-    return
+      return
+    else
+      removeWeek(dow)
 
   ## Resize Event
   resizeEvent = (event, revertFunc) ->
@@ -135,11 +135,11 @@ $ ->
   ## Remove Event each week
   removeWeek = (dow) ->
     data =
-      _method: 'unset'
+      _method: 'put'
       event:
         dow: dow
     $.ajax
-      type: 'GET'
+      type: 'PUT'
       url: '/listings/' + listing_id + '/ngevent_weeks/unset'
       data: data
       dataType: 'json'

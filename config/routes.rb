@@ -391,7 +391,7 @@ Rails.application.routes.draw do
     get 'unpublish', action: 'unpublish', as: 'unpublish'
     resources :ngevents, only: [:index, :create]
     resources :ngevent_weeks, only: [:index, :create] do
-      get 'unset', on: :collection
+      put 'unset', on: :collection
     end
     resources :calendar
   end
