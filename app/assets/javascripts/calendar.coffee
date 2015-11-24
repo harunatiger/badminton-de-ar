@@ -198,7 +198,7 @@ $ ->
     $('.fc-event-container').each ->
       bgColor = $('a', this).attr('style')
       colNum = Number($(this).attr('colspan'))
-      if colNum && bgColor == 'background-color:gray;border-color:gray'
+      if colNum && !bgColor.match(/lightgray/)
         $(this).css('background', 'gray')
         #arcIndex = Number($(this).index())
         #alert 'smDick'
@@ -214,6 +214,7 @@ $ ->
           targetTd.addClass('smd-td')
           i++
       else
+        return
     return
 
   ## Week Element(ex. all monday)

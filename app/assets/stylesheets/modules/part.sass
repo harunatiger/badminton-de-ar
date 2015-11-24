@@ -33,30 +33,39 @@
 			.modal-close
 				margin-right: 0
 #calendar
+	.fc-view
+		overflow-y: hidden
 	thead.fc-head th.fc-day-header
 		color: $brand-theme
 		text-decoration: underline
 		cursor: pointer
 	.fc-title
 		display: none
-	.fc-event-container .fa
-		text-align: center
-		font-size: 1.2em
+	.fc-event-container
+		height: 100%
+		.fa
+			text-align: center
+			font-size: 1.2em
+		a
+			border-radius: 0
+			background-color: transparent !important
+			border: none
 	.fc-content-skeleton tr
 		position: relative
 		//bottom: 5px
 	.fc-content-skeleton tbody tr:nth-child(2)
 		display: none
-	.fc-event-container a
-		border-radius: 0
-		background-color: transparent !important
-		border: none
 	.fc-event-container-custom
 		background-color: gray !important
-		//@media (max-width: 767px)
-			//top: -5px
-		//@media (min-width: 767px)
-			//top: -10px
+	.fc-event
+		&:before
+			position: relative
+			@media (max-height: 750px)
+				top: -5px
+			@media (max-height: 700px)
+				top: -8px
+			@media (max-height: 650px)
+				top: -10px
 	.smd-td
 		color: white !important
 		background-color: gray !important
