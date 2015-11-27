@@ -133,8 +133,8 @@ class ReservationsController < ApplicationController
     session[:message_thread_id] = nil
     payment = @reservation.payment
     if params[:cancel]
-      if payment.present? and payment.payment_status == 'Completed' and payment.cancel_available
-        response = refund(payment)
+      if payment.present? and payment.payment_status == 'Completed' and payment.cancel_available(@reservation)
+        response = refund(payment,@reservation)
         unless response.success?
           respond_to do |format|
             format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_refund_failure + ' エラー：' + response.params['error_codes'] + ' ' + response.params['message']}
@@ -145,6 +145,10 @@ class ReservationsController < ApplicationController
           payment.refund_date = response.params['timestamp']
           payment.payment_status = 'Refunded'
           payment.save
+          
+          if @reservation.campaign.present? and @reservation.before_a_week?
+            current_user.campaigns = current_user.campaigns.where.not(id: @reservation.campaign_id)
+          end
         end
       end
       msg = Settings.reservation.msg.canceled
@@ -176,7 +180,7 @@ class ReservationsController < ApplicationController
         payment.transaction_date = response.params['payment_date']
         payment.payment_status = response.params['payment_status']
         payment.save
-
+        
         UserCampaign.create(user_id: current_user.id, campaign_id: para[:campaign_id]) if para[:campaign_id].present?
         session[:campaign_id] = nil
       else

@@ -120,6 +120,9 @@ reservation:
     canceled: "Sorry, Your request(Booking your tour) has been cancelled"
     accepted: "Congratulations! You have a booking!"
     rejected: "Tour plan was deleted, please confirm new information"
+payment:
+  refunds:
+    policy: '8日以上前のキャンセル  ：エスクロー分の全額返金、1日〜7日前のキャンセル：エスクロー分の50％返金、24時間以内のキャンセル：返金なし'
 message_thread:
   show:
     message_form:

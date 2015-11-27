@@ -41,8 +41,13 @@ module Payments
     response
   end
   
-  def refund(payment)
-    response = self.gateway.refund(nil,payment.transaction_id)
+  def refund(payment, reservation)
+    note = Settings.payment.refunds.policy
+    if reservation.before_a_week?
+      response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY', note: note} )
+    elsif reservation.before_a_day?
+      response = self.gateway.refund(payment.refund_amount_for_paypal(50), payment.transaction_id, {refund_type: 'Partial', currency: 'JPY', note: note} )
+    end
     p response
     response
   end

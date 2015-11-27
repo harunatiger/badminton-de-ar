@@ -32,7 +32,11 @@ class Payment < ActiveRecord::Base
     self.amount * 100
   end
   
-  def cancel_available
-    self.updated_at.to_date + 60.days >= Time.zone.today
+  def cancel_available(reservation)
+    self.updated_at.to_date + 60.days >= Time.zone.today and reservation.schedule > Time.zone.now + 1.day
+  end
+  
+  def refund_amount_for_paypal(percentage)
+    (self.amount / (100 / percentage)) * 100
   end
 end

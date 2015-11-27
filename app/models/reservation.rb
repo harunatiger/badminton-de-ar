@@ -224,4 +224,12 @@ class Reservation < ActiveRecord::Base
     self.option_price_per_person = 0 if self.option_price_per_person.blank?
     self
   end
+  
+  def before_a_week?
+    self.schedule.to_date > Time.zone.today + 7.day
+  end
+  
+  def before_a_day?
+    self.schedule >= Time.zone.now + 1.day
+  end
 end
