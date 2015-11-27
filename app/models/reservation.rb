@@ -212,7 +212,7 @@ class Reservation < ActiveRecord::Base
 
   def completed?
     if self.schedule.present?
-      self.accepted? and self.schedule > Time.zone.today
+      self.accepted? and self.schedule.to_date > Time.zone.today
     else
       false
     end
@@ -223,5 +223,13 @@ class Reservation < ActiveRecord::Base
     self.option_price = 0 if self.option_price.blank?
     self.option_price_per_person = 0 if self.option_price_per_person.blank?
     self
+  end
+  
+  def before_a_week?
+    self.schedule.to_date > Time.zone.today + 7.day
+  end
+  
+  def before_a_day?
+    self.schedule >= Time.zone.now + 1.day
   end
 end

@@ -114,7 +114,7 @@
       .row
         .col-xs-11
           = f.input_field :place_memo, placeholder: "例）ハチ公前にバラの花を付けて集合"
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
         |  集合場所の郵便番号
@@ -124,7 +124,7 @@
           = f.input_field :zipcode, placeholder: "例) 012-3456"
         .question-icon-container
           i#zipcode-tooltip.fa.fa-question-circle.tooltip-trigger
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
         | 集合場所の住所
@@ -150,7 +150,7 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11.disabled-text
-          = f.input_field :refund_policy, disabled: true, value: "予約申し込み決定から60日以内のキャンセルで全額返金になります。"
+          = f.input_field :refund_policy, disabled: true, value: "①8日以上前のキャンセル：全額返金 ②1日〜7日前のキャンセル：50％返金 ③24時間以内のキャンセル：返金なし"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
