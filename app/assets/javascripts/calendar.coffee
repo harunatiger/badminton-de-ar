@@ -111,7 +111,7 @@ $ ->
   ## remove event day
   removeEvent = (event, revertFunc) ->
     # remove smDick header
-    #alert 'removeEvent'
+    # alert 'removeEvent'
     $('.fc-day-number').removeClass('smd-td')
 
     if event.className.indexOf('ng-event-week') != -1

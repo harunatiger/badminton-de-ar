@@ -1,9 +1,10 @@
 default: &default
-#  adapter: mysql2
+  #adapter: mysql2
   adapter: postgresql
   encoding: utf8
   pool: 5
 #  socket: /tmp/mysql.sock
+
 
 development:
   <<: *default
