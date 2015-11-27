@@ -150,7 +150,7 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11.disabled-text
-          = f.input_field :refund_policy, disabled: true, value: "予約申し込み決定から60日以内のキャンセルで全額返金になります。"
+          = f.input_field :refund_policy, disabled: true, value: "①7日以上前のキャンセル：エスクロー分の全額返金 ②1日〜7日前のキャンセル：エスクロー分の50％返金 ③24時間以内のキャンセル：返金なし"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
