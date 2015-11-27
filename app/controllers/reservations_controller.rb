@@ -174,6 +174,8 @@ class ReservationsController < ApplicationController
       UserCampaign.create(user_id: current_user.id, campaign_id: campaign.id) if campaign.present?
       session[:campaign_id] = nil
     elsif params[:payment]
+      payment.reservation.campaign_id = session[:campaign_id] if session[:campaign_id]
+      session[:campaign_id] = nil
       response = purchase(payment)
       if response.success?
         payment.transaction_id = response.params['transaction_id']
@@ -182,7 +184,6 @@ class ReservationsController < ApplicationController
         payment.save
         
         UserCampaign.create(user_id: current_user.id, campaign_id: para[:campaign_id]) if para[:campaign_id].present?
-        session[:campaign_id] = nil
       else
         respond_to do |format|
           format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_payment_failure + ' エラー：' + response.params['error_codes'] + ' ' + response.params['message']}

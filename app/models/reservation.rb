@@ -212,7 +212,7 @@ class Reservation < ActiveRecord::Base
 
   def completed?
     if self.schedule.present?
-      self.accepted? and self.schedule > Time.zone.today
+      self.accepted? and self.schedule.to_date > Time.zone.today
     else
       false
     end

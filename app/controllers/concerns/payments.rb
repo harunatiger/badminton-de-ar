@@ -22,13 +22,16 @@ module Payments
   def item_params(reservation)
     if reservation.campaign.present?
       [{name: reservation.listing.title,
+        number: 'reservation ' + reservation.id.to_s,
         amount: reservation.paypal_sub_total},
         {name: 'サービス手数料',
         amount: reservation.paypal_handling_cost},
         {name: 'キャンペーン値引き',
-          amount: reservation.paypal_campaign_discount}]
+          amount: reservation.paypal_campaign_discount,
+          number: 'campaign ' + reservation.campaign_id.to_s}]
     else
       [{name: reservation.listing.title,
+        number: 'reservation ' + reservation.id.to_s,
         amount: reservation.paypal_sub_total},
         {name: 'サービス手数料',
         amount: reservation.paypal_handling_cost}]
@@ -67,7 +70,8 @@ module Payments
       :ip => request.remote_ip,
       :token => payment.token,
       :currency => 'JPY',
-      :payer_id => payment.payer_id
+      :payer_id => payment.payer_id,
+      items: item_params(payment.reservation)
     }
   end
 
