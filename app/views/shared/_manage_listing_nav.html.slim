@@ -131,8 +131,8 @@
           = left_step_count
           |  ステップ
       - if @listing.open.present?
-        = link_to listing_unpublish_path(@listing), class: "hide-this-listing" do
-          i.fa.fa-ban
+        = link_to listing_unpublish_path(@listing), class: "btn btn-default btn-block" do
+          i.fa.fa-ban=
           | 一時的に非公開にする
         /.published.row-space-top-2
           i.fa.fa-check
@@ -141,3 +141,5 @@
         .unpublished.row-space-top-2
           i.fa.fa-ban.fa-danger
           | 現在非公開です
+      br
+      = link_to '削除する', listing_path(@listing), method: 'delete'
