@@ -67,19 +67,32 @@
               = country_select(:profile, :country, locale: 'en', priority_countries: ['JP'],iso_codes: true, format: :with_alpha2)
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_phone"]
+              - if @progress.present?
+                -if @progress.include?('location')
+                  .inputrate.inputrate-red +#{@progress['rate']}%
               | 郵便番号
               i.fa.fa-lock.fa-green
             .col-6
               /input#user-zipcode[type="text" placeholder="例) 012-3456"]
-              = f.input_field :zipcode, id: 'user-zipcode', placeholder: '例） 012-3456'
+              /= f.input_field :zipcode, id: 'user-zipcode', placeholder: '例） 012-3456'
+              = f.input_field :zipcode, placeholder: '例） 012-3456'
               .text-muted.row-space-top-1 この情報は他のユーザーに公開されません。
           .row.row-condensed.row-space-2
             label.text-right.col-3[for="user_phone"]
-              - if @progress.present?
-                -if @progress.include?('location')
-                  .inputrate.inputrate-red +#{@progress['rate']}%
-              | 住所
+              | 都道府県
             .col-7.row-space-4
+              = f.input_field :prefecture, placeholder: "郵便番号を入力すると自動で出力されます"
+          .row.row-condensed.row-space-2
+            label.text-right.col-3
+              | 市区町村
+            .col-7.row-space-4
+              = f.input_field :municipality, placeholder: "郵便番号を入力すると自動で出力されます"
+          .row.row-condensed.row-space-2
+            label.text-right.col-3
+              | それ以外の住所
+            .col-7.row-space-4
+              = f.input_field :other_address
+            /.col-7.row-space-4
               = f.input_field :location, placeholder: "例) 郵便番号を入力すると自動で町名まで出力されます"
           /.row.row-condensed.row-space-4
             label.text-right.col-3[for="user_self_introduction"]

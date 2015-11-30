@@ -31,7 +31,10 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  country              :string           default("")
-#  progress             :integer
+#  progress             :integer          default(0), not null
+#  prefecture           :string           default("")
+#  municipality         :string           default("")
+#  other_address        :string           default("")
 #
 # Indexes
 #

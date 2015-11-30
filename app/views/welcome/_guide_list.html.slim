@@ -5,6 +5,7 @@
       p.text-lead ユニークな旅、心づくしのおもてなし。人気のStarGuideたちに依頼しよう!
     .guide_list-tiles
       - @profiles.each_with_index do | profile, i |
+        -@all_reviewed_count = Review.all_do(profile.user_id).joins(:reservation).merge(Reservation.review_open?).count
         /- if (i + 1) % 3 == 0 
           br
         .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
@@ -17,7 +18,16 @@
                 .huber-inner
                   .name
                     = "#{profile.last_name} #{profile.first_name}"
-                  .introducing
+                  .area
+                    = profile.location
+                  .profile-rating.row-space-2
+                    span.badge-pill-count
+                      | レビュー数
+                      span.h5
+                        = @all_reviewed_count
+                    .star-rating
+                      = render partial: 'shared/stars', locals: { rate: profile.ave_total }
+                  /.introducing
                     span
                       = profile.self_introduction
                 .capability

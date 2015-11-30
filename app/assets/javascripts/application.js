@@ -20,3 +20,4 @@
 //= require listings
 //= require reservation
 //= require listingdetails
+//= require profiles

@@ -39,7 +39,7 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(profile_params)
-
+    @profile.location = profile_params[:municipality] + ' ' + profile_params[:prefecture]
     respond_to do |format|
       if @profile.save
         Profile.set_percentage(@profile.user_id)
@@ -56,7 +56,9 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1.json
   def update
     respond_to do |format|
-      if @profile.update(profile_params)
+      para = profile_params
+      para[:location] = para[:municipality] + ' ' + para[:prefecture]
+      if @profile.update(para)
         Profile.set_percentage(@profile.user_id)
         format.html { redirect_to @profile, notice: Settings.profile.save.success }
         format.json { render :show, status: :ok, location: @profile }
@@ -119,8 +121,9 @@ class ProfilesController < ApplicationController
       params.require(:profile).permit(
         :id, :user_id, :first_name, :last_name, :birthday,
         :phone, :phone_verification, :country, :location, :self_introduction,
-        :school, :work, :timezone, :gender, :zipcode,
-        :listing_count, :wishlist_count, :bookmark_count, :reviewed_count, :reservation_count,
+        :school, :work, :timezone, :gender, :zipcode, :prefecture, :municipality, :other_address,
+        :listing_count, :wishlist_count, :bookmark_count, :reviewed_count,
+        :reservation_count,
         :ave_total, :ave_accuracy, :ave_communication, :ave_cleanliness, :ave_location,
         :ave_check_in, :ave_cost_performance, :created_at, :updated_at, category_ids: [],language_ids: [])
     end
