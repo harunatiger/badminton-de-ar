@@ -3,7 +3,7 @@
   = f.hidden_field :user_id, value: current_user.id
   = f.hidden_field :profile_id, value: current_user.profile.id
   .card.row-space-4
-    .card-header 必須項目
+    .card-header プロフィールページの背景画像とプロフィール写真を登録してください。
     .card-body
       - if profile_cover_image_exists?
         .row.row-condensed.row-space-4

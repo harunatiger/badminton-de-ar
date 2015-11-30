@@ -2,7 +2,7 @@
       = f.error_notification
       = f.hidden_field :user_id, value: current_user.id
       .card.row-space-4
-        .card-header 必須項目
+        .card-header 自分の好きなカテゴリや対応言語、自己紹介など、プロフィールに表示される情報を登録してください。
         .card-body
           /.row.row-condensed.row-space-4
             label.text-right.col-3
@@ -70,6 +70,8 @@
             .col-7
               = f.input_field :location, placeholder: "例) 郵便番号を入力すると自動で町名まで出力されます"
           .row.row-condensed.row-space-4
+            p.text-center.row-space-6
+              | 好きなカテゴリを最大7つまで選択してください。
             label.text-right.col-3[for="user_self_introduction"]
               | 好きなカテゴリ
             .col-xs-8.fieldset

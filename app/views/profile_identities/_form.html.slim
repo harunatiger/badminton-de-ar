@@ -3,7 +3,7 @@
   = f.hidden_field :user_id, value: current_user.id
   = f.hidden_field :profile_id, value: current_user.profile.id
   .card.row-space-4
-    .card-header 任意項目
+    .card-header 運転免許証、またはパスポートの写真画像をアップロードしてください。
     .card-body
       - if profile_identity_exists?
         .row.row-condensed.row-space-4
