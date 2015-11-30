@@ -1,48 +1,72 @@
+  - mail = (params[:target].blank? or params[:target] == 'mail')
   .row
     .col-lg-3
       ul.sidenav-list
         li
-          = link_to "#", class: "sidenav-item", aria: { selected: true }
-            | アカウント情報
+          = link_to 'メールアドレス', edit_user_registration_path(mode: "account", target: "mail"), class: "sidenav-item", aria: { selected: mail }
+        li
+          = link_to 'パスワード', edit_user_registration_path(mode: "account", target: "pass"), class: "sidenav-item", aria: { selected: !mail }
     .col-lg-9
       .card.row-space-4
-        = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-          = f.error_notification
-          #change_your_password
-            .card-header
-              | アカウント情報を変更
-            .card-body
-              .row
-                .col-md-10
-                  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-                    p
-                      | 現在アカウント以下のアドレスに有効化メールを送信しておりますので、そちらからアカウントを有効化してください。:
-                      = resource.unconfirmed_email
-                  .row.row-condensed.row-space-2
-                    .col-md-5.text-right.text-left--md
-                      label[for="old_password"]
-                        |  メールアドレス
-                    .col-md-7
-                      = f.input_field :email, required: true
-                  .row.row-condensed.row-space-2
-                    .col-md-5.text-right.text-left--md
-                      label[for="user_password"]
-                        |  新しいパスワード
-                    .col-md-7
-                      = f.input_field :password, autocomplete: "off", required: true, class: "input-block", size: "30"
-                  .row.row-condensed.row-space-2
-                    .col-md-5.text-right.text-left--md
-                      label[for="user_password_confirmation"]
-                        |  新しいパスワード（確認）
-                    .col-md-7
-                      = f.input_field :password_confirmation, hint: "we need your current password to confirm your changes", required: true, class: "input-block", size: "30"
-                  .row.row-condensed.row-space-2
-                    .col-md-5.text-right.text-left--md
-                      label[for="old_password"]
-                        |  現在のパスワード
-                    .col-md-7
-                      = f.input_field :current_password, required: true
-                .col-md-5
+        - if mail
+          = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+            = f.error_notification
+            #change_your_password
+              .card-header
+                | メールアドレスを変更
+              .card-body
+                .row
+                  .col-md-10
+                    - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+                      p
+                        | 現在アカウント以下のアドレスに有効化メールを送信しておりますので、そちらからアカウントを有効化してください。:
+                        = resource.unconfirmed_email
+                    .row.row-condensed.row-space-2
+                      .col-md-5.text-right.text-left--md
+                        label[for="old_password"]
+                          |  メールアドレス
+                      .col-md-7
+                        = f.input_field :email, required: true
+                    .row.row-condensed.row-space-2
+                      .col-md-5.text-right.text-left--md
+                        label[for="old_password"]
+                          |  現在のパスワード
+                      .col-md-7
+                        = f.input_field :current_password, required: true
+                    .row.row-condensed.row-space-2
+                      .text-muted.row-space-top-1 変更すると、新しいメールアドレス宛てに承認用のメールが届きます。 メール内にある「認証用URL」をクリックして承認すると、新しいメールアドレスに変更されます。
+                  .col-md-5
 
-            .card-footer
-              = f.button :submit, "アカウント情報を更新", class: "btn btn-primary"
+              .card-footer
+                = f.button :submit, "アカウント情報を更新", class: "btn btn-primary"
+        - else
+          = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, id: 'pass') do |f|
+            = f.error_notification
+            #change_your_password
+              .card-header
+                | パスワードを変更
+              .card-body
+                .row
+                  .col-md-10
+                    .row.row-condensed.row-space-2
+                      .col-md-5.text-right.text-left--md
+                        label[for="user_password"]
+                          |  新しいパスワード
+                      .col-md-7
+                        = f.input_field :password, autocomplete: "off", required: true, class: "input-block", size: "30"
+                    .row.row-condensed.row-space-2
+                      .col-md-5.text-right.text-left--md
+                        label[for="user_password_confirmation"]
+                          |  新しいパスワード（確認）
+                      .col-md-7
+                        = f.input_field :password_confirmation, hint: "we need your current password to confirm your changes", required: true, class: "input-block", size: "30"
+                    .row.row-condensed.row-space-2
+                      .col-md-5.text-right.text-left--md
+                        label[for="old_password"]
+                          |  現在のパスワード
+                      .col-md-7
+                        = f.input_field :current_password, required: true
+                  .col-md-5
+
+              .card-footer
+                = f.button :submit, "アカウント情報を更新", class: "btn btn-primary"
