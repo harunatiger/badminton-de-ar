@@ -2,7 +2,10 @@
       = f.error_notification
       = f.hidden_field :user_id, value: current_user.id
       .card.row-space-4
-        .card-header プロフィールの基本情報を入力ください。◯マークがある項目を入力するとプロフィール表示での登録情報のパーセンテージが上がります。
+        .card-header 
+          |プロフィールの基本情報を入力ください。
+          .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
+          |がある項目を入力するとプロフィール表示での登録情報のパーセンテージが上がります。
         .card-body
           .row.row-condensed.row-space-4
             label.text-right.col-3
