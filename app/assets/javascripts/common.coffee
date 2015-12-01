@@ -123,8 +123,21 @@ $ ->
         $('body').removeClass('slideout')
       $('body').addClass('paper')
       $('#guest-flow').modal()
+      return false
 
     $('.close-guest-flow').on 'click', ->
+      $('body').removeClass('paper')
+
+    # about guide modal
+    $('.about-guide-trigger').on 'click', ->
+      if $('.header--sp').css('display') == 'block'
+        # sidenav switch
+        $('body').removeClass('slideout')
+      $('body').addClass('paper')
+      $('#about-guide').modal()
+      return false
+
+    $('.close-about-guide').on 'click', ->
       $('body').removeClass('paper')
 
 

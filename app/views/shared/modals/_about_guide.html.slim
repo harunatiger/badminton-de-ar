@@ -1,0 +1,63 @@
+/ modal about-guide
+#about-guide.modal[role="dialog" aria-hidden="true"]
+  .modal-paper
+    .page-container
+      .row.row-space-8
+        .col-md-6.text-center
+          .col-about-guide
+            h2.strong.row-space-4
+              | Ordinary Guide
+            .pic-container
+              = image_tag 'photo/ordinary_guide.jpg', class: "img-responsive"
+              
+            h4 Formai Interactions
+            p
+              | Regular tour guides in Japan maintain strict professionalism with their clients, which many tourists find cold or off-putting.
+
+            h4 Typical Experience
+            p
+              | With a regular tour guide, tourists can expect to see commonplace sights they would find in a guidebook.
+
+            h4 High Prices
+            p
+             | Hiring a regular tour guide costs a significant amount of money. Abundant knowledge and experiences leads expensive fee.
+
+            h4 Fixed Tours
+            p.row-space-8
+              | Regular tours are usually fixed plans, developed without client input, that do not allow for much flexibility. 
+
+        .col-md-6.text-center.text-contrast
+          .col-about-guide.col-tomodachi-guide
+            h2.strong.row-space-4
+              i.fa.fa-starlight.fa-smile-o
+              |  Tomodachi Guide
+            .pic-container
+              = image_tag 'photo/tomodachi_guide.jpg', class: "img-responsive"
+              
+            h4
+              i.fa.fa-starlight.fa-smile-o
+              |  Friendly Interactions
+            p
+              | Tomodachi guide are enthusiastic, English-speaking college students who relate to clients in an engaging manner. Also, students knows how local people enjoy their home cities and provide great hospitality.
+  
+            h4
+              i.fa.fa-starlight.fa-smile-o
+              |  Unique Experiment
+            p
+              | Tomodachi guides know about unlisted local treasures, ensuring exposure to authentic Japanese life.
+  
+            h4
+              i.fa.fa-starlight.fa-smile-o
+              |  Low Prices
+            p
+              | We offer Tomodachi guide services at very affordable prices. But this service still provide unique experience which are not similar to previous guide services.
+  
+            h4
+              i.fa.fa-starlight.fa-smile-o
+              |  Customized Tours
+            p.row-space-8
+              | Our tours are customized to suit client interests, and we develop a number of alternative plans.
+
+    = link_to "#", class: "panel-close close-about-guide", data: { dismiss: "modal" } do
+      i.fa.fa-times
+      |  CLOSE

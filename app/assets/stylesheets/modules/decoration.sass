@@ -1550,3 +1550,50 @@ label.error
   background-position: center center
   background-repeat: no-repeat
   background-size: 40px auto
+
+/* about guide */
+#about-guide
+  .modal-backdrop
+    background-color: #D7DCE2
+    &:after
+      content: ''
+      display: block
+      position: absolute
+      top: 0
+      left: 50%
+      right: 0
+      bottom: 0
+      background-color: $brand-theme
+    @media (max-width: 767px)
+      background-color: white
+      &:after
+        display: none
+  .modal-paper
+    top: 80px
+    margin: 0
+    .panel-close
+      color: white
+  .col-about-guide
+    padding: 0 40px
+    &.col-tomodachi-guide
+      background-color: $brand-theme
+      @media (max-width: 767px)
+        padding: 40px 20px
+    .pic-container
+      img
+        max-width: 400px
+        margin: 0 auto
+        border-radius: 4px
+
+
+/* guest flow */
+#guest-flow
+  .modal-paper
+    margin: -250px 0 0
+  .hero-text
+    line-height: 1.54
+  @media (max-width: 767px)
+    .modal-paper
+      margin: 20px 0 0
+    .hero-text
+      margin-bottom: 40px
