@@ -13,23 +13,29 @@
             = link_to profile_path(profile), class: 'huber-card' do
               .huber-card-background[style="background-image: url('#{asset_path profile_to_cover_image_thumb(profile)}')"]
               .huber-card-content
-                .huber-card-face
-                  div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
-                .huber-inner
-                  .name
-                    = "#{profile.last_name} #{profile.first_name}"
-                  .area
-                    = profile.location
-                  .profile-rating.row-space-2
-                    span.badge-pill-count
-                      | レビュー数
-                      span.h5
-                        = @all_reviewed_count
-                    .star-rating
-                      = render partial: 'shared/stars', locals: { rate: profile.ave_total }
-                  /.introducing
-                    span
-                      = profile.self_introduction
+                .row.row-condensed
+                  .col-5
+                    .huber-card-face
+                      div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
+                  .col-7.text-left
+                    .huber-inner
+                      .name.text-truncate
+                        = "#{profile.last_name} #{profile.first_name}"
+                      .profile-rating.row-space-2
+                        .star-rating
+                          = render partial: 'shared/stars', locals: { rate: profile.ave_total }
+                        span.badge-pill-count.small1
+                          | レビュー
+                          |(
+                          b
+                            = @all_reviewed_count
+                          |)
+                  .col-12
+                    .area.text-truncate
+                      = profile.location
+                      /.introducing
+                        span
+                          = profile.self_introduction
                 .capability
                   -if category_food?(profile)
                     span[title="食" data-toggle="tooltip"]

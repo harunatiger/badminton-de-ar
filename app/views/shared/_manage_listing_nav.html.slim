@@ -122,7 +122,7 @@
               i.fa.fa-exclamation-circle
             - else
               i.fa.fa-check
-    .col-xs-12.text-center
+    .col-xs-12.text-center.row-space-1
       - if left_step_count.zero?
         = link_to "この内容で公開する", listing_publish_path(@listing), class: "btn btn-primary btn-block", id: "listing-manager-open"
       - else
@@ -130,9 +130,10 @@
           | あと
           = left_step_count
           |  ステップ
+    .col-xs-12.text-center.row-space-2
       - if @listing.open.present?
         = link_to listing_unpublish_path(@listing), class: "btn btn-default btn-block" do
-          i.fa.fa-ban=
+          i.fa.fa-ban
           | 一時的に非公開にする
         /.published.row-space-top-2
           i.fa.fa-check
@@ -141,5 +142,8 @@
         .unpublished.row-space-top-2
           i.fa.fa-ban.fa-danger
           | 現在非公開です
-      br
-      = link_to '削除する', listing_path(@listing), method: 'delete'
+
+.remove-listing-btn.col-md-3.text-center
+  = link_to listing_path(@listing), method: 'delete', class: "text-red strong" do
+    i.fa.fa-times
+    |  このツアーを削除する
