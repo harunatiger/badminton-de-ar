@@ -39,7 +39,7 @@
                   .col-md-5
 
               .card-footer
-                = f.button :submit, "アカウント情報を更新", class: "btn btn-primary"
+                = f.button :submit, "メールアドレスを更新", class: "btn btn-primary"
         - else
           = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, name: 'pass') do |f|
             = f.error_notification
@@ -72,4 +72,4 @@
                   .col-md-5
 
               .card-footer
-                = f.button :submit, "アカウント情報を更新", class: "btn btn-primary"
+                = f.button :submit, "パスワードを更新", class: "btn btn-primary"
