@@ -66,12 +66,13 @@
               li
                 span 中国語
 
+      /- simple_format(@host_info.try('self_introduction') || '').each_line do |line|
+      /  = line.html_safe
       - introduction = simple_format(@host_info.try('self_introduction') || '').each_line.first(3)
       - if introduction.present?
-          p
-            - introduction.each do |line|
-              = line.html_safe
-
+        - introduction.each do |line|
+          = line.html_safe
+        | ...
       = link_to "#", class: "pair_guide_list-trigger small1" do
         i.fa.fa-exclamation-circle
         | 当日はもう1名サポートガイドが付きます
@@ -81,9 +82,12 @@
     i.fa.fa-diamond
     |  このツアーのおすすめポイント
   ol
-    li = @listing.recommend1
-    li = @listing.recommend2
-    li = @listing.recommend3
+    - if @listing.recommend1.present?
+      li = @listing.recommend1
+    - if @listing.recommend2.present?
+      li = @listing.recommend2
+    - if @listing.recommend3.present?
+      li = @listing.recommend3
   p.detail-section
     = simple_format(@listing.description)
   h4
