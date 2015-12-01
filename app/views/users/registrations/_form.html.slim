@@ -53,6 +53,12 @@
                       | パスワードを変更する場合は、確認のため現在のパスワードも入力してください。
                     .row.row-condensed.row-space-2
                       .col-md-5.text-right.text-left--md
+                        label[for="old_password"]
+                          |  現在のパスワード
+                      .col-md-7
+                        = f.input_field :current_password, required: true
+                    .row.row-condensed.row-space-2
+                      .col-md-5.text-right.text-left--md
                         label[for="user_password"]
                           |  新しいパスワード
                       .col-md-7
@@ -63,12 +69,6 @@
                           |  新しいパスワード（確認）
                       .col-md-7
                         = f.input_field :password_confirmation, hint: "we need your current password to confirm your changes", required: true, class: "input-block", size: "30"
-                    .row.row-condensed.row-space-2
-                      .col-md-5.text-right.text-left--md
-                        label[for="old_password"]
-                          |  現在のパスワード
-                      .col-md-7
-                        = f.input_field :current_password, required: true
                   .col-md-5
 
               .card-footer
