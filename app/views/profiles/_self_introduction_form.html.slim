@@ -87,7 +87,8 @@
             label.text-right.col-3[for="user_self_introduction"]
               - if @progress.present?
                 - if @progress.include?('self_introduction')
-                  .inputrate.inputrate-red +#{@progress['rate']}%
+                  /.inputrate.inputrate-red +#{@progress['rate']}%
+                  .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
               | 自己紹介
             .col-8.self_introduction_wrapper
               = f.input_field :self_introduction, as: :text, cols: "30", rows: "20", placeholder: "例）ようこそ 私の名前は風馬太郎です。私はあなたと同じ旅を楽しみ、人生を楽しんでいます。出身は北海道。1年前から東京で仕事をしています。あらゆるジャンルの飲食を紹介することが出来ます。あなたが望むならご飯もご一緒できます。観光ガイドブックにのることはない、私がオススメするランチ・ディナーを紹介することも出来ます。それはきっと、あなたにとって記憶に残る素晴らしい体験になるはず。あなたをお待ちしております。風馬太郎"

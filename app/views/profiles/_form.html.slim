@@ -26,7 +26,8 @@
             label.text-right.col-3[for="user_birthdate"]
               - if @progress.present?
                 - if @progress.include?('birthday')
-                  .inputrate.inputrate-red  +#{@progress['rate']}%
+                  /.inputrate.inputrate-red  +#{@progress['rate']}%
+                  .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
               | 生年月日
               i.fa.fa-lock.fa-green
             .col-9
@@ -50,7 +51,8 @@
             label.text-right.col-3[for="user_phone"]
               - if @progress.present?
                 - if @progress.include?('phone')
-                  .inputrate.inputrate-red +#{@progress['rate']}%
+                  /.inputrate.inputrate-red +#{@progress['rate']}%
+                  .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
               | 電話番号
               i.fa.fa-lock.fa-green
             .col-7
@@ -60,7 +62,8 @@
             label.text-right.col-3
               - if @progress.present?
                 - if @progress.include?('company')
-                  .inputrate.inputrate-red +#{@progress['rate']}%
+                  /.inputrate.inputrate-red +#{@progress['rate']}%
+                  .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
               | 居住国
               i.fa.fa-lock.fa-green
             .col-8
@@ -69,23 +72,22 @@
             label.text-right.col-3[for="user_phone"]
               - if @progress.present?
                 -if @progress.include?('location')
-                  .inputrate.inputrate-red +#{@progress['rate']}%
+                  /.inputrate.inputrate-red +#{@progress['rate']}%
+                  .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
               | 郵便番号
               i.fa.fa-lock.fa-green
             .col-6
-              /input#user-zipcode[type="text" placeholder="例) 012-3456"]
-              /= f.input_field :zipcode, id: 'user-zipcode', placeholder: '例） 012-3456'
               = f.input_field :zipcode, placeholder: '例） 012-3456'
               .text-muted.row-space-top-1 この情報は他のユーザーに公開されません。
-          .row.row-condensed.row-space-2
-            label.text-right.col-3[for="user_phone"]
+          .row.row-condensed.row-space-1
+            label.text-right.col-3
               | 都道府県
-            .col-7.row-space-4
+            .col-7
               = f.input_field :prefecture, placeholder: "郵便番号を入力すると自動で出力されます"
-          .row.row-condensed.row-space-2
+          .row.row-condensed.row-space-1
             label.text-right.col-3
               | 市区町村
-            .col-7.row-space-4
+            .col-7
               = f.input_field :municipality, placeholder: "郵便番号を入力すると自動で出力されます"
           .row.row-condensed.row-space-2
             label.text-right.col-3
