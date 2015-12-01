@@ -58,22 +58,22 @@ class Profile < ActiveRecord::Base
 
   def self.minimun_requirement?(user_id)
     profile = Profile.where(user_id: user_id).first
-    if profile.first_name.present? && 
-      profile.last_name.present? && 
-      profile.birthday.present? && 
-      profile.phone.present? && 
-      profile.location.present? && 
+    if profile.first_name.present? &&
+      profile.last_name.present? &&
+      profile.birthday.present? &&
+      profile.phone.present? &&
+      profile.location.present? &&
       profile.self_introduction.present?
       return true
     else
       return false
     end
   end
-  
+
   def self.mine(user_id)
     Profile.where(user_id: user_id).first
   end
-  
+
   def self.guides
     user_ids = Listing.where(open: true).pluck(:user_id).uniq
     users = User.where(id: user_ids)
@@ -98,13 +98,13 @@ class Profile < ActiveRecord::Base
         hash_result.store('phone', 'true') if profile.phone.blank?
         #self_introduction
         hash_result.store('self_introduction', 'true') if profile.self_introduction.blank?
-        
+
         # Caliculate Remain Percentage
         if hash_result.present?
           ret = (((100 * hash_result.length).to_f / 6).round) / hash_result.length
           hash_result.store('rate', ret) if ret
         end
-        
+
       end
     end
     hash_result
@@ -128,7 +128,7 @@ class Profile < ActiveRecord::Base
         array_result << 'phone' if profile.phone.present?
         #self_introduction
         array_result << 'self_introduction' if profile.self_introduction.present?
-        
+
         # Caliculate Percentage
         ret = ((100 / 6.to_f) * array_result.length).round
         profile.progress = ret.to_i

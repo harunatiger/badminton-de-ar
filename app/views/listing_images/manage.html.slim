@@ -2,7 +2,7 @@
 = out_put_error(@listing_with_errors) if @listing_with_errors
 - if @listing_images_with_errors
   -@listing_images_with_errors.listing_images.each do |listing_image|
-    = out_put_error(listing_image) 
+    = out_put_error(listing_image)
 .manage-listings
   /= render partial: 'shared/manage_listing_header', locals: { listing: @listing }
   = render partial: 'shared/subnav', locals: { listing: @listing }
@@ -15,9 +15,15 @@
           br
           | あなた自身が参加したいと思うようなツアーの動画や写真があれば完璧です。
           br
+          | 動画については、iPhoneユーザーは
           = link_to "https://itunes.apple.com/us/app/clipbox-1seccamera/id980538523?mt=8", target: "_blank" do
-            | 1secCamera
-          | を使った動画の撮影を推奨しています。
+            | 「1secCamera」
+          |、
+          br
+          | Androidユーザーは
+          = link_to "https://play.google.com/store/apps/details?id=net.rena.roadmovie.lite", target: "_blank" do
+            | 「SnapMovie (road movie maker)」
+          | のご利用を推奨しています。
       = render 'form'
     = render partial: 'shared/manage_listing_nav'
     = render partial: 'shared/modals/form_change_confirm'

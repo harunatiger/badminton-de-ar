@@ -16,12 +16,83 @@
         span[itemprop="reviewCount"]
           = @all_reviewed_count
         | )
+      .area
+        | Area: #{@host_info.location}
 .row.row-space-4
-  .col-md-12.text-center--sp
-    = link_to "#", class: "pair_guide_list-trigger small1" do
-      i.fa.fa-exclamation-circle
-      | 当日はもう1名サポートガイドが付きます
+  .col-md-12
+    .tag-list-wrapper
+      ul
+        - if category_food?(@host_info)
+          li
+            = link_to 'javascript:void(0)', title: '食', data:{toggle: 'tooltip'} do
+              i.fa.fa-cutlery
+        -if category_alcohol?(@host_info)
+          li
+            = link_to 'javascript:void(0)', title: 'お酒', data:{toggle: 'tooltip'} do
+              i.fa.fa-glass
+        -if category_car?(@host_info)
+          li
+            = link_to 'javascript:void(0)', title: 'ドライブ', data:{toggle: 'tooltip'} do
+              i.fa.fa-car
+        -if category_cruising?(@host_info)
+          li
+            = link_to 'javascript:void(0)', title: '船旅', data:{toggle: 'tooltip'} do
+              i.fa.fa-ship
+        -if category_shopping?(@host_info)
+          li
+            = link_to 'javascript:void(0)', title: 'ショッピング', data:{toggle: 'tooltip'} do
+              i.fa.fa-shopping-cart
+        -if category_accommodation?(@host_info)
+          li
+            = link_to 'javascript:void(0)', title: '宿泊施設', data:{toggle: 'tooltip'} do
+              i.fa.fa-bed
+        -if category_business?(@host_info)
+          li
+            = link_to 'javascript:void(0)', title: 'ビジネス', data:{toggle: 'tooltip'} do
+              i.fa.fa-suitcase
+        -if category_sport?(@host_info)
+          li
+            = link_to 'javascript:void(0)', title: 'スポーツ', data:{toggle: 'tooltip'} do
+              i.fa.fa-futbol-o
+        .lang-list-wrapper
+          ul
+            - if language_ja?(@host_info)
+              li
+                span 日本語
+            - if language_en?(@host_info)
+              li
+                span 英語
+            - if language_zh?(@host_info)
+              li
+                span 中国語
+
+      - introduction = simple_format(@host_info.try('self_introduction') || '').each_line.first(3)
+      - if introduction.present?
+          p
+            - introduction.each do |line|
+              = line.html_safe
+
+      = link_to "#", class: "pair_guide_list-trigger small1" do
+        i.fa.fa-exclamation-circle
+        | 当日はもう1名サポートガイドが付きます
 
 #listing-description.listing-description
-  p
+  h4
+    i.fa.fa-diamond
+    |  このツアーのおすすめポイント
+  ol
+    li = @listing.recommend1
+    li = @listing.recommend2
+    li = @listing.recommend3
+  p.detail-section
     = simple_format(@listing.description)
+  h4
+    i.fa.fa-diamond
+    |  プラン概要
+  p
+    = simple_format(@listing.overview)
+  h4
+    i.fa.fa-diamond
+    |  当日準備するもの、注意事項
+  p
+    = simple_format(@listing.notes)

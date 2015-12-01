@@ -5,10 +5,15 @@
       .modal-content
         .card-header
           a.modal-close[href="#" data-dismiss="modal"]
-          | 料金に含まれるもの
+          | その他にかかる費用
         form
           .card-body
             p
-              = listing_detail.included
+            | ゲストの方々が必要となる、入場料、飲食代、交通費などは当日現金でお支払い頂きます。
+            br
+            | このプランでは、1人あたり約#{listing_detail.option_price_per_person}円 程度が必要となります。
+            - if listing_detail.included.present?
+              p
+                = simple_format(listing_detail.included_other)
           .card-footer
             = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"

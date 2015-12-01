@@ -241,6 +241,14 @@ $ ->
       $('#include_what').modal()
       return false
 
+    $('a.about_price_trigger').on 'click', ->
+      $('#about_price').modal()
+      return false
+
+    $('a.include_price_trigger').on 'click', ->
+      $('#include_price').modal()
+      return false
+
     # gallery
     $('.photo-box').magnificPopup
       delegate: '.galon'
@@ -468,3 +476,4 @@ $ ->
         return
       ), 200)
       return
+

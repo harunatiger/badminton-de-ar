@@ -21,16 +21,54 @@
       .row
         .col-xs-11
           .row-space-1.small1.text-muted
+            h5
+              | 1.オススメポイントを３つ書こう
             p
-              | このツアーのあなたならではのおすすめポイントをできるだけ細かく紹介しましょう。
+              | まずはあなたのプランのセールスポイントを
               br
-              | こんなことを書くと興味を持ってもらえる紹介文になります。
-            ul.list-normal
-              li 場所の説明ではなく、あなたが何故この場所を紹介したいのかを書きましょう。
-              li 例えば、この場所でのあなたの想い出を語るなどが効果的です！
-              li 他にも、裏話、ムダ知識なんかも喜ばれます！
+              | ３つだけ、ざっくり伝えよう！
+            p
+              = f.input_field :recommend1
+            p
+              = f.input_field :recommend2
+            p
+              = f.input_field :recommend3
 
-          = f.input_field :description, placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
+      .row
+        .col-xs-11
+          .row-space-1.small1.text-muted
+            h5
+              | 2.あなたのコダワリを伝えよう
+            ul.list-normal
+              li なんでこのプランを作ったのか
+              li 自分が体験してみてどこが良かったか
+              li 思い出や思い入れがあれば付け加える
+            = f.input_field :description, placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
+
+      .row
+        .col-xs-11
+          .row-space-1.small1.text-muted
+            h5
+              | 3.プランの概要を伝えよう（1000文字）
+            p
+              | 《記載方法のコツ》
+            ul.list-normal
+              li どんなテーマ
+              li どんな時間の流れ（言葉で簡単に）
+              li どんな魅力ポイントがあるのか
+              li どんなオプションがあって、それがどういう風にいいのか
+              li その他
+            = f.input_field :overview, placeholder: "あなたのツアーの紹介文を入力ください", rows: "12", maxlength: 1000
+
+      .row
+        .col-xs-11
+          .row-space-1.small1.text-muted
+            h5
+              | 4.当日準備するもの、注意事項
+            p
+              | 例）・山道を歩くので、スニーカーなど動きやすい靴や動きやすい格好でお越しください…など・ろくろ体験は泥で汚れるので、汚れてもよい格好でご来訪ください…など
+            = f.input_field :notes, placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
+
   / .row.row-space-5.row-space-top-5.row-table
   /   .col-xs-4.text-right.col-middle
   /     .h4.text-light

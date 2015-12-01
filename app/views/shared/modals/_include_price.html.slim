@@ -1,0 +1,14 @@
+/ modal include_what
+#include_price.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          a.modal-close[href="#" data-dismiss="modal"]
+          | プラン料金に含まれている内容
+        form
+          .card-body
+            p
+              = simple_format(listing_detail.included)
+          .card-footer
+            = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"

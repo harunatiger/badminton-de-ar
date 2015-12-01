@@ -1,0 +1,12 @@
+/Users/chimo/.rbenv/versions/2.2.1/bin/ruby -r ./siteconf20151130-72373-1l4d456.rb extconf.rb
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling mapper.cpp
+compiling rubymain.cpp
+linking shared-object fastfilereaderext.bundle
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 fastfilereaderext.bundle ./.gem.20151130-72373-6ugoob

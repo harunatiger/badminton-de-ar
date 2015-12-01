@@ -12,35 +12,35 @@
           | ¥
           span#tour-price-single
           small.time
-            | 1人 
-            = listing.listing_detail.time_required
+            | /グループ
+          span<
+            = listing.listing_detail.time_required.to_s.gsub(/.0/, '')
             | 時間
         .row.row-space-1
           .col-md-7.small1
-            | ガイド料金(共通)
+            | ペアガイド料金
           .col-md-5.text-right.strong
             | ¥
             span#tour-price-base
               =listing.listing_detail.price
         .row.row-space-1
           .col-md-7.small1
-            | オプション(共通)
+            | 諸経費
           .col-md-5.text-right.strong
             | ¥
             span#tour-price-option
               =listing.listing_detail.option_price
-        .row.row-space-1
-          .col-md-7.small1
-            | オプション(1人あたり)
-          .col-md-5.text-right.strong
-            | ¥
-            span#tour-price-option-single
-              =listing.listing_detail.option_price_per_person
         .row
           .col-md-12
-            = link_to "#", class: "include_what_trigger small1 text-blue" do
+            = link_to "#", class: "include_what_trigger small1 text-red" do
               i.fa.fa-exclamation-circle
-              |  料金には何が含まれていますか？
+              |  その他にかかる費用
+          .col-md-12
+            = link_to "#", class: "about_price_trigger small1 text-blue" do
+              |  ※プラン料金について
+          .col-md-12
+            = link_to "#", class: "include_price_trigger small1 text-blue" do
+              |  ※プラン料金に含まれている内容
       = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
         - user_id = 0
         - user_id = current_user.id if user_signed_in?
@@ -83,7 +83,7 @@
 
           .row.row-space-1
             .col-md-7.small1
-              | オプション(1人あたり) x 
+              | オプション(1人あたり) x
               span#tour-member_calced
                 | 1
               | 人

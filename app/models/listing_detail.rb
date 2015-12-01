@@ -24,6 +24,7 @@
 #  place_memo              :text             default("")
 #  place_longitude         :decimal(9, 6)    default(0.0)
 #  place_latitude          :decimal(9, 6)    default(0.0)
+#  included_other          :text             default("")
 #
 # Indexes
 #

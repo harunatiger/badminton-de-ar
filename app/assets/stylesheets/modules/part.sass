@@ -70,3 +70,43 @@
 		color: white !important
 		background-color: gray !important
 		opacity: 1 !important
+.youtube-container
+	position: relative
+	padding-bottom: 56.25%
+	padding-top: 30px
+	height: 0
+	overflow: hidden
+	iframe
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+.listings.show .pair_guide_list-trigger
+	padding-left: 0
+.listings.show .listing-description
+	ol
+		padding: 0
+		margin: 0
+		list-style: none
+		counter-reset: li
+	ol > li
+		position: relative
+		margin-bottom: .5em
+		padding-left: 2.5em
+	ol > li:before
+		content: counter(li) ""
+		counter-increment: li
+		position: absolute
+		left: 0
+		width: 1.5em
+		height: 1.5em
+		background: $yellow2
+		border-radius: 50px
+		line-height: 1.5
+		text-align: center
+.listings.show .listing-description .detail-section
+	margin-top: 20px
+.listings.show .listing-description p,
+.listings.show .listing-description ol
+	margin-left: 20px

@@ -20,17 +20,15 @@
           = f.file_field :cover_video, as: :file, class: "row-space-1"
           /= f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2 row-space-1"
           span.text-red
-            = link_to "https://itunes.apple.com/us/app/clipbox-1seccamera/id980538523?mt=8", target: "_blank" do
-              | 1secCamera
-            | を使った
-            b 30秒以内
-            | の動画を登録してください。
+            | 旅の臨場感を伝えるために動画をアップしましょう
+            br
+            | ※容量制限30MBまで
 
   -if @listing_images.cover_image.present?
     .row.row-space-4.row-space-top-4.row-table
       .col-xs-4.text-right.col-middle
         .h4.text-light
-          |  現在のカバー画像 
+          |  現在のカバー画像
       .col-xs-8.fieldset.col-middle
         .row
           .col-xs-11.regist-pics
@@ -38,7 +36,7 @@
   .row.row-space-8.row-space-top-4.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        | カバー画像 
+        | カバー画像
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11.regist-pics
@@ -52,7 +50,7 @@
         .row.row-space-4.row-space-top-4.row-table
           .col-xs-4.text-right.col-middle
             .h4.text-light
-              |  現在の画像 
+              |  現在の画像
               = i + 1
           .col-xs-8.fieldset.col-middle
             .row
@@ -61,7 +59,7 @@
       .row.row-space-8.row-space-top-4.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light
-            | ガイドのイメージ画像 
+            | ガイドのイメージ画像
             = i + 1
         .col-xs-8.fieldset.col-middle
           .row
@@ -70,7 +68,7 @@
       /.row.row-space-4.row-space-top-4.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light
-            |  写真のタイトル 
+            |  写真のタイトル
             = count
         .col-xs-8.fieldset.col-middle
           .row
@@ -79,7 +77,7 @@
       /.row.row-space-8.row-space-top-4.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light
-            |  写真の説明 
+            |  写真の説明
             = count
         .col-xs-8.fieldset.col-middle
           .row

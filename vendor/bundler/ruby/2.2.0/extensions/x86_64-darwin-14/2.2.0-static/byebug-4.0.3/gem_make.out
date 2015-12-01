@@ -1,0 +1,15 @@
+/Users/chimo/.rbenv/versions/2.2.1/bin/ruby -r ./siteconf20151130-72373-1wz0rtj.rb extconf.rb
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.bundle
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 byebug.bundle ./.gem.20151130-72373-eal4zo/byebug

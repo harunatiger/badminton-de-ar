@@ -1,0 +1,15 @@
+/ modal include_what
+#about_price.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          a.modal-close[href="#" data-dismiss="modal"]
+          | プラン料金について
+        .card-body
+          p
+            | プラン料金には、ガイドがアクティビティを体験するための参加費、交通費、入場料などの他、レンタカーを利用する場合の車両やガソリン代などの費用も含まれています。
+            br
+            | 尚、この料金は1グループあたりにかかるものですので、人数が増えても同じ金額となります。
+          .card-footer
+            = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"

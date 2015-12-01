@@ -29,6 +29,11 @@
 #  updated_at              :datetime         not null
 #  cover_video             :text             default("")
 #  cover_video_description :text             default("")
+#  overview                :text             default("")
+#  notes                   :text             default("")
+#  recommend1              :string           default("")
+#  recommend2              :string           default("")
+#  recommend3              :string           default("")
 #
 # Indexes
 #

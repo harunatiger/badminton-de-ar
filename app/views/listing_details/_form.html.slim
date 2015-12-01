@@ -12,55 +12,6 @@
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        | 所要時間
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11
-          .select.select-opt.opt-double
-            = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}
-            span 時間
-  .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | ガイド料金
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-6
-          .input-opt
-            = f.input_field :price
-            span 円
-      p.row-space-top-1.text-red
-        i.fa.fa-exclamation-circle
-        |  はじめてのガイドの時は、多く方が時給1500円前後を設定しています。
-  .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | 共通のオプション料金
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-6
-          .input-opt
-            = f.input_field :option_price
-            span 円
-      p.row-space-top-1.text-red
-        i.fa.fa-exclamation-circle
-        |  レンタカー代やガソリン代など共通の追加料金があれば設定してください。
-  .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | 1人あたりのオプション料金
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-6
-          .input-opt
-            = f.input_field :option_price_per_person
-            span 円
-      p.row-space-top-1.text-red
-        i.fa.fa-exclamation-circle
-        |  入場料など参加人数に応じて変動する追加料金があれば設定してください。
-  .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
         | 最小催行人数
     .col-xs-8.fieldset.col-middle
       .row
@@ -81,11 +32,72 @@
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        | ツアーに含まれるもの
+        | 所要時間
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :included, placeholder: "ツアーに含まれる内容で料金が発生するものを記入してください", rows: "6"
+          .select.select-opt.opt-double
+            = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}
+            span 時間
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | ペアガイド料金
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-6
+          .input-opt
+            = f.input_field :price
+            span 円
+      p.row-space-top-1.text-red
+        i.fa.fa-exclamation-circle
+        |  ペアのガイド料金をご記入ください。
+        br
+        | 初めてガイドする方の多くは、1時間あたり3,000円を目安に設定されています。
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 諸経費
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-6
+          .input-opt
+            = f.input_field :option_price
+            span 円
+      p.row-space-top-1.text-red
+        i.fa.fa-exclamation-circle
+        |  レンタカーやレンタサイクルなどの費用や、ペアガイドがプランを実施するために必要となる入場料、交通費、飲食費などの費用の合計金額を入力しましょう。
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 諸経費に含まれるもの
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :included, placeholder: "上に記載した金額の内訳となる項目をご記入ください。", rows: "6"
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | その他にかかる費用
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-6
+          .input-opt
+            = f.input_field :option_price_per_person
+            span 円
+      p.row-space-top-1.text-red
+        i.fa.fa-exclamation-circle
+        |  交通費・入場料・飲食費など、ゲスト側が1名あたりにかかるおおよその経費の合計を入力しましょう。
+        br
+        | こちらの金額は当日ゲストの方が直接現地で支払う費用ですが、プラン紹介ページに参考費用として表示されます。
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | その他にかかる費用に含まれるもの
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :included_other, placeholder: "上に記載した金額の内訳となる項目をご記入ください。", rows: "6"
   .row-space-top-4
     h3.text-center.row-space-2 集合場所・その他の条件
     p.text-center.row-space-6
@@ -146,19 +158,20 @@
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        | 返金ポリシー
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11.disabled-text
-          = f.input_field :refund_policy, disabled: true, value: "①8日以上前のキャンセル：全額返金 ②1日〜7日前のキャンセル：50％返金 ③24時間以内のキャンセル：返金なし"
-  .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
         | 雨天の場合
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
           = f.input_field :in_case_of_rain, placeholder: "例) 雨天決行！"
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 返金ポリシー
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11.disabled-text
+          = f.input_field :refund_policy, disabled: true,
+          value: "7日前まで:コンテンツの対価の100%をゲストに返金\r\n(例:5/10 15:00スタートのコンテンツの場合、5/3 14:59分までのキャンセル)\r\n\r\n7日~1日まで:コンテンツの対価の50%をゲストに返金\r\n(例:5/10 15:00スタートのコンテンツの場合、5/3 15時00分~5/9 14時59分までのキャンセル)\r\n\r\n1日以内:コンテンツ対価の0%をゲストに返金\r\n(例:5/10 15:00スタートのコンテンツの場合、5/9 15:00以降のキャンセル)", rows: "9"
   .row
     .col-xs-9.col-offset-3.text-reset-center
       = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-submit'
