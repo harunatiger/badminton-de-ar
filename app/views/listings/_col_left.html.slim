@@ -65,25 +65,33 @@
             - if language_zh?(@host_info)
               li
                 span 中国語
-
-      - introduction = simple_format(@host_info.try('self_introduction') || '').each_line.first(3)
+      - introduction = simple_format(@host_info.try('self_introduction') || '').each_line
       - if introduction.present?
-          p
-            - introduction.each do |line|
-              = line.html_safe
-
-      = link_to "#", class: "pair_guide_list-trigger small1" do
-        i.fa.fa-exclamation-circle
-        | 当日はもう1名サポートガイドが付きます
+        - moreline = false
+        - introduction.each.with_index(1) do |line,index|
+          - if index <= 3
+            = line.html_safe
+          - elsif index >= 4
+            - moreline = true
+            - break
+        - if moreline == true
+          span ...
+        p
+          = link_to "#", class: "pair_guide_list-trigger small1" do
+            i.fa.fa-exclamation-circle
+            | 当日はもう1名サポートガイドが付きます
 
 #listing-description.listing-description
   h4
     i.fa.fa-diamond
     |  このツアーのおすすめポイント
   ol
-    li = @listing.recommend1
-    li = @listing.recommend2
-    li = @listing.recommend3
+    - if @listing.recommend1.present?
+      li = @listing.recommend1
+    - if @listing.recommend2.present?
+      li = @listing.recommend2
+    - if @listing.recommend3.present?
+      li = @listing.recommend3
   p.detail-section
     = simple_format(@listing.description)
   h4
