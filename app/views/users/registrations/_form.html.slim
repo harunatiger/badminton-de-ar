@@ -1,9 +1,9 @@
-  - mail = (params[:target].blank? or params[:target] == 'mail')
+  - mail = (params[:target].blank? and resource.errors[:current_password].blank? and resource.errors[:password].blank? and resource.errors[:password_confirmation].blank?)
   .row
     .col-lg-3
       ul.sidenav-list
         li
-          = link_to 'メールアドレス', edit_user_registration_path(mode: "account", target: "mail"), class: "sidenav-item", aria: { selected: mail }
+          = link_to 'メールアドレス', edit_user_registration_path(mode: "account"), class: "sidenav-item", aria: { selected: mail }
         li
           = link_to 'パスワード', edit_user_registration_path(mode: "account", target: "pass"), class: "sidenav-item", aria: { selected: !mail }
     .col-lg-9
@@ -27,20 +27,21 @@
                           |  メールアドレス
                       .col-md-7
                         = f.input_field :email, required: true
-                    .row.row-condensed.row-space-2
+                    /.row.row-condensed.row-space-2
                       .col-md-5.text-right.text-left--md
                         label[for="old_password"]
                           |  現在のパスワード
                       .col-md-7
                         = f.input_field :current_password, required: true
-                    .row.row-condensed.row-space-2
-                      .text-muted.row-space-top-1 変更すると、新しいメールアドレス宛てに承認用のメールが届きます。 メール内にある「認証用URL」をクリックして承認すると、新しいメールアドレスに変更されます。
+                  .col-md-12
+                    .text-muted 変更すると、新しいメールアドレス宛てに承認用のメールが届きます。 
+                    .text-muted メール内にある「認証用URL」をクリックして承認すると、新しいメールアドレスに変更されます。
                   .col-md-5
 
               .card-footer
                 = f.button :submit, "アカウント情報を更新", class: "btn btn-primary"
         - else
-          = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, id: 'pass') do |f|
+          = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, name: 'pass') do |f|
             = f.error_notification
             #change_your_password
               .card-header
@@ -48,6 +49,8 @@
               .card-body
                 .row
                   .col-md-10
+                    p.text-center.row-space-6
+                      | パスワードを変更する場合は、確認のため現在のパスワードも入力してください。
                     .row.row-condensed.row-space-2
                       .col-md-5.text-right.text-left--md
                         label[for="user_password"]
