@@ -65,17 +65,21 @@
             - if language_zh?(@host_info)
               li
                 span 中国語
-
-      /- simple_format(@host_info.try('self_introduction') || '').each_line do |line|
-      /  = line.html_safe
-      - introduction = simple_format(@host_info.try('self_introduction') || '').each_line.first(3)
+      - introduction = simple_format(@host_info.try('self_introduction') || '').each_line
       - if introduction.present?
-        - introduction.each do |line|
-          = line.html_safe
-        | ...
-      = link_to "#", class: "pair_guide_list-trigger small1" do
-        i.fa.fa-exclamation-circle
-        | 当日はもう1名サポートガイドが付きます
+        - moreline = false
+        - introduction.each.with_index(1) do |line,index|
+          - if index <= 3
+            = line.html_safe
+          - elsif index >= 4
+            - moreline = true
+            - break
+        - if moreline == true
+          span ...
+        p
+          = link_to "#", class: "pair_guide_list-trigger small1" do
+            i.fa.fa-exclamation-circle
+            | 当日はもう1名サポートガイドが付きます
 
 #listing-description.listing-description
   h4
