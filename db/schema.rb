@@ -164,6 +164,7 @@ ActiveRecord::Schema.define(version: 20151130112842) do
     t.text     "place_memo",                                      default: ""
     t.decimal  "place_longitude",         precision: 9, scale: 6, default: 0.0
     t.decimal  "place_latitude",          precision: 9, scale: 6, default: 0.0
+    t.text     "included_other",                                  default: ""
   end
 
   add_index "listing_details", ["latitude"], name: "index_listing_details_on_latitude", using: :btree
@@ -254,6 +255,11 @@ ActiveRecord::Schema.define(version: 20151130112842) do
     t.datetime "updated_at",                                                      null: false
     t.text     "cover_video",                                     default: ""
     t.text     "cover_video_description",                         default: ""
+    t.text     "overview",                                        default: ""
+    t.text     "notes",                                           default: ""
+    t.string   "recommend1",                                      default: ""
+    t.string   "recommend2",                                      default: ""
+    t.string   "recommend3",                                      default: ""
   end
 
   add_index "listings", ["capacity"], name: "index_listings_on_capacity", using: :btree

@@ -39,7 +39,9 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(profile_params)
-    @profile.location = profile_params[:municipality] + ' ' + profile_params[:prefecture]
+    if profile_params[:municipality]
+      @profile.location = profile_params[:municipality] + ' ' + profile_params[:prefecture]
+    end
     respond_to do |format|
       if @profile.save
         Profile.set_percentage(@profile.user_id)
@@ -57,7 +59,9 @@ class ProfilesController < ApplicationController
   def update
     respond_to do |format|
       para = profile_params
-      para[:location] = para[:municipality] + ' ' + para[:prefecture]
+      if para[:municipality]
+        para[:location] = para[:municipality] + ' ' + para[:prefecture]
+      end
       if @profile.update(para)
         Profile.set_percentage(@profile.user_id)
         format.html { redirect_to @profile, notice: Settings.profile.save.success }
