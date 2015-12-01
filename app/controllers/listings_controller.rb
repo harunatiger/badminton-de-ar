@@ -1,5 +1,6 @@
 class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :search]
+  #before_action :check_listing_status, only: [:index, :search]
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
   before_action :set_listing_obj, only: [:publish, :unpublish]
   before_action :set_listing_related_data, only: [:show, :edit]
@@ -8,7 +9,7 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
-    @listings = Listing.mine(current_user.id).order_by_updated_at_desc
+    @listings = Listing.mine(current_user.id).without_soft_destroyed.order_by_updated_at_desc
   end
 
   # GET /listings/1
@@ -85,7 +86,7 @@ class ListingsController < ApplicationController
   # DELETE /listings/1
   # DELETE /listings/1.json
   def destroy
-    @listing.destroy
+    @listing.update(open: false, soft_destroyed_at: Time.zone.now)
     respond_to do |format|
       format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
       format.json { head :no_content }

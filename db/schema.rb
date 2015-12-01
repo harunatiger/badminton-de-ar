@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130112842) do
+ActiveRecord::Schema.define(version: 20151201080559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -260,6 +260,7 @@ ActiveRecord::Schema.define(version: 20151130112842) do
     t.string   "recommend1",                                      default: ""
     t.string   "recommend2",                                      default: ""
     t.string   "recommend3",                                      default: ""
+    t.datetime "soft_destroyed_at"
   end
 
   add_index "listings", ["capacity"], name: "index_listings_on_capacity", using: :btree

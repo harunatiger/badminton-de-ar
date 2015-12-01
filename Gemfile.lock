@@ -104,6 +104,7 @@ GEM
       uniform_notifier (>= 1.6.0)
     byebug (4.0.3)
       columnize (= 0.9.0)
+    cancancan (1.13.1)
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -323,6 +324,8 @@ GEM
       railties (>= 3.2.16)
     json (1.8.2)
     jwt (1.4.1)
+    kakurenbo-puti (0.1.0)
+      activerecord (>= 4.1.0)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -641,6 +644,7 @@ DEPENDENCIES
   binding_of_caller (= 0.7.2)
   bullet (= 4.14.4)
   byebug (= 4.0.3)
+  cancancan (~> 1.10)
   carrierwave (= 0.10.0)
   coffee-rails (~> 4.1.0)
   country_select
@@ -663,6 +667,7 @@ DEPENDENCIES
   hirb-unicode (= 0.0.5)
   jbuilder (~> 2.0)
   jquery-rails (~> 4.0.3)
+  kakurenbo-puti
   kaminari (= 0.16.3)
   kgio (= 2.9.3)
   memcachier (= 0.0.2)
@@ -711,3 +716,6 @@ DEPENDENCIES
   view_source_map (= 0.1.0)
   web-console (~> 2.0)
   whenever (= 0.9.4)
+
+BUNDLED WITH
+   1.10.5

@@ -27,7 +27,7 @@ class MessageThreadsController < ApplicationController
     @message = Message.new
     @messages
     @counterpart = User.find(counterpart_user_id)
-    @listings = User.find(@host_id).listings.opened
+    @listings = User.find(@host_id).listings.opened.without_soft_destroyed
     gon.watch.ngdates = Ngevent.get_ngdates(@reservation)
     gon.watch.ngweeks = NgeventWeek.where(listing_id: @reservation.try('listing_id')).pluck(:dow)
   end

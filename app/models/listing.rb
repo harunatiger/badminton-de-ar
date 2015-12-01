@@ -34,6 +34,7 @@
 #  recommend1              :string           default("")
 #  recommend2              :string           default("")
 #  recommend3              :string           default("")
+#  soft_destroyed_at       :datetime
 #
 # Indexes
 #
@@ -48,6 +49,7 @@
 #
 
 class Listing < ActiveRecord::Base
+  soft_deletable
 =begin
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
