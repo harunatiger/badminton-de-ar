@@ -4,7 +4,7 @@
             = link_to new_listing_path do
               span.text-pink.strong
                 | ツアーを登録してガイド内容を作成しましょう！
-          - elsif !@reservation.completed?
+          - else
             = simple_form_for(@reservation, html: { id: "non_special_offer_form", class: "message_form clearfix" }) do |f|
               = f.hidden_field :message_thread_id, value: @message_thread.id
               = f.hidden_field :host_id, value: @host_id
@@ -19,7 +19,7 @@
                   = f.submit "キャンセル", class: "btn", type: "reset", id: 'cancel_detail'
                   = f.submit "保存", class: "btn btn-host", name: "save"
                   = f.submit "この内容で送信", class: "btn btn-primary", name: 'request'
-          - else
+          /- else
             | 予約が成立しています。
             br
             | 内容を変更するには

@@ -1,5 +1,5 @@
 - reservation_obj = reservation_id_to_reservation_obj(m.reservation_id)
-= simple_form_for(reservation_obj, html: {class: ("cancel-reservation-form" if reservation_obj.completed? and current_user.id == guest_id)}) do |f|
+= simple_form_for(reservation_obj) do |f|
   = f.hidden_field :message_thread_id, value: m.message_thread_id
   - listing_obj = listing_id_to_listing_obj(m.listing_id)
   div
@@ -61,7 +61,7 @@
             .h5.text-green.strong
               = reservation_obj.string_of_progress_for_message_thread
             .row-space-top-4
-              = f.submit 'キャンセル', name: 'cancel', class: "btn btn-host"
+              = f.submit 'キャンセル', name: 'cancel', class: "btn btn-host", data: { confirm: 'この予約をキャンセルします。本当によろしいですか？'}
               = link_to "#", class: "about_cancel_link" do
                 | 承認後のキャンセルに関して
           - else

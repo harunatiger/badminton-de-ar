@@ -33,7 +33,7 @@ class Ngevent < ActiveRecord::Base
   #validates :end, presence: true, date: { after: :start }
 
   def self.change_date(ngevent_params, reservation_id)
-    ngevent_before = Ngevent.where(user_id: ngevent_params['user_id'],guest_id: ngevent_params['guest_id']).first
+    ngevent_before = Ngevent.where(reservation_id: reservation_id).first
     if ngevent_before.present?
       ngevent_before.update(ngevent_params)
     else
