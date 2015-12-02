@@ -1,0 +1,19 @@
+h1 Listing profile_keywords
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @profile_keywords.each do |profile_keyword|
+      tr
+        td = link_to 'Show', profile_keyword
+        td = link_to 'Edit', edit_profile_keyword_path(profile_keyword)
+        td = link_to 'Destroy', profile_keyword, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Profile keyword', new_profile_keyword_path

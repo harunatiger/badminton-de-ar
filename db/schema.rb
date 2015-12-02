@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151201080559) do
+ActiveRecord::Schema.define(version: 20151202063209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -412,8 +412,9 @@ ActiveRecord::Schema.define(version: 20151201080559) do
     t.integer  "account_type"
     t.string   "user_name"
     t.string   "number"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "paypal_account", default: ""
   end
 
   add_index "profile_banks", ["profile_id"], name: "index_profile_banks_on_profile_id", using: :btree
@@ -454,6 +455,16 @@ ActiveRecord::Schema.define(version: 20151201080559) do
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree
   add_index "profile_images", ["user_id"], name: "index_profile_images_on_user_id", using: :btree
+
+  create_table "profile_keywords", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "profile_keywords", ["profile_id"], name: "index_profile_keywords_on_profile_id", using: :btree
+  add_index "profile_keywords", ["user_id"], name: "index_profile_keywords_on_user_id", using: :btree
 
   create_table "profile_languages", force: :cascade do |t|
     t.integer  "profile_id"
@@ -682,6 +693,8 @@ ActiveRecord::Schema.define(version: 20151201080559) do
   add_foreign_key "profile_identities", "users"
   add_foreign_key "profile_images", "profiles"
   add_foreign_key "profile_images", "users"
+  add_foreign_key "profile_keywords", "profiles"
+  add_foreign_key "profile_keywords", "users"
   add_foreign_key "profile_languages", "languages"
   add_foreign_key "profile_languages", "profiles"
   add_foreign_key "profile_videos", "profiles"

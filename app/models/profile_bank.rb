@@ -2,16 +2,17 @@
 #
 # Table name: profile_banks
 #
-#  id           :integer          not null, primary key
-#  user_id      :integer
-#  profile_id   :integer
-#  name         :string
-#  branch_name  :string
-#  account_type :integer
-#  user_name    :string
-#  number       :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id             :integer          not null, primary key
+#  user_id        :integer
+#  profile_id     :integer
+#  name           :string
+#  branch_name    :string
+#  account_type   :integer
+#  user_name      :string
+#  number         :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  paypal_account :string           default("")
 #
 # Indexes
 #

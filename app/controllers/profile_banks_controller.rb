@@ -61,6 +61,6 @@ class ProfileBanksController < ApplicationController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_bank_params
-      params.require(:profile_bank).permit(:user_id, :profile_id, :name, :branch_name, :account_type, :user_name, :number)
+      params.require(:profile_bank).permit(:user_id, :profile_id, :name, :branch_name, :account_type, :user_name, :number, :paypal_account)
     end
 end

@@ -328,7 +328,8 @@
 #
 
 Rails.application.routes.draw do
-  resources :listing_details
+
+  #resources :listing_details
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin::Devise.config
@@ -338,6 +339,7 @@ Rails.application.routes.draw do
     resources :profile_images
     resources :profile_banks
     resources :profile_identities
+    resources :profile_keywords
     member do
       get 'self_introduction',    action: 'self_introduction'
     end

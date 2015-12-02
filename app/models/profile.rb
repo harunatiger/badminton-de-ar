@@ -47,6 +47,7 @@ class Profile < ActiveRecord::Base
   has_one :profile_video, dependent: :destroy
   has_one :profile_identity, dependent: :destroy
   has_one :profile_bank, dependent: :destroy
+  has_one :profile_keyword, dependent: :destroy
   has_many :profile_categories, dependent: :destroy
   has_many :categories, :through => :profile_categories, dependent: :destroy
   has_many :profile_languages, dependent: :destroy

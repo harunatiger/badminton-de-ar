@@ -332,6 +332,15 @@ module ApplicationHelper
       new_profile_profile_bank_path(current_user.profile.id)
     end
   end
+  
+  def profile_keyword_link
+    profile_keyword = ProfileKeyword.where(user_id: current_user.id, profile_id: current_user.profile.id).first
+    if profile_keyword.present?
+      return edit_profile_profile_keyword_path(current_user.profile.id, profile_keyword.id)
+    else
+      new_profile_profile_keyword_path(current_user.profile.id)
+    end
+  end
 
   def profile_image_link
     profile_image = ProfileImage.where(user_id: current_user.id, profile_id: current_user.profile.id).first

@@ -70,13 +70,19 @@
             .col-7
               = f.input_field :location, placeholder: "例) 郵便番号を入力すると自動で町名まで出力されます"
           .row.row-condensed.row-space-4
-            p.text-center.row-space-6
-              | 好きなカテゴリを最大7つまで選択してください。
+            h5.text-center.row-space-2 好きなカテゴリを最大7つまで選択してください。
             label.text-right.col-3[for="user_self_introduction"]
               | 好きなカテゴリ
             .col-xs-8.fieldset
               = collection_check_boxes(:profile, :category_ids, Category.all, :id, :name) do |b|
                 = b.label { b.check_box + b.text }
+          .row.row-condensed.row-space-4
+            h5.text-center.row-space-2 あなたの好きなキーワードを自由に入れてください。
+            label.text-right.col-3[for="user_self_introduction"]
+              | 好きなキーワード
+            .col-xs-8.fieldset
+              | よく使われているキーワード
+              = image_tag('cloud.gif')
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_self_introduction"]
               | 対応可能言語

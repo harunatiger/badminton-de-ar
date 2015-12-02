@@ -11,6 +11,12 @@ ul.sidenav-list
   - else
     li
       = link_to "自己紹介", self_introduction_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"}
+  - if controller_name == 'profile_keywords'
+    li
+      = link_to "ガイドとしてのこだわり", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "true"}
+  - else
+    li
+      = link_to "ガイドとしてのこだわり", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profile_images'
     li
       = link_to "プロフィール画像", "#{profile_image_link}", class: "sidenav-item", aria: {selected: "true"}
@@ -25,7 +31,7 @@ ul.sidenav-list
       = link_to "信頼情報", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profile_banks'
     li
-      = link_to "銀行情報", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"}
+      = link_to "paypalアカウント", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"}
   - else
     li
-      = link_to "銀行情報", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "false"}
+      = link_to "paypalアカウント", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "false"}

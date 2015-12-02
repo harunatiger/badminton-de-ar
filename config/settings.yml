@@ -20,6 +20,10 @@ profile_banks:
   save:
     success: "Profile updated successfully"
     failure: "Please fill in all sections"
+profile_keywords:
+  save:
+    success: "Profile updated successfully"
+    failure: "Please fill in all sections"
 categories:
   food: '食'
   alcohol: 'お酒'
