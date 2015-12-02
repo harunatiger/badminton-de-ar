@@ -667,6 +667,7 @@ DEPENDENCIES
   hirb-unicode (= 0.0.5)
   jbuilder (~> 2.0)
   jquery-rails (~> 4.0.3)
+  jquery-ui-rails
   kakurenbo-puti
   kaminari (= 0.16.3)
   kgio (= 2.9.3)
@@ -716,3 +717,6 @@ DEPENDENCIES
   view_source_map (= 0.1.0)
   web-console (~> 2.0)
   whenever (= 0.9.4)
+
+BUNDLED WITH
+   1.10.5

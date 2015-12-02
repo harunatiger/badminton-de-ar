@@ -1,6 +1,6 @@
 = simple_form_for([@listing, @listing_images], url: update_all_listing_listing_images_path, html: {class: "form--sp"} ) do |f|
   /= f.error_notification
-  /= f.hidden_field :listing_id, value: @listing.id
+  = hidden_field_tag  :listing_id, @listing.id
   - if @listing.cover_video.present?
     .row.row-space-5.row-space-top-5.row-table
       .col-xs-4.text-right.col-middle
@@ -42,29 +42,8 @@
         .col-xs-11.regist-pics
           = f.file_field :cover_image, as: :file
           span.text-blue 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
-
-  - @listing_images.listing_images.each_with_index do |listing_image, i|
-    = f.fields_for :listing_images, listing_image do |image_form|
-      = image_form.hidden_field :listing_id
-      -if listing_image.image.present?
-        .row.row-space-4.row-space-top-4.row-table
-          .col-xs-4.text-right.col-middle
-            .h4.text-light
-              |  現在の画像
-              = i + 1
-          .col-xs-8.fieldset.col-middle
-            .row
-              .col-xs-11.regist-pics
-                = image_tag(listing_image.image.thumb)
-      .row.row-space-8.row-space-top-4.row-table
-        .col-xs-4.text-right.col-middle
-          .h4.text-light
-            | ガイドのイメージ画像
-            = i + 1
-        .col-xs-8.fieldset.col-middle
-          .row
-            .col-xs-11.regist-pics
-              = image_form.file_field :image, as: :file
+  span#images_list
+    = render partial: 'images_list', locals: { listing_image_collection: @listing_images}
       /.row.row-space-4.row-space-top-4.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light

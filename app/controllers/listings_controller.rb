@@ -136,7 +136,7 @@ class ListingsController < ApplicationController
     end
 
     def set_listing_related_data
-      @listing_images = ListingImage.where(listing_id: @listing.id).limit_5
+      @listing_images = ListingImage.where(listing_id: @listing.id).image_limit
       @confection = Confection.find_by(listing_id: @listing.id)
       @dress_code = DressCode.find_by(listing_id: @listing.id)
       @tool = Tool.find_by(listing_id: @listing.id)

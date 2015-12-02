@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require plugins
 //= require video-js
 
@@ -21,3 +22,4 @@
 //= require reservation
 //= require listingdetails
 //= require profiles
+//= require listingimage

@@ -62,6 +62,19 @@ class ListingImagesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def change_order
+    if request.xhr?
+      listing = Listing.find(params[:listing_id])
+      image_from = ListingImage.where(listing_id: listing.id, order_num: params[:image_from]).first
+      image_to = ListingImage.where(listing_id: listing.id, order_num: params[:image_to]).first
+      image_from.update(order_num: params[:image_to])
+      image_to.update(order_num: params[:image_from])
+        
+      @listing_images = ListingImageCollection.new({},listing.id)
+      render partial: 'images_list', locals: { listing_image_collection: @listing_images}
+    end
+  end
 
   private
     def set_listing_image
@@ -79,7 +92,7 @@ class ListingImagesController < ApplicationController
     def listing_image_collection_params
       params
         .require(:listing_image_collection)
-      .permit(:cover_image, :cover_video, listing_images_attributes: [:id, :listing_id, :image, :caption, :description])
+      .permit(:cover_image, :cover_video, listing_images_attributes: [:id, :listing_id, :image, :caption, :description, :order_num])
     end
 
 end
