@@ -1,5 +1,5 @@
 class MessageMailer < ApplicationMailer
-  
+
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -11,6 +11,7 @@ class MessageMailer < ApplicationMailer
     @from_user_name  = "#{from_user.profile.last_name} #{from_user.profile.first_name}"
     to_user = User.find(message_params['to_user_id'])
     @to_user_name = "#{to_user.profile.last_name} #{to_user.profile.first_name}"
+    @body = message_params['content'].to_s
     mail(
       to:      to_user.email,
       subject: I18n.t('mailer.new_message.subject.arrived', name: @from_user_name)

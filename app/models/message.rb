@@ -66,7 +66,7 @@ class Message < ActiveRecord::Base
 
     obj.save
   end
-  
+
   def english_content
     if self.try('content') == Settings.reservation.msg.request
       Settings.reservation.msg.request_en
@@ -102,7 +102,7 @@ class Message < ActiveRecord::Base
     if extn.include?("pdf")
       errors.add(:attached_file, "5MBを超えたPDFファイルは送信できません") if size > 5.megabytes
     else
-      errors.add(:attached_file, "1MBを超えた画像ファイルは送信できません") if size > 1.megabytes
+      errors.add(:attached_file, "3MBを超えた画像ファイルは送信できません") if size > 3.megabytes
     end
   end
 
