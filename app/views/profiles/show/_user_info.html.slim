@@ -41,11 +41,20 @@ hr.row-space-4
     .lang-list-wrapper
       ul
         - if language_ja?(profile)
-          li
-            span 日本語
+          li.balloon(title="Japanese")
+            span JA
         - if language_en?(profile)
-          li
-            span 英語
+          li.balloon(title="English")
+            span EN
         - if language_zh?(profile)
-          li
-            span 中国語
+          li.balloon(title="Chinese")
+            span ZH
+        - if language_de?(profile)
+          li.balloon(title="German")
+            span DE
+        - if language_fr?(profile)
+          li.balloon(title="French")
+            span FR
+        - if language_es?(profile)
+          li.balloon(title="Spanish")
+            span ES
