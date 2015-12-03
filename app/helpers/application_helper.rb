@@ -75,14 +75,14 @@ module ApplicationHelper
     if results.size.zero?
       return Settings.user.left
     else
-      return "#{results[0].profile.last_name} #{results[0].profile.first_name}"
+      return "#{results[0].profile.first_name} #{results[0].profile.last_name}"
     end
   end
 
   def user_id_to_profile_id(user_id)
     User.find(user_id).profile.id
   end
-  
+
   def review_count_of_host(host_id)
     results = Listing.mine(host_id).pluck('review_count')
     review_count = 0
@@ -123,7 +123,7 @@ module ApplicationHelper
       Settings.image.noimage2.url
     end
   end
-  
+
   def user_id_to_profile_cover_image(user_id)
     result = ProfileImage.mine(user_id).first
     if result.present? and result.cover_image.present?
@@ -152,7 +152,7 @@ module ApplicationHelper
       return Settings.image.noimage2.url
     end
   end
-  
+
   def profile_cover_image_thumb
     if profile_image = ProfileImage.where(user_id: current_user.id).first
       profile_image.try('cover_image').thumb || Settings.image.noimage.url
@@ -169,7 +169,7 @@ module ApplicationHelper
       false
     end
   end
-  
+
   def profile_cover_image_exists?
     profile_image = ProfileImage.where(user_id: current_user.id, profile_id: current_user.profile.id).first
     if profile_image.present?
@@ -178,7 +178,7 @@ module ApplicationHelper
       false
     end
   end
-  
+
   def profile_to_image(profile)
     if profile.profile_image.present? and profile.profile_image.image.present?
       profile.profile_image.image
@@ -186,7 +186,7 @@ module ApplicationHelper
       Settings.image.noimage2.url
     end
   end
-  
+
   def profile_to_cover_image(profile)
     if profile.profile_image.present? and profile.profile_image.cover_image.present?
       profile.profile_image.cover_image
@@ -194,7 +194,7 @@ module ApplicationHelper
       Settings.image.noimage.url
     end
   end
-  
+
   def profile_to_image_thumb(profile)
     if profile.profile_image.present? and profile.profile_image.image.present?
       profile.profile_image.image.thumb
@@ -202,7 +202,7 @@ module ApplicationHelper
       Settings.image.noimage2.url
     end
   end
-  
+
   def profile_to_cover_image_thumb(profile)
     if profile.profile_image.present? and profile.profile_image.cover_image.present?
       profile.profile_image.cover_image.thumb
@@ -310,7 +310,7 @@ module ApplicationHelper
   def reservation_id_to_messages(reservation_id)
     Message.reservation(reservation_id)
   end
-  
+
   def message_to_listing(message)
     Listing.find(message.try('listing_id'))
   end
@@ -323,7 +323,7 @@ module ApplicationHelper
       new_profile_profile_identity_path(current_user.profile.id)
     end
   end
-  
+
   def profile_bank_link
     profile_bank = ProfileBank.where(user_id: current_user.id, profile_id: current_user.profile.id).first
     if profile_bank.present?

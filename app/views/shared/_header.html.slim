@@ -24,7 +24,10 @@
                   .media-photo.media-round.user-profile-image.media-avatar
                     /= image_tag profile_to_image_thumb(current_user.profile), class: 'size28'
                     .size28[style="background-image: url('#{asset_path profile_to_image_thumb(current_user.profile)}')"]
-                  = current_user.email
+                  - if current_user.profile.first_name.present?
+                    = current_user.profile.first_name
+                  - else
+                    = current_user.email
             hr
           = render partial: "/shared/sidebar_nav_sp"
       - else
@@ -61,7 +64,10 @@
               .size28[style="background-image: url('#{asset_path profile_to_image_thumb(current_user.profile)}')"]
 
             span.name
-              = current_user.email
+              - if current_user.profile.first_name.present?
+                = current_user.profile.first_name
+              - else
+                = current_user.email
             i.fa.fa-caret-down
           ul.dropdown-menu.dropdown-menu-top-right[aria-hidden="true"]
             li

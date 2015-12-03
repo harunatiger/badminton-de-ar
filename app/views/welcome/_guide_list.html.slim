@@ -1,75 +1,20 @@
 .card-dark
-  .page-container.page-container-no-padding.row-space-8
+  .page-container.page-container-no-padding.row-space-8.guide_list-wrapper
     .section-intro.text-center.row-space-6.row-space-top-8
       h2.row-space-1.strong 友だちガイドはあなたからの連絡を待ってます！
       p.text-lead 現地に住む友だちガイドと行くあなただけの旅の計画を始めましょう！
     .guide_list-tiles
-      - @profiles.each_with_index do | profile, i |
-        -@all_reviewed_count = Review.all_do(profile.user_id).joins(:reservation).merge(Reservation.review_open?).count
-        /- if (i + 1) % 3 == 0
+      - @profiles[0..2].each do | profile |
+        - @all_reviewed_count = Review.all_do(profile.user_id).joins(:reservation).merge(Reservation.review_open?).count
           br
-        .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
-          div
-            = link_to profile_path(profile), class: 'huber-card' do
-              .huber-card-background[style="background-image: url('#{asset_path profile_to_cover_image_thumb(profile)}')"]
-              .huber-card-content
-                .row.row-condensed
-                  .col-5
-                    .huber-card-face
-                      div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
-                  .col-7.text-left
-                    .huber-inner
-                      .name.text-truncate
-                        = "#{profile.last_name} #{profile.first_name}"
-                      .profile-rating.row-space-2
-                        .star-rating
-                          = render partial: 'shared/stars', locals: { rate: profile.ave_total }
-                        span.badge-pill-count.small1
-                          | レビュー
-                          |(
-                          b
-                            = @all_reviewed_count
-                          |)
-                  .col-12
-                    .area.text-truncate
-                      = profile.location
-                      /.introducing
-                        span
-                          = profile.self_introduction
-                .capability
-                  -if category_food?(profile)
-                    span[title="食" data-toggle="tooltip"]
-                      i.fa.fa-cutlery
-                  -if category_alcohol?(profile)
-                    span[title="お酒" data-toggle="tooltip"]
-                      i.fa.fa-glass
-                  -if category_car?(profile)
-                    span[title="車" data-toggle="tooltip"]
-                      i.fa.fa-car
-                  -if category_cruising?(profile)
-                    span[title="船旅" data-toggle="tooltip"]
-                      i.fa.fa-ship
-                  -if category_shopping?(profile)
-                    span[title="ショッピング" data-toggle="tooltip"]
-                      i.fa.fa-shopping-cart
-                  -if category_accommodation?(profile)
-                    span[title="宿泊施設" data-toggle="tooltip"]
-                      i.fa.fa-bed
-                  -if category_business?(profile)
-                    span[title="ビジネス" data-toggle="tooltip"]
-                      i.fa.fa-area-chart
-                  -if category_sport?(profile)
-                    span[title="スポーツ" data-toggle="tooltip"]
-                      i.fa.fa-soccer-ball-o
-                .language
-                  -if language_ja?(profile)
-                    span 日本語
-                  -if language_en?(profile)
-                    span English
-                  -if language_zh?(profile)
-                    span 中国語
-
-      /.col-sm-12.rm-padding--sp.row-space-6.text-center
-        a.btn.btn-large.btn-more
-          | 他のガイドを見る
+        = render partial: 'guide_card', locals: { all_reviewed_count: @all_reviewed_count, profile: profile }
+      - if @profiles.size > 3
+        #allguides.collapse
+          - @profiles[3..-1].each do | profile |
+            - @all_reviewed_count = Review.all_do(profile.user_id).joins(:reservation).merge(Reservation.review_open?).count
+              br
+            = render partial: 'guide_card', locals: { all_reviewed_count: @all_reviewed_count, profile: profile }
+      .col-sm-12.rm-padding--sp.row-space-6.text-center
+        a#moreguide.btn.btn-large.btn-more
+          | 全て表示する
           i.fa.fa-caret-down
