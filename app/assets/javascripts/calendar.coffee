@@ -26,6 +26,8 @@ $ ->
         data: data
         dataType: 'json'
         success: ->
+          if $('.fc-highlight').length
+            $('.fc-highlight').css('background', 'gray')
           calendar.fullCalendar 'refetchEvents'
           return
         error: ->
