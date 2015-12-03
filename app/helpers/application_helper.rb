@@ -427,6 +427,18 @@ module ApplicationHelper
   def language_zh?(profile)
     profile.languages.exists?(:name => Settings.languages.zh)
   end
+  
+  def language_de?(profile)
+    profile.languages.exists?(:name => Settings.languages.de)
+  end
+  
+  def language_fr?(profile)
+    profile.languages.exists?(:name => Settings.languages.fr)
+  end
+  
+  def language_es?(profile)
+    profile.languages.exists?(:name => Settings.languages.es)
+  end
 
   def out_put_error(target)
     if target.errors.present?

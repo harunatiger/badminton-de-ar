@@ -34,9 +34,12 @@ categories:
   business: 'ビジネス'
   sport: 'スポーツ'
 languages:
-  ja: '日本語'
-  en: '英語'
-  zh: '中国語'
+  ja: 'Japanese'
+  en: 'English'
+  zh: 'Chinese'
+  de: 'German'
+  fr: 'French'
+  es: 'Spanish'
 listings:
   save:
     success: "Tour-page has been updated successfully. Continue with the following steps to complete your tour-page"
