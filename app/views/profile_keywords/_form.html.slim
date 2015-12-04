@@ -10,6 +10,8 @@
           | 5つのこだわり
         .col-xs-8.fieldset
           | よく使われているキーワード
-          = image_tag('cloud.gif')
+          - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
+            = link_to tag.name, '#', class: css_class + ' tag_cloud'
+            = ' '
           
   = f.button :submit, "登録する", class: "btn btn-primary btn-large row-space-4"

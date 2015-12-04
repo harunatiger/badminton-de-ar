@@ -32,6 +32,7 @@ class ProfilesController < ApplicationController
   end
   
   def self_introduction
+    @tags = ActsAsTaggableOn::Tag.most_used
     flash.now[:notice] = Settings.profile.send_message if params[:send_message] == 'yes'
   end
 
@@ -124,7 +125,7 @@ class ProfilesController < ApplicationController
     def profile_params
       params.require(:profile).permit(
         :id, :user_id, :first_name, :last_name, :birthday,
-        :phone, :phone_verification, :country, :location, :self_introduction,
+        :phone, :phone_verification, :country, :location, :self_introduction, :tag_list,
         :school, :work, :timezone, :gender, :zipcode, :prefecture, :municipality, :other_address,
         :listing_count, :wishlist_count, :bookmark_count, :reviewed_count,
         :reservation_count,

@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include ActsAsTaggableOn::TagsHelper
+  
   def full_title(page_title)
     base_title = Settings.site_info.base_title
     if page_title.empty?

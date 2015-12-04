@@ -17,6 +17,7 @@
 //= require jquery-ui/draggable
 //= require plugins
 //= require video-js
+//= require lib/bootstrap-tagsinput
 
 //= require common
 //= require message
