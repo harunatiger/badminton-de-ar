@@ -332,7 +332,7 @@ module ApplicationHelper
       new_profile_profile_bank_path(current_user.profile.id)
     end
   end
-  
+
   def profile_keyword_link
     profile_keyword = ProfileKeyword.where(user_id: current_user.id, profile_id: current_user.profile.id).first
     if profile_keyword.present?
@@ -427,15 +427,15 @@ module ApplicationHelper
   def language_zh?(profile)
     profile.languages.exists?(:name => Settings.languages.zh)
   end
-  
+
   def language_de?(profile)
     profile.languages.exists?(:name => Settings.languages.de)
   end
-  
+
   def language_fr?(profile)
     profile.languages.exists?(:name => Settings.languages.fr)
   end
-  
+
   def language_es?(profile)
     profile.languages.exists?(:name => Settings.languages.es)
   end
@@ -448,5 +448,10 @@ module ApplicationHelper
         end
       end
     end
+  end
+
+  def hbr(target)
+    target = html_escape(target)
+    target.gsub(/\r\n|\r|\n/, "<br />")
   end
 end

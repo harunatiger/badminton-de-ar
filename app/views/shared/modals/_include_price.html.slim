@@ -9,6 +9,6 @@
         form
           .card-body
             p
-              = simple_format(listing_detail.included)
+              = hbr(listing_detail.included).html_safe
           .card-footer
             = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"

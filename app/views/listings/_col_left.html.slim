@@ -102,14 +102,14 @@
     - if @listing.recommend3.present?
       li = @listing.recommend3
   p.detail-section
-    = simple_format(@listing.description)
+    = hbr(@listing.description).html_safe
   h4
     i.fa.fa-diamond
     |  プラン概要
   p
-    = simple_format(@listing.overview)
+    = hbr(@listing.overview).html_safe
   h4
     i.fa.fa-diamond
     |  当日準備するもの、注意事項
   p
-    = simple_format(@listing.notes)
+    = hbr(@listing.notes).html_safe
