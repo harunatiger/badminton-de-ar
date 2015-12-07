@@ -77,7 +77,8 @@ $ ->
 
       $('#canvas').Radarchart(keywords, rates)
 
-  if $('body').hasClass('profile_keywords manage')
+  if $('body').hasClass('profile_keywords manage') || $('body').hasClass('profile_keywords update_all')
+    elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_0_keyword')
     keywords = []
     rates = []
 
@@ -110,6 +111,28 @@ $ ->
     $(document).on 'change', '.text-keyword', ->
       setKeyword()
       $('#canvas').Radarchart(keywords, rates)
+
+    $(document).on 'click', '.tag_cloud', (event)->
+      event.preventDefault()
+      tag = elemTarget.val()
+      elemTarget.tagsinput('remove', tag)
+      elemTarget.tagsinput('add', $(this).text())
+
+    $(document).on 'click', '.text-keyword-wrapper', (event)->
+      switch $('.text-keyword-wrapper').index($(this))
+        when 0
+          elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_0_keyword')
+        when 1
+          elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_1_keyword')
+        when 2
+          elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_2_keyword')
+        when 3
+          elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_3_keyword')
+        when 4
+          elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_4_keyword')
+        else
+          elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_0_keyword')
+          break
 
     $('.text-keyword').keypress (e) ->
       if (e.which == 13)

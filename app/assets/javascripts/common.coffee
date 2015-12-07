@@ -331,6 +331,8 @@ $ ->
     handleClick = (target) ->
       if $('body').is('.profiles.self_introduction') and target == '#'
         return
+      if $('body').is('.profile_keywords.manage') and target == '#'
+        return
       if isChanged == true
         form_change_target = target
         $('#form_change_confirm').modal('show')

@@ -1,6 +1,7 @@
 class ProfileKeywordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile_keyword, only: [:show, :edit, :update, :destroy]
+  before_action :host_user!, only: [:manage]
   before_action :set_profile
 
   # GET /profile_keywords
@@ -36,7 +37,10 @@ class ProfileKeywordsController < ApplicationController
   def update_all
     @profile_keywords = ProfileKeywordCollection.new(profile_keyword_collection_params, @profile.user_id, @profile.id)
     if !@profile_keywords.valid?
-      redirect_to manage_profile_profile_keywords_path(@profile.id), notice: Settings.profile_keywords.save.failure
+      @tags = ActsAsTaggableOn::Tag.most_used
+      flash.now[:alert] = Settings.profile_keywords.save.failure
+      render 'manage'
+      #redirect_to manage_profile_profile_keywords_path(@profile.id), notice: Settings.profile_keywords.save.failure
     else
       @profile_keywords.save
       redirect_to manage_profile_profile_keywords_path(@profile.id), notice: Settings.profile_keywords.save.success
@@ -91,6 +95,13 @@ class ProfileKeywordsController < ApplicationController
 
     def set_profile
       @profile = Profile.find(params[:profile_id])
+    end
+
+    def host_user!
+      @listing = Listing.find_by(user_id: current_user.id).presence
+      if !@listing.presence
+        redirect_to edit_profile_path(current_user.profile.id)
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
