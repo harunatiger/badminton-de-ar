@@ -70,31 +70,42 @@
             .col-7
               = f.input_field :location, placeholder: "例) 郵便番号を入力すると自動で町名まで出力されます"
           .row.row-condensed.row-space-4
-            h5.text-center.row-space-2 好きなカテゴリを最大7つまで選択してください。
+            .text-lead.text-center.row-space-2
+              | 好きなカテゴリを
+              b 最大7つ
+              | まで選択してください。
             label.text-right.col-3[for="user_self_introduction"]
               | 好きなカテゴリ
             .col-xs-8.fieldset
               = collection_check_boxes(:profile, :category_ids, Category.all, :id, :name) do |b|
                 = b.label { b.check_box + b.text }
+          hr.row-space-4
           .row.row-condensed.row-space-4
-            h5.text-center.row-space-2 あなたの好きなキーワードを自由に入れてください。
+            .text-lead.text-center.row-space-1 あなたの好きなキーワードを自由に入れてください。
+            .text-blue.text-center.row-space-4
+              | 下のボックスに
+              b 最大で5つ
+              | まで登録できます。
             label.text-right.col-3[for="user_self_introduction"]
               | 好きなキーワード
             .col-8
-              = f.input_field :tag_list, value: @profile.tag_list.join(','), 'data-role' => 'tagsinput', class: 'form-control'
+              = f.input_field :tag_list, value: @profile.tag_list.join(','), 'data-role' => 'tagsinput', class: 'form-control', placeholder: "例) グルメ"
               - if @tags.present?
-                br
-                | よく使われているキーワード
-                br
-                - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
-                  = link_to tag.name, '#', class: css_class + ' tag_cloud'
-                  = ' '
+                .tag_cloud-container.row-space-top-4
+                  h4.row-space-2
+                    | よく使われているキーワード
+                  div
+                    - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
+                      = link_to tag.name, '#', class: css_class + ' tag_cloud'
+                      = ' '
+          hr.row-space-4
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_self_introduction"]
               | 対応可能言語
             .col-xs-8.fieldset
               = collection_check_boxes(:profile, :language_ids, Language.all, :id, :name) do |l|
                 = l.label { l.check_box + l.text }
+          hr.row-space-4
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_self_introduction"]
               - if @progress.present?
