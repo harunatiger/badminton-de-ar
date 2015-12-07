@@ -80,9 +80,15 @@
             h5.text-center.row-space-2 あなたの好きなキーワードを自由に入れてください。
             label.text-right.col-3[for="user_self_introduction"]
               | 好きなキーワード
-            .col-xs-8.fieldset
-              | よく使われているキーワード
-              = image_tag('cloud.gif')
+            .col-8
+              = f.input_field :tag_list, value: @profile.tag_list.join(','), 'data-role' => 'tagsinput', class: 'form-control'
+              - if @tags.present?
+                br
+                | よく使われているキーワード
+                br
+                - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
+                  = link_to tag.name, '#', class: css_class + ' tag_cloud'
+                  = ' '
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_self_introduction"]
               | 対応可能言語

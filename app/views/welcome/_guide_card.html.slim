@@ -52,9 +52,15 @@
             span[title="スポーツ" data-toggle="tooltip"]
               i.fa.fa-soccer-ball-o
         .language
-          -if language_ja?(profile)
-            span 日本語
-          -if language_en?(profile)
-            span English
-          -if language_zh?(profile)
-            span 中国語
+          - if language_ja?(profile)
+            span.balloon(title="Japanese") JA
+          - if language_en?(profile)
+            span.balloon(title="English") EN
+          - if language_zh?(profile)
+            span.balloon(title="Chinese") ZH
+          - if language_de?(profile)
+            span.balloon(title="German") DE
+          - if language_fr?(profile)
+            span.balloon(title="French") FR
+          - if language_es?(profile)
+            span.balloon(title="Spanish") ES

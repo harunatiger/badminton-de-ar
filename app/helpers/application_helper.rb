@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include ActsAsTaggableOn::TagsHelper
+  
   def full_title(page_title)
     base_title = Settings.site_info.base_title
     if page_title.empty?
@@ -332,7 +334,7 @@ module ApplicationHelper
       new_profile_profile_bank_path(current_user.profile.id)
     end
   end
-  
+
   def profile_keyword_link
     profile_keyword = ProfileKeyword.where(user_id: current_user.id, profile_id: current_user.profile.id).first
     if profile_keyword.present?
@@ -428,6 +430,18 @@ module ApplicationHelper
     profile.languages.exists?(:name => Settings.languages.zh)
   end
 
+  def language_de?(profile)
+    profile.languages.exists?(:name => Settings.languages.de)
+  end
+
+  def language_fr?(profile)
+    profile.languages.exists?(:name => Settings.languages.fr)
+  end
+
+  def language_es?(profile)
+    profile.languages.exists?(:name => Settings.languages.es)
+  end
+
   def out_put_error(target)
     if target.errors.present?
       content_tag(:div, class: 'alert alert-error') do
@@ -436,5 +450,10 @@ module ApplicationHelper
         end
       end
     end
+  end
+
+  def hbr(target)
+    target = html_escape(target)
+    target.gsub(/\r\n|\r|\n/, "<br />")
   end
 end

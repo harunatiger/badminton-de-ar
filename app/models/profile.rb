@@ -42,6 +42,8 @@
 #
 
 class Profile < ActiveRecord::Base
+  acts_as_taggable
+  
   belongs_to :user
   has_one :profile_image, dependent: :destroy
   has_one :profile_video, dependent: :destroy

@@ -57,14 +57,23 @@
         .lang-list-wrapper
           ul
             - if language_ja?(@host_info)
-              li
-                span 日本語
+              li.balloon(title="Japanese")
+                span JA
             - if language_en?(@host_info)
-              li
-                span 英語
+              li.balloon(title="English")
+                span EN
             - if language_zh?(@host_info)
-              li
-                span 中国語
+              li.balloon(title="Chinese")
+                span ZH
+            - if language_de?(@host_info)
+              li.balloon(title="German")
+                span DE
+            - if language_fr?(@host_info)
+              li.balloon(title="French")
+                span FR
+            - if language_es?(@host_info)
+              li.balloon(title="Spanish")
+                span ES
       - introduction = simple_format(@host_info.try('self_introduction') || '').each_line
       - if introduction.present?
         - moreline = false
@@ -93,14 +102,14 @@
     - if @listing.recommend3.present?
       li = @listing.recommend3
   p.detail-section
-    = simple_format(@listing.description)
+    = hbr(@listing.description).html_safe
   h4
     i.fa.fa-diamond
     |  プラン概要
   p
-    = simple_format(@listing.overview)
+    = hbr(@listing.overview).html_safe
   h4
     i.fa.fa-diamond
     |  当日準備するもの、注意事項
   p
-    = simple_format(@listing.notes)
+    = hbr(@listing.notes).html_safe

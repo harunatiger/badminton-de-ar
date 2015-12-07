@@ -14,6 +14,6 @@
             | このプランでは、1人あたり約#{listing_detail.option_price_per_person}円 程度が必要となります。
             - if listing_detail.included.present?
               p
-                = simple_format(listing_detail.included_other)
+                = hbr(listing_detail.included_other).html_safe
           .card-footer
             = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"

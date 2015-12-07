@@ -17,10 +17,12 @@ class ProfileKeywordsController < ApplicationController
   # GET /profile_keywords/new
   def new
     @profile_keyword = ProfileKeyword.new
+    @tags = ActsAsTaggableOn::Tag.most_used
   end
 
   # GET /profile_keywords/1/edit
   def edit
+    @tags = ActsAsTaggableOn::Tag.most_used
   end
 
   # POST /profile_keywords
@@ -75,6 +77,6 @@ class ProfileKeywordsController < ApplicationController
   
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_keyword_params
-      params.require(:profile_keyword).permit(:user_id, :profile_id)
+      params.require(:profile_keyword).permit(:user_id, :profile_id )
     end
 end

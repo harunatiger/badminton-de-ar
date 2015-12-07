@@ -21,6 +21,6 @@ h4.row-space-4
               div[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')" title="#{user_id_to_name(@profile.user_id)}"]
             = link_to listing_path(listing), class: "text-normal" do
               h5.row-space-1.overflow
-                = listing.title
+                = truncate(listing.title, length: 40)
             .row-space-1.text-muted
               | #{listing.listing_detail.time_required if listing.listing_detail.present?}時間 · レビュー#{listing.open_reviews_count}件

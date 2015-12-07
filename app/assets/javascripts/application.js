@@ -11,10 +11,13 @@
 // about supported directives.
 //
 //= require jquery
+//= require lib/jquery.balloon
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery-ui/droppable
+//= require jquery-ui/draggable
 //= require plugins
 //= require video-js
+//= require lib/bootstrap-tagsinput
 
 //= require common
 //= require message

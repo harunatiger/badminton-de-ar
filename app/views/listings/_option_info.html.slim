@@ -4,19 +4,19 @@
     #location
   .card-body
     .h6.row-space-1 集合場所
-    .text-muted
+    .text-muted.overflow
       = listing_detail.place if listing_detail.present?
   .card-body
     .h6.row-space-1 集合場所のメモ
-    .text-muted
-      = listing_detail.place_memo if listing_detail.present?
+    .text-muted.overflow
+      = hbr(listing_detail.place_memo).html_safe if listing_detail.present?
   .card-body
     .h6.row-space-1 参加条件
-    .text-muted
-      = listing_detail.condition if listing_detail.present?
+    .text-muted.overflow
+      = hbr(listing_detail.condition).html_safe if listing_detail.present?
   .card-body
     .h6.row-space-1 返金ポリシー
-    .text-muted
+    .text-muted.overflow
       /= listing_detail.refund_policy
       | ①7日前まで:コンテンツの対価の100%をゲストに返金
       | (例:5/10 15:00スタートのコンテンツの場合、5/3 14:59分までのキャンセル)
@@ -28,5 +28,5 @@
       | (例:5/10 15:00スタートのコンテンツの場合、5/9 15:00以降のキャンセル)
   .card-body
     .h6.row-space-1 雨天の場合
-    .text-muted
-      = listing_detail.in_case_of_rain if listing_detail.present?
+    .text-muted.overflow
+      = hbr(listing_detail.in_case_of_rain).html_safe if listing_detail.present?

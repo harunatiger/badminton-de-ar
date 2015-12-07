@@ -131,6 +131,9 @@ gem 'kakurenbo-puti'
 # Role
 gem 'cancancan', '~> 1.10'
 
+#taggable
+gem 'acts-as-taggable-on'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '4.0.3'

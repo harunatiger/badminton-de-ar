@@ -27,7 +27,7 @@ li.thread-list-item
                     /= message_to_listing(m).try('title')
                     |I sent you reservation request
                 - else
-                  = m.try('content')
+                  = hbr(m.try('content')).html_safe
             - if m.attached_file.present?
               div
                 - if m.attached_extension.include?('pdf')
