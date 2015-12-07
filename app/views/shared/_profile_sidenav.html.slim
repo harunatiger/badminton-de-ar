@@ -13,10 +13,10 @@ ul.sidenav-list
       = link_to "自己紹介", self_introduction_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profile_keywords'
     li
-      = link_to "ガイドとしてのこだわり", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "true"}
+      = link_to "ガイドとしてのこだわり", manage_profile_profile_keywords_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "true"}
   - else
     li
-      = link_to "ガイドとしてのこだわり", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "false"}
+      = link_to "ガイドとしてのこだわり", manage_profile_profile_keywords_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profile_images'
     li
       = link_to "プロフィール画像", "#{profile_image_link}", class: "sidenav-item", aria: {selected: "true"}

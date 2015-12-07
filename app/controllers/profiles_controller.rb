@@ -20,6 +20,8 @@ class ProfilesController < ApplicationController
     #@reviewed = Review.they_do(@profile.user_id).order_by_updated_at_desc
     @reviewed = Review.they_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
     @reviewed_as_guest = Review.i_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc.includes(:review_reply)
+    @profile_keyword = ProfileKeyword.where(user_id: @profile.user_id, profile_id: @profile.id).keyword_limit
+    gon.keywords = @profile_keyword
   end
 
   # GET /profiles/new
@@ -30,7 +32,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1/edit
   def edit
   end
-  
+
   def self_introduction
     @tags = ActsAsTaggableOn::Tag.most_used
     flash.now[:notice] = Settings.profile.send_message if params[:send_message] == 'yes'
@@ -97,7 +99,7 @@ class ProfilesController < ApplicationController
     def set_profile
       @profile = Profile.find(params[:id])
     end
-  
+
     def set_pair_guide
       @profiles = Profile.guides.where.not(id: @profile.id)
     end
@@ -107,7 +109,7 @@ class ProfilesController < ApplicationController
         redirect_to dashboard_path, notice: Settings.regulate_user.user_id.failure
       end
     end
-  
+
     def set_message_thread
       if current_user
         msg_params = Hash['to_user_id' => @profile.user_id,'from_user_id' => current_user.id]

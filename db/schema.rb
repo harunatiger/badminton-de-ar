@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204083345) do
+ActiveRecord::Schema.define(version: 20151205052028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -365,29 +365,29 @@ ActiveRecord::Schema.define(version: 20151204083345) do
 
   create_table "pickup_areas", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "cover_image"
     t.integer  "selected_listing"
-    t.string   "cover_image_small", default: ""
+    t.string   "cover_image_small"
   end
 
   create_table "pickup_categories", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "cover_image"
     t.integer  "selected_listing"
-    t.string   "cover_image_small", default: ""
+    t.string   "cover_image_small"
   end
 
   create_table "pickup_tags", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "cover_image"
     t.integer  "selected_listing"
-    t.string   "cover_image_small", default: ""
+    t.string   "cover_image_small"
   end
 
   create_table "pickups", force: :cascade do |t|
@@ -398,7 +398,7 @@ ActiveRecord::Schema.define(version: 20151204083345) do
     t.integer  "order_number"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.string   "cover_image_small", default: ""
+    t.string   "cover_image_small"
   end
 
   add_index "pickups", ["name"], name: "index_pickups_on_name", using: :btree
@@ -459,8 +459,10 @@ ActiveRecord::Schema.define(version: 20151204083345) do
   create_table "profile_keywords", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "profile_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "keyword",    default: ""
+    t.integer  "level"
   end
 
   add_index "profile_keywords", ["profile_id"], name: "index_profile_keywords_on_profile_id", using: :btree

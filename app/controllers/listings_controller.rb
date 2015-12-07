@@ -31,6 +31,8 @@ class ListingsController < ApplicationController
     gon.ngweeks = NgeventWeek.where(listing_id: @listing.id).pluck(:dow)
     gon.listing = @listing.listing_detail
     @reservation = Reservation.new
+    @profile_keyword = ProfileKeyword.where(user_id: @listing.user_id, profile_id: Profile.where(user_id: @listing.user_id).pluck(:id).first).keyword_limit
+    gon.keywords = @profile_keyword
   end
 
   def new

@@ -19,7 +19,7 @@
       .area
         | Area: #{@host_info.location}
 .row.row-space-4
-  .col-md-12
+  .col-lg-6.col-md-6
     .tag-list-wrapper
       ul
         - if category_food?(@host_info)
@@ -89,7 +89,8 @@
           = link_to "#", class: "pair_guide_list-trigger small1" do
             i.fa.fa-exclamation-circle
             | 当日はもう1名サポートガイドが付きます
-
+  .col-lg-6.col-md-6.text-center
+    canvas#canvas height='200' width='300'
 #listing-description.listing-description
   h4
     i.fa.fa-diamond

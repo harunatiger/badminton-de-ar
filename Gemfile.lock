@@ -114,6 +114,8 @@ GEM
       mime-types (>= 1.16)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    chart-js-rails (0.0.9)
+      railties (> 3.1)
     choice (0.1.7)
     chronic (0.10.2)
     code_analyzer (0.4.5)
@@ -649,6 +651,7 @@ DEPENDENCIES
   byebug (= 4.0.3)
   cancancan (~> 1.10)
   carrierwave (= 0.10.0)
+  chart-js-rails
   coffee-rails (~> 4.1.0)
   country_select
   dalli (= 2.7.4)
@@ -720,3 +723,9 @@ DEPENDENCIES
   view_source_map (= 0.1.0)
   web-console (~> 2.0)
   whenever (= 0.9.4)
+<<<<<<< HEAD
+=======
+
+BUNDLED WITH
+   1.10.6
+>>>>>>> Add Radarchart

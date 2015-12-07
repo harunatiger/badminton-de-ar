@@ -480,3 +480,18 @@ $ ->
       ), 200)
       return
 
+
+  #Draw RadarChart
+  if $('body').hasClass('listings show')
+    array_keywords = gon.keywords
+    if array_keywords.length != 0
+      keywords = []
+      rates = []
+
+      $.each array_keywords, (index, data) ->
+        keywords.push data.keyword
+        rates.push data.level
+        return
+
+      $('#canvas').Radarchart(keywords, rates)
+

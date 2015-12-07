@@ -7,6 +7,8 @@
 #  profile_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  keyword    :string           default("")
+#  level      :integer
 #
 # Indexes
 #
@@ -17,4 +19,9 @@
 class ProfileKeyword < ActiveRecord::Base
   belongs_to :user
   belongs_to :profile
+
+  validates :keyword, presence: true
+  validates :level, presence: true
+
+  scope :keyword_limit, -> { order('id').limit(5) }
 end

@@ -339,7 +339,10 @@ Rails.application.routes.draw do
     resources :profile_images
     resources :profile_banks
     resources :profile_identities
-    resources :profile_keywords
+    resources :profile_keywords, only: [:show, :create, :update, :destroy] do
+      get 'manage', on: :collection
+      post 'update_all', on: :collection
+    end
     member do
       get 'self_introduction',    action: 'self_introduction'
     end

@@ -18,11 +18,29 @@ class ProfileKeywordsController < ApplicationController
   def new
     @profile_keyword = ProfileKeyword.new
     @tags = ActsAsTaggableOn::Tag.most_used
+    @profile_keywords = ProfileKeywordCollection.new({}, @profile.user_id, @profile.id)
+  end
+
+  def manage
+    @profile_keyword = ProfileKeyword.new
+    @tags = ActsAsTaggableOn::Tag.most_used
+    @profile_keywords = ProfileKeywordCollection.new({}, @profile.user_id, @profile.id)
   end
 
   # GET /profile_keywords/1/edit
   def edit
     @tags = ActsAsTaggableOn::Tag.most_used
+    @profile_keywords  = ProfileKeywordCollection.new({}, @profile.user_id, @profile.id)
+  end
+
+  def update_all
+    @profile_keywords = ProfileKeywordCollection.new(profile_keyword_collection_params, @profile.user_id, @profile.id)
+    if !@profile_keywords.valid?
+      redirect_to manage_profile_profile_keywords_path(@profile.id), notice: Settings.profile_keywords.save.failure
+    else
+      @profile_keywords.save
+      redirect_to manage_profile_profile_keywords_path(@profile.id), notice: Settings.profile_keywords.save.success
+    end
   end
 
   # POST /profile_keywords
@@ -70,13 +88,19 @@ class ProfileKeywordsController < ApplicationController
     def set_profile_keyword
       @profile_keyword = ProfileKeyword.find(params[:id])
     end
-    
+
     def set_profile
       @profile = Profile.find(params[:profile_id])
     end
-  
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_keyword_params
       params.require(:profile_keyword).permit(:user_id, :profile_id )
+    end
+
+    def profile_keyword_collection_params
+      params
+        .require(:profile_keyword_collection)
+      .permit(:user_id, :profile_id, profile_keywords_attributes: [:id, :user_id, :profile_id, :keyword, :level])
     end
 end

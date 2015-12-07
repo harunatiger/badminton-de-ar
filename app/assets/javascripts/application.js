@@ -18,6 +18,7 @@
 //= require plugins
 //= require video-js
 //= require lib/bootstrap-tagsinput
+//= require Chart
 
 //= require common
 //= require message
@@ -26,3 +27,4 @@
 //= require listingdetails
 //= require profiles
 //= require listingimage
+//= require chart
