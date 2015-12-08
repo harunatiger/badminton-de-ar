@@ -6,7 +6,7 @@
     .card-header ガイドとしての5つのこだわりを入力してください。
     .card-body
       .text-lead.text-center.row-space-1
-        | 5つのこだわりをレーダーチャートで表示します。
+        | 5つのこだわりとレベルをレーダーチャートで表示します。
       .row.row-condensed.row-space-4.row-table
         h4.col-xs-3.col-middle.text-right
           | 5つのこだわり
@@ -19,7 +19,7 @@
             .col-xs-8.fieldset.col-middle
               .tag_cloud-container.row-space-top-1
                 h4.row-space-2
-                  | よく使われているキーワードから選択することもできます
+                  | よく使われているキーワードからも選択できます
                 div
                   - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
                     = link_to tag.name, '#', class: css_class + ' tag_cloud'
