@@ -37,8 +37,10 @@ class ProfileKeywordsController < ApplicationController
         format.html { redirect_to profile_path(@profile.id), notice: Settings.profile_keywords.save.success }
         format.json { render :show, status: :created, location: @profile_keyword }
       else
+        @profile_keyword = ProfileKeyword.new
         @tags = ActsAsTaggableOn::Tag.most_used
-        format.html { render :new, notice: Settings.profile_keywords.save.failure }
+        flash.now[:alert] = Settings.profile_keywords.save.failure
+        format.html { render 'new' }
         format.json { render json: @profile_keyword.errors, status: :unprocessable_entity }
       end
     end
@@ -54,7 +56,8 @@ class ProfileKeywordsController < ApplicationController
         format.json { render :show, status: :ok, location: @profile_keyword }
       else
         @tags = ActsAsTaggableOn::Tag.most_used
-        format.html { render :edit, notice: Settings.profile_keywords.save.failure }
+        flash.now[:alert] = Settings.profile_keywords.save.failure
+        format.html { render 'edit' }
         format.json { render json: @profile_keyword.errors, status: :unprocessable_entity }
       end
     end
