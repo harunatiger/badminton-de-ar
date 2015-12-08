@@ -2,7 +2,7 @@
       = f.error_notification
       = f.hidden_field :user_id, value: current_user.id
       .card.row-space-4
-        .card-header 自分の好きなカテゴリや対応言語、自己紹介など、プロフィールに表示される情報を登録してください。
+        .card-header Please write your self-introduction, favorite things, and languages you can use; these will be shown on your public profile.
         .card-body
           /.row.row-condensed.row-space-4
             label.text-right.col-3
@@ -71,29 +71,28 @@
               = f.input_field :location, placeholder: "例) 郵便番号を入力すると自動で町名まで出力されます"
           .row.row-condensed.row-space-4
             .text-lead.text-center.row-space-2
-              | 好きなカテゴリを
-              b 最大7つ
-              | まで選択してください。
+              | Choose your favorite categories up to
+              b  7 categories
             label.text-right.col-3[for="user_self_introduction"]
-              | 好きなカテゴリ
+              | Favorite category
             .col-xs-8.fieldset
               = collection_check_boxes(:profile, :category_ids, Category.all, :id, :name) do |b|
                 = b.label { b.check_box + b.text }
           hr.row-space-4
           .row.row-condensed.row-space-4
-            .text-lead.text-center.row-space-1 あなたの好きなキーワードを自由に入れてください。
+            .text-lead.text-center.row-space-1 Please choose your tags
             .text-blue.text-center.row-space-4
               | 下のボックスに
               b 最大で5つ
               | まで登録できます。
             label.text-right.col-3[for="user_self_introduction"]
-              | 好きなキーワード
+              | Tags to show your personality
             .col-8
-              = f.input_field :tag_list, value: @profile.tag_list.join(','), 'data-role' => 'tagsinput', class: 'form-control', placeholder: "例) グルメ"
+              = f.input_field :tag_list, value: @profile.tag_list.join(','), 'data-role' => 'tagsinput', class: 'form-control', placeholder: "Ex.) gourmet"
               - if @tags.present?
                 .tag_cloud-container.row-space-top-4
                   h4.row-space-2
-                    | よく使われているキーワード
+                    | Keywords
                   div
                     - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
                       = link_to tag.name, '#', class: css_class + ' tag_cloud'
@@ -101,7 +100,7 @@
           hr.row-space-4
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_self_introduction"]
-              | 対応可能言語
+              | Languages
             .col-xs-8.fieldset
               = collection_check_boxes(:profile, :language_ids, Language.all, :id, :name) do |l|
                 = l.label { l.check_box + l.text }
@@ -112,24 +111,22 @@
                 - if @progress.include?('self_introduction')
                   /.inputrate.inputrate-red +#{@progress['rate']}%
                   .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
-              | 自己紹介
+              | Introduction
             .col-8.self_introduction_wrapper
               = f.input_field :self_introduction, as: :text, cols: "30", rows: "20", placeholder: "例）ようこそ 私の名前は風馬太郎です。私はあなたと同じ旅を楽しみ、人生を楽しんでいます。出身は北海道。1年前から東京で仕事をしています。あらゆるジャンルの飲食を紹介することが出来ます。あなたが望むならご飯もご一緒できます。観光ガイドブックにのることはない、私がオススメするランチ・ディナーを紹介することも出来ます。それはきっと、あなたにとって記憶に残る素晴らしい体験になるはず。あなたをお待ちしております。風馬太郎"
               .text-special.row-space-top-2.row-space-4
-                p 自己紹介を充実させることであなたの人柄、ガイドの内容など詳しく知ってもらいましょう。
-                p Huberは旅行者と友達ガイドが楽しく旅を楽しむための出会いを提供するサービスです。
+                p Let guests get to know you by writing a good introduction. 
+                p Huber. provides a platform for guides and guests to enjoy travelling and cultural exchange.
                 p
-                  | すなわちHuberの基本は人間関係です。
+                  | Our main theme is communication!
                   br
-                  | まずは自分を知ってもらう努力をしましょう。
+                  | So first step, let your guest know a little bit about you and your guiding style.
                 p
-                  | 自分は旅行者もしくはガイドとしてどうでしょう?
-                  br
-                  | 旅のスタイル（こだわり、流儀）、自分のHuberでの活動スタイルを教えてください。
+                  | Here are a few questions to get you started:
                 p
-                  | 好きな場所やアクティビティはなんですか?
+                  | What are your favorite activities and places?
                   br
-                  | これなしでは生きていけないものを3つ挙げるとしたら?
+                  | What are the three most important things for you?
                   br
-                  | お気に入りの旅先、本、映画、番組、音楽、食べ物は?
-      = f.button :submit, "保存する", class: "btn btn-primary btn-large row-space-4"
+                  | What are your favorite books, movies, TV shows, music artists or food?
+      = f.button :submit, "Save", class: "btn btn-primary btn-large row-space-4"

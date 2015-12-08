@@ -3,40 +3,41 @@
       = f.hidden_field :user_id, value: current_user.id
       .card.row-space-4
         .card-header 
-          |プロフィールの基本情報を入力ください。
+          |Enter your basic information. 
+          |Please enter
           .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
-          |がある項目を入力するとプロフィール表示での登録情報のパーセンテージが上がります。
+          |to increase your profile completion percentage.
         .card-body
           .row.row-condensed.row-space-4
             label.text-right.col-3
-              | 姓
+              | Family Name
             .col-8
               = f.input_field :last_name
           .row.row-condensed.row-space-4
             label.text-right.col-3
-              | 名
+              | First Name
             .col-8
               = f.input_field :first_name
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_gender"]
-              | 性別
+              | Gender
               i.fa.fa-lock.fa-green
             .col-9
               .select
-                = f.input_field :gender, as: :select, :collection => [["女", :"female"], ["男", :"male"], ["その他", :"others"], ["指定しない", :"not_specified"]], :default => ["female"]
-              .text-muted.row-space-top-1 この情報は他のユーザーに公開されません。
+                = f.input_field :gender, as: :select, :collection => [["Female", :"female"], ["Male", :"male"], ["Others", :"others"], ["指定しない", :"not_specified"]], :default => ["female"]
+              .text-muted.row-space-top-1 This information is not open to the public.
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_birthdate"]
               - if @progress.present?
                 - if @progress.include?('birthday')
                   /.inputrate.inputrate-red  +#{@progress['rate']}%
                   .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
-              | 生年月日
+              | Date of Birth
               i.fa.fa-lock.fa-green
             .col-9
               .select.select-opt
                 /= f.input_field :birthday, as: :date, use_month_numbers: true, start_year: Date.today.year - 120, end_year: Date.today.year - 12, order: [:year, :month, :day], date_separator: '/'
-                = raw sprintf(f.date_select(:birthday,use_month_numbers: true,start_year: (Time.zone.today.year - 120),end_year: (Time.zone.today.year - 12),default: Date.new(1986, 1, 1),order: [:year,:month,:day],date_separator: '%s'),'<span>年</span></div><div class="select select-opt">', '<span>月</span></div><div class="select select-opt">') + '<span>日</span>'
+                = raw sprintf(f.date_select(:birthday,use_month_numbers: true,start_year: (Time.zone.today.year - 120),end_year: (Time.zone.today.year - 12),default: Date.new(1986, 1, 1),order: [:year,:month,:day],date_separator: '%s'),'<span> /</span></div><div class="select select-opt">', '<span> /</span></div><div class="select select-opt">')
                 /= f.input_field :birthday, as: :date,
                                         :use_month_numbers => true,
                                         start_year: Date.today.year - 120,
@@ -49,25 +50,25 @@
                 = f.input_field :birthday, as: :select, :collection => [["1月", :"1"], ["2月", :"2"], ["3月", :"3"], ["4月", :"4"], ["5月", :"5"], ["6月", :"6"], ["7月", :"7"], ["8月", :"8"], ["9月", :"9"], ["10月", :"10"], ["11月", :"11"], ["12月", :"12"]], :default => ["1"]
               /.select
                 = f.input_field :birthday, as: :select, :collection => [["1日", :"1"], ["2日", :"2"], ["3日", :"3"], ["4日", :"4"], ["5日", :"5"], ["6日", :"6"], ["7日", :"7"], ["8日", :"8"], ["9日", :"9"], ["10日", :"10"], ["11日", :"11"], ["12日", :"12"], ["13日", :"13"], ["14日", :"14"], ["15日", :"15"], ["16日", :"16"], ["17日", :"17"], ["18日", :"18"], ["19日", :"19"], ["20日", :"20"], ["21日", :"21"], ["22日", :"22"], ["23日", :"23"], ["24日", :"24"], ["25日", :"25"], ["26日", :"26"], ["27日", :"27"], ["28日", :"28"], ["29日", :"29"], ["30日", :"30"], ["31日", :"31"]], :default => ["1"]
-              .text-muted.row-space-top-1 この情報は他のユーザーに公開されません。
+              .text-muted.row-space-top-1 This information is not open to the public.
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_phone"]
               - if @progress.present?
                 - if @progress.include?('phone')
                   /.inputrate.inputrate-red +#{@progress['rate']}%
                   .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
-              | 電話番号
+              | Phone number
               i.fa.fa-lock.fa-green
             .col-7
               = f.input_field :phone
-              .text-muted.row-space-top-1 この情報は参加が確定したユーザーのみに公開されます。
+              .text-muted.row-space-top-1 This information will be available to guests who sign up for this tour
           .row.row-condensed.row-space-4
             label.text-right.col-3
               - if @progress.present?
                 - if @progress.include?('company')
                   /.inputrate.inputrate-red +#{@progress['rate']}%
                   .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
-              | 居住国
+              | Country
               i.fa.fa-lock.fa-green
             .col-8
               = country_select(:profile, :country, locale: 'en', priority_countries: ['JP'],iso_codes: true, format: :with_alpha2)
@@ -77,28 +78,28 @@
                 -if @progress.include?('location')
                   /.inputrate.inputrate-red +#{@progress['rate']}%
                   .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
-              | 郵便番号
+              | Zip code
               i.fa.fa-lock.fa-green
             .col-6
-              = f.input_field :zipcode, placeholder: '例） 012-3456'
-              .text-muted.row-space-top-1 この情報は他のユーザーに公開されません。
+              = f.input_field :zipcode, placeholder: 'Ex.） 012-3456'
+              .text-muted.row-space-top-1 This information is not open to the public.
           .row.row-condensed.row-space-1
             label.text-right.col-3
-              | 都道府県
+              | Prefecture
             .col-7
-              = f.input_field :prefecture, placeholder: "郵便番号を入力すると自動で出力されます"
+              = f.input_field :prefecture, placeholder: "Enter your zip code to find your address automatically"
           .row.row-condensed.row-space-1
             label.text-right.col-3
-              | 市区町村
+              | City
             .col-7
-              = f.input_field :municipality, placeholder: "郵便番号を入力すると自動で出力されます"
+              = f.input_field :municipality, placeholder: "Enter your zip code to find your address automatically"
           .row.row-condensed.row-space-2
             label.text-right.col-3
-              | それ以外の住所
+              | Address
             .col-7.row-space-4
               = f.input_field :other_address
             /.col-7.row-space-4
-              = f.input_field :location, placeholder: "例) 郵便番号を入力すると自動で町名まで出力されます"
+              = f.input_field :location, placeholder: "Ex.) Enter your zip code to find your address automatically"
           /.row.row-condensed.row-space-4
             label.text-right.col-3[for="user_self_introduction"]
               | 好きなカテゴリ
@@ -136,4 +137,4 @@
                   | これなしでは生きていけないものを3つ挙げるとしたら?
                   br
                   | お気に入りの旅先、本、映画、番組、音楽、食べ物は?
-      = f.button :submit, "保存する", class: "btn btn-primary btn-large row-space-4"
+      = f.button :submit, "Save", class: "btn btn-primary btn-large row-space-4"

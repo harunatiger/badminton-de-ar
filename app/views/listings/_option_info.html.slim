@@ -3,37 +3,30 @@
   .location-container
     #location
   .card-body
-    .h6.row-space-1 集合場所
+    .h6.row-space-1 Meeting at
     .text-muted.overflow
       = listing_detail.place if listing_detail.present?
   .card-body
-    .h6.row-space-1 集合場所のメモ
+    .h6.row-space-1 Note about meeting up
     .text-muted.overflow
       = hbr(listing_detail.place_memo).html_safe if listing_detail.present?
   .card-body
-    .h6.row-space-1 参加条件
+    .h6.row-space-1 Conditions of Participation
     .text-muted.overflow
       = hbr(listing_detail.condition).html_safe if listing_detail.present?
   .card-body
-    .h6.row-space-1 返金ポリシー
+    .h6.row-space-1 Refund Policy
     .text-muted.overflow
       /= listing_detail.refund_policy
-      p
-        span.strong 14日前まで：
-        | 支払金額の１００％をゲストに返金
-      p
-        | 5月15日15時スタートのコンテンツの場合、5月1日の23時59分までのキャンセル
-      p
-        span.strong 14日～３日前まで：
-        | 支払金額の５０％をゲストに返金
-      p
-        | 5月15日15時スタートのコンテンツの場合、5月2日00時00分～5月12日23時59分までのキャンセル
-      p
-        span.strong ３日未満：
-        | 支払金額の０％をゲストに返金
-      p
-        | 5月15日15時スタートのコンテンツの場合、5月13日00時00分以降のキャンセル
+      | ①100% refund for cancellation up to 14 days prior to guide date
+      | (ex. For a guide starting on 5/15 at 15:00, until 5/1 at 23:59)
+      br
+      | ②50% refund for cancellation 14 to 3 days before guide date
+      | (ex. For a guide starting on 5/15 at 15:00, between 5/2 at 00:00 to 5/12 at 23:59)
+      br
+      | ③1日以内:コンテンツ対価の0%をゲストに返金
+      | (例:5/10 15:00スタートのコンテンツの場合、5/9 15:00以降のキャンセル)
   .card-body
-    .h6.row-space-1 雨天の場合
+    .h6.row-space-1 In the case of rainy weather
     .text-muted.overflow
       = hbr(listing_detail.in_case_of_rain).html_safe if listing_detail.present?

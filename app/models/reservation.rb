@@ -104,12 +104,12 @@ class Reservation < ActiveRecord::Base
   end
   
   def string_of_progress_english
-    return "requested" if self.requested?
-    return "canceled" if self.canceled?
-    return "holded" if self.holded?
-    return "accepted" if self.accepted?
-    return "rejected" if self.rejected?
-    return "closed" if self.listing_closed?
+    return "Request" if self.requested?
+    return "Cancel" if self.canceled?
+    return "Under construction" if self.holded?
+    return "Accept" if self.accepted?
+    return "Delete" if self.rejected?
+    return "Close" if self.listing_closed?
   end
 
   def string_of_progress_for_message_thread

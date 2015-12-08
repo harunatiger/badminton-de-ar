@@ -5,11 +5,10 @@
     .profile-name.row-space-top-2.row-space-1
       span
         = user_id_to_name(profile.user_id)
-      | さん
     .profile-created.text-muted.row-space-1
-      = "(#{@profile.created_at.strftime("%Y年%m月")}登録)"
+      = "(Registerd #{@profile.created_at.strftime("%Y/%m")})"
     .profile-status.row-space-2
-      | 情報登録
+      | Account Information
       - if profile.progress <= 19
         .inputrate.inputrate-red
           span.rate #{profile.progress}%
@@ -28,14 +27,14 @@
       - if profile_identity_authorized?(profile.user_id)
         .reliable-sign
           i.fa.fa-check-square-o
-          | ID認証済
+          | ID Confirmed
       - else
         .reliable-sign.unreliable
           i.fa.fa-square-o
-          | ID未認証
+          | ID Unconfirmed
     .profile-rating.row-space-2
       span.badge-pill-count
-        | レビュー数
+        | Review
         span.h5
           = reviewed_count
       .star-rating
@@ -43,18 +42,18 @@
 
     - if user_signed_in?
       - if current_user.id == @profile.user_id
-        = link_to 'メッセージを送る', profile_link, class: "btn btn-large btn-block btn-primary disabled"
+        = link_to 'Send a message', profile_link, class: "btn btn-large btn-block btn-primary disabled"
       - elsif not profile_self_introduction_exists?
-        = link_to 'メッセージを送る', profile_link, class: 'btn btn-large btn-block btn-primary'
+        = link_to 'Send a message', profile_link, class: 'btn btn-large btn-block btn-primary'
       - else
         -if @message_thread
-          = link_to 'メッセージを送る', message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary'
+          = link_to 'Send a message', message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary'
         -else
-          = link_to 'メッセージを送る', message_threads_path(message_thread: {host_id: @profile.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary'
+          = link_to 'Send a message', message_threads_path(message_thread: {host_id: @profile.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary'
     - else
-      = link_to 'メッセージを送る', profile_link, class: "btn btn-large btn-block btn-primary"
+      = link_to 'Send a message', profile_link, class: "btn btn-large btn-block btn-primary"
 
     .profile-add.row-space-top-1.row-space-1
       = link_to "#", class: "pair_guide_list-trigger small2" do
         i.fa.fa-exclamation-circle
-        | 当日はもう1名サポートガイドが付きます
+        | Supporting guide will join on the day

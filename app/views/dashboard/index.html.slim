@@ -12,13 +12,13 @@
             = user_id_to_name(current_user.id)
           ul.list-unstyled.text-center
             li
-              = link_to "プロフィールを見る", profile_path(current_user.profile.id)
+              = link_to "See profile", profile_path(current_user.profile.id)
             li
-              = link_to "プロフィールを編集", edit_profile_path(current_user.profile.id)
+              = link_to "Edit profile", edit_profile_path(current_user.profile.id)
 
     .col-lg-9.col-md-12
       #alert-panel.card.row-space-4
-        .card-header ご案内
+        .card-header Notification
         .card-body
           ul.list-unstyled.list-smooth
             - unless @never_replied_reservations.count.zero?
@@ -31,29 +31,27 @@
             - unless @unread_messages.count.zero?
               li
                 = link_to message_threads_path do
-                  | メッセージが
+                  | You have
                   = @unread_messages.count
-                  |件届いています
+                  | new message.
                   i.fa.fa-chevron-right
             - if @never_replied_reservations.count.zero? && @unread_messages.count.zero?
               .text-center
                 p.h5.row-space-2.row-space-top-2
-                  | すべて確認いただいています。
+                  | All confirmed
       #message-panel.card.row-space-4
         .card-header
-          | 未読の
+          | Unread 
           = Settings.page.messages
-          ' 　新着
-          span.count 
-            = @unread_messages.count
-          | 件
+          ' 　New
+          span.count
+            = @unread_messages.count 
+          |  message
         - if @unread_messages.count.zero?
           .card-body
             .text-center
               p.h5.row-space-top-2.row-space-2
-                | 読んでいない
-                = Settings.page.messages
-                | はないようです。
+                | There are no new messages.
         - else
         ul.list-layout
           - @unread_messages.each do |um|
@@ -71,7 +69,7 @@
                     .col-xs-9.col-md-8
                       = user_obj_to_name(from_user)
                       br
-                      = um.created_at.strftime("%m月%d日 %H時%M分")
+                      = um.created_at.strftime("%m/%d/ %H:%M")
                 = link_to message_thread_path(um.message_thread_id), class: "link-reset text-muted" do
                   .col-md-7
                     = um.english_content
@@ -97,5 +95,4 @@
                       = Settings.message.unread.string
         .card-body
           = link_to message_threads_path do
-            | すべての
-            = Settings.page.messages
+            | All messages

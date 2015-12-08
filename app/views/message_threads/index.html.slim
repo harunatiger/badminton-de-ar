@@ -23,10 +23,10 @@
                         .h5.col-sm-8.col-middle.thread-name
                           -if mt.host_id == current_user.id
                             span.user-type.user-guest
-                              | ゲスト
+                              | Guest
                           -else
                             span.user-type.user-guide
-                              | ガイド
+                              | Guide
                           .row-space-top-1
                             = user_id_to_name(counterpart_id)
                     .col-md-5.thread-body
@@ -39,22 +39,22 @@
                     .col-md-3.thread-progress
                       .row.row-table
                         .col-md-12.col-middle.text-center
-                          - if mt.reservation_progress == "承認依頼中"
+                          - if mt.reservation_progress == "Request"
                             .tag.tag-primary
                               = mt.reservation_progress
-                          - elsif mt.reservation_progress == "キャンセル"
+                          - elsif mt.reservation_progress == "Cancel"
                             .tag.tag-danger
                               = mt.reservation_progress
-                          - elsif mt.reservation_progress == "調整中"
+                          - elsif mt.reservation_progress == "Under construction"
                             .tag.tag-alert
                               = mt.reservation_progress
-                          - elsif mt.reservation_progress == "ツアー決定"
+                          - elsif mt.reservation_progress == "Accept"
                             .tag.tag-success
                               = mt.reservation_progress
-                          - elsif mt.reservation_progress == "取り消し"
+                          - elsif mt.reservation_progress == "Delete"
                             .tag.tag-alert
                               = mt.reservation_progress
-                          - elsif mt.reservation_progress == "終了"
+                          - elsif mt.reservation_progress == "Close"
                             .tag.tag-normal
                               = mt.reservation_progress
                           /- else

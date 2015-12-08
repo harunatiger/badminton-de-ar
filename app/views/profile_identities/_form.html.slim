@@ -3,7 +3,7 @@
   = f.hidden_field :user_id, value: current_user.id
   = f.hidden_field :profile_id, value: current_user.profile.id
   .card.row-space-4
-    .card-header 運転免許証、またはパスポートの写真画像をアップロードしてください。
+    .card-header "Please upload a scan of your drivers license, student ID or passport photo page."
     .card-body
       - if profile_identity_exists?
         .row.row-condensed.row-space-4
@@ -13,7 +13,7 @@
                 | 承認されています。登録ありがとうございます。
             -else
               .h4
-                | ただいま承認申請中です。もう少々お待ちください。
+                | Processing, please wait
         /.row.row-condensed.row-space-4
           label.text-right.col-3
             | 現在のパスポート画像
@@ -22,17 +22,16 @@
         .row.row-condensed.row-space-3
           .col-md-12
             .h5.row-space-2
-              | 信頼情報の登録
+              | Registration of ID information
             p
-              | Huber.で信用を高めるために信頼情報の登録を行ってください。
+              | To improve the credibility of your profile, please confirm your identity.
               br
-              | 登録は、あなたのオンラインアカウントと公式の身分証明書の情報を照合して行います。
+              | We need a valid official ID document matching your account details in order to confirm your identity.
       hr
       .row.row-condensed
         label.text-right.col-3.row-space-4
-          | 身分証名できる画像
+          | ID picture
         .col-8
           = f.file_field :image, class: "row-space-top-1-file"
-          span.text-pink 運転免許証、またはパスポートの写真画像をアップロードしてください
-          
-  = f.button :submit, "登録する", class: "btn btn-primary btn-large row-space-4"
+          span.text-pink "Please upload a scan of your drivers license, student ID or passport photo page."
+  = f.button :submit, "Upload", class: "btn btn-primary btn-large row-space-4"

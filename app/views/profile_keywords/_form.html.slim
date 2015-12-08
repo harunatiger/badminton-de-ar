@@ -8,8 +8,8 @@
       .text-lead.text-center.row-space-1
         | 5つのこだわりとレベルをレーダーチャートで表示します。
       .row.row-condensed.row-space-4.row-table
-        h4.col-xs-3.col-middle.text-right
-          | 5つのこだわり
+        label.text-right.col-3[for="user_self_introduction"]
+          | Your five things
         .col-xs-8.fieldset.col-middle.text-center
           canvas#canvas height='200' width='300'
       .row.row-condensed.row-space-4.row-table
@@ -26,4 +26,4 @@
                     = ' '
       = render partial: 'keywords_list', locals: { profile_keyword_collection: @profile_keyword_collection}
 
-  = f.button :submit, "登録する", class: "btn btn-primary btn-large row-space-4"
+  = f.button :submit, "Sign up", class: "btn btn-primary btn-large row-space-4"

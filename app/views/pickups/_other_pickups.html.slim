@@ -1,7 +1,7 @@
 .page-container
   .other-pickup-links.row.row-space-4
     .col-lg-12
-      h3.h4.text-center.row-space-4 その他のピックアップはこちら
+      h3.h4.text-center.row-space-4 Other categories
       .text-center
         - @pickups.each do |pickup|
           = link_to pickup_path( pickup.id ), class: "tag tag-ghost" do

@@ -7,7 +7,7 @@
       .card
         - if @messages.blank?
           .card-body
-            p テスト
+            p test
         - else
           ul.list-layout.card-body
             - @messages.each do |message|
@@ -19,7 +19,7 @@
                         a href="#"
                           img.media-round.media-photo.size50 alt="" src="/assets/images/sample/person1.jpg"
                       .col-sm-7.thread-name
-                        | テスト
+                        | test
                         br
                         span.thread-date 03/26
                   = link_to message_threads_path, class: "thread-link link-reset text-muted" do
@@ -27,7 +27,7 @@
                       span.thread-subject
                         = message.content
                       .text-muted.hide--sp
-                        span.address テスト
+                        span.address test
                         br
                         /= message.schedule
                   .col-sm-7.col-md-2.thread-label

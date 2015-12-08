@@ -15,7 +15,7 @@
                 .star-rating
                   = render partial: 'shared/stars', locals: { rate: profile.ave_total }
                 span.badge-pill-count.small1
-                  | レビュー
+                  | review
                   |(
                   b
                     = all_reviewed_count
@@ -28,28 +28,28 @@
                   = profile.self_introduction
         .capability
           -if category_food?(profile)
-            span[title="食" data-toggle="tooltip"]
+            span[title="Food" data-toggle="tooltip"]
               i.fa.fa-cutlery
           -if category_alcohol?(profile)
-            span[title="お酒" data-toggle="tooltip"]
+            span[title="Alcohol" data-toggle="tooltip"]
               i.fa.fa-glass
           -if category_car?(profile)
-            span[title="車" data-toggle="tooltip"]
+            span[title="Car" data-toggle="tooltip"]
               i.fa.fa-car
           -if category_cruising?(profile)
-            span[title="船旅" data-toggle="tooltip"]
+            span[title="Travel/Ship" data-toggle="tooltip"]
               i.fa.fa-ship
           -if category_shopping?(profile)
-            span[title="ショッピング" data-toggle="tooltip"]
+            span[title="Shopping" data-toggle="tooltip"]
               i.fa.fa-shopping-cart
           -if category_accommodation?(profile)
-            span[title="宿泊施設" data-toggle="tooltip"]
+            span[title="Accommodation" data-toggle="tooltip"]
               i.fa.fa-bed
           -if category_business?(profile)
-            span[title="ビジネス" data-toggle="tooltip"]
+            span[title="Business" data-toggle="tooltip"]
               i.fa.fa-area-chart
           -if category_sport?(profile)
-            span[title="スポーツ" data-toggle="tooltip"]
+            span[title="Sports" data-toggle="tooltip"]
               i.fa.fa-soccer-ball-o
         .language
           - if language_ja?(profile)

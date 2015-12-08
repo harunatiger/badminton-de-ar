@@ -10,26 +10,26 @@
           = listing_obj.title
     .row.row-condensed.row-space-2.row-space-top-3
       .col-md-3.text-left.text-muted.strong
-        | ガイド目安時間: 
+        | hours: 
       .col-md-8
         = reservation_obj.time_required
-        | 時間
+        | hours
     .row.row-condensed.row-space-2
       .col-md-3.text-left.text-muted.strong
-        | 価格: 
+        | Price: 
       .col-md-8
         | ¥&nbsp;
         - if @host_id == current_user.id
           = reservation_obj.amount
         - else
           = reservation_obj.amount_for_campaign
-        |(サービス利用料 ¥ #{reservation_obj.handling_cost} 含)
+        |(Service fee ¥ #{reservation_obj.handling_cost} included)
     .row.row-condensed.row-space-2
       .col-md-3.text-left.text-muted.strong
-        | 人数: 
+        | Number of people: 
       .col-md-8
         = reservation_obj.num_of_people
-        |人
+        |People
     .row.row-condensed.row-space-2
       .col-md-3.text-left.text-muted.strong
         | 予約日時: 
@@ -37,7 +37,7 @@
         = reservation_obj.schedule
     .row.row-condensed.row-space-2
       .col-md-3.text-left.text-muted.strong
-        | 集合場所: 
+        | Meeting at: 
       .col-md-8
         = reservation_obj.place
         -if reservation_obj.place_memo.present?
@@ -56,12 +56,12 @@
             .row-space-3
               = f.input_field :campaign_code, placeholder: "こちらにキャンペーンコードを入力ください"
             = f.submit '承認する', name: 'accept', class: 'btn btn-primary'
-            = f.submit 'キャンセル', name: 'cancel', class: 'btn'
+            = f.submit 'Cancel', name: 'cancel', class: 'btn'
           - elsif reservation_obj.completed? and current_user.id == guest_id
             .h5.text-green.strong
               = reservation_obj.string_of_progress_for_message_thread
             .row-space-top-4
-              = f.submit 'キャンセル', name: 'cancel', class: "btn btn-host", data: { confirm: 'この予約をキャンセルします。本当によろしいですか？'}
+              = f.submit 'Cancel', name: 'cancel', class: "btn btn-host", data: { confirm: 'この予約をキャンセルします。本当によろしいですか？'}
               = link_to "#", class: "about_cancel_link" do
                 | 承認後のキャンセルに関して
           - else
