@@ -7,13 +7,13 @@
   .card.row-space-2
     .card-body
       .tour-price.row-space-1
-        .strong.row-space-1 ツアー料金
+        .h3.strong.row-space-1 ツアー料金
         .h3.strong.row-space-2
           | ¥
           span#tour-price-single
           small.time
             | /グループ
-          span<
+          span.small<
             = listing.listing_detail.time_required.to_s.gsub(/.0/, '')
             | 時間
         .row.row-space-1
@@ -106,9 +106,9 @@
               span#service-cost_calced
 
           .row.row-space-4
-            .col-md-7.small1
+            .col-md-7.small1.text-blue.strong
               | 合計金額
-            .col-md-5.text-right.strong.text-red
+            .col-md-5.text-right.strong.text-blue.strong
               | ¥
               span#tour-price-result_calced.h4
 
