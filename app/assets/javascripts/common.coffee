@@ -324,14 +324,16 @@ $ ->
       return
 
   #Form Change Confirm
-  if $('body').is('.profiles.edit') || $('body').is('.profiles.self_introduction') || $('body').is('.profile_keywords.manage') || $('body').is('.profile_images.edit') || $('body').is('.profile_identities.edit') || $('body').is('.profile_banks.edit') || $('body').is('.listings.edit') || $('body').is('.listings.new') || $('body').is('.listing_images.manage') || $('body').is('.listing_details.manage') || $('body').is('.listing_details.manage')
+  if $('body').is('.profiles.edit') || $('body').is('.profiles.self_introduction') || $('body').is('.profile_keywords.new') || $('body').is('.profile_keywords.edit') || $('body').is('.profile_images.edit') || $('body').is('.profile_identities.edit') || $('body').is('.profile_banks.edit') || $('body').is('.listings.edit') || $('body').is('.listings.new') || $('body').is('.listing_images.manage') || $('body').is('.listing_details.manage') || $('body').is('.listing_details.manage')
     isChanged = false
     form_change_target = ''
 
     handleClick = (target) ->
       if $('body').is('.profiles.self_introduction') and target == '#'
         return
-      if $('body').is('.profile_keywords.manage') and target == '#'
+      if $('body').is('.profile_keywords.new') and target == '#'
+        return
+      if $('body').is('.profile_keywords.edit') and target == '#'
         return
       if isChanged == true
         form_change_target = target
