@@ -44,6 +44,6 @@
               - if r.completed?
                 = simple_form_for(r, html: { class: "cancel-reservation-form" }) do |f|
                   = f.hidden_field :message_thread_id, value: r.message_thread_id
-                  = f.submit 'キャンセルする', name: 'cancel', class: 'btn-link small1 row-space-top-1'
+                  = f.submit 'Cancel', name: 'cancel', class: 'btn-link small1 row-space-top-1'
 
   = render partial: 'shared/modals/message_to_host_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }

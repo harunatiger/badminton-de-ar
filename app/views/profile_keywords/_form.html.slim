@@ -19,11 +19,11 @@
             .col-xs-8.fieldset.col-middle
               .tag_cloud-container.row-space-top-1
                 h4.row-space-2
-                  | よく使われているキーワードからも選択できます
+                  | Keywords
                 div
                   - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
                     = link_to tag.name, '#', class: css_class + ' tag_cloud'
                     = ' '
       = render partial: 'keywords_list', locals: { profile_keyword_collection: @profile_keyword_collection}
 
-  = f.button :submit, "Sign up", class: "btn btn-primary btn-large row-space-4"
+  = f.button :submit, "Save", class: "btn btn-primary btn-large row-space-4"

@@ -44,9 +44,9 @@
           |(#{reservation_obj.place_memo})
     .row.row-condensed.row-space-2
       .col-md-3.text-left.text-muted.strong
-        | ガイド内容など: 
+        | Tour information: 
       .col-md-8
-        = simple_format(reservation_obj.description.present? ? reservation_obj.description : 'なし')
+        = simple_format(reservation_obj.try('description'))
     .row.row-condensed.row-space-2
       .col-md-10.btn-wrapper
         - unless m.try('content') == Settings.reservation.msg.reserve
