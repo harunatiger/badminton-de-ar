@@ -5,16 +5,17 @@
       .modal-content
         .card-header
           a.modal-close[href="#" data-dismiss="modal"]
-          | Notice of payment to the guest
+          | ゲストの支払いに関して
         form
           .card-body
             p
-              | Huber. uses
+              | Huber.では支払いサービスに、
               span.strong paypal
-              | for payment transations.
+              | を利用しております。
             p
-              | Huber. uses PayPal for payment transations.  The amount you will receive is your Guide Price minus
-              span.strong.text-red the combined sum of ¥40 JPY + 3.6% commission fee + handling fee from your bank (if applicable).
+              | ガイドの提示金額の
+              span.strong.text-red 「3.6% + ¥40 JPY + 銀行振込手数料」が引かれた金額が支払われる
+              | ことをご了承ください。
             p
           .card-footer
-            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"
+            = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"

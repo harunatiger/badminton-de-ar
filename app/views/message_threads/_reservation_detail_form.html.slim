@@ -1,78 +1,78 @@
 #reservation_detail_form
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | Select a tour
+      | ツアー選択
     .col-md-9
       .select
         = collection_select :reservation, :listing_id, @listings, :id, :title, include_blank: true
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | hours
+      | ガイド目安時間
     .col-md-4
       .select.select-opt.opt-double
         = select :reservation, :time_required, [*(0..48)].map{|i| (i * 0.5)}
-        span hours
+        span 時間
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | Basic price
+      | ベース価格
     .col-md-5
       .input-opt
         = number_field :reservation, :price
-        span ¥
+        span 円
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | Extra charge (group)
+      | 共通のオプション価格
     .col-md-5
       .input-opt
         = number_field :reservation, :option_price
-        span ¥
+        span 円
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | Extra charge (individual eg, meals)
+      | 1人あたりのオプション価格
     .col-md-5
       .input-opt
         = number_field :reservation, :option_price_per_person
-        span ¥
+        span 円
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | Number of people
+      | 人数
     .col-md-9
       .select.select-opt
         = select :reservation, :num_of_people, [*(1..20)]
-        span People
-      .row-space-top-1.text-blue.small2 Guests will be informed of the total amount including the basic price and any extra group or individual charges 
+        span 人
+      .row-space-top-1.text-blue.small2 ベース価格 + 共通のオプション価格 + 1人あたりのオプション価格 ✕ 人数にサービス料を足した値がゲストに表示されます。
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | Start date
+      | 開始日
     .col-md-6
       = text_field :reservation, :schedule_date, class: 'checkin datepicker'
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | Last date
+      | 終了日
     .col-md-6
       = text_field :reservation, :schedule_end, class: 'checkout datepicker'
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | Meeting at
+      | 集合場所
     .col-md-9
-      = text_field :reservation, :place, placeholder: "Ex.) In front of Hachiko"
+      = text_field :reservation, :place, placeholder: "例）ハチ公前"
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | Detail on meeting place
+      | 集合場所のメモ
     .col-md-9
-      = text_field :reservation, :place_memo, placeholder: "Ex.) I will wear a blue hat"
+      = text_field :reservation, :place_memo, placeholder: "例）ハチ公前にバラの花を付けて集合"
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | Meeting time
+      | 集合時間
     .col-md-6
       .select.select-opt
         = select :reservation, :schedule_hour, (0..23).to_a.map { |v| "%02d" % v }, {}
-        span
+        span 時
       .select.select-opt
         = select :reservation, :schedule_minute, (0..59).to_a.map { |v| "%02d" % v }, {}
-        span
+        span 分
   .row.row-condensed.row-space-4
     label.col-md-3.text-right.text-left--sp
-      | Note
+      | ガイドの内容など
     .col-md-9
-      = text_area :reservation, :description, class: "textarea-normal", placeholder: "Write something you want to let your guest know."
+      = text_area :reservation, :description, class: "textarea-normal", placeholder: "メモやリマインダーなどにご利用ください"

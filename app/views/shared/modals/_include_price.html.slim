@@ -5,10 +5,10 @@
       .modal-content
         .card-header
           a.modal-close[href="#" data-dismiss="modal"]
-          | What is included in Tour Price
+          | プラン料金に含まれている内容
         form
           .card-body
             p
               = hbr(listing_detail.included).html_safe
           .card-footer
-            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"
+            = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"
