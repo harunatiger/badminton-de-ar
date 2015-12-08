@@ -17,7 +17,7 @@
         },
         {
           label: "My Keywords",
-          fillColor: "rgba(23, 174, 223,0.2)",
+          fillColor: "rgba(23, 174, 223,0.5)",
           strokeColor: "rgba(23, 174, 223,1)",
           pointColor: "rgba(23, 174, 223,1)",
           pointStrokeColor: "#fff",
