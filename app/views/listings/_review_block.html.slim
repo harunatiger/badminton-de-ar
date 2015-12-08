@@ -1,9 +1,8 @@
 .row-space-6.row-space-top-8
   h3.text-muted.row-space-4
-    | レビュー
+    | Review
     small
       = reviews.count
-      | 件
     .star-rating
       = render partial: 'shared/stars', locals: { rate: listing.ave_total }
 .review-content

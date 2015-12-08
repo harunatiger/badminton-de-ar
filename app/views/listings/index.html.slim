@@ -16,12 +16,12 @@
               br
               | ガイドになってたくさんの出会いを楽しみましょう。
             = link_to new_listing_path, class: "btn btn-host" do
-              | ガイドになる
+              | Become a guide
     - else
       .col-md-9
         .card
           .card-header
-            | 開催しているツアーリスト
+            | Available tour list
             /.row
               .col-sm-7.col-md-6
                 /.select
@@ -48,10 +48,10 @@
                       .actions.row-space-1
                         - if listing.open?
                           .tag.tag-primary
-                            | 公開
+                            | Published
                         - else
                           .tag.tag-danger
-                            | 非公開
+                            | Unpublished
                       .h4
                         = link_to listing, class: "text-normal trans" do
                           = listing.title
@@ -60,4 +60,4 @@
                         .listing-criteria-header.activation-notification
                           .listing-criteria-header-message
                             = link_to edit_listing_path(listing), class: "btn btn-primary" do
-                              | 編集
+                              | Edit

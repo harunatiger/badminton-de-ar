@@ -5,15 +5,15 @@
       .modal-content
         .card-header
           a.modal-close[href="#" data-dismiss="modal"]
-          | その他にかかる費用
+          | Other additional expenses
         form
           .card-body
             p
-            | ゲストの方々が必要となる、入場料、飲食代、交通費などは当日現金でお支払い頂きます。
+            | Other expenses the guest will pay on day of the tour, such as food, entrance fees and transportation fees.
             br
-            | このプランでは、1人あたり約#{listing_detail.option_price_per_person}円 程度が必要となります。
+            | It will cost approximately ¥#{listing_detail.option_price_per_person} per person for this tour.
             - if listing_detail.included.present?
               p
                 = hbr(listing_detail.included_other).html_safe
           .card-footer
-            = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"
+            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

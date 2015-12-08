@@ -3,9 +3,9 @@
     .col-lg-3
       ul.sidenav-list
         li
-          = link_to 'メールアドレス', edit_user_registration_path(mode: "account"), class: "sidenav-item", aria: { selected: mail }
+          = link_to 'E-mail address', edit_user_registration_path(mode: "account"), class: "sidenav-item", aria: { selected: mail }
         li
-          = link_to 'パスワード', edit_user_registration_path(mode: "account", target: "pass"), class: "sidenav-item", aria: { selected: !mail }
+          = link_to 'Password', edit_user_registration_path(mode: "account", target: "pass"), class: "sidenav-item", aria: { selected: !mail }
     .col-lg-9
       .card.row-space-4
         - if mail
@@ -13,7 +13,7 @@
             = f.error_notification
             #change_your_password
               .card-header
-                | メールアドレスを変更
+                | Change E-mail address
               .card-body
                 .row
                   .col-md-10
@@ -24,52 +24,52 @@
                     .row.row-condensed.row-space-2
                       .col-md-5.text-right.text-left--md
                         label[for="old_password"]
-                          |  メールアドレス
+                          |  E-mail address
                       .col-md-7
                         = f.input_field :email, required: true
                     /.row.row-condensed.row-space-2
                       .col-md-5.text-right.text-left--md
                         label[for="old_password"]
-                          |  現在のパスワード
+                          |  Current password
                       .col-md-7
                         = f.input_field :current_password, required: true
                   .col-md-12
-                    .text-muted 変更すると、新しいメールアドレス宛てに承認用のメールが届きます。 
-                    .text-muted メール内にある「認証用URL」をクリックして承認すると、新しいメールアドレスに変更されます。
+                    .text-muted If you change your e-mail address, we will send a confirmation e-mail to the new address.
+                    .text-muted Click the confirmation URL in this email to confirm your new mail address.
                   .col-md-5
 
               .card-footer
-                = f.button :submit, "メールアドレスを更新", class: "btn btn-primary"
+                = f.button :submit, "Change E-mail address", class: "btn btn-primary"
         - else
           = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, name: 'pass') do |f|
             = f.error_notification
             #change_your_password
               .card-header
-                | パスワードを変更
+                | Change password
               .card-body
                 .row
                   .col-md-10
                     p.text-center.row-space-6
-                      | パスワードを変更する場合は、確認のため現在のパスワードも入力してください。
+                      | Please enter your current password in order to change your password
                     .row.row-condensed.row-space-2
                       .col-md-5.text-right.text-left--md
                         label[for="old_password"]
-                          |  現在のパスワード
+                          |  Current password
                       .col-md-7
                         = f.input_field :current_password, required: true
                     .row.row-condensed.row-space-2
                       .col-md-5.text-right.text-left--md
                         label[for="user_password"]
-                          |  新しいパスワード
+                          |  New password
                       .col-md-7
                         = f.input_field :password, autocomplete: "off", required: true, class: "input-block", size: "30"
                     .row.row-condensed.row-space-2
                       .col-md-5.text-right.text-left--md
                         label[for="user_password_confirmation"]
-                          |  新しいパスワード（確認）
+                          |  Confirm pasword
                       .col-md-7
                         = f.input_field :password_confirmation, hint: "we need your current password to confirm your changes", required: true, class: "input-block", size: "30"
                   .col-md-5
 
               .card-footer
-                = f.button :submit, "パスワードを更新", class: "btn btn-primary"
+                = f.button :submit, "Change password", class: "btn btn-primary"

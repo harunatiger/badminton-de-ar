@@ -3,15 +3,15 @@
   = f.hidden_field :user_id, value: current_user.id
   = f.hidden_field :profile_id, value: current_user.profile.id
   .card.row-space-4
-    .card-header ガイドとしての5つのこだわりを入力してください。
+    .card-header Please list five things that make a tour perfect for you
     .card-body
       .row.row-condensed.row-space-4
         label.text-right.col-3[for="user_self_introduction"]
-          | 5つのこだわり
+          | Your five things
         .col-xs-8.fieldset
-          | よく使われているキーワード
+          | Keywords 
           - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
             = link_to tag.name, '#', class: css_class + ' tag_cloud'
             = ' '
           
-  = f.button :submit, "登録する", class: "btn btn-primary btn-large row-space-4"
+  = f.button :submit, "Sign up", class: "btn btn-primary btn-large row-space-4"

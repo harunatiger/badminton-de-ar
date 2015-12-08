@@ -10,7 +10,7 @@
         .col-md-12
           = link_to "#reviews", class: 'link-reset btn btn-guest' do
             span.badge-pill-count
-              | レビュー数
+              | Review
               span.h5
               |  
               = reviewed_count

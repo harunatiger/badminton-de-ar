@@ -23,10 +23,10 @@
                         .h5.col-sm-8.col-middle.thread-name
                           -if mt.host_id == current_user.id
                             span.user-type.user-guest
-                              | ゲスト
+                              | Guest
                           -else
                             span.user-type.user-guide
-                              | ガイド
+                              | Guide
                           .row-space-top-1
                             = user_id_to_name(counterpart_id)
                     .col-md-5.thread-body
@@ -42,10 +42,10 @@
                           - if mt.reservation_progress == "承認依頼中"
                             .tag.tag-primary
                               = mt.reservation_progress
-                          - elsif mt.reservation_progress == "キャンセル"
+                          - elsif mt.reservation_progress == "Cancel"
                             .tag.tag-danger
                               = mt.reservation_progress
-                          - elsif mt.reservation_progress == "調整中"
+                          - elsif mt.reservation_progress == "Under construction"
                             .tag.tag-alert
                               = mt.reservation_progress
                           - elsif mt.reservation_progress == "ツアー決定"

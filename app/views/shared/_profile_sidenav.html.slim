@@ -1,37 +1,37 @@
 ul.sidenav-list
   - if controller_name == 'profiles' and action_name != 'self_introduction'
     li
-      = link_to "基本情報", edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "true"}
+      = link_to "General information", edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "true"}
   - else
     li
-      = link_to "基本情報", edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"}
+      = link_to "General information", edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profiles' and action_name == 'self_introduction'
     li
-      = link_to "自己紹介", self_introduction_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "true"}
+      = link_to "Introduction", self_introduction_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "true"}
   - else
     li
-      = link_to "自己紹介", self_introduction_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"}
+      = link_to "Introduction", self_introduction_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profile_keywords'
     li
-      = link_to "ガイドとしてのこだわり", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "true"}
+      = link_to "My recipe for the perfect tour", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "true"}
   - else
     li
-      = link_to "ガイドとしてのこだわり", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "false"}
+      = link_to "My recipe for the perfect tour", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profile_images'
     li
-      = link_to "プロフィール画像", "#{profile_image_link}", class: "sidenav-item", aria: {selected: "true"}
+      = link_to "Profile picture", "#{profile_image_link}", class: "sidenav-item", aria: {selected: "true"}
   - else
     li
-      = link_to "プロフィール画像", "#{profile_image_link}", class: "sidenav-item", aria: {selected: "false"}
+      = link_to "Profile picture", "#{profile_image_link}", class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profile_identities'
     li
-      = link_to "信頼情報", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"}
+      = link_to "ID information", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"}
   - else
     li
-      = link_to "信頼情報", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"}
+      = link_to "ID information", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profile_banks'
     li
-      = link_to "paypalアカウント", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"}
+      = link_to "PayPal Account", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"}
   - else
     li
-      = link_to "paypalアカウント", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "false"}
+      = link_to "PayPal Account", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "false"}

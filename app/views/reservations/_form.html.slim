@@ -3,20 +3,20 @@
     |ガイドする目安時間
     = f.input_field :time_required
   .field
-    |ベース価格
+    |Basic price
     = f.input_field :price
   .field
-    |オプション価格
+    |Extra charge
     = f.input_field :option_price
   .field
     |予約日時
     label[for="checkin"]
-    |  参加する日付
+    |  Tour date
     = sprintf(f.datetime_select(:schedule, use_month_numbers: true, date_separator: '%s', datetime_separator: '%s'), '年', '月', '日')
     /= f.select :schedule_hour, [*(1..24)]
     /= f.select :schedule_minute, [*(0..59)]
   .field
-    |集合場所
+    |Meeting at
     = f.input_field :place
   .field
     |ガイドの内容・補足事項など

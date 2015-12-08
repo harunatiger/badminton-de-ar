@@ -27,6 +27,6 @@
             = Settings.page.subnav.neighborhood
       - if profile_self_introduction_exists?
         button#message-host-link-subnav.btn.btn-primary.btn-nav.show--only-md
-          | メッセージを送る
+          | Send a message
       - else
-        =link_to 'メッセージを送る',profile_link, class: 'btn btn-primary btn-nav show--only-md'
+        =link_to 'Send a message',profile_link, class: 'btn btn-primary btn-nav show--only-md'

@@ -12,10 +12,10 @@
         .card-body
           .row.row-condensed.row-space-2.row-space-top-6
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | ガイド目安時間: 
+              | hours: 
             .col-md-8
               = @reservation.time_required
-              | 時間
+              | hours
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
               | 予約日時: 
@@ -23,19 +23,19 @@
               = @reservation.schedule
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | 人数: 
+              | Number of people:
             .col-md-8
               = @reservation.num_of_people
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | 集合場所: 
+              | Meeting time:
             .col-md-8
               = @reservation.place
               -if @reservation.place_memo.present?
                 |(#{@reservation.place_memo})
           .row.row-condensed.row-space-8.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | ガイド内容など: 
+              | Tour Information: 
             .col-md-8
               = simple_format(@reservation.description.present? ? @reservation.description : 'なし')
         .card-header
@@ -54,7 +54,7 @@
               = @payment.email
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | 価格: 
+              | Price: 
             .col-md-8
               | ¥&nbsp;
               = @reservation.basic_amount

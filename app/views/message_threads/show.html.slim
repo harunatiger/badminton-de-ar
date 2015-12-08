@@ -4,8 +4,8 @@
 - their_profile_image = profile_to_image_thumb(@counterpart.profile)
 .page-container.row-space-top-5
   h1.h2.text-center.row-space-5
+    | Conversation with
     = user_id_to_name(@counterpart.id)
-    | さんとの会話
   .row
     .col-lg-8
       = render partial: 'reservation_block'
@@ -16,9 +16,9 @@
               - if @host_id == current_user.id
                 ul.nav.nav-tabs[role="tablist"]
                   li.active
-                    = link_to "メッセージ", "#message_form", aria: {controls: "message_form"}, data:{toggle:"tab"}, role: "tab"
+                    = link_to "Message", "#message_form", aria: {controls: "message_form"}, data:{toggle:"tab"}, role: "tab"
                   li
-                    = link_to "ガイド内容設定", "#reservation_form", aria: {controls: "reservation_form"}, data:{toggle:"tab"}, role: "tab"
+                    = link_to "Guide Information Settings", "#reservation_form", aria: {controls: "reservation_form"}, data:{toggle:"tab"}, role: "tab"
               .tab-content
                 = render partial: 'form'
                 - if @host_id == current_user.id

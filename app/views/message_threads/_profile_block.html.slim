@@ -8,28 +8,27 @@
         .h5.row-space-1
           = link_to profile_path(counterpart.profile.id), class: 'text-normal' do
             = user_id_to_name(counterpart.id)
-            small さん
         - if @host_id == counterpart.id
           span.user-type.user-guide
-            | ガイド
+            | Guide
         - else
           span.user-type.user-guest
-            | ゲスト
+            | Guest
         - if profile_identity_authorized?(counterpart.id)
           span.reliable-sign
             i.fa.fa-check-square-o
-            | ID認証済
+            | ID Confirmed
         - else
           span.reliable-sign.unreliable
             i.fa.fa-square-o
-            | ID未認証
+            | ID Unconfirmed
         /small
           = counterpart.profile.try('location') || '住所未登録'
         .row-space-top-1.small2.text-muted
-          | メンバー登録: 
-          = counterpart.created_at.strftime("%Y年")
+          | Sign up:
+          = counterpart.created_at.strftime("%Y")
     - if @host_id == counterpart.id
       .guide-count.text-muted.text-center
-        | ガイド回数
+        | Guide experience
         span.strong
           = counterpart.finish_reservation_count

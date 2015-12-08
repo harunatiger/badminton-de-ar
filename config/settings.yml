@@ -25,14 +25,14 @@ profile_keywords:
     success: "Profile updated successfully"
     failure: "Please fill in all sections"
 categories:
-  food: '食'
-  alcohol: 'お酒'
-  car: '車'
-  cruising: '船旅'
-  shopping: 'ショッピング'
-  accommodation: '宿泊施設'
-  business: 'ビジネス'
-  sport: 'スポーツ'
+  food: 'Food'
+  alcohol: 'Alcohol'
+  car: 'Car'
+  cruising: 'Travel/Ship'
+  shopping: 'Shopping'
+  accommodation: 'Accommodation'
+  business: 'Business'
+  sport: 'Sports'
 languages:
   ja: 'Japanese'
   en: 'English'
@@ -134,24 +134,24 @@ message_thread:
   show:
     message_form:
       content:
-        placeholder: "ここにメッセージをご記入ください。"
+        placeholder: "Write a message"
 message:
   save:
     success: "Your message has been sent"
     failure: "message delivery failed"
   read:
-    string: "既読"
+    string: "Read"
   unread:
-    string: "未読"
+    string: "Unread"
   modal:
     message_to_host:
       title:
         label: "ガイドに連絡をする"
       form:
         submit:
-          label: "メッセージを送る"
+          label: "Send a message"
         content:
-          placeholder: "ここにメッセージを入力ください"
+          placeholder: "Write a message"
     message_to_guest_from_reservation_manager:
       title:
         label: "予約依頼に回答する"
@@ -165,12 +165,12 @@ message:
         label: "ガイドに連絡をする"
       form:
         submit:
-          label: "メッセージを送る"
+          label: "Send a message"
         content:
           placeholder: "例）どうぞよろしくおねがいします。"
 user:
   host:
-    noname: "ガイド"
+    noname: "Guide"
     noname2: '名無し'
     this: 'こちらのガイド'
   noname: '名無し'
@@ -183,27 +183,27 @@ image:
     url: 'no-image-225x225.gif'
     caption: ''
 page:
-  home: 'ホーム'
-  dashboard: 'ダッシュボード'
-  host_reservation_manager: '依頼受付'
-  guest_reservation_manager: '予約申込'
-  listing_new: 'ガイドになる'
-  listings: 'ツアーページ'
-  messages: 'メッセージ'
-  wishlists: 'お気に入り'
-  profile: 'プロフィール'
-  account: 'アカウント'
-  guest_flow: 'サービスの流れ'
-  search: '検索'
-  signup: 'アカウント作成'
-  login: 'ログイン'
-  logout: 'ログアウト'
-  help: 'ヘルプ'
+  home: 'Home'
+  dashboard: 'Dashboard'
+  host_reservation_manager: 'Incoming reservation'
+  guest_reservation_manager: 'Outcoming reservation'
+  listing_new: 'Become a guide'
+  listings: 'Tour Page'
+  messages: 'Message'
+  wishlists: 'Favorite'
+  profile: 'Profile'
+  account: 'Account'
+  guest_flow: 'How It Works'
+  search: 'Search'
+  signup: 'Sign up'
+  login: 'Log In'
+  logout: 'Log Out'
+  help: 'Help'
   subnav:
-    top: 'トップ'
+    top: 'Top'
     photos: '写真'
     details: 'このガイドについて'
-    reviews: 'レビュー'
+    reviews: 'Review'
     host_profile: 'ガイド紹介'
     neighborhood: '対応エリア'
 mailer:

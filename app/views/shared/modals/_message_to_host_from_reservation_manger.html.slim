@@ -13,13 +13,12 @@
             = hidden_field :message, :reservation_id, value: r.id
             p.h5.row-space-1
               = user_id_to_name(r.host_id)
-              | さんへ
             - if r.continued?
               span.share-error
                 p
                   = hidden_field :reservation, :id, value: r.id
                   .select
-                    = select :reservation, :progress, [["キャンセルする", "canceled"]], {include_blank: Settings.reservation.progress.select_by_guest, selected: Settings.reservation.progress.select_by_guest}
+                    = select :reservation, :progress, [["cancel", "canceled"]], {include_blank: Settings.reservation.progress.select_by_guest, selected: Settings.reservation.progress.select_by_guest}
             span.share-error
             p
               = text_area :message, :content, id: "email_message", class: "input-large input-block", rows: 6, placeholder: Settings.message.modal.message_to_host_from_reservation_manager.form.content.placeholder

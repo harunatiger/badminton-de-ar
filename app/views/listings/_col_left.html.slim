@@ -7,7 +7,6 @@
     .text-center--md
       .h3.strong.row-space-1
         = user_id_to_name(listing.user_id)
-        small さん
       div
         = link_to "#reviews", class: "link-reset"
           .star-rating.star-rating-large
@@ -24,35 +23,35 @@
       ul
         - if category_food?(@host_info)
           li
-            = link_to 'javascript:void(0)', title: '食', data:{toggle: 'tooltip'} do
+            = link_to 'javascript:void(0)', title: 'Food', data:{toggle: 'tooltip'} do
               i.fa.fa-cutlery
         -if category_alcohol?(@host_info)
           li
-            = link_to 'javascript:void(0)', title: 'お酒', data:{toggle: 'tooltip'} do
+            = link_to 'javascript:void(0)', title: 'Alcohol', data:{toggle: 'tooltip'} do
               i.fa.fa-glass
         -if category_car?(@host_info)
           li
-            = link_to 'javascript:void(0)', title: 'ドライブ', data:{toggle: 'tooltip'} do
+            = link_to 'javascript:void(0)', title: 'Car', data:{toggle: 'tooltip'} do
               i.fa.fa-car
         -if category_cruising?(@host_info)
           li
-            = link_to 'javascript:void(0)', title: '船旅', data:{toggle: 'tooltip'} do
+            = link_to 'javascript:void(0)', title: 'Travel/Ship', data:{toggle: 'tooltip'} do
               i.fa.fa-ship
         -if category_shopping?(@host_info)
           li
-            = link_to 'javascript:void(0)', title: 'ショッピング', data:{toggle: 'tooltip'} do
+            = link_to 'javascript:void(0)', title: 'Shopping', data:{toggle: 'tooltip'} do
               i.fa.fa-shopping-cart
         -if category_accommodation?(@host_info)
           li
-            = link_to 'javascript:void(0)', title: '宿泊施設', data:{toggle: 'tooltip'} do
+            = link_to 'javascript:void(0)', title: 'Accommodation', data:{toggle: 'tooltip'} do
               i.fa.fa-bed
         -if category_business?(@host_info)
           li
-            = link_to 'javascript:void(0)', title: 'ビジネス', data:{toggle: 'tooltip'} do
+            = link_to 'javascript:void(0)', title: 'Business', data:{toggle: 'tooltip'} do
               i.fa.fa-suitcase
         -if category_sport?(@host_info)
           li
-            = link_to 'javascript:void(0)', title: 'スポーツ', data:{toggle: 'tooltip'} do
+            = link_to 'javascript:void(0)', title: 'Sports', data:{toggle: 'tooltip'} do
               i.fa.fa-futbol-o
         .lang-list-wrapper
           ul
@@ -88,12 +87,12 @@
         p
           = link_to "#", class: "pair_guide_list-trigger small1" do
             i.fa.fa-exclamation-circle
-            | 当日はもう1名サポートガイドが付きます
+            | Supporting guide will join on the day
 
 #listing-description.listing-description
   h4
     i.fa.fa-diamond
-    |  このツアーのおすすめポイント
+    |  Best Features of Your Tour
   ol
     - if @listing.recommend1.present?
       li = @listing.recommend1
@@ -105,11 +104,11 @@
     = hbr(@listing.description).html_safe
   h4
     i.fa.fa-diamond
-    |  プラン概要
+    |  Overview
   p
     = hbr(@listing.overview).html_safe
   h4
     i.fa.fa-diamond
-    |  当日準備するもの、注意事項
+    |  Any other information or instructions (eg. what to bring) 
   p
     = hbr(@listing.notes).html_safe
