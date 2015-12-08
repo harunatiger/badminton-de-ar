@@ -84,8 +84,7 @@ class ProfileKeywordsController < ApplicationController
     end
 
     def host_user!
-      @listing = Listing.find_by(user_id: current_user.id).presence
-      if !@listing.presence
+      if Listing.mine(current_user.id).without_soft_destroyed.order_by_updated_at_desc.blank?
         redirect_to edit_profile_path(current_user.profile.id)
       end
     end

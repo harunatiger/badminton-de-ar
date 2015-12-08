@@ -5,19 +5,25 @@
   .card.row-space-4
     .card-header ガイドとしての5つのこだわりを入力してください。
     .card-body
-      .row.row-condensed.row-space-1
-        label.text-right.col-3[for="user_self_introduction"]
-          | よく使われている
-          br
-          | キーワード
-        .col-xs-8.fieldset
-          - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
-            = link_to tag.name, '#', class: css_class + ' tag_cloud'
-            = ' '
-        .col-xs-8.text-pink.row-space-2.row-space-top-2 よく使われているキーワードから選択することもできます。
-      = render partial: 'keywords_list', locals: { profile_keyword_collection: @profile_keyword_collection}
-      .row.row-condensed.row-space-4
-        .text-center
+      .text-lead.text-center.row-space-1
+        | 5つのこだわりをレーダーチャートで表示します。
+      .row.row-condensed.row-space-4.row-table
+        h4.col-xs-3.col-middle.text-right
+          | 5つのこだわり
+        .col-xs-8.fieldset.col-middle.text-center
           canvas#canvas height='200' width='300'
+      .row.row-condensed.row-space-4.row-table
+        .row.row-condensed.row-space-4.row-table
+          - if @tags.present?
+            .col-xs-3.text-right.col-middle
+            .col-xs-8.fieldset.col-middle
+              .tag_cloud-container.row-space-top-1
+                h4.row-space-2
+                  | よく使われているキーワードから選択することもできます
+                div
+                  - tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class|
+                    = link_to tag.name, '#', class: css_class + ' tag_cloud'
+                    = ' '
+      = render partial: 'keywords_list', locals: { profile_keyword_collection: @profile_keyword_collection}
 
   = f.button :submit, "登録する", class: "btn btn-primary btn-large row-space-4"

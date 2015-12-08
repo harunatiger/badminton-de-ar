@@ -17,12 +17,12 @@
         },
         {
           label: "My Keywords",
-          fillColor: "rgba(151,187,205,0.2)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
+          fillColor: "rgba(23, 174, 223,0.2)",
+          strokeColor: "rgba(23, 174, 223,1)",
+          pointColor: "rgba(23, 174, 223,1)",
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(151,187,205,1)",
+          pointHighlightStroke: "rgba(23, 174, 223,1)",
           data: rates
         }
       ]

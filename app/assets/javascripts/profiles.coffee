@@ -101,18 +101,31 @@ $ ->
       keywords.push keyword1, keyword2, keyword3, keyword4, keyword5
       rates.push rate1, rate2, rate3, rate4, rate5
 
+    addKeyword = (target) ->
+      keywords = target.val().split(',')
+      lastindex = keywords.length - 1
+      if keywords.length > 1
+        $.each keywords, (index, keyword) ->
+          if index == lastindex
+            target.tagsinput('add', keyword)
+          else
+            target.tagsinput('remove', keyword)
+
+
     setKeyword()
     $('#canvas').Radarchart(keywords, rates)
 
-    $(document).on 'change', '.select-level', ->
+    $('.select-level').on 'change', ->
       setKeyword()
       $('#canvas').Radarchart(keywords, rates)
+      return
 
-    $(document).on 'change', '.text-keyword', ->
+    $('.text-keyword').on 'change', ->
       setKeyword()
       $('#canvas').Radarchart(keywords, rates)
+      return
 
-    $(document).on 'click', '.tag_cloud', (event)->
+    $('.tag_cloud').on 'click', (event)->
       event.preventDefault()
       if elemTarget == ''
         $('#tagcloud_target_confirm').modal()
@@ -122,7 +135,7 @@ $ ->
         elemTarget.tagsinput('add', $(this).text())
         elemTarget = ''
 
-    $(document).on 'click', '.text-keyword-wrapper', (event)->
+    $('.text-keyword-wrapper').on 'click', (event)->
       switch $('.text-keyword-wrapper').index($(this))
         when 0
           elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_0_keyword')
@@ -137,7 +150,24 @@ $ ->
         else
           elemTarget = ''
           break
+      return
 
-    $('.text-keyword').keypress (e) ->
-      if (e.which == 13)
-        e.preventDefault()
+    $('#profile_keyword_collection_profile_keywords_attributes_0_keyword').on 'change', (event) ->
+      addKeyword($(this))
+      event.preventDefault()
+
+    $('#profile_keyword_collection_profile_keywords_attributes_1_keyword').on 'change', (event) ->
+      addKeyword($(this))
+      event.preventDefault()
+
+    $('#profile_keyword_collection_profile_keywords_attributes_2_keyword').on 'change', (event) ->
+      addKeyword($(this))
+      event.preventDefault()
+
+    $('#profile_keyword_collection_profile_keywords_attributes_3_keyword').on 'change', (event) ->
+      addKeyword($(this))
+      event.preventDefault()
+
+    $('#profile_keyword_collection_profile_keywords_attributes_4_keyword').on 'change', (event) ->
+      addKeyword($(this))
+      event.preventDefault()

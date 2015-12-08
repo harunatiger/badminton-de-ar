@@ -8,7 +8,7 @@
   .page-container
     .row.row-space-top-4
       .col-lg-8.col-left
-        = render partial: 'col_left', locals: { listing: @listing, reviews: @reviews}
+        = render partial: 'col_left', locals: { listing: @listing, reviews: @reviews, profile_keyword: @profile_keyword}
         = render partial: 'review_block', locals: { listing: @listing, reviews: @reviews, host_info: @host_info, host_image: @host_image }
 
       .col-lg-4.col-right

@@ -10,7 +10,7 @@
       .col-lg-4.profile-card-wrapper
         = render partial: '/profiles/show/user_card', locals: { profile: @profile, reviewed_count: reviewed_count + reviewed_as_guest_count}
       .col-lg-8
-        = render partial: '/profiles/show/user_info', locals: { profile: @profile, listings: @listings }
+        = render partial: '/profiles/show/user_info', locals: { profile: @profile, listings: @listings, profile_keyword: @profile_keyword }
 
 .card-dark
   .page-container.row-space-top-6.row-space-8
@@ -30,5 +30,5 @@
           | ツアーの集合場所
         .locations
           #tour-map
-      
+
 = render partial: '/shared/modals/pair_guide_list'

@@ -11,7 +11,7 @@ ul.sidenav-list
   - else
     li
       = link_to "自己紹介", self_introduction_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"}
-  - if Listing.find_by( user_id: current_user.id ).presence
+  - if Listing.mine(current_user.id).without_soft_destroyed.order_by_updated_at_desc.present?
     - if controller_name == 'profile_keywords'
       li
         = link_to "ガイドとしてのこだわり", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "true"}
