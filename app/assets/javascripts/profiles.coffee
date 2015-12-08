@@ -77,7 +77,7 @@ $ ->
 
       $('#canvas').Radarchart(keywords, rates)
 
-  if $('body').hasClass('profile_keywords manage') || $('body').hasClass('profile_keywords update_all')
+  if $('body').hasClass('profile_keywords new') || $('body').hasClass('profile_keywords edit')
     elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_0_keyword')
     keywords = []
     rates = []

@@ -1,4 +1,4 @@
-= simple_form_for([@profile, @profile_keywords], url: update_all_profile_profile_keywords_path, html: {class: "form--sp"} ) do |f|
+= simple_form_for([@profile, @profile_keyword], html: { class: "form--sp" }) do |f|
   = f.error_notification
   = f.hidden_field :user_id, value: current_user.id
   = f.hidden_field :profile_id, value: current_user.profile.id
@@ -14,7 +14,7 @@
             = link_to tag.name, '#', class: css_class + ' tag_cloud'
             = ' '
         .col-xs-8
-          = render partial: 'keywords_list', locals: { profile_keyword_collection: @profile_keywords}
+          = render partial: 'keywords_list', locals: { profile_keyword_collection: @profile_keyword_collection}
           canvas#canvas height='200' width='300'
 
   = f.button :submit, "登録する", class: "btn btn-primary btn-large row-space-4"
