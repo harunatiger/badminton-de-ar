@@ -18,7 +18,7 @@
                   li.active
                     = link_to "メッセージ", "#message_form", aria: {controls: "message_form"}, data:{toggle:"tab"}, role: "tab"
                   li
-                    = link_to "ガイド内容設定", "#reservation_form", aria: {controls: "reservation_form"}, data:{toggle:"tab"}, role: "tab"
+                    = link_to "ツアー内容設定", "#reservation_form", aria: {controls: "reservation_form"}, data:{toggle:"tab"}, role: "tab"
               .tab-content
                 = render partial: 'form'
                 - if @host_id == current_user.id

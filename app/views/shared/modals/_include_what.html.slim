@@ -5,15 +5,17 @@
       .modal-content
         .card-header
           a.modal-close[href="#" data-dismiss="modal"]
-          | その他にかかる費用
+          | 諸経費に含まれるもの
         form
           .card-body
+            p.strong
+              | ◼諸経費（グループあたり）
             p
-            | ゲストの方々が必要となる、入場料、飲食代、交通費などは当日現金でお支払い頂きます。
+              = hbr(listing_detail.included).html_safe
             br
-            | このプランでは、1人あたり約#{listing_detail.option_price_per_person}円 程度が必要となります。
-            - if listing_detail.included.present?
-              p
-                = hbr(listing_detail.included_other).html_safe
+            p.strong
+              |◼諸経費（ゲスト１人あたり）
+            p
+              = hbr(listing_detail.included_other).html_safe
           .card-footer
             = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"

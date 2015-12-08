@@ -225,11 +225,12 @@ class Reservation < ActiveRecord::Base
     self
   end
   
-  def before_a_week?
-    self.schedule.to_date > Time.zone.today + 7.day
+  def before_weeks?
+    self.schedule.to_date >= Time.zone.today + 14.day
   end
   
-  def before_a_day?
-    self.schedule >= Time.zone.now + 1.day
+  def before_days?
+    self.schedule.to_date >= Time.zone.today + 3.day
   end
+
 end

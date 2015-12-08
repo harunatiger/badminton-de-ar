@@ -9,13 +9,10 @@
         form
           .card-body
             p
-              | Huber.では支払いサービスに、
-              span.strong paypal
-              | を利用しております。
+              | Huber.では、ツアー総額の
+              span.strong.text-red 14.5%
+              | がシステム手数料として発生します。この費用はツアー代の金額支払時に自動的に差し引かれます。
             p
-              | ガイドの提示金額の
-              span.strong.text-red 「3.6% + ¥40 JPY + 銀行振込手数料」が引かれた金額が支払われる
-              | ことをご了承ください。
-            p
+              | 詳しくはサービス規約をご確認ください。
           .card-footer
             = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"

@@ -7,7 +7,7 @@
   .card.row-space-2
     .card-body
       .tour-price.row-space-1
-        .strong.row-space-1 プラン料金
+        .strong.row-space-1 ツアー料金
         .h3.strong.row-space-2
           | ¥
           span#tour-price-single
@@ -25,20 +25,27 @@
               =listing.listing_detail.price
         .row.row-space-1
           .col-md-7.small1
-            | 諸経費
+            | 諸経費(グループあたり)
           .col-md-5.text-right.strong
             | ¥
             span#tour-price-option
               =listing.listing_detail.option_price
+        .row.row-space-1
+          .col-md-7.small1
+            | 諸経費(ゲスト1人あたり)
+          .col-md-5.text-right.strong
+            | ¥
+            span#tour-price-option-single
+              =listing.listing_detail.option_price_per_person
         .row
           .col-md-12
-            = link_to "#", class: "include_what_trigger small1 text-red" do
-              i.fa.fa-exclamation-circle
-              |  その他にかかる費用
+            = link_to "#", class: "about_price_trigger small1 text-red" do
+              /i.fa.fa-exclamation-circle
+              |  ※体験中の経費について
           .col-md-12
-            = link_to "#", class: "about_price_trigger small1 text-blue" do
-              |  ※プラン料金について
-          .col-md-12
+            = link_to "#", class: "include_what_trigger small1 text-blue" do
+              |  ※諸経費に含まれるもの
+          /.col-md-12
             = link_to "#", class: "include_price_trigger small1 text-blue" do
               |  ※プラン料金に含まれている内容
       = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
@@ -69,21 +76,21 @@
         #culc-container.row-space-1
           .row.row-space-1
             .col-md-7.small1
-              | ガイド料金
+              | ペアガイド料金
             .col-md-5.text-right.strong
               | ¥
               span#tour-price-base_calced
 
           .row.row-space-1
             .col-md-7.small1
-              | オプション(共通)
+              | 諸経費(グループあたり)
             .col-md-5.text-right.strong
               | ¥
               span#tour-price-option_calced
 
           .row.row-space-1
             .col-md-7.small1
-              | オプション(1人あたり) x
+              | 諸経費(ゲスト1人あたり) x
               span#tour-member_calced
                 | 1
               | 人

@@ -146,7 +146,7 @@ class ReservationsController < ApplicationController
           payment.payment_status = 'Refunded'
           payment.save
           
-          if @reservation.campaign.present? and @reservation.before_a_week?
+          if @reservation.campaign.present? and @reservation.before_weeks?
             current_user.campaigns = current_user.campaigns.where.not(id: @reservation.campaign_id)
           end
         end

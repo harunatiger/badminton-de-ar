@@ -22,16 +22,13 @@ module Payments
   def item_params(reservation)
     if reservation.campaign.present?
       [{name: reservation.listing.title,
-        number: 'reservation ' + reservation.id.to_s,
         amount: reservation.paypal_sub_total},
         {name: 'サービス手数料',
         amount: reservation.paypal_handling_cost},
         {name: 'キャンペーン値引き',
-          amount: reservation.paypal_campaign_discount,
-          number: 'campaign ' + reservation.campaign_id.to_s}]
+          amount: reservation.paypal_campaign_discount}]
     else
       [{name: reservation.listing.title,
-        number: 'reservation ' + reservation.id.to_s,
         amount: reservation.paypal_sub_total},
         {name: 'サービス手数料',
         amount: reservation.paypal_handling_cost}]
@@ -45,11 +42,11 @@ module Payments
   end
   
   def refund(payment, reservation)
-    note = Settings.payment.refunds.policy
-    if reservation.before_a_week?
-      response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY', note: note} )
-    elsif reservation.before_a_day?
-      response = self.gateway.refund(payment.refund_amount_for_paypal(50), payment.transaction_id, {refund_type: 'Partial', currency: 'JPY', note: note} )
+    #note = Settings.payment.refunds.policy
+    if reservation.before_weeks?
+      response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY'} )
+    elsif reservation.before_days?
+      response = self.gateway.refund(payment.refund_amount_for_paypal(50), payment.transaction_id, {refund_type: 'Partial', currency: 'JPY'} )
     end
     p response
     response

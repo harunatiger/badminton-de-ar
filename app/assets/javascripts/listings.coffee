@@ -284,7 +284,10 @@ $ ->
       tourPriceOptionCalcedContainer.text(tourPriceOption)
       tourPriceOptionSingleCalced = tourPriceOptionSingle * numOfPeople
       tourPriceOptionSingleCalcedContainer.text(tourPriceOptionSingleCalced)
-      serviceCostCalced = Math.ceil((tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced) * 0.125)
+      if tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced < 2000
+        serviceCostCalced = 500
+      else
+        serviceCostCalced = Math.ceil((tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced) * 0.125)
       serviceCostCalcedContainer.text(serviceCostCalced)
       tourPriceResultCalcedContainer.text(tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced + serviceCostCalced)
       return

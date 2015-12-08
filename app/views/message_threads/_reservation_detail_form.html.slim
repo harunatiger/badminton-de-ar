@@ -7,28 +7,28 @@
         = collection_select :reservation, :listing_id, @listings, :id, :title, include_blank: true
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | ガイド目安時間
+      | 所要時間
     .col-md-4
       .select.select-opt.opt-double
         = select :reservation, :time_required, [*(0..48)].map{|i| (i * 0.5)}
         span 時間
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | ベース価格
+      | ペアガイド料金
     .col-md-5
       .input-opt
         = number_field :reservation, :price
         span 円
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | 共通のオプション価格
+      | 諸経費（グループあたり）
     .col-md-5
       .input-opt
         = number_field :reservation, :option_price
         span 円
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
-      | 1人あたりのオプション価格
+      | 諸経費（ゲスト１名あたり）
     .col-md-5
       .input-opt
         = number_field :reservation, :option_price_per_person
@@ -40,7 +40,7 @@
       .select.select-opt
         = select :reservation, :num_of_people, [*(1..20)]
         span 人
-      .row-space-top-1.text-blue.small2 ベース価格 + 共通のオプション価格 + 1人あたりのオプション価格 ✕ 人数にサービス料を足した値がゲストに表示されます。
+      .row-space-top-1.text-blue.small2 ペアガイド料金＋諸費用（グループあたり）＋諸費用（ゲスト１名あたり）×人数にサービス料を足した値がゲストに表示されます。
   .row.row-condensed.row-space-3
     label.col-md-3.text-right.text-left--sp
       | 開始日
