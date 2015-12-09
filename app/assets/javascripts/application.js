@@ -28,3 +28,4 @@
 //= require profiles
 //= require listingimage
 //= require chart
+//= require youtube

@@ -1,8 +1,8 @@
 .card-dark
   .page-container.page-container-no-padding.row-space-8.guide_list-wrapper
     .section-intro.text-center.row-space-6.row-space-top-8
-      h2.row-space-1.strong 友だちガイドはあなたからの連絡を待ってます！
-      p.text-lead 現地に住む友だちガイドと行くあなただけの旅の計画を始めましょう！
+      h2.row-space-1.strong TOMODACHI Guides (Popular TOMODACHI Guides)
+      /p.text-lead 現地に住む友だちガイドと行くあなただけの旅の計画を始めましょう！
     .guide_list-tiles
       - @profiles[0..2].each do | profile |
         - @all_reviewed_count = Review.all_do(profile.user_id).joins(:reservation).merge(Reservation.review_open?).count

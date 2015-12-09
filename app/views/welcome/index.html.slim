@@ -13,9 +13,9 @@
   .hero-contents.text-center
     .va-container.va-container-wh
       .hero-inner
-        #subtitle.h4.text-contrast Let's Travel with TOMODACHI Guide!!
-        h1#tagline.uppercase.text-jumbo.text-contrast.row-space-top-2.row-space-4 そこに住む人しか知らない体験をあなたに
-        = link_to "友達ガイドって？", "#", class: "about-guide-trigger btn btn-large btn-transparent hide--sp"
+        /#subtitle.h4.text-contrast Let's Travel with TOMODACHI Guide!!
+        h1#tagline.uppercase.text-jumbo.text-contrast.row-space-top-2.row-space-4 Start your journey by making new friends!
+        = link_to "How to use", "#", class: "guest-flow-trigger btn btn-large btn-transparent hide--sp"
         /.col-sm-12
           .search--sp.show--sp
             #sp-search-field.input-addon
@@ -27,5 +27,6 @@
             = render partial: 'form'
 = render partial: 'overview'
 = render partial: 'discovery'
+= render partial: 'difference'
 = render partial: 'guide_list'
 = render partial: 'charmer'

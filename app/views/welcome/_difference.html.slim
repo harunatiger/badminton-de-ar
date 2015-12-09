@@ -1,0 +1,18 @@
+#guest-overview.card-dark
+  .page-container
+    .card.card-naked.row-space-top-8
+      .row
+        .col-md-4.guest-overview-body
+          .guest-overview-cover.media-cover.media-cover-dark.background-cover.show--sp
+          .va-container.va-container-v.va-container-h
+            .va-middle
+              .row-space-4.text-center--sp
+                strong.h3
+                  | Differences between a TOMODACHI Guide and a normal guide
+              = link_to "#", class: "about-guide-trigger strong btn btn-primary btn-large btn-block" do
+                | Compare differences
+        .col-md-8.guest-overview-body
+          .youtube-container
+            =image_tag 'photo/tomodachi_guide.jpg'
+        /.col-sm-8.hide--sp
+        /  .guest-overview-image
