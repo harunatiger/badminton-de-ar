@@ -63,6 +63,12 @@ $ ->
     event.preventDefault()
     $('#profile_tag_list').tagsinput('add', $(this).text())
 
+  $(document).on 'keydown', '.bootstrap-tagsinput input', (event) ->
+      if event.keyCode == 13
+        event.preventDefault()
+        $('.bootstrap-tagsinput input').blur()
+        $('.bootstrap-tagsinput input').focus()
+
   #Draw RadarChart
   if $('body').hasClass('profiles show')
     array_keywords = gon.keywords
