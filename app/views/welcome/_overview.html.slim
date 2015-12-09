@@ -15,8 +15,9 @@
                 | ご利用までの流れ
         .col-md-12.guest-overview-body
           .youtube-container
-            #movie
-            /i.fa.fa-play-circle.play
+            = image_tag 'top-slider/slider_03.jpg', id: 'movie'
+            i.fa.fa-play-circle#play.play
+            
             /iframe src="https://www.youtube.com/embed/WEtiK86GSAA?showinfo=0" frameborder="0" id="movie"
             
         /.col-sm-8.hide--sp
