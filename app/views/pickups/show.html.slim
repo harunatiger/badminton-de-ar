@@ -1,4 +1,4 @@
-= render partial: "coverimage", locals: { pickup_cover_image: @pickup.try('cover_image'), pickup_title: @pickup.name }
+= render partial: "coverimage", locals: { pickup_cover_image: @pickup.try('cover_image'), pickup_title: @pickup.long_name }
 /= debug @listings
 .discovery-tiles.row-space-8.row-space-top-8
   .page-container.row-space-6

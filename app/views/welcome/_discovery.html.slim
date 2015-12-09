@@ -5,7 +5,7 @@
         h2.strong
           | Find trips for you
           br
-          | TOMODACHI Guides are waiting with unique plans for you 
+          | TOMODACHI Guides are waiting with unique plans for you
       .discovery-tiles
         .row
           - if @pickups.present? && @pickups.instance_of?(Array)
@@ -17,7 +17,7 @@
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
                         .h2.strong
-                          = pickup.name
+                          = pickup.long_name
                   | </div>
                 = render partial: 'tour_list', locals: { listing: Listing.find(pickup.selected_listing) }
               - elsif i == 1
@@ -30,7 +30,7 @@
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
                         .h2.strong
-                          = pickup.name
+                          = pickup.short_name
                   | </div>
               - elsif i >= 2 && i <= 3
                 .col-lg-4.col-md-6.col-sm-12.rm-padding--sp
@@ -42,7 +42,7 @@
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
                         .h2.strong
-                          = pickup.name
+                          = pickup.short_name
                   | </div>
               - elsif i == 4
                 = render partial: 'tour_list', locals: { listing: Listing.find(pickup.selected_listing) }
@@ -52,7 +52,7 @@
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
                         .h2.strong
-                          = pickup.name
+                          = pickup.long_name
                   | </div>
               - elsif i == 5
                 .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.col-switch-pickup.col-md-push-6.col-lg-push-0
@@ -64,7 +64,7 @@
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
                         .h2.strong
-                          = pickup.name
+                          = pickup.short_name
                   | </div>
               - elsif i >= 6 && i <= 7
                 .col-lg-4.col-md-6.col-sm-12.rm-padding--sp
@@ -76,11 +76,11 @@
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
                         .h2.strong
-                          = pickup.name
+                          = pickup.short_name
                   | </div>
               - else
                 - @hash_other_pickups = Hash.new() if @hash_other_pickups.blank?
-                - @hash_other_pickups.store(pickup.id, pickup.name)
+                - @hash_other_pickups.store(pickup.id, pickup.short_name)
           - else
             - if @pickups.present?
               .col-lg-8.col-md-12.rm-padding--sp.hidden-sm
@@ -89,7 +89,7 @@
                   .va-container.va-container-v.va-container-h
                     .va-middle.text-center.text-contrast
                       .h2.strong
-                        = @pickups.name
+                        = @pickups.long_name
                 | </div>
               .col-lg-8.col-md-12.rm-padding--sp.visible-sm
                 - if @pickups.cover_image_small.present?
@@ -100,7 +100,7 @@
                   .va-container.va-container-v.va-container-h
                     .va-middle.text-center.text-contrast
                       .h2.strong
-                        = @pickups.name
+                        = @pickups.long_name
                 | </div>
               = render partial: 'tour_list', locals: { listing: Listing.find(@pickups.selected_listing) }
         - if @hash_other_pickups.present?

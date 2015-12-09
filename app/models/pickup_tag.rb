@@ -3,19 +3,20 @@
 # Table name: pickups
 #
 #  id                :integer          not null, primary key
-#  name              :string           default("")
+#  short_name        :string           default("")
 #  cover_image       :string           default("")
 #  selected_listing  :integer
 #  type              :string
 #  order_number      :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  cover_image_small :string           default("")
+#  cover_image_small :string
+#  long_name         :string           default("")
 #
 # Indexes
 #
-#  index_pickups_on_name  (name)
-#  index_pickups_on_type  (type)
+#  index_pickups_on_short_name  (short_name)
+#  index_pickups_on_type        (type)
 #
 
 class PickupTag < Pickup

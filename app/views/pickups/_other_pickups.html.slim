@@ -5,5 +5,5 @@
       .text-center
         - @pickups.each do |pickup|
           = link_to pickup_path( pickup.id ), class: "tag tag-ghost" do
-            = pickup.name
+            = pickup.short_name
             i.fa.fa-chevron-right
