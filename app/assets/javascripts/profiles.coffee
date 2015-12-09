@@ -64,10 +64,10 @@ $ ->
     $('#profile_tag_list').tagsinput('add', $(this).text())
 
   $(document).on 'keydown', '.bootstrap-tagsinput input', (event) ->
-      if event.keyCode == 13
-        event.preventDefault()
-        $('.bootstrap-tagsinput input').blur()
-        $('.bootstrap-tagsinput input').focus()
+    if event.keyCode == 13
+      event.preventDefault()
+      $('.bootstrap-tagsinput input').blur()
+      $('.bootstrap-tagsinput input').focus()
 
   #Draw RadarChart
   if $('body').hasClass('profiles show')
@@ -177,3 +177,8 @@ $ ->
     $('#profile_keyword_collection_profile_keywords_attributes_4_keyword').on 'change', (event) ->
       addKeyword($(this))
       event.preventDefault()
+
+    $(document).on 'keydown', '.bootstrap-tagsinput input', (event) ->
+      if event.keyCode == 13
+        event.preventDefault()
+        $('.bootstrap-tagsinput input').blur()
