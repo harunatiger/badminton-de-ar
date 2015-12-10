@@ -42,6 +42,9 @@
         .col-xs-11.regist-pics
           = f.file_field :cover_image, as: :file
           span.text-blue 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
+  hr.row-space-4
+  p.text-center.row-space-6
+    | ツアーのイメージ画像は簡単に入れ替えられます。写真を選択して入れ替えたい位置の写真の上にドロップしてください。
   span#images_list
     = render partial: 'images_list', locals: { listing_image_collection: @listing_images}
       /.row.row-space-4.row-space-top-4.row-table
