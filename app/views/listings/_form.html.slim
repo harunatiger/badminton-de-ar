@@ -174,7 +174,7 @@
       .col-xs-8.fieldset.col-middle
         .row
           .col-xs-11
-            = collection_check_boxes(:listing, :pickup_ids, @categories, :id, :name) do |b|
+            = collection_check_boxes(:listing, :pickup_ids, @categories, :id, :short_name) do |b|
               = b.label { b.check_box + b.text }
   - if @tags.present?
     .row.row-space-5.row-space-top-5.row-table
@@ -184,7 +184,7 @@
       .col-xs-8.fieldset.col-middle
         .row
           .col-xs-11
-            = collection_check_boxes(:listing, :pickup_ids, @tags, :id, :name) do |b|
+            = collection_check_boxes(:listing, :pickup_ids, @tags, :id, :short_name) do |b|
               = b.label { b.check_box + b.text }
   - if @areas.present?
     .row.row-space-5.row-space-top-5.row-table
@@ -194,7 +194,7 @@
       .col-xs-8.fieldset.col-middle
         .row
           .col-xs-11
-            = collection_check_boxes(:listing, :pickup_ids, @areas, :id, :name) do |b|
+            = collection_check_boxes(:listing, :pickup_ids, @areas, :id, :short_name) do |b|
               = b.label { b.check_box + b.text }
   /.row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
