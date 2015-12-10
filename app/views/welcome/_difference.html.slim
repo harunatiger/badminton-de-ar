@@ -2,7 +2,7 @@
   .page-container
     .card.card-naked.row-space-top-8
       .row
-        .col-md-4.guest-overview-body
+        .col-md-4.difference-container
           .guest-overview-cover.media-cover.media-cover-dark.background-cover.show--sp
           .va-container.va-container-v.va-container-h
             .va-middle
@@ -11,8 +11,8 @@
                   | Differences between a TOMODACHI Guide and a normal guide
               = link_to "#", class: "about-guide-trigger strong btn btn-primary btn-large btn-block" do
                 | Compare differences
-        .col-md-8.guest-overview-body
-          .youtube-container
-            =image_tag 'photo/tomodachi_guide_1280x620.jpg'
+        .col-md-8
+          .youtube-container.hide--sp
+            div[style="background-image: url(#{asset_path('photo/tomodachi_guide_1280x620.jpg')})"]
         /.col-sm-8.hide--sp
         /  .guest-overview-image

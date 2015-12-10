@@ -13,9 +13,10 @@
                   | まずは動画をクリック
               = link_to "#", class: "guest-flow-trigger strong btn btn-host btn-large btn-block" do
                 | ご利用までの流れ
-        .col-md-12.guest-overview-body
+        .col-md-12
           .youtube-container
-            = image_tag 'photo/for_movie_1440x560.jpg', id: 'movie'
+            div[style="background-image: url(#{asset_path('photo/for_movie_1440x560.jpg')})"]
+            /= image_tag , id: 'movie'
             i.fa.fa-play-circle#play.play
             
             /iframe src="https://www.youtube.com/embed/WEtiK86GSAA?showinfo=0" frameborder="0" id="movie"

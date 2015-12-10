@@ -1573,6 +1573,9 @@ label.error
     margin: 0
     .panel-close
       color: white
+      @media (max-width: 767px)
+        background-color: $brand-theme
+        border-radius: 16px
   .col-about-guide
     padding: 0 40px
     &.col-tomodachi-guide
@@ -1584,7 +1587,6 @@ label.error
         max-width: 400px
         margin: 0 auto
         border-radius: 4px
-
 
 /* guest flow */
 #guest-flow
