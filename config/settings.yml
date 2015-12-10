@@ -58,7 +58,7 @@ listings:
     invalid_listing_id: "We couldn't find any results that matched your criteria"
 listing_images:
   save:
-    success: "successfully uploaded your photo/video"
+    success: "Successfully uploaded your photo/video"
     failure: "Add photos or videos"
     failure_video: "File size is too big. Please ensure file size is less than <%= ENV["UPLOAD_VIDEO_LIMIT_SIZE"]%>MB"
 listing_details:

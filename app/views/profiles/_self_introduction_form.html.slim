@@ -88,7 +88,7 @@
             label.text-right.col-3[for="user_self_introduction"]
               | Tags to show your personality
             .col-8
-              = f.input_field :tag_list, value: @profile.tag_list.join(','), 'data-role' => 'tagsinput', class: 'form-control', placeholder: "Ex.) gourmet"
+              = f.input_field :tag_list, value: @profile.tag_list.join(','), 'data-role' => 'tagsinput', class: 'form-control', placeholder: "Ex.) Gourmet, temple"
               - if @tags.present?
                 .tag_cloud-container.row-space-top-4
                   h4.row-space-2
