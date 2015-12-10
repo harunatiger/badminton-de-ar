@@ -369,7 +369,7 @@ ActiveRecord::Schema.define(version: 20151209232905) do
     t.datetime "updated_at",                     null: false
     t.string   "cover_image"
     t.integer  "selected_listing"
-    t.string   "cover_image_small"
+    t.string   "cover_image_small", default: ""
     t.string   "long_name",         default: ""
   end
 
@@ -379,7 +379,7 @@ ActiveRecord::Schema.define(version: 20151209232905) do
     t.datetime "updated_at",                     null: false
     t.string   "cover_image"
     t.integer  "selected_listing"
-    t.string   "cover_image_small"
+    t.string   "cover_image_small", default: ""
     t.string   "long_name",         default: ""
   end
 
@@ -389,7 +389,7 @@ ActiveRecord::Schema.define(version: 20151209232905) do
     t.datetime "updated_at",                     null: false
     t.string   "cover_image"
     t.integer  "selected_listing"
-    t.string   "cover_image_small"
+    t.string   "cover_image_small", default: ""
     t.string   "long_name",         default: ""
   end
 
@@ -401,7 +401,7 @@ ActiveRecord::Schema.define(version: 20151209232905) do
     t.integer  "order_number"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.string   "cover_image_small"
+    t.string   "cover_image_small", default: ""
     t.string   "long_name",         default: ""
   end
 
