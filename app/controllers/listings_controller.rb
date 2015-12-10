@@ -125,6 +125,10 @@ class ListingsController < ApplicationController
       end
     end
   end
+  
+  def pre_mail
+    PreMailer.send_pre_mail(current_user).deliver_now!
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -162,7 +166,7 @@ class ListingsController < ApplicationController
         :zipcode, :location, :longitude, :latitude, :delivery_flg, :price,
         :description, :recommend1, :recommend2, :recommend3, :overview, :notes,
         :title, :capacity, :direction, :schedule, :listing_images,
-        :cover_image, :cover_image_caption, :cover_video, :cover_video_caption,
+        :cover_image, :cover_image_caption, :cover_video, :cover_video_caption, 
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
         language_ids: [], pickup_ids: [])
     end

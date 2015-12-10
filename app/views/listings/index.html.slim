@@ -8,7 +8,7 @@
     - if @listings.blank?
       .col-md-9
         .card
-          .card-body
+          /.card-body
             h3
               | ガイドするツアーがありません。
             p.text-lead.row-space-4
@@ -17,6 +17,16 @@
               | ガイドになってたくさんの出会いを楽しみましょう。
             = link_to new_listing_path, class: "btn btn-host" do
               | Become a guide
+          .card-body
+            h3
+              | 現在はβ版運用のため、ガイド登録は行えません。
+            p.text-lead.row-space-4
+              | 正式サービスインは2016 年春を予定しておりますのでしばしお待ち下さい。
+              br
+              | ガイドになることを希望される方は、ボタンよりご登録頂ければ幸いです。
+              br
+              | サービス開始前にご連絡いたします。
+            /= link_to '申請する', pre_mail_listings_path, class: "btn btn-primary btn-large"
     - else
       .col-md-9
         .card

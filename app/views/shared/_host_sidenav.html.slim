@@ -3,14 +3,14 @@ ul.sidenav-list
     li
       = link_to "Tour list", listings_path, aria: {selected: "false"}, class: "sidenav-item row-space-2"
     li
-      = link_to "Create a new tour", new_listing_path, aria: {selected: "false"}, class: "btn btn-block btn-primary"
+      = link_to "Create a new tour", listings_path, aria: {selected: "false"}, class: "btn btn-block btn-primary"
     /li
       = link_to "参加希望者", dashboard_host_reservation_manager_path, aria: {selected: "true"}, class: "sidenav-item"
   - else
     li
       = link_to "Tour list", listings_path, aria: {selected: "true"}, class: "sidenav-item row-space-2"
     li
-      = link_to "Create a new tour", new_listing_path, aria: {selected: "false"}, class: "btn btn-block btn-primary"
+      = link_to "Create a new tour", listings_path, aria: {selected: "false"}, class: "btn btn-block btn-primary"
     /li
       = link_to "参加希望者", dashboard_host_reservation_manager_path, aria: {selected: "false"}, class: "sidenav-item"
   /li

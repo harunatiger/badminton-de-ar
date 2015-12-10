@@ -1,7 +1,7 @@
       #reservation_form.tab-pane.card-quote-flush.card
         .card-body.normal-form-fields
           -if @listings.blank?
-            = link_to new_listing_path do
+            = link_to listings_path do
               span.text-pink.strong
                 | ツアーを登録してガイド内容を作成しましょう！
           - else
