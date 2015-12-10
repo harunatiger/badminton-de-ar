@@ -25,6 +25,7 @@
 #  place_longitude         :decimal(9, 6)    default(0.0)
 #  place_latitude          :decimal(9, 6)    default(0.0)
 #  included_other          :text             default("")
+#  price_other             :integer          default(0)
 #
 # Indexes
 #
@@ -77,11 +78,16 @@ class ListingDetail < ActiveRecord::Base
   end
     
   def amount
-    self.price + self.option_price + self.option_price_per_person
+    self.price + self.price_other + self.option_price + self.option_price_per_person
+  end
+    
+  def price_calced
+    self.price + self.price_other
   end
     
   def set_price
     self.price = 0 if self.price.blank?
+    self.price_other = 0 if self.price_other.blank?
     self.option_price = 0 if self.option_price.blank?
     self.option_price_per_person = 0 if self.option_price_per_person.blank?
     self

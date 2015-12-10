@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209232905) do
+ActiveRecord::Schema.define(version: 20151210130010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(version: 20151209232905) do
     t.decimal  "place_longitude",         precision: 9, scale: 6, default: 0.0
     t.decimal  "place_latitude",          precision: 9, scale: 6, default: 0.0
     t.text     "included_other",                                  default: ""
+    t.integer  "price_other",                                     default: 0
   end
 
   add_index "listing_details", ["latitude"], name: "index_listing_details_on_latitude", using: :btree
@@ -559,6 +560,7 @@ ActiveRecord::Schema.define(version: 20151209232905) do
     t.integer  "option_price_per_person",                         default: 0
     t.text     "place_memo",                                      default: ""
     t.integer  "campaign_id"
+    t.integer  "price_other",                                     default: 0
   end
 
   add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree

@@ -22,7 +22,7 @@
           .col-md-5.text-right.strong
             | ¥
             span#tour-price-base
-              =listing.listing_detail.price
+              =listing.listing_detail.price_calced
         .row.row-space-1
           .col-md-7.small1
             | 諸経費(グループあたり)
@@ -58,6 +58,7 @@
         = f.hidden_field :schedule_hour, value: 00
         = f.hidden_field :schedule_minute, value: 00
         = f.hidden_field :price, value: listing.listing_detail.price
+        = f.hidden_field :price_other, value: listing.listing_detail.price_other
         = f.hidden_field :option_price, value: listing.listing_detail.option_price
         = f.hidden_field :option_price_per_person, value: listing.listing_detail.option_price_per_person
         = f.hidden_field :time_required, value: listing.listing_detail.time_required

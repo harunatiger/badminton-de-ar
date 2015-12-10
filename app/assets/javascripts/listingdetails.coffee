@@ -141,3 +141,16 @@ $ ->
         return
       return
     return
+
+$ ->
+  price = Number($('#listing_detail_price').val())
+  price_other = Number($('#listing_detail_price_other').val())
+  price_calced = $('#price_calced')
+  price_calced.text(price + price_other)
+  $(document).on 'change', '#listing_detail_price', ->
+    price = Number($('#listing_detail_price').val())
+    price_calced.text(price_other + price)
+
+  $(document).on 'change', '#listing_detail_price_other', ->
+    price_other = Number($('#listing_detail_price_other').val())
+    price_calced.text(price + price_other)

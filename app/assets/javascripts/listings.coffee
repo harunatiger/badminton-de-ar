@@ -301,10 +301,10 @@ $ ->
     $('.datepicker').datepicker
       autoclose: true,
       startDate: '+1d',
-      language: 'en',
+      language: 'ja',
       default: 'yyyy.mm.dd',
       beforeShowDay: (date) ->
-        formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'en')
+        formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
         if $.inArray(formattedDate.toString(), disabled_dates) != -1
           return { enabled: false }
         if $.inArray(date.getDay(), disabled_weeks) != -1

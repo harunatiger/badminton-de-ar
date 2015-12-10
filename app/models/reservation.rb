@@ -30,6 +30,7 @@
 #  option_price_per_person :integer          default(0)
 #  place_memo              :text             default("")
 #  campaign_id             :integer
+#  price_other             :integer          default(0)
 #
 # Indexes
 #
@@ -185,7 +186,7 @@ class Reservation < ActiveRecord::Base
   end
   
   def basic_amount
-    self.price + self.option_price + (self.option_price_per_person * self.num_of_people)
+    self.price + self.price_other + self.option_price + (self.option_price_per_person * self.num_of_people)
   end
   
   def paypal_amount
@@ -220,6 +221,7 @@ class Reservation < ActiveRecord::Base
   
   def set_price
     self.price = 0 if self.price.blank?
+    self.price_other = 0 if self.price_other.blank?
     self.option_price = 0 if self.option_price.blank?
     self.option_price_per_person = 0 if self.option_price_per_person.blank?
     self

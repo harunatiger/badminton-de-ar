@@ -26,7 +26,7 @@ class ReservationsController < ApplicationController
       result = @reservation.update(para)
     else
       @reservation = Reservation.new(para)
-      result = @reservation.save
+      result = @reservation.save!
     end
 
     respond_to do |format|
@@ -248,6 +248,7 @@ class ReservationsController < ApplicationController
       @reservation.listing_id = listing.id
       @reservation.time_required = listing.listing_detail.time_required
       @reservation.price = listing.listing_detail.price
+      @reservation.price_other = listing.listing_detail.price_other
       @reservation.option_price = listing.listing_detail.option_price
       @reservation.option_price_per_person = listing.listing_detail.option_price_per_person
       @reservation.place = listing.listing_detail.place
@@ -291,7 +292,7 @@ class ReservationsController < ApplicationController
     end
 
     def reservation_params
-      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :option_price, :option_price_per_person, Reservation::REGISTRABLE_ATTRIBUTES, :place, :place_memo, :description, :message_thread_id, :schedule_end, :campaign_id, :campaign_code)
+      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :price_other, :option_price, :option_price_per_person, Reservation::REGISTRABLE_ATTRIBUTES, :place, :place_memo, :description, :message_thread_id, :schedule_end, :campaign_id, :campaign_code)
     end
 
     def checkout(reservation)

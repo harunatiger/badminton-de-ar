@@ -46,16 +46,40 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-6
+          .input-opt.h3.text-left.strong
+            | ¥
+            span#price_calced
+      p.row-space-top-1.text-red
+        i.fa.fa-exclamation-circle
+        |  ペアガイド基本料金とペアガイド諸経費の合計金額が、ツアープラン内のペアガイド料金として表示されます。
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | ペアガイド基本料金
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-6
           .input-opt
             = f.input_field :price
             span 円
       p.row-space-top-1.text-red
         i.fa.fa-exclamation-circle
-        |  ペアのガイド料金をご記入ください。
+        | ペアのガイド料金をご記入ください。
         br
         | 初めてガイドする方の多くは、1時間あたり3,000円を目安に設定されています。
-        br
-        | 上記に加え、プラン内に発生する入場料・交通費・飲食費など、ガイド側に発生する経費はすべてこの費用に加算して入力しましょう。
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | ペアガイド諸経費
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-6
+          .input-opt
+            = f.input_field :price_other
+            span 円
+      p.row-space-top-1.text-red
+        i.fa.fa-exclamation-circle
+        |  プラン実施の際に発生する入場料・交通費・飲食費など、ガイド側に発生する経費2人分を入力しましょう。
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
