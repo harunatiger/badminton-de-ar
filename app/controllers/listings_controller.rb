@@ -58,6 +58,9 @@ class ListingsController < ApplicationController
       if @listing.save
         format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
       else
+        @categories = PickupCategory.all
+        @tags = PickupTag.all
+        @areas = PickupArea.all
         flash.now[:alert] = Settings.listings.save.failure
         format.html { render :new}
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -77,6 +80,9 @@ class ListingsController < ApplicationController
       if @listing.update(listing_params)
           format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
       else
+        @categories = PickupCategory.all
+        @tags = PickupTag.all
+        @areas = PickupArea.all
         flash.now[:alert] = Settings.listings.save.failure
         format.html { render :edit}
       end
