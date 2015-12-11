@@ -1,5 +1,13 @@
 /* common.sass */
 
+/* font ================================================== */
+@font-face
+  font-family: 'chalkboard_seregular'
+  src: url('chalkboardse-regular-webfont.eot')
+  src: url('chalkboardse-regular-webfont.eot?#iefix') format("embedded-opentype"), url('chalkboardse-regular-webfont.woff2') format("woff2"), url('chalkboardse-regular-webfont.woff') format("woff"), url('chalkboardse-regular-webfont.ttf') format("truetype"), url('chalkboardse-regular-webfont.svg#chalkboard_seregular') format("svg")
+  font-weight: normal
+  font-style: normal
+
 /* common ================================================== */
 body
   font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif
@@ -442,6 +450,10 @@ select
 /* text fa styling */
 .strong
   font-weight: 700
+
+.text-cb
+  font-family: chalkboard, 'chalkboard_seregular', Avenir, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+  font-weight: 400 !important
 
 .text-normal, a.text-normal, a.text-normal:hover, a.text-normal:focus
   color: inherit
