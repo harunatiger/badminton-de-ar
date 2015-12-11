@@ -149,6 +149,8 @@ class ReservationsController < ApplicationController
           if @reservation.campaign.present? and @reservation.before_weeks?
             current_user.campaigns = current_user.campaigns.where.not(id: @reservation.campaign_id)
           end
+          
+          ReservationMailer.send_cancel_mail_to_owner(@reservation).deliver_now!
         end
       end
       msg = Settings.reservation.msg.canceled
@@ -214,7 +216,6 @@ class ReservationsController < ApplicationController
         end
 
         ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
-        ReservationMailer.send_cancel_mail_to_owner(@reservation).deliver_now! if params[:cancel]
         msg_params = Hash[
           'reservation_id' => @reservation.id,
           'listing_id' => @reservation.listing_id,
