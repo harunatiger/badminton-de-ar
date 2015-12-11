@@ -1,0 +1,29 @@
+ゲストが予約をキャンセルしました。
+キャンセル内容は以下です。
+
+-----------------------
+■キャンセル日
+  <%= @reservation.updated_at %>
+■予約日
+  <%= @reservation.schedule %>
+■プラン実施日
+  <%= @reservation.schedule %>
+■キャンセルした人
+  ゲストの<%= "#{@guest.profile.first_name} #{@guest.profile.last_name}"%>　さん
+  プロフィールURL <%= profile_url(@guest.profile.id) %>
+■キャンセルされた人
+  ガイドの<%= "#{@host.profile.first_name} #{@host.profile.last_name}"%>　さん
+  プロフィールURL <%= profile_url(@host.profile.id) %>
+■プラン名
+  <%= @reservation.listing.title %>
+■プランページURL
+  <%= listing_url(@reservation.listing.id) %>
+■Paypalでのキャンセル処理
+  <%= @payment.payment_status %>
+■支払い金額
+  <%= @payment.amount %>　円
+■ガイドに返金すべき金額
+  comming soon (csvと一緒に実装)
+■ゲストに返金すべき金額
+  0円
+■キャンセル理由

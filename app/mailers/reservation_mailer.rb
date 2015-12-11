@@ -89,4 +89,17 @@ class ReservationMailer < ApplicationMailer
       format.text
     end
   end
+  
+  def send_cancel_mail_to_owner(reservation)
+    @host = User.find(reservation.host_id)
+    @guest = User.find(reservation.guest_id)
+    @reservation = reservation
+    @payment = reservation.payment
+    mail(
+      to:      ENV["OWNER_MAIL_ADDRESS"],
+      subject: Settings.mailer.send_cancel_mail_to_owner.subject
+    ) do |format|
+      format.text
+    end
+  end
 end

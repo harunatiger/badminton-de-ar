@@ -18,15 +18,23 @@
             = link_to new_listing_path, class: "btn btn-host" do
               | Become a guide
           .card-body
-            h3
-              | 現在はβ版運用のため、ガイド登録は行えません。
-            p.text-lead.row-space-4
-              | 正式サービスインは2016 年春を予定しておりますのでしばしお待ち下さい。
-              br
-              | ガイドになることを希望される方は、ボタンよりご登録頂ければ幸いです。
-              br
-              | サービス開始前にご連絡いたします。
-            /= link_to '申請する', pre_mail_listings_path, class: "btn btn-primary btn-large"
+            - if @pre_mail.present?
+              h3
+                | ガイド申請を受付けました。
+              p.text-lead.row-space-4
+                | 正式サービスインは2016 年春を予定しております。
+                br
+                | サービス開始前にご連絡いたしますのでしばしお待ち下さい。
+            - else
+              h3
+                | 現在はβ版運用のため、ガイド登録は行えません。
+              p.text-lead.row-space-4
+                | 正式サービスインは2016 年春を予定しておりますのでしばしお待ち下さい。
+                br
+                | ガイドになることを希望される方は、ボタンよりご登録頂ければ幸いです。
+                br
+                | サービス開始前にご連絡いたします。
+              = link_to '申請する', pre_mail_listings_path, method: 'post', class: "btn btn-primary btn-large"
     - else
       .col-md-9
         .card

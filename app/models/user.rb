@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
   has_one :profile_identity, dependent: :destroy
   has_one :profile_bank, dependent: :destroy
   has_one :profile_keyword, dependent: :destroy
+  has_one :pre_mail, dependent: :destroy
   has_many :listings, dependent: :destroy
   has_many :message_thread_users, dependent: :destroy
   has_many :message_threads, through: :message_thread_users, dependent: :destroy

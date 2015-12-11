@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210130010) do
+ActiveRecord::Schema.define(version: 20151211092943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -409,6 +409,14 @@ ActiveRecord::Schema.define(version: 20151210130010) do
   add_index "pickups", ["short_name"], name: "index_pickups_on_short_name", using: :btree
   add_index "pickups", ["type"], name: "index_pickups_on_type", using: :btree
 
+  create_table "pre_mails", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pre_mails", ["user_id"], name: "index_pre_mails_on_user_id", using: :btree
+
   create_table "profile_banks", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "profile_id"
@@ -713,6 +721,7 @@ ActiveRecord::Schema.define(version: 20151210130010) do
   add_foreign_key "messages", "users", column: "from_user_id"
   add_foreign_key "messages", "users", column: "to_user_id"
   add_foreign_key "payments", "reservations"
+  add_foreign_key "pre_mails", "users"
   add_foreign_key "profile_banks", "profiles"
   add_foreign_key "profile_banks", "users"
   add_foreign_key "profile_categories", "categories"

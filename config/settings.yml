@@ -206,6 +206,10 @@ page:
     reviews: 'Review'
     host_profile: 'ガイド紹介'
     neighborhood: '対応エリア'
+pre_mail:
+  save:
+    success: 'ガイド申請を受け付けました。'
+    failure: 'ガイド申請に失敗しました。'
 mailer:
   from:
     default: "default-from-email@example.com"
@@ -243,6 +247,8 @@ mailer:
     subject: "It is a week to the appointment day!"
   day_before_notification:
     subject: "Tomorrow is the appointment day!"
+  send_cancel_mail_to_owner:
+    subject: "ゲストが予約をキャンセルしました。"
   pre_mail:
     subject: "ガイド申請が届きました。"
 left_steps:

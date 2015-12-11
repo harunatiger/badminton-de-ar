@@ -214,6 +214,7 @@ class ReservationsController < ApplicationController
         end
 
         ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
+        ReservationMailer.send_cancel_mail_to_owner(@reservation).deliver_now! if params[:cancel]
         msg_params = Hash[
           'reservation_id' => @reservation.id,
           'listing_id' => @reservation.listing_id,
