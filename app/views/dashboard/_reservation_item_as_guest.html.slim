@@ -1,8 +1,9 @@
 - @reservations.each do |r|
   - listing = reservation_to_listing(r)
   - host = reservation_to_host(r)
-  li.thread
-    = link_to message_thread_path(r.host_id), class: "unread" do
+  li.thread.reserve-thread
+    /= link_to message_thread_path(r.host_id), class: "unread" do
+    div.unread
       .row
         .col-md-4.thread-author
           .row.row-table
@@ -15,12 +16,11 @@
           .row.row-table
             .col-md-12.col-middle
               .message-content-single.row-space-1
-                /= link_to listing_path(r.listing_id) do
-                = listing.title
+                = link_to listing_path(r.listing_id) do
+                  = listing.title
               .thread-date
                 = r.schedule.to_s
                 |  集合
-              /= render partial: 'shared/reservation_block', locals: { reservation: r }
         .col-md-3.thread-progress
           .row.row-table
             .col-md-12.col-middle.text-center
@@ -46,5 +46,7 @@
                 = simple_form_for(r, html: { class: "cancel-reservation-form" }) do |f|
                   = f.hidden_field :message_thread_id, value: r.message_thread_id
                   = f.submit 'Cancel', name: 'cancel', class: 'btn-link small1 row-space-top-1'
+        .col-md-12.row-space-top-2
+          = render partial: 'shared/reservation_block', locals: { reservation: r }
 
   = render partial: 'shared/modals/message_to_host_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }
