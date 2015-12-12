@@ -306,7 +306,7 @@ class ReservationsController < ApplicationController
           message_thread_id = session[:message_thread_id]
           session[:message_thread_id] = nil
           p setup_response
-          format.html { redirect_to message_thread_path(message_thread_id), notice: setup_response.success? ? Settings.reservation.save.failure.no_date : Settings.reservation.save.failure.paypal_access_failure + ' エラー：' + setup_response.params['error_codes'] + ' ' + setup_response.params['message']}
+          format.html { redirect_to message_thread_path(message_thread_id), notice: setup_response.success? ? Settings.reservation.save.failure.no_date : Settings.reservation.save.failure.paypal_access_failure + ' error：' + setup_response.params['error_codes'] + ' ' + setup_response.params['message']}
           format.json { render json: reservation.errors, status: :unprocessable_entity }
         end
       end
