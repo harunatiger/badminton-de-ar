@@ -4,7 +4,8 @@ var firstScript = document.getElementsByTagName( 'script' )[ 0 ];
 firstScript.parentNode.insertBefore( script , firstScript );
 var player, iframe;
 
-$(document).on('click','#play',function(){
+/*play = document.getElementById('play');*/
+$('#play').on('click',function(){
   if(player === undefined){
     new_player = true;
     player = new YT.Player('movie', {
