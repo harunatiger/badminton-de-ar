@@ -14,11 +14,14 @@
               | ご利用までの流れ
       .col-md-12
         .youtube-container
-          div[id="movie" style="background-image: url(#{asset_path('photo/for_movie_1440x560.jpg')})"]
+          - if is_mobile_request?
+            iframe src="https://www.youtube.com/embed/WEtiK86GSAA?showinfo=0" frameborder="0" modestbranding=1 allowfullscreen
+          - else
+            div[id="movie" style="background-image: url(#{asset_path('photo/for_movie_1440x560.jpg')})"]
+            #play.play
+              i.fa.fa-play
+            h4.text-contrast.text-cb What is TOMODACHI GUIDE?
           /= image_tag , id: 'movie'
-          #play.play
-            i.fa.fa-play
-          h4.text-contrast.text-cb What is TOMODACHI GUIDE?
           
           /iframe src="https://www.youtube.com/embed/WEtiK86GSAA?showinfo=0" frameborder="0" id="movie"
           
