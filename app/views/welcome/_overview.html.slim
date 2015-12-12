@@ -1,25 +1,26 @@
-#guest-overview.card-dark
+#guest-overview.card.card-naked
   .page-container
-    .card.card-naked.row-space-top-8
-      .row
-        /.col-md-4.guest-overview-body
-          .guest-overview-cover.media-cover.media-cover-dark.background-cover.show--sp
-          .va-container.va-container-v.va-container-h
-            .va-middle
-              .row-space-4.text-center--sp
-                strong.h3
-                  | How It Works
-                  br
-                  | まずは動画をクリック
-              = link_to "#", class: "guest-flow-trigger strong btn btn-host btn-large btn-block" do
-                | ご利用までの流れ
-        .col-md-12
-          .youtube-container
-            div[id="movie" style="background-image: url(#{asset_path('photo/for_movie_1440x560.jpg')})"]
-            /= image_tag , id: 'movie'
-            i.fa.fa-play-circle#play.play
-            
-            /iframe src="https://www.youtube.com/embed/WEtiK86GSAA?showinfo=0" frameborder="0" id="movie"
-            
-        /.col-sm-8.hide--sp
-        /  .guest-overview-image
+    .row.row-space-top-8.row-space-8
+      /.col-md-4.guest-overview-body
+        .guest-overview-cover.media-cover.media-cover-dark.background-cover.show--sp
+        .va-container.va-container-v.va-container-h
+          .va-middle
+            .row-space-4.text-center--sp
+              strong.h3
+                | How It Works
+                br
+                | まずは動画をクリック
+            = link_to "#", class: "guest-flow-trigger strong btn btn-host btn-large btn-block" do
+              | ご利用までの流れ
+      .col-md-12
+        .youtube-container
+          div[id="movie" style="background-image: url(#{asset_path('photo/for_movie_1440x560.jpg')})"]
+          /= image_tag , id: 'movie'
+          #play.play
+            i.fa.fa-play
+          h4.text-contrast.text-cb What is TOMODACHI GUIDE?
+          
+          /iframe src="https://www.youtube.com/embed/WEtiK86GSAA?showinfo=0" frameborder="0" id="movie"
+          
+      /.col-sm-8.hide--sp
+      /  .guest-overview-image
