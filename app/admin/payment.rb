@@ -18,8 +18,10 @@ ActiveAdmin.register_page "Payment" do
     end
 
     def payment_weekly_report
+      startdate = params[:startdate] + ' 00:00:00'
+      enddate = params[:enddate] + ' 23:59:59'
       @payments = Payment.all
-        .term( params[:startdate], params[:enddate], :created_at )
+        .term( startdate, enddate, :created_at )
         .includes(:reservation)
 
       @host_profit_infos = []
