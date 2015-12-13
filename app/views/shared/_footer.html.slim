@@ -1,5 +1,22 @@
 footer
   .footerContent-container
+    .row
+      .col-sm-12.row-space-4
+        ul.list-layout.list-inline.text-center.footer-links--sp
+          li
+            = link_to "サービス規約", static_pages_service_agreement_jp_path
+          li
+            = link_to "キャンセルポリシー", static_pages_cancel_policy_jp_path
+          li
+            = link_to "特商法", static_pages_specific_commercial_transactions_jp_path
+      .col-sm-12.row-space-4
+        ul.list-layout.list-inline.text-center.footer-links--sp
+          li
+            = link_to "Service Agreement", static_pages_service_agreement_en_path
+          li
+            = link_to "Cancel Policy", static_pages_cancel_policy_en_path
+          li
+            = link_to "Specific Commercial Transactions Law", static_pages_specific_commercial_transactions_en_path
     /.row
       .col-sm-3.col-sm-offset-2.hide--sp
         h5

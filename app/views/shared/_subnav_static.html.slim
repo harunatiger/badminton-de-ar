@@ -1,0 +1,42 @@
+/ shared/subnav
+.subnav.hide--sp[data-sticky="true"]
+  .page-container
+    ul.subnav-list.list-unstyled
+      - if action_name == "cancel_policy_en" || action_name == "service_agreement_en" || action_name == "specific_commercial_transactions_en"
+        - if action_name == "service_agreement_en"
+          li.active
+            = link_to "Service Agreement", static_pages_service_agreement_en_path
+        - else
+          li
+            = link_to "Service Agreement", static_pages_service_agreement_en_path
+        - if action_name == "specific_commercial_transactions_en"
+          li.active
+            = link_to "Specific Commercial Transactions Law", static_pages_specific_commercial_transactions_en_path
+        - else
+          li
+            = link_to "Specific Commercial Transactions Law", static_pages_specific_commercial_transactions_en_path
+        - if action_name == "cancel_policy_en"
+          li.active
+            = link_to "Cancel Policy", static_pages_cancel_policy_en_path
+        - else
+          li
+            = link_to "Cancel Policy", static_pages_cancel_policy_en_path
+      - else
+        - if action_name == "service_agreement_jp"
+          li.active
+            = link_to "サービス規約", static_pages_service_agreement_jp_path
+        - else
+          li
+            = link_to "サービス規約", static_pages_service_agreement_jp_path
+        - if action_name == "specific_commercial_transactions_jp"
+          li.active
+            = link_to "特商法", static_pages_specific_commercial_transactions_jp_path
+        - else
+          li
+            = link_to "特商法", static_pages_specific_commercial_transactions_jp_path
+        - if action_name == "cancel_policy_jp"
+          li.active
+            = link_to "キャンセルポリシー", static_pages_cancel_policy_jp_path
+        - else
+          li
+            = link_to "キャンセルポリシー", static_pages_cancel_policy_jp_path

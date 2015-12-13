@@ -329,6 +329,18 @@
 
 Rails.application.routes.draw do
 
+  get 'static_pages/cancel_policy_en'
+
+  get 'static_pages/service_agreement_en'
+
+  get 'static_pages/specific_commercial_transactions_en'
+
+  get 'static_pages/cancel_policy_jp'
+
+  get 'static_pages/service_agreement_jp'
+
+  get 'static_pages/specific_commercial_transactions_jp'
+
   #resources :listing_details
 
   devise_for :admin_users, ActiveAdmin::Devise.config
