@@ -107,7 +107,8 @@ class ReservationsController < ApplicationController
         first_name: details.params['first_name'],
         last_name: details.params['last_name'],
         country_code: details.params['country'],
-        payment_status: 'Confirmed'
+        payment_status: 'Confirmed',
+        accepted_at: @reservation.schedule
       )
     else
       respond_to do |format|

@@ -36,66 +36,67 @@
               th created_at
               th updated_at
           tbody
-            - @payments.each do | payment |
-              tr
-                th
-                  = payment.reservation.id
-                td
-                  = payment.reservation.host_id
-                td
-                  = payment.reservation.guest_id
-                td
-                  = payment.reservation.listing_id
-                td
-                  = payment.reservation.schedule
-                td
-                  = payment.reservation.num_of_people
-                td
-                  = payment.reservation.msg
-                td
-                  = payment.reservation.progress
-                td
-                  = payment.reservation.reason
-                td
-                  = payment.reservation.review_mail_sent_at
-                td
-                  = payment.reservation.review_expiration_date
-                td
-                  = payment.reservation.review_landed_at
-                td
-                  = payment.reservation.reviewed_at
-                td
-                  = payment.reservation.reply_mail_sent_at
-                td
-                  = payment.reservation.reply_landed_at
-                td
-                  = payment.reservation.replied_at
-                td
-                  = payment.reservation.review_opened_at
-                td
-                  = payment.reservation.time_required
-                td
-                  = payment.reservation.price
-                td
-                  = payment.reservation.option_price
-                td
-                  = payment.reservation.place
-                td
-                  = payment.reservation.description
-                td
-                  = payment.reservation.schedule_end
-                td
-                  = payment.reservation.option_price_per_person
-                td
-                  = payment.reservation.place_memo
-                td
-                  = payment.reservation.campaign_id
-                td
-                  = payment.reservation.price_other
-                td
-                  = payment.reservation.refund_rate
-                td
-                  = payment.reservation.created_at
-                td
-                  = payment.reservation.updated_at
+            - if @payments.present?
+              - @payments.each do | payment |
+                tr
+                  th
+                    = payment.reservation.id
+                  td
+                    = payment.reservation.host_id
+                  td
+                    = payment.reservation.guest_id
+                  td
+                    = payment.reservation.listing_id
+                  td
+                    = payment.reservation.schedule
+                  td
+                    = payment.reservation.num_of_people
+                  td
+                    = payment.reservation.msg
+                  td
+                    = payment.reservation.progress
+                  td
+                    = payment.reservation.reason
+                  td
+                    = payment.reservation.review_mail_sent_at
+                  td
+                    = payment.reservation.review_expiration_date
+                  td
+                    = payment.reservation.review_landed_at
+                  td
+                    = payment.reservation.reviewed_at
+                  td
+                    = payment.reservation.reply_mail_sent_at
+                  td
+                    = payment.reservation.reply_landed_at
+                  td
+                    = payment.reservation.replied_at
+                  td
+                    = payment.reservation.review_opened_at
+                  td
+                    = payment.reservation.time_required
+                  td
+                    = payment.reservation.price
+                  td
+                    = payment.reservation.option_price
+                  td
+                    = payment.reservation.place
+                  td
+                    = payment.reservation.description
+                  td
+                    = payment.reservation.schedule_end
+                  td
+                    = payment.reservation.option_price_per_person
+                  td
+                    = payment.reservation.place_memo
+                  td
+                    = payment.reservation.campaign_id
+                  td
+                    = payment.reservation.price_other
+                  td
+                    = payment.reservation.refund_rate
+                  td
+                    = payment.reservation.created_at
+                  td
+                    = payment.reservation.updated_at
   = render 'footer'
