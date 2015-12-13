@@ -13,8 +13,9 @@ ActiveAdmin.register_page "Payment" do
       if params[:startdate].present?
         startdate = params[:startdate]
         enddate = params[:enddate]
+        range = Date.parse(startdate).beginning_of_day..Date.parse(enddate).end_of_day
         @payments = Payment.all
-          .term( startdate, enddate )
+          .term( range )
           .includes(:reservation)
       end
     end
@@ -22,8 +23,9 @@ ActiveAdmin.register_page "Payment" do
     def payment_weekly_report
       startdate = params[:startdate]
       enddate = params[:enddate]
+      range = Date.parse(startdate).beginning_of_day..Date.parse(enddate).end_of_day
       @payments = Payment.all
-        .term( startdate, enddate )
+        .term( range )
         .includes(:reservation)
 
       @host_profit_infos = []

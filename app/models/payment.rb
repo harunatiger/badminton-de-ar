@@ -29,7 +29,7 @@
 class Payment < ActiveRecord::Base
   belongs_to :reservation
 
-  scope :term, -> (from, to){ where(accepted_at: [Time.zone.parse(from)..Time.zone.parse(to)]) }
+  scope :term, -> (range){ where(accepted_at: range) }
 
   def amount_for_paypal
     self.amount * 100
