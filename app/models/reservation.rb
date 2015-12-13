@@ -31,6 +31,7 @@
 #  place_memo              :text             default("")
 #  campaign_id             :integer
 #  price_other             :integer          default(0)
+#  refund_rate             :integer          default(0)
 #
 # Indexes
 #

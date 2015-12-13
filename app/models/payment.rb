@@ -19,6 +19,7 @@
 #  refund_date      :datetime
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  accepted_at      :datetime
 #
 # Indexes
 #
@@ -27,15 +28,17 @@
 
 class Payment < ActiveRecord::Base
   belongs_to :reservation
-  
+
+  scope :term, -> (from, to, params) { where( params => from...to) }
+
   def amount_for_paypal
     self.amount * 100
   end
-  
+
   def cancel_available(reservation)
     self.updated_at.to_date + 60.days >= Time.zone.today and reservation.before_days?
   end
-  
+
   def refund_amount_for_paypal(percentage)
     (self.amount / (100 / percentage)) * 100
   end

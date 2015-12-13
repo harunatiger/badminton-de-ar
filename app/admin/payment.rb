@@ -1,2 +1,73 @@
-ActiveAdmin.register Payment do
+ActiveAdmin.register_page "Payment" do
+
+  sidebar 'filter' do
+    render 'filter'
+  end
+
+  content do
+    render 'index'
+  end
+
+  controller do
+    def index
+      @payments = Payment.all
+        .term( params[:startdate], params[:enddate], :accepted_at )
+    end
+
+    def payment_weekly_report
+      @payments = Payment.all
+        .term( params[:startdate], params[:enddate], :accepted_at )
+      #beginning_of_last_month = DateTime.now.prev_month.beginning_of_month
+      #end_of_month = DateTime.now.prev_month.end_of_month
+
+      #@payments = Payment.all
+      #  .term( beginning_of_last_month, end_of_month, :accepted_at )
+
+      #@payments = @payments.select([
+      #    :host_id,
+      #    Payment.arel_table[:amount].sum.as(:amount.to_s)
+      #  ]).group(:host_id)
+
+      @host_profit_infos = []
+
+      @payments.each do |payment|
+        remarks = payment.reservation.progress == 1 ? 'キャンセル有　返金率' + payment.reservation.refund_rate + '%' : ''
+
+        host_profit_info = {
+          id: payment.reservation.id,
+          host_id: payment.reservation.host_id,
+          guest_id: payment.reservation.guest_id,
+          listing_id: payment.reservation.listing_id,
+          schedule: payment.reservation.schedule,
+          num_of_people: payment.reservation.num_of_people,
+          msg: payment.reservation.msg,
+          progress: payment.reservation.progress,
+          reason: payment.reservation.reason,
+          review_mail_sent_at: payment.reservation.review_mail_sent_at,
+          review_expiration_date: payment.reservation.review_expiration_date,
+          review_landed_at: payment.reservation.review_landed_at,
+          reviewed_at: payment.reservation.reviewed_at,
+          reply_mail_sent_at: payment.reservation.reply_mail_sent_at,
+          reply_landed_at: payment.reservation.reply_landed_at,
+          replied_at: payment.reservation.replied_at,
+          review_opened_at: payment.reservation.review_opened_at,
+          time_required: payment.reservation.time_required,
+          price: price,
+          option_price: payment.reservation.option_price,
+          place: payment.reservation.place,
+          description: payment.reservation.description,
+          schedule_end: payment.reservation.schedule_end,
+          option_price_per_person: payment.reservation.option_price_per_person,
+          place_memo: payment.reservation.place_memo,
+          campaign_id: payment.reservation.campaign_id,
+          price_other: payment.reservation.price_other,
+          created_at: payment.reservation.created_at,
+          updated_at: payment.reservation.updated_at,
+          remarks: remarks
+        }
+        @host_profit_infos << host_profit_info
+      end
+    end
+
+  end
 end

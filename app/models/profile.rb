@@ -31,10 +31,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  country              :string           default("")
-#  progress             :integer          default(0), not null
-#  prefecture           :string           default("")
-#  municipality         :string           default("")
-#  other_address        :string           default("")
+#  progress             :integer
 #
 # Indexes
 #
@@ -43,7 +40,7 @@
 
 class Profile < ActiveRecord::Base
   acts_as_taggable
-  
+
   belongs_to :user
   has_one :profile_image, dependent: :destroy
   has_one :profile_video, dependent: :destroy
@@ -58,6 +55,7 @@ class Profile < ActiveRecord::Base
   enum gender: { female: 0, male: 1, others: 2, not_specified: 3 }
 
   validates :user_id, presence: true
+  validates :phone, presence: true
 
   def self.minimun_requirement?(user_id)
     profile = Profile.where(user_id: user_id).first

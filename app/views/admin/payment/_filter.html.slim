@@ -1,0 +1,10 @@
+.panel_contents
+  = form_tag payment_report_index_path, method: :get, html: { 'class':'filter_form' } do
+    .filter_form_field.filter_select
+      p 開始日
+      = text_field_tag :startdate, params[:startdate], :class => 'datepicker'
+      p 終了日
+      = text_field_tag :enddate, params[:startdate], :class => 'datepicker'
+      /= f.date_select :created_at, start_year: 2015, use_month_numbers: true, discard_day: true, include_blank: false, selected: @reservation.created_at
+    .buttons
+      = submit_tag "Search", :name => nil

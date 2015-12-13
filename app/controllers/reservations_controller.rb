@@ -145,16 +145,21 @@ class ReservationsController < ApplicationController
           payment.refund_date = response.params['timestamp']
           payment.payment_status = 'Refunded'
           payment.save
-          
+
           if @reservation.campaign.present? and @reservation.before_weeks?
             current_user.campaigns = current_user.campaigns.where.not(id: @reservation.campaign_id)
           end
-          
+
           ReservationMailer.send_cancel_mail_to_owner(@reservation).deliver_now!
         end
       end
       msg = Settings.reservation.msg.canceled
       para[:progress] = 1
+      if @reservation.before_weeks?
+        para[:refund_rate] = Settings.payment.refunds.before_weeks_rate
+      elsif @reservation.before_days?
+        para[:refund_rate] = Settings.payment.refunds.before_days_rate
+      end
     elsif params[:accept]
       session[:message_thread_id] = message_thread_id
       session[:reservation_id] = @reservation.id
@@ -184,7 +189,7 @@ class ReservationsController < ApplicationController
         payment.transaction_date = response.params['payment_date']
         payment.payment_status = response.params['payment_status']
         payment.save
-        
+
         UserCampaign.create(user_id: current_user.id, campaign_id: para[:campaign_id]) if para[:campaign_id].present?
       else
         respond_to do |format|

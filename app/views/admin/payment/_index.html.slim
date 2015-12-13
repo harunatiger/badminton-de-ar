@@ -1,0 +1,104 @@
+.paginated_collection
+  .paginated_collection_contents
+    .index_content
+      .index_as_table
+        table#index_table_messages.index_table.index[paginator= true]
+          thead
+            tr
+              th id
+              th host_id
+              th guest_id
+              th listing_id
+              th schedule
+              th num_of_people
+              th msg
+              th progress
+              th reason
+              th review_mail_sent_at
+              th review_expiration_date
+              th review_landed_at
+              th reviewed_at
+              th reply_mail_sent_at
+              th reply_landed_at
+              th replied_at
+              th review_opened_at
+              th time_required
+              th price
+              th option_price
+              th place
+              th description
+              th schedule_end
+              th option_price_per_person
+              th place_memo
+              th campaign_id
+              th refund_type
+              th accepted_at
+              th price_other
+              th created_at
+              th updated_at
+          tbody
+            - @payments.each do | payment |
+              tr
+                th
+                  = payment.reservation.id
+                td
+                  = payment.reservation.host_id
+                td
+                  = payment.reservation.guest_id
+                td
+                  = payment.reservation.listing_id
+                td
+                  = payment.reservation.schedule
+                td
+                  = payment.reservation.num_of_people
+                td
+                  = payment.reservation.msg
+                td
+                  = payment.reservation.progress
+                td
+                  = payment.reservation.reason
+                td
+                  = payment.reservation.review_mail_sent_at
+                td
+                  = payment.reservation.review_expiration_date
+                td
+                  = payment.reservation.review_landed_at
+                td
+                  = payment.reservation.reviewed_at
+                td
+                  = payment.reservation.reply_mail_sent_at
+                td
+                  = payment.reservation.reply_landed_at
+                td
+                  = payment.reservation.replied_at
+                td
+                  = payment.reservation.review_opened_at
+                td
+                  = payment.reservation.time_required
+                td
+                  = payment.reservation.price
+                td
+                  = payment.reservation.option_price
+                td
+                  = payment.reservation.place
+                td
+                  = payment.reservation.description
+                td
+                  = payment.reservation.schedule_end
+                td
+                  = payment.reservation.option_price_per_person
+                td
+                  = payment.reservation.place_memo
+                td
+                  = payment.reservation.campaign_id
+                td
+                  = payment.reservation.refund_type
+                td
+                  = payment.reservation.accepted_at
+                td
+                  = payment.reservation.price_other
+                td
+                  = payment.reservation.created_at
+                td
+                  = payment.reservation.updated_at
+  = render 'footer'

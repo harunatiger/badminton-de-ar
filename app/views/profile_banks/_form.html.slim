@@ -5,33 +5,33 @@
   .card.row-space-4
     .card-header Please register your PayPal account
     .card-body.card-body-vpad30
-      .row.row-condensed.row-space-4
+      /.row.row-condensed.row-space-4
         label.text-right.col-3
           | PayPal Account Name
         .col-8
            = f.input_field :paypal_account, placeholder: "paypal@paypal.com"
-      /.row.row-condensed.row-space-4
+      .row.row-condensed.row-space-4
         label.text-right.col-3
           | Bank name
         .col-8
            = f.input_field :name, placeholder: "例）三菱東京UFJ銀行"
-      /.row.row-condensed.row-space-4
+      .row.row-condensed.row-space-4
         label.text-right.col-3
           | Branch name
         .col-8
           = f.input_field :branch_name, placeholder: "例）東京支店"
-      /.row.row-condensed.row-space-4
+      .row.row-condensed.row-space-4
         label.text-right.col-3
           | Type of account
         .col-8
           .select
             = f.input_field :account_type, as: :select, :collection => [["普通",0], ["当座",1]], :default => 0
-      /.row.row-condensed.row-space-4
+      .row.row-condensed.row-space-4
         label.text-right.col-3
           | Account holder
         .col-8
           = f.input_field :user_name, placeholder: "例）TAROU YAMADA"
-      /.row.row-condensed.row-space-4
+      .row.row-condensed.row-space-4
         label.text-right.col-3
           | Account number
         .col-8.row-space-2

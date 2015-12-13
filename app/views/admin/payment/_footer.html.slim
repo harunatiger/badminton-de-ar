@@ -1,0 +1,5 @@
+#index_footer
+  .download_links
+    span ダウンロード:
+    = link_to params.merge(:action => :payment_weekly_report, format: :csv) do
+      | CSV

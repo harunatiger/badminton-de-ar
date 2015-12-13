@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211092943) do
+ActiveRecord::Schema.define(version: 20151213034321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -360,6 +360,7 @@ ActiveRecord::Schema.define(version: 20151211092943) do
     t.datetime "refund_date"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.datetime "accepted_at"
   end
 
   add_index "payments", ["reservation_id"], name: "index_payments_on_reservation_id", using: :btree
@@ -569,6 +570,7 @@ ActiveRecord::Schema.define(version: 20151211092943) do
     t.text     "place_memo",                                      default: ""
     t.integer  "campaign_id"
     t.integer  "price_other",                                     default: 0
+    t.integer  "refund_rate",                                     default: 0
   end
 
   add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree
