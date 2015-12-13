@@ -51,7 +51,8 @@ class ProfilesController < ApplicationController
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
         format.json { render :show, status: :created, location: @profile }
       else
-        format.html { render :new }
+        flash.now[:alert] = Settings.profile.save.failure
+        format.html { render 'new' }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
@@ -70,7 +71,8 @@ class ProfilesController < ApplicationController
         format.html { redirect_to @profile, notice: Settings.profile.save.success }
         format.json { render :show, status: :ok, location: @profile }
       else
-        format.html { render :edit }
+        flash.now[:alert] = Settings.profile.save.failure
+        format.html { render 'edit' }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end

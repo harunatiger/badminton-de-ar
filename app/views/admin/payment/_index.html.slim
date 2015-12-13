@@ -31,9 +31,8 @@
               th option_price_per_person
               th place_memo
               th campaign_id
-              th refund_type
-              th accepted_at
               th price_other
+              th refund_rate
               th created_at
               th updated_at
           tbody
@@ -92,11 +91,9 @@
                 td
                   = payment.reservation.campaign_id
                 td
-                  = payment.reservation.refund_type
-                td
-                  = payment.reservation.accepted_at
-                td
                   = payment.reservation.price_other
+                td
+                  = payment.reservation.refund_rate
                 td
                   = payment.reservation.created_at
                 td

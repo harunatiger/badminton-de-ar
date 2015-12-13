@@ -99,7 +99,7 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :included, placeholder: "(1)レンタカー代(固定 15,000円/1日)\n(2)ガソリン代(目的地で変動)\n(3)高速道路代(目的地で変動)", rows: "6"
+          = f.input_field :included, :class => 'imeoff', placeholder: "(1)レンタカー代(固定 15,000円/1日)\n(2)ガソリン代(目的地で変動)\n(3)高速道路代(目的地で変動)", rows: "6"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -122,7 +122,7 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :included_other, placeholder: "(1)浴衣レンタル代 2,000円/人\r\n※食事代は各自負担", rows: "6"
+          = f.input_field :included_other,:class => 'imeoff', placeholder: "(1)浴衣レンタル代 2,000円/人\r\n※食事代は各自負担", rows: "6"
   .row-space-top-4
     h3.text-center.row-space-2 集合場所・その他の条件
     p.text-center.row-space-6
@@ -136,7 +136,7 @@
         .col-xs-11
           = f.hidden_field :place_longitude
           = f.hidden_field :place_latitude
-          = f.input_field :place, placeholder: "Googleマップから検索できます"
+          = f.input_field :place,:class => 'imeoff', placeholder: "Googleマップから検索できます"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
     .col-xs-8.fieldset.col-middle
@@ -150,7 +150,7 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :place_memo, placeholder: "例）ハチ公前にバラの花を付けて集合"
+          = f.input_field :place_memo,:class => 'imeoff', placeholder: "例）ハチ公前にバラの花を付けて集合"
   /.row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -179,7 +179,7 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :condition, placeholder: "例) 女子旅なので女子オンリー"
+          = f.input_field :condition,:class => 'imeoff', placeholder: "例) 女子旅なので女子オンリー"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -187,7 +187,7 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :in_case_of_rain, placeholder: "例) 雨天決行！"
+          = f.input_field :in_case_of_rain,:class => 'imeoff', placeholder: "例) 雨天決行！"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light

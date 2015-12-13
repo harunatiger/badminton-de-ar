@@ -9,6 +9,7 @@ oauth:
 profile:
   save:
     success: "Profile updated successfully"
+    failure: "電話番号を入力してください"
   send_message: 'Complete your profile in order to contact TOMODACHI Guide'
 profile_images:
   save:
@@ -130,6 +131,8 @@ reservation:
 payment:
   refunds:
     policy: '8日以上前のキャンセル  ：エスクロー分の全額返金、1日〜7日前のキャンセル：エスクロー分の50％返金、24時間以内のキャンセル：返金なし'
+    before_weeks_rate: 100
+    before_days_rate: 50
 message_thread:
   show:
     message_form:

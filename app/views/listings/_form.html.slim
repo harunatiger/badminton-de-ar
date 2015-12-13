@@ -12,7 +12,7 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :title, placeholder: "例) 鎌倉市のガイドマスターが案内します！"
+          = f.input_field :title, :class => 'imeoff', placeholder: "例) 鎌倉市のガイドマスターが案内します！"
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -28,11 +28,11 @@
               br
               | ３つだけ、ざっくり伝えよう！
             p
-              = f.input_field :recommend1
+              = f.input_field :recommend1, :class => 'imeoff'
             p
-              = f.input_field :recommend2
+              = f.input_field :recommend2, :class => 'imeoff'
             p
-              = f.input_field :recommend3
+              = f.input_field :recommend3, :class => 'imeoff'
 
       .row
         .col-xs-11
@@ -43,7 +43,7 @@
               li なんでこのプランを作ったのか
               li 自分が体験してみてどこが良かったか
               li 思い出や思い入れがあれば付け加える
-            = f.input_field :description, placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
+            = f.input_field :description, :class => 'imeoff', placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
 
       .row
         .col-xs-11
@@ -58,7 +58,7 @@
               li どんな魅力ポイントがあるのか
               li どんなオプションがあって、それがどういう風にいいのか
               li その他
-            = f.input_field :overview, placeholder: "あなたのツアーの紹介文を入力ください", rows: "12", maxlength: 1000
+            = f.input_field :overview, :class => 'imeoff', placeholder: "あなたのツアーの紹介文を入力ください", rows: "12", maxlength: 1000
 
       .row
         .col-xs-11
@@ -70,7 +70,7 @@
             ul.list-normal
               li 山道を歩くので、スニーカーなど動きやすい靴や動きやすい格好でお越しください…など
               li ろくろ体験は泥で汚れるので、汚れてもよい格好でご来訪ください…など
-            = f.input_field :notes, placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
+            = f.input_field :notes, :class => 'imeoff', placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
 
   / .row.row-space-5.row-space-top-5.row-table
   /   .col-xs-4.text-right.col-middle

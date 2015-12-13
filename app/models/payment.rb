@@ -29,7 +29,7 @@
 class Payment < ActiveRecord::Base
   belongs_to :reservation
 
-  scope :term, -> (from, to, params) { where( params => from...to) }
+  scope :term, -> (from, to, params) { where( params => from...to)}
 
   def amount_for_paypal
     self.amount * 100

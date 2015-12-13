@@ -32,7 +32,7 @@ ul.sidenav-list
       = link_to "ID information", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profile_banks'
     li
-      = link_to "PayPal Account", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"}
+      = link_to "銀行情報", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"}
   - else
     li
-      = link_to "PayPal Account", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "false"}
+      = link_to "銀行情報", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "false"}

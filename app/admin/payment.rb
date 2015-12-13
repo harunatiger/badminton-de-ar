@@ -10,28 +10,26 @@ ActiveAdmin.register_page "Payment" do
 
   controller do
     def index
+      startdate = params[:startdate] + ' 00:00:00'
+      enddate = params[:enddate] + ' 23:59:59'
       @payments = Payment.all
-        .term( params[:startdate], params[:enddate], :accepted_at )
+        .term( startdate, enddate, :created_at )
+        .includes(:reservation)
     end
 
     def payment_weekly_report
       @payments = Payment.all
-        .term( params[:startdate], params[:enddate], :accepted_at )
-      #beginning_of_last_month = DateTime.now.prev_month.beginning_of_month
-      #end_of_month = DateTime.now.prev_month.end_of_month
-
-      #@payments = Payment.all
-      #  .term( beginning_of_last_month, end_of_month, :accepted_at )
-
-      #@payments = @payments.select([
-      #    :host_id,
-      #    Payment.arel_table[:amount].sum.as(:amount.to_s)
-      #  ]).group(:host_id)
+        .term( params[:startdate], params[:enddate], :created_at )
+        .includes(:reservation)
 
       @host_profit_infos = []
 
       @payments.each do |payment|
-        remarks = payment.reservation.progress == 1 ? 'キャンセル有　返金率' + payment.reservation.refund_rate + '%' : ''
+        if payment.reservation.canceled?
+          remarks = 'Canceled : Refund Rate ' + payment.reservation.refund_rate.to_s + '%'
+        else
+          remarks = ''
+        end
 
         host_profit_info = {
           id: payment.reservation.id,
@@ -52,7 +50,7 @@ ActiveAdmin.register_page "Payment" do
           replied_at: payment.reservation.replied_at,
           review_opened_at: payment.reservation.review_opened_at,
           time_required: payment.reservation.time_required,
-          price: price,
+          price: payment.reservation.price,
           option_price: payment.reservation.option_price,
           place: payment.reservation.place,
           description: payment.reservation.description,
