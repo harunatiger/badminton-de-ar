@@ -32,7 +32,7 @@
         |People
     .row.row-condensed.row-space-2
       .col-md-3.text-left.text-muted.strong
-        | 予約日時: 
+        | Booking date: 
       .col-md-8
         = reservation_obj.schedule
     .row.row-condensed.row-space-2
@@ -63,7 +63,7 @@
             .row-space-top-4
               = f.submit 'Cancel', name: 'cancel', class: "btn btn-host", data: { confirm: 'この予約をキャンセルします。本当によろしいですか？'}
               = link_to "#", class: "about_cancel_link" do
-                | 承認後のキャンセルに関して
+                | About cancellations after tour confirmation
           - else
             .h5.text-pink.strong
               = reservation_obj.string_of_progress_for_message_thread

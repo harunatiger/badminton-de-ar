@@ -37,7 +37,7 @@
             .col-9
               .select.select-opt
                 /= f.input_field :birthday, as: :date, use_month_numbers: true, start_year: Date.today.year - 120, end_year: Date.today.year - 12, order: [:year, :month, :day], date_separator: '/'
-                = raw sprintf(f.date_select(:birthday,use_month_numbers: true,start_year: (Time.zone.today.year - 120),end_year: (Time.zone.today.year - 12),default: Date.new(1986, 1, 1),order: [:year,:month,:day],date_separator: '%s'),'<span> /</span></div><div class="select select-opt">', '<span> /</span></div><div class="select select-opt">')
+                = raw sprintf(f.date_select(:birthday,use_month_numbers: true,start_year: (Time.zone.today.year - 120),end_year: (Time.zone.today.year - 12),default: Date.new(1986, 1, 1),order: [:year,:month,:day],date_separator: '%s'),'<span>/</span></div><div class="select select-opt">', '<span> /</span></div><div class="select select-opt">')
                 /= f.input_field :birthday, as: :date,
                                         :use_month_numbers => true,
                                         start_year: Date.today.year - 120,

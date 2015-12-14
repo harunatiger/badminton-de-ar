@@ -19,7 +19,7 @@
                   .col-md-10
                     - if devise_mapping.confirmable? && resource.pending_reconfirmation?
                       p
-                        | 現在アカウント以下のアドレスに有効化メールを送信しておりますので、そちらからアカウントを有効化してください。:
+                        | We have sent an activation email to your registered email address. Please check your email address for the activation link to access your account. :
                         = resource.unconfirmed_email
                     .row.row-condensed.row-space-2
                       .col-md-5.text-right.text-left--md

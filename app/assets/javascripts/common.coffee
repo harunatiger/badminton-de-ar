@@ -259,14 +259,14 @@ $ ->
     $('#moreguide').on 'click', ->
       if $('#allguides').is(':hidden')
         $(this).empty()
-        $(this).prepend('閉じる' + '<i class="fa fa-caret-up"></i>')
+        $(this).prepend('Close' + '<i class="fa fa-caret-up"></i>')
         $('#allguides').slideDown 'normal', ->
           position = $('.guide_list-tiles .col-lg-4:eq(2)').offset().top
           $('html,body').animate { scrollTop: position }
 
       else
         $(this).empty()
-        $(this).prepend('全て表示する' + '<i class="fa fa-caret-down"></i>')
+        $(this).prepend('See All' + '<i class="fa fa-caret-down"></i>')
         $('#allguides').slideUp 'normal', ->
           position = $('.guide_list-wrapper').offset().top
           $('html,body').animate { scrollTop: position }
