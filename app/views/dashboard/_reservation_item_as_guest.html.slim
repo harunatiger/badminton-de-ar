@@ -24,19 +24,22 @@
         .col-md-3.thread-progress
           .row.row-table
             .col-md-12.col-middle.text-center
-              - if r.progress == Settings.reservation.progress.requested
+              - if r.requested?
                 .tag
                   | 回答待ち
-              - elsif r.progress == Settings.reservation.progress.canceled
+              - elsif r.canceled?
                 .tag
                   | キャンセルしました
-              - elsif r.progress == Settings.reservation.progress.accepted
+              - elsif r.canceled_after_accepted?
+                .tag.tag-danger
+                  | 予約キャンセル確定
+              - elsif r.accepted?
                 .tag.tag-success
                   | 予約確定
-              - elsif r.progress == Settings.reservation.progress.rejected
+              - elsif r.rejected?
                 .tag
                   | 拒否されました
-              - elsif r.progress == Settings.reservation.progress.holded
+              - elsif r.holded?
                 .tag
                   | 保留中
               - else
@@ -45,7 +48,12 @@
               - if r.completed?
                 = simple_form_for(r, html: { class: "cancel-reservation-form" }) do |f|
                   = f.hidden_field :message_thread_id, value: r.message_thread_id
-                  = f.submit 'Cancel', name: 'cancel', class: 'btn-link small1 row-space-top-1'
+                  /= f.submit 'Cancel', name: 'cancel', class: 'btn-link small1 row-space-top-1'
+                  = link_to 'Cancel', "#", class: "btn-link small1 row-space-top-1 cancel_form"
+                  br
+                  = link_to "#", class: "about_cancel_link" do
+                    | キャンセルポリシー
+                  = render partial: 'shared/modals/cancel_form', locals: { r: r, f:f}
         .col-md-12.row-space-top-2
           = render partial: 'shared/reservation_block', locals: { reservation: r , count: i.to_s}
 

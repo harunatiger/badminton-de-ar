@@ -71,7 +71,7 @@ class MessagesController < ApplicationController
             format.json { return render json: { success: false } } if request.xhr?
           end
       
-          if @reservation.accepted? || @reservation.rejected? || @reservation.holded? || @reservation.canceled?
+          if @reservation.accepted? || @reservation.rejected? || @reservation.holded? || @reservation.canceled? || @reservation.canceled_after_accepted?
             #ReservationMailer.send_update_reservation_notification(@reservation, current_user.id).deliver_later!(wait: 1.minute) # if you want to use active job, use this line.
             ReservationMailer.send_update_reservation_notification(@reservation, current_user.id).deliver_now! # if you don't want to use active job, use this line.
           else

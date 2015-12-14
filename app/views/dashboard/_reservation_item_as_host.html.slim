@@ -24,8 +24,12 @@
         .col-md-3.thread-progress
           .row.row-table
             .col-md-12.col-middle.text-center
-              .tag.tag-success
-                | 予約確定
+              - if r.accepted?
+                .tag.tag-success
+                  | 予約確定
+              - else
+                .tag.tag-danger
+                  | 予約キャンセル確定
         .col-md-12.row-space-top-2
           = render partial: 'shared/reservation_block', locals: { reservation: r, count: i.to_s }
 

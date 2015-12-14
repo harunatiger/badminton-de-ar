@@ -31,7 +31,7 @@ ActiveAdmin.register_page "Payment" do
       @host_profit_infos = []
 
       @payments.each do |payment|
-        if payment.reservation.canceled?
+        if payment.reservation.canceled? or payment.reservation.canceled_after_accepted?
           remarks = 'Canceled : Refund Rate ' + payment.reservation.refund_rate.to_s + '%'
         else
           remarks = ''

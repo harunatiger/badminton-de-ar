@@ -2,7 +2,7 @@
 キャンセル内容は以下です。
 
 ■キャンセル日
-  <%= @reservation.updated_at %>
+  <%= Time.zone.now %>
 ■予約日
   <%= @reservation.schedule %>
 ■プラン実施日
@@ -18,11 +18,12 @@
 ■プランページURL
   <%= listing_url(@reservation.listing.id) %>
 ■Paypalでのキャンセル処理
-  <%= @payment.payment_status %>
+  <%= @payment.present? ? @payment.payment_status : 'なし'%>
 ■支払い金額
-  <%= @payment.amount %>　円
+  <%= @payment.present? ? @payment.amount : @reservation.amount_for_campaign %>　円
 ■ガイドに返金すべき金額
-  comming soon (csvと一緒に実装)
+  <%= @reservation.cancellation_fee_for_dashboard %>　円
 ■ゲストに返金すべき金額
   0円
 ■キャンセル理由
+  <%= @reason %>

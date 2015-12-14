@@ -1,7 +1,7 @@
 - if r.requested?
   span.label.status-request.text-pink
     = r.string_of_progress
-- elsif r.canceled? || r.listing_closed?
+- elsif r.canceled? || r.listing_closed? || r.canceled_after_accepted?
   span.label.status-contact
     = r.string_of_progress
 - elsif r.holded?

@@ -1,0 +1,33 @@
+/ modal share-via-email
+- today = Time.zone.now
+#cancel_form.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header.text-left
+          a.modal-close[href="#" data-dismiss="modal"]
+          | ツアーのキャンセル
+        form
+          .card-body.text-left
+            |プラン実施#{(r.schedule.to_date - today.to_date).to_i}日前です。
+            br
+            |現在のキャンセル料金は
+            span.strong.text-red #{r.cancellation_fee_for_dashboard}
+            | 円です。
+            br
+            br
+            |＊#{today}現在の情報です。時間が経過すると条件が変わる可能性がありますのでご注意ください。詳しくは
+            = link_to "#", class: "about_cancel_link" do
+              | キャンセルポリシー
+            | をご覧ください。
+            br
+            br
+            |よろしければ、キャンセル理由をご記入ください。Huber.の運用の参考にさせて頂きます。
+            br
+            = f.input_field :reason
+            br
+            br
+          .card-footer
+            = f.submit '送信する', name: 'cancel', class: 'btn btn-primary'
+            = link_to "やめる", "#", class: "btn btn-default", data: { dismiss: "modal" }
+

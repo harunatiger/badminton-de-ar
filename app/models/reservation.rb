@@ -54,7 +54,7 @@ class Reservation < ActiveRecord::Base
   has_many :ngevents, dependent: :destroy
 
   # Check config/settings.yml: Settings.reservation.progress
-  enum progress: { requested: 0, canceled: 1, holded: 2, accepted: 3, rejected: 4, listing_closed: 5 }
+  enum progress: { requested: 0, canceled: 1, holded: 2, accepted: 3, rejected: 4, listing_closed: 5, canceled_after_accepted: 6}
   #enum progress: [requested, canceled, holded, accepted, rejected, listing_closed]
 
   attr_accessor :message_thread_id
@@ -75,6 +75,7 @@ class Reservation < ActiveRecord::Base
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :new_requests, -> user_id { where(host_id: user_id, progress: 'requested') }
   scope :accepts, -> { where(progress: 3) }
+  scope :for_dashboard, -> { where('progress = ? or progress = ?', 3, 6) }
   scope :finished_before_yesterday, -> { where("schedule_end <= ?", Time.zone.yesterday.in_time_zone('UTC')) }
   scope :review_mail_never_be_sent, -> { where(review_mail_sent_at: nil) }
   scope :reviewed, -> { where.not(reviewed_at: nil) }
@@ -99,6 +100,7 @@ class Reservation < ActiveRecord::Base
   def string_of_progress
     return "承認依頼中" if self.requested?
     return "キャンセル" if self.canceled?
+    return "キャンセル" if self.canceled_after_accepted?
     return "調整中" if self.holded?
     return "ツアー決定" if self.accepted?
     return "取り消し" if self.rejected?
@@ -108,6 +110,7 @@ class Reservation < ActiveRecord::Base
   def string_of_progress_english
     return "Request" if self.requested?
     return "Cancel" if self.canceled?
+    return "Cancel" if self.canceled_after_accepted?
     return "Under construction" if self.holded?
     return "Accept" if self.accepted?
     return "Delete" if self.rejected?
@@ -117,12 +120,14 @@ class Reservation < ActiveRecord::Base
   def string_of_progress_for_message_thread
     return Settings.reservation.progress_for_message_thread.requested if self.requested?
     return Settings.reservation.progress_for_message_thread.canceled if self.canceled?
+    return Settings.reservation.progress_for_message_thread.canceled if self.canceled_after_accepted?
     return Settings.reservation.progress_for_message_thread.accepted if self.accepted?
     return Settings.reservation.progress_for_message_thread.rejected if self.rejected?
   end
 
   def subject_of_update_mail
     return Settings.mailer.update_reservation.subject.canceled if self.canceled?
+    return Settings.mailer.update_reservation.subject.canceled if self.canceled_after_accepted?
     return Settings.mailer.update_reservation.subject.holded if self.holded?
     return Settings.mailer.update_reservation.subject.accepted if self.accepted?
     return Settings.mailer.update_reservation.subject.rejected if self.rejected?
@@ -160,7 +165,7 @@ class Reservation < ActiveRecord::Base
 
   def self.active_reservation(guest_id, host_id)
     reservation = self.latest_reservation(guest_id, host_id)
-    if reservation.present? and not reservation.canceled? and not reservation.accepted?
+    if reservation.present? and not reservation.canceled? and not reservation.canceled_after_accepted? and not reservation.accepted?
       reservation.schedule_end.present? ? reservation.schedule_end > Time.zone.today : false
     else
       false
@@ -210,6 +215,26 @@ class Reservation < ActiveRecord::Base
   
   def paypal_campaign_discount
     0 - self.campaign.discount * 100
+  end
+  
+  def cancellation_fee_for_dashboard
+    if self.before_weeks? or self.amount_for_campaign <= 0
+      0
+    elsif self.before_days?
+      self.amount_for_campaign - (self.amount_for_campaign / 2)
+    else
+      self.amount_for_campaign
+    end
+  end
+  
+  def cancellation_fee
+    if self.refund_rate == 100 or self.amount_for_campaign <= 0
+      0
+    elsif self.refund_rate > 0
+      self.amount_for_campaign - (self.amount_for_campaign / (100 / self.refund_rate))
+    else
+      self.amount_for_campaign
+    end
   end
 
   def completed?

@@ -276,9 +276,9 @@ $ ->
   #initialize()
   # google place-auto-complete2
 
-  if $('body').hasClass('dashboard guest_reservation_manager')
-    $('.cancel-reservation-form').on 'submit', ->
-      return confirm('この予約をキャンセルします。本当によろしいですか？')
+  #if $('body').hasClass('dashboard guest_reservation_manager')
+  #  $('.cancel-reservation-form').on 'submit', ->
+  #    return confirm('この予約をキャンセルします。本当によろしいですか？')
 
   if $('body').hasClass('message_threads show')
     $('.cancel-reservation-form').on 'submit', ->

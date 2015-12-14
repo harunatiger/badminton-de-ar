@@ -17,8 +17,12 @@ li.thread-list-item
                   span.text-green.strong
                     | I approved your tour plan
                 - elsif m.try('content') == Settings.reservation.msg.canceled
+                  - reservation = reservation_id_to_reservation_obj(m.reservation_id)
                   span.text-pink.strong
                     | I cancelled your tour plan
+                    - if reservation.canceled_after_accepted?
+                      br
+                      | Cancellation fee ¥#{reservation.cancellation_fee}
                 - elsif m.try('content').end_with?(Settings.reservation.msg.contact)
                   span.text-pink.strong
                     =m.try('content')

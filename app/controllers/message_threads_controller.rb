@@ -25,7 +25,6 @@ class MessageThreadsController < ApplicationController
     Message.make_all_read(@message_thread.id, current_user.id)
     counterpart_user_id = MessageThreadUser.counterpart_user(@message_thread.id, current_user.id)
     @message = Message.new
-    @messages
     @counterpart = User.find(counterpart_user_id)
     @listings = User.find(@host_id).listings.opened.without_soft_destroyed
     gon.watch.ngdates = Ngevent.get_ngdates(@reservation)

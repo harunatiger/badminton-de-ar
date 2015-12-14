@@ -95,6 +95,7 @@ reservation:
       used_campaign_code: 'You have already used the campaign code'
   update:
     success: "Your tour plan has been uploaded successfully"
+    cancel_success: 'キャンセルが完了しました。ガイドにもキャンセルの連絡が届けられていますので、まだ今回のキャンセルについて何も伝えていない時はメッセージを送るようにしましょう。'
     failure: "Updating your tour plan failed"
     no_date: "Choose when to book this tour"
   requirement:
@@ -123,6 +124,7 @@ reservation:
     accepted: "accepted"
     rejected: "rejected"
     listing_closed: "listing_closed"
+    canceled_after_accepted: "canceled_after_accepted"
   progress_for_message_thread:
     requested: "Sending your tour plan..."
     canceled: "Sorry, Your request(Booking your tour) has been cancelled"

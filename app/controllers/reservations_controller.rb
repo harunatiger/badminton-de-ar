@@ -150,17 +150,22 @@ class ReservationsController < ApplicationController
           if @reservation.campaign.present? and @reservation.before_weeks?
             current_user.campaigns = current_user.campaigns.where.not(id: @reservation.campaign_id)
           end
-
-          ReservationMailer.send_cancel_mail_to_owner(@reservation).deliver_now!
         end
       end
       msg = Settings.reservation.msg.canceled
-      para[:progress] = 1
       if @reservation.before_weeks?
         para[:refund_rate] = Settings.payment.refunds.before_weeks_rate
       elsif @reservation.before_days?
         para[:refund_rate] = Settings.payment.refunds.before_days_rate
       end
+      
+      if @reservation.accepted?
+        ReservationMailer.send_cancel_mail_to_owner(@reservation, para[:reason]).deliver_now!
+        note = Settings.reservation.update.cancel_success
+        p note
+      end
+
+      para[:progress] = @reservation.accepted? ? 6 : 1
     elsif params[:accept]
       session[:message_thread_id] = message_thread_id
       session[:reservation_id] = @reservation.id
@@ -236,7 +241,7 @@ class ReservationsController < ApplicationController
         mt_obj = MessageThread.find(message_thread_id)
 
         if Message.send_message(mt_obj, msg_params)
-          format.html { redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.update.success }
+          format.html { redirect_to message_thread_path(message_thread_id), notice: note.present? ? note : Settings.reservation.update.success }
           format.json { render :show, status: :ok, location: @reservation }
         else
           format.html { redirect_to message_thread_path(message_thread_id) }
