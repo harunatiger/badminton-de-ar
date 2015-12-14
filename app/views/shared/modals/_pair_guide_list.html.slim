@@ -5,11 +5,11 @@
       .modal-content
         .card-header
           = link_to "", "#", class: "modal-close", data: { dismiss: "modal" }
-          | サポートガイド一覧
+          | List of support guides 
         form
           .card-body
             p
-              | 当日はメインガイドの他に、こちらのガイドの中から1名のサポートガイドがご一緒します。
+              | On the day of the tour, the main guide will be joined by a support guide
             .row
               - @profiles.each do |profile|
                 .col-xs-4.col-md-3.text-center.row-space-1

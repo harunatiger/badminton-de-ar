@@ -5,7 +5,7 @@
       .card
         - if @message_threads.blank?
           .card-body
-            p ガイドにメッセージを送信した場合、ここでガイドからの返信を見られます。
+            p After you send a message to a guide, you can see replies here.
         - else
           ul.thread-list.list-layout
             - @message_threads.each do |mt|

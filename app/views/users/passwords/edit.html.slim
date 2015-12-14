@@ -3,14 +3,14 @@
   .row
     .pop
       .card
-        .card-header パスワードを変更する
+        .card-header Change password
         .card-body
           = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
             .signin-form
               = f.error_notification
               = f.hidden_field :reset_password_token
               p.row-space-2
-                | パスワードを再設定します。
+                | Reset password
               .control-group.row-space-2
                 = f.input_field :password, placeholder: "新しいパスワード", required: true, autofocus: true, class: "row-space-2"
                 

@@ -9,19 +9,18 @@
             - resource_class.omniauth_providers.each do |provider|
               = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-large btn-block' do
                 i.fa.fa-facebook
-                | Facebookで登録する
+                | Sign in with Facebook account
           .text-center.social-links.hide
             - resource_class.omniauth_providers.each do |provider|
-              = link_to "facebook", omniauth_authorize_path(resource_name, provider)
-              | で登録
+              = link_to "Sign in with Facebook account", omniauth_authorize_path(resource_name, provider)
           .textInclude-separator
             h6.text
-              | または
+              | or
             hr
           .text-center
             = link_to "#", id: "to-signup-form", class: 'btn btn-primary btn-large btn-block' do
               i.fa.fa-envelope-o
-              | メールアドレスで新規登録
+              | Sign in with your email address
           = simple_form_for(resource, as: resource_name, url: user_registration_path) do |f|
             .signup-form.hide
               = f.error_notification
@@ -33,29 +32,27 @@
                 = f.input_field :password_confirmation, class: "decorative-input", placeholder: "パスワード確認", required: true
               .row-space-2.row-space-top-2
                 small
-                  | 登録することで、
-                  = link_to "サービス利用規約", "#"
-                  | 、
-                  = link_to "個人情報保護ポリシー", "#"
-                  | 、
-                  = link_to "返金ポリシー", "#"
-                  | 、
-                  = link_to "ガイド保証規約", "#"
-                  | に同意したことになります。
+                  | By register with Huber, you agree to 
+                  = link_to "our terms of service", "#"
+                  | , 
+                  = link_to "privacy policy", "#"
+                  | , 
+                  = link_to "refund policy", "#"
+                  | , 
+                  = link_to " and guide insurance policy", "#"
               .form-actions
                 = f.button :submit, "登録する", class: "btn btn-primary btn-large btn-block"
           .policy-wrapper.row-space-top-2
             small
-              | 登録することで、
-              = link_to "サービス利用規約", "#"
-              | 、
-              = link_to "個人情報保護ポリシー", "#"
-              | 、
-              = link_to "返金ポリシー", "#"
-              | 、
-              = link_to "ガイド保証規約", "#"
-              | に同意したことになります。
+              | By register with Huber, you agree to 
+              = link_to "our terms of service", "#"
+              | , 
+              = link_to "privacy policy", "#"
+              | , 
+              = link_to "refund policy", "#"
+              | , 
+              = link_to "and guide insurance policy.", "#"
         .card-body
           p.small1
-            | すでにメンバーですか？
-            = link_to "ログイン", new_user_session_path, class: ''
+            | Don't have an acount? 
+            = link_to "Login", new_user_session_path, class: ''

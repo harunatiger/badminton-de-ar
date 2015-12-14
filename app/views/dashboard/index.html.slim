@@ -24,16 +24,16 @@
             - unless @never_replied_reservations.count.zero?
               li
                 = link_to dashboard_host_reservation_manager_path do
-                  | 参加希望が
+                  | You have
                   = @never_replied_reservations.count
-                  |件届いています
+                  | applications.
                   i.fa.fa-chevron-right
             - unless @unread_messages.count.zero?
               li
                 = link_to message_threads_path do
-                  | You have
+                  | You have 
                   = @unread_messages.count
-                  | new message.
+                  |  new message.
                   i.fa.fa-chevron-right
             - if @never_replied_reservations.count.zero? && @unread_messages.count.zero?
               .text-center
