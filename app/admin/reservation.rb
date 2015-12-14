@@ -1,10 +1,6 @@
 ActiveAdmin.register Reservation do
   index do
     column :id
-    column :paypal_account do |reservation|
-      host = User.includes(:profile_bank).find(reservation.host_id)
-      link_to "paypal account", admin_profile_bank_path(host.profile_bank) if host.profile_bank
-    end
     column :schedule
     column :schedule_end
     column :num_of_people

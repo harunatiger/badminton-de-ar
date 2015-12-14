@@ -90,12 +90,11 @@ class ReservationMailer < ApplicationMailer
     end
   end
   
-  def send_cancel_mail_to_owner(reservation, reason)
+  def send_cancel_mail_to_owner(reservation)
     @host = User.find(reservation.host_id)
     @guest = User.find(reservation.guest_id)
     @reservation = reservation
     @payment = reservation.try('payment')
-    @reason = reason
     mail(
       to:      ENV["OWNER_MAIL_ADDRESS"],
       subject: Settings.mailer.send_cancel_mail_to_owner.subject

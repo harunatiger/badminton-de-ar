@@ -26,4 +26,4 @@
 ■ゲストに返金すべき金額
   0円
 ■キャンセル理由
-  <%= @reason %>
+<%= @reservation.try('reason') %>

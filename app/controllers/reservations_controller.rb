@@ -157,12 +157,6 @@ class ReservationsController < ApplicationController
       elsif @reservation.before_days?
         para[:refund_rate] = Settings.payment.refunds.before_days_rate
       end
-      
-      if @reservation.accepted?
-        ReservationMailer.send_cancel_mail_to_owner(@reservation, para[:reason]).deliver_now!
-        note = Settings.reservation.update.cancel_success
-        p note
-      end
 
       para[:progress] = @reservation.accepted? ? 6 : 1
     elsif params[:accept]
@@ -226,6 +220,10 @@ class ReservationsController < ApplicationController
         end
 
         ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
+        if @reservation.canceled_after_accepted?
+          ReservationMailer.send_cancel_mail_to_owner(@reservation).deliver_now!
+          note = Settings.reservation.update.cancel_success
+        end
         msg_params = Hash[
           'reservation_id' => @reservation.id,
           'listing_id' => @reservation.listing_id,

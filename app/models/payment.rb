@@ -30,6 +30,7 @@ class Payment < ActiveRecord::Base
 
   scope :with_reservation, -> { joins(:reservation) }
   scope :term, -> (from, to){ where('schedule >= ? AND schedule <= ?', from.beginning_of_day,to.end_of_day ) }
+  scope :filter_by_progress, -> { where('progress = ? or progress = ?', 3, 6) }
   scope :order_by_schedule, -> { order('schedule') }
 
   def amount_for_paypal
