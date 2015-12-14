@@ -16,6 +16,7 @@ ActiveAdmin.register_page "Payment" do
         @payments = Payment.all
           .with_reservation
           .term( @startdate, @enddate )
+          .order_by_schedule
           .includes(:reservation)
       end
     end
@@ -27,6 +28,7 @@ ActiveAdmin.register_page "Payment" do
         @payments = Payment.all
           .with_reservation
           .term( @startdate, @enddate )
+          .order_by_schedule
           .includes(:reservation)
 
         @host_profit_infos = []
