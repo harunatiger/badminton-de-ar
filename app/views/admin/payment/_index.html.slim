@@ -1,3 +1,9 @@
+- if @startdate.present? || @enddate.present?
+  h3
+    | #{@startdate} ~ #{@enddate}
+- else
+  h3
+    | 開始日と終了日を入力してください
 .paginated_collection
   .paginated_collection_contents
     .index_content

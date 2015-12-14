@@ -19,7 +19,6 @@
 #  refund_date      :datetime
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  accepted_at      :datetime
 #
 # Indexes
 #
@@ -29,7 +28,9 @@
 class Payment < ActiveRecord::Base
   belongs_to :reservation
 
-  scope :term, -> (range){ where(accepted_at: range) }
+  scope :with_reservation, -> { joins(:reservation) }
+  scope :term, -> (from, to){ where('schedule >= ? AND schedule <= ?', from.beginning_of_day,to.end_of_day ) }
+
 
   def amount_for_paypal
     self.amount * 100
