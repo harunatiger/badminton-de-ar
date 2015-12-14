@@ -31,6 +31,7 @@ csv_str = CSV.generate do |csv|
     'place_memo' => ->(host_profit_info){ host_profit_info[:place_memo] },
     'campaign_id' => ->(host_profit_info){ host_profit_info[:campaign_id] },
     'price_other' => ->(host_profit_info){ host_profit_info[:price_other] },
+    'refund_rate' => ->(host_profit_info){ host_profit_info[:refund_rate] },
     'created_at' => ->(host_profit_info){ host_profit_info[:created_at] },
     'updated_at' => ->(host_profit_info){ host_profit_info[:updated_at] },
     'remarks' => ->(host_profit_info){ host_profit_info[:remarks] },
@@ -40,8 +41,10 @@ csv_str = CSV.generate do |csv|
   csv << cols.keys
 
   # body の追加
-  @host_profit_infos.each do |host_profit_info|
-    csv << cols.map{|k, col| col.call(host_profit_info) }
+  if @host_profit_infos.present?
+    @host_profit_infos.each do |host_profit_info|
+      csv << cols.map{|k, col| col.call(host_profit_info) }
+    end
   end
 end
 # 文字コード変換
