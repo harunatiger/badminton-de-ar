@@ -178,6 +178,7 @@ class ReservationsController < ApplicationController
       para[:progress] = 3
       msg = Settings.reservation.msg.accepted
       UserCampaign.create(user_id: current_user.id, campaign_id: campaign.id) if campaign.present?
+      Payment.create(reservation_id: @reservation.id) if @reservation.payment.blank?
       session[:campaign_id] = nil
     elsif params[:payment]
       payment.reservation.campaign_id = session[:campaign_id] if session[:campaign_id]

@@ -28,6 +28,7 @@ ActiveAdmin.register_page "Payment" do
         @enddate = Date.parse(params[:enddate])
         @payments = Payment.all
           .with_reservation
+          .filter_by_progress
           .term( @startdate, @enddate )
           .order_by_schedule
           .includes(:reservation)
