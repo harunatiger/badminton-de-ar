@@ -1,4 +1,4 @@
-- @reservations.each do |r|
+- @reservations.each_with_index do |r, i|
   - listing = reservation_to_listing(r)
   - guest = reservation_to_guest(r)
   li.thread.reserve-thread
@@ -27,7 +27,7 @@
               .tag.tag-success
                 | 予約確定
         .col-md-12.row-space-top-2
-          = render partial: 'shared/reservation_block', locals: { reservation: r }
+          = render partial: 'shared/reservation_block', locals: { reservation: r, count: i.to_s }
 
   /li.card-body
     .row.row-table

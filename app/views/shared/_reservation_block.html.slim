@@ -1,9 +1,10 @@
 .row.row-condensed.row-space-4
   .col-sm-12.col-md-10.col-md-push-1
     .collapse-box
-      = link_to "#reservation_block",  data: {toggle:"collapse"} do
+      = link_to "#reservation_block" + count,  data: {toggle:"collapse"} do
         | Tour Information
-      #reservation_block.collapse
+      - id_name = 'reservation_block' + count
+      span(id=id_name class='collapse')
         .collapse-inner
           .row.row-condensed.row-space-1
             .col-md-3.text-left.text-muted.strong

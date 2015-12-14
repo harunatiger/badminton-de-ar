@@ -1,4 +1,4 @@
-- @reservations.each do |r|
+- @reservations.each_with_index do |r, i|
   - listing = reservation_to_listing(r)
   - host = reservation_to_host(r)
   li.thread.reserve-thread
@@ -47,6 +47,6 @@
                   = f.hidden_field :message_thread_id, value: r.message_thread_id
                   = f.submit 'Cancel', name: 'cancel', class: 'btn-link small1 row-space-top-1'
         .col-md-12.row-space-top-2
-          = render partial: 'shared/reservation_block', locals: { reservation: r }
+          = render partial: 'shared/reservation_block', locals: { reservation: r , count: i.to_s}
 
   = render partial: 'shared/modals/message_to_host_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }
