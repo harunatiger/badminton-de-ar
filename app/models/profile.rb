@@ -55,7 +55,7 @@ class Profile < ActiveRecord::Base
   enum gender: { female: 0, male: 1, others: 2, not_specified: 3 }
 
   validates :user_id, presence: true
-  #validate :phone_validation
+  validate :phone_validation
 
   def self.minimun_requirement?(user_id)
     profile = Profile.where(user_id: user_id).first
