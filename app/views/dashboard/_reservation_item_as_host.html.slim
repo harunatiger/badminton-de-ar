@@ -24,8 +24,12 @@
         .col-md-3.thread-progress
           .row.row-table
             .col-md-12.col-middle.text-center
-              .tag.tag-success
+              /.tag.tag-success
                 | 予約確定
+              .tag.tag-normal
+                | 予約キャンセル確定
+              .row-space-top-1
+                = link_to "キャンセルについての注意", "#", class: "small2"
         .col-md-12.row-space-top-2
           = render partial: 'shared/reservation_block', locals: { reservation: r }
 

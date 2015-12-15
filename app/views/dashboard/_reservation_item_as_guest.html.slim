@@ -43,9 +43,13 @@
                 .tag
                   | "非公開になりました"
               - if r.completed?
-                = simple_form_for(r, html: { class: "cancel-reservation-form" }) do |f|
+                div
+                  = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-thread row-space-top-1 row-space-1", data: { toggle: "modal" }
+                /= simple_form_for(r, html: { class: "cancel-reservation-form" }) do |f|
                   = f.hidden_field :message_thread_id, value: r.message_thread_id
-                  = f.submit 'Cancel', name: 'cancel', class: 'btn-link small1 row-space-top-1'
+                  = f.submit 'Cancel', name: 'cancel', class: 'btn btn-thread row-space-top-1 row-space-1'
+              = link_to "#", class: "small2 about_cancel_link" do
+                | Guest Refund Policy
         .col-md-12.row-space-top-2
           = render partial: 'shared/reservation_block', locals: { reservation: r }
 

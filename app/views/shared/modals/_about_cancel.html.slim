@@ -1,20 +1,15 @@
-/ modal share-via-email
+/ modal about_cancel
 #about_cancel.modal[role="dialog" aria-hidden="true"]
   .modal-table
     .modal-cell
       .modal-content
         .card-header
-          a.modal-close[href="#" data-dismiss="modal"]
+          = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
           | 承認後のキャンセルに関して
-        form
-          .card-body
-            | ①100% refund for cancellation up to 14 days prior to guide date
-            | (ex. For a guide starting on 5/15 at 15:00, until 5/1 at 23:59)
-            br
-            | ②50% refund for cancellation 14 to 3 days before guide date
-            | (ex. For a guide starting on 5/15 at 15:00, between 5/2 at 00:00 to 5/12 at 23:59)
-            br
-            | ③1日以内:コンテンツ対価の0%をゲストに返金
-            | (例:5/10 15:00スタートのコンテンツの場合、5/9 15:00以降のキャンセル)
-          .card-footer
-            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"
+        .card-body
+          ol
+            li.row-space-1 100% refund for cancellation up to 14 days prior to guide date (ex. For a guide starting on 5/15 at 15:00, until 5/1 at 23:59)
+            li.row-space-1 50% refund for cancellation 14 to 3 days before guide date (ex. For a guide starting on 5/15 at 15:00, between 5/2 at 00:00 to 5/12 at 23:59)
+            li.row-space-1 1日以内:コンテンツ対価の0%をゲストに返金 (例:5/10 15:00スタートのコンテンツの場合、5/9 15:00以降のキャンセル)
+        .card-footer
+          = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

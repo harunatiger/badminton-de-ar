@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 # source "http://bundler-api.herokuapp.com"
 # source 'http://production.s3.rubygems.org'
 
-ruby '2.2.1'
+ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
