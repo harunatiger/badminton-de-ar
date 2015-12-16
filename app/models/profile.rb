@@ -58,7 +58,7 @@ class Profile < ActiveRecord::Base
   enum gender: { female: 0, male: 1, others: 2, not_specified: 3 }
 
   validates :user_id, presence: true
-  validate :phone_validation
+  #validate :phone_validation
 
   def self.minimun_requirement?(user_id)
     profile = Profile.where(user_id: user_id).first
@@ -142,8 +142,7 @@ class Profile < ActiveRecord::Base
   end
 
   def phone_validation
-    user = User.find(self.user_id)
-    if user.confirmed_at.present? && user.provider.blank?
+    if User.find(self.user_id).confirmed_at.present?
       if self.phone.blank?
         errors.add(:phone, "電話番号を登録してください")
       end
