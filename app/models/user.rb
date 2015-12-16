@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
         uid:      auth.uid,
         email:    auth.info.email,
         password: Devise.friendly_token[0,20],
-        facebook_oauth: facebookuser
+        facebook_oauth: 1
       )
     end
     user.skip_confirmation!
