@@ -25,6 +25,7 @@
 #  uid                    :string           default(""), not null
 #  provider               :string           default(""), not null
 #  username               :string
+#  facebook_oauth         :integer          default(0)
 #
 # Indexes
 #
@@ -69,13 +70,16 @@ class User < ActiveRecord::Base
 
   scope :mine, -> user_id { where(id: user_id) }
 
+  enum facebook_oauth: { notfacebookuser: 0, facebookuser: 1}
+
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     unless user = User.where(provider: auth.provider, uid: auth.uid).first
       user = User.new(
         provider: auth.provider,
         uid:      auth.uid,
         email:    auth.info.email,
-        password: Devise.friendly_token[0,20]
+        password: Devise.friendly_token[0,20],
+        facebook_oauth: facebookuser
       )
     end
     user.skip_confirmation!
@@ -88,7 +92,7 @@ class User < ActiveRecord::Base
         first_name: auth.info.first_name || ''
       )
       profile.save
-      
+
       unless ProfileImage.exists?(user_id: user.id, profile_id: profile.id)
         profile_image = ProfileImage.new(
           user_id: user.id,
@@ -124,11 +128,11 @@ class User < ActiveRecord::Base
     user = User.find(user_id)
     user.profile.id
   end
-  
+
   def finish_reservation_count
     Reservation.as_host(self.id).accepts.finished_before_yesterday.count
   end
-  
+
   def already_authrized
     ProfileIdentity.where(user_id: self.id).first.try('authorized') || false
   end

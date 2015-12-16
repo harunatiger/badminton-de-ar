@@ -31,7 +31,10 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  country              :string           default("")
-#  progress             :integer
+#  progress             :integer          default(0), not null
+#  prefecture           :string           default("")
+#  municipality         :string           default("")
+#  other_address        :string           default("")
 #
 # Indexes
 #
@@ -139,7 +142,8 @@ class Profile < ActiveRecord::Base
   end
 
   def phone_validation
-    if User.find(self.user_id).confirmed_at.present?
+    user = User.find(self.user_id)
+    if user.confirmed_at.present? && user.notfacebookuser?
       if self.phone.blank?
         errors.add(:phone, "電話番号を登録してください")
       end
