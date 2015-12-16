@@ -9,7 +9,7 @@ $('#play').on('click',function(){
   if(player === undefined){
     new_player = true;
     player = new YT.Player('movie', {
-      videoId: 'WEtiK86GSAA',
+      videoId: 'fhwj6m2cgEY',
       playerVars: {'showinfo': 0, 'autohide': 1, 'rel': 0, 'loop': 1, 'hd': 1, 'fs': 1, 'autoplay': 1}
     })
   }
@@ -34,8 +34,7 @@ function handleFSevent() {
 	 || (document.mozFullScreenElement && document.mozFullScreenElement !== null)
 	 || (document.msFullscreenElement && document.msFullscreenElement !== null)
 	 || (document.fullScreenElement && document.fullScreenElement !== null) ) {
-		
+
 	}else{
 	}
 }*/
-
