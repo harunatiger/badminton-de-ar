@@ -143,7 +143,7 @@ class Profile < ActiveRecord::Base
 
   def phone_validation
     user = User.find(self.user_id)
-    if user.confirmed_at.present? && user.notfacebookuser?
+    if user.confirmed_at.present? && user.provider.blank?
       if self.phone.blank?
         errors.add(:phone, "電話番号を登録してください")
       end

@@ -84,9 +84,9 @@ class User < ActiveRecord::Base
     user.skip_confirmation!
     user.save
 
-    if user.present?
-      user.update(facebook_oauth: 1)
-    end
+    #if user.present?
+    #  user.update(facebook_oauth: 1)
+    #end
 
     unless Profile.exists?(user_id: user.id)
       profile = Profile.new(
