@@ -58,7 +58,7 @@ class Profile < ActiveRecord::Base
   enum gender: { female: 0, male: 1, others: 2, not_specified: 3 }
 
   validates :user_id, presence: true
-  #validate :phone_validation
+  validates :phone, presence: true, on: :update
 
   def self.minimun_requirement?(user_id)
     profile = Profile.where(user_id: user_id).first
@@ -137,14 +137,6 @@ class Profile < ActiveRecord::Base
         ret = ((100 / 6.to_f) * array_result.length).round
         profile.progress = ret.to_i
         profile.update({:listing_count => ret})
-      end
-    end
-  end
-
-  def phone_validation
-    if User.find(self.user_id).confirmed_at.present?
-      if self.phone.blank?
-        errors.add(:phone, "電話番号を登録してください")
       end
     end
   end

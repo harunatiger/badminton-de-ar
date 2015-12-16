@@ -25,7 +25,6 @@
 #  uid                    :string           default(""), not null
 #  provider               :string           default(""), not null
 #  username               :string
-#  facebook_oauth         :integer          default(0)
 #
 # Indexes
 #
@@ -70,8 +69,6 @@ class User < ActiveRecord::Base
 
   scope :mine, -> user_id { where(id: user_id) }
 
-  #enum facebook_oauth: { notfacebookuser: 0, facebookuser: 1}
-
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     unless user = User.where(provider: auth.provider, uid: auth.uid).first
       user = User.new(
@@ -83,10 +80,6 @@ class User < ActiveRecord::Base
     end
     user.skip_confirmation!
     user.save
-
-    #if user.present?
-    #  user.update(facebook_oauth: 1)
-    #end
 
     unless Profile.exists?(user_id: user.id)
       profile = Profile.new(
