@@ -87,3 +87,4 @@ bower.json
 /node_modules/gulp-sass/node_modules/node-sass/vendor/darwin-x64-node-0.12/
 
 .env
+.envrc
