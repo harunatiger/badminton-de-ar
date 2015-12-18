@@ -9,7 +9,7 @@ oauth:
 profile:
   save:
     success: "Profile updated successfully"
-    failure: "電話番号を登録してください"
+    failure: "電話番号を正しく登録してください"
   send_message: 'Complete your profile in order to contact TOMODACHI Guide'
 profile_images:
   save:

@@ -2,8 +2,8 @@
       = f.error_notification
       = f.hidden_field :user_id, value: current_user.id
       .card.row-space-4
-        .card-header 
-          |Enter your basic information. 
+        .card-header
+          |Enter your basic information.
           |Please enter
           .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
           |to increase your profile completion percentage.
@@ -60,7 +60,7 @@
               | Phone number
               i.fa.fa-lock.fa-green
             .col-7
-              = f.input_field :phone
+              = f.input_field :phone, :class => 'imeoff'
               .text-muted.row-space-top-1 This information will be available to guests who sign up for this tour
           .row.row-condensed.row-space-4
             label.text-right.col-3
