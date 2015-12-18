@@ -69,10 +69,12 @@ class ProfilesController < ApplicationController
       if @profile.update(para)
         Profile.set_percentage(@profile.user_id)
         format.html { redirect_to @profile, notice: Settings.profile.save.success }
+        format.mobile { redirect_to @profile, notice: Settings.profile.save.success }
         format.json { render :show, status: :ok, location: @profile }
       else
         flash.now[:alert] = Settings.profile.save.failure
         format.html { render 'edit' }
+        format.mobile { render 'edit' }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
