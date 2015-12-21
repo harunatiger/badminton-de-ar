@@ -2,7 +2,7 @@
 - provide(:description, "Huber. | Let's Travel with TOMODACHI Guide!!")
 .hero-wrapper
   #hero
-    ul#slideshow.list-unstyled
+    /ul#slideshow.list-unstyled
       li.active
         = image_tag 'top-slider/slide001.jpg'
       li
@@ -13,6 +13,17 @@
         = image_tag 'top-slider/slide004.jpg'
       li
         = image_tag 'top-slider/slide005.jpg'
+    ul#slideshow.list-unstyled
+      li.active
+        div[style="background-image: url(#{asset_path('top-slider/slide001.jpg')})"]
+      li
+        div[style="background-image: url(#{asset_path('top-slider/slide002.jpg')})"]
+      li
+        div[style="background-image: url(#{asset_path('top-slider/slide003.jpg')})"]
+      li
+        div[style="background-image: url(#{asset_path('top-slider/slide004.jpg')})"]
+      li
+        div[style="background-image: url(#{asset_path('top-slider/slide005.jpg')})"]
     #slideshow-cover.media-cover.media-cover-dark
   .hero-contents.text-center
     .va-container.va-container-wh

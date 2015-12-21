@@ -71,11 +71,50 @@ label
     margin-left: 6px
     font-size: 17px
 
+/* label */
 .label
   display: inline-block
   padding: 0
   font-size: inherit
   color: $gray1
+
+.label
+  color: #565a5c
+
+.label-success
+  color: #3fb34f
+
+.label-danger
+  color: #b23f42
+
+.label-warning
+  color: #ffb400
+
+.label-new
+  color: #00d1c1
+
+.label-info
+  color: #007a87
+
+.label-contrast
+  font-weight: bold
+  color: #fff
+  background-color: #565a5c
+  font-size: 12px
+  padding: 1px 5px
+  border-radius: 2px
+  white-space: nowrap
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1)
+  &.label-success
+    background-color: #3fb34f
+  &.label-danger
+    background-color: #b23f42
+  &.label-warning
+    background-color: #ffb400
+  &.label-new
+    background-color: #00d1c1
+  &.label-info
+    background-color: #007a87
 
 [type="text"],[type="number"],[type="password"],[type="search"],[type="email"],[type="url"],[type="tel"],textarea,select,input[type="radio"],input[type="checkbox"],.input-prefix,.input-suffix
   border: 1px solid #c4c4c4
