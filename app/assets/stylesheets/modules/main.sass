@@ -585,6 +585,35 @@ a.delete
   width: 100%
   height: 200px
 
+.listings.show
+  .pair_guide_list-trigger
+    padding-left: 0
+  .listing-description
+    ol
+      padding: 0
+      margin: 0
+      list-style: none
+      counter-reset: li
+    ol > li
+      position: relative
+      margin-bottom: .5em
+      padding-left: 2.5em
+    ol > li:before
+      content: counter(li) ""
+      counter-increment: li
+      position: absolute
+      left: 0
+      width: 1.5em
+      height: 1.5em
+      background: $yellow2
+      border-radius: 50px
+      line-height: 1.5
+      text-align: center
+    .detail-section
+      margin-top: 20px
+    p, ol
+      margin-left: 20px
+
 /* search */
 .listings.search
   .map

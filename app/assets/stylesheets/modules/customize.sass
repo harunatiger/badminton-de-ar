@@ -1,19 +1,5 @@
 /* customize.sass */
 
-// full calendar responsive bug-fix
-.fc-day-grid-container
-  @media (max-width: 525px)
-    height: auto !important
-
-@media (max-width: 525px)
-  .row-calendar
-    margin-top: 0
-    margin-bottom: 0
-  .calendar-header-container
-    p
-      margin: 0 0 12.5px
-  .fc-today-button
-    display: none
 // text inside disabled form item
 .disabled-text
   textarea
@@ -507,7 +493,6 @@ body.paper
         cursor: pointer
 
 /* google map infowindow */
-
 .infoBox
   padding: 10px
   background: #fff
@@ -896,18 +881,6 @@ label.error
         font-weight: 700
       .star-rating
         margin-left: 0
-      //.introducing
-        display: table
-        position: relative
-        width: 100%
-        height: 80px
-        padding: 8px 0
-        border-top: 1px solid $border2
-        border-bottom: 1px solid $border2
-        overflow: hidden
-        span
-          display: table-cell
-          vertical-align: middle
     .capability
       display: block
       padding: 5px 15px 0
@@ -967,9 +940,6 @@ label.error
   font-size: 20px
   font-weight: 700
 
-
-// Huber edit ==================================================
-
 /* profile */
 .profile-card-wrapper
   float: right
@@ -1016,7 +986,6 @@ label.error
 .profile-status
   .inputrate
     margin: 0 5px
-  //.reliable-sign
 
 //.profile-rating
 .profile-add
@@ -1191,30 +1160,8 @@ label.error
     #listing_name, #pickup_name
       font-size: 16px
 
-//.reliable-sign
-  position: absolute
-  top: 20px
-  right: 20px
-  width: 44px
-  height: 44px
-  line-height: 44px
-  text-align: center
-  background-color: #2ecc71
-  > i
-    display: inline-block
-  .fa-credit-card
-    color: white
-    font-size: 22px
-    vertical-align: middle
-  .fa-check
-    position: absolute
-    top: 2px
-    right: 2px
-    color: #2ecc71
-    background-color: white
-    border-radius: 50%
-
-// calendar
+/* calendar (listings/calendar)
+  ================================================================================ */
 .calendar-wrapper
   position: relative
   button
@@ -1308,6 +1255,63 @@ label.error
     background-color: $bg1
 .fc-basic-view .fc-body .fc-row
   min-height: 0
+
+// full calendar responsive bug-fix
+.fc-day-grid-container
+  @media (max-width: 525px)
+    height: auto !important
+
+@media (max-width: 525px)
+  .row-calendar
+    margin-top: 0
+    margin-bottom: 0
+  .calendar-header-container
+    p
+      margin: 0 0 12.5px
+  .fc-today-button
+    display: none
+
+#calendar
+  .fc-view
+    overflow-y: hidden
+  thead.fc-head th.fc-day-header
+    color: $brand-theme
+    text-decoration: underline
+    cursor: pointer
+  .fc-title
+    display: none
+  .fc-event-container
+    height: 100%
+    .fa
+      text-align: center
+      font-size: 1.2em
+    a
+      border-radius: 0
+      background-color: transparent !important
+      border: none
+  .fc-content-skeleton tr
+    position: relative
+  .fc-content-skeleton tbody tr:nth-child(2)
+    display: none
+  .fc-event-container-custom
+    background-color: gray !important
+  .fc-event
+    &:before
+      position: relative
+      @media (max-height: 750px)
+        top: -5px
+      @media (max-height: 700px)
+        top: -8px
+      @media (max-height: 650px)
+        top: -10px
+  .smd-td
+    color: white !important
+    background-color: gray !important
+    opacity: 1 !important
+  .fc-highlight
+    background: #bce8f1
+    opacity: .3
+    filter: alpha(opacity=30)
 
 .ic-illust
   display: inline-block
@@ -1435,48 +1439,6 @@ label.error
       .modal-close
         margin-right: 0
 
-/* #calendar */
-#calendar
-  .fc-view
-    overflow-y: hidden
-  thead.fc-head th.fc-day-header
-    color: $brand-theme
-    text-decoration: underline
-    cursor: pointer
-  .fc-title
-    display: none
-  .fc-event-container
-    height: 100%
-    .fa
-      text-align: center
-      font-size: 1.2em
-    a
-      border-radius: 0
-      background-color: transparent !important
-      border: none
-  .fc-content-skeleton tr
-    position: relative
-  .fc-content-skeleton tbody tr:nth-child(2)
-    display: none
-  .fc-event-container-custom
-    background-color: gray !important
-  .fc-event
-    &:before
-      position: relative
-      @media (max-height: 750px)
-        top: -5px
-      @media (max-height: 700px)
-        top: -8px
-      @media (max-height: 650px)
-        top: -10px
-  .smd-td
-    color: white !important
-    background-color: gray !important
-    opacity: 1 !important
-  .fc-highlight
-    background: #bce8f1
-    opacity: .3
-    filter: alpha(opacity=30)
 
 /* youtube-container */
 .youtube-container
@@ -1542,34 +1504,7 @@ label.error
     @media (max-width: 767px)
       bottom: 10%
       font-size: 18px
-.listings.show .pair_guide_list-trigger
-  padding-left: 0
-.listings.show .listing-description
-  ol
-    padding: 0
-    margin: 0
-    list-style: none
-    counter-reset: li
-  ol > li
-    position: relative
-    margin-bottom: .5em
-    padding-left: 2.5em
-  ol > li:before
-    content: counter(li) ""
-    counter-increment: li
-    position: absolute
-    left: 0
-    width: 1.5em
-    height: 1.5em
-    background: $yellow2
-    border-radius: 50px
-    line-height: 1.5
-    text-align: center
-.listings.show .listing-description .detail-section
-  margin-top: 20px
-.listings.show .listing-description p,
-.listings.show .listing-description ol
-  margin-left: 20px
+
 .discovery-tiles .other-pickup-links
   margin-top: 20px
 .profile_keywords .bootstrap-tagsinput
