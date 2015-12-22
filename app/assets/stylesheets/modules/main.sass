@@ -967,13 +967,13 @@ a.delete
       &.btn-host
         margin: 0 10px 0 0
 
-a.about_cancel_link
-  display: inline-block
-  color: $red1
-  font-size: 12px
-  text-decoration: underline
-  @media (max-width: 767px)
-    margin: 12.5px 0 0
+  a.about_cancel_link
+    display: inline-block
+    color: $red1
+    font-size: 12px
+    text-decoration: underline
+    @media (max-width: 767px)
+      margin: 12.5px 0 0
 
 a.cancel_form
   display: inline-block
@@ -1067,7 +1067,7 @@ a.cancel_form
 
 .thread-progress, .thread-label
   .tag
-    min-width: 70px
+    min-width: 80px
     min-height: 28px
     line-height: 28px
     padding: 0 10px
@@ -1118,6 +1118,14 @@ a.about_payment_link
     padding: 20px 20px 0px
     &:hover
       background-color: inherit
+
+.btn-thread
+  min-width: 80px
+  height: 28px
+  line-height: 28px
+  padding: 0 10px
+  font-weight: 400
+  border-radius: 2px
 
 // message-content ellipsis
 $container-bg: $bg1
@@ -1205,7 +1213,7 @@ $lines-to-show: 2
     height: auto
     .col-middle
       display: block
-      .tag
+      .tag, .btn-thread
         width: 100%
   .thread-body .row-table
     .col-middle

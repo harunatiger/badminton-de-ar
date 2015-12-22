@@ -295,6 +295,15 @@ a.card-image
   &[aria-hidden="true"]
     z-index: -1
 
+#about_cancel
+  z-index: 2010
+
+#confirm_cancel2
+  z-index: 2002
+
+#confirm_cancel3
+  z-index: 2004
+
 .modal-table
   display: table
   table-layout: fixed
@@ -366,6 +375,24 @@ body.paper
     background-color: white
     &.in
       opacity: 0.985
+
+/* modal-step */
+.modal-step
+  .step1, .step2, .step3
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 0
+  .step2, .step3
+    display: none
+  .active
+    z-index: 3
+
+.from_modal
+  .modal-backdrop.in
+    opacity: 0
 
 @media (max-width: 767px)
   .modal
