@@ -131,3 +131,9 @@ $ ->
     return false
   $('.close-cancel_form').on 'click', ->
       $('body').removeClass('paper')
+  
+  $('#reservation_form').hide()
+  $('.edit_reservation').on 'click', ->
+    $('#reservation_block').hide()
+    $('#reservation_form').show()
+    $('.reservation_collapse').attr 'href', '#reservation_form'

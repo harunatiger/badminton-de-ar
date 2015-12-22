@@ -456,4 +456,8 @@ module ApplicationHelper
     target = html_escape(target)
     target.gsub(/\r\n|\r|\n/, "<br />")
   end
+  
+  def schedule_span(reservation)
+    reservation.schedule.to_s + '〜' + (reservation.schedule + reservation.time_required.hour).to_s
+  end
 end
