@@ -71,13 +71,4 @@ module Payments
       items: item_params(payment.reservation)
     }
   end
-
-  def validate_card
-    if express_token.blank? && !credit_card.valid?
-      credit_card.errors.full_messages.each do |message|
-        errors.add_to_base message
-      end
-    end
-  end
-  
 end

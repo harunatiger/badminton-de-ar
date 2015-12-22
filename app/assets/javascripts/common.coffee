@@ -280,9 +280,9 @@ $ ->
   #  $('.cancel-reservation-form').on 'submit', ->
   #    return confirm('この予約をキャンセルします。本当によろしいですか？')
 
-  if $('body').hasClass('message_threads show')
-    $('.cancel-reservation-form').on 'submit', ->
-      return confirm('この予約をキャンセルします。本当によろしいですか？')
+  #if $('body').hasClass('message_threads show')
+  #  $('.cancel-reservation-form').on 'submit', ->
+  #    return confirm('この予約をキャンセルします。本当によろしいですか？')
 
   # registrations#new & registrations#create
   if $('body').hasClass('registrations new') || $('body').hasClass('registrations create')

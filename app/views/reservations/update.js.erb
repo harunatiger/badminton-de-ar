@@ -1,0 +1,6 @@
+<% if @status == "success" %>
+  $('.step1').hide();
+  $('.step3').show();
+<% elsif @status == "failure" %>
+  alert("Fail to cancel.");
+<% end %>

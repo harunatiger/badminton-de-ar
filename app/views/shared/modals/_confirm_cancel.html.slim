@@ -1,0 +1,75 @@
+/ modal confirm_cancel
+- today = Time.zone.now
+= simple_form_for(r, html: { class: "cancel-reservation-form" }, data: { remote: true }) do |f|
+  = f.hidden_field :message_thread_id, value: r.message_thread_id
+  #confirm_cancel.modal[role="dialog" aria-hidden="true"]
+    .modal-step
+      .step.step1.active
+        .modal-table
+          .modal-cell
+            .modal-content
+              .card-header.text-left
+                = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+                | このツアーをキャンセルしてよろしいですか？
+              .card-body.text-left
+                p
+                  | プラン実施#{(r.schedule.to_date - today.to_date).to_i}日前です。
+                p
+                  | 現在のキャンセル料金は
+                  span.strong.text-red #{r.cancellation_fee_for_dashboard}
+                  | 円です。
+                p
+                  i.fa.fa-exclamation-circle.fa-red 
+                  |  #{today}
+                  | 現在の情報です。
+                  br
+                  | 時間が経過すると条件が変わる可能性がありますのでご注意ください。
+                  br
+                  | 詳しくは
+                  = link_to "キャンセルポリシー", "#", class: "about_cancel_link"
+                  | をご覧ください。
+                  br
+                  br
+                  |よろしければ、キャンセル理由をご記入ください。Huber.の運用の参考にさせて頂きます。
+                  br
+                  = f.input_field :reason, rows: 8
+                p.strong
+                  | 本当にキャンセルしてもよろしいですか？
+              .card-footer
+                /= link_to "Cancel", "#", class: "btn btn-host cc_to_step2"
+                = f.submit 'Cancel', name: 'cancel', class: 'btn btn-host'
+                = link_to "Close", "#", class: "btn btn-default", data: { dismiss: "modal" }
+
+      /.step.step2
+        .modal-table
+          .modal-cell
+            .modal-content
+              .card-header.text-left
+                /= link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+                | ツアーがキャンセルされました
+              .card-body.text-left
+                p
+                  | よろしければ、キャンセル理由をご記入ください。
+                  br
+                  | Huber.の運用の参考にさせて頂きます。
+                form
+                  label キャンセルした理由
+                  = f.input_field :reason, rows: 8
+              .card-footer
+                = link_to "送信する", "#", data: {toggle:"modal"}, class: "btn btn-primary cc_to_step3"
+                = link_to "skip", "#", data: {toggle:"modal"}, class: "btn cc_to_step3"
+
+      .step.step3
+        .modal-table
+          .modal-cell
+            .modal-content
+              .card-header.text-left
+                = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+                | ツアーのキャンセル処理が完了しました
+              .card-body.text-left
+                p
+                  | キャンセルが完了しました。
+                  br
+                  | ガイドにもキャンセルの連絡が届けられていますので、まだ今回のキャンセルについて何も伝えていない時はメッセージを送るようにしましょう。
+              .card-footer
+                = link_to "close", "#", data: {dismiss:"modal"}, class: "btn"

@@ -1,73 +1,7 @@
-/* customize.sass */
+/* modules/customize.sass */
 
-// full calendar responsive bug-fix
-.fc-day-grid-container
-  @media (max-width: 525px)
-    height: auto !important
-
-@media (max-width: 525px)
-  .row-calendar
-    margin-top: 0
-    margin-bottom: 0
-  .calendar-header-container
-    p
-      margin: 0 0 12.5px
-  .fc-today-button
-    display: none
-// text inside disabled form item
-.disabled-text
-  textarea
-    color: $gray2
-
-// photo-box
-.photo-box
-  display: none
-
-// magnific popup edit
-.mfp-arrow-right, .mfp-arrow-left
-  text-align: center
-  &:after, .mfp-a
-    color: white
-    font-size: 68px
-    font-family: 'FontAwesome'
-  &:after, .mfp-a
-    content: "\f105"
-    border: 0
-    margin-top: 0
-  &:before, .mfp-b
-    display: none
-.mfp-arrow-left
-  &:after, .mfp-a
-    content: "\f104"
-
-/* video.js hack */
-.vjs-default-skin .vjs-big-play-button
-  top: 50%
-  left: 50%
-  margin: -1.3em 0 0 -2em
-
-/* error_notification */
-.error_notification
-  display: none
-
-.badge-pill-count
-  span
-    display: inline-block
-    margin: 0 0 0 5px
-
-.tour-listing
-  .card-image
-    .tour-cover
-      width: 100%
-      height: 100%
-      background-size: cover
-      background-position: center center
-      background-repeat: no-repeat
-  .card-body
-    height: 122px
-    padding: 18px
-  h5
-    line-height: 1.4
+/* common use
+  ================================================================================ */
 
 /* slideout */
 body.slideout
@@ -82,6 +16,132 @@ body.slideout
     .nav-mask--sp
       opacity: 0.6
 
+/* imeoff */
+.imeoff
+  ime-mode: disabled
+
+/* title-section */
+.title-section
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75))
+  z-index: 1
+  #listing_name, #pickup_name
+    line-height: 1.6
+    padding: 26px 0 16px
+    margin: 0
+    color: white
+    font-size: 28px
+    font-weight: 700
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .25)
+  @media (max-width: 1099px)
+    bottom: auto
+    top: 0
+    background: linear-gradient(rgba(0, 0, 0, 0.5), transparent)
+  @media (max-width: 767px)
+    #listing_name, #pickup_name
+      line-height: 1.3
+      font-size: 18px
+  @media (max-width: 630px)
+    #listing_name, #pickup_name
+      font-size: 16px
+
+/* validation error */
+label.error
+  padding: 5px 10px
+  margin: 0 0 10px
+  color: $red1
+  font-weight: 700
+  background-color: #ffeeee
+  border: 1px solid #FFD5D6
+  border-radius: 2px
+.url-check
+  label.error
+    padding: 5px
+    border: 0
+    background-color: transparent
+
+/* subnav */
+.subnav
+  .page-container
+    > .pull-right
+      display: block
+      position: relative
+      color: #cbecf7
+      padding: 10px 14px
+      &:hover
+        color: white
+
+/* tag-list-wrapper */
+.tag-list-wrapper
+  float: left
+  ul
+    list-style: none
+    margin: 0 0 10px
+    padding: 0
+    overflow: hidden
+    li
+      float: left
+      margin: 0 10px 10px 0
+      a
+        display: block
+        width: 38px
+        height: 38px
+        line-height: 38px
+        color: white
+        font-size: 16px
+        text-align: center
+        background-color: $brand-theme
+        border-radius: 50%
+  @media (max-width: 1099px)
+    float: none
+    ul
+      text-align: center
+      li
+        float: none
+        display: inline-block
+        a
+          width: 32px
+          height: 32px
+          line-height: 32px
+          font-size: 14px
+
+/* lang-list-wrapper */
+.lang-list-wrapper
+  float: left
+  ul
+    list-style: none
+    margin: 0
+    padding: 0
+    overflow: hidden
+    li
+      float: left
+      margin: 5px
+      span
+        display: block
+        height: 30px
+        line-height: 28px
+        padding: 0 12px
+        color: $brand-theme
+        font-size: 14px
+        font-weight: 700
+        text-align: center
+        background-color: white
+        border: 1px solid $brand-theme
+        border-radius: 2px
+  @media (max-width: 1099px)
+    float: none
+    ul
+      text-align: center
+      li
+        float: none
+        display: inline-block
+
+/* card
+  ================================================================================ */
+
 /* ui component */
 .card-close, .alert-close, .modal-close
   float: right
@@ -93,7 +153,6 @@ body.slideout
   font-style: normal
   font-weight: normal
 
-/* card */
 .card
   border: 1px solid $border1
   background-color: white
@@ -180,7 +239,7 @@ ul.card-body, ol.card-body
   bottom: 15px
   right: 15px
 
-/* flush */
+/* flush(card) */
 .flush-left
   left: 0
 
@@ -298,7 +357,118 @@ a.card-image
     right: 0
     z-index: 100
 
+<<<<<<< HEAD
+/* .huber-card */
+.huber-card
+  position: relative
+  color: $gray1
+  text-align: center
+  &:hover
+    color: $gray1
+    text-decoration: none
+  .huber-likes
+    position: absolute
+    top: 10px
+    right: 10px
+  .huber-card-background
+    display: block
+    height: 140px
+    border-radius: 4px 4px 0 0
+    border: 1px solid #e1e8ed
+    border-bottom: 0
+    background-size: cover
+    background-position: 0 50%
+    background-repeat: no-repeat
+  .huber-card-content
+    position: relative
+    min-height: 204px
+    background-color: white
+    border: 1px solid #e1e8ed
+    border-radius: 0 0 4px 4px
+    .huber-card-face
+      display: block
+      width: 100px
+      margin: -55px auto 0
+      border-radius: 50%
+      padding: 5px
+      background-color: white
+      div
+        width: 90px
+        height: 90px
+        border-radius: 50%
+        background-size: cover
+        background-position: center top
+        background-repeat: no-repeat
+        overflow: hidden
+    .huber-inner
+      margin: 6.25px 12.5px 0 -16px
+      padding: 0
+      .name
+        margin-bottom: 4px
+        font-size: 16px
+        font-weight: 700
+      .star-rating
+        margin-left: 0
+    .capability
+      display: block
+      padding: 5px 15px 0
+      span
+        display: inline-block
+        width: 28px
+        height: 28px
+        line-height: 28px
+        margin: 5px 3px
+        color: white
+        font-size: 14px
+        text-align: center
+        background-color: $brand-theme
+        border-radius: 50%
+        cursor: pointer
+    .language
+      padding: 10px 15px 18px
+      span
+        display: inline-block
+        height: 24px
+        line-height: 24px
+        padding: 0 10px
+        margin: 0 5px 0 0
+        color: #0084B4
+        font-size: 13px
+        border: 1px solid #BADAF9
+        border-radius: 2px
+    .trip-list
+      padding: 0 1px 1px
+      @media (max-width: 767px)
+        display: none
+      ul
+        display: table
+        list-style: none
+        margin: 0
+        padding: 0
+        border-radius: 0 0 4px 4px
+        overflow: hidden
+        li
+          display: table-cell
+          width: 33.33333%
+          a
+            display: block
+            height: 60px
+            overflow: hidden
+            cursor: pointer
+            img
+              display: block
+              width: 100%
+              height: auto
+            &:hover
+              img
+                opacity: 0.8
+
+/* modal
+  ================================================================================ */
+
+=======
 /* modal */
+>>>>>>> merge_dashbord_view
 .modal
   z-index: 2000
   transform: translate3d(0, 0, 0)
@@ -308,6 +478,15 @@ a.card-image
     opacity: 1
   &[aria-hidden="true"]
     z-index: -1
+
+#about_cancel
+  z-index: 2010
+
+#confirm_cancel2
+  z-index: 2002
+
+#confirm_cancel3
+  z-index: 2004
 
 .modal-table
   display: table
@@ -381,6 +560,24 @@ body.paper
     &.in
       opacity: 0.985
 
+/* modal-step */
+.modal-step
+  .step1, .step2, .step3
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 0
+  .step2, .step3
+    display: none
+  .active
+    z-index: 3
+
+.from_modal
+  .modal-backdrop.in
+    opacity: 0
+
 @media (max-width: 767px)
   .modal
     background: none
@@ -407,332 +604,9 @@ body.paper
       border-radius: 4px
       background-color: rgba(255, 255, 255, 0.5)
 
-/* slideshow */
-#slideshow
-  margin: 0
-  li
-    position: absolute
-    width: 100%
-    height: 100%
-    background-repeat: no-repeat
-    background-position: center center
-    background-size: cover
-    overflow: hidden
-    z-index: 8
-    &.active
-      z-index: 10
-    &.last-active
-      z-index: 9
-    div
-      width: 100%
-      height: 100%
-      background-position: center center
-      background-repeat: no-repeat
-      background-size: cover
-    img
-      position: absolute
-      top: 0
-      width: 100%
-      height: auto
-    //&.bg1
-      background-image: image-url('sample/top-slider/slider-01-mountain.jpg')
-    &.bg2
-      //background-image: image-url('sample/top-slider/slider-02-people.jpg')
-      img
-        top: auto
-        bottom: 0
-    //&.bg3
-      background-image: image-url('sample/top-slider/slider-03-guide.jpg')
+/* Style Star Rating Widget
+  ================================================================================ */
 
-#ceremony-video
-  bottom: 0
-  position: absolute
-  width: 100%
-
-#slideshow-cover
-  z-index: 11
-  &:after
-    opacity: 0.125
-
-//@media (max-width: 1067px)
-  #slideshow
-    li
-      background-color: #000
-      img
-        height: 100%
-        width: auto
-@media (max-width: 890px)
-  #slideshow
-    li
-      background: #000
-      img
-        height: 100%
-        width: auto
-@media (max-width: 767px)
-  #slideshow
-    li
-      img
-        width: 100%
-        height: auto
-@media (max-width: 540px)
-  #slideshow
-    li
-      img
-        left: 50%
-        margin-left: -266.5px
-        width: auto
-        height: 100%
-
-/* pager */
-.cycle-pager
-  position: absolute
-  top: 122px
-  width: 100%
-  text-align: center
-  overflow: hidden
-  z-index: 500
-  span
-    display: inline-block
-    width: 18px
-    height: 16px
-    color: $border1
-    font-size: 44px
-    font-family: arial
-    text-align: center
-    cursor: pointer
-    &.cycle-pager-active
-      color: #666
-    .cycle-pager
-      > *
-        cursor: pointer
-
-/* google map infowindow */
-
-.infoBox
-  padding: 10px
-  background: #fff
-  border-radius: 2px
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3)
-  &:before
-    border-color: #fff transparent transparent transparent
-    border-width: 15px
-    border-style: solid
-    content: ''
-    display: inline-block
-    position: absolute
-    bottom: -30px
-    margin: 0 0 0 115px
-
-.listing-map-popover
-  margin: 0
-  width: 260px
-  height: auto
-  .card-profile-picture
-    display: none
-  .panel-overlay-top-right
-    top: 10px
-    right: 10px
-  .panel-overlay-bottom-left
-    bottom: 0
-  .panel-card-section
-    padding: 5px
-  .listing-name
-    font-size: 14px
-    margin-bottom: 0
-  .listing-location
-    font-size: 12px
-
-/* carousel */
-@media (max-width: 767px)
-  .carousel-item-list
-    max-width: 100%
-  .carousel-item:not(:first-of-type)
-    display: none
-  .carousel-item-list
-    padding: 0
-    margin: 0 auto
-  .carousel-item
-    padding: 0
-    .listing
-      margin-bottom: 30px
-
-.carousel-item
-  padding-left: 0
-
-@media (min-width: 768px)
-  .sliding-carousel
-    position: relative
-    .carousel-view
-      overflow: hidden
-      position: relative
-    .carousel-item-list
-      left: 0
-      position: absolute
-      transition: left 0.2s ease-in-out
-    .carousel-item
-      float: left
-    .carousel-chevron
-      cursor: pointer
-      position: absolute
-      z-index: 999
-  .similar-listings-results
-    height: 290px
-  .sliding-carousel.similar-listings .carousel-chevron
-    top: 84px
-    &.left
-      left: -30px
-    &.right
-      right: -30px
-
-@media (min-width: 768px) and (max-width: 767px)
-  .sliding-carousel.similar-listings .carousel-chevron
-    &.left, &.right
-      top: 50%
-      margin-top: -15px
-    &.left
-      left: 0
-    &.right
-      right: 0
-
-@media (min-width: 768px)
-  .sliding-carousel.similar-listings .listing .card-image
-    height: 210px
-
-.listing-img
-  padding-bottom: 67%
-
-/* bootstrap slider */
-#price-range
-  height: 10px
-  opacity: 0
-.slider
-  margin-top: 7px
-  &.slider-horizontal
-    /**/
-    width: 100%
-    height: 20px
-    .slider-track
-      height: 14px
-      width: 100%
-      margin-top: -5px
-      top: 50%
-      left: 0
-    .slider-selection
-      height: auto
-      top: 5px
-      bottom: 5px
-    .slider-track-low, .slider-track-high
-      height: auto
-      top: 6px
-      bottom: 6px
-    .slider-handle
-      margin-left: -10px
-      margin-top: -3px
-    .slider-handle.triangle
-      border-width: 0 10px 10px 10px
-      width: 0
-      height: 0
-      border-bottom-color: #0480be
-      margin-top: 0
-  input
-    display: none
-  .tooltip.top
-    margin-top: -36px
-  .tooltip-inner
-    white-space: nowrap
-  .hide
-    display: none
-
-.slider-track
-  position: absolute
-  cursor: pointer
-  /**/
-  background: #eee
-  box-shadow: none
-  border-radius: 0
-  &:before, &:after
-    content: ''
-    display: block
-    position: absolute
-    top: 0
-    left: 0
-    width: 6px
-    height: 12px
-    background: #eee
-    z-index: 99999
-  &:after
-    left: auto
-    right: 0
-
-.slider-selection
-  position: absolute
-  /**/
-  background: $brand-theme
-  box-shadow: none
-  box-sizing: border-box
-  border-radius: 0
-
-.slider-track-low, .slider-track-high
-  position: absolute
-  background: transparent
-  box-sizing: border-box
-  background-color: #ddd
-  border-radius: 0
-
-.slider-handle
-  width: 20px
-  height: 20px
-  /**/
-  background: #eee
-  box-shadow: none
-  border: 1px solid #ccc
-
-/* badge-illust */
-.badge-illust1
-  width: 140px
-  height: 140px
-  line-height: 120px
-  margin: 0 auto
-  border: 8px solid $brand-theme
-  background-color: white
-  border-radius: 50%
-  img
-    width: 40%
-    height: auto
-
-
-/* btn-frame */
-.btn-frame
-  display: inline-block
-  position: relative
-  .btn
-    z-index: 0
-    transition: color 0.25s
-    &.text-disappear
-      color: transparent
-  .spinner
-    position: absolute
-    top: 50%
-    left: 50%
-    z-index: 5
-
-/* host_n_listing-info-box */
-.host_n_listing-info-box
-  overflow: hidden
-  .col-xs-4
-    padding: 0
-  .card-body
-    padding: 20px 12.5px 12.5px
-    @media (max-width: 767px)
-      padding: 10px 5px 5px
-    h4
-      @media (max-width: 1099px)
-        text-align: left
-      @media (max-width: 767px)
-        margin-bottom: 5px
-
-
-/****** Style Star Rating Widget ****/
 .rating
   border: none
   float: left
@@ -780,441 +654,271 @@ body.paper
   100%
     +scale(1.0)
 
-/* validation error */
-label.error
-  padding: 5px 10px
-  margin: 0 0 10px
-  color: $red1
-  font-weight: 700
-  background-color: #ffeeee
-  border: 1px solid #FFD5D6
-  border-radius: 2px
-.url-check
-  label.error
-    padding: 5px
-    border: 0
-    background-color: transparent
+/* partial use
+  ================================================================================ */
 
-/* discovery */
-.wall1
-  background-image: image-url('sample/pic/tokyo.jpg')
-.wall2
-  background-image: image-url('sample/pic/shopping.jpg')
-.wall3
-  background-image: image-url('sample/pic/kamakura.jpg')
-.wall4
-  background-image: image-url('sample/pic/akiba.jpg')
-.wall5
-  background-image: image-url('sample/pic/pic007.jpg')
-.wall6
-  background-image: image-url('sample/pic/pic004.jpg')
-.wall7
-  background-image: image-url('sample/pic/pic008.jpg')
-.wall8
-  background-image: image-url('sample/pic/pic009.jpg')
-.wall9
-  background-image: image-url('sample/pic/pic010.jpg')
-.wall10
-  background-image: image-url('sample/pic/pic011.jpg')
-.wall11
-  background-image: image-url('sample/pic/pic012.jpg')
-.wall12
-  background-image: image-url('sample/pic/pic013.jpg')
-.wall13
-  background-image: image-url('sample/pic/pic014.jpg')
-.wall14
-  background-image: image-url('sample/pic/pic015.jpg')
+// text inside disabled form item
+.disabled-text
+  textarea
+    color: $gray2
 
-/* likes */
-.likes
-  height: 24px
-  line-height: 24px
-  padding: 0 8px
-  text-decoration: none
-  background-color: $host-theme
-  border-radius: 12px
-  i.fa-heart
-    display: inline-block
-    margin: 0 5px 2px 0
-    color: white
-    font-size: 16px
-    vertical-align: middle
-  .count
-    display: inline-block
-    color: white
-    font-size: 13px
-    font-weight: 700
+// photo-box
+.photo-box
+  display: none
 
-/* .huber-card */
-.huber-card
-  position: relative
-  color: $gray1
+// magnific popup edit
+.mfp-arrow-right, .mfp-arrow-left
   text-align: center
-  &:hover
-    color: $gray1
-    text-decoration: none
-  .huber-likes
-    position: absolute
-    top: 10px
-    right: 10px
-  .huber-card-background
-    display: block
-    height: 140px
-    border-radius: 4px 4px 0 0
-    border: 1px solid #e1e8ed
-    border-bottom: 0
-    background-size: cover
-    background-position: 0 50%
-    background-repeat: no-repeat
-  .huber-card-content
-    position: relative
-    min-height: 204px
-    background-color: white
-    border: 1px solid #e1e8ed
-    border-radius: 0 0 4px 4px
-    .huber-card-face
-      display: block
-      width: 100px
-      margin: -55px auto 0
-      border-radius: 50%
-      padding: 5px
-      background-color: white
-      div
-        width: 90px
-        height: 90px
-        border-radius: 50%
-        background-size: cover
-        background-position: center top
-        background-repeat: no-repeat
-        overflow: hidden
-    .huber-inner
-      margin: 6.25px 12.5px 0 -16px
-      padding: 0
-      .name
-        margin-bottom: 4px
-        font-size: 16px
-        font-weight: 700
-      .star-rating
-        margin-left: 0
-      //.introducing
-        display: table
-        position: relative
-        width: 100%
-        height: 80px
-        padding: 8px 0
-        border-top: 1px solid $border2
-        border-bottom: 1px solid $border2
-        overflow: hidden
-        span
-          display: table-cell
-          vertical-align: middle
-    .capability
-      display: block
-      padding: 5px 15px 0
-      span
-        display: inline-block
-        width: 28px
-        height: 28px
-        line-height: 28px
-        margin: 5px 3px
-        color: white
-        font-size: 14px
-        text-align: center
-        background-color: $brand-theme
-        border-radius: 50%
-        cursor: pointer
-    .language
-      padding: 10px 15px 18px
-      span
-        display: inline-block
-        height: 24px
-        line-height: 24px
-        padding: 0 10px
-        margin: 0 5px 0 0
-        color: #0084B4
-        font-size: 13px
-        border: 1px solid #BADAF9
-        border-radius: 2px
-    .trip-list
-      padding: 0 1px 1px
-      @media (max-width: 767px)
-        display: none
-      ul
-        display: table
-        list-style: none
-        margin: 0
-        padding: 0
-        border-radius: 0 0 4px 4px
-        overflow: hidden
-        li
-          display: table-cell
-          width: 33.33333%
-          a
-            display: block
-            height: 60px
-            overflow: hidden
-            cursor: pointer
-            img
-              display: block
-              width: 100%
-              height: auto
-            &:hover
-              img
-                opacity: 0.8
-
-.copy-single
-  padding: 80px 0
-  font-size: 20px
-  font-weight: 700
-
-
-// Huber edit ==================================================
-
-/* profile */
-.profile-card-wrapper
-  float: right
-
-.profile-card
-  position: fixed
-  top: 80px
-  width: 315px
-  z-index: 10
-  border-top: none
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25)
-  .card
+  &:after, .mfp-a
+    color: white
+    font-size: 68px
+    font-family: 'FontAwesome'
+  &:after, .mfp-a
+    content: "\f105"
     border: 0
-    .card-body
+    margin-top: 0
+  &:before, .mfp-b
+    display: none
+.mfp-arrow-left
+  &:after, .mfp-a
+    content: "\f104"
 
-@media (max-width: 1099px)
-  .profile-card-wrapper
-    float: none
-  .profile-card
-    position: static
-    margin: -240px auto 40px
-
-@media (max-width: 767px)
-  .profile-card
-    width: auto
-    max-width: 315px
-
-.profile-face
-  img
-    width: 100%
-    height: auto
-
-.profile-name
-  font-size: 16px
-  span
-    display: inline-block
-    margin-right: 4px
-    font-size: 18px
-    font-weight: 700
-
-.profile-created
-  font-size: 13px
-
-.profile-status
-  .inputrate
-    margin: 0 5px
-  //.reliable-sign
-
-//.profile-rating
-.profile-add
-  a
-    color: $red1
-    text-decoration: underline
-  .fa
-    margin-right: 4px
-
-.photo-list-wrapper
-  max-width: 480px
-  margin: 0 auto
-
-#neighborhood
-  .location-card
-    height: auto
-    background-color: $bg1
-    overflow: hidden
-
-#map, #tour-map, .map_jp-wrapper
-  height: 500px
-  @media (max-width: 767px)
-    height: 300px
-
-#map_jp
-  position: absolute
+/* video.js hack */
+.vjs-default-skin .vjs-big-play-button
   top: 50%
   left: 50%
-  width: 305px
-  height: 210px
-  margin: -110px 0 0 -125px
-  background-image: image-url('map_jp.png')
-  background-repeat: no-repeat
-  background-position: center center
-  background-size: 305px 210px
-  .pointer
-    position: absolute
-    width: 10px
-    height: 10px
-    border-radius: 50%
-    background-color: $brand-theme
-    &.po01
-      top: 151px
-      left: 169px
-      &:after
-        content: ''
-        display: block
-        position: absolute
-        top: -5px
-        left: -5px
-        width: 20px
-        height: 20px
-        border-radius: 50%
-        background-color: $brand-theme-hover
-        animation: pulsate 1.2s infinite
+  margin: -1.3em 0 0 -2em
 
-@keyframes pulsate
-  0%
-    transform: scale(0.1, 0.1)
-    opacity: 0.0
-  50%
-    opacity: 1.0
-  100%
-    transform: scale(2, 2)
-    opacity: 0.0
+/* error_notification */
+.error_notification
+  display: none
 
-// profile_self_introduction
-.self_introduction_wrapper
-  .text-special
-    p
-      color: $gray2
-      font-size: 13px
-
-// subnav
-.subnav
-  .page-container
-    > .pull-right
-      display: block
-      position: relative
-      color: #cbecf7
-      padding: 10px 14px
-      &:hover
-        color: white
-
-.tag-list-wrapper
-  float: left
-  ul
-    list-style: none
-    margin: 0 0 10px
-    padding: 0
-    overflow: hidden
-    li
-      float: left
-      margin: 0 10px 10px 0
-      a
-        display: block
-        width: 38px
-        height: 38px
-        line-height: 38px
-        color: white
-        font-size: 16px
-        text-align: center
-        background-color: $brand-theme
-        border-radius: 50%
-  @media (max-width: 1099px)
-    float: none
-    ul
-      text-align: center
-      li
-        float: none
-        display: inline-block
-        a
-          width: 32px
-          height: 32px
-          line-height: 32px
-          font-size: 14px
-
-.lang-list-wrapper
-  float: left
-  ul
-    list-style: none
-    margin: 0
-    padding: 0
-    overflow: hidden
-    li
-      float: left
-      margin: 5px
-      span
-        display: block
-        height: 30px
-        line-height: 28px
-        padding: 0 12px
-        color: $brand-theme
-        font-size: 14px
-        font-weight: 700
-        text-align: center
-        background-color: white
-        border: 1px solid $brand-theme
-        border-radius: 2px
-  @media (max-width: 1099px)
-    float: none
-    ul
-      text-align: center
-      li
-        float: none
-        display: inline-block
-
-.title-section
-  position: absolute
-  bottom: 0
-  left: 0
-  right: 0
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75))
-  z-index: 1
-  #listing_name, #pickup_name
-    line-height: 1.6
-    padding: 26px 0 16px
-    margin: 0
-    color: white
-    font-size: 28px
-    font-weight: 700
-    text-shadow: 0 1px 2px rgba(0, 0, 0, .25)
-  @media (max-width: 1099px)
-    bottom: auto
-    top: 0
-    background: linear-gradient(rgba(0, 0, 0, 0.5), transparent)
-  @media (max-width: 767px)
-    #listing_name, #pickup_name
-      line-height: 1.3
-      font-size: 18px
-  @media (max-width: 630px)
-    #listing_name, #pickup_name
-      font-size: 16px
-
-//.reliable-sign
-  position: absolute
-  top: 20px
-  right: 20px
-  width: 44px
-  height: 44px
-  line-height: 44px
-  text-align: center
-  background-color: #2ecc71
-  > i
+.badge-pill-count
+  span
     display: inline-block
-  .fa-credit-card
-    color: white
-    font-size: 22px
-    vertical-align: middle
-  .fa-check
-    position: absolute
-    top: 2px
-    right: 2px
-    color: #2ecc71
-    background-color: white
-    border-radius: 50%
+    margin: 0 0 0 5px
 
-// calendar
+/* tour-listing */
+.tour-listing
+  .card-image
+    .tour-cover
+      width: 100%
+      height: 100%
+      background-size: cover
+      background-position: center center
+      background-repeat: no-repeat
+  .card-body
+    height: 122px
+    padding: 18px
+  h5
+    line-height: 1.4
+.tour-list-cover
+  div
+    height: 210px
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: cover
+
+/* welcome
+  ================================================================================ */
+
+/* slideshow */
+#slideshow
+  margin: 0
+  li
+    position: absolute
+    width: 100%
+    height: 100%
+    background-repeat: no-repeat
+    background-position: center center
+    background-size: cover
+    overflow: hidden
+    z-index: 8
+    &.active
+      z-index: 10
+    &.last-active
+      z-index: 9
+    div
+      width: 100%
+      height: 100%
+      background-position: center center
+      background-repeat: no-repeat
+      background-size: cover
+    img
+      position: absolute
+      top: 0
+      width: 100%
+      height: auto
+
+#ceremony-video
+  bottom: 0
+  position: absolute
+  width: 100%
+
+#slideshow-cover
+  z-index: 11
+  &:after
+    opacity: 0.125
+
+@media (max-width: 890px)
+  #slideshow
+    li
+      background: #000
+      img
+        height: 100%
+        width: auto
+@media (max-width: 767px)
+  #slideshow
+    li
+      img
+        width: 100%
+        height: auto
+@media (max-width: 540px)
+  #slideshow
+    li
+      img
+        left: 50%
+        margin-left: -266.5px
+        width: auto
+        height: 100%
+
+/* youtube-container */
+.youtube-container
+  position: relative
+  width: 100%
+  height: 344px
+  overflow: hidden
+  @media (max-width: 1099px)
+    height: 270px
+  @media (max-width: 767px)
+    height: 220px
+  @media (max-width: 520px)
+    height: 150px
+  > div
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: cover
+  img
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+  iframe
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+  .play
+    position: relative
+    top: 50%
+    left: 50%
+    width: 80px
+    height: 80px
+    line-height: 80px
+    margin: -40px 0 0 -40px
+    text-align: center
+    background-color: rgba(23, 174, 223, .5)
+    border-radius: 50%
+    z-index: 1
+    i.fa
+      margin-left: 8%
+      color: rgba(255, 255, 255, .75)
+      font-size: 40px
+      vertical-align: middle
+    &:hover
+      background-color: $brand-theme
+      i.fa
+        color: white
+  h4
+    position: absolute
+    bottom: 16%
+    width: 100%
+    font-size: 24px
+    text-align: center
+    z-index: 1
+    @media (max-width: 767px)
+      bottom: 10%
+      font-size: 18px
+
+.discovery-tiles .other-pickup-links
+  margin-top: 20px
+
+@media (max-width: 1099px) and (min-width: 768px)
+  .col-switch-pickup
+    margin-top: -690px
+
+/* message
+  ================================================================================ */
+
+/* listing-img(dashboard) */
+.listing-img
+  padding-bottom: 67%
+
+/* btn-frame */
+.btn-frame
+  display: inline-block
+  position: relative
+  .btn
+    z-index: 0
+    transition: color 0.25s
+    &.text-disappear
+      color: transparent
+  .spinner
+    position: absolute
+    top: 50%
+    left: 50%
+    z-index: 5
+
+/* #preview-attached */
+#preview-attached
+  padding-right: 0 !important
+  .modal-cell
+    padding: 0
+  .modal-content
+    max-width: 940px
+    .card-body
+      width: 100%
+      height: 500px
+      padding: 10px
+      .card-inner
+        width: 100%
+        height: 100%
+        background-size: contain
+        background-repeat: no-repeat
+        background-position: center
+      .modal-close
+        margin-right: 0
+
+/* review
+  ================================================================================ */
+
+/* host_n_listing-info-box(review) */
+.host_n_listing-info-box
+  overflow: hidden
+  .col-xs-4
+    padding: 0
+  .card-body
+    padding: 20px 12.5px 12.5px
+    @media (max-width: 767px)
+      padding: 10px 5px 5px
+    h4
+      @media (max-width: 1099px)
+        text-align: left
+      @media (max-width: 767px)
+        margin-bottom: 5px
+
+/* listings
+  ================================================================================ */
+
+/* calendar (listings/calendar)
+  ================================================================================ */
 .calendar-wrapper
   position: relative
   button
@@ -1309,133 +1013,21 @@ label.error
 .fc-basic-view .fc-body .fc-row
   min-height: 0
 
-.ic-illust
-  display: inline-block
-  width: 40px
-  height: 40px
-  margin-right: 5px
-  vertical-align: middle
+// full calendar responsive bug-fix
+.fc-day-grid-container
+  @media (max-width: 525px)
+    height: auto !important
 
-.reliability-up
-  background-image: image-url('illust/trust-icon.png')
-  background-position: center center
-  background-repeat: no-repeat
-  background-size: 40px auto
+@media (max-width: 525px)
+  .row-calendar
+    margin-top: 0
+    margin-bottom: 0
+  .calendar-header-container
+    p
+      margin: 0 0 12.5px
+  .fc-today-button
+    display: none
 
-/* about guide */
-#about-guide
-  .modal-backdrop
-    background-color: #D7DCE2
-    &:after
-      content: ''
-      display: block
-      position: absolute
-      top: 0
-      left: 50%
-      right: 0
-      bottom: 0
-      background-color: $brand-theme
-    @media (max-width: 767px)
-      background-color: white
-      &:after
-        display: none
-  .modal-paper
-    top: 80px
-    margin: 0
-    .panel-close
-      color: white
-      @media (max-width: 767px)
-        background-color: $brand-theme
-        border-radius: 16px
-  .col-about-guide
-    padding: 0 40px
-    &.col-tomodachi-guide
-      background-color: $brand-theme
-      @media (max-width: 767px)
-        padding: 40px 20px
-    .pic-container
-      img
-        max-width: 400px
-        margin: 0 auto
-        border-radius: 4px
-
-/* guest flow */
-#guest-flow
-  .modal-paper
-    margin: -250px 0 0
-  .hero-text
-    line-height: 1.54
-  @media (max-width: 767px)
-    .modal-paper
-      margin: 20px 0 0
-    .hero-text
-      margin-bottom: 40px
-
-/* tag cloud */
-.tag_cloud-container
-  padding: 15px
-  background-color: $bg1
-  border: 1px dashed $border1
-  border-radius: 4px
-  h4
-    font-size: 15px
-    font-weight: 400
-    margin-top: -5px
-  .css4
-    margin-right: 2px
-
-.bootstrap-tagsinput .tag
-  padding: 3px 3px 3px 4px
-
-/* tour-list-cover */
-.tour-list-cover
-  div
-    height: 210px
-    background-position: center center
-    background-repeat: no-repeat
-    background-size: cover
-
-/* inputrate */
-.inputrate
-  display: inline-block
-  height: 28px
-  line-height: 28px
-  padding: 0 12px
-  color: white
-  font-size: 13px
-  border-radius: 2px
-.inputrate-red
-  background-color: $red1
-.inputrate-orange
-  background-color: $orange1
-.inputrate-yellow
-  background-color: $yellow3
-.inputrate-lightgreen
-  background-color: $green1
-.inputrate-green
-  background-color: $green3
-
-/* #preview-attached */
-#preview-attached
-  padding-right: 0 !important
-  .modal-cell
-    padding: 0
-  .modal-content
-    max-width: 940px
-    .card-body
-      width: 100%
-      height: 500px
-      padding: 10px
-      .card-inner
-        width: 100%
-        height: 100%
-        background-size: contain
-        background-repeat: no-repeat
-        background-position: center
-      .modal-close
-        margin-right: 0
-
-/* #calendar */
 #calendar
   .fc-view
     overflow-y: hidden
@@ -1478,105 +1070,186 @@ label.error
     opacity: .3
     filter: alpha(opacity=30)
 
-/* youtube-container */
-.youtube-container
-  position: relative
-  width: 100%
-  height: 344px
-  overflow: hidden
-  @media (max-width: 1099px)
-    height: 270px
-  @media (max-width: 767px)
-    height: 220px
-  @media (max-width: 520px)
-    height: 150px
-  > div
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
-    bottom: 0
-    background-position: center center
-    background-repeat: no-repeat
-    background-size: cover
+/* profile
+  ================================================================================ */
+
+.profile-card-wrapper
+  float: right
+
+.profile-card
+  position: fixed
+  top: 80px
+  width: 315px
+  z-index: 10
+  border-top: none
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25)
+  .card
+    border: 0
+    .card-body
+
+@media (max-width: 1099px)
+  .profile-card-wrapper
+    float: none
+  .profile-card
+    position: static
+    margin: -240px auto 40px
+
+@media (max-width: 767px)
+  .profile-card
+    width: auto
+    max-width: 315px
+
+.profile-face
   img
-    position: absolute
-    top: 0
-    left: 0
     width: 100%
-    height: 100%
-  iframe
-    position: absolute
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
-  .play
-    position: relative
-    top: 50%
-    left: 50%
-    width: 80px
-    height: 80px
-    line-height: 80px
-    margin: -40px 0 0 -40px
-    text-align: center
-    background-color: rgba(23, 174, 223, .5)
-    border-radius: 50%
-    z-index: 1
-    i.fa
-      margin-left: 8%
-      color: rgba(255, 255, 255, .75)
-      font-size: 40px
-      vertical-align: middle
-    &:hover
-      background-color: $brand-theme
-      i.fa
-        color: white
+    height: auto
+
+.profile-name
+  font-size: 16px
+  span
+    display: inline-block
+    margin-right: 4px
+    font-size: 18px
+    font-weight: 700
+
+.profile-created
+  font-size: 13px
+
+.profile-status
+  .inputrate
+    margin: 0 5px
+
+//.profile-rating
+.profile-add
+  a
+    color: $red1
+    text-decoration: underline
+  .fa
+    margin-right: 4px
+
+.photo-list-wrapper
+  max-width: 480px
+  margin: 0 auto
+
+#neighborhood
+  .location-card
+    height: auto
+    background-color: $bg1
+    overflow: hidden
+
+#map, #tour-map, .map_jp-wrapper
+  height: 500px
+  @media (max-width: 767px)
+    height: 300px
+
+// profile_self_introduction
+.self_introduction_wrapper
+  .text-special
+    p
+      color: $gray2
+      font-size: 13px
+
+.ic-illust
+  display: inline-block
+  width: 40px
+  height: 40px
+  margin-right: 5px
+  vertical-align: middle
+
+.reliability-up
+  background-image: image-url('illust/trust-icon.png')
+  background-position: center center
+  background-repeat: no-repeat
+  background-size: 40px auto
+
+/* tag cloud */
+.tag_cloud-container
+  padding: 15px
+  background-color: $bg1
+  border: 1px dashed $border1
+  border-radius: 4px
   h4
-    position: absolute
-    bottom: 16%
-    width: 100%
-    font-size: 24px
-    text-align: center
-    z-index: 1
-    @media (max-width: 767px)
-      bottom: 10%
-      font-size: 18px
-.listings.show .pair_guide_list-trigger
-  padding-left: 0
-.listings.show .listing-description
-  ol
-    padding: 0
-    margin: 0
-    list-style: none
-    counter-reset: li
-  ol > li
-    position: relative
-    margin-bottom: .5em
-    padding-left: 2.5em
-  ol > li:before
-    content: counter(li) ""
-    counter-increment: li
-    position: absolute
-    left: 0
-    width: 1.5em
-    height: 1.5em
-    background: $yellow2
-    border-radius: 50px
-    line-height: 1.5
-    text-align: center
-.listings.show .listing-description .detail-section
-  margin-top: 20px
-.listings.show .listing-description p,
-.listings.show .listing-description ol
-  margin-left: 20px
-.discovery-tiles .other-pickup-links
-  margin-top: 20px
+    font-size: 15px
+    font-weight: 400
+    margin-top: -5px
+  .css4
+    margin-right: 2px
+
+.bootstrap-tagsinput .tag
+  padding: 3px 3px 3px 4px
+
 .profile_keywords .bootstrap-tagsinput
   width: 100%
-.imeoff
-  ime-mode: disabled
 
-@media (max-width: 1099px) and (min-width: 768px)
-  .col-switch-pickup
-    margin-top: -690px
+/* inputrate */
+.inputrate
+  display: inline-block
+  height: 28px
+  line-height: 28px
+  padding: 0 12px
+  color: white
+  font-size: 13px
+  border-radius: 2px
+.inputrate-red
+  background-color: $red1
+.inputrate-orange
+  background-color: $orange1
+.inputrate-yellow
+  background-color: $yellow3
+.inputrate-lightgreen
+  background-color: $green1
+.inputrate-green
+  background-color: $green3
+
+/* about-guide
+  ================================================================================ */
+
+#about-guide
+  .modal-backdrop
+    background-color: #D7DCE2
+    &:after
+      content: ''
+      display: block
+      position: absolute
+      top: 0
+      left: 50%
+      right: 0
+      bottom: 0
+      background-color: $brand-theme
+    @media (max-width: 767px)
+      background-color: white
+      &:after
+        display: none
+  .modal-paper
+    top: 80px
+    margin: 0
+    .panel-close
+      color: white
+      @media (max-width: 767px)
+        background-color: $brand-theme
+        border-radius: 16px
+  .col-about-guide
+    padding: 0 40px
+    &.col-tomodachi-guide
+      background-color: $brand-theme
+      @media (max-width: 767px)
+        padding: 40px 20px
+    .pic-container
+      img
+        max-width: 400px
+        margin: 0 auto
+        border-radius: 4px
+
+/* guest-flow
+  ================================================================================ */
+
+#guest-flow
+  .modal-paper
+    margin: -250px 0 0
+  .hero-text
+    line-height: 1.54
+  @media (max-width: 767px)
+    .modal-paper
+      margin: 20px 0 0
+    .hero-text
+      margin-bottom: 40px
