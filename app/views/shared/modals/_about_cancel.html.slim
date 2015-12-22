@@ -1,10 +1,10 @@
-/ modal share-via-email
+/ modal about_cancel
 #about_cancel.modal[role="dialog" aria-hidden="true"]
   .modal-table
     .modal-cell
       .modal-content
         .card-header
-          a.modal-close[href="#" data-dismiss="modal"]
+          = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
           | About cancellations after tour confirmation
         form
           .card-body

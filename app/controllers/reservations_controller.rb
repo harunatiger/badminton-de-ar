@@ -139,6 +139,7 @@ class ReservationsController < ApplicationController
           respond_to do |format|
             format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_refund_failure + ' エラー：' + response.params['error_codes'] + ' ' + response.params['message']}
             format.json { return render :show, status: :ok, location: @reservation }
+            format.js { @status = 'failure' }
           end
         else
           payment.transaction_id = response.params['refund_transaction_id']
@@ -157,7 +158,7 @@ class ReservationsController < ApplicationController
       elsif @reservation.before_days?
         para[:refund_rate] = Settings.payment.refunds.before_days_rate
       end
-
+      
       para[:progress] = @reservation.accepted? ? 6 : 1
     elsif params[:accept]
       session[:message_thread_id] = message_thread_id
@@ -218,6 +219,7 @@ class ReservationsController < ApplicationController
         unless @ng_event.save
           format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.message.save.failure }
           format.json { return render json: { success: false } } if request.xhr?
+          format.js { @status = 'failure' }
         end
 
         ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
@@ -241,13 +243,16 @@ class ReservationsController < ApplicationController
         if Message.send_message(mt_obj, msg_params)
           format.html { redirect_to message_thread_path(message_thread_id), notice: note.present? ? note : Settings.reservation.update.success }
           format.json { render :show, status: :ok, location: @reservation }
+          format.js { @status = 'success' }
         else
           format.html { redirect_to message_thread_path(message_thread_id) }
           format.json { render json: @reservation.errors, status: :unprocessable_entity }
+          format.js { @status = 'failure' }
         end
       else
         format.html { redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.update.failure }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
+        format.js { @status = 'failure' }
       end
     end
   end

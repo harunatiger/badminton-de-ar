@@ -8,10 +8,31 @@ $ ->
     width: 4
     radius: 6
 
+  # cancel step
+  $('.cc_to_step2').on 'click', ->
+    $('.step1').hide()
+    $('.step2').show()
+  $('.cc_to_step3').on 'click', ->
+    $('.step2').hide()
+    $('.step3').show() 
+
   # Launch Modal at Message Thread page
+  $('.confirm_cancel_link').on 'click', ->
+    index = $('.confirm_cancel_link').index(this)
+    $('[id=confirm_cancel]').eq(index).modal(
+      backdrop: 'static'
+    )
+    return false
   $('a.about_cancel_link').on 'click', ->
+    if $(this).hasClass('from_modal')
+      $('#about_cancel').addClass('from_modal')
     $('#about_cancel').modal()
     return false
+  # remove backdrop class
+  $('#about_cancel').on 'hidden.bs.modal', ->
+    if $(this).hasClass('from_modal')
+      $('#about_cancel').removeClass('from_modal')
+    return
   $('a.about_payment_link').on 'click', ->
     $('#about_payment').modal()
     return false

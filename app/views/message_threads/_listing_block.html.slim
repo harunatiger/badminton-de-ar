@@ -1,71 +1,72 @@
 - reservation_obj = reservation_id_to_reservation_obj(m.reservation_id)
-= simple_form_for(reservation_obj) do |f|
-  = f.hidden_field :message_thread_id, value: m.message_thread_id
-  - listing_obj = listing_id_to_listing_obj(m.listing_id)
-  div
-    /.row.row-condensed.row-space-2.row-space-top-1
-      .col-md-3.text-left
-        | リスティング名：
-        = link_to listing_path m.listing_id do
-          = listing_obj.title
-    .row.row-condensed.row-space-2.row-space-top-3
-      .col-md-3.text-left.text-muted.strong
-        | hours: 
-      .col-md-8
-        = reservation_obj.time_required
-        | hours
-    .row.row-condensed.row-space-2
-      .col-md-3.text-left.text-muted.strong
-        | Price: 
-      .col-md-8
-        | ¥&nbsp;
-        - if @host_id == current_user.id
-          = reservation_obj.amount
-        - else
-          = reservation_obj.amount_for_campaign
-        |(Service fee ¥ #{reservation_obj.handling_cost} included)
-    .row.row-condensed.row-space-2
-      .col-md-3.text-left.text-muted.strong
-        | Number of people: 
-      .col-md-8
-        = reservation_obj.num_of_people
-        |People
-    .row.row-condensed.row-space-2
-      .col-md-3.text-left.text-muted.strong
-        | Booking date: 
-      .col-md-8
-        = reservation_obj.schedule
-    .row.row-condensed.row-space-2
-      .col-md-3.text-left.text-muted.strong
-        | Meeting at: 
-      .col-md-8
-        = reservation_obj.place
-        -if reservation_obj.place_memo.present?
-          |(#{reservation_obj.place_memo})
-    .row.row-condensed.row-space-2
-      .col-md-3.text-left.text-muted.strong
-        | Tour information: 
-      .col-md-8
-        = simple_format(reservation_obj.try('description'))
-    .row.row-condensed.row-space-2
-      .col-md-10.btn-wrapper
-        - unless m.try('content') == Settings.reservation.msg.reserve
-          - if reservation_obj.requested? and current_user.id == guest_id
+- listing_obj = listing_id_to_listing_obj(m.listing_id)
+- reservation_obj.message_thread_id = m.message_thread_id
+div
+  /.row.row-condensed.row-space-2.row-space-top-1
+    .col-md-3.text-left
+      | リスティング名：
+      = link_to listing_path m.listing_id do
+        = listing_obj.title
+  .row.row-condensed.row-space-2.row-space-top-3
+    .col-md-3.text-left.text-muted.strong
+      | hours: 
+    .col-md-8
+      = reservation_obj.time_required
+      | hours
+  .row.row-condensed.row-space-2
+    .col-md-3.text-left.text-muted.strong
+      | Price: 
+    .col-md-8
+      | ¥&nbsp;
+      - if @host_id == current_user.id
+        = reservation_obj.amount
+      - else
+        = reservation_obj.amount_for_campaign
+      |(Service fee ¥ #{reservation_obj.handling_cost} included)
+  .row.row-condensed.row-space-2
+    .col-md-3.text-left.text-muted.strong
+      | Number of people: 
+    .col-md-8
+      = reservation_obj.num_of_people
+      |People
+  .row.row-condensed.row-space-2
+    .col-md-3.text-left.text-muted.strong
+      | Booking date: 
+    .col-md-8
+      = reservation_obj.schedule
+  .row.row-condensed.row-space-2
+    .col-md-3.text-left.text-muted.strong
+      | Meeting at: 
+    .col-md-8
+      = reservation_obj.place
+      -if reservation_obj.place_memo.present?
+        |(#{reservation_obj.place_memo})
+  .row.row-condensed.row-space-2
+    .col-md-3.text-left.text-muted.strong
+      | Tour information: 
+    .col-md-8
+      = simple_format(reservation_obj.try('description'))
+  .row.row-condensed.row-space-2
+    .col-md-10.btn-wrapper
+      - unless m.try('content') == Settings.reservation.msg.reserve
+        - if reservation_obj.requested? and current_user.id == guest_id
+          = simple_form_for(reservation_obj) do |f|
+            = f.hidden_field :message_thread_id, value: m.message_thread_id
             .row-space-1.strong.text-muted
               | キャンペーンコード
             .row-space-3
               = f.input_field :campaign_code, placeholder: "こちらにキャンペーンコードを入力ください"
             = f.submit '承認する', name: 'accept', class: 'btn btn-primary'
             = f.submit 'Cancel', name: 'cancel', class: 'btn'
-          - elsif reservation_obj.completed? and current_user.id == guest_id
-            .h5.text-green.strong
-              = reservation_obj.string_of_progress_for_message_thread
-            .row-space-top-4
-              /= f.submit 'Cancel', name: 'cancel', class: "btn btn-host", data: { confirm: 'この予約をキャンセルします。本当によろしいですか？'}
-              = link_to 'Cancel', "#", class: "btn btn-host cancel_form"
-              = link_to "#", class: "about_cancel_link" do
-                | About cancellations after tour confirmation
-              = render partial: 'shared/modals/cancel_form', locals: { r: reservation_obj, f:f}
-          - else
-            .h5.text-pink.strong
-              = reservation_obj.string_of_progress_for_message_thread
+        - elsif reservation_obj.completed? and current_user.id == guest_id
+          .h5.text-green.strong
+            = reservation_obj.string_of_progress_for_message_thread
+          .row-space-top-4
+            /= f.submit 'Cancel', name: 'cancel', class: "btn btn-host", data: { confirm: 'この予約をキャンセルします。本当によろしいですか？'}
+            = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-host row-space-top-1 row-space-1", data: { toggle: "modal" }
+            = link_to "#", class: "about_cancel_link" do
+              | About cancellations after tour confirmation
+            = render partial: 'shared/modals/confirm_cancel', locals: { r: reservation_obj}
+        - else
+          .h5.text-pink.strong
+            = reservation_obj.string_of_progress_for_message_thread
