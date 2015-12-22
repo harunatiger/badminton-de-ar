@@ -1,8 +1,4 @@
-/* decoration.sass */
-
-// for sample
-.sample-cover-image1
-  background-image: image-url('top-slider/slider_01.jpg')
+/* customize.sass */
 
 // full calendar responsive bug-fix
 .fc-day-grid-container
@@ -775,7 +771,6 @@ body.paper
     label:hover:before ~ input:checked ~ label:before, input:checked ~ label:hover:before ~ label:before
       color: #ffb400
 
-
 /* css3 animation */
 +keyframe(scaleinout)
   0%
@@ -849,236 +844,6 @@ label.error
     color: white
     font-size: 13px
     font-weight: 700
-
-/* .huber-card ver.1 */
-//.huber-card
-  position: relative
-  color: $gray1
-  text-align: center
-  &:hover
-    color: $gray1
-    text-decoration: none
-  .huber-likes
-    position: absolute
-    top: 10px
-    right: 10px
-  .huber-card-background
-    display: block
-    height: 180px
-    border-radius: 4px 4px 0 0
-    border: 1px solid #e1e8ed
-    border-bottom: 0
-    background-size: cover
-    background-position: 0 50%
-    background-repeat: no-repeat
-  .huber-card-content
-    position: relative
-    background-color: white
-    border: 1px solid #e1e8ed
-    border-radius: 0 0 4px 4px
-    min-height: 184px
-    .huber-card-face
-      display: block
-      width: 100px
-      margin: -150px auto 0
-      border-radius: 50%
-      padding: 5px
-      background-color: white
-      img
-        display: block
-        width: 90px
-        height: 90px
-        border-radius: 50%
-    .huber-card-name
-      height: 49px
-      line-height: 49px
-      color: white
-      font-size: 16px
-      font-weight: 700
-      text-align: center
-      background: linear-gradient(transparent, rgba(0, 0, 0, 0.5))
-    .huber-card-title
-      display: table
-      position: relative
-      width: 100%
-      height: 80px
-      padding: 8px 20px
-      //border-top: 1px solid $border2
-      border-bottom: 1px solid $border2
-      overflow: hidden
-      word-break: break-all
-      span
-        display: table-cell
-        vertical-align: middle
-    .capability
-      display: block
-      padding: 5px 15px 0
-      span
-        display: inline-block
-        width: 28px
-        height: 28px
-        line-height: 28px
-        margin: 5px 3px
-        color: white
-        font-size: 14px
-        text-align: center
-        background-color: $brand-theme
-        border-radius: 50%
-        cursor: pointer
-    .language
-      padding: 10px 15px 18px
-      span
-        display: inline-block
-        height: 24px
-        line-height: 24px
-        padding: 0 10px
-        margin: 0 5px 0 0
-        color: #0084B4
-        font-size: 13px
-        border: 1px solid #BADAF9
-        border-radius: 2px
-    .trip-list
-      padding: 0 1px 1px
-      @media (max-width: 767px)
-        display: none
-      ul
-        display: table
-        list-style: none
-        margin: 0
-        padding: 0
-        border-radius: 0 0 4px 4px
-        overflow: hidden
-        li
-          display: table-cell
-          width: 33.33333%
-          a
-            display: block
-            height: 60px
-            overflow: hidden
-            cursor: pointer
-            img
-              display: block
-              width: 100%
-              height: auto
-            &:hover
-              img
-                opacity: 0.8
-
-/* .huber-card ver.2 */
-/* .huber-card */
-//.huber-card
-  position: relative
-  color: $gray1
-  text-align: center
-  &:hover
-    color: $gray1
-    text-decoration: none
-  .huber-likes
-    position: absolute
-    top: 10px
-    right: 10px
-  .huber-card-background
-    display: block
-    height: 140px
-    border-radius: 4px 4px 0 0
-    border: 1px solid #e1e8ed
-    border-bottom: 0
-    background-size: cover
-    background-position: 0 50%
-    background-repeat: no-repeat
-  .huber-card-content
-    position: relative
-    min-height: 264px
-    background-color: white
-    border: 1px solid #e1e8ed
-    border-radius: 0 0 4px 4px
-    .huber-card-face
-      display: block
-      width: 100px
-      margin: -55px auto 0
-      border-radius: 50%
-      padding: 5px
-      background-color: white
-      div
-        width: 90px
-        height: 90px
-        border-radius: 50%
-        background-size: cover
-        background-position: center top
-        background-repeat: no-repeat
-        overflow: hidden
-    .huber-inner
-      padding: 5px 20px
-      .name
-        padding-bottom: 5px
-        font-size: 16px
-        font-weight: 700
-        text-align: center
-      .introducing
-        display: table
-        position: relative
-        width: 100%
-        height: 80px
-        padding: 8px 0
-        border-top: 1px solid $border2
-        border-bottom: 1px solid $border2
-        overflow: hidden
-        span
-          display: table-cell
-          vertical-align: middle
-    .capability
-      display: block
-      padding: 5px 15px 0
-      span
-        display: inline-block
-        width: 28px
-        height: 28px
-        line-height: 28px
-        margin: 5px 3px
-        color: white
-        font-size: 14px
-        text-align: center
-        background-color: $brand-theme
-        border-radius: 50%
-        cursor: pointer
-    .language
-      padding: 10px 15px 18px
-      span
-        display: inline-block
-        height: 24px
-        line-height: 24px
-        padding: 0 10px
-        margin: 0 5px 0 0
-        color: #0084B4
-        font-size: 13px
-        border: 1px solid #BADAF9
-        border-radius: 2px
-    .trip-list
-      padding: 0 1px 1px
-      @media (max-width: 767px)
-        display: none
-      ul
-        display: table
-        list-style: none
-        margin: 0
-        padding: 0
-        border-radius: 0 0 4px 4px
-        overflow: hidden
-        li
-          display: table-cell
-          width: 33.33333%
-          a
-            display: block
-            height: 60px
-            overflow: hidden
-            cursor: pointer
-            img
-              display: block
-              width: 100%
-              height: auto
-            &:hover
-              img
-                opacity: 0.8
 
 /* .huber-card */
 .huber-card
@@ -1629,3 +1394,189 @@ label.error
     background-position: center center
     background-repeat: no-repeat
     background-size: cover
+
+/* inputrate */
+.inputrate
+  display: inline-block
+  height: 28px
+  line-height: 28px
+  padding: 0 12px
+  color: white
+  font-size: 13px
+  border-radius: 2px
+.inputrate-red
+  background-color: $red1
+.inputrate-orange
+  background-color: $orange1
+.inputrate-yellow
+  background-color: $yellow3
+.inputrate-lightgreen
+  background-color: $green1
+.inputrate-green
+  background-color: $green3
+
+/* #preview-attached */
+#preview-attached
+  padding-right: 0 !important
+  .modal-cell
+    padding: 0
+  .modal-content
+    max-width: 940px
+    .card-body
+      width: 100%
+      height: 500px
+      padding: 10px
+      .card-inner
+        width: 100%
+        height: 100%
+        background-size: contain
+        background-repeat: no-repeat
+        background-position: center
+      .modal-close
+        margin-right: 0
+
+/* #calendar */
+#calendar
+  .fc-view
+    overflow-y: hidden
+  thead.fc-head th.fc-day-header
+    color: $brand-theme
+    text-decoration: underline
+    cursor: pointer
+  .fc-title
+    display: none
+  .fc-event-container
+    height: 100%
+    .fa
+      text-align: center
+      font-size: 1.2em
+    a
+      border-radius: 0
+      background-color: transparent !important
+      border: none
+  .fc-content-skeleton tr
+    position: relative
+  .fc-content-skeleton tbody tr:nth-child(2)
+    display: none
+  .fc-event-container-custom
+    background-color: gray !important
+  .fc-event
+    &:before
+      position: relative
+      @media (max-height: 750px)
+        top: -5px
+      @media (max-height: 700px)
+        top: -8px
+      @media (max-height: 650px)
+        top: -10px
+  .smd-td
+    color: white !important
+    background-color: gray !important
+    opacity: 1 !important
+  .fc-highlight
+    background: #bce8f1
+    opacity: .3
+    filter: alpha(opacity=30)
+
+/* youtube-container */
+.youtube-container
+  position: relative
+  width: 100%
+  height: 344px
+  overflow: hidden
+  @media (max-width: 1099px)
+    height: 270px
+  @media (max-width: 767px)
+    height: 220px
+  @media (max-width: 520px)
+    height: 150px
+  > div
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: cover
+  img
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+  iframe
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+  .play
+    position: relative
+    top: 50%
+    left: 50%
+    width: 80px
+    height: 80px
+    line-height: 80px
+    margin: -40px 0 0 -40px
+    text-align: center
+    background-color: rgba(23, 174, 223, .5)
+    border-radius: 50%
+    z-index: 1
+    i.fa
+      margin-left: 8%
+      color: rgba(255, 255, 255, .75)
+      font-size: 40px
+      vertical-align: middle
+    &:hover
+      background-color: $brand-theme
+      i.fa
+        color: white
+  h4
+    position: absolute
+    bottom: 16%
+    width: 100%
+    font-size: 24px
+    text-align: center
+    z-index: 1
+    @media (max-width: 767px)
+      bottom: 10%
+      font-size: 18px
+.listings.show .pair_guide_list-trigger
+  padding-left: 0
+.listings.show .listing-description
+  ol
+    padding: 0
+    margin: 0
+    list-style: none
+    counter-reset: li
+  ol > li
+    position: relative
+    margin-bottom: .5em
+    padding-left: 2.5em
+  ol > li:before
+    content: counter(li) ""
+    counter-increment: li
+    position: absolute
+    left: 0
+    width: 1.5em
+    height: 1.5em
+    background: $yellow2
+    border-radius: 50px
+    line-height: 1.5
+    text-align: center
+.listings.show .listing-description .detail-section
+  margin-top: 20px
+.listings.show .listing-description p,
+.listings.show .listing-description ol
+  margin-left: 20px
+.discovery-tiles .other-pickup-links
+  margin-top: 20px
+.profile_keywords .bootstrap-tagsinput
+  width: 100%
+.imeoff
+  ime-mode: disabled
+
+@media (max-width: 1099px) and (min-width: 768px)
+  .col-switch-pickup
+    margin-top: -690px
