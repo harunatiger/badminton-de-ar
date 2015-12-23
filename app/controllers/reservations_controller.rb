@@ -26,7 +26,7 @@ class ReservationsController < ApplicationController
       result = @reservation.update(para)
     else
       @reservation = Reservation.new(para)
-      result = @reservation.save!
+      result = @reservation.save
     end
 
     respond_to do |format|
@@ -111,7 +111,7 @@ class ReservationsController < ApplicationController
       )
     else
       respond_to do |format|
-        format.html { redirect_to message_thread_path(session[:message_thread_id]), notice: Settings.reservation.save.failure.paypal_access_failure + ' エラー：' + details.params['error_codes'] + ' ' + details.params['message']}
+        format.html { redirect_to message_thread_path(session[:message_thread_id]), notice: Settings.reservation.save.failure.paypal_access_failure + ' error：' + details.params['error_codes'] + ' ' + details.params['message']}
       end
     end
     @listing = Listing.find(@reservation.listing_id)
@@ -137,7 +137,7 @@ class ReservationsController < ApplicationController
         response = refund(payment,@reservation)
         unless response.success?
           respond_to do |format|
-            format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_refund_failure + ' エラー：' + response.params['error_codes'] + ' ' + response.params['message']}
+            format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_refund_failure + ' error：' + response.params['error_codes'] + ' ' + response.params['message']}
             format.json { return render :show, status: :ok, location: @reservation }
             format.js { @status = 'failure' }
           end
@@ -194,7 +194,7 @@ class ReservationsController < ApplicationController
         UserCampaign.create(user_id: current_user.id, campaign_id: para[:campaign_id]) if para[:campaign_id].present?
       else
         respond_to do |format|
-          format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_payment_failure + ' エラー：' + response.params['error_codes'] + ' ' + response.params['message']}
+          format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_payment_failure + ' error：' + response.params['error_codes'] + ' ' + response.params['message']}
           format.json { return render :show, status: :ok, location: @reservation }
         end
       end

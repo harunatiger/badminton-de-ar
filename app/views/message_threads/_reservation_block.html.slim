@@ -21,7 +21,10 @@
       - elsif @reservation.listing_closed?
         .tag.tag-normal
           = @reservation.string_of_progress_english
-      #reservation_block.collapse(class='#{@reservation.listing.present? ? 'in' : ''}')
+          
+      /↓Tour Informationを開いた状態にするかしないかのtrue or falseです↓
+      - @reservation.listing.present?
+      #reservation_block.collapse
         .collapse-inner
           - if @host_id == current_user.id
             .row.row-condensed.row-space-1
@@ -91,22 +94,23 @@
             .col-md-8
               = simple_format(@reservation.description)
         - if @host_id == current_user.id
-          = link_to 'Edit', '#', class: 'btn btn-primary edit_reservation'
+          = link_to 'Edit', '#', class: 'btn btn-primary'
         - elsif @reservation_for_update.present?
-          = simple_form_for(@reservation_for_update) do |f|
-            = f.hidden_field :message_thread_id, value: @message_thread.id
-            - if @reservation_for_update.requested?
+          - if @reservation_for_update.requested?
+            = simple_form_for(@reservation_for_update) do |f|
+              = f.hidden_field :message_thread_id, value: @message_thread.id
               .row-space-1.strong.text-muted
                 | キャンペーンコード
               .row-space-3
                 = f.input_field :campaign_code, placeholder: "こちらにキャンペーンコードを入力ください"
               = f.submit '承認する', name: 'accept', class: 'btn btn-primary'
               = f.submit 'Cancel', name: 'cancel', class: 'btn'
-            - elsif @reservation_for_update.completed?
-              .row-space-top-4
-                = link_to 'Cancel', "#", class: "btn btn-host cancel_form"
-                = link_to "#", class: "about_cancel_link" do
-                  | About cancellations after tour confirmation
-                = render partial: 'shared/modals/cancel_form', locals: { r: @reservation_for_update, f:f}
+          - elsif @reservation_for_update.completed?
+            .row-space-top-4
+              = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-host row-space-top-1 row-space-1", data: { toggle: "modal" }
+              = link_to "#", class: "about_cancel_link" do
+                | About cancellations after tour confirmation
+              - @reservation_for_update.message_thread_id = @message_thread.id
+              = render partial: 'shared/modals/confirm_cancel', locals: { r: @reservation_for_update}
       - if @host_id == current_user.id
         = render partial: 'reservation_form', locals: { reservation: @reservation }

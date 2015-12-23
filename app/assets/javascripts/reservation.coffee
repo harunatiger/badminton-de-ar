@@ -124,16 +124,3 @@ $ ->
       ).done (data) ->
         disabled_dates = data.ngdates
         disabled_weeks = data.ngweeks
-
-  $('.cancel_form').on 'click', ->
-    index = $('.cancel_form').index(this)
-    $('[id=cancel_form]').eq(index).modal()
-    return false
-  $('.close-cancel_form').on 'click', ->
-      $('body').removeClass('paper')
-  
-  $('#reservation_form').hide()
-  $('.edit_reservation').on 'click', ->
-    $('#reservation_block').hide()
-    $('#reservation_form').show()
-    $('.reservation_collapse').attr 'href', '#reservation_form'
