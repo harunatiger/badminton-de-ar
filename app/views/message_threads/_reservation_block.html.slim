@@ -1,16 +1,52 @@
 .row.row-condensed.row-space-4
   .col-sm-12.col-md-10.col-md-push-1
     .collapse-box
-      = link_to "#reservation_block",  data: {toggle:"collapse"} do
+      = link_to "#reservation_block",  data: {toggle:"collapse"}, class: 'reservation_collapse' do
         | Tour Information
+      - if @reservation.requested?
+        .tag.tag-primary
+          = @reservation.string_of_progress_english
+      - elsif @reservation.canceled? or @reservation.canceled_after_accepted?
+        .tag.tag-danger
+          = @reservation.string_of_progress_english
+      - elsif @reservation.holded?
+        .tag.tag-alert
+          = @reservation.string_of_progress_english
+      - elsif @reservation.accepted?
+        .tag.tag-success
+          = @reservation.string_of_progress_english
+      - elsif @reservation.rejected?
+        .tag.tag-alert
+          = @reservation.string_of_progress_english
+      - elsif @reservation.listing_closed?
+        .tag.tag-normal
+          = @reservation.string_of_progress_english
+          
+      /↓Tour Informationを開いた状態にするかしないかのtrue or falseです↓
+      - @reservation.listing.present?
       #reservation_block.collapse
         .collapse-inner
+          - if @host_id == current_user.id
+            .row.row-condensed.row-space-1
+              | #{user_id_to_name(@guest_id)} can see tour information.
+              br
+              | Let's share the contents of the tour with a #{user_id_to_name(@guest_id)} .
+          - else
+            .row.row-condensed.row-space-1
+              | #{user_id_to_name(@host_id)} edites the contents of the tour and shares it.
+              br
+              | Let's make the plan of aspecial trip with a #{user_id_to_name(@host_id)} .
+
+          .row.row-condensed.row-space-1
+            .col-md-3.text-left.text-muted.strong
+              | Tour： 
+            .col-md-8.text-muted.strong
+              = @reservation.listing.try('title')
           .row.row-condensed.row-space-1
             .col-md-3.text-left.text-muted.strong
               | Date： 
             .col-md-8.text-muted.strong
-              = @reservation.schedule.to_s
-              = "〜(#{@reservation.time_required.to_s}hours)" if @reservation.schedule.present?
+              = "#{schedule_span(@reservation)}(#{@reservation.time_required.to_s}hours)" if @reservation.schedule.present?
           .row.row-condensed.row-space-1
             .col-md-3.text-left.text-muted.strong
               | Price：
@@ -21,21 +57,60 @@
               - else
                 = @reservation.amount_for_campaign
               | (Service fee #{@reservation.handling_cost} included)
-          .row.row-condensed.row-space-1
             .col-md-3.text-left.text-muted.strong
-              | Number of people：
+              | Guide Price:
+            .col-md-8.text-muted.strong
+              = @reservation.price + @reservation.price_other
+            .col-md-3.text-left.text-muted.strong
+              | Group Expenses:
+            .col-md-8.text-muted.strong
+              = @reservation.option_price
+            .col-md-3.text-left.text-muted.strong
+              | Individual Expenses:
+            .col-md-8.text-muted.strong
+              = @reservation.option_price_per_person
+            .col-md-3.text-left.text-muted.strong
+              | Number of people:
             .col-md-8.text-muted.strong
               = @reservation.num_of_people
-              |  People
           .row.row-condensed.row-space-1
             .col-md-3.text-left.text-muted.strong
-              | Meeting place：
+              | Meeting at：
             .col-md-8
               = @reservation.place
-              -if @reservation.place_memo.present?
-                |(#{@reservation.place_memo})
           .row.row-condensed.row-space-1
             .col-md-3.text-left.text-muted.strong
-              | Tour information：
+              | Detail on meeting place：
+            .col-md-8
+              = @reservation.place_memo
+          .row.row-condensed.row-space-1
+            .col-md-3.text-left.text-muted.strong
+              | Meeting time:
+            .col-md-8
+              = @reservation.schedule
+          .row.row-condensed.row-space-1
+            .col-md-3.text-left.text-muted.strong
+              | Note:
             .col-md-8
               = simple_format(@reservation.description)
+        - if @host_id == current_user.id
+          = link_to 'Edit', '#', class: 'btn btn-primary'
+        - elsif @reservation_for_update.present?
+          - if @reservation_for_update.requested?
+            = simple_form_for(@reservation_for_update) do |f|
+              = f.hidden_field :message_thread_id, value: @message_thread.id
+              .row-space-1.strong.text-muted
+                | キャンペーンコード
+              .row-space-3
+                = f.input_field :campaign_code, placeholder: "こちらにキャンペーンコードを入力ください"
+              = f.submit '承認する', name: 'accept', class: 'btn btn-primary'
+              = f.submit 'Cancel', name: 'cancel', class: 'btn'
+          - elsif @reservation_for_update.completed?
+            .row-space-top-4
+              = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-host row-space-top-1 row-space-1", data: { toggle: "modal" }
+              = link_to "#", class: "about_cancel_link" do
+                | About cancellations after tour confirmation
+              - @reservation_for_update.message_thread_id = @message_thread.id
+              = render partial: 'shared/modals/confirm_cancel', locals: { r: @reservation_for_update}
+      - if @host_id == current_user.id
+        = render partial: 'reservation_form', locals: { reservation: @reservation }

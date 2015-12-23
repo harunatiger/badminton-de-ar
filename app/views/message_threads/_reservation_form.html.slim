@@ -4,6 +4,14 @@
             = link_to new_listing_path do
               span.text-pink.strong
                 | ツアーを登録してガイド内容を作成しましょう！
+          - elsif @reservation.requested?
+            | ツアー内容をオファー済みです。
+            br
+            | 内容を変更するには
+            span.text-pink.strong
+              | ゲストにオファーのキャンセルを依頼
+            | してください。
+            
           - else
             = simple_form_for(@reservation, html: { id: "non_special_offer_form", class: "message_form clearfix" }) do |f|
               = f.hidden_field :message_thread_id, value: @message_thread.id
@@ -19,10 +27,3 @@
                   = f.submit "キャンセル", class: "btn", type: "reset", id: 'cancel_detail'
                   = f.submit "保存", class: "btn btn-host", name: "save"
                   = f.submit "ゲストにオファーする", class: "btn btn-primary", name: 'request'
-          /- else
-            | 予約が成立しています。
-            br
-            | 内容を変更するには
-            span.text-pink.strong
-              | ゲストに予約のキャンセルを依頼
-            | してください。
