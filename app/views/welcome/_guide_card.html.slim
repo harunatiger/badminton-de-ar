@@ -12,7 +12,7 @@
               .name.text-truncate
                 = "#{profile.first_name} #{profile.last_name}"
               .profile-rating.row-space-2
-                .star-rating
+                .star-rating.star-rating-fit
                   = render partial: 'shared/stars', locals: { rate: profile.ave_total }
                 span.badge-pill-count.small1
                   | review
