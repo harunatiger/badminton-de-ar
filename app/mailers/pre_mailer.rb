@@ -14,7 +14,9 @@ class PreMailer < ApplicationMailer
   
   def send_pre_mail_to_user(pre_mail)
     mail(
-      from: Settings.mailer.from.support,
+      from:    Settings.mailer.from.support,
+      reply_to: Settings.mailer.from.support,
+      #from:    '"Huber."' + Settings.mailer.from.support,
       to:      pre_mail.email,
       subject: Settings.mailer.pre_mail_to_user.subject
     ) do |format|

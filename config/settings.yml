@@ -218,7 +218,7 @@ pre_mail:
 mailer:
   from:
     default: "default-from-email@example.com"
-    support: "Huber.[support@m.huber.co.jp]"
+    support: '"Huber." <support@m.huber.co.jp>'
   new_message:
     subject:
       #arrived: "新しいメッセージが届きました！"
