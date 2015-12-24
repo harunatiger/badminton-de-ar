@@ -80,6 +80,15 @@ module ApplicationHelper
       return "#{results[0].profile.first_name} #{results[0].profile.last_name}"
     end
   end
+  
+  def user_id_to_phone_number(user_id)
+    results = User.mine(user_id)
+    if results.size.zero?
+      return ''
+    else
+      return results[0].profile.phone
+    end
+  end
 
   def user_id_to_profile_id(user_id)
     User.find(user_id).profile.id

@@ -12,6 +12,10 @@
                 .size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.host_id)}')"]
             .h5.col-sm-8.col-middle.thread-name
               = user_id_to_name(r.host_id)
+              br
+              .balloon(title="＊当日までの間に実際に連絡が取り合えるか確認しておくことをおすすめします。")
+                i.fa.fa-exclamation-circle
+                = user_id_to_phone_number(r.host_id)
         .col-md-5.thread-body
           .row.row-table
             .col-md-12.col-middle
