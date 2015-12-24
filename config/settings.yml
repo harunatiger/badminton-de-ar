@@ -10,7 +10,7 @@ profile:
   save:
     success: "Profile updated successfully"
     failure: "電話番号を正しく登録してください"
-  send_message: 'Complete your profile in order to contact TOMODACHI Guide'
+  send_message: 'Complete your profile in order to contact TOMODACHI GUIDE'
 profile_images:
   save:
     success: "Profile updated successfully"
@@ -277,7 +277,7 @@ regulate_term:
   expired: "You've missed the deadline for reviewing this tour"
 review:
   save:
-    success: "Your review has been posted succesfully. Please wait for a reply from your TOMODACHI guide"
+    success: "Your review has been posted succesfully. Please wait for a reply from your TOMODACHI GUIDE"
     failure: "Failed to post review"
   expiration_date: 14
 review_reply:
