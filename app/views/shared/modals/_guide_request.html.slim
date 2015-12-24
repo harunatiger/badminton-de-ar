@@ -1,0 +1,25 @@
+/ modal about_cancel
+= simple_form_for(PreMail.new) do |f|
+  #guide_request.modal[role="dialog" aria-hidden="true"]
+    .modal-table
+      .modal-cell
+        .modal-content
+          .card-header
+            = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+            | ガイド申請
+          form
+            .card-body
+              | 現在はベータ版のため、ガイド登録は招待制となっております。
+              br
+              | 2016年春には正式にサービスインする予定です。
+              br
+              br
+              |ガイドになりたい方には準備が整い次第ご連絡しますので、お手数ですが下記フォームからメールアドレスをご登録ください。
+              br
+              br
+              | メールアドレス
+              br
+              = f.input_field :email
+            .card-footer
+              = f.submit '登録する', class: 'btn btn-host'
+              = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

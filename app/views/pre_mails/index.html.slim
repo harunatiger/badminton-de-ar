@@ -1,0 +1,19 @@
+h1 Listing pre_mails
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @pre_mails.each do |pre_mail|
+      tr
+        td = link_to 'Show', pre_mail
+        td = link_to 'Edit', edit_pre_mail_path(pre_mail)
+        td = link_to 'Destroy', pre_mail, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Pre mail', new_pre_mail_path

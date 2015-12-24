@@ -55,6 +55,9 @@
       li.list-your-thing.pull-left
         -if user_signed_in? and current_user.listings.blank?
           = link_to Settings.page.listing_new, listings_path, class: "btn btn-host"
+        - elsif !user_signed_in?
+          = link_to Settings.page.listing_new, "#guide_request", class: "guide_request btn btn-host", data: { toggle: "modal" }
+          = render partial: 'shared/modals/guide_request'
     - if user_signed_in?
       ul.nav.pull-right
         li.user-item.pull-left
