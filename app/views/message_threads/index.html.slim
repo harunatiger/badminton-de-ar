@@ -40,23 +40,23 @@
                       .row.row-table
                         .col-md-12.col-middle.text-center
                           - if mt.reservation_progress == "Request"
-                            .tag.tag-primary
+                            .state.state-primary
                               = mt.reservation_progress
                           - elsif mt.reservation_progress == "Cancel"
-                            .tag.tag-danger
+                            .state.state-danger
                               = mt.reservation_progress
                           - elsif mt.reservation_progress == "Under construction"
-                            .tag.tag-alert
+                            .state.state-alert
                               = mt.reservation_progress
                           - elsif mt.reservation_progress == "Accept"
-                            .tag.tag-success
+                            .state.state-success
                               = mt.reservation_progress
                           - elsif mt.reservation_progress == "Delete"
-                            .tag.tag-alert
+                            .state.state-alert
                               = mt.reservation_progress
                           - elsif mt.reservation_progress == "Close"
-                            .tag.tag-normal
+                            .state.state-normal
                               = mt.reservation_progress
                           /- else
-                            .tag.tag-normal
+                            .state.state-normal
                               = mt.reservation_progress

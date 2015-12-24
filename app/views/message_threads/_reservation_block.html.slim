@@ -4,22 +4,22 @@
       = link_to "#reservation_block",  data: {toggle:"collapse"}, class: 'reservation_collapse' do
         | Tour Information
       - if @reservation.requested?
-        .tag.tag-primary
+        .state.state-primary
           = @reservation.string_of_progress_english
       - elsif @reservation.canceled? or @reservation.canceled_after_accepted?
-        .tag.tag-danger
+        .state.state-danger
           = @reservation.string_of_progress_english
       - elsif @reservation.holded?
-        .tag.tag-alert
+        .state.state-alert
           = @reservation.string_of_progress_english
       - elsif @reservation.accepted?
-        .tag.tag-success
+        .state.state-success
           = @reservation.string_of_progress_english
       - elsif @reservation.rejected?
-        .tag.tag-alert
+        .state.state-alert
           = @reservation.string_of_progress_english
       - elsif @reservation.listing_closed?
-        .tag.tag-normal
+        .state.state-normal
           = @reservation.string_of_progress_english
           
       /↓Tour Informationを開いた状態にするかしないかのtrue or falseです↓
