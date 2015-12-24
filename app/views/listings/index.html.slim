@@ -34,7 +34,9 @@
                 | ガイドになることを希望される方は、ボタンよりご登録頂ければ幸いです。
                 br
                 | サービス開始前にご連絡いたします。
-              = link_to '申請する', pre_mail_listings_path, method: 'post', class: "btn btn-primary btn-large"
+              = simple_form_for(PreMail.new) do |f|
+                = f.hidden_field :user_id, value: current_user.id
+                = f.submit '申請する', class: 'btn btn-primary btn-large'
     - else
       .col-md-9
         .card

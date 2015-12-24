@@ -10,7 +10,7 @@ profile:
   save:
     success: "Profile updated successfully"
     failure: "電話番号を正しく登録してください"
-  send_message: 'Complete your profile in order to contact TOMODACHI Guide'
+  send_message: 'Complete your profile in order to contact TOMODACHI GUIDE'
 profile_images:
   save:
     success: "Profile updated successfully"
@@ -218,6 +218,7 @@ pre_mail:
 mailer:
   from:
     default: "default-from-email@example.com"
+    support: '"Huber." <support@m.huber.co.jp>'
   new_message:
     subject:
       #arrived: "新しいメッセージが届きました！"
@@ -256,6 +257,8 @@ mailer:
     subject: "ゲストが予約をキャンセルしました。"
   pre_mail:
     subject: "ガイド申請が届きました。"
+  pre_mail_to_user:
+    subject: "Huber.ガイド希望の確認メール"
 left_steps:
   listing_image: "listing_image"
   listing_detail: "listing_detail"
@@ -274,7 +277,7 @@ regulate_term:
   expired: "You've missed the deadline for reviewing this tour"
 review:
   save:
-    success: "Your review has been posted succesfully. Please wait for a reply from your TOMODACHI guide"
+    success: "Your review has been posted succesfully. Please wait for a reply from your TOMODACHI GUIDE"
     failure: "Failed to post review"
   expiration_date: 14
 review_reply:

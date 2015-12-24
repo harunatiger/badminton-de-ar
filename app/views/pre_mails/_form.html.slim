@@ -1,0 +1,9 @@
+= form_for @pre_mail do |f|
+  - if @pre_mail.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@pre_mail.errors.count, "error")} prohibited this pre_mail from being saved:"
+      ul
+        - @pre_mail.errors.full_messages.each do |message|
+          li = message
+
+  .actions = f.submit

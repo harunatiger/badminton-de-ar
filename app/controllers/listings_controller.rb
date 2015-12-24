@@ -132,21 +132,6 @@ class ListingsController < ApplicationController
       end
     end
   end
-  
-  def pre_mail
-    respond_to do |format|
-      if current_user.pre_mail.blank?
-        if PreMail.create(user_id: current_user.id)
-          PreMailer.send_pre_mail(current_user).deliver_now!
-          format.html { redirect_to listings_path, notice: Settings.pre_mail.save.success }
-        else
-          format.html { redirect_to listings_path, notice: Settings.pre_mail.save.failure }
-        end
-      else
-        format.html { redirect_to listings_path, notice: Settings.pre_mail.save.failure }
-      end
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

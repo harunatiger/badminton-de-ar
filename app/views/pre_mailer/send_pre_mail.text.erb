@@ -1,17 +1,21 @@
 以下のユーザよりガイド申請が届きました。
 
+■ユーザー登録
+
+<%= @user.present? ? '済み' : '未' %>
+
 ■ユーザID
 
-<%= @user.id %>
+<%= @user.present? ? @user.id : '' %>
 
 ■ユーザ名
 
-<%= @user_name %>
+<%= @user.present? ? user_id_to_name(@user.id) : '' %>
 
 ■ユーザメールアドレス
 
-<%= @user.email %>
+<%= @pre_mail.email %>
 
 ■プロフィールURL
 
-<%= profile_url(@user.profile.id) %>
+<%= @user.present? ? profile_url(@user.profile.id) : ''%>

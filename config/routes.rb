@@ -376,12 +376,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :pre_mails, only: [:create]
   resources :listings do
     collection do
       get 'search',        action: 'search'
       get 'search_result', action: 'search_result'
       get 'page/:page',    action: 'index'
-      post 'pre_mail',     action: 'pre_mail'
     end
     resources :listing_images, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection

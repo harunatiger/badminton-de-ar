@@ -38,7 +38,7 @@ ja:
     day_before_notification:
       subject:
         to_host: "Your guest %{name} is coming  tomorrow!"
-        to_guest: "Your TOMODACHI Guide %{name} is coming tomorrow!"
+        to_guest: "Your TOMODACHI GUIDE %{name} is coming tomorrow!"
     review_accept_notification:
       subject: "Read %{name}'s review"
     
