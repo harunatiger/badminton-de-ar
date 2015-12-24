@@ -995,7 +995,7 @@ a.cancel_form
   background-color: #E3F8FF
   border: 1px solid #A4DFF3
   border-radius: 4px
-  > a
+  .reservation_collapse
     display: block
     //height: 38px
     line-height: 36px
@@ -1008,6 +1008,13 @@ a.cancel_form
     &.collapsed
       &:after
         content: '\f078'
+    @media (max-width: 767px)
+      > span, span.state-label
+        display: none
+      .state
+        font-size: 12px
+
+
   .collapse-inner
     padding: 8px 20px
   .state-container
@@ -1018,7 +1025,7 @@ a.cancel_form
     color: $gray1
     font-weight: 400
 
-#reservation_block-info
+//#reservation_block-info
 
 #reservation_block-form
   display: none

@@ -435,6 +435,11 @@ select
   padding-top: 7px
   padding-bottom: 6px
 
+.btn-group-container
+  .btn
+    @media (max-width: 767px)
+      margin-bottom: 12.5px
+
 /* tag */
 .tag
   display: inline-block
@@ -1922,10 +1927,11 @@ select
         padding: 4px 12px
         //top: -2px
         background-color: transparent
-        border: 2px solid $gray1
+        border: 1px solid $gray1
+        border-radius: 0
         &:hover, &:focus
           background: rgba(0, 0, 0, 0.15)
-          border-color: inherit
+          //border-color: inherit
   .header--sp
     position: relative
     .burger--sp
@@ -2079,6 +2085,7 @@ select
       > li.list-your-thing
         > a.btn-become-a-guide
           border-color: white
+          border-width: 2px
 
 .alert-sign
   position: relative

@@ -2,7 +2,9 @@
   .col-sm-12.col-md-10.col-md-push-1
     .collapse-box
       = link_to "#reservation_block",  data: { toggle:"collapse" }, class: 'reservation_collapse' do
-        | Tour Information
+        | Tour 
+        | Info
+        span rmation
         .state-container
           span.state-label
             | state:
@@ -25,13 +27,7 @@
             .state.state-normal
               = @reservation.string_of_progress_english
           
-      /↓Tour Informationを開いた状態にするかしないかのtrue or falseです↓
-      - if @reservation.listing.present?
-        | あああ
-      - else
-        | いいい
-      
-      #reservation_block.collapse.in
+      #reservation_block[class="#{@reservation.listing.present? ? 'collapse in' : 'collapse'}"]
         .collapse-inner
           - if @host_id == current_user.id
             .small1.text-muted.row-space-3
