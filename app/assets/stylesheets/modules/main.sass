@@ -992,23 +992,36 @@ a.cancel_form
     margin: 12.5px 0 0
 
 .collapse-box
-  background-color: #F5FAFF
-  border: 1px solid #ddd
+  background-color: #E3F8FF
+  border: 1px solid #A4DFF3
+  border-radius: 4px
   > a
     display: block
-    height: 38px
-    line-height: 37px
+    //height: 38px
+    line-height: 36px
     padding: 0 15px
     font-weight: 700
     &:after
-      content: '\f078'
+      content: '\f077'
       float: right
       font-family: 'FontAwesome'
-    &:collapsed
+    &.collapsed
       &:after
-        content: '\f077'
+        content: '\f078'
   .collapse-inner
-    padding: 8px 15px
+    padding: 8px 20px
+  .state-container
+    display: inline-block
+    margin-left: 10px
+  .state-label
+    margin-right: 2px
+    color: $gray1
+    font-weight: 400
+
+#reservation_block-info
+
+#reservation_block-form
+  display: none
 
 .user-type
   display: inline-block

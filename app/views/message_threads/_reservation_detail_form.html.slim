@@ -1,75 +1,77 @@
 #reservation_detail_form
   .row.row-condensed.row-space-3
-    label.col-md-3.text-right.text-left--sp
+    label.col-md-4.text-right.text-left--sp
       | ツアー選択
-    .col-md-9
+    .col-md-8
       .select
         = collection_select :reservation, :listing_id, @listings, :id, :title, include_blank: true
   .row.row-condensed.row-space-3
-    label.col-md-3.text-right.text-left--sp
+    label.col-md-4.text-right.text-left--sp
       | 所要時間
     .col-md-4
       .select.select-opt.opt-double
         = select :reservation, :time_required, [*(0..48)].map{|i| (i * 0.5)}
         span 時間
   .row.row-condensed.row-space-3
-    label.col-md-3.text-right.text-left--sp
+    label.col-md-4.text-right.text-left--sp
       | ペアガイド基本料金
     .col-md-5
       .input-opt
         = number_field :reservation, :price
         span 円
   .row.row-condensed.row-space-3
-    label.col-md-3.text-right.text-left--sp
+    label.col-md-4.text-right.text-left--sp
       | ペアガイド諸経費
     .col-md-5
       .input-opt
         = number_field :reservation, :price_other
         span 円
   .row.row-condensed.row-space-3
-    label.col-md-3.text-right.text-left--sp
-      | 諸経費（グループあたり）
+    label.col-md-4.text-right.text-left--sp
+      .small2
+        | 諸経費(グループあたり)
     .col-md-5
       .input-opt
         = number_field :reservation, :option_price
         span 円
   .row.row-condensed.row-space-3
-    label.col-md-3.text-right.text-left--sp
-      | 諸経費（ゲスト１名あたり）
+    label.col-md-4.text-right.text-left--sp
+      .small2
+        | 諸経費(ゲスト1名あたり)
     .col-md-5
       .input-opt
         = number_field :reservation, :option_price_per_person
         span 円
   .row.row-condensed.row-space-3
-    label.col-md-3.text-right.text-left--sp
+    label.col-md-4.text-right.text-left--sp
       | 人数
-    .col-md-9
+    .col-md-8
       .select.select-opt
         = select :reservation, :num_of_people, [*(1..20)]
         span 人
       .row-space-top-1.text-blue.small2 ペアガイド料金＋諸費用（グループあたり）＋諸費用（ゲスト１名あたり）×人数にサービス料を足した値がゲストに表示されます。
   .row.row-condensed.row-space-3
-    label.col-md-3.text-right.text-left--sp
+    label.col-md-4.text-right.text-left--sp
       | 開始日
     .col-md-6
       = text_field :reservation, :schedule_date, class: 'checkin datepicker'
   .row.row-condensed.row-space-3
-    label.col-md-3.text-right.text-left--sp
+    label.col-md-4.text-right.text-left--sp
       | 終了日
     .col-md-6
       = text_field :reservation, :schedule_end, class: 'checkout datepicker'
   .row.row-condensed.row-space-3
-    label.col-md-3.text-right.text-left--sp
+    label.col-md-4.text-right.text-left--sp
       | 集合場所
-    .col-md-9
+    .col-md-8
       = text_field :reservation, :place, placeholder: "例）ハチ公前"
   .row.row-condensed.row-space-3
-    label.col-md-3.text-right.text-left--sp
+    label.col-md-4.text-right.text-left--sp
       | 集合場所のメモ
-    .col-md-9
+    .col-md-8
       = text_field :reservation, :place_memo, placeholder: "例）ハチ公前にバラの花を付けて集合"
   .row.row-condensed.row-space-3
-    label.col-md-3.text-right.text-left--sp
+    label.col-md-4.text-right.text-left--sp
       | 集合時間
     .col-md-6
       .select.select-opt
@@ -79,7 +81,7 @@
         = select :reservation, :schedule_minute, (0..59).to_a.map { |v| "%02d" % v }, {}
         span 分
   .row.row-condensed.row-space-4
-    label.col-md-3.text-right.text-left--sp
+    label.col-md-4.text-right.text-left--sp
       | ガイドの内容など
-    .col-md-9
+    .col-md-8
       = text_area :reservation, :description, class: "textarea-normal", placeholder: "メモやリマインダーなどにご利用ください"

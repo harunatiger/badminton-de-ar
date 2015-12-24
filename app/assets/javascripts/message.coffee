@@ -8,13 +8,18 @@ $ ->
     width: 4
     radius: 6
 
+  # reservation_block toggle
+  $('#reservation_block-toggle').on 'click', ->
+    $('#reservation_block-info').fadeOut()
+    $('#reservation_block-form').fadeIn()
+
   # cancel step
   $('.cc_to_step2').on 'click', ->
     $('.step1').hide()
     $('.step2').show()
   $('.cc_to_step3').on 'click', ->
     $('.step2').hide()
-    $('.step3').show() 
+    $('.step3').show()
 
   # Launch Modal at Message Thread page
   $('.confirm_cancel_link').on 'click', ->

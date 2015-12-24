@@ -72,35 +72,43 @@ $ ->
       $('#reservation_listing_id').val(logVal)
       return
 
+  changed_flg = 0
+  $('.message_form').on 'change', ->
+    changed_flg = 1
+
   # set reservation default for message thread
   $(document).on 'click', '#cancel_detail', ->
-    set_ngday_reservation_default($('#reservation_id').val())
-    $.ajax(
-        type: 'GET'
-        url: '/reservations/set_reservation_default'
-        data: {
-          reservation_id: $('#reservation_id').val()
-        }
-      ).done (data) ->
-        $('#reservation_detail_form').html(data)
-        # i'm stupid, hehe
-        strfChange = $('.checkout').val()
-        strfChange = strfChange.replace(/-/g, '/')
-        $('.checkout').val(strfChange)
-        $('.datepicker').datepicker
-          autoclose: true,
-          startDate: '+1d',
-          language: 'ja',
-          orientation: 'top auto',
-          default: 'yyyy.mm.dd',
-          format: 'yyyy/mm/dd',
-          beforeShowDay: (date) ->
-            formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
-            if $.inArray(formattedDate.toString(), disabled_dates) != -1
-              return { enabled: false }
-            if $.inArray(date.getDay(), disabled_weeks) != -1
-              return { enabled: false }
-            return
+    if changed_flg == 0
+      $('#reservation_block-form').fadeOut()
+      $('#reservation_block-info').fadeIn()
+      $('html, body').animate(scrollTop: 0)
+    else
+      set_ngday_reservation_default($('#reservation_id').val())
+      $.ajax(
+          type: 'GET'
+          url: '/reservations/set_reservation_default'
+          data: {
+            reservation_id: $('#reservation_id').val()
+          }
+        ).done (data) ->
+          $('#reservation_detail_form').html(data)
+          strfChange = $('.checkout').val()
+          strfChange = strfChange.replace(/-/g, '/')
+          $('.checkout').val(strfChange)
+          $('.datepicker').datepicker
+            autoclose: true,
+            startDate: '+1d',
+            language: 'ja',
+            orientation: 'top auto',
+            default: 'yyyy.mm.dd',
+            format: 'yyyy/mm/dd',
+            beforeShowDay: (date) ->
+              formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
+              if $.inArray(formattedDate.toString(), disabled_dates) != -1
+                return { enabled: false }
+              if $.inArray(date.getDay(), disabled_weeks) != -1
+                return { enabled: false }
+              return
 
   set_ngday_reservation_by_listing = (listing_id, reservation_id) ->
     $.ajax(
