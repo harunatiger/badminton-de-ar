@@ -596,23 +596,28 @@ a.delete
       counter-reset: li
     ol > li
       position: relative
-      margin-bottom: .5em
-      padding-left: 2.5em
+      line-height: 24px
+      padding-left: 32px
+      font-size: 16px
     ol > li:before
       content: counter(li) ""
       counter-increment: li
       position: absolute
-      left: 0
-      width: 1.5em
-      height: 1.5em
-      background: $yellow2
-      border-radius: 50px
-      line-height: 1.5
+      left: -2px
+      width: 24px
+      height: 24px
+      line-height: 24px
       text-align: center
+      color: white
+      //font-weight: 700
+      background: $brand-theme
+      border-radius: 50%
     .detail-section
       margin-top: 20px
     p, ol
       margin-left: 20px
+    p
+      margin-bottom: 37.5px
 
 /* search */
 .listings.search
@@ -846,16 +851,19 @@ a.delete
   display: block
   position: fixed
   bottom: 0
-  height: 54px
-  line-height: 54px
-  background-color: red
+  height: 64px
+  line-height: 64px
   border-top: 1px solid $border1
+  //border: 1px solid $red1
   @media (max-width: 767px)
     position: relative
     bottom: auto
   > a
+    color: $red1
+    .fa
+      font-size: 120%
     &:hover
-      color: $blue1
+      //color: $bran
 
 /* profile */
 .profiles.show

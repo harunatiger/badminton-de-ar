@@ -486,6 +486,9 @@ select
   > li
     padding-left: 12.5px
     padding-right: 12.5px
+  @media (max-width: 767px)
+    > li
+      margin-bottom: 12.5px
 
 /* link-reset */
 .link-reset
@@ -1707,7 +1710,8 @@ select
 .star-rating-large
   .fa
     font-size: 22px
-
+.star-rating-fit
+  margin-left: 0
 /* rich-toggle */
 .rich-toggle input[type="checkbox"]
   margin-left: -9999px
@@ -1891,11 +1895,15 @@ select
           background: transparent
     > li.list-your-thing
       margin-right: 0
-      > a
-        color: white
+      > a.btn-become-a-guide
+        position: relative
         padding: 4px 12px
-        &:hover
-          background-color: $host-theme-hover
+        //top: -2px
+        background-color: transparent
+        border: 2px solid $gray1
+        &:hover, &:focus
+          background: rgba(0, 0, 0, 0.15)
+          border-color: inherit
   .header--sp
     position: relative
     .burger--sp
@@ -2046,6 +2054,9 @@ select
       > li
         > a
           color: white
+      > li.list-your-thing
+        > a.btn-become-a-guide
+          border-color: white
 
 .alert-sign
   position: relative

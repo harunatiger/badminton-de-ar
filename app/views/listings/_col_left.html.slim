@@ -7,16 +7,16 @@
     .text-center--md
       .h3.strong.row-space-1
         = user_id_to_name(listing.user_id)
+      .row-space-1
+        | Area: #{@host_info.location}
       div
-        = link_to "#reviews", class: "link-reset"
-          .star-rating.star-rating-large
-            = render partial: 'listings/stars', locals: { rate: @host_info.ave_total }
+        /= link_to "#reviews", class: "link-reset"
+        .star-rating.star-rating-large.star-rating-fit
+          = render partial: 'listings/stars', locals: { rate: @host_info.ave_total }
         | (
         span[itemprop="reviewCount"]
           = @all_reviewed_count
         | )
-      .area
-        | Area: #{@host_info.location}
 .row.row-space-4
   .col-lg-6.col-md-6
     .tag-list-wrapper
@@ -92,16 +92,19 @@
   - if profile_keyword.present?
     canvas#canvas height='200' width='300'
 #listing-description.listing-description
-  h4
+  h4.row-space-4
     i.fa.fa-diamond
     |  Best Features of Your Tour
   ol
     - if @listing.recommend1.present?
-      li = @listing.recommend1
+      li.strong.row-space-2
+        = @listing.recommend1
     - if @listing.recommend2.present?
-      li = @listing.recommend2
+      li.strong.row-space-2
+        = @listing.recommend2
     - if @listing.recommend3.present?
-      li = @listing.recommend3
+      li.strong.row-space-2
+        = @listing.recommend3
   p.detail-section
     = hbr(@listing.description).html_safe
   h4

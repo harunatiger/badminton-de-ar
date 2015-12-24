@@ -49,12 +49,12 @@
     /- unless controller_name == "welcome"
       = render partial: '/shared/header_form'
     ul.nav.pull-right
-      li.help-menu.pull-left.hide
+      /li.help-menu.pull-left
         = link_to "#", class: "" do
           |  Help
       li.list-your-thing.pull-left
         -if user_signed_in? and current_user.listings.blank?
-          = link_to Settings.page.listing_new, listings_path, class: "btn btn-host"
+          = link_to Settings.page.listing_new, listings_path, class: "btn btn-become-a-guide"
     - if user_signed_in?
       ul.nav.pull-right
         li.user-item.pull-left

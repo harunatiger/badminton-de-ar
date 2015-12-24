@@ -113,28 +113,40 @@
               | ¥
               span#tour-price-result_calced.h4
 
-
         .row-space-2
           - if user_signed_in?
             - if current_user.id == @listing.user_id or @active_reservation
-              = f.submit '予約をリクエスト', id: 'book_it_button', class: "btn btn-large btn-block btn-host disabled"
+              = f.submit '予約をリクエスト', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
             - elsif not profile_self_introduction_exists?
-              = link_to '予約をリクエスト', profile_link, class: 'btn btn-large btn-block btn-host'
+              = link_to '予約をリクエスト', profile_link, class: 'btn btn-large btn-block btn-primary'
             - else
-              = f.submit '予約をリクエスト', id: 'book_it_button', name: 'reserve', class: "btn btn-large btn-block btn-host"
+              = f.submit '予約をリクエスト', id: 'book_it_button', name: 'reserve', class: "btn btn-large btn-block btn-primary"
           - else
             button.btn.btn-large.btn-block.btn-host
               | 予約をリクエスト
         .row-space-1
           - if user_signed_in?
             - if current_user.id == @listing.user_id
-              = f.submit 'メッセージを送る', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
+              /= f.button :submit, 'メッセージを送る', id: 'book_it_button', class: "btn btn-large btn-block disabled"
+              = button_tag type: 'submit', id: 'book_it_button', class: "btn btn-large btn-block disabled" do
+                i.fa.fa-comments-o
+                | メッセージを送る
             - elsif not profile_self_introduction_exists?
-              = link_to 'メッセージを送る', profile_link, class: 'btn btn-large btn-block btn-primary'
+              = link_to profile_link, class: 'btn btn-large btn-block' do
+                i.fa.fa-comments-o
+                | メッセージを送る
             - else
               -if @message_thread
-                = link_to 'メッセージを送る', message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary'
-              -else
-                = link_to 'メッセージを送る', message_threads_path(message_thread: {host_id: @listing.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary'
+                = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block' do
+                  i.fa.fa-comments-o
+                  | メッセージを送る
+                end
+              - else
+                = link_to message_threads_path(message_thread: {host_id: @listing.user_id}), method: 'POST', class: 'btn btn-large btn-block' do
+                  i.fa.fa-comments-o
+                  | メッセージを送る
           - else
-            = f.submit 'メッセージを送る', class: "btn btn-large btn-block btn-primary"
+            //= f.submit 'メッセージを送る', class: "btn btn-large btn-block"
+            = button_tag type: 'submit', class: "btn btn-large btn-block disabled" do
+              i.fa.fa-comments-o
+              | メッセージを送る
