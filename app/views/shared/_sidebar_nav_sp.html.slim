@@ -21,8 +21,9 @@
             -else
               = link_to Settings.page.listings, listings_path, class: "link-reset menu-item", rel: "nofollow"
             /= link_to Settings.page.listing_new, new_listing_path
-          li
-            = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, class: "link-reset menu-item", rel: "nofollow"
+          - if current_user.listings.present?
+            li
+              = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, class: "link-reset menu-item", rel: "nofollow"
           li
             = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path, class: "link-reset menu-item", rel: "nofollow"
           /li
