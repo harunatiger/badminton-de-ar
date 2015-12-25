@@ -6,6 +6,7 @@ oauth:
   facebook:
     scope: "public_profile,email,user_friends"
     info_fields: "name, first_name, last_name, email"
+    image_size: 'large'
 profile:
   save:
     success: "Profile updated successfully"
