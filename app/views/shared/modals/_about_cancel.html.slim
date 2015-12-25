@@ -8,13 +8,15 @@
           | About cancellations after tour confirmation
         form
           .card-body
-            | ① 100% refund for cancellation up to 14 days prior to the tour date
-            | (ex. For a guide starting on 5/15 at 15:00, until 5/1 at 23:59)
-            br
-            | ② 50% refund for cancellation 14 to 3 days prior to the tour date
-            | (ex. For a guide starting on 5/15 at 15:00, between 5/2 at 00:00 to 5/12 at 23:59)
-            br
-            | ③ No refund for cancellation less than 3 days prior to the tour date
-            | ex. For a guide starting on 5/10 at 15:00, after 5/9 at 15:00
+            ol
+              li.row-space-2
+                | 100% refund for cancellation up to 14 days prior to the tour date
+                | (ex. For a guide starting on 5/15 at 15:00, until 5/1 at 23:59)
+              li.row-space-2
+                | 50% refund for cancellation 14 to 3 days prior to the tour date
+                | (ex. For a guide starting on 5/15 at 15:00, between 5/2 at 00:00 to 5/12 at 23:59)
+              li.row-space-2
+                | No refund for cancellation less than 3 days prior to the tour date
+                | ex. For a guide starting on 5/10 at 15:00, after 5/9 at 15:00
           .card-footer
             = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

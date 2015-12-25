@@ -117,8 +117,9 @@
                     = f.submit '承認する', name: 'accept', class: 'btn btn-primary'
                     = f.submit 'Cancel', name: 'cancel', class: 'btn'
               - elsif @reservation_for_update.completed?
-                .row-space-top-4
+                .row-space-top-4.row-space-2
                   = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-host row-space-top-1 row-space-1", data: { toggle: "modal" }
+                  ' 
                   = link_to "#", class: "about_cancel_link" do
                     | About cancellations after tour confirmation
                   - @reservation_for_update.message_thread_id = @message_thread.id

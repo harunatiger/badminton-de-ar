@@ -15,7 +15,7 @@
                 = user_id_to_name(r.host_id)
               - phone = user_id_to_phone_number(r.host_id)
               - if phone.present?
-                .balloon.text-muted[title="＊当日までの間に実際に連絡が取り合えるか確認しておくことをおすすめします。"]
+                .balloon.text-muted.small1[title="＊当日までの間に実際に連絡が取り合えるか確認しておくことをおすすめします。"]
                   i.fa.fa-phone
                   ' 
                   = phone
@@ -39,7 +39,7 @@
                   | キャンセルしました
               - elsif r.canceled_after_accepted?
                 .state.state-normal
-                  | 予約キャンセル確定
+                  | Cancelled
               - elsif r.accepted?
                 .state.state-success
                   | 予約確定
@@ -54,7 +54,7 @@
                   | "非公開になりました"
               - if r.completed?
                 div
-                  = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-thread row-space-top-1 row-space-1", data: { toggle: "modal" }
+                  = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
                 /= simple_form_for(r, html: { class: "cancel-reservation-form" }) do |f|
                   = f.hidden_field :message_thread_id, value: r.message_thread_id
                   = f.submit 'Cancel', name: 'cancel', class: 'btn btn-thread row-space-top-1 row-space-1'

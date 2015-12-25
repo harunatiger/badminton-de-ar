@@ -1,5 +1,18 @@
 #reservation, dashboard
 $ ->
+  # loader preset
+  $.fn.spin.presets.flower =
+    lines: 7
+    length: 0
+    width: 4
+    radius: 6
+
+  # cencel tour btn
+  $('#cancel_tour_btn').on 'click', ->
+    targetForm = $(this).closest('form')
+    spinner = $('.spinner', targetForm)
+    spinner.spin('flower', 'white')
+    $('.btn-frame > .btn', targetForm).addClass('text-disappear')
 
   $("[id^=reservation-item-show-recipe-]").on 'click', (e) ->
     alert 'ただいま準備中です。少々お待ちください。'

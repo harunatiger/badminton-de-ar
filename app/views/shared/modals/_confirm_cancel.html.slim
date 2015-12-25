@@ -10,16 +10,17 @@
             .modal-content
               .card-header.text-left
                 = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
-                | このツアーをキャンセルしてよろしいですか？
+                .strong.text-red
+                  | このツアーをキャンセルしてよろしいですか？
               .card-body.text-left
-                p
+                p.strong.text-lead
                   | プラン実施#{(r.schedule.to_date - today.to_date).to_i}日前です。
-                p
+                p.strong.text-lead
                   | 現在のキャンセル料金は
                   span.strong.text-red #{r.cancellation_fee_for_dashboard}
                   | 円です。
-                p
-                  i.fa.fa-exclamation-circle.fa-red 
+                p.small1
+                  /i.fa.fa-exclamation-circle.fa-red 
                   |  #{today}
                   | 現在の情報です。
                   br
@@ -28,16 +29,17 @@
                   | 詳しくは
                   = link_to "キャンセルポリシー", "#", class: "about_cancel_link"
                   | をご覧ください。
-                  br
-                  br
-                  |よろしければ、キャンセル理由をご記入ください。Huber.の運用の参考にさせて頂きます。
-                  br
-                  = f.input_field :reason, rows: 8
-                p.strong
+                hr
+                p.small1.row-space-1
+                  | よろしければ、キャンセル理由をご記入ください。Huber.の運用の参考にさせて頂きます。
+                = f.input_field :reason, rows: 6, placeholder: "こちらにキャンセル理由をご記入ください"
+                /p.strong
                   | 本当にキャンセルしてもよろしいですか？
-              .card-footer
+              .card-footer.btn-group-container
                 /= link_to "Cancel", "#", class: "btn btn-host cc_to_step2"
-                = f.submit 'Cancel', name: 'cancel', class: 'btn btn-host'
+                .btn-frame
+                  = f.submit 'Cancel', name: 'cancel', class: 'btn btn-host', id: "cancel_tour_btn"
+                  .spinner
                 = link_to "Close", "#", class: "btn btn-default", data: { dismiss: "modal" }
 
       /.step.step2
@@ -65,11 +67,12 @@
             .modal-content
               .card-header.text-left
                 = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
-                | ツアーのキャンセル処理が完了しました
+                .strong
+                  | ツアーのキャンセル処理が完了しました
               .card-body.text-left
-                p
+                p.strong
                   | キャンセルが完了しました。
-                  br
+                p
                   | ガイドにもキャンセルの連絡が届けられていますので、まだ今回のキャンセルについて何も伝えていない時はメッセージを送るようにしましょう。
               .card-footer
                 = link_to "close", "#", data: {dismiss:"modal"}, class: "btn"
