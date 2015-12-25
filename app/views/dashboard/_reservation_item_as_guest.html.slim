@@ -10,13 +10,14 @@
             .col-md-4.col-middle.thread-avatar
               .media-round.media-photo.media-avatar
                 .size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.host_id)}')"]
-            .h5.col-sm-8.col-middle.thread-name
-              = user_id_to_name(r.host_id)
+            .col-sm-8.col-middle.thread-name
+              .h5.strong.row-space-1
+                = user_id_to_name(r.host_id)
               - phone = user_id_to_phone_number(r.host_id)
               - if phone.present?
-                br
-                .balloon(title="＊当日までの間に実際に連絡が取り合えるか確認しておくことをおすすめします。")
-                  i.fa.fa-exclamation-circle
+                .balloon.text-muted[title="＊当日までの間に実際に連絡が取り合えるか確認しておくことをおすすめします。"]
+                  i.fa.fa-phone
+                  ' 
                   = phone
         .col-md-5.thread-body
           .row.row-table
@@ -31,25 +32,25 @@
           .row.row-table
             .col-md-12.col-middle.text-center
               - if r.requested?
-                .tag
+                .state
                   | 回答待ち
               - elsif r.canceled?
-                .tag
+                .state
                   | キャンセルしました
               - elsif r.canceled_after_accepted?
-                .tag.tag-normal
+                .state.state-normal
                   | 予約キャンセル確定
               - elsif r.accepted?
-                .tag.tag-success
+                .state.state-success
                   | 予約確定
               - elsif r.rejected?
-                .tag
+                .state
                   | 拒否されました
               - elsif r.holded?
-                .tag
+                .state
                   | 保留中
               - else
-                .tag
+                .state
                   | "非公開になりました"
               - if r.completed?
                 div

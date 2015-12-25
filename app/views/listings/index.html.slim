@@ -1,4 +1,4 @@
-- # listings#index
+/ listings#index
 = render 'shared/subnav'
 .page-container.row-space-top-4.row-space-4
   .row
@@ -67,10 +67,10 @@
                     .col-xs-8.col-lg-6
                       .actions.row-space-1
                         - if listing.open?
-                          .tag.tag-primary
+                          .state.state-primary
                             | Published
                         - else
-                          .tag.tag-danger
+                          .state.state-danger
                             | Unpublished
                       .h4
                         = link_to listing, class: "text-normal trans" do
@@ -79,5 +79,5 @@
                       .pull-right.pull-change
                         .listing-criteria-header.activation-notification
                           .listing-criteria-header-message
-                            = link_to edit_listing_path(listing), class: "btn btn-primary" do
+                            = link_to edit_listing_path(listing), class: "btn btn-primary btn-mw120" do
                               | Edit
