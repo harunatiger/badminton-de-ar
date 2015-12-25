@@ -469,4 +469,14 @@ module ApplicationHelper
   def schedule_span(reservation)
     reservation.schedule.to_s + '〜' + (reservation.schedule + reservation.time_required.hour).to_s
   end
+  
+  def select_pick_up_listing(pickup)
+    selected_listing = Listing.find(pickup.selected_listing)
+    listings = pickup.listings.opened
+    if listings.present?
+      listing = selected_listing.open ? selected_listing : listings.order("RANDOM()").first
+    else
+      listing = selected_listing.open ? selected_listing : nil
+    end
+  end
 end

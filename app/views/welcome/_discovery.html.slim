@@ -19,7 +19,7 @@
                         .h2.strong
                           = pickup.long_name
                   | </div>
-                = render partial: 'tour_list', locals: { listing: Listing.find(pickup.selected_listing) }
+                = render partial: 'tour_list', locals: { listing: select_pick_up_listing(pickup) }
               - elsif i == 1
                 .col-lg-4.col-md-6.col-sm-12.rm-padding--sp
                   - if pickup.cover_image_small.present?
@@ -45,7 +45,7 @@
                           = pickup.short_name
                   | </div>
               - elsif i == 4
-                = render partial: 'tour_list', locals: { listing: Listing.find(pickup.selected_listing) }
+                = render partial: 'tour_list', locals: { listing: select_pick_up_listing(pickup) }
                 .col-lg-8.col-md-12.col-sm-12.rm-padding--sp
                   | <div class="discovery-card rm-padding--sp row-space-4" style="background-image:url(#{pickup.cover_image})">
                   = link_to pickup_path(pickup) do

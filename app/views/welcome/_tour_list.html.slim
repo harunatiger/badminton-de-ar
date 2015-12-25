@@ -1,19 +1,24 @@
 .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-4
   .card.tour-listing
-    .card-image
-      = link_to listing_path(listing.id), class: "media-photo media-photo-block media-cover tour-list-cover" do
-        /= image_tag(, height: "210", width: "484", alt: "", class: "img-responsive")
-        div[style="background-image: url('#{asset_path listing_cover_image_url(listing.id)}')"]
-      .card-overlay-bottom-left.flush-left.card-overlay-label
-        .h3
-          | ¥
-          = listing.listing_detail.amount
-    .card-body
-      .media
-        = link_to profile_path(listing.user_id), class: 'pull-right media-photo media-round card-profile-picture card-profile-picture-offset' do
-          div[style="background-image: url('#{asset_path user_id_to_profile_image(listing.user_id)}')" title="#{user_id_to_name(listing.user_id)}"]
-        = link_to listing_path(listing.id), class: "text-normal" do
-          h5.row-space-1.overflow
-            = truncate(listing.title, length: 40)
-        .row-space-1.text-muted
-          | #{listing.listing_detail.time_required}hours · Review#{listing.open_reviews_count}
+    - if listing.present?
+      .card-image
+        = link_to listing_path(listing.id), class: "media-photo media-photo-block media-cover tour-list-cover" do
+          /= image_tag(, height: "210", width: "484", alt: "", class: "img-responsive")
+          div[style="background-image: url('#{asset_path listing_cover_image_url(listing.id)}')"]
+        .card-overlay-bottom-left.flush-left.card-overlay-label
+          .h3
+            | ¥
+            = listing.listing_detail.amount
+      .card-body
+        .media
+          = link_to profile_path(listing.user_id), class: 'pull-right media-photo media-round card-profile-picture card-profile-picture-offset' do
+            div[style="background-image: url('#{asset_path user_id_to_profile_image(listing.user_id)}')" title="#{user_id_to_name(listing.user_id)}"]
+          = link_to listing_path(listing.id), class: "text-normal" do
+            h5.row-space-1.overflow
+              = truncate(listing.title, length: 40)
+          .row-space-1.text-muted
+            | #{listing.listing_detail.time_required}hours · Review#{listing.open_reviews_count}
+    - else
+      .card-image
+      .card-body
+      
