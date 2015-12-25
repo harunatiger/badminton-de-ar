@@ -10,7 +10,7 @@
 
 ■ユーザ名
 
-<%= @user.present? ? user_id_to_name(@user.id) : '' %>
+<%= @user.present? ? user_id_to_name(@user.id) : @pre_mail.last_name.to_s + @pre_mail.first_name.to_s %>
 
 ■ユーザメールアドレス
 

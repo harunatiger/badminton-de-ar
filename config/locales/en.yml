@@ -22,6 +22,10 @@ en:
         cover_image: 'cover photo'
       listing_image:
         image: 'photo'
+      pre_mail:
+        email: 'email'
+        last_name: 'last_name'
+        first_name: 'first_name'
   mailer:
     new_message:
       subject:

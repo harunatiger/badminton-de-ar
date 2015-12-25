@@ -18,7 +18,15 @@
               .row-space-top-3
                 | メールアドレス
               .row-space-3
-                /= f.input_field :email, placeholder: "Email address"
+                = f.email_field :email, placeholder: "Email address"
+              .row-space-top-3
+                | お名前(姓)
+              .row-space-3
+                = f.input_field :last_name, placeholder: "山田"
+              .row-space-top-3
+                | お名前(名)
+              .row-space-3
+                = f.input_field :first_name, placeholder: "太郎"
             .card-footer
               = f.submit '登録する', class: 'btn btn-primary'
               = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

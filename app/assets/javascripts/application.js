@@ -29,3 +29,4 @@
 //= require listingimage
 //= require chart
 //= require youtube
+//= require pre_mail

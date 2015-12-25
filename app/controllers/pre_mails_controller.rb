@@ -81,6 +81,6 @@ class PreMailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pre_mail_params
-      params.require(:pre_mail).permit(:user_id, :email)
+      params.require(:pre_mail).permit(:user_id, :email, :last_name, :first_name)
     end
 end

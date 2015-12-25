@@ -7,6 +7,8 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  email      :string           default("")
+#  first_name :string           default("")
+#  last_name  :string           default("")
 #
 # Indexes
 #
@@ -18,5 +20,5 @@ class PreMail < ActiveRecord::Base
   
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, format: { with: VALID_EMAIL_REGEX }
-  validates :email, :user_id, uniqueness: true
+  validates :email, uniqueness: true
 end
