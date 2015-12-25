@@ -15,7 +15,7 @@
                 = user_id_to_name(r.guest_id)
               - phone = user_id_to_phone_number(r.guest_id)
               - if phone.present?
-                .balloon.text-muted[title="＊当日までの間に実際に連絡が取り合えるか確認しておくことをおすすめします。"]
+                .balloon.text-muted.small1[title="＊当日までの間に実際に連絡が取り合えるか確認しておくことをおすすめします。"]
                   i.fa.fa-phone
                   ' 
                   = phone
