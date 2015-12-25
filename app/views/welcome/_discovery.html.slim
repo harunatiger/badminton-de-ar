@@ -1,5 +1,5 @@
 .card-dark
-  .discovery-container.row-space-8
+  .discovery-container.row-space-6
     .discovery-section.page-container.page-container-no-padding
       .section-intro.text-center.text-cb.row-space-8.row-space-top-6
         h2.strong.row-space-2
@@ -104,7 +104,7 @@
                 | </div>
               = render partial: 'tour_list', locals: { listing: Listing.find(@pickups.selected_listing) }
         - if @hash_other_pickups.present?
-          .other-pickup-links.row.row-space-4
+          .other-pickup-links.row
             .col-lg-12
               h3.h4.text-center.row-space-4 Other categories
               .text-center
