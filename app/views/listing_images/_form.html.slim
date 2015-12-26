@@ -32,7 +32,12 @@
       .col-xs-8.fieldset.col-middle
         .row
           .col-xs-11.regist-pics
-            = image_tag(@listing_images.cover_image.thumb)
+            /= image_tag(@listing_images.cover_image.thumb)
+            .listing-image-container
+              div[style="background-image: url(#{@listing_images.cover_image.thumb})"]
+              /= image_tag(listing_image.image.thumb, class: '')
+              = link_to root_path, class: "delete-image balloon", title: "削除する" do
+                i.fa.fa-trash
   .row.row-space-8.row-space-top-4.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -65,6 +70,6 @@
           .row
             .col-xs-11
               = image_form.text_area :description, as: :text, placeholder: "例) スープカレーからラーメン、焼肉、お寿司まで！特におすすめするのはイカです❤︎帰る前には絶対食べていただきます笑", rows: '6'
-  .row
+  .row.row-space-top-4
     .col-xs-9.col-offset-3.text-reset-center
       = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-image-submit'

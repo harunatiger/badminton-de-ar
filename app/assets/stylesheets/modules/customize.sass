@@ -918,6 +918,37 @@ body.paper
 /* listings
   ================================================================================ */
 
+/* listings_images
+  ================================================================================ */
+//.listing_images
+
+.listing-image-container
+  position: relative
+  display: inline-block
+  > div
+    width: 200px
+    height: 120px
+    border: 1px solid $border1
+    border-radius: 3px
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: cover
+  .delete-image
+    display: block
+    position: absolute
+    top: -6px
+    right: -6px
+    width: 32px
+    height: 32px
+    line-height: 30px
+    color: white
+    font-size: 20px
+    text-align: center
+    background-color: rgba(0, 0, 0, 0.5)
+    border: 1px solid rgba(255, 255, 255, .5)
+    border-radius: 6px
+    z-index: 9999
+
 /* calendar (listings/calendar)
   ================================================================================ */
 .calendar-wrapper

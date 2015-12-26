@@ -1255,25 +1255,30 @@ $lines-to-show: 2
   .col-switch
     margin-top: -739px
 
-/* fo-dev */
+/* for-dev */
 .to-edit
   position: fixed
   bottom: 20px
   right: 0
 
-/* listing_image cursor
+/* listing_image cursor */
 .image-droppable
+  display: inline-block
   cursor: row-resize
   &:hover
-    opacity: 0.3
+    .listing-image-container
+      > div
+        opacity: 0.3
 .image-drag-active
-  opacity: 0.3
+  .listing-image-container
+    > div
+      opacity: 0.3
 .image-drag-hover
-  opacity: 0.8
-  filter: alpha(opacity = 80)
-  -ms-filter: "alpha( opacity=80 )"
+  .listing-image-container
+    > div
+      opacity: 0.8
 
-/* tag cloud
+/* tag cloud */
 .css1
   font-size: 1.0em
 .css2

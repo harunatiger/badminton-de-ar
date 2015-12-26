@@ -4,7 +4,7 @@
     = image_form.hidden_field :listing_id
     = image_form.hidden_field :order_num
     -if listing_image.image.present?
-      .row.row-space-4.row-space-top-4.row-table
+      .row.row-space-2.row-space-top-8.row-table
         .col-xs-4.text-right.col-middle
           .h4.text-light
             |  現在の画像
@@ -12,8 +12,13 @@
         .col-xs-8.fieldset.col-middle
           .row
             .col-xs-11.regist-pics
-              = image_tag(listing_image.image.thumb, class: 'image-droppable image-draggable')
-    .row.row-space-8.row-space-top-4.row-table
+              .image-droppable.image-draggable
+                .listing-image-container
+                  div[style="background-image: url(#{listing_image.image.thumb})"]
+                  /= image_tag(listing_image.image.thumb, class: '')
+                  = link_to root_path, class: "delete-image balloon", title: "削除する" do
+                    i.fa.fa-trash
+    .row.row-space-8.row-table
       .col-xs-4.text-right.col-middle
         .h4.text-light
           | ツアーのイメージ画像
