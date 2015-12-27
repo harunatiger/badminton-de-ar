@@ -387,6 +387,8 @@ Rails.application.routes.draw do
       get 'manage', on: :collection
       post 'update_all', on: :collection
       put 'change_order', on: :collection
+      delete 'destroy_cover_image', on: :collection
+      delete 'destroy_video', on: :collection
     end
     resources :listing_details, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection

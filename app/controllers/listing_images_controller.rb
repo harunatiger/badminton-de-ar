@@ -56,9 +56,29 @@ class ListingImagesController < ApplicationController
   end
 
   def destroy
+    @listing_image.remove_image!
     @listing_image.destroy
+    @listing.listing_images.order('order_num').each_with_index do |listing_image, i|
+      listing_image.update(order_num: i + 1)
+    end
     respond_to do |format|
-      format.html { redirect_to listing_images_url, notice: 'ListingImage was successfully destroyed.' }
+      format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.delete.success }
+      format.json { head :no_content }
+    end
+  end
+  
+  def destroy_cover_image
+    @listing.remove_cover_image!
+    respond_to do |format|
+      format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.delete.success }
+      format.json { head :no_content }
+    end
+  end
+  
+  def destroy_video
+    @listing.remove_cover_video!
+    respond_to do |format|
+      format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.delete.success }
       format.json { head :no_content }
     end
   end
