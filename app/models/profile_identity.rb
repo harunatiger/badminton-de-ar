@@ -26,6 +26,7 @@ class ProfileIdentity < ActiveRecord::Base
   validates :user_id, presence: true
   validates :profile_id, presence: true
   validates :image, presence: true
+  validates :profile_id, uniqueness: true
   
   scope :mine, -> user_id { where( user_id: user_id ) }
 

@@ -68,7 +68,7 @@ class ProfilesController < ApplicationController
       end
       if @profile.update(para)
         Profile.set_percentage(@profile.user_id)
-        format.html { redirect_to @profile, notice: Settings.profile.save.success }
+        format.html { redirect_to params[:page_self_introduction].present? ? self_introduction_profile_path(@profile) : edit_profile_path(@profile), notice: Settings.profile.save.success }
         #format.mobile { redirect_to @profile, notice: Settings.profile.save.success }
         format.json { render :show, status: :ok, location: @profile }
       else

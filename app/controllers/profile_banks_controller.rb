@@ -21,7 +21,7 @@ class ProfileBanksController < ApplicationController
     @profile_bank = ProfileBank.new(profile_bank_params)
     respond_to do |format|
       if @profile_bank.save
-        format.html { redirect_to profile_path(@profile.id), notice: Settings.profile_banks.save.success }
+        format.html { redirect_to edit_profile_profile_bank_path(@profile, @profile_bank), notice: Settings.profile_banks.save.success }
         format.json { render :show, status: :created, location: @profile_bank }
       else
         format.html { render :new }
@@ -33,7 +33,7 @@ class ProfileBanksController < ApplicationController
   def update
     respond_to do |format|
       if @profile_bank.update(profile_bank_params)
-        format.html { redirect_to profile_path(@profile.id), notice: Settings.profile_banks.save.success }
+        format.html { redirect_to edit_profile_profile_bank_path(@profile, @profile_bank), notice: Settings.profile_banks.save.success }
         format.json { render :show, status: :ok, location: @profile_bank }
       else
         format.html { render :edit}

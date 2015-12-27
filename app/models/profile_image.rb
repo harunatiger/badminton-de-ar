@@ -26,6 +26,7 @@ class ProfileImage < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :profile_id, presence: true
+  validates :profile_id, uniqueness: true
   #validates :image, presence: true
   #validates :order_num, numericality: {
   #  only_integer: true,

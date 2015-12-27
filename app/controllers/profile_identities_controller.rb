@@ -30,7 +30,7 @@ class ProfileIdentitiesController < ApplicationController
     pp @profile_identity
     respond_to do |format|
       if @profile_identity.save
-        format.html { redirect_to profile_path(@profile.id), notice: Settings.profile_identities.save.success }
+        format.html { redirect_to edit_profile_profile_identity_path(@profile, @profile_identity), notice: Settings.profile_identities.save.success }
         format.json { render :show, status: :created, location: @profile_identity }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class ProfileIdentitiesController < ApplicationController
     @profile_identity.authorized = false
     respond_to do |format|
       if @profile_identity.update(profile_identity_params)
-        format.html { redirect_to profile_path(@profile.id), notice: Settings.profile_identities.save.success }
+        format.html { redirect_to edit_profile_profile_identity_path(@profile, @profile_identity), notice: Settings.profile_identities.save.success }
         format.json { render :show, status: :ok, location: @profile_identity }
       else
         format.html { render :edit }

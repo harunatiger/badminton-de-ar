@@ -30,7 +30,7 @@ class ProfileImagesController < ApplicationController
     pp @profile_image
     respond_to do |format|
       if @profile_image.save
-        format.html { redirect_to profile_path(@profile.id), notice: Settings.profile_images.save.success }
+        format.html { redirect_to edit_profile_profile_image_path(@profile, @profile_image), notice: Settings.profile_images.save.success }
         format.json { render :show, status: :created, location: @profile_image }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class ProfileImagesController < ApplicationController
   def update
     respond_to do |format|
       if @profile_image.update(profile_image_params)
-        format.html { redirect_to profile_path(@profile.id), notice: Settings.profile_images.save.success }
+        format.html { redirect_to edit_profile_profile_image_path(@profile, @profile_image), notice: Settings.profile_images.save.success }
         format.json { render :show, status: :ok, location: @profile_image }
       else
         format.html { render :edit }

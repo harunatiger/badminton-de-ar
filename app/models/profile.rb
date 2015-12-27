@@ -58,6 +58,7 @@ class Profile < ActiveRecord::Base
   enum gender: { female: 0, male: 1, others: 2, not_specified: 3 }
 
   validates :user_id, presence: true
+  validates :user_id, uniqueness: true
   validates :phone, presence: true, on: :update
   VALID_PHONE_REGEX = /\A[0-9-+]+\z/
   validates :phone, format: { with: VALID_PHONE_REGEX, on: :update }

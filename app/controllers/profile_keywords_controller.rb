@@ -34,7 +34,7 @@ class ProfileKeywordsController < ApplicationController
     @profile_keyword_collection = ProfileKeywordCollection.new(profile_keyword_collection_params, @profile.user_id, @profile.id)
     respond_to do |format|
       if @profile_keyword_collection.save
-        format.html { redirect_to profile_path(@profile.id), notice: Settings.profile_keywords.save.success }
+        format.html { redirect_to edit_profile_profile_keyword_path(@profile, @profile_keyword), notice: Settings.profile_keywords.save.success }
         format.json { render :show, status: :created, location: @profile_keyword }
       else
         @profile_keyword = ProfileKeyword.new
@@ -52,7 +52,7 @@ class ProfileKeywordsController < ApplicationController
     @profile_keyword_collection = ProfileKeywordCollection.new(profile_keyword_collection_params, @profile.user_id, @profile.id)
     respond_to do |format|
       if @profile_keyword_collection.save
-        format.html { redirect_to profile_path(@profile.id), notice: Settings.profile_keywords.save.success }
+        format.html { redirect_to edit_profile_profile_keyword_path(@profile, @profile_keyword), notice: Settings.profile_keywords.save.success }
         format.json { render :show, status: :ok, location: @profile_keyword }
       else
         @tags = ActsAsTaggableOn::Tag.most_used

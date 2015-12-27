@@ -29,4 +29,5 @@ class ProfileBank < ActiveRecord::Base
   #validates :account_type, presence: true
   #validates :user_name, presence: true
   #validates :number, presence: true
+  validates :profile_id, uniqueness: true
 end

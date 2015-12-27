@@ -8,7 +8,7 @@ ActiveAdmin.register ProfileIdentity do
       link_to obj.id, profile_path(obj.profile_id), :target => ["_blank"]
     end
     column :first_name do |obj|
-      obj.profile.first_name
+      Profile.find(obj.profile_id).first_name
     end
     column :image
     column :authorized

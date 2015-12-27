@@ -41,6 +41,8 @@ class ListingDetail < ActiveRecord::Base
   belongs_to :listing
   before_save :set_price
   
+  validates :listing_id, uniqueness: true
+  
   def set_lon_lat
     hash = Hash.new
     if self.location.present?
