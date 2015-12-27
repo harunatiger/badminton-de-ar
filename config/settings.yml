@@ -193,8 +193,8 @@ image:
 page:
   home: 'Home'
   dashboard: 'Dashboard'
-  host_reservation_manager: 'Incoming reservation'
-  guest_reservation_manager: 'Outcoming reservation'
+  host_reservation_manager: 'Your Bookings'
+  guest_reservation_manager: 'Your Trips'
   listing_new: 'Become a guide'
   listings: 'Tour Page'
   messages: 'Message'
