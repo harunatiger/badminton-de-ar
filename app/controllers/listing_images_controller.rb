@@ -69,6 +69,7 @@ class ListingImagesController < ApplicationController
   
   def destroy_cover_image
     @listing.remove_cover_image!
+    @listing.save
     respond_to do |format|
       format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.delete.success }
       format.json { head :no_content }
@@ -77,6 +78,7 @@ class ListingImagesController < ApplicationController
   
   def destroy_video
     @listing.remove_cover_video!
+    @listing.save
     respond_to do |format|
       format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.delete.success }
       format.json { head :no_content }
