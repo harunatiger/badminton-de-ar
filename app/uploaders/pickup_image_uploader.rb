@@ -19,6 +19,7 @@ class PickupImageUploader < CarrierWave::Uploader::Base
   #
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
+  process :auto_orient
 
   # Process files as they are uploaded:
   # process scale: [1200, 900]
@@ -28,8 +29,10 @@ class PickupImageUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
+
   # Create different versions of your uploaded files:
   version :thumb do
+    process :auto_orient
     process resize_to_fit: [200, 150]
   end
 
@@ -47,6 +50,12 @@ class PickupImageUploader < CarrierWave::Uploader::Base
   
   def filename
     "#{secure_token}" if original_filename.present?
+  end
+  
+  def auto_orient
+    manipulate! do |img|
+      img = img.auto_orient
+    end
   end
   
   protected

@@ -4,6 +4,7 @@ class MessageUploader < CarrierWave::Uploader::Base
   include CarrierWave::RMagick
 
   process :save_content_type_and_set_filename
+  process :auto_orient
 
   def store_dir
     "uploads/message/#{mounted_as}/#{model.id}"
@@ -40,6 +41,12 @@ class MessageUploader < CarrierWave::Uploader::Base
   #end
   def filename
     "#{secure_token}" if original_filename.present?
+  end
+  
+  def auto_orient
+    manipulate! do |img|
+      img = img.auto_orient
+    end
   end
   
   protected
