@@ -8,10 +8,10 @@
       - if profile_identity_exists?
         .row.row-condensed.row-space-4
           .text-center.row-space-top-2
-            -if profile_identity_authorized?(current_user.id)
+            - if profile_identity_authorized?(current_user.id)
               .h4
                 | Confirmed. Thank you for registering
-            -else
+            - else
               .h4
                 | Processing, please wait
         /.row.row-condensed.row-space-4
@@ -33,5 +33,5 @@
           | ID picture
         .col-8
           = f.file_field :image, class: "row-space-top-1-file"
-          span.text-pink "Please upload a scan of your drivers license, student ID or passport photo page."
+          .small2.text-red.row-space-top-1 Please upload a scan of your drivers license, student ID or passport photo page.
   = f.button :submit, "Upload", class: "btn btn-primary btn-large row-space-4"

@@ -15,7 +15,7 @@
           | Cover photo
         .col-8
           = f.file_field :cover_image, class: "row-space-top-1-file"
-          span.text-pink Image size of at least 1280px x 860px is recommended.
+          .small1.text-blue.row-space-top-1 Image size of at least 1280px x 860px is recommended.
       - if profile_image_exists?
         .row.row-condensed.row-space-4
           label.text-right.col-3
@@ -26,5 +26,5 @@
           | Thumbnail image
         .col-8.row-space-4
           = f.file_field :image, class: "row-space-top-1-file"
-          span.text-pink A square image is recommended
+          .small1.text-blue.row-space-top-1 A square image is recommended
   = f.button :submit, "Save", class: "btn btn-primary btn-large row-space-4"

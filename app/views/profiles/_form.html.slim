@@ -3,10 +3,10 @@
       = f.hidden_field :user_id, value: current_user.id
       .card.row-space-4
         .card-header
-          |Enter your basic information.
-          |Please enter
+          | Enter your basic information.
+          | Please enter
           .ic-illust.reliability-up[title="Gain a person's confidence" data-toggle="tooltip"]
-          |to increase your profile completion percentage.
+          | to increase your profile completion percentage.
         .card-body
           .row.row-condensed.row-space-4
             label.text-right.col-3
@@ -25,7 +25,7 @@
             .col-9
               .select
                 = f.input_field :gender, as: :select, :collection => [["Female", :"female"], ["Male", :"male"], ["Others", :"others"], ["指定しない", :"not_specified"]], :default => ["female"]
-              .text-muted.row-space-top-1 This information is not open to the public.
+              .small1.text-muted.row-space-top-1 This information is not open to the public.
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_birthdate"]
               - if @progress.present?
@@ -50,7 +50,7 @@
                 = f.input_field :birthday, as: :select, :collection => [["1月", :"1"], ["2月", :"2"], ["3月", :"3"], ["4月", :"4"], ["5月", :"5"], ["6月", :"6"], ["7月", :"7"], ["8月", :"8"], ["9月", :"9"], ["10月", :"10"], ["11月", :"11"], ["12月", :"12"]], :default => ["1"]
               /.select
                 = f.input_field :birthday, as: :select, :collection => [["1日", :"1"], ["2日", :"2"], ["3日", :"3"], ["4日", :"4"], ["5日", :"5"], ["6日", :"6"], ["7日", :"7"], ["8日", :"8"], ["9日", :"9"], ["10日", :"10"], ["11日", :"11"], ["12日", :"12"], ["13日", :"13"], ["14日", :"14"], ["15日", :"15"], ["16日", :"16"], ["17日", :"17"], ["18日", :"18"], ["19日", :"19"], ["20日", :"20"], ["21日", :"21"], ["22日", :"22"], ["23日", :"23"], ["24日", :"24"], ["25日", :"25"], ["26日", :"26"], ["27日", :"27"], ["28日", :"28"], ["29日", :"29"], ["30日", :"30"], ["31日", :"31"]], :default => ["1"]
-              .text-muted.row-space-top-1 This information is not open to the public.
+              .small1.text-muted.row-space-top-1 This information is not open to the public.
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_phone"]
               - if @progress.present?
@@ -60,8 +60,10 @@
               | Phone number
               i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-7
-              = f.input_field :phone, :class => 'imeoff'
-              .text-muted.row-space-top-1 This information will be available to guests who sign up for this tour
+              .required-container
+                = f.input_field :phone, :class => 'imeoff'
+                i.fa.fa-asterisk.balloon[title="required"]
+              .small1.text-muted.row-space-top-1 This information will be available to guests who sign up for this tour
           .row.row-condensed.row-space-4
             label.text-right.col-3
               - if @progress.present?
@@ -73,6 +75,7 @@
             .col-8
               .select
                 = country_select(:profile, :country, locale: 'en', priority_countries: ['JP'],iso_codes: true, format: :with_alpha2)
+              .small1.text-muted.row-space-top-1 This information is not open to the public.
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_phone"]
               - if @progress.present?
@@ -83,17 +86,15 @@
               i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-6
               = f.input_field :zipcode, placeholder: 'Ex.） 012-3456'
-              .text-muted.row-space-top-1 This information is not open to the public.
+              .small1.text-muted.row-space-top-1 This information is not open to the public.
           .row.row-condensed.row-space-1
             label.text-right.col-3
               | Prefecture
-              i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-7
               = f.input_field :prefecture, placeholder: "Enter your zip code to find your address automatically"
           .row.row-condensed.row-space-1
             label.text-right.col-3
               | City
-              i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-7
               = f.input_field :municipality, placeholder: "Enter your zip code to find your address automatically"
           .row.row-condensed.row-space-2
@@ -102,6 +103,7 @@
               i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-7.row-space-4
               = f.input_field :other_address
+              .small1.text-muted.row-space-top-1 This information is not open to the public.
             /.col-7.row-space-4
               = f.input_field :location, placeholder: "Ex.) Enter your zip code to find your address automatically"
           /.row.row-condensed.row-space-4
