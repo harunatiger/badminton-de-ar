@@ -98,23 +98,23 @@
     |  Best Features of Your Tour
   ol
     - if @listing.recommend1.present?
-      li.strong.row-space-2
+      li.strong.row-space-2.overflow
         = @listing.recommend1
     - if @listing.recommend2.present?
-      li.strong.row-space-2
+      li.strong.row-space-2.overflow
         = @listing.recommend2
     - if @listing.recommend3.present?
-      li.strong.row-space-2
+      li.strong.row-space-2.overflow
         = @listing.recommend3
-  p.detail-section
+  .detail-section
     = hbr(@listing.description).html_safe
   h4
     i.fa.fa-diamond
     |  Overview
-  p
+  div
     = hbr(@listing.overview).html_safe
   h4
     i.fa.fa-diamond
     |  Any other information or instructions (eg. what to bring) 
-  p
+  div
     = hbr(@listing.notes).html_safe
