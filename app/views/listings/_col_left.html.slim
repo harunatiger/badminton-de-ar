@@ -18,7 +18,7 @@
           = @all_reviewed_count
         | )
 .row.row-space-4
-  .col-lg-6.col-md-6
+  .col-md-12
     .tag-list-wrapper
       ul
         - if category_food?(@host_info)
@@ -53,26 +53,27 @@
           li
             = link_to 'javascript:void(0)', title: 'Sports', data:{toggle: 'tooltip'} do
               i.fa.fa-futbol-o
-        .lang-list-wrapper
-          ul
-            - if language_ja?(@host_info)
-              li.balloon(title="Japanese")
-                span JA
-            - if language_en?(@host_info)
-              li.balloon(title="English")
-                span EN
-            - if language_zh?(@host_info)
-              li.balloon(title="Chinese")
-                span ZH
-            - if language_de?(@host_info)
-              li.balloon(title="German")
-                span DE
-            - if language_fr?(@host_info)
-              li.balloon(title="French")
-                span FR
-            - if language_es?(@host_info)
-              li.balloon(title="Spanish")
-                span ES
+    .lang-list-wrapper
+      ul
+        - if language_ja?(@host_info)
+          li.balloon(title="Japanese")
+            span JA
+        - if language_en?(@host_info)
+          li.balloon(title="English")
+            span EN
+        - if language_zh?(@host_info)
+          li.balloon(title="Chinese")
+            span ZH
+        - if language_de?(@host_info)
+          li.balloon(title="German")
+            span DE
+        - if language_fr?(@host_info)
+          li.balloon(title="French")
+            span FR
+        - if language_es?(@host_info)
+          li.balloon(title="Spanish")
+            span ES
+    .introduction-container
       - introduction = simple_format(@host_info.try('self_introduction') || '').each_line
       - if introduction.present?
         - moreline = false
