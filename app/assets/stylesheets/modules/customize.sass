@@ -4,6 +4,44 @@
   common use
   ================================================================================ */
 
+/* webfont title size */
+h1, .h1
+  &.text-wf
+    font-size: 100px
+    @media (max-width: 767px)
+      font-size: 50px
+h2, .h2
+  &.text-wf
+    font-size: 60px
+    @media (max-width: 767px)
+      font-size: 44px
+h3, .h3
+  &.text-wf
+    font-size: 38px
+    @media (max-width: 767px)
+      font-size: 26px
+h4, .h4
+  &.text-wf
+    font-size: 32px
+    @media (max-width: 767px)
+      font-size: 20px
+      font-weight: 400
+h5, .h5
+  &.text-wf
+    font-size: 20px
+h6, .h6
+  &.text-wf
+    font-size: 16px
+
+.chart-container
+  max-width: 400px
+  margin-left: auto
+  margin-right: auto
+
+#canvas
+  @media (max-width: 767px)
+    display: none
+
 /* slideout */
 body.slideout
   position: fixed
@@ -1297,7 +1335,7 @@ body.paper
   .modal-paper
     margin: -250px 0 0
   .hero-text
-    line-height: 1.54
+    //line-height: 1.54
   @media (max-width: 767px)
     .modal-paper
       margin: 20px 0 0

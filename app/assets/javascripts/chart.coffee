@@ -28,7 +28,9 @@
       ]
     }
     options = {
-      showTooltips: false
+      showTooltips: false,
+      pointLabelFontSize: 12,
+      responsive: true
     }
 
     myRadarChart = new Chart($("#canvas").get(0).getContext("2d")).Radar(data, options)

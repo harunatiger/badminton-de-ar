@@ -11,7 +11,8 @@
         label.col-xs-3.text-right.col-middle.h4[for="user_self_introduction"]
           | Your five things
         .col-xs-8.fieldset.col-middle.text-center
-          canvas#canvas height='200' width='300'
+          .chart-container
+            canvas#canvas height='300' width='360'
       .row.row-condensed.row-space-4.row-table
         .row.row-condensed.row-space-4.row-table
           - if @tags.present?

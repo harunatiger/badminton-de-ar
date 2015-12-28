@@ -2,16 +2,15 @@
 
 /* font ================================================== */
 @font-face
-  font-family: 'chalkboard_seregular'
-  src: url(asset-path('chalkboardse-regular-webfont.eot'))
-  src: url(asset-path('chalkboardse-regular-webfont.eot?#iefix')) format("embedded-opentype"), url(asset-path('chalkboardse-regular-webfont.woff2')) format("woff2"), url(asset-path('chalkboardse-regular-webfont.woff')) format("woff"), url(asset-path('chalkboardse-regular-webfont.ttf')) format("truetype"), url(asset-path('chalkboardse-regular-webfont.svg#chalkboard_seregular')) format("svg")
-  font-weight: normal
-  font-style: normal
+  font-family: 'Populaire'
+  src: url(asset-path('300089_0_0.eot'))
+  src: url(asset-path('300089_0_0.eot?#iefix')) format('embedded-opentype'),url(asset-path('300089_0_0.woff2')) format('woff2'),url(asset-path('300089_0_0.woff')) format('woff'),url(asset-path('300089_0_0.ttf')) format('truetype')
+
 
 /* common ================================================== */
 body
-  font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif
-  font-family: Circular, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+  //font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif
+  font-family: Circular, "Open Sans", "Helvetica Neue", "Hiragino Kaku Gothic ProN", Meiryo, Helvetica, Arial, sans-serif
   line-height: 1.44
   color: $gray2
   background: $bg1
@@ -320,7 +319,7 @@ select
           padding-bottom: 8px
 
 .overflow
-  word-break: break-all
+  word-break: break-word
 
 .btn
   padding: 7px 21px
@@ -525,9 +524,9 @@ select
 .strong
   font-weight: 700
 
-.text-cb
-  font-family: chalkboard, 'chalkboard_seregular', Avenir, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
-  font-weight: 400 !important
+.text-wf
+  font-family: 'Populaire', Avenir, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+  //font-weight: 400 !important
 
 .text-normal, a.text-normal, a.text-normal:hover, a.text-normal:focus
   color: inherit
@@ -539,6 +538,10 @@ select
   font-size: 46px
   font-weight: 700
 
+.text-jumbo-cb
+  font-size: 66px
+  font-weight: 700
+
 .text-lead
   font-size: 16px
 
@@ -546,7 +549,7 @@ select
   line-height: 1.6
   font-size: 15px
   p
-    word-break: break-all
+    word-break: break-word
 
 .text-gray, .text-color-light, .fa-gray
   color: $gray1
@@ -1784,7 +1787,7 @@ select
     margin-bottom: 0
 
 .trans
-  word-break: break-all
+  word-break: break-word
 
 /* others */
 .show-sp

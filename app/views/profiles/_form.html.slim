@@ -5,7 +5,7 @@
         .card-header
           |Enter your basic information.
           |Please enter
-          .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
+          .ic-illust.reliability-up[title="Gain a person's confidence" data-toggle="tooltip"]
           |to increase your profile completion percentage.
         .card-body
           .row.row-condensed.row-space-4
@@ -21,7 +21,7 @@
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_gender"]
               | Gender
-              i.fa.fa-lock.fa-green
+              i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-9
               .select
                 = f.input_field :gender, as: :select, :collection => [["Female", :"female"], ["Male", :"male"], ["Others", :"others"], ["指定しない", :"not_specified"]], :default => ["female"]
@@ -31,9 +31,9 @@
               - if @progress.present?
                 - if @progress.include?('birthday')
                   /.inputrate.inputrate-red  +#{@progress['rate']}%
-                  .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
+                  .ic-illust.reliability-up[title="Gain a person's confidence" data-toggle="tooltip"]
               | Date of Birth
-              i.fa.fa-lock.fa-green
+              i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-9
               .select.select-opt
                 /= f.input_field :birthday, as: :date, use_month_numbers: true, start_year: Date.today.year - 120, end_year: Date.today.year - 12, order: [:year, :month, :day], date_separator: '/'
@@ -56,9 +56,9 @@
               - if @progress.present?
                 - if @progress.include?('phone')
                   /.inputrate.inputrate-red +#{@progress['rate']}%
-                  .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
+                  .ic-illust.reliability-up[title="Gain a person's confidence" data-toggle="tooltip"]
               | Phone number
-              i.fa.fa-lock.fa-green
+              i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-7
               = f.input_field :phone, :class => 'imeoff'
               .text-muted.row-space-top-1 This information will be available to guests who sign up for this tour
@@ -67,35 +67,39 @@
               - if @progress.present?
                 - if @progress.include?('company')
                   /.inputrate.inputrate-red +#{@progress['rate']}%
-                  .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
+                  .ic-illust.reliability-up[title="Gain a person's confidence" data-toggle="tooltip"]
               | Country
-              i.fa.fa-lock.fa-green
+              i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-8
-              = country_select(:profile, :country, locale: 'en', priority_countries: ['JP'],iso_codes: true, format: :with_alpha2)
+              .select
+                = country_select(:profile, :country, locale: 'en', priority_countries: ['JP'],iso_codes: true, format: :with_alpha2)
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_phone"]
               - if @progress.present?
                 -if @progress.include?('location')
                   /.inputrate.inputrate-red +#{@progress['rate']}%
-                  .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
+                  .ic-illust.reliability-up[title="Gain a person's confidence" data-toggle="tooltip"]
               | Zip code
-              i.fa.fa-lock.fa-green
+              i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-6
               = f.input_field :zipcode, placeholder: 'Ex.） 012-3456'
               .text-muted.row-space-top-1 This information is not open to the public.
           .row.row-condensed.row-space-1
             label.text-right.col-3
               | Prefecture
+              i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-7
               = f.input_field :prefecture, placeholder: "Enter your zip code to find your address automatically"
           .row.row-condensed.row-space-1
             label.text-right.col-3
               | City
+              i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-7
               = f.input_field :municipality, placeholder: "Enter your zip code to find your address automatically"
           .row.row-condensed.row-space-2
             label.text-right.col-3
               | Address
+              i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-7.row-space-4
               = f.input_field :other_address
             /.col-7.row-space-4

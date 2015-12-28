@@ -5,12 +5,13 @@ h4.row-space-4
     = simple_format(profile.try('self_introduction') || '')
 hr.row-space-4
 - if profile_keyword.present?
-  h4.row-space-4
+  h4.row-space-4.hide--sp
     | My recipe for the perfect tour
   .row-space-4
     .radarchart-wrapper.text-center
-      canvas#canvas height='200' width='300'
-  hr.row-space-4
+      .chart-container
+        canvas#canvas height='300' width='360'
+  hr.row-space-4.hide--sp
 .tag-list-wrapper
   ul
     - if category_food?(profile)

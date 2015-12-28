@@ -8,7 +8,7 @@
     target = $(this)
     $.ajax
       type: 'get'
-      url: 'http://maps.googleapis.com/maps/api/geocode/json'
+      url: 'https://maps.googleapis.com/maps/api/geocode/json'
       crossDomain: true
       dataType: 'json'
       data:

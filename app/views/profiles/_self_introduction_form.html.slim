@@ -110,7 +110,7 @@
               - if @progress.present?
                 - if @progress.include?('self_introduction')
                   /.inputrate.inputrate-red +#{@progress['rate']}%
-                  .ic-illust.reliability-up[title="信頼度アップ！" data-toggle="tooltip"]
+                  .ic-illust.reliability-up[title="Gain a person's confidence" data-toggle="tooltip"]
               | Introduction
             .col-8.self_introduction_wrapper
               = f.input_field :self_introduction, as: :text, cols: "30", rows: "20", placeholder: "Eg.) Welcome, My name is Taro Kazama. I enjoy the same trip as you do and have fun in my life. I'm from Hokkaido. I've been working for a year in Tokyo. I can introduce a variety of cuisine. If you would like, we can have meal together.I can also introduce lunch and dinner places not listed on guide books. An experience there must be memorable for you. I'm looking forward to seeing you."
