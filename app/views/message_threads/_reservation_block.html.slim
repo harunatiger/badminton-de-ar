@@ -1,7 +1,7 @@
 .row.row-condensed.row-space-4
   .col-sm-12.col-md-10.col-md-push-1
     .collapse-box
-      = link_to "#reservation_block",  data: { toggle:"collapse" }, class: 'reservation_collapse' do
+      = link_to "#reservation_block",  data: { toggle:"collapse" }, class: "#{@reservation.listing.present? ? 'reservation_collapse' : 'reservation_collapse collapsed'}" do
         | Tour 
         | Info
         span rmation
