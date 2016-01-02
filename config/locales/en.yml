@@ -26,6 +26,8 @@ en:
         email: 'email'
         last_name: 'last_name'
         first_name: 'first_name'
+      profile:
+        phone: 'Phone number'
   mailer:
     new_message:
       subject:

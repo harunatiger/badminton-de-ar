@@ -72,7 +72,7 @@ class ProfilesController < ApplicationController
         #format.mobile { redirect_to @profile, notice: Settings.profile.save.success }
         format.json { render :show, status: :ok, location: @profile }
       else
-        flash.now[:alert] = Settings.profile.save.failure
+        #flash.now[:alert] = Settings.profile.save.failure
         format.html { render 'edit' }
         #format.mobile { render 'edit' }
         format.json { render json: @profile.errors, status: :unprocessable_entity }

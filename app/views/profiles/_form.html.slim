@@ -12,12 +12,16 @@
             label.text-right.col-3
               | Family Name
             .col-8
-              = f.input_field :last_name
+              .required-container
+                = f.input_field :last_name
+                i.fa.fa-asterisk.balloon[title="required"]
           .row.row-condensed.row-space-4
             label.text-right.col-3
               | First Name
             .col-8
-              = f.input_field :first_name
+              .required-container
+                = f.input_field :first_name
+                i.fa.fa-asterisk.balloon[title="required"]
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_gender"]
               | Gender
@@ -74,7 +78,9 @@
               i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-8
               .select
-                = country_select(:profile, :country, locale: 'en', priority_countries: ['JP'],iso_codes: true, format: :with_alpha2)
+                .required-container
+                  = country_select(:profile, :country, locale: 'en', priority_countries: ['JP'],iso_codes: true, format: :with_alpha2)
+                  i.fa.fa-asterisk.balloon[title="required"]
               .small1.text-muted.row-space-top-1 This information is not open to the public.
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_phone"]
