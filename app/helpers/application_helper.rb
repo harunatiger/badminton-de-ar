@@ -467,7 +467,19 @@ module ApplicationHelper
   end
   
   def schedule_span(reservation)
-    reservation.schedule.to_s + '〜' + (reservation.schedule + reservation.time_required.hour).to_s
+    if reservation.holded? and reservation.created_at == reservation.updated_at
+      reservation.schedule.to_date.to_s + '〜'
+    else
+      reservation.schedule.to_s + '〜' + (reservation.schedule + reservation.time_required.hour).to_s
+    end
+  end
+  
+  def meeting_at(reservation)
+    if reservation.holded? and reservation.created_at == reservation.updated_at
+      reservation.schedule.to_date.to_s
+    else
+      reservation.schedule.to_s
+    end
   end
   
   def select_pick_up_listing(pickup)
