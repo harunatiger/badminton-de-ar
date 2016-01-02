@@ -4,7 +4,7 @@
       = image_tag(profile_to_image(profile), class: 'img-responsive')
     .profile-name.row-space-top-2.row-space-1
       span
-        = user_id_to_name(profile.user_id)
+        = profile.first_name
     .profile-created.text-muted.row-space-1
       = "(Registerd #{@profile.created_at.strftime("%Y/%m")})"
     .profile-status.row-space-2
