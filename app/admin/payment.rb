@@ -19,9 +19,6 @@ ActiveAdmin.register_page "Payment" do
           .term( @startdate, @enddate )
           .order_by_schedule
           .includes(:reservation)
-      Rails.logger.debug('@@@@@@@@@@@@@@@@')
-      Rails.logger.debug(@payments.count)
-      Rails.logger.debug('@@@@@@@@@@@@@@@@')
       end
     end
 
