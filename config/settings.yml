@@ -54,6 +54,8 @@ listings:
   unpublish:
     success: "Tour page hidden"
     failure: "Failed to set your tour page to hidden"
+  destroy:
+    success: "Listing was seccessfully deleted"
   delivery:
     ok: "出張可"
   error:

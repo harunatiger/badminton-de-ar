@@ -10,7 +10,7 @@ module DatetimeIntegratable
         next unless self.respond_to?("#{attribute}")
         original_date = self.send("#{attribute}")
         next if original_date.nil?
-        [["date", "%Y/%m/%d"], ["hour", "%H"], ["minute", "%M"]].each do |key, format|
+        [["date", "%m/%d/%Y"], ["hour", "%H"], ["minute", "%M"]].each do |key, format|
           next if self.send("#{attribute}_#{key}").present?
           self.send("#{attribute}_#{key}=", original_date.strftime(format))
         end

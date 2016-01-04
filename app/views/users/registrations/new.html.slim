@@ -29,7 +29,7 @@
               .control-group.row-space-1
                 = f.input_field :password, class: "decorative-input", placeholder: "Password", required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable)
               .control-group.row-space-1
-                = f.input_field :password_confirmation, class: "decorative-input", placeholder: "パスワード確認", required: true
+                = f.input_field :password_confirmation, class: "decorative-input", placeholder: "Confirm password", required: true
               .row-space-2.row-space-top-2
                 small
                   | By register with Huber, you agree to 
@@ -41,7 +41,7 @@
                   | , 
                   = link_to " and guide insurance policy", "#"
               .form-actions
-                = f.button :submit, "登録する", class: "btn btn-primary btn-large btn-block"
+                = f.button :submit, "Register", class: "btn btn-primary btn-large btn-block"
           .policy-wrapper.row-space-top-2
             small
               | By register with Huber, you agree to 

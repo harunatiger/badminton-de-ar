@@ -26,32 +26,17 @@
                 = link_to listing_path(r.listing_id) do
                   = listing.title
               .thread-date
+                | Meeting at 
                 = r.schedule.to_s
-                |  集合
         .col-md-3.thread-progress
           .row.row-table
             .col-md-12.col-middle.text-center
-              - if r.requested?
-                .state
-                  | 回答待ち
-              - elsif r.canceled?
-                .state
-                  | キャンセルしました
-              - elsif r.canceled_after_accepted?
+              - if r.accepted?
+                .state.state-primary
+                  | Booked
+              - else
                 .state.state-normal
                   | Cancelled
-              - elsif r.accepted?
-                .state.state-success
-                  | 予約確定
-              - elsif r.rejected?
-                .state
-                  | 拒否されました
-              - elsif r.holded?
-                .state
-                  | 保留中
-              - else
-                .state
-                  | "非公開になりました"
               - if r.completed?
                 div
                   = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }

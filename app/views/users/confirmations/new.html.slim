@@ -16,8 +16,8 @@
               .control-group.row-space-2
                 = f.input_field :email, class: "decorative-input", placeholder: "E-mail address", required: true
               .form-actions
-                = f.button :submit, "再送信する", class: "btn btn-primary btn-large btn-block"
+                = f.button :submit, "Resend", class: "btn btn-primary btn-large btn-block"
         .card-body
           p.small1.row-space-2
-            | ログイン画面に戻りますか？
-            = link_to "戻る", new_user_session_path
+            | Return to LogIn page？
+            = link_to "Return", new_user_session_path

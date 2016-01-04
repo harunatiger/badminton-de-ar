@@ -59,9 +59,9 @@ class Profile < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :user_id, uniqueness: true
-  validates :first_name, :last_name, :country, presence: true, on: :update
+  validates :phone, :first_name, :last_name, :country, presence: true, on: :update
   VALID_PHONE_REGEX = /\A[0-9-+]+\z/
-  validates :phone, format: { with: VALID_PHONE_REGEX, on: :update }
+  validates :phone, format: { with: VALID_PHONE_REGEX, if: "phone.present?", on: :update }
 
   def self.minimun_requirement?(user_id)
     profile = Profile.where(user_id: user_id).first

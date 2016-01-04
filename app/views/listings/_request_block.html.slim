@@ -8,32 +8,32 @@
   .card.row-space-2
     .card-body
       .tour-price.row-space-1
-        .h3.strong.row-space-1 ツアー料金
+        .h3.strong.row-space-1 Tour Price
         .h3.strong.row-space-2
           | ¥
           span#tour-price-single
           small.time
-            | /グループ
+            | /Group
           span.small<
             = listing.listing_detail.time_required.to_s.gsub(/.0/, '')
-            | 時間
+            | Hour
         .row.row-space-1
           .col-md-7.small1
-            | ペアガイド料金
+            | Guide Price
           .col-md-5.text-right.strong
             | ¥
             span#tour-price-base
               =listing.listing_detail.price_calced
         .row.row-space-1
           .col-md-7.small1
-            | 諸経費(グループあたり)
+            | Group Expenses
           .col-md-5.text-right.strong
             | ¥
             span#tour-price-option
               =listing.listing_detail.option_price
         .row.row-space-1
           .col-md-7.small1
-            | 諸経費(ゲスト1人あたり)
+            | Individual Expenses
           .col-md-5.text-right.strong
             | ¥
             span#tour-price-option-single
@@ -42,10 +42,10 @@
           .col-md-12
             = link_to "#", class: "about_price_trigger small1 text-red" do
               /i.fa.fa-exclamation-circle
-              |  ※体験中の経費について
+              |  *About costs during the tour
           .col-md-12
             = link_to "#", class: "include_what_trigger small1 text-blue" do
-              |  ※諸経費に含まれるもの
+              |  *What's included in basic costs
           /.col-md-12
             = link_to "#", class: "include_price_trigger small1 text-blue" do
               |  ※プラン料金に含まれている内容
@@ -68,48 +68,48 @@
         .row.row-space-4
           .col-md-8
             label[for="checkin"]
-              |  参加する日付
-            input#checkin.checkin.datepicker[name="reservation[schedule_date]" placeholder="年/月/日" type="text"]
+              |  Date of tour
+            input#checkin.checkin.datepicker[name="reservation[schedule_date]" placeholder="MM/DD/YYYY" type="text"]
           .col-md-4
             label[for="reservation_num_of_people"]
-              |  人数
+              |  Number of People
             .select.select-block#num-of-people
               = f.input_field :num_of_people, as: :select, collection: listing.listing_detail.min_num_of_people..listing.listing_detail.max_num_of_people, default: [1]
         #culc-container.row-space-1
           .row.row-space-1
             .col-md-7.small1
-              | ペアガイド料金
+              | Guide Price
             .col-md-5.text-right.strong
               | ¥
               span#tour-price-base_calced
 
           .row.row-space-1
             .col-md-7.small1
-              | 諸経費(グループあたり)
+              | Group Expenses
             .col-md-5.text-right.strong
               | ¥
               span#tour-price-option_calced
 
           .row.row-space-1
             .col-md-7.small1
-              | 諸経費(ゲスト1人あたり) x
+              | Individual Expenses x
               span#tour-member_calced
                 | 1
-              | 人
+              | Person
             .col-md-5.text-right.strong
               | ¥
               span#tour-price-option-single_calced
 
           .row.row-space-1
             .col-md-7.small1
-              | サービス利用料金
+              | Service fee
             .col-md-5.text-right.strong
               | ¥
               span#service-cost_calced
 
           .row.row-space-4
             .col-md-7.small1.text-blue.strong
-              | 合計金額
+              | Total amount
             .col-md-5.text-right.strong.text-blue.strong
               | ¥
               span#tour-price-result_calced.h4
@@ -117,37 +117,37 @@
         .row-space-2
           - if user_signed_in?
             - if current_user.id == @listing.user_id or @active_reservation
-              = f.submit '予約をリクエスト', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
+              = f.submit 'Request a reservation', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
             - elsif not profile_self_introduction_exists?
-              = link_to '予約をリクエスト', profile_link, class: 'btn btn-large btn-block btn-primary'
+              = link_to 'Request a reservation', profile_link, class: 'btn btn-large btn-block btn-primary'
             - else
-              = f.submit '予約をリクエスト', id: 'book_it_button', name: 'reserve', class: "btn btn-large btn-block btn-primary"
+              = f.submit 'Request a reservation', id: 'book_it_button', name: 'reserve', class: "btn btn-large btn-block btn-primary"
           - else
             button.btn.btn-large.btn-block.btn-host
-              | 予約をリクエスト
+              | Request a reservation
         .row-space-1
           - if user_signed_in?
             - if current_user.id == @listing.user_id
               /= f.button :submit, 'メッセージを送る', id: 'book_it_button', class: "btn btn-large btn-block disabled"
               = button_tag type: 'submit', id: 'book_it_button', class: "btn btn-large btn-block disabled" do
                 i.fa.fa-comments-o
-                | メッセージを送る
+                | Send message
             - elsif not profile_self_introduction_exists?
               = link_to profile_link, class: 'btn btn-large btn-block' do
                 i.fa.fa-comments-o
-                | メッセージを送る
+                | Send message
             - else
               -if @message_thread
                 = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block' do
                   i.fa.fa-comments-o
-                  | メッセージを送る
+                  | Send message
                 end
               - else
                 = link_to message_threads_path(message_thread: {host_id: @listing.user_id}), method: 'POST', class: 'btn btn-large btn-block' do
                   i.fa.fa-comments-o
-                  | メッセージを送る
+                  | Send message
           - else
             //= f.submit 'メッセージを送る', class: "btn btn-large btn-block"
             = button_tag type: 'submit', class: "btn btn-large btn-block disabled" do
               i.fa.fa-comments-o
-              | メッセージを送る
+              | Send message
