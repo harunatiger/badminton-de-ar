@@ -18,7 +18,7 @@ class ReservationsController < ApplicationController
 
     para = reservation_params
     para['progress'] = 'holded' if params[:save]
-    para['schedule_end'] = para['schedule_date'] if params[:reserve]
+    para['schedule_end'] = Date.strptime(para['schedule_date'], '%m/%d/%Y').to_s if params[:reserve]
     para['campaign_id'] = nil if reservation_before and reservation_before.accepted?
 
     if reservation_before and reservation_before.holded?
@@ -26,7 +26,7 @@ class ReservationsController < ApplicationController
       result = @reservation.update(para)
     else
       @reservation = Reservation.new(para)
-      result = @reservation.save
+      result = @reservation.save!
     end
 
     respond_to do |format|
