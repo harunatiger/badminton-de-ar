@@ -15,6 +15,25 @@ slideSwitch = ->
 # onload
 $ ->
 
+  # dropdown-nav
+  #old_item = undefined
+  timeout = undefined
+  $('.user-nav-toggle').mouseenter ->
+    item_selected = $('.user-nav', this)
+    clearTimeout timeout
+    #if old_item
+    #  old_item.hide()
+    item_selected.show()
+    return
+  $('.user-nav-toggle').mouseleave ->
+    item_selected = $('.user-nav', this)
+    #old_item = item_selected
+    timeout = window.setTimeout((->
+      item_selected.hide()
+      return
+    ), 500)
+    return
+
   if $('body').hasClass('profiles show')
 
     # profile tour location
