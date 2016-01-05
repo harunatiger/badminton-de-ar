@@ -17,6 +17,7 @@ $ ->
       if $('#listing_title').val() != '' && $('#listing_zipcode').val() != '' && $('#listing_location').val() != ''
         $('.btn-primary').removeClass('disabled')
     ###
+
     # style zip-code
     setPostcode = (postcode) ->
       if postcode.length == 7
@@ -480,8 +481,7 @@ $ ->
       ), 200)
       return
 
-
-  #Draw RadarChart
+  ###
   if $('body').hasClass('listings show')
     array_keywords = gon.keywords
     if array_keywords.length != 0
@@ -492,6 +492,5 @@ $ ->
         keywords.push data.keyword
         rates.push data.level
         return
-
       $('#canvas').Radarchart(keywords, rates)
-
+  ###

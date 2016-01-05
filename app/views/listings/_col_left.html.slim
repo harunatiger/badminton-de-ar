@@ -74,10 +74,20 @@
           li.balloon(title="Spanish")
             span ES
     .introduction-container
-      - introduction = simple_format(@host_info.try('self_introduction') || '').each_line
-      - if introduction.present?
+      /- if @host_info.self_introduction.present?
+      .expandable.row-space-2
+        .expandable-trigger-more
+          .expandable-content
+            .expandable-inner
+              = simple_format(h(@host_info.try('self_introduction') || ''))
+              .expandable-indicator
+        = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
+          | read more
+
+      /- introduction = simple_format(@host_info.try('self_introduction') || '').each_line
+      /- if introduction.present?
         - moreline = false
-        - introduction.each.with_index(1) do |line,index|
+        - introduction.each.with_index(1) do | line, index |
           - if index <= 3
             = line.html_safe
           - elsif index >= 4
@@ -85,14 +95,15 @@
             - break
         - if moreline == true
           span ...
-        p
-          = link_to "#", class: "pair_guide_list-trigger small1" do
-            i.fa.fa-exclamation-circle
-            | Supporting guide will join on the day
-  .col-lg-6.col-md-6.text-center
-  - if profile_keyword.present?
-    canvas#canvas height='200' width='300'
+      div
+        = link_to "#", class: "pair_guide_list-trigger small1" do
+          i.fa.fa-exclamation-circle
+          | Supporting guide will join on the day
+  /.col-lg-6.col-md-6.text-center
+    - if profile_keyword.present?
+      canvas#canvas height='200' width='300'
 #listing-description.listing-description
+  hr
   h4.row-space-4
     i.fa.fa-diamond
     |  Best Features of Your Tour
@@ -106,15 +117,18 @@
     - if @listing.recommend3.present?
       li.strong.row-space-2.overflow
         = @listing.recommend3
-  .detail-section
+  .detail-section.row-space-4
     = hbr(@listing.description).html_safe
+  hr
   h4
     i.fa.fa-diamond
     |  Overview
-  div
+  .row-space-4
     = hbr(@listing.overview).html_safe
+  hr
   h4
     i.fa.fa-diamond
     |  Any other information or instructions (eg. what to bring) 
-  div
+  .row-space-4
     = hbr(@listing.notes).html_safe
+  hr

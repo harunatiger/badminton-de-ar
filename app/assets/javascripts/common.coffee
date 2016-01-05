@@ -34,8 +34,30 @@ $ ->
     ), 500)
     return
 
-  if $('body').hasClass('profiles show')
+  # content expand
+  if $('.expandable').length
+    $('.expandable').each ->
+      exContent = $('.expandable-content', this).height()
+      exInner =  $('.expandable-inner', this).height()
+      if exContent >= exInner
+        $(this).addClass('expanded')
+      if exInner <= 65
+        $('.expandable-indicator', this).hide()
+        $('.expandable-trigger-more-text', this).hide()
 
+    $('.expandable-trigger-more').on 'click', ->
+      tempP = $(this)
+      tempWrap = tempP.parents('.expandable')
+      if !tempWrap.hasClass('expanded')
+        tempHeight = $('div.expandable-inner', tempWrap).height() + 12.5
+        $('div.expandable-content', tempWrap).height(tempHeight)
+        tempWrap.addClass('expanded')
+        if tempP.is('a')
+          return false
+      return
+
+  # profile#show
+  if $('body').hasClass('profiles show')
     # profile tour location
     initialize = ->
       bounds = new google.maps.LatLngBounds()
