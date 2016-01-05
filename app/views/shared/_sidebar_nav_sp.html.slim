@@ -36,6 +36,8 @@
           li
             = link_to Settings.page.home, root_path, class: "link-reset menu-item", rel: "nofollow"
           li
+            = link_to Settings.page.signup, new_user_registration_path, class: "link-reset menu-item", rel: "nofollow"
+          li
             = link_to Settings.page.login, new_user_session_path, class: "link-reset menu-item", rel: "nofollow"
           li
             = link_to Settings.page.guest_flow, "#", class: "link-reset menu-item guest-flow-trigger", rel: "nofollow"
