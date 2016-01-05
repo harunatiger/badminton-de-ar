@@ -66,6 +66,7 @@ class ProfilesController < ApplicationController
       if para[:municipality]
         para[:location] = para[:municipality] + ' ' + para[:prefecture]
       end
+      para[:enable_strict_validation] = true if params[:page_self_introduction].blank?
       if @profile.update(para)
         Profile.set_percentage(@profile.user_id)
         format.html { redirect_to params[:page_self_introduction].present? ? self_introduction_profile_path(@profile) : edit_profile_path(@profile), notice: Settings.profile.save.success }
