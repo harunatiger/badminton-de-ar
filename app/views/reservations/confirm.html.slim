@@ -87,5 +87,8 @@
         .card-footer
           .text-center
             .btn-wrapper
-              = f.submit "支払いを確定する", name: 'payment', class: "btn btn-primary", onclick: "_gaq.push(['_trackEvent', 'reservation', 'accept']);"
+              - if Rails.env.production?
+                = f.submit "支払いを確定する", name: 'payment', class: "btn btn-primary", onclick: "_gaq.push(['_trackEvent', 'reservation', 'accept']);"
+              - else
+                = f.submit "支払いを確定する", name: 'payment', class: "btn btn-primary"
               = f.submit "支払いをキャンセルする", name: 'payment_cancel', class: "btn"
