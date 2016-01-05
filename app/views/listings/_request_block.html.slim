@@ -45,10 +45,10 @@
               |  *About costs during the tour
           .col-md-12
             = link_to "#", class: "include_what_trigger small1 text-blue" do
-              |  *What's included in basic costs
+              | *What's included in basic costs
           /.col-md-12
             = link_to "#", class: "include_price_trigger small1 text-blue" do
-              |  ※プラン料金に含まれている内容
+              | ※プラン料金に含まれている内容
       = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
         - user_id = 0
         - user_id = current_user.id if user_signed_in?
@@ -66,13 +66,13 @@
         = f.hidden_field :place, value: listing.listing_detail.place
         = f.hidden_field :place_memo, value: listing.listing_detail.place_memo
         .row.row-space-4
-          .col-md-8
+          .col-md-6
             label[for="checkin"]
               |  Date of tour
             input#checkin.checkin.datepicker[name="reservation[schedule_date]" placeholder="MM/DD/YYYY" type="text"]
-          .col-md-4
+          .col-md-6
             label[for="reservation_num_of_people"]
-              |  Number of People
+              |  Num of People
             .select.select-block#num-of-people
               = f.input_field :num_of_people, as: :select, collection: listing.listing_detail.min_num_of_people..listing.listing_detail.max_num_of_people, default: [1]
         #culc-container.row-space-1
