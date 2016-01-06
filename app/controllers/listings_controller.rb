@@ -1,7 +1,7 @@
 class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :search]
   #before_action :check_listing_status, only: [:index, :search]
-  before_action :set_listing, only: [:show, :edit, :update, :destroy]
+  before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite]
   before_action :set_listing_obj, only: [:publish, :unpublish]
   before_action :set_listing_related_data, only: [:show, :edit]
   before_action :set_message_thread, only: [:show]
@@ -133,6 +133,21 @@ class ListingsController < ApplicationController
     end
   end
 
+  def favorite
+    if current_user.favorite_listing?(@listing)
+      current_user.favorite_listing.where(listing: @listing, user: current_user).destroy_all
+      post = 'delete'
+    else
+      if current_user.favorite_listing.create(listing: @listing, user: current_user)
+        status = 'success'
+        post = 'create'
+      else
+        status = 'error'
+      end
+    end
+    render json: { status: status, post: post}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
@@ -169,7 +184,7 @@ class ListingsController < ApplicationController
         :zipcode, :location, :longitude, :latitude, :delivery_flg, :price,
         :description, :recommend1, :recommend2, :recommend3, :overview, :notes,
         :title, :capacity, :direction, :schedule, :listing_images,
-        :cover_image, :cover_image_caption, :cover_video, :cover_video_caption, 
+        :cover_image, :cover_image_caption, :cover_video, :cover_video_caption,
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
         language_ids: [], pickup_ids: [])
     end

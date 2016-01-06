@@ -15,7 +15,9 @@
               = link_to "See profile", profile_path(current_user.profile.id)
             li
               = link_to "Edit profile", edit_profile_path(current_user.profile.id)
-
+          .favorite-icon.text-center
+            i.fa.fa-heart
+            = favorite_users_count(current_user.id)
     .col-lg-9.col-md-12
       #alert-panel.card.row-space-4
         .card-header Notification
@@ -31,7 +33,7 @@
             - unless @unread_messages.count.zero?
               li
                 = link_to message_threads_path do
-                  | You have 
+                  | You have
                   = @unread_messages.count
                   |  new message.
                   i.fa.fa-chevron-right
@@ -41,11 +43,11 @@
                   | All confirmed
       #message-panel.card.row-space-4
         .card-header
-          | Unread 
+          | Unread
           = Settings.page.messages
           ' 　New
           span.count
-            = @unread_messages.count 
+            = @unread_messages.count
           |  message
         - if @unread_messages.count.zero?
           .card-body

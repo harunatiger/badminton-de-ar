@@ -1,0 +1,13 @@
+ul.sidenav-list
+  - if controller_name == 'favorite_listings'
+    li
+      = link_to "ツアープラン", favorite_listings_path, class: "sidenav-item", aria: {selected: "true"}
+  - else
+    li
+      = link_to "ツアープラン", favorite_listings_path, class: "sidenav-item", aria: {selected: "false"}
+  - if controller_name == 'favorite_users'
+    li
+      = link_to "ガイド", favorite_users_path, class: "sidenav-item", aria: {selected: "true"}
+  - else
+    li
+      = link_to "ガイド", favorite_users_path, class: "sidenav-item", aria: {selected: "false"}

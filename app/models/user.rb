@@ -58,6 +58,9 @@ class User < ActiveRecord::Base
   has_many :ngevents, dependent: :destroy
   has_many :user_campaigns, dependent: :destroy
   has_many :campaigns, :through => :user_campaigns, dependent: :destroy
+  has_many :favorite_listing, dependent: :destroy
+  has_many :favorite_users_of_from_user, class_name: 'FavoriteUser', dependent: :destroy
+  has_many :favorite_users_of_to_user, class_name: 'FavoriteUser', dependent: :destroy
 
   #validates :email, presence: true
   #validates :email, uniqueness: true
@@ -131,5 +134,13 @@ class User < ActiveRecord::Base
 
   def already_authrized
     ProfileIdentity.where(user_id: self.id).first.try('authorized') || false
+  end
+
+  def favorite_listing?(listing)
+    favorite_listing.exists?(listing: listing, user: self)
+  end
+
+  def favorite_user?(to_user)
+    FavoriteUser.exists?(to_user_id: to_user, from_user_id: self.id)
   end
 end

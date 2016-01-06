@@ -78,6 +78,7 @@ class Listing < ActiveRecord::Base
   has_many :ngevents
   has_many :listing_pickups, dependent: :destroy
   has_many :pickups, :through =>  :listing_pickups
+  has_many :favorite_listing, dependent: :destroy
 
 
   mount_uploader :cover_image, DefaultImageUploader
@@ -108,11 +109,11 @@ class Listing < ActiveRecord::Base
   scope :available_num_of_guest?, -> num_of_guest { where("capacity >= ?", num_of_guest) }
   scope :available_price_min?, -> price_min { where("price >= ?", price_min) }
   scope :available_price_max?, -> price_max { where("price <= ?", price_max) }
-  
+
   def open_reviews_count
     self.reviews.joins(:reservation).merge(Reservation.review_open?).count
   end
-  
+
   def set_lon_lat
     hash = Hash.new
     if self.location.present?
@@ -202,7 +203,7 @@ class Listing < ActiveRecord::Base
     self.open = true
     self.save
   end
-  
+
   def unpublish
     self.open = false
     self.save

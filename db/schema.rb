@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225031755) do
+ActiveRecord::Schema.define(version: 20160105013137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,26 @@ ActiveRecord::Schema.define(version: 20151225031755) do
 
   add_index "emergencies", ["profile_id"], name: "index_emergencies_on_profile_id", using: :btree
   add_index "emergencies", ["user_id"], name: "index_emergencies_on_user_id", using: :btree
+
+  create_table "favorite_listings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "listing_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "favorite_listings", ["listing_id"], name: "index_favorite_listings_on_listing_id", using: :btree
+  add_index "favorite_listings", ["user_id"], name: "index_favorite_listings_on_user_id", using: :btree
+
+  create_table "favorite_users", force: :cascade do |t|
+    t.integer  "from_user_id", null: false
+    t.integer  "to_user_id",   null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "favorite_users", ["from_user_id"], name: "index_favorite_users_on_from_user_id", using: :btree
+  add_index "favorite_users", ["to_user_id"], name: "index_favorite_users_on_to_user_id", using: :btree
 
   create_table "languages", force: :cascade do |t|
     t.string   "name"
@@ -709,6 +729,10 @@ ActiveRecord::Schema.define(version: 20151225031755) do
   add_foreign_key "dress_codes", "listings"
   add_foreign_key "emergencies", "profiles"
   add_foreign_key "emergencies", "users"
+  add_foreign_key "favorite_listings", "listings"
+  add_foreign_key "favorite_listings", "users"
+  add_foreign_key "favorite_users", "users", column: "from_user_id"
+  add_foreign_key "favorite_users", "users", column: "to_user_id"
   add_foreign_key "listing_categories", "categories"
   add_foreign_key "listing_categories", "listings"
   add_foreign_key "listing_details", "listings"
