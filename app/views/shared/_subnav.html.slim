@@ -37,6 +37,12 @@
         li
           = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path
 
+      - if controller_name =="favorite_listings" ||  controller_name =="favorite_users"
+        li.active
+          = link_to Settings.page.favorites, favorite_listings_path
+      - else
+        li
+          = link_to Settings.page.favorites, favorite_listings_path
       /- if controller_name =="wishlists"
         /li.active
           /= link_to Settings.page.wishlists, wishlists_path
@@ -57,13 +63,6 @@
       - else
         li
           = link_to Settings.page.account, edit_user_registration_path(mode: "account")
-
-      - if controller_name =="favorite_listings" ||  controller_name =="favorite_users"
-        li.active
-          = link_to Settings.page.favorites, favorite_listings_path
-      - else
-        li
-          = link_to Settings.page.favorites, favorite_listings_path
 
     /- if controller_name =="listings" || action_name =="host_reservation_manager"
     /- if controller_name =="listings" && !current_user.listings.blank?

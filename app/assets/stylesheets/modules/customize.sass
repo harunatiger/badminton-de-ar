@@ -1365,19 +1365,22 @@ body.paper
 
 .favorite-btn
   font-size: 28px
-  overflow: hidden
-  outline: none
+  i
+    padding: 2px
   .favorited
     color: $pink1
   .unfavorite
-    color: $black-transparent
+    color: $white-transparent
     transition: color 0.3s ease 0s
-    margin-left: -28px
+    margin-left: -32px
     &:hover
-      color: $black-transparent-hover
+      color: $black-transparent
   .outline
     color: $white
-.favorite-btn.btn-block
+  &:focus
+    overflow: hidden
+    outline: none
+.favorite-btn-large.btn-block
   border: 0px
 
 /* favorite-btn(guidelist)

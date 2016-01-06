@@ -25,7 +25,7 @@
                   = truncate(listing.title, length: 40)
               .row-space-1.text-muted
                 | #{listing.listing_detail.time_required if listing.listing_detail.present?} hours · Review #{listing.open_reviews_count}
-        = link_to favorite_listing_path(favorite_listing_set(listing, current_user)), method: 'DELETE', class: 'favorite-btn btn btn-large btn-block' do
+        = link_to favorite_listing_path(favorite_listing_set(listing, current_user)), method: 'DELETE', class: 'favorite-btn-large btn btn-large btn-block' do
           i.fa.fa-times
           | お気に入りを解除する
 .card-footer

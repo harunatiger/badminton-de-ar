@@ -59,8 +59,8 @@ class User < ActiveRecord::Base
   has_many :user_campaigns, dependent: :destroy
   has_many :campaigns, :through => :user_campaigns, dependent: :destroy
   has_many :favorite_listing, dependent: :destroy
-  has_many :favorite_users_of_from_user, class_name: 'FavoriteUser', dependent: :destroy
-  has_many :favorite_users_of_to_user, class_name: 'FavoriteUser', dependent: :destroy
+  has_many :favorite_users_of_from_user, class_name: 'FavoriteUser', foreign_key: 'from_user_id', dependent: :destroy
+  has_many :favorite_users_of_to_user, class_name: 'FavoriteUser', foreign_key: 'to_user_id', dependent: :destroy
 
   #validates :email, presence: true
   #validates :email, uniqueness: true
@@ -137,10 +137,10 @@ class User < ActiveRecord::Base
   end
 
   def favorite_listing?(listing)
-    favorite_listing.exists?(listing: listing, user: self)
+    self.favorite_listing.exists?(listing: listing)
   end
 
   def favorite_user?(to_user)
-    FavoriteUser.exists?(to_user_id: to_user, from_user_id: self.id)
+    self.favorite_users_of_from_user.exists?(to_user_id: to_user)
   end
 end

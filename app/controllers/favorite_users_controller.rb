@@ -2,7 +2,7 @@ class FavoriteUsersController < ApplicationController
   before_action :set_favorite_user, only: [:destroy]
 
   def index
-    @favorite_users = FavoriteUser.where(from_user_id: current_user.id).page(params[:page]).per(2)
+    @favorite_users = current_user.favorite_users_of_from_user.page(params[:page]).per(6)
   end
 
   def destroy
