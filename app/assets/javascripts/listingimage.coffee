@@ -22,3 +22,25 @@ $ ->
         $('#images_list').html(data)
         $('.image-draggable').draggable(revert: 'invalid', scroll: true, zIndex: 1)
         $('.image-droppable').droppable(activeClass: 'image-drag-active', hoverClass: 'image-drag-hover', tolerance: 'touch')
+
+  #upload video
+  $(document).on 'change', '#listing_cover_video', ->
+    $('#upload_video').submit()
+    return
+  
+  #upload cover_image
+  $(document).on 'change', '#listing_cover_image', ->
+    $('#upload_cover_image').submit()
+    return
+  
+  #upload image (new)
+  $(document).on 'change', '#listing_image_new', ->
+    $('#upload_image').submit()
+    return
+  
+  #upload image (update)
+  $(document).on 'change', '[id^=update_listing_image]', ->
+    id = $(this).attr("id")
+    id_num = id.substr(id.length - 1)
+    $('#update_image' + id_num).submit()
+    return 

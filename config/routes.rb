@@ -385,7 +385,7 @@ Rails.application.routes.draw do
     end
     resources :listing_images, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
-      post 'update_all', on: :collection
+      post 'upload_video_cover_image', on: :collection
       put 'change_order', on: :collection
       delete 'destroy_cover_image', on: :collection
       delete 'destroy_video', on: :collection

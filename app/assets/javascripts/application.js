@@ -13,6 +13,7 @@
 //= require jquery
 //= require lib/jquery.balloon
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require jquery-ui/droppable
 //= require jquery-ui/draggable
 //= require plugins

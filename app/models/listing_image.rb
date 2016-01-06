@@ -23,7 +23,7 @@ class ListingImage < ActiveRecord::Base
 
   scope :slideshow_images, -> id { where(listing_id: id) }
   scope :order_asc, -> { order('order_num asc') }
-  scope :cover_image, -> listing_id { where(listing_id: listing_id) }
+  #scope :cover_image, -> listing_id { where(listing_id: listing_id) }
   scope :records, -> listing_id { where(listing_id: listing_id) }
   scope :image_limit, -> { order('order_num').limit(10) }
 end
