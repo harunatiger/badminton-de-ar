@@ -73,7 +73,7 @@
                   span.balloon(title="French") FR
                 - if language_es?(profile)
                   span.balloon(title="Spanish") ES
-        = link_to favorite_user_path(favorite_user_set(profile.user_id, current_user.id)), method: 'DELETE', class: 'favorite-btn btn btn-large btn-block' do
+        = link_to favorite_user_path(favorite_user_set(profile.user_id, current_user.id)), method: 'DELETE', class: 'favorite-btn-large btn btn-large btn-block' do
           i.fa.fa-times
           | お気に入りを解除する
 .card-footer
