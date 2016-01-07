@@ -1,5 +1,4 @@
-= simple_form_for([@listing, @listing_images], url: update_all_listing_listing_images_path, html: {class: "form--sp"} ) do |f|
-  /= f.error_notification
+.form--sp
   = hidden_field_tag  :listing_id, @listing.id
   - if @listing.cover_video.present?
     .row.row-space-5.row-space-top-5.row-table
@@ -20,14 +19,14 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11.regist-pics
-          = f.file_field :cover_video, as: :file, class: "row-space-1"
-          /= f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2 row-space-1"
-          span.text-red
-            | 旅の臨場感を伝えるために動画をアップしましょう
-            br
-            | ※容量制限25MBまで
+          = simple_form_for(@listing, url: upload_video_cover_image_listing_listing_images_url(@listing), html: { id: 'upload_video'}, method: 'POST', remote: true) do |f|
+            = f.file_field :cover_video, as: :file, class: "row-space-1"
+            span.text-red
+              | 旅の臨場感を伝えるために動画をアップしましょう
+              br
+              | ※容量制限25MBまで
 
-  -if @listing_images.cover_image.present?
+  -if @listing.cover_image.present?
     .row.row-space-4.row-space-top-4.row-table
       .col-xs-4.text-right.col-middle
         .h4.text-light
@@ -35,10 +34,8 @@
       .col-xs-8.fieldset.col-middle
         .row
           .col-xs-11.regist-pics
-            /= image_tag(@listing_images.cover_image.thumb)
             .listing-image-container
-              div[style="background-image: url(#{@listing_images.cover_image.thumb})"]
-              /= image_tag(listing_image.image.thumb, class: '')
+              div[style="background-image: url(#{@listing.cover_image.thumb})"]
               = link_to destroy_cover_image_listing_listing_images_path(@listing.id), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
                 i.fa.fa-trash
   .row.row-space-8.row-space-top-4.row-table
@@ -48,31 +45,21 @@
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11.regist-pics
-          = f.file_field :cover_image, as: :file
-          span.text-blue 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
+          = simple_form_for(@listing, url: upload_video_cover_image_listing_listing_images_url(@listing), html: { id: 'upload_cover_image'}, method: 'POST', remote: true) do |f|
+            = f.file_field :cover_image, as: :file
+            span.text-blue 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
   hr.row-space-4
   p.text-center.row-space-6
     | ツアーのイメージ画像は簡単に入れ替えられます。写真を選択して入れ替えたい位置の写真の上にドロップしてください。
-  span#images_list
-    = render partial: 'images_list', locals: { listing_image_collection: @listing_images}
-      /.row.row-space-4.row-space-top-4.row-table
-        .col-xs-4.text-right.col-middle
-          .h4.text-light
-            |  写真のタイトル
-            = count
-        .col-xs-8.fieldset.col-middle
-          .row
-            .col-xs-11
-              = image_form.input_field :caption, placeholder: "例) ショッピングはここで！"
-      /.row.row-space-8.row-space-top-4.row-table
-        .col-xs-4.text-right.col-middle
-          .h4.text-light
-            |  写真の説明
-            = count
-        .col-xs-8.fieldset.col-middle
-          .row
-            .col-xs-11
-              = image_form.text_area :description, as: :text, placeholder: "例) スープカレーからラーメン、焼肉、お寿司まで！特におすすめするのはイカです❤︎帰る前には絶対食べていただきます笑", rows: '6'
-  .row.row-space-top-4
-    .col-xs-9.col-offset-3.text-reset-center
-      = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-image-submit'
+  - if @listing_images.count < 10
+    .row.row-space-8.row-table
+      .col-xs-4.text-right.col-middle
+        .h4.text-light
+          | ツアーのイメージ画像
+      .col-xs-8.fieldset.col-middle
+        .row
+          .col-xs-11.regist-pics
+            = simple_form_for([@listing, ListingImage.new(listing_id: @listing.id)], html: { id: 'upload_image'}, remote: true) do |f|
+              = f.hidden_field :listing_id, value: @listing.id
+              = f.file_field :image, as: :file, id: 'listing_image_new'
+  = render partial: 'images_list', locals: { listing_images: @listing_images}

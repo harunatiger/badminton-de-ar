@@ -1,29 +1,23 @@
-- listing_image_collection.listing_images.each_with_index do |listing_image, i|
-  = fields_for 'listing_image_collection[listing_images_attributes][' + i.to_s + ']', listing_image do |image_form|
-    = image_form.hidden_field :id
-    = image_form.hidden_field :listing_id
-    = image_form.hidden_field :order_num
-    -if listing_image.image.present?
-      .row.row-space-2.row-space-top-8.row-table
-        .col-xs-4.text-right.col-middle
-          .h4.text-light
-            |  現在の画像
-            = i + 1
-        .col-xs-8.fieldset.col-middle
-          .row
-            .col-xs-11.regist-pics
-              .image-droppable.image-draggable
-                .listing-image-container
-                  div[style="background-image: url(#{listing_image.image.thumb})"]
-                  /= image_tag(listing_image.image.thumb, class: '')
-                  = link_to listing_listing_image_path(listing_image.listing_id, listing_image), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
-                    i.fa.fa-trash
-    .row.row-space-8.row-table
+#images_list
+  - listing_images.each_with_index do |listing_image, i|
+    .row.row-space-2.row-space-top-8.row-table
       .col-xs-4.text-right.col-middle
         .h4.text-light
-          | ツアーのイメージ画像
+          |  現在の画像
           = i + 1
       .col-xs-8.fieldset.col-middle
         .row
           .col-xs-11.regist-pics
-            = image_form.file_field :image, as: :file
+            .image-droppable.image-draggable
+              .listing-image-container
+                div[style="background-image: url(#{listing_image.image.thumb})"]
+                = link_to listing_listing_image_path(listing_image.listing_id, listing_image), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
+                  i.fa.fa-trash
+    .row.row-space-8.row-table
+      .col-xs-4.text-right.col-middle
+      .col-xs-8.fieldset.col-middle
+        .row
+          .col-xs-11.regist-pics
+            = simple_form_for([@listing, listing_image], html: { id: 'update_image' + i.to_s}, remote: true) do |f|
+              = f.hidden_field :listing_id, value: @listing.id
+              = f.file_field :image, as: :file, id: 'update_listing_image' + i.to_s

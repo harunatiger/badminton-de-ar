@@ -137,6 +137,9 @@ gem 'acts-as-taggable-on'
 # Chartjs
 gem 'chart-js-rails'
 
+# jQuery File Uploads
+gem 'remotipart', '~> 1.2'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '4.0.3'
