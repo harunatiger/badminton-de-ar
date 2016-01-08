@@ -2,13 +2,18 @@
   .card-body.card-light
     .profile-face
       = image_tag(profile_to_image(profile), class: 'img-responsive')
-      = link_to set_favorite_profile_path(profile), method: :post, remote: true, class: "favorite-btn" do
-        - if current_user.favorite_user?(profile.user_id)
-          i.fa.fa-heart.favorited
-          i.fa.fa-heart-o.outline.hide
-          i.fa.fa-heart.unfavorite.hide
-        - else
-          i.fa.fa-heart.favorited.hide
+      - if user_signed_in?
+        = link_to favorite_profile_path(profile), method: :post, remote: true, class: "favorite-btn" do
+          - if current_user.favorite_user?(profile.user_id)
+            i.fa.fa-heart.favorited
+            i.fa.fa-heart-o.outline.hide
+            i.fa.fa-heart.unfavorite.hide
+          - else
+            i.fa.fa-heart.favorited.hide
+            i.fa.fa-heart-o.outline
+            i.fa.fa-heart.unfavorite
+      - else
+        = link_to new_profile_path, class: "favorite-btn" do
           i.fa.fa-heart-o.outline
           i.fa.fa-heart.unfavorite
     .profile-name.row-space-top-2.row-space-1

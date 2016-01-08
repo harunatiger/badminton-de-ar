@@ -23,13 +23,18 @@
         .row
           .col-lg-12
             h1#listing_name.overflow.text-center--md
-              = link_to set_favorite_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
-                - if current_user.favorite_listing?(listing)
-                  i.fa.fa-heart.favorited
-                  i.fa.fa-heart-o.outline.hide
-                  i.fa.fa-heart.unfavorite.hide
-                - else
-                  i.fa.fa-heart.favorited.hide
+              - if user_signed_in?
+                = link_to favorite_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
+                  - if current_user.favorite_listing?(listing)
+                    i.fa.fa-heart.favorited
+                    i.fa.fa-heart-o.outline.hide
+                    i.fa.fa-heart.unfavorite.hide
+                  - else
+                    i.fa.fa-heart.favorited.hide
+                    i.fa.fa-heart-o.outline
+                    i.fa.fa-heart.unfavorite
+              - else
+                = link_to new_profile_path, class: "favorite-btn" do
                   i.fa.fa-heart-o.outline
                   i.fa.fa-heart.unfavorite
               = @listing.title

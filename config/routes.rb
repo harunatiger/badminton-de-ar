@@ -356,7 +356,7 @@ Rails.application.routes.draw do
       get 'self_introduction',    action: 'self_introduction'
     end
     member do
-      post :set_favorite
+      post :favorite
     end
   end
 
@@ -416,7 +416,7 @@ Rails.application.routes.draw do
     end
     resources :calendar
     member do
-      post :set_favorite
+      post :favorite
     end
   end
 

@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :regulate_user!, only: [:edit]
-  before_action :set_profile, only: [:show, :edit, :update, :destroy, :self_introduction, :set_favorite]
+  before_action :set_profile, only: [:show, :edit, :update, :destroy, :self_introduction, :favorite]
   before_action :set_pair_guide, only: [:show]
   before_action :set_message_thread, only: [:show]
   before_action :get_progress, only: [:edit, :self_introduction, :new]
@@ -99,7 +99,7 @@ class ProfilesController < ApplicationController
 
   end
 
-  def set_favorite
+  def favorite
     if current_user.favorite_user?(@profile)
       current_user.favorite_users_of_from_user.where(to_user_id: @profile.user_id).destroy_all
       post = 'delete'
