@@ -23,7 +23,7 @@ module DatetimeIntegratable
         hour = self.send("#{attribute}_hour")
         minute = self.send("#{attribute}_minute")
         if date.present? && hour.present? && minute.present?
-          self.send("#{attribute}=", Time.zone.parse("#{Date.strptime(date, '%m/%d/%Y').to_s} #{hour}:#{minute}:00"))
+          self.send("#{attribute}=", Time.zone.parse("#{date} #{hour}:#{minute}:00"))
         else
           self.send("#{attribute}=", nil)
         end
