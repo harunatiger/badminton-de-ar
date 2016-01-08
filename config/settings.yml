@@ -203,6 +203,7 @@ page:
   wishlists: 'Favorite'
   profile: 'Profile'
   account: 'Account'
+  favorites: 'Favorite'
   guest_flow: 'How It Works'
   search: 'Search'
   signup: 'Sign up'

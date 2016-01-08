@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :regulate_user!, only: [:edit]
-  before_action :set_profile, only: [:show, :edit, :update, :destroy, :self_introduction]
+  before_action :set_profile, only: [:show, :edit, :update, :destroy, :self_introduction, :favorite]
   before_action :set_pair_guide, only: [:show]
   before_action :set_message_thread, only: [:show]
   before_action :get_progress, only: [:edit, :self_introduction, :new]
@@ -66,6 +66,7 @@ class ProfilesController < ApplicationController
       if para[:municipality]
         para[:location] = para[:municipality] + ' ' + para[:prefecture]
       end
+      para[:enable_strict_validation] = true if params[:page_self_introduction].blank?
       if @profile.update(para)
         Profile.set_percentage(@profile.user_id)
         format.html { redirect_to params[:page_self_introduction].present? ? self_introduction_profile_path(@profile) : edit_profile_path(@profile), notice: Settings.profile.save.success }
@@ -96,6 +97,26 @@ class ProfilesController < ApplicationController
 
   def introduction
 
+  end
+
+  def favorite
+    if current_user.favorite_user?(@profile)
+      current_user.favorite_users_of_from_user.where(to_user_id: @profile.user_id).destroy_all
+      post = 'delete'
+    else
+      if current_user.favorite_users_of_from_user.create(to_user_id: @profile.user_id)
+        status = 'success'
+        post = 'create'
+      else
+        status = 'error'
+      end
+    end
+    @reviewed = Review.they_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
+    @reviewed_as_guest = Review.i_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc.includes(:review_reply)
+    reviewed_count = @reviewed.count
+    reviewed_as_guest_count = @reviewed_as_guest.count
+    html = render_to_string partial: '/profiles/show/user_card', locals: { profile: @profile, reviewed_count: reviewed_count + reviewed_as_guest_count }
+    render json: { status: status, html: html , post: post}
   end
 
   private

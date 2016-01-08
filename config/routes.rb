@@ -355,6 +355,9 @@ Rails.application.routes.draw do
     member do
       get 'self_introduction',    action: 'self_introduction'
     end
+    member do
+      post :favorite
+    end
   end
 
 #  resources :auths
@@ -385,7 +388,7 @@ Rails.application.routes.draw do
     end
     resources :listing_images, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
-      post 'update_all', on: :collection
+      post 'upload_video_cover_image', on: :collection
       put 'change_order', on: :collection
       delete 'destroy_cover_image', on: :collection
       delete 'destroy_video', on: :collection
@@ -412,8 +415,13 @@ Rails.application.routes.draw do
       put 'unset', on: :collection
     end
     resources :calendar
+    member do
+      post :favorite
+    end
   end
 
+  resources :favorite_listings, only: [:index, :destroy]
+  resources :favorite_users, only: [:index, :destroy]
   resources :pickups, only: [:show]
 
   resources :reservations, only: [:show, :edit, :create, :update] do

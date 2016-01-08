@@ -60,19 +60,18 @@
           = render partial: 'shared/modals/guide_request'
     - if user_signed_in?
       ul.nav.pull-right
-        li.user-item.pull-left
-          = link_to profile_path(current_user.profile.id), class: "", data: { toggle: "dropdown", hover: "dropdown", delay: "250" } do
+        li.user-item.user-nav-toggle.pull-left
+          = link_to profile_path(current_user.profile.id), class: "" do
             .media-photo.media-round.user-profile-image.media-avatar
               /= image_tag(profile_to_image_thumb(current_user.profile), class: 'size28')
               .size28[style="background-image: url('#{asset_path profile_to_image_thumb(current_user.profile)}')"]
-
             span.name
               - if current_user.profile.first_name.present?
                 = current_user.profile.first_name
               - else
                 = current_user.email
             i.fa.fa-caret-down
-          ul.dropdown-menu.dropdown-menu-top-right[aria-hidden="true"]
+          ul.user-nav.dropdown-menu.dropdown-menu-top-right
             li
               = link_to Settings.page.dashboard, dashboard_path, rel: "nofollow"
             li
@@ -83,6 +82,8 @@
                 = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, rel: "nofollow"
             li
               = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path, rel: "nofollow"
+            li
+              = link_to Settings.page.favorites, favorite_listings_path, rel: "nofollow"
             /li
               /= link_to Settings.page.wishlists, wishlists_path, rel: "nofollow"
             li

@@ -1,0 +1,81 @@
+.card-header
+  | あなたのお気に入りのガイド一覧です
+.card-body
+  .row
+    - favorite_users.each do |favorite|
+      - profile = favorite_user_to_profile(favorite.to_user_id)
+      - all_reviewed_count = Review.all_do(profile.user_id).joins(:reservation).merge(Reservation.review_open?).count
+      .col-md-6.row-space-4.favorite-card
+        div.favorite-card-inner
+          = link_to favorite_user_path(favorite_user_set(profile.user_id, current_user.id)), method: 'DELETE' , class: "favorite-btn" do
+            i.fa.fa-heart.favorited
+          = link_to profile_path(profile), class: 'huber-card' do
+            .huber-card-background[style="background-image: url('#{asset_path profile_to_cover_image_thumb(profile)}')"]
+            .huber-card-content
+              .row.row-condensed
+                .col-5
+                  .huber-card-face
+                    div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
+                .col-7.text-left
+                  .huber-inner
+                    .name.text-truncate
+                      = profile.first_name
+                    .profile-rating.row-space-2
+                      .star-rating.star-rating-fit
+                        = render partial: 'shared/stars', locals: { rate: profile.ave_total }
+                      span.badge-pill-count.small1
+                        | review
+                        |(
+                        b
+                          = all_reviewed_count
+                        |)
+                .col-12
+                  .area.text-truncate
+                    = profile.location
+                    /.introducing
+                      span
+                        = profile.self_introduction
+              .capability
+                -if category_food?(profile)
+                  span[title="Food" data-toggle="tooltip"]
+                    i.fa.fa-cutlery
+                -if category_alcohol?(profile)
+                  span[title="Alcohol" data-toggle="tooltip"]
+                    i.fa.fa-glass
+                -if category_car?(profile)
+                  span[title="Car" data-toggle="tooltip"]
+                    i.fa.fa-car
+                -if category_cruising?(profile)
+                  span[title="Travel/Ship" data-toggle="tooltip"]
+                    i.fa.fa-ship
+                -if category_shopping?(profile)
+                  span[title="Shopping" data-toggle="tooltip"]
+                    i.fa.fa-shopping-cart
+                -if category_accommodation?(profile)
+                  span[title="Accommodation" data-toggle="tooltip"]
+                    i.fa.fa-bed
+                -if category_business?(profile)
+                  span[title="Business" data-toggle="tooltip"]
+                    i.fa.fa-area-chart
+                -if category_sport?(profile)
+                  span[title="Sports" data-toggle="tooltip"]
+                    i.fa.fa-soccer-ball-o
+              .language
+                - if language_ja?(profile)
+                  span.balloon(title="Japanese") JA
+                - if language_en?(profile)
+                  span.balloon(title="English") EN
+                - if language_zh?(profile)
+                  span.balloon(title="Chinese") ZH
+                - if language_de?(profile)
+                  span.balloon(title="German") DE
+                - if language_fr?(profile)
+                  span.balloon(title="French") FR
+                - if language_es?(profile)
+                  span.balloon(title="Spanish") ES
+        = link_to favorite_user_path(favorite_user_set(profile.user_id, current_user.id)), method: 'DELETE', class: 'favorite-btn-large btn btn-large btn-block' do
+          i.fa.fa-times
+          | お気に入りを解除する
+.card-footer
+  .text-center
+    = paginate(favorite_users)

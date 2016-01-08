@@ -12,8 +12,11 @@
               - counterpart_id = counterpart_user_id(mt)
               - counterpart_user = counterpart_user_obj(mt)
               - lm = latest_message(mt)
+              - to_user = mt.messages.last.to_user_id
+              - if to_user == current_user.id
+                - li_class = "unread" unless lm.read.present?
               li.thread
-                = link_to message_thread_path(mt), class: ( "unread" unless lm.read.present? ) do
+                = link_to message_thread_path(mt), class: ( li_class ) do
                   .row
                     .col-md-4.thread-author
                       .row.row-table

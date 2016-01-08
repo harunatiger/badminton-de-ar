@@ -26,6 +26,8 @@
               = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, class: "link-reset menu-item", rel: "nofollow"
           li
             = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path, class: "link-reset menu-item", rel: "nofollow"
+          li
+              = link_to Settings.page.favorites, favorite_listings_path, rel: "nofollow"
           /li
             /= link_to Settings.page.wishlists, wishlists_path, class: "link-reset menu-item", rel: "nofollow"
           li
@@ -35,6 +37,8 @@
         - else
           li
             = link_to Settings.page.home, root_path, class: "link-reset menu-item", rel: "nofollow"
+          li
+            = link_to Settings.page.signup, new_user_registration_path, class: "link-reset menu-item", rel: "nofollow"
           li
             = link_to Settings.page.login, new_user_session_path, class: "link-reset menu-item", rel: "nofollow"
           li

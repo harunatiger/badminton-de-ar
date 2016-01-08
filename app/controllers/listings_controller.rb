@@ -1,10 +1,11 @@
 class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :search]
   #before_action :check_listing_status, only: [:index, :search]
-  before_action :set_listing, only: [:show, :edit, :update, :destroy]
+  before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite]
   before_action :set_listing_obj, only: [:publish, :unpublish]
   before_action :set_listing_related_data, only: [:show, :edit]
   before_action :set_message_thread, only: [:show]
+  before_action :set_favorite,  only: [:destroy]
 
   # GET /listings
   # GET /listings.json
@@ -96,6 +97,7 @@ class ListingsController < ApplicationController
   # DELETE /listings/1.json
   def destroy
     @listing.update(open: false, soft_destroyed_at: Time.zone.now)
+    @favorite_listing.destroy_all
     respond_to do |format|
       format.html { redirect_to listings_url, notice: Settings.listings.destroy.success }
       format.json { head :no_content }
@@ -133,6 +135,21 @@ class ListingsController < ApplicationController
     end
   end
 
+  def favorite
+    if current_user.favorite_listing?(@listing)
+      current_user.favorite_listing.where(listing: @listing).destroy_all
+      post = 'delete'
+    else
+      if current_user.favorite_listing.create(listing: @listing)
+        status = 'success'
+        post = 'create'
+      else
+        status = 'error'
+      end
+    end
+    render json: { status: status, post: post}
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
@@ -160,6 +177,10 @@ class ListingsController < ApplicationController
       end
     end
 
+    def set_favorite
+      @favorite_listing = FavoriteListing.where(listing_id: @listing.id)
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
       params.require(:listing).permit(
@@ -169,7 +190,7 @@ class ListingsController < ApplicationController
         :zipcode, :location, :longitude, :latitude, :delivery_flg, :price,
         :description, :recommend1, :recommend2, :recommend3, :overview, :notes,
         :title, :capacity, :direction, :schedule, :listing_images,
-        :cover_image, :cover_image_caption, :cover_video, :cover_video_caption, 
+        :cover_image, :cover_image_caption, :cover_video, :cover_video_caption,
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
         language_ids: [], pickup_ids: [])
     end

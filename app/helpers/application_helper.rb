@@ -1,6 +1,6 @@
 module ApplicationHelper
   include ActsAsTaggableOn::TagsHelper
-  
+
   def full_title(page_title)
     base_title = Settings.site_info.base_title
     if page_title.empty?
@@ -80,7 +80,7 @@ module ApplicationHelper
       return "#{results[0].profile.first_name} #{results[0].profile.last_name}"
     end
   end
-  
+
   def user_id_to_phone_number(user_id)
     results = User.mine(user_id)
     if results.size.zero?
@@ -465,7 +465,7 @@ module ApplicationHelper
     target = html_escape(target)
     target.gsub(/\r\n|\r|\n/, "<br />")
   end
-  
+
   def schedule_span(reservation)
     if reservation.holded? and reservation.created_at == reservation.updated_at
       reservation.schedule.to_date.to_s + '〜'
@@ -473,7 +473,7 @@ module ApplicationHelper
       reservation.schedule.to_s + '〜' + (reservation.schedule + reservation.time_required.hour).to_s
     end
   end
-  
+
   def meeting_at(reservation)
     if reservation.holded? and reservation.created_at == reservation.updated_at
       reservation.schedule.to_date.to_s
@@ -481,7 +481,7 @@ module ApplicationHelper
       reservation.schedule.to_s
     end
   end
-  
+
   def select_pick_up_listing(pickup)
     selected_listing = Listing.find(pickup.selected_listing)
     listings = pickup.listings.opened
@@ -490,5 +490,33 @@ module ApplicationHelper
     else
       listing = selected_listing.open ? selected_listing : nil
     end
+  end
+
+  def favorite_to_listing(favorite)
+    Listing.find(favorite.try('listing_id'))
+  end
+
+  def favorite_listing_to_profile(listing)
+    Profile.find_by(user_id: listing.try('user_id'))
+  end
+
+  def favorite_user_to_profile(user_id)
+    Profile.find_by(user_id: user_id)
+  end
+
+  def favorite_users_count(user_id)
+    FavoriteUser.where(to_user_id: user_id).count
+  end
+
+  def favorite_listings_count(listing_id)
+    FavoriteListing.where(listing_id: listing_id).count
+  end
+
+  def favorite_listing_set(listing, user)
+    FavoriteListing.find_by(listing: listing, user: user)
+  end
+
+  def favorite_user_set(to_user_id, from_user_id)
+    FavoriteUser.find_by(to_user_id: to_user_id, from_user_id: from_user_id)
   end
 end

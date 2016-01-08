@@ -8,101 +8,102 @@
   .paginated_collection_contents
     .index_content
       .index_as_table
-        table#index_table_messages.index_table.index[paginator= true]
+        table#index_table_payment.index_table.index[paginator= true]
           thead
             tr
-              th id
-              th host_id
-              th guest_id
-              th listing_id
-              th schedule
-              th num_of_people
-              th msg
-              th progress
-              th reason
-              th review_mail_sent_at
-              th review_expiration_date
-              th review_landed_at
-              th reviewed_at
-              th reply_mail_sent_at
-              th reply_landed_at
-              th replied_at
-              th review_opened_at
-              th time_required
-              th price
-              th option_price
-              th place
-              th description
-              th schedule_end
-              th option_price_per_person
-              th place_memo
-              th campaign_id
-              th price_other
-              th refund_rate
-              th created_at
-              th updated_at
+              th 決済ID
+              th ガイドユーザーID
+              th ゲストユーザーID
+              th プラン実施日
+              th 参加人数
+              th ガイド銀行名称
+              th ガイド銀行支店名
+              th 口座種別
+              th 口座名義人
+              th 口座番号
+              th ガイドEmailアドレス
+              th ゲストEmailアドレス
+              th プランID
+              th プランタイトル
+              th ペアガイド基本料金
+              th ペアガイド諸経費
+              th 諸経費（グループ）
+              th 諸経費（ゲスト）
+              th 決済確定総金額
+              th キャンセル後確定金額
+              th キャンセル事由
+              th Paypal決済トランID
+              th CPコード
+              th CPディスカウント金額
+              th ゲストPaypalID
           tbody
             - if @payments.present?
               - @payments.each do | payment |
+                - guide = User.includes(:profile).find(payment.reservation.host_id)
+                - guest = User.find(payment.reservation.guest_id)
+                - listing = Listing.find(payment.reservation.listing_id)
+                - if payment.reservation.campaign_id.present?
+                  - campaign = Campaign.find(payment.reservation.campaign_id)
                 tr
-                  th
-                    = payment.reservation.id
+                  td
+                    = payment.id
                   td
                     = payment.reservation.host_id
                   td
                     = payment.reservation.guest_id
                   td
-                    = payment.reservation.listing_id
-                  td
                     = payment.reservation.schedule
                   td
                     = payment.reservation.num_of_people
                   td
-                    = payment.reservation.msg
+                    - if guide.profile.profile_bank.present?
+                      = guide.profile.profile_bank.name
                   td
-                    = payment.reservation.progress
+                    - if guide.profile.profile_bank.present?
+                      = guide.profile.profile_bank.branch_name
                   td
-                    = payment.reservation.reason
+                    - if guide.profile.profile_bank.present?
+                      = guide.profile.profile_bank.account_type == 0 ? '普通' : '当座'
                   td
-                    = payment.reservation.review_mail_sent_at
+                    - if guide.profile.profile_bank.present?
+                      = guide.profile.profile_bank.user_name
                   td
-                    = payment.reservation.review_expiration_date
+                    - if guide.profile.profile_bank.present?
+                      = guide.profile.profile_bank.number
                   td
-                    = payment.reservation.review_landed_at
+                    = guide.email
                   td
-                    = payment.reservation.reviewed_at
+                    = guest.email
                   td
-                    = payment.reservation.reply_mail_sent_at
+                    = payment.reservation.listing_id
                   td
-                    = payment.reservation.reply_landed_at
-                  td
-                    = payment.reservation.replied_at
-                  td
-                    = payment.reservation.review_opened_at
-                  td
-                    = payment.reservation.time_required
+                    = listing.title
                   td
                     = payment.reservation.price
                   td
+                    = payment.reservation.price_other
+                  td
                     = payment.reservation.option_price
-                  td
-                    = payment.reservation.place
-                  td
-                    = payment.reservation.description
-                  td
-                    = payment.reservation.schedule_end
                   td
                     = payment.reservation.option_price_per_person
                   td
-                    = payment.reservation.place_memo
+                    = payment.amount
                   td
-                    = payment.reservation.campaign_id
+                    - if payment.reservation.canceled_after_accepted?
+                      - reservation = Reservation.find(payment.reservation_id)
+                      - refund_price = reservation.cancellation_fee
+                      = refund_price
                   td
-                    = payment.reservation.price_other
+                    - if payment.reservation.canceled_after_accepted?
+                      = 'ゲストキャンセル'
                   td
-                    = payment.reservation.refund_rate
+                    = payment.transaction_id
                   td
-                    = payment.reservation.created_at
+                    - if campaign.present?
+                      = campaign.code
                   td
-                    = payment.reservation.updated_at
+                    - if campaign.present?
+                      = campaign.discount
+                  td
+                    = payment.payer_id
   = render 'footer'
