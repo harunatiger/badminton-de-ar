@@ -56,7 +56,7 @@ ActiveAdmin.register_page "Payment" do
 
             #cancel
             if payment.reservation.canceled_after_accepted?
-              reservation = payment.reservation
+              reservation = Reservation.find(payment.reservation_id)
               refund_price = reservation.cancellation_fee
               refund_reason = 'ゲストキャンセル'
             else
