@@ -26,17 +26,17 @@
                 = link_to listing_path(r.listing_id) do
                   = listing.title
               .thread-date
+                | Meeting at 
                 = r.schedule.to_s
-                |  集合
         .col-md-3.thread-progress
           .row.row-table
             .col-md-12.col-middle.text-center
               - if r.accepted?
                 .state.state-primary
-                  | 予約確定
+                  | Booked
               - else
                 .state.state-normal
-                  | 予約キャンセル確定
+                  | Cancelled
                 /.row-space-top-1
                   = link_to "キャンセルについての注意", "#", class: "small2"
         .col-md-12.row-space-top-2

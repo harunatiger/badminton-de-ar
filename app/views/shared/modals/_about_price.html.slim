@@ -5,21 +5,23 @@
       .modal-content
         .card-header
           a.modal-close[href="#" data-dismiss="modal"]
-          | 体験中の経費について
+          | About costs during the tour
         .card-body
           h5
-            | 《基本ルール》
+            | 《Basic Rules》
           p.row-space-4
-            | ペアガイド料金には、ガイド料金以外にアクティビティをガイドが体験するための参加費、交通費、入場料など、一切の経費が含まれています。
+            | Your Guide price should include all your expenses as well as your service fee, such as entrance fees and transportation fees for guides during your tour.
             br
-            | また請求総額には、体験中に発生するすべての経費（飲食代、交通費など）が含まれております。
+            | The total amount of money you charge to your guests should include all costs in your tour such as food, transportation fees and so on.
+          br
           h5
-            | 《諸経費（グループ）について》
+            |《About Group Expenses》
           p.row-space-4
-            | 車両やガソリンなどのグループ全体にかかる経費です。
+            | Costs for the whole group, such as a rental car or petrol.
+          br
           h5
-            | 《諸経費（ゲスト１名あたり）》
+            |《About Individual Expenses》
           p.row-space-4
-            | 入場料や飲食代などゲスト個別で発生する経費です。
-        .card-footer
-          = link_to "閉じる", "#", data: { dismiss: "modal" }, class: "btn"
+            | Individual costs such as entrance fees for guests, meals, etc.
+          .card-footer
+            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

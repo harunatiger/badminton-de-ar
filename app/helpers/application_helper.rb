@@ -475,7 +475,7 @@ module ApplicationHelper
   end
 
   def meeting_at(reservation)
-    if reservation.holded? and reservation.created_at == reservation.updated_at
+    if reservation.holded? and reservation.created_at == reservation.updated_at and reservation.schedule_hour == '00' and reservation.schedule_minute == '00'
       reservation.schedule.to_date.to_s
     else
       reservation.schedule.to_s

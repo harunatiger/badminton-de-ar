@@ -5,17 +5,17 @@
       .modal-content
         .card-header
           a.modal-close[href="#" data-dismiss="modal"]
-          | 諸経費に含まれるもの
+          | What's included in basic costs
         form
           .card-body
             p.strong
-              | ◼諸経費（グループあたり）
+              | ◼Group Expenses
             p
               = hbr(listing_detail.included).html_safe
             br
             p.strong
-              |◼諸経費（ゲスト１人あたり）
+              | ◼Individual Expenses
             p
               = hbr(listing_detail.included_other).html_safe
           .card-footer
-            = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"
+            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

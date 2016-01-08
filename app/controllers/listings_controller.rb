@@ -99,7 +99,7 @@ class ListingsController < ApplicationController
     @listing.update(open: false, soft_destroyed_at: Time.zone.now)
     @favorite_listing.destroy_all
     respond_to do |format|
-      format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
+      format.html { redirect_to listings_url, notice: Settings.listings.destroy.success }
       format.json { head :no_content }
     end
   end
