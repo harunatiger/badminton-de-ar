@@ -48,10 +48,10 @@ ActiveAdmin.register_page "Payment" do
             #bank information
             host_bank_name = guide.profile.profile_bank.name if guide.profile.profile_bank.present?
             host_bank_branch = guide.profile.profile_bank.branch_name if guide.profile.profile_bank.present?
+            host_bank_user_name = guide.profile.profile_bank.user_name if guide.profile.profile_bank.present?
             if guide.profile.profile_bank.present?
-              host_bank_user_name = guide.profile.profile_bank.user_name if guide.profile.profile_bank.present?
+              host_bank_account_type = guide.profile.profile_bank.account_type == 0 ? '普通' : '当座'
             end
-            host_bank_account_type = guide.profile.profile_bank.account_type == 0 ? '普通' : '当座'
             host_bank_user_number = guide.profile.profile_bank.number if guide.profile.profile_bank.present?
 
             #cancel
