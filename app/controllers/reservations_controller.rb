@@ -29,7 +29,7 @@ class ReservationsController < ApplicationController
       result = @reservation.update(para)
     else
       @reservation = Reservation.new(para)
-      result = @reservation.save!
+      result = @reservation.save
     end
 
     respond_to do |format|
