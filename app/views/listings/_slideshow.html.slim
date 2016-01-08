@@ -24,7 +24,7 @@
           .col-lg-12
             h1#listing_name.overflow.text-center--md
               - if user_signed_in?
-                = link_to favorite_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
+                = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
                   - if current_user.favorite_listing?(listing)
                     i.fa.fa-heart.favorited
                     i.fa.fa-heart-o.outline.hide

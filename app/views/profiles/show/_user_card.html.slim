@@ -3,7 +3,7 @@
     .profile-face
       = image_tag(profile_to_image(profile), class: 'img-responsive')
       - if user_signed_in?
-        = link_to favorite_profile_path(profile), method: :post, remote: true, class: "favorite-btn" do
+        = link_to favorite_user_profile_path(profile), method: :post, remote: true, class: "favorite-btn" do
           - if current_user.favorite_user?(profile.user_id)
             i.fa.fa-heart.favorited
             i.fa.fa-heart-o.outline.hide

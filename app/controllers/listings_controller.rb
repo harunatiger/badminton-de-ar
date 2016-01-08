@@ -1,7 +1,7 @@
 class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :search]
   #before_action :check_listing_status, only: [:index, :search]
-  before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite]
+  before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite_listing]
   before_action :set_listing_obj, only: [:publish, :unpublish]
   before_action :set_listing_related_data, only: [:show, :edit]
   before_action :set_message_thread, only: [:show]
@@ -135,7 +135,7 @@ class ListingsController < ApplicationController
     end
   end
 
-  def favorite
+  def favorite_listing
     if current_user.favorite_listing?(@listing)
       current_user.favorite_listing.where(listing: @listing).destroy_all
       post = 'delete'
