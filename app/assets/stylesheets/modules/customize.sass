@@ -561,6 +561,9 @@ a.card-image
   left: 0
   right: 0
   margin: -200px 0 0
+  &.modal-paper-scroll
+    top: 0
+    margin: 0
   .panel-close
     position: fixed
     top: 35px
@@ -578,6 +581,24 @@ a.card-image
       height: auto
       max-width: 240px
       margin: 0 auto
+
+.panel-close-fix
+  display: none
+  position: fixed
+  top: 0
+  right: 35px
+  padding: 9px 15px
+  color: $brand-theme
+  font-size: 16px
+  background-color: white
+  border: 1px solid $border1
+  border-top: 0
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15)
+  z-index: 9999
+  .fa
+    margin: 0 5px 3px 0
+    font-size: 20px
+    vertical-align: middle
 
 .wishlist-modal
   width: 700px
@@ -1312,6 +1333,59 @@ body.paper
   background-color: $green1
 .inputrate-green
   background-color: $green3
+
+/* three-reasons
+  ================================================================================ */
+
+#three-reasons
+  .modal-paper-scroll
+    > div
+      padding: 30px 0 40px
+      h3
+        font-size: 54px
+  .title
+    .page-container
+      background-image: image-url('logo-tomodachi.png')
+      background-position: right center
+      background-repeat: no-repeat
+      background-size: 170px auto
+    h2
+      padding: 12.5px 170px 0 0
+      font-size: 70px
+      span
+        color: $brand-theme
+        font-weight: 700
+  .reason1
+    background-color: #6a4ca6
+  .reason2
+    background-color: white
+  .reason3
+    background-color: #f9b644
+  @media (max-width: 1099px)
+    .modal-paper-scroll
+      > div
+        padding: 20px 0 30px
+        h3
+          font-size: 44px
+    .title
+      .page-container
+        background-size: 120px auto
+      h2
+        padding: 12.5px 120px 0 0
+        font-size: 50px
+  @media (max-width: 767px)
+    .modal-paper-scroll
+      > div
+        padding: 0 0 10px
+        h3
+          font-size: 38px
+    .title
+      .page-container
+        background-position: center 10px
+        background-size: 100px auto
+      h2
+        padding: 75px 0 0
+        font-size: 42px
 
 /* about-guide
   ================================================================================ */

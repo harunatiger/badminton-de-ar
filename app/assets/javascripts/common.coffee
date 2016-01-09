@@ -181,6 +181,20 @@ $ ->
     $('.close-about-guide').on 'click', ->
       $('body').removeClass('paper')
 
+    # three reasons modal
+    $('.three-reasons-trigger').on 'click', ->
+      if $('.header--sp').css('display') == 'block'
+        # sidenav switch
+        $('body').removeClass('slideout')
+      $('body').addClass('paper')
+      $('#three-reasons').modal()
+      $('.panel-close-fix').show()
+      return false
+
+    $('.close-three-reasons').on 'click', ->
+      $('body').removeClass('paper')
+      $('#three-reasons').modal('hide')
+      $('.panel-close-fix').hide()
 
   # subnav
   if $('.subnav').length
