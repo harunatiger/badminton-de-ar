@@ -7,8 +7,6 @@
     .text-center--md
       .h3.strong.row-space-1
         = @host_info.first_name
-      .row-space-1
-        | Area: #{@host_info.location}
       div
         /= link_to "#reviews", class: "link-reset"
         .star-rating.star-rating-large.star-rating-fit
@@ -128,7 +126,7 @@
   hr
   h4
     i.fa.fa-diamond
-    |  Any other information or instructions (eg. what to bring) 
+    |  Any other information or instructions (eg. what to bring)
   .row-space-4
     = hbr(@listing.notes).html_safe
   hr

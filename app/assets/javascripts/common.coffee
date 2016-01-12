@@ -431,6 +431,10 @@ $ ->
         ret = confirm('お気に入りを解除します。よろしいですか？')
   else
     $('.favorite-btn').each (index) ->
+      $(this).find('i.outline').hover (->
+        $(this).prev().addClass 'unfavorite-o'
+        ), ->
+        $(this).prev().removeClass 'unfavorite-o'
       $(this).on 'ajax:complete',  (event, ajax, status) ->
         if status == 'success'
           if ajax.responseJSON.post == 'create'

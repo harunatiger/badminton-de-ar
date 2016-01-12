@@ -63,7 +63,7 @@ $ ->
       padding: '8px',
       fontSize: '13px',
       fontWeight: 'bold',
-      lineHeight: '1.44',
+      lineHeight: '1.55',
       backgroundColor: 'rgba(0, 0, 0, .75)',
       borderRadius: '2px'
       color: 'white'

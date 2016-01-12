@@ -6,16 +6,16 @@
         = link_to favorite_user_profile_path(profile), method: :post, remote: true, class: "favorite-btn" do
           - if current_user.favorite_user?(profile.user_id)
             i.fa.fa-heart.favorited
-            i.fa.fa-heart-o.outline.hide
             i.fa.fa-heart.unfavorite.hide
+            i.fa.fa-heart-o.outline.hide.balloon(title="add to your favorites")
           - else
             i.fa.fa-heart.favorited.hide
-            i.fa.fa-heart-o.outline
             i.fa.fa-heart.unfavorite
+            i.fa.fa-heart-o.outline.balloon(title="add to your favorites")
       - else
         = link_to new_profile_path, class: "favorite-btn" do
-          i.fa.fa-heart-o.outline
           i.fa.fa-heart.unfavorite
+          i.fa.fa-heart-o.outline.balloon(title="add to your favorites")
     .profile-name.row-space-top-2.row-space-1
       span
         = profile.first_name
@@ -46,6 +46,8 @@
         .reliable-sign.unreliable
           i.fa.fa-square-o
           | ID Unconfirmed
+    .profile-area.row-space-2
+      = profile.location
     .profile-rating.row-space-2
       span.badge-pill-count
         | Review

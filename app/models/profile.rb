@@ -58,12 +58,19 @@ class Profile < ActiveRecord::Base
   enum gender: { female: 0, male: 1, others: 2, not_specified: 3 }
 
   attr_accessor :enable_strict_validation
-  
+
   validates :user_id, presence: true
   validates :user_id, uniqueness: true
-  validates :first_name, :last_name, :country, :phone, presence: true, if: :enable_strict_validation, on: :update
+  validate :last_name_presence, if: :enable_strict_validation, on: :update
+  validates :first_name, :country, :phone, presence: true, if: :enable_strict_validation, on: :update
   VALID_PHONE_REGEX = /\A[-+0-9]+\z/
   validates :phone, format: { with: VALID_PHONE_REGEX, if: :enable_strict_validation, on: :update }
+
+  def last_name_presence
+    if self.last_name.empty?
+      errors[:base] << "Family Name can't be blank"
+    end
+  end
 
   def self.minimun_requirement?(user_id)
     profile = Profile.where(user_id: user_id).first

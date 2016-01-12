@@ -13,6 +13,20 @@
                 .h3.overflow
                   | ¥
                   = listing.listing_detail.amount
+              - if user_signed_in?
+                = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
+                  - if current_user.favorite_listing?(listing)
+                    i.fa.fa-heart.favorited
+                    i.fa.fa-heart.unfavorite.hide
+                    i.fa.fa-heart-o.outline.hide.balloon(title="add to your favorites")
+                  - else
+                    i.fa.fa-heart.favorited.hide
+                    i.fa.fa-heart.unfavorite
+                    i.fa.fa-heart-o.outline.balloon(title="add to your favorites")
+              - else
+                = link_to new_profile_path, class: "favorite-btn" do
+                  i.fa.fa-heart.unfavorite
+                  i.fa.fa-heart-o.outline.balloon(title="add to your favorites")
             .card-body
               .media
                 = link_to profile_path(listing.user_id), class: 'pull-right media-photo media-round card-profile-picture card-profile-picture-offset' do
@@ -20,6 +34,10 @@
                 = link_to listing_path( listing.id ), class: "text-normal" do
                   h5.row-space-1.overflow
                     = truncate(listing.title, length: 40)
+                .row-space-1
+                  - pickup_area_from_listing(listing).each do |area|
+                    => link_to pickup_path( area.id ) do
+                      = area.short_name
                 .row-space-1.text-muted
                   | #{listing.listing_detail.time_required}hours ・ Review#{listing.open_reviews_count}
 
