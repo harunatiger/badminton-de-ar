@@ -595,6 +595,8 @@ a.card-image
   border-top: 0
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.15)
   z-index: 9999
+  @media (max-width: 767px)
+    right: 15px
   .fa
     margin: 0 5px 3px 0
     font-size: 20px
@@ -1345,13 +1347,14 @@ body.paper
         font-size: 54px
   .title
     .page-container
+      .col-md-12
+    h2
+      padding: 35px 160px 30px 0
+      font-size: 70px
       background-image: image-url('logo-tomodachi.png')
       background-position: right center
       background-repeat: no-repeat
-      background-size: 170px auto
-    h2
-      padding: 12.5px 170px 0 0
-      font-size: 70px
+      background-size: 130px auto
       span
         color: $brand-theme
         font-weight: 700
@@ -1368,11 +1371,10 @@ body.paper
         h3
           font-size: 44px
     .title
-      .page-container
-        background-size: 120px auto
       h2
-        padding: 12.5px 120px 0 0
+        padding: 25px 120px 20px 0
         font-size: 50px
+        background-size: 110px auto
   @media (max-width: 767px)
     .modal-paper-scroll
       > div
@@ -1380,12 +1382,11 @@ body.paper
         h3
           font-size: 38px
     .title
-      .page-container
-        background-position: center 10px
-        background-size: 100px auto
       h2
-        padding: 75px 0 0
+        padding: 145px 0 0
         font-size: 42px
+        background-position: center 15px
+        background-size: 80px auto
 
 /* about-guide
   ================================================================================ */
