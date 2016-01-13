@@ -857,6 +857,19 @@ a.delete
           right: 14px
           color: $border1
 
+.manage-listing-detail
+  position: absolute
+  top: 0
+  right: 0
+  @media (max-width: 767px)
+    position: relative !important
+    top: auto !important
+    right: auto !important
+  &.pinned
+    position: fixed
+    top: 40px
+
+
 .actions
   .tag
     height: 24px

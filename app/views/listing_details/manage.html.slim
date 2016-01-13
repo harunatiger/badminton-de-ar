@@ -3,9 +3,10 @@
   /= render partial: 'shared/manage_listing_header', locals: { listing: @listing }
   = render partial: 'shared/subnav', locals: { listing: @listing }
   .manage-listing-row-container
-    .manage-listing-content.col-md-9.col-offset-3
+    .manage-listing-content.col-md-6.col-offset-3
       = render 'form'
+    .manage-listing-detail.col-md-3
       = render 'request_block', locals: { listing_detail: @listing_detail }
-      = render partial: '/shared/modals/include_what', locals: { included_guests_cost: @listing_detail.included_guests_cost }
     = render partial: 'shared/manage_listing_nav'
     = render partial: 'shared/modals/form_change_confirm'
+    = render partial: 'shared/modals/include_what', locals: { included_guests_cost: @listing_detail.included_guests_cost }

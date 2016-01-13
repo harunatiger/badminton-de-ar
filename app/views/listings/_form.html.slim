@@ -17,6 +17,7 @@
           .required-container
             = f.input_field :title, :class => 'imeoff', placeholder: "例) 鎌倉市のガイドマスターが案内します！"
             i.fa.fa-asterisk.balloon[title="required"]
+  hr
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -38,7 +39,7 @@
             p
               = f.input_field :recommend3, :class => 'imeoff'
 
-      .row
+      .row.row-space-top-4
         .col-xs-11
           .row-space-1.small1.text-muted
             h5
@@ -49,7 +50,7 @@
               li 思い出や思い入れがあれば付け加える
             = f.input_field :description, :class => 'imeoff', placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
 
-      .row
+      .row.row-space-top-4
         .col-xs-11
           .row-space-1.small1.text-muted
             h5
@@ -64,7 +65,7 @@
               li その他
             = f.input_field :overview, :class => 'imeoff', placeholder: "あなたのツアーの紹介文を入力ください", rows: "12", maxlength: 1000
 
-      .row
+      .row.row-space-top-4
         .col-xs-11
           .row-space-1.small1.text-muted
             h5
@@ -171,6 +172,7 @@
         .col-xs-11
           = f.input_field :location, placeholder: "郵便番号を入力すれば自動で出力されます"
   - if @categories.present?
+    hr
     .row.row-space-5.row-space-top-5.row-table
       .col-xs-4.text-right.col-middle
         .h4.text-light
@@ -181,6 +183,7 @@
             = collection_check_boxes(:listing, :pickup_ids, @categories, :id, :short_name) do |b|
               = b.label { b.check_box + b.text }
   - if @tags.present?
+    hr
     .row.row-space-5.row-space-top-5.row-table
       .col-xs-4.text-right.col-middle
         .h4.text-light
@@ -191,6 +194,7 @@
             = collection_check_boxes(:listing, :pickup_ids, @tags, :id, :short_name) do |b|
               = b.label { b.check_box + b.text }
   - if @areas.present?
+    hr
     .row.row-space-5.row-space-top-5.row-table
       .col-xs-4.text-right.col-middle
         .h4.text-light
@@ -238,7 +242,8 @@
         .col-xs-11.regist-pics
           = collection_check_boxes(:listing, :language_ids, Language.all, :id, :name) do |l|
             = l.label { l.check_box + l.text }
-  .row
+  hr
+  .row.row-space-top-6
     .col-xs-9.col-offset-3.text-reset-center
       - if 'edit' == controller.action_name
         = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-submit'

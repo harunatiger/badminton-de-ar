@@ -1,4 +1,4 @@
-= simple_form_for([@listing,@listing_detail], html: {class: "form--sp"}) do |f|
+= simple_form_for([@listing,@listing_detail], html: {class: "form--rwd form--sp"}) do |f|
   = f.error_notification
   = f.hidden_field :listing_id, value: @listing.id
   -if false
@@ -9,75 +9,89 @@
     h3.text-center.row-space-2 所要時間と参加人数
     p.text-center.row-space-6
       | 予定している所要時間や料金、ツアーに参加できる人数の上限、下限の制限条件などを設定してください。
+      br
+      | あまり人数を多くすると、ゲストの満足度低下に繋がるので注意が必要です。
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | 所要時間
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11
           .select.select-opt.opt-double
             = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}
             span 時間
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | 最小催行人数
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11
           .select.select-opt
             = f.select :min_num_of_people, [*(1..20)]
             span 人
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | 最大催行人数
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11
           .select.select-opt
             = f.select :max_num_of_people, [*(1..20)]
             span 人
+  hr
   .row-space-top-4
     h3.text-center.row-space-2 ガイド料金と自分たちの費用
+    p.text-center.row-space-6
+      | あなたと、あなたのサポートをしてくれるメンバーの収入にあたる部分です。
+      br
+      |  設定の目安として、ビギナーの方は時給1,500円程度を設定するのをお勧めします。
+      br
+      | また２人に必要になる費用も記入しましょう。
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | あなたの収入
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-6
           .input-opt
             = f.input_field :price
             span 円
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | サポートメンバーの収入
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-6
           .input-opt
             = f.input_field :price_for_support
             span 円
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | ２人にかかる経費
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-6
           .input-opt
             = f.input_field :price_for_both_guides
             span 円
+  hr
   .row-space-top-4
     h3.text-center.row-space-2 オプション費用
+    p.text-center.row-space-6
+      | ゲストが人数によって割り勘できる固定費があれば、記入してください。
+      br
+      | レンタカー代や会場レンタル代など、全体で変わらない費用はここに記入ください。
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | スペースレンタルが含まれるツアー
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-6
           .input-opt
@@ -87,10 +101,10 @@
               = f.input_field option
             
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | 車両レンタル費が含まれるツアー
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-6
           .input-opt
@@ -98,68 +112,74 @@
             - car_options.each do |option|
               = I18n.t('option_price_ja.' + option)
               = f.input_field option
+  hr
   .row-space-top-4
     h3.text-center.row-space-2 ゲストが自己負担する費用
+    p.text-center.row-space-6
+      span.text-red Huber.では、食事や交通費など、個別に発生する費用についてはゲストが自己負担します。
+      br
+      | あなたのツアーを体験する際、ゲスト１名あたりいくら必要になるかを伝えてあげましょう。
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | ゲストの費用（概算）
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11
           .select.select-opt.opt-double
             = f.select :guests_cost, [*(0..200)].map{|i| (i * 500)}
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | 上記費用の内訳
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11
           = f.input_field :included_guests_cost,:class => 'imeoff', placeholder: "例）交通費 / 飲食費 / 入場料 / 料理体験の食材購入費など", rows: "6"
+  hr
   .row-space-top-4
     h3.text-center.row-space-2 集合場所・その他の条件
     p.text-center.row-space-6
       | 集合場所を設定してください。スムーズに出会えるように駅近辺のお店などを待合わせ場所にしましょう。
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | 集合場所
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11
           = f.hidden_field :place_longitude
           = f.hidden_field :place_latitude
           = f.input_field :place,:class => 'imeoff', placeholder: "Googleマップから検索できます"
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-    .col-xs-8.fieldset.col-middle
+    .col-lg-4.text-right.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-md-11
           #map
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | 集合場所のメモ
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11
           = f.input_field :place_memo,:class => 'imeoff', placeholder: "例）ハチ公前にバラの花を付けて集合"
   /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         |  集合場所の郵便番号
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-6.col-md-4
           = f.input_field :zipcode, placeholder: "例) 012-3456"
         .question-icon-container
           i#zipcode-tooltip.fa.fa-question-circle.tooltip-trigger
   /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | 集合場所の住所
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11
          = f.input_field :location, placeholder: "郵便番号を入力すれば自動で出力されます"
@@ -167,26 +187,26 @@
             i.fa.fa-exclamation-circle
             |  ex. 186-3 Yamanouchi Kamakurashi Kanagawa
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | 参加条件
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11
           = f.input_field :condition,:class => 'imeoff', placeholder: "例) 女子旅なので女子オンリー"
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | 雨天の場合
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11
           = f.input_field :in_case_of_rain,:class => 'imeoff', placeholder: "例) 雨天決行！"
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
+    .col-lg-4.text-right.col-middle
       .h4.text-light
         | 返金ポリシー
-    .col-xs-8.fieldset.col-middle
+    .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11.disabled-text
           = f.input_field :refund_policy, disabled: true, rows: "15",

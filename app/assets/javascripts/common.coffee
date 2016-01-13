@@ -245,10 +245,10 @@ $ ->
           return
         else
           if scrollTop >= stickyNavTop
-            $('.subnav, .manage-listing-nav').addClass 'pinned'
+            $('.subnav, .manage-listing-nav, .manage-listing-detail').addClass 'pinned'
             $('.subnav-placeholder').removeClass 'hide'
           else
-            $('.subnav, .manage-listing-nav').removeClass 'pinned'
+            $('.subnav, .manage-listing-nav, .manage-listing-detail').removeClass 'pinned'
             $('.subnav-placeholder').addClass 'hide'
           return
         return
