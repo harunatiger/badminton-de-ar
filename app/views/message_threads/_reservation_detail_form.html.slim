@@ -44,26 +44,20 @@
         | スペースレンタルが含まれるツアー
     .col-md-5
       .input-opt
-        - reservation.reservation_options.each do |space_option|
-          - if option_id_to_type(space_option.option_id) == 'Space'
-            = option_id_to_name_ja(space_option.option_id)
-            = fields_for 'reservation[reservation_options_attributes][]', space_option do |option_field|
-              = option_field.hidden_field :id, value: space_option.id
-              = option_field.hidden_field :option_id, value: space_option.option_id
-              = option_field.number_field :price
+        = check_box :reservation, :space_option
+        - space_options.each do |option|
+          = I18n.t('option_price_ja.' + option)
+          = number_field :reservation, option
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
       .small2
         | 車両レンタル費が含まれるツアー
     .col-md-5
       .input-opt
-        - reservation.reservation_options.each do |car_option|
-          - if option_id_to_type(car_option.option_id) == 'Car'
-            = option_id_to_name_ja(car_option.option_id)
-            = fields_for 'reservation[reservation_options_attributes][]', car_option do |option_field|
-              = option_field.hidden_field :id, value: car_option.id
-              = option_field.hidden_field :option_id, value: car_option.option_id
-              = option_field.number_field :price
+        = check_box :reservation, :car_option
+        - car_options.each do |option|
+          = I18n.t('option_price_ja.' + option)
+          = number_field :reservation, option
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
       .small2

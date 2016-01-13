@@ -30,7 +30,6 @@ class ReservationsController < ApplicationController
     else
       @reservation = Reservation.new(para)
       result = @reservation.save
-      @reservation.create_options if params[:reserve] and result
     end
 
     respond_to do |format|
@@ -272,7 +271,17 @@ class ReservationsController < ApplicationController
       @reservation.price_for_both_guides = listing.listing_detail.price_for_both_guides
       @reservation.place = listing.listing_detail.place
       @reservation.place_memo = listing.listing_detail.place_memo
-      @reservation.reservation_options = @reservation.options_from_listing
+      @reservation.space_option = listing.listing_detail.space_option
+      @reservation.car_option = listing.listing_detail.car_option
+      @reservation.space_options.each do |option|
+        @reservation[option] = listing.listing_detail[option]
+      end
+      @reservation.car_options.each do |option|
+        @reservation[option] = listing.listing_detail[option]
+      end
+      @reservation.guests_cost = listing.listing_detail.guests_cost
+      @reservation.included_guests_cost = listing.listing_detail.included_guests_cost
+      
       @listings = User.find(current_user.id).listings.opened
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
@@ -281,7 +290,6 @@ class ReservationsController < ApplicationController
   def set_reservation_default
     if request.xhr?
       @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
-      @reservation.reservation_options = @reservation.default_options
       @listings = User.find(current_user.id).listings.opened
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
@@ -313,7 +321,7 @@ class ReservationsController < ApplicationController
     end
 
     def reservation_params
-      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :price_for_support, :price_for_both_guides, :space_option, :car_option, :guests_cost, :included_guests_cost, Reservation::REGISTRABLE_ATTRIBUTES, :place, :place_memo, :description, :message_thread_id, :schedule_end, :campaign_id, :campaign_code, reservation_options_attributes: [:id, :price, :option_id ])
+      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :price_for_support, :price_for_both_guides, :space_option, :car_option, :space_rental, :car_option, :car_rental, :gas, :highway, :parking, :guests_cost, :included_guests_cost, Reservation::REGISTRABLE_ATTRIBUTES, :place, :place_memo, :description, :message_thread_id, :schedule_end, :campaign_id, :campaign_code)
     end
 
     def checkout(reservation)

@@ -25,10 +25,10 @@
               th ゲストEmailアドレス
               th プランID
               th プランタイトル
-              th ペアガイド基本料金
-              th ペアガイド諸経費
-              th 諸経費（グループ）
-              th 諸経費（ゲスト）
+              th ガイドの収入
+              th サポートメンバーの収入
+              th 2人にかかる費用
+              th オプション費用
               th 決済確定総金額
               th キャンセル後確定金額
               th キャンセル事由
@@ -81,11 +81,11 @@
                   td
                     = payment.reservation.price
                   td
-                    = payment.reservation.price_other
+                    = payment.reservation.price_for_support
                   td
-                    = payment.reservation.option_price
+                    = payment.reservation.price_for_both_guides
                   td
-                    = payment.reservation.option_price_per_person
+                    = payment.reservation.option_amount
                   td
                     = payment.amount
                   td

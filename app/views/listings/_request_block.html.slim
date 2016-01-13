@@ -3,37 +3,49 @@
   - if @listing.cover_video?
     .movie-container.row-space-2
       = video_player src: { mp4: listing.cover_video.encoded, webm: listing.cover_video.encoded }, controls: true, width: "100%", height: "315", id:  "tour_movie"
+  - listing_detail = listing.listing_detail
   .card.row-space-2
     .card-body
       .tour-price.row-space-1
         .h3.strong.row-space-1 ガイドフィー料金
         .h3.strong.row-space-2
           | ¥
-          =listing.listing_detail.amount
+          =listing_detail.amount
           small.time
-            | /グループ(MAX #{listing.listing_detail.max_num_of_people}人・
-            = listing.listing_detail.time_required.to_s.gsub(/.0/, '')
+            | /グループ(MAX #{listing_detail.max_num_of_people}人・
+            = listing_detail.time_required.to_s.gsub(/.0/, '')
             | h)
         .row.row-space-1
           .col-md-7.small1
             | ガイド料金
           .col-md-5.text-right.strong
             | ¥
-            =listing.listing_detail.guide_price
-        - if display_option?(listing.listing_detail)
+            = listing_detail.guide_price
+        - if listing_detail.option_amount > 0
           .row.row-space-1
             .col-md-7.small1
               | オプション料金
             .col-md-5.text-right.strong
               | ¥
-              = listing.listing_detail.option_amount
-          - listing.listing_detail.selected_options.each do |selected_option|
-            .row.row-space-1
-              .col-md-7.small1
-                = option_id_to_name_ja(selected_option.option_id)
-              .col-md-5.text-right.strong
-                | ¥
-                = selected_option.price
+              = listing_detail.option_amount
+        - if listing_detail.space_option
+          - space_options.each do |option|
+            - if listing_detail[option] > 0
+              .row.row-space-1
+                .col-md-7.small1
+                  = I18n.t('option_price_ja.' + option)
+                .col-md-5.text-right.strong
+                  | ¥
+                  = listing_detail[option]
+        - if listing_detail.car_option
+          - car_options.each do |option|
+            - if listing_detail[option] > 0
+              .row.row-space-1
+                .col-md-7.small1
+                  = I18n.t('option_price_ja.' + option)
+                .col-md-5.text-right.strong
+                  | ¥
+                  = listing_detail[option]
         .row.row-space-1
           .col-md-7.small1
             | サービス手数料
@@ -60,6 +72,10 @@
         = f.hidden_field :time_required, value: listing.listing_detail.time_required
         = f.hidden_field :place, value: listing.listing_detail.place
         = f.hidden_field :place_memo, value: listing.listing_detail.place_memo
+        - space_options.each do |option|
+          = f.hidden_field option, value: listing.listing_detail[option]
+        - car_options.each do |option|
+          = f.hidden_field option, value: listing.listing_detail[option]
         .row.row-space-4
           .col-md-8
             label[for="checkin"]
@@ -69,7 +85,7 @@
             label[for="reservation_num_of_people"]
               |  人数
             .select.select-block#num-of-people
-              = f.input_field :num_of_people, as: :select, collection: listing.listing_detail.min_num_of_people..listing.listing_detail.max_num_of_people, default: [1]
+              = f.input_field :num_of_people, as: :select, collection: listing_detail.min_num_of_people..listing_detail.max_num_of_people, default: [1]
         .row-space-2
           - if user_signed_in?
             - if current_user.id == @listing.user_id or @active_reservation
@@ -111,7 +127,7 @@
           .col-md-7.small1
             | ツアー外予算
           .col-md-5.text-right.strong
-            | おおよそ¥#{listing.listing_detail.guests_cost}/人
+            | おおよそ¥#{listing_detail.guests_cost}/人
         .row
           .col-md-12
             = link_to "#", class: "include_what_trigger small1 text-red" do

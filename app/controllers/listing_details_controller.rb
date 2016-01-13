@@ -5,8 +5,6 @@ class ListingDetailsController < ApplicationController
   def manage
     @listing_detail = ListingDetail.where(listing_id: @listing.id).first
     @listing_detail = ListingDetail.new unless @listing_detail
-    @space_options = @listing_detail.space_options
-    @car_options = @listing_detail.car_options
   end
 
   # GET /listing_details
@@ -85,6 +83,6 @@ class ListingDetailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_detail_params
-      params.require(:listing_detail).permit(:listing_id, :time_required, :min_num_of_people, :max_num_of_people, :price, :price_for_support, :price_for_both_guides, :space_option, :car_option, :guests_cost, :included_guests_cost, :zipcode, :location, :place, :place_memo, :condition, :refund_policy, :in_case_of_rain, :place_longitude, :place_latitude, listing_detail_options_attributes: [:id, :price, :option_id ])
+      params.require(:listing_detail).permit(:listing_id, :time_required, :min_num_of_people, :max_num_of_people, :price, :price_for_support, :price_for_both_guides, :space_option, :space_rental, :car_option, :car_rental, :gas, :highway, :parking, :guests_cost, :included_guests_cost, :zipcode, :location, :place, :place_memo, :condition, :refund_policy, :in_case_of_rain, :place_longitude, :place_latitude)
     end
 end

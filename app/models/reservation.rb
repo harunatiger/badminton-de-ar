@@ -32,7 +32,12 @@
 #  price_for_support      :integer          default(0)
 #  price_for_both_guides  :integer          default(0)
 #  space_option           :boolean          default(TRUE)
+#  space_rental           :integer          default(0)
 #  car_option             :boolean          default(TRUE)
+#  car_rental             :integer          default(0)
+#  gas                    :integer          default(0)
+#  highway                :integer          default(0)
+#  parking                :integer          default(0)
 #  guests_cost            :integer          default(0)
 #  included_guests_cost   :text             default("")
 #
@@ -55,8 +60,6 @@ class Reservation < ActiveRecord::Base
   has_one :review
   has_one :payment
   has_many :ngevents, dependent: :destroy
-  has_many :reservation_options, dependent: :destroy
-  has_many :options, :through => :reservation_options, dependent: :destroy
 
   # Check config/settings.yml: Settings.reservation.progress
   enum progress: { requested: 0, canceled: 1, holded: 2, accepted: 3, rejected: 4, listing_closed: 5, canceled_after_accepted: 6}
@@ -65,7 +68,6 @@ class Reservation < ActiveRecord::Base
   attr_accessor :message_thread_id
   attr_accessor :campaign_code
   accepts_nested_attributes_for :payment
-  accepts_nested_attributes_for :reservation_options
 
   validates :host_id, presence: true
   validates :guest_id, presence: true
@@ -205,14 +207,14 @@ class Reservation < ActiveRecord::Base
   def option_amount
     total = 0
     if self.space_option
-      self.space_options.each do |space_option|
-        total += space_option.price
+      self.space_options.each do |option|
+        total += self[option]
       end
     end
     
     if self.car_option
-      self.car_options.each do |car_option|
-        total += car_option.price
+      self.car_options.each do |option|
+        total += self[option]
       end
     end
     total
@@ -280,11 +282,25 @@ class Reservation < ActiveRecord::Base
     self.price = 0 if self.price.blank?
     self.price_for_support = 0 if self.price_for_support.blank?
     self.price_for_both_guides = 0 if self.price_for_both_guides.blank?
-    self.guests_cost = 0 if self.guests_cost.blank?
-    self.reservation_options.each do |reservation_option|
-      reservation_option.price = 0 if reservation_option.price.blank?
+    
+    self.space_options.each do |option|
+      self[option] = 0 if self[option].blank?
     end
+    
+    self.car_options.each do |option|
+      self[option] = 0 if self[option].blank?
+    end
+    
+    self.guests_cost = 0 if self.guests_cost.blank?
     self
+  end
+  
+  def space_options
+    ['space_rental']
+  end
+    
+  def car_options
+    ['car_rental', 'gas', 'highway', 'parking']
   end
   
   def before_weeks?
@@ -293,89 +309,5 @@ class Reservation < ActiveRecord::Base
   
   def before_days?
     self.schedule.to_date >= Time.zone.today + 3.day
-  end
-
-  def space_options
-    options = []
-    Space.all.each do |option|
-      if self.reservation_options.where(option_id: option.id).first.blank?
-        options << ReservationOption.new(option_id: option.id)
-      else
-        options << self.reservation_options.where(option_id: option.id).first
-      end
-    end
-    options
-  end
-    
-  def car_options
-    options = []
-    Car.all.each do |option|
-      if self.reservation_options.where(option_id: option.id).first.blank?
-        options << ReservationOption.new(option_id: option.id)
-      else
-        options << self.reservation_options.where(option_id: option.id).first
-      end
-    end
-    options
-  end
-  
-  def create_options
-    self.listing.listing_detail.listing_detail_options.each do |listing_detail_option|
-      ReservationOption.create(reservation_id: self.id, option_id: listing_detail_option.option_id, price: listing_detail_option.price)
-    end
-  end
-  
-  def default_options
-    options = []
-    Option.all.each do |option|
-      if self.reservation_options.where(option_id: option.id).first.blank?
-        options << ReservationOption.new(option_id: option.id)
-      else
-        options << self.reservation_options.where(option_id: option.id).first
-      end
-    end
-    options
-  end
-  
-  def options_from_listing
-    options = []
-    listing_detail_options = self.listing.listing_detail.listing_detail_options
-    if listing_detail_options.present?
-      Option.all.each do |option|
-        listing_detail_option = listing_detail_options.where(option_id: option.id).first
-        reservation_option = self.reservation_options.where(option_id: option.id).first
-        reservation_option.price = listing_detail_option.price
-        options << reservation_option
-      end
-    else
-      self.reservation_options.each do |reservation_option|
-        reservation_option.price = 0
-        options << reservation_option
-      end
-    end
-    options
-  end
-  
-  def selected_options
-    options = []
-    if self.space_option
-      Space.all.each do |option|
-        space_option = self.reservation_options.where(option_id: option.id).first
-        if space_option.present? and space_option.price > 0
-          options << space_option
-        end
-      end
-    end
-    
-    if self.car_option
-      Car.all.each do |option|
-        car_option = self.reservation_options.where(option_id: option.id).first
-        if car_option.present? and car_option.price > 0
-          options << car_option
-        end
-      end
-    end
-    
-    options
   end
 end

@@ -82,11 +82,10 @@
         .col-xs-6
           .input-opt
             = f.input_field :space_option
-            - @space_options.each do |space_option|
-              = option_id_to_name_ja(space_option.option_id)
-              = f.fields_for :listing_detail_options, space_option do |option_field|
-                = option_field.hidden_field :option_id, value: space_option.option_id
-                = option_field.input_field :price
+            - space_options.each do |option|
+              = I18n.t('option_price_ja.' + option)
+              = f.input_field option
+            
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -96,12 +95,9 @@
         .col-xs-6
           .input-opt
             = f.input_field :car_option
-            - @car_options.each do |car_option|
-              = option_id_to_name_ja(car_option.option_id)
-              = f.fields_for :listing_detail_options, car_option do |option_field|
-                = option_field.hidden_field :option_id, value: car_option.option_id
-                = option_field.input_field :price
-            
+            - car_options.each do |option|
+              = I18n.t('option_price_ja.' + option)
+              = f.input_field option
   .row-space-top-4
     h3.text-center.row-space-2 ゲストが自己負担する費用
   .row.row-space-5.row-space-top-5.row-table

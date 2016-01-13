@@ -24,7 +24,12 @@
 #  price_for_support     :integer          default(0)
 #  price_for_both_guides :integer          default(0)
 #  space_option          :boolean          default(TRUE)
+#  space_rental          :integer          default(0)
 #  car_option            :boolean          default(TRUE)
+#  car_rental            :integer          default(0)
+#  gas                   :integer          default(0)
+#  highway               :integer          default(0)
+#  parking               :integer          default(0)
 #  guests_cost           :integer          default(0)
 #  included_guests_cost  :text             default("")
 #
@@ -41,10 +46,7 @@
 class ListingDetail < ActiveRecord::Base
   belongs_to :listing
   before_save :set_price
-  has_many :listing_detail_options, dependent: :destroy
-  has_many :options, :through => :listing_detail_options, dependent: :destroy
   
-  accepts_nested_attributes_for :listing_detail_options
   validates :listing_id, uniqueness: true
   
   def set_lon_lat
@@ -99,14 +101,14 @@ class ListingDetail < ActiveRecord::Base
   def option_amount
     total = 0
     if self.space_option
-      self.space_options.each do |space_option|
-        total += space_option.price
+      self.space_options.each do |option|
+        total += self[option]
       end
     end
     
     if self.car_option
-      self.car_options.each do |car_option|
-        total += car_option.price
+      self.car_options.each do |option|
+        total += self[option]
       end
     end
     total
@@ -120,57 +122,24 @@ class ListingDetail < ActiveRecord::Base
     self.price = 0 if self.price.blank?
     self.price_for_support = 0 if self.price_for_support.blank?
     self.price_for_both_guides = 0 if self.price_for_both_guides.blank?
-    self.guests_cost = 0 if self.guests_cost.blank?
-    self.listing_detail_options.each do |listing_detail_option|
-      listing_detail_option.price = 0 if listing_detail_option.price.blank?
+    
+    self.space_options.each do |option|
+      self[option] = 0 if self[option].blank?
     end
+    
+    self.car_options.each do |option|
+      self[option] = 0 if self[option].blank?
+    end
+    
+    self.guests_cost = 0 if self.guests_cost.blank?
     self
   end
     
   def space_options
-    options = []
-    Space.all.each do |option|
-      if self.listing_detail_options.where(option_id: option.id).first.blank?
-        options << ListingDetailOption.new(option_id: option.id)
-      else
-        options << self.listing_detail_options.where(option_id: option.id).first
-      end
-    end
-    options
+    ['space_rental']
   end
     
   def car_options
-    options = []
-    Car.all.each do |option|
-      if self.listing_detail_options.where(option_id: option.id).first.blank?
-        options << ListingDetailOption.new(option_id: option.id)
-      else
-        options << self.listing_detail_options.where(option_id: option.id).first
-      end
-    end
-    options
-  end
-    
-  def selected_options
-    options = []
-    if self.space_option
-      Space.all.each do |option|
-        space_option = self.listing_detail_options.where(option_id: option.id).first
-        if space_option.present? and space_option.price > 0
-          options << space_option
-        end
-      end
-    end
-    
-    if self.car_option
-      Car.all.each do |option|
-        car_option = self.listing_detail_options.where(option_id: option.id).first
-        if car_option.present? and car_option.price > 0
-          options << car_option
-        end
-      end
-    end
-    
-    options
+    ['car_rental', 'gas', 'highway', 'parking']
   end
 end

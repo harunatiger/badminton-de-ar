@@ -520,15 +520,11 @@ module ApplicationHelper
     FavoriteUser.find_by(to_user_id: to_user_id, from_user_id: from_user_id)
   end
   
-  def option_id_to_name_ja(option_id)
-    I18n.t('option_price_ja.' + Option.find(option_id).name)
+  def space_options
+    ['space_rental']
   end
-  
-  def option_id_to_type(option_id)
-    Option.find(option_id).type
-  end
-  
-  def display_option?(obj)
-    (obj.space_option or obj.car_option) and obj.option_amount > 0
+    
+  def car_options
+    ['car_rental', 'gas', 'highway', 'parking']
   end
 end

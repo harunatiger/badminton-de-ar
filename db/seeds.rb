@@ -21,14 +21,3 @@ CSV.foreach('db/seeds_data/languages.csv') do |row|
   end
   i += 1
 end
-
-i = 1
-CSV.foreach('db/seeds_data/options.csv') do |row|
-  option = Option.where(id: i).first
-  if option
-    option.update(name: row[0], type: row[1])
-  else
-    Option.create(name: row[0], type: row[1])
-  end
-  i += 1
-end

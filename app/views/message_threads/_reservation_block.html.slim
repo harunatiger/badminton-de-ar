@@ -64,18 +64,28 @@
                 | ガイド料金:
               .col-md-8.strong
                 = @reservation.guide_price
-            - if display_option?(@reservation)
+            - if @reservation.option_amount > 0
               .row.row-condensed.row-space-1
                 .col-md-3.text-left.text-muted.strong
                   | オプション料金:
                 .col-md-8.strong
                   = @reservation.option_amount
-              - @reservation.selected_options.each do |selected_option|
-                .row.row-condensed.row-space-1
-                  .col-md-3.text-left.text-muted.strong
-                    = option_id_to_name_ja(selected_option.option_id)
-                  .col-md-8.strong
-                    = selected_option.price
+              - if @reservation.space_option
+                - space_options.each do |option|
+                  - if @reservation[option] > 0
+                    .row.row-condensed.row-space-1
+                      .col-md-3.text-left.text-muted.strong
+                        = I18n.t('option_price_ja.' + option)
+                      .col-md-8.strong
+                        = @reservation[option]
+              - if @reservation.car_option
+                - car_options.each do |option|
+                  - if @reservation[option] > 0
+                    .row.row-condensed.row-space-1
+                      .col-md-3.text-left.text-muted.strong
+                        = I18n.t('option_price_ja.' + option)
+                      .col-md-8.strong
+                        = @reservation[option]
             .row.row-condensed.row-space-1
               .col-md-3.text-left.text-muted.strong
                 | サービス手数料:

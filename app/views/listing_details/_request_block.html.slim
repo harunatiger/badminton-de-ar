@@ -1,70 +1,53 @@
 / listings/request_block
 #tour-action
-  - if @listing.cover_video?
-    .movie-container.row-space-2
-      /.sample
-      /video[src=listing.cover_video.encoded controls width="240" height="240"]
-      = video_player src: { mp4: listing.cover_video.encoded, webm: listing.cover_video.encoded }, controls: true, width: "100%", height: "315", id:  "tour_movie"
   .card.row-space-2
     .card-body
       .tour-price.row-space-1
-        .h3.strong.row-space-1 ツアー料金
+        .h3.strong.row-space-1 ガイドフィー料金
         .h3.strong.row-space-2
           | ¥
-          span#tour-price-single
+          = @listing_detail.amount
           small.time
-            | /グループ
-          span.small<
-            = listing.listing_detail.time_required.to_s.gsub(/.0/, '')
-            | 時間
+            | /グループ(MAX #{@listing_detail.max_num_of_people}人・
+            = @listing_detail.time_required.to_s.gsub(/.0/, '')
+            | h)
         .row.row-space-1
           .col-md-7.small1
-            | ペアガイド料金
+            | ガイド料金
           .col-md-5.text-right.strong
             | ¥
-            span#tour-price-base
-              =listing.listing_detail.price_calced
+            = @listing_detail.guide_price
+        - if @listing_detail.option_amount > 0
+          .row.row-space-1
+            .col-md-7.small1
+              | オプション料金
+            .col-md-5.text-right.strong
+              | ¥
+              = @listing_detail.option_amount
+        - if @listing_detail.space_option
+          - space_options.each do |option|
+            - if @listing_detail[option] > 0
+              .row.row-space-1
+                .col-md-7.small1
+                  = I18n.t('option_price_ja.' + option)
+                .col-md-5.text-right.strong
+                  | ¥
+                  = @listing_detail[option]
+        - if @listing_detail.car_option
+          - car_options.each do |option|
+            - if @listing_detail[option] > 0
+              .row.row-space-1
+                .col-md-7.small1
+                  = I18n.t('option_price_ja.' + option)
+                .col-md-5.text-right.strong
+                  | ¥
+                  = @listing_detail[option]
         .row.row-space-1
           .col-md-7.small1
-            | 諸経費(グループあたり)
+            | サービス手数料
           .col-md-5.text-right.strong
             | ¥
-            span#tour-price-option
-              =listing.listing_detail.option_price
-        .row.row-space-1
-          .col-md-7.small1
-            | 諸経費(ゲスト1人あたり)
-          .col-md-5.text-right.strong
-            | ¥
-            span#tour-price-option-single
-              =listing.listing_detail.option_price_per_person
-        .row
-          .col-md-12
-            = link_to "#", class: "about_price_trigger small1 text-red" do
-              /i.fa.fa-exclamation-circle
-              |  ※体験中の経費について
-          .col-md-12
-            = link_to "#", class: "include_what_trigger small1 text-blue" do
-              |  ※諸経費に含まれるもの
-          /.col-md-12
-            = link_to "#", class: "include_price_trigger small1 text-blue" do
-              |  ※プラン料金に含まれている内容
-      = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
-        - user_id = 0
-        - user_id = current_user.id if user_signed_in?
-        = f.hidden_field :host_id, value: @listing.user_id
-        = f.hidden_field :guest_id, value: user_id
-        = f.hidden_field :listing_id, value: @listing.id
-        = f.hidden_field :progress, value: 'holded'
-        = f.hidden_field :schedule_hour, value: 00
-        = f.hidden_field :schedule_minute, value: 00
-        = f.hidden_field :price, value: listing.listing_detail.price
-        = f.hidden_field :price_other, value: listing.listing_detail.price_other
-        = f.hidden_field :option_price, value: listing.listing_detail.option_price
-        = f.hidden_field :option_price_per_person, value: listing.listing_detail.option_price_per_person
-        = f.hidden_field :time_required, value: listing.listing_detail.time_required
-        = f.hidden_field :place, value: listing.listing_detail.place
-        = f.hidden_field :place_memo, value: listing.listing_detail.place_memo
+            = @listing_detail.service_fee
         .row.row-space-4
           .col-md-8
             label[for="checkin"]
@@ -74,80 +57,21 @@
             label[for="reservation_num_of_people"]
               |  人数
             .select.select-block#num-of-people
-              = f.input_field :num_of_people, as: :select, collection: listing.listing_detail.min_num_of_people..listing.listing_detail.max_num_of_people, default: [1]
-        #culc-container.row-space-1
-          .row.row-space-1
-            .col-md-7.small1
-              | ペアガイド料金
-            .col-md-5.text-right.strong
-              | ¥
-              span#tour-price-base_calced
-
-          .row.row-space-1
-            .col-md-7.small1
-              | 諸経費(グループあたり)
-            .col-md-5.text-right.strong
-              | ¥
-              span#tour-price-option_calced
-
-          .row.row-space-1
-            .col-md-7.small1
-              | 諸経費(ゲスト1人あたり) x
-              span#tour-member_calced
-                | 1
-              | 人
-            .col-md-5.text-right.strong
-              | ¥
-              span#tour-price-option-single_calced
-
-          .row.row-space-1
-            .col-md-7.small1
-              | サービス利用料金
-            .col-md-5.text-right.strong
-              | ¥
-              span#service-cost_calced
-
-          .row.row-space-4
-            .col-md-7.small1.text-blue.strong
-              | 合計金額
-            .col-md-5.text-right.strong.text-blue.strong
-              | ¥
-              span#tour-price-result_calced.h4
-
+              = select 'sample', 'num_of_people', @listing_detail.min_num_of_people..@listing_detail.max_num_of_people, default: [1]
         .row-space-2
-          - if user_signed_in?
-            - if current_user.id == @listing.user_id or @active_reservation
-              = f.submit '予約をリクエスト', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
-            - elsif not profile_self_introduction_exists?
-              = link_to '予約をリクエスト', profile_link, class: 'btn btn-large btn-block btn-primary'
-            - else
-              = f.submit '予約をリクエスト', id: 'book_it_button', name: 'reserve', class: "btn btn-large btn-block btn-primary"
-          - else
-            button.btn.btn-large.btn-block.btn-host
-              | 予約をリクエスト
+          = link_to '予約をリクエスト', '#', class: 'btn btn-large btn-block btn-primary disabled'
         .row-space-1
-          - if user_signed_in?
-            - if current_user.id == @listing.user_id
-              /= f.button :submit, 'メッセージを送る', id: 'book_it_button', class: "btn btn-large btn-block disabled"
-              = button_tag type: 'submit', id: 'book_it_button', class: "btn btn-large btn-block disabled" do
+          = link_to '#', id: 'book_it_button', class: "btn btn-large btn-block disabled" do
                 i.fa.fa-comments-o
                 | メッセージを送る
-            - elsif not profile_self_introduction_exists?
-              = link_to profile_link, class: 'btn btn-large btn-block' do
-                i.fa.fa-comments-o
-                | メッセージを送る
-            - else
-              -if @message_thread
-                = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block' do
-                  i.fa.fa-comments-o
-                  | メッセージを送る
-                end
-              - else
-                = link_to message_threads_path(message_thread: {host_id: @listing.user_id}), method: 'POST', class: 'btn btn-large btn-block' do
-                  i.fa.fa-comments-o
-                  | メッセージを送る
-          - else
-            //= f.submit 'メッセージを送る', class: "btn btn-large btn-block"
-            = button_tag type: 'submit', class: "btn btn-large btn-block disabled" do
-              i.fa.fa-comments-o
-              | メッセージを送る
+
+      .row-space-1
+        .row.row-space-1
+          .col-md-7.small1
+            | ツアー外予算
+          .col-md-5.text-right.strong
+            | おおよそ¥#{@listing_detail.guests_cost}/人
+        .row
+          .col-md-12
+            = link_to "#", class: "include_what_trigger small1 text-red" do
+              |  ※ツアー外予算に含まれるもの
