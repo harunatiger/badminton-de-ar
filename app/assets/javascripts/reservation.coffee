@@ -145,3 +145,8 @@ $ ->
       ).done (data) ->
         disabled_dates = data.ngdates
         disabled_weeks = data.ngweeks
+
+  # open include_what
+  $('a.include_what_trigger').on 'click', ->
+    $('#include_what').modal()
+    return false

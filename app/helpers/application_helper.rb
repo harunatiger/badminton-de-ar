@@ -519,4 +519,12 @@ module ApplicationHelper
   def favorite_user_set(to_user_id, from_user_id)
     FavoriteUser.find_by(to_user_id: to_user_id, from_user_id: from_user_id)
   end
+  
+  def space_options
+    ['space_rental']
+  end
+    
+  def car_options
+    ['car_rental', 'gas', 'highway', 'parking']
+  end
 end

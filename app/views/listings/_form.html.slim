@@ -2,6 +2,8 @@
   = f.error_notification
   = f.hidden_field :user_id, value: current_user.id
   /= f.hidden_field :open, value: false
+  - if current_user.listings.blank?
+    /初回の場合の処理
   -if false
     = f.input_field :longitude, as: :string, placeholder: "経度"
     = f.input_field :latitude, as: :string, placeholder: "緯度"

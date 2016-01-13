@@ -1,0 +1,77 @@
+/ listings/request_block
+#tour-action
+  .card.row-space-2
+    .card-body
+      .tour-price.row-space-1
+        .h3.strong.row-space-1 ガイドフィー料金
+        .h3.strong.row-space-2
+          | ¥
+          = @listing_detail.amount
+          small.time
+            | /グループ(MAX #{@listing_detail.max_num_of_people}人・
+            = @listing_detail.time_required.to_s.gsub(/.0/, '')
+            | h)
+        .row.row-space-1
+          .col-md-7.small1
+            | ガイド料金
+          .col-md-5.text-right.strong
+            | ¥
+            = @listing_detail.guide_price
+        - if @listing_detail.option_amount > 0
+          .row.row-space-1
+            .col-md-7.small1
+              | オプション料金
+            .col-md-5.text-right.strong
+              | ¥
+              = @listing_detail.option_amount
+        - if @listing_detail.space_option
+          - space_options.each do |option|
+            - if @listing_detail[option] > 0
+              .row.row-space-1
+                .col-md-7.small1
+                  = I18n.t('option_price_ja.' + option)
+                .col-md-5.text-right.strong
+                  | ¥
+                  = @listing_detail[option]
+        - if @listing_detail.car_option
+          - car_options.each do |option|
+            - if @listing_detail[option] > 0
+              .row.row-space-1
+                .col-md-7.small1
+                  = I18n.t('option_price_ja.' + option)
+                .col-md-5.text-right.strong
+                  | ¥
+                  = @listing_detail[option]
+        .row.row-space-1
+          .col-md-7.small1
+            | サービス手数料
+          .col-md-5.text-right.strong
+            | ¥
+            = @listing_detail.service_fee
+        .row.row-space-4
+          .col-md-8
+            label[for="checkin"]
+              |  参加する日付
+            input#checkin.checkin.datepicker[name="reservation[schedule_date]" placeholder="MM/DD/YYYY" type="text"]
+          .col-md-4
+            label[for="reservation_num_of_people"]
+              |  人数
+            .select.select-block#num-of-people
+              = select 'sample', 'num_of_people', @listing_detail.min_num_of_people..@listing_detail.max_num_of_people, default: [1]
+        .row-space-2
+          = link_to '予約をリクエスト', '#', class: 'btn btn-large btn-block btn-primary disabled'
+        .row-space-1
+          = link_to '#', id: 'book_it_button', class: "btn btn-large btn-block disabled" do
+                i.fa.fa-comments-o
+                | メッセージを送る
+
+      .row-space-1
+        .row.row-space-1
+          .col-md-7.small1
+            | ツアー外予算
+          .col-md-5.text-right.strong
+            | おおよそ¥#{@listing_detail.guests_cost}/人
+        .row
+          .col-md-12
+            = link_to "#", class: "include_what_trigger small1 text-red" do
+              |  ※ツアー外予算に含まれるもの

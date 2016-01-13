@@ -5,17 +5,10 @@
       .modal-content
         .card-header
           a.modal-close[href="#" data-dismiss="modal"]
-          | What's included in basic costs
+          | ツアー外予算に含まれるもの
         form
           .card-body
-            p.strong
-              | ◼Group Expenses
             p
-              = hbr(listing_detail.included).html_safe
-            br
-            p.strong
-              | ◼Individual Expenses
-            p
-              = hbr(listing_detail.included_other).html_safe
+              = hbr(included_guests_cost).html_safe
           .card-footer
             = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

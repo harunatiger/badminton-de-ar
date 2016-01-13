@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105013137) do
+ActiveRecord::Schema.define(version: 20160112204216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,27 +165,33 @@ ActiveRecord::Schema.define(version: 20160105013137) do
   create_table "listing_details", force: :cascade do |t|
     t.integer  "listing_id"
     t.string   "zipcode"
-    t.string   "location",                                        default: ""
-    t.string   "place",                                           default: ""
-    t.decimal  "longitude",               precision: 9, scale: 6, default: 0.0
-    t.decimal  "latitude",                precision: 9, scale: 6, default: 0.0
-    t.integer  "price",                                           default: 0
-    t.integer  "option_price",                                    default: 0
-    t.decimal  "time_required",           precision: 9, scale: 6, default: 0.0
-    t.integer  "max_num_of_people",                               default: 0
-    t.integer  "min_num_of_people",                               default: 0
-    t.text     "included",                                        default: ""
-    t.text     "condition",                                       default: ""
-    t.text     "refund_policy",                                   default: ""
-    t.text     "in_case_of_rain",                                 default: ""
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
-    t.integer  "option_price_per_person",                         default: 0
-    t.text     "place_memo",                                      default: ""
-    t.decimal  "place_longitude",         precision: 9, scale: 6, default: 0.0
-    t.decimal  "place_latitude",          precision: 9, scale: 6, default: 0.0
-    t.text     "included_other",                                  default: ""
-    t.integer  "price_other",                                     default: 0
+    t.string   "location",                                      default: ""
+    t.string   "place",                                         default: ""
+    t.decimal  "longitude",             precision: 9, scale: 6, default: 0.0
+    t.decimal  "latitude",              precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                         default: 0
+    t.decimal  "time_required",         precision: 9, scale: 6, default: 0.0
+    t.integer  "max_num_of_people",                             default: 0
+    t.integer  "min_num_of_people",                             default: 0
+    t.text     "condition",                                     default: ""
+    t.text     "refund_policy",                                 default: ""
+    t.text     "in_case_of_rain",                               default: ""
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
+    t.text     "place_memo",                                    default: ""
+    t.decimal  "place_longitude",       precision: 9, scale: 6, default: 0.0
+    t.decimal  "place_latitude",        precision: 9, scale: 6, default: 0.0
+    t.integer  "price_for_support",                             default: 0
+    t.integer  "price_for_both_guides",                         default: 0
+    t.boolean  "space_option",                                  default: true
+    t.integer  "space_rental",                                  default: 0
+    t.boolean  "car_option",                                    default: true
+    t.integer  "car_rental",                                    default: 0
+    t.integer  "gas",                                           default: 0
+    t.integer  "highway",                                       default: 0
+    t.integer  "parking",                                       default: 0
+    t.integer  "guests_cost",                                   default: 0
+    t.text     "included_guests_cost",                          default: ""
   end
 
   add_index "listing_details", ["latitude"], name: "index_listing_details_on_latitude", using: :btree
@@ -568,10 +574,10 @@ ActiveRecord::Schema.define(version: 20160105013137) do
     t.integer  "guest_id"
     t.integer  "listing_id"
     t.datetime "schedule",                                                      null: false
-    t.integer  "num_of_people",                                   default: 0,   null: false
-    t.text     "msg",                                             default: ""
-    t.integer  "progress",                                        default: 0,   null: false
-    t.text     "reason",                                          default: ""
+    t.integer  "num_of_people",                                  default: 0,    null: false
+    t.text     "msg",                                            default: ""
+    t.integer  "progress",                                       default: 0,    null: false
+    t.text     "reason",                                         default: ""
     t.datetime "review_mail_sent_at"
     t.datetime "review_expiration_date"
     t.datetime "review_landed_at"
@@ -582,17 +588,25 @@ ActiveRecord::Schema.define(version: 20160105013137) do
     t.datetime "review_opened_at"
     t.datetime "created_at",                                                    null: false
     t.datetime "updated_at",                                                    null: false
-    t.decimal  "time_required",           precision: 9, scale: 6, default: 0.0
-    t.integer  "price",                                           default: 0
-    t.integer  "option_price",                                    default: 0
-    t.string   "place",                                           default: ""
-    t.text     "description",                                     default: ""
+    t.decimal  "time_required",          precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                          default: 0
+    t.string   "place",                                          default: ""
+    t.text     "description",                                    default: ""
     t.date     "schedule_end"
-    t.integer  "option_price_per_person",                         default: 0
-    t.text     "place_memo",                                      default: ""
+    t.text     "place_memo",                                     default: ""
     t.integer  "campaign_id"
-    t.integer  "price_other",                                     default: 0
-    t.integer  "refund_rate",                                     default: 0
+    t.integer  "refund_rate",                                    default: 0
+    t.integer  "price_for_support",                              default: 0
+    t.integer  "price_for_both_guides",                          default: 0
+    t.boolean  "space_option",                                   default: true
+    t.integer  "space_rental",                                   default: 0
+    t.boolean  "car_option",                                     default: true
+    t.integer  "car_rental",                                     default: 0
+    t.integer  "gas",                                            default: 0
+    t.integer  "highway",                                        default: 0
+    t.integer  "parking",                                        default: 0
+    t.integer  "guests_cost",                                    default: 0
+    t.text     "included_guests_cost",                           default: ""
   end
 
   add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree

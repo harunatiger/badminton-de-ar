@@ -2,30 +2,36 @@
 #
 # Table name: listing_details
 #
-#  id                      :integer          not null, primary key
-#  listing_id              :integer
-#  zipcode                 :string
-#  location                :string           default("")
-#  place                   :string           default("")
-#  longitude               :decimal(9, 6)    default(0.0)
-#  latitude                :decimal(9, 6)    default(0.0)
-#  price                   :integer          default(0)
-#  option_price            :integer          default(0)
-#  time_required           :decimal(9, 6)    default(0.0)
-#  max_num_of_people       :integer          default(0)
-#  min_num_of_people       :integer          default(0)
-#  included                :text             default("")
-#  condition               :text             default("")
-#  refund_policy           :text             default("")
-#  in_case_of_rain         :text             default("")
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  option_price_per_person :integer          default(0)
-#  place_memo              :text             default("")
-#  place_longitude         :decimal(9, 6)    default(0.0)
-#  place_latitude          :decimal(9, 6)    default(0.0)
-#  included_other          :text             default("")
-#  price_other             :integer          default(0)
+#  id                    :integer          not null, primary key
+#  listing_id            :integer
+#  zipcode               :string
+#  location              :string           default("")
+#  place                 :string           default("")
+#  longitude             :decimal(9, 6)    default(0.0)
+#  latitude              :decimal(9, 6)    default(0.0)
+#  price                 :integer          default(0)
+#  time_required         :decimal(9, 6)    default(0.0)
+#  max_num_of_people     :integer          default(0)
+#  min_num_of_people     :integer          default(0)
+#  condition             :text             default("")
+#  refund_policy         :text             default("")
+#  in_case_of_rain       :text             default("")
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  place_memo            :text             default("")
+#  place_longitude       :decimal(9, 6)    default(0.0)
+#  place_latitude        :decimal(9, 6)    default(0.0)
+#  price_for_support     :integer          default(0)
+#  price_for_both_guides :integer          default(0)
+#  space_option          :boolean          default(TRUE)
+#  space_rental          :integer          default(0)
+#  car_option            :boolean          default(TRUE)
+#  car_rental            :integer          default(0)
+#  gas                   :integer          default(0)
+#  highway               :integer          default(0)
+#  parking               :integer          default(0)
+#  guests_cost           :integer          default(0)
+#  included_guests_cost  :text             default("")
 #
 # Indexes
 #
@@ -79,19 +85,61 @@ class ListingDetail < ActiveRecord::Base
     hash
   end
     
-  def amount
-    self.price + self.price_other + self.option_price + self.option_price_per_person
+  def basic_amount
+    total = self.price + self.price_for_support + self.price_for_both_guides
+    total + option_amount
   end
     
-  def price_calced
-    self.price + self.price_other
+  def amount
+    basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.125).ceil
+  end
+    
+  def guide_price
+    self.price + self.price_for_support + self.price_for_both_guides
+  end
+    
+  def option_amount
+    total = 0
+    if self.space_option
+      self.space_options.each do |option|
+        total += self[option]
+      end
+    end
+    
+    if self.car_option
+      self.car_options.each do |option|
+        total += self[option]
+      end
+    end
+    total
+  end
+    
+  def service_fee
+    basic_amount < 2000 ? 500 : (basic_amount * 0.125).ceil
   end
     
   def set_price
     self.price = 0 if self.price.blank?
-    self.price_other = 0 if self.price_other.blank?
-    self.option_price = 0 if self.option_price.blank?
-    self.option_price_per_person = 0 if self.option_price_per_person.blank?
+    self.price_for_support = 0 if self.price_for_support.blank?
+    self.price_for_both_guides = 0 if self.price_for_both_guides.blank?
+    
+    self.space_options.each do |option|
+      self[option] = 0 if self[option].blank?
+    end
+    
+    self.car_options.each do |option|
+      self[option] = 0 if self[option].blank?
+    end
+    
+    self.guests_cost = 0 if self.guests_cost.blank?
     self
+  end
+    
+  def space_options
+    ['space_rental']
+  end
+    
+  def car_options
+    ['car_rental', 'gas', 'highway', 'parking']
   end
 end

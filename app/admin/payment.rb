@@ -100,14 +100,14 @@ ActiveAdmin.register_page "Payment" do
               listing_id: payment.reservation.listing_id,
               #14 プランタイトル
               listing_title: listing.title,
-              #15 ペアガイド基本料金
+              #15 ガイドの収入
               listing_price: payment.reservation.price,
-              #16 ペアガイド諸経費
-              listing_price_other: payment.reservation.price_other,
-              #17 諸経費（グループ）
-              listing_option_price: payment.reservation.option_price,
-              #18 諸経費（ゲスト）
-              listing_option_price_per_person: payment.reservation.option_price_per_person,
+              #16 サポートメンバーの収入
+              listing_price_for_support: payment.reservation.price_for_support,
+              #17 2人にかかる費用
+              listing_price_for_both_guides: payment.reservation.price_for_both_guides,
+              #18 オプション費用
+              listing_option_amount: payment.reservation.option_amount,
               #19 決済確定総金額
               reservation_price: payment.amount,
               #20 キャンセル後確定金額

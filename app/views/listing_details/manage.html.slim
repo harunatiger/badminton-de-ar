@@ -5,5 +5,7 @@
   .manage-listing-row-container
     .manage-listing-content.col-md-9.col-offset-3
       = render 'form'
+      = render 'request_block', locals: { listing_detail: @listing_detail }
+      = render partial: '/shared/modals/include_what', locals: { included_guests_cost: @listing_detail.included_guests_cost }
     = render partial: 'shared/manage_listing_nav'
     = render partial: 'shared/modals/form_change_confirm'
