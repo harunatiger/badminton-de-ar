@@ -90,6 +90,7 @@ class MessageThreadsController < ApplicationController
       @reservation = reservation.present? ? Reservation.new(reservation.attributes) : Reservation.new(progress: '')
       @reservation_for_update = reservation
       @reservation.message_thread_id = @message_thread.id
+      @reservation.reservation_options = @reservation.default_options
     end
 
     def message_thread_user?

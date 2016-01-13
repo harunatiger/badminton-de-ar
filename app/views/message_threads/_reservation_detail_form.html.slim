@@ -14,34 +14,69 @@
         span 時間
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      | ペアガイド基本料金
+      | あなたの収入
     .col-md-5
       .input-opt
         = number_field :reservation, :price
         span 円
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      | ペアガイド諸経費
+      | サポートメンバーの収入
     .col-md-5
       .input-opt
-        = number_field :reservation, :price_other
+        = number_field :reservation, :price_for_support
         span 円
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
       .small2
-        | 諸経費(グループあたり)
+        | ２人にかかる経費
     .col-md-5
       .input-opt
-        = number_field :reservation, :option_price
+        = number_field :reservation, :price_for_both_guides
         span 円
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
       .small2
-        | 諸経費(ゲスト1名あたり)
+        | オプション費用
+  .row.row-condensed.row-space-3
+    label.col-md-4.text-right.text-left--sp
+      .small2
+        | スペースレンタルが含まれるツアー
     .col-md-5
       .input-opt
-        = number_field :reservation, :option_price_per_person
-        span 円
+        - reservation.reservation_options.each do |space_option|
+          - if option_id_to_type(space_option.option_id) == 'Space'
+            = option_id_to_name_ja(space_option.option_id)
+            = fields_for 'reservation[reservation_options_attributes][]', space_option do |option_field|
+              = option_field.hidden_field :id, value: space_option.id
+              = option_field.hidden_field :option_id, value: space_option.option_id
+              = option_field.number_field :price
+  .row.row-condensed.row-space-3
+    label.col-md-4.text-right.text-left--sp
+      .small2
+        | 車両レンタル費が含まれるツアー
+    .col-md-5
+      .input-opt
+        - reservation.reservation_options.each do |car_option|
+          - if option_id_to_type(car_option.option_id) == 'Car'
+            = option_id_to_name_ja(car_option.option_id)
+            = fields_for 'reservation[reservation_options_attributes][]', car_option do |option_field|
+              = option_field.hidden_field :id, value: car_option.id
+              = option_field.hidden_field :option_id, value: car_option.option_id
+              = option_field.number_field :price
+  .row.row-condensed.row-space-3
+    label.col-md-4.text-right.text-left--sp
+      .small2
+        | ゲストの費用（概算）
+    .col-md-5
+      .input-opt
+        = select :reservation, :guests_cost, [*(0..200)].map{|i| (i * 500)}
+  .row.row-condensed.row-space-3
+    label.col-md-4.text-right.text-left--sp
+      .small2
+        | 上記費用の内訳
+    .col-md-8
+      = text_field :reservation, :included_guests_cost, class: "textarea-normal", placeholder: "例）交通費 / 飲食費 / 入場料 / 料理体験の食材購入費など", rows: "6"
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
       | 人数

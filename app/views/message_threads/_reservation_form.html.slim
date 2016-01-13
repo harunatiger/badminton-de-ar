@@ -20,7 +20,7 @@
         = f.hidden_field :progress, value: 'requested'
         = hidden_field_tag 'reservation_id', @reservation.id
         /= f.hidden_field :listing_id
-        = render partial: 'reservation_detail_form', locals: { reservation: @reservation }
+        = render partial: 'reservation_detail_form', locals: { reservation: @reservation, space_options: @space_options, car_options: @car_options }
         .row.row-condensed.row-space-3
           .col-12.text-center.btn-group-container
             = link_to "ゲストの支払いに関しての注意点", "#", class: "about_payment_link"

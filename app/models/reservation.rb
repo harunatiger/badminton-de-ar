@@ -2,36 +2,39 @@
 #
 # Table name: reservations
 #
-#  id                      :integer          not null, primary key
-#  host_id                 :integer
-#  guest_id                :integer
-#  listing_id              :integer
-#  schedule                :datetime         not null
-#  num_of_people           :integer          default(0), not null
-#  msg                     :text             default("")
-#  progress                :integer          default(0), not null
-#  reason                  :text             default("")
-#  review_mail_sent_at     :datetime
-#  review_expiration_date  :datetime
-#  review_landed_at        :datetime
-#  reviewed_at             :datetime
-#  reply_mail_sent_at      :datetime
-#  reply_landed_at         :datetime
-#  replied_at              :datetime
-#  review_opened_at        :datetime
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  time_required           :decimal(9, 6)    default(0.0)
-#  price                   :integer          default(0)
-#  option_price            :integer          default(0)
-#  place                   :string           default("")
-#  description             :text             default("")
-#  schedule_end            :date
-#  option_price_per_person :integer          default(0)
-#  place_memo              :text             default("")
-#  campaign_id             :integer
-#  price_other             :integer          default(0)
-#  refund_rate             :integer          default(0)
+#  id                     :integer          not null, primary key
+#  host_id                :integer
+#  guest_id               :integer
+#  listing_id             :integer
+#  schedule               :datetime         not null
+#  num_of_people          :integer          default(0), not null
+#  msg                    :text             default("")
+#  progress               :integer          default(0), not null
+#  reason                 :text             default("")
+#  review_mail_sent_at    :datetime
+#  review_expiration_date :datetime
+#  review_landed_at       :datetime
+#  reviewed_at            :datetime
+#  reply_mail_sent_at     :datetime
+#  reply_landed_at        :datetime
+#  replied_at             :datetime
+#  review_opened_at       :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  time_required          :decimal(9, 6)    default(0.0)
+#  price                  :integer          default(0)
+#  place                  :string           default("")
+#  description            :text             default("")
+#  schedule_end           :date
+#  place_memo             :text             default("")
+#  campaign_id            :integer
+#  refund_rate            :integer          default(0)
+#  price_for_support      :integer          default(0)
+#  price_for_both_guides  :integer          default(0)
+#  space_option           :boolean          default(TRUE)
+#  car_option             :boolean          default(TRUE)
+#  guests_cost            :integer          default(0)
+#  included_guests_cost   :text             default("")
 #
 # Indexes
 #
@@ -52,6 +55,8 @@ class Reservation < ActiveRecord::Base
   has_one :review
   has_one :payment
   has_many :ngevents, dependent: :destroy
+  has_many :reservation_options, dependent: :destroy
+  has_many :options, :through => :reservation_options, dependent: :destroy
 
   # Check config/settings.yml: Settings.reservation.progress
   enum progress: { requested: 0, canceled: 1, holded: 2, accepted: 3, rejected: 4, listing_closed: 5, canceled_after_accepted: 6}
@@ -60,6 +65,7 @@ class Reservation < ActiveRecord::Base
   attr_accessor :message_thread_id
   attr_accessor :campaign_code
   accepts_nested_attributes_for :payment
+  accepts_nested_attributes_for :reservation_options
 
   validates :host_id, presence: true
   validates :guest_id, presence: true
@@ -192,7 +198,32 @@ class Reservation < ActiveRecord::Base
   end
   
   def basic_amount
-    self.price + self.price_other + self.option_price + (self.option_price_per_person * self.num_of_people)
+    total = self.price + self.price_for_support + self.price_for_both_guides
+    total + option_amount
+  end
+  
+  def option_amount
+    total = 0
+    if self.space_option
+      self.space_options.each do |space_option|
+        total += space_option.price
+      end
+    end
+    
+    if self.car_option
+      self.car_options.each do |car_option|
+        total += car_option.price
+      end
+    end
+    total
+  end
+  
+  def guide_price
+    self.price + self.price_for_support + self.price_for_both_guides
+  end
+  
+  def service_fee
+    basic_amount < 2000 ? 500 : (basic_amount * 0.125).ceil
   end
   
   def paypal_amount
@@ -247,9 +278,12 @@ class Reservation < ActiveRecord::Base
   
   def set_price
     self.price = 0 if self.price.blank?
-    self.price_other = 0 if self.price_other.blank?
-    self.option_price = 0 if self.option_price.blank?
-    self.option_price_per_person = 0 if self.option_price_per_person.blank?
+    self.price_for_support = 0 if self.price_for_support.blank?
+    self.price_for_both_guides = 0 if self.price_for_both_guides.blank?
+    self.guests_cost = 0 if self.guests_cost.blank?
+    self.reservation_options.each do |reservation_option|
+      reservation_option.price = 0 if reservation_option.price.blank?
+    end
     self
   end
   
@@ -261,4 +295,87 @@ class Reservation < ActiveRecord::Base
     self.schedule.to_date >= Time.zone.today + 3.day
   end
 
+  def space_options
+    options = []
+    Space.all.each do |option|
+      if self.reservation_options.where(option_id: option.id).first.blank?
+        options << ReservationOption.new(option_id: option.id)
+      else
+        options << self.reservation_options.where(option_id: option.id).first
+      end
+    end
+    options
+  end
+    
+  def car_options
+    options = []
+    Car.all.each do |option|
+      if self.reservation_options.where(option_id: option.id).first.blank?
+        options << ReservationOption.new(option_id: option.id)
+      else
+        options << self.reservation_options.where(option_id: option.id).first
+      end
+    end
+    options
+  end
+  
+  def create_options
+    self.listing.listing_detail.listing_detail_options.each do |listing_detail_option|
+      ReservationOption.create(reservation_id: self.id, option_id: listing_detail_option.option_id, price: listing_detail_option.price)
+    end
+  end
+  
+  def default_options
+    options = []
+    Option.all.each do |option|
+      if self.reservation_options.where(option_id: option.id).first.blank?
+        options << ReservationOption.new(option_id: option.id)
+      else
+        options << self.reservation_options.where(option_id: option.id).first
+      end
+    end
+    options
+  end
+  
+  def options_from_listing
+    options = []
+    listing_detail_options = self.listing.listing_detail.listing_detail_options
+    if listing_detail_options.present?
+      Option.all.each do |option|
+        listing_detail_option = listing_detail_options.where(option_id: option.id).first
+        reservation_option = self.reservation_options.where(option_id: option.id).first
+        reservation_option.price = listing_detail_option.price
+        options << reservation_option
+      end
+    else
+      self.reservation_options.each do |reservation_option|
+        reservation_option.price = 0
+        options << reservation_option
+      end
+    end
+    options
+  end
+  
+  def selected_options
+    options = []
+    if self.space_option
+      Space.all.each do |option|
+        space_option = self.reservation_options.where(option_id: option.id).first
+        if space_option.present? and space_option.price > 0
+          options << space_option
+        end
+      end
+    end
+    
+    if self.car_option
+      Car.all.each do |option|
+        car_option = self.reservation_options.where(option_id: option.id).first
+        if car_option.present? and car_option.price > 0
+          options << car_option
+        end
+      end
+    end
+    
+    options
+  end
 end

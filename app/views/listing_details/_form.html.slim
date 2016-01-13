@@ -6,9 +6,19 @@
     = f.input_field :latitude, as: :string, placeholder: "緯度"
 
   .row-space-top-4
-    h3.text-center.row-space-2 所要時間・料金など
+    h3.text-center.row-space-2 所要時間と参加人数
     p.text-center.row-space-6
       | 予定している所要時間や料金、ツアーに参加できる人数の上限、下限の制限条件などを設定してください。
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 所要時間
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-11
+          .select.select-opt.opt-double
+            = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}
+            span 時間
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
@@ -29,100 +39,88 @@
           .select.select-opt
             = f.select :max_num_of_people, [*(1..20)]
             span 人
+  .row-space-top-4
+    h3.text-center.row-space-2 ガイド料金と自分たちの費用
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        | 所要時間
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11
-          .select.select-opt.opt-double
-            = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}
-            span 時間
-  .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | ペアガイド料金
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-6
-          .input-opt.h3.text-left.strong
-            #price_calced
-      p.row-space-top-1.text-red
-        i.fa.fa-exclamation-circle
-        |  ペアガイド基本料金とペアガイド諸経費の合計金額が、ツアープラン内のペアガイド料金として表示されます。
-  .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | ペアガイド基本料金
+        | あなたの収入
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-6
           .input-opt
             = f.input_field :price
             span 円
-      p.row-space-top-1.text-red
-        i.fa.fa-exclamation-circle
-        | ペアのガイド料金をご記入ください。
-        br
-        | 初めてガイドする方の多くは、1時間あたり3,000円を目安に設定されています。
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        | ペアガイド諸経費
+        | サポートメンバーの収入
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-6
           .input-opt
-            = f.input_field :price_other
+            = f.input_field :price_for_support
             span 円
-      p.row-space-top-1.text-red
-        i.fa.fa-exclamation-circle
-        |  プラン実施の際に発生する入場料・交通費・飲食費など、ガイド側に発生する経費2人分を入力しましょう。
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        | 諸経費（グループあたり）
+        | ２人にかかる経費
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-6
           .input-opt
-            = f.input_field :option_price
+            = f.input_field :price_for_both_guides
             span 円
-      p.row-space-top-1.text-red
-        i.fa.fa-exclamation-circle
-        |  全体でかかる固定費用です。レンタカーやBBQセット代などが含まれます。
+  .row-space-top-4
+    h3.text-center.row-space-2 オプション費用
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        | 諸経費（グループあたり）に含まれるもの
+        | スペースレンタルが含まれるツアー
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-6
+          .input-opt
+            = f.input_field :space_option
+            - @space_options.each do |space_option|
+              = option_id_to_name_ja(space_option.option_id)
+              = f.fields_for :listing_detail_options, space_option do |option_field|
+                = option_field.hidden_field :option_id, value: space_option.option_id
+                = option_field.input_field :price
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | 車両レンタル費が含まれるツアー
+    .col-xs-8.fieldset.col-middle
+      .row
+        .col-xs-6
+          .input-opt
+            = f.input_field :car_option
+            - @car_options.each do |car_option|
+              = option_id_to_name_ja(car_option.option_id)
+              = f.fields_for :listing_detail_options, car_option do |option_field|
+                = option_field.hidden_field :option_id, value: car_option.option_id
+                = option_field.input_field :price
+            
+  .row-space-top-4
+    h3.text-center.row-space-2 ゲストが自己負担する費用
+  .row.row-space-5.row-space-top-5.row-table
+    .col-xs-4.text-right.col-middle
+      .h4.text-light
+        | ゲストの費用（概算）
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :included, :class => 'imeoff', placeholder: "(1)レンタカー代(固定 15,000円/1日)\n(2)ガソリン代(目的地で変動)\n(3)高速道路代(目的地で変動)", rows: "6"
+          .select.select-opt.opt-double
+            = f.select :guests_cost, [*(0..200)].map{|i| (i * 500)}
   .row.row-space-5.row-space-top-5.row-table
     .col-xs-4.text-right.col-middle
       .h4.text-light
-        | 諸経費（ゲスト１人あたり）
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-6
-          .input-opt
-            = f.input_field :option_price_per_person
-            span 円
-      p.row-space-top-1.text-red
-        i.fa.fa-exclamation-circle
-        |  ゲスト１名あたりの費用です。交通費・入場料・飲食費などが含まれます。
-        br
-        | この費用はゲストの参加人数が増えるごとに加算されます。
-  .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | 諸経費（ゲスト１人あたり）に含まれるもの
+        | 上記費用の内訳
     .col-xs-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :included_other,:class => 'imeoff', placeholder: "(1)浴衣レンタル代 2,000円/人\r\n※食事代は各自負担", rows: "6"
+          = f.input_field :included_guests_cost,:class => 'imeoff', placeholder: "例）交通費 / 飲食費 / 入場料 / 料理体験の食材購入費など", rows: "6"
   .row-space-top-4
     h3.text-center.row-space-2 集合場所・その他の条件
     p.text-center.row-space-6

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105013137) do
+ActiveRecord::Schema.define(version: 20160112204216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,30 +162,43 @@ ActiveRecord::Schema.define(version: 20160105013137) do
   add_index "listing_categories", ["category_id"], name: "index_listing_categories_on_category_id", using: :btree
   add_index "listing_categories", ["listing_id"], name: "index_listing_categories_on_listing_id", using: :btree
 
+  create_table "listing_detail_options", force: :cascade do |t|
+    t.integer  "listing_detail_id"
+    t.integer  "option_id"
+    t.integer  "price",             default: 0
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "listing_detail_options", ["listing_detail_id"], name: "index_listing_detail_options_on_listing_detail_id", using: :btree
+  add_index "listing_detail_options", ["option_id"], name: "index_listing_detail_options_on_option_id", using: :btree
+  add_index "listing_detail_options", ["price"], name: "index_listing_detail_options_on_price", using: :btree
+
   create_table "listing_details", force: :cascade do |t|
     t.integer  "listing_id"
     t.string   "zipcode"
-    t.string   "location",                                        default: ""
-    t.string   "place",                                           default: ""
-    t.decimal  "longitude",               precision: 9, scale: 6, default: 0.0
-    t.decimal  "latitude",                precision: 9, scale: 6, default: 0.0
-    t.integer  "price",                                           default: 0
-    t.integer  "option_price",                                    default: 0
-    t.decimal  "time_required",           precision: 9, scale: 6, default: 0.0
-    t.integer  "max_num_of_people",                               default: 0
-    t.integer  "min_num_of_people",                               default: 0
-    t.text     "included",                                        default: ""
-    t.text     "condition",                                       default: ""
-    t.text     "refund_policy",                                   default: ""
-    t.text     "in_case_of_rain",                                 default: ""
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
-    t.integer  "option_price_per_person",                         default: 0
-    t.text     "place_memo",                                      default: ""
-    t.decimal  "place_longitude",         precision: 9, scale: 6, default: 0.0
-    t.decimal  "place_latitude",          precision: 9, scale: 6, default: 0.0
-    t.text     "included_other",                                  default: ""
-    t.integer  "price_other",                                     default: 0
+    t.string   "location",                                      default: ""
+    t.string   "place",                                         default: ""
+    t.decimal  "longitude",             precision: 9, scale: 6, default: 0.0
+    t.decimal  "latitude",              precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                         default: 0
+    t.decimal  "time_required",         precision: 9, scale: 6, default: 0.0
+    t.integer  "max_num_of_people",                             default: 0
+    t.integer  "min_num_of_people",                             default: 0
+    t.text     "condition",                                     default: ""
+    t.text     "refund_policy",                                 default: ""
+    t.text     "in_case_of_rain",                               default: ""
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
+    t.text     "place_memo",                                    default: ""
+    t.decimal  "place_longitude",       precision: 9, scale: 6, default: 0.0
+    t.decimal  "place_latitude",        precision: 9, scale: 6, default: 0.0
+    t.integer  "price_for_support",                             default: 0
+    t.integer  "price_for_both_guides",                         default: 0
+    t.boolean  "space_option",                                  default: true
+    t.boolean  "car_option",                                    default: true
+    t.integer  "guests_cost",                                   default: 0
+    t.text     "included_guests_cost",                          default: ""
   end
 
   add_index "listing_details", ["latitude"], name: "index_listing_details_on_latitude", using: :btree
@@ -362,6 +375,16 @@ ActiveRecord::Schema.define(version: 20160105013137) do
   add_index "ngevents", ["mode"], name: "index_ngevents_on_mode", using: :btree
   add_index "ngevents", ["reservation_id"], name: "index_ngevents_on_reservation_id", using: :btree
   add_index "ngevents", ["user_id"], name: "index_ngevents_on_user_id", using: :btree
+
+  create_table "options", force: :cascade do |t|
+    t.string   "name",       default: ""
+    t.string   "type",       default: ""
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "options", ["name"], name: "index_options_on_name", using: :btree
+  add_index "options", ["type"], name: "index_options_on_type", using: :btree
 
   create_table "payments", force: :cascade do |t|
     t.integer  "reservation_id"
@@ -563,15 +586,27 @@ ActiveRecord::Schema.define(version: 20160105013137) do
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
+  create_table "reservation_options", force: :cascade do |t|
+    t.integer  "reservation_id"
+    t.integer  "option_id"
+    t.integer  "price",          default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "reservation_options", ["option_id"], name: "index_reservation_options_on_option_id", using: :btree
+  add_index "reservation_options", ["price"], name: "index_reservation_options_on_price", using: :btree
+  add_index "reservation_options", ["reservation_id"], name: "index_reservation_options_on_reservation_id", using: :btree
+
   create_table "reservations", force: :cascade do |t|
     t.integer  "host_id"
     t.integer  "guest_id"
     t.integer  "listing_id"
     t.datetime "schedule",                                                      null: false
-    t.integer  "num_of_people",                                   default: 0,   null: false
-    t.text     "msg",                                             default: ""
-    t.integer  "progress",                                        default: 0,   null: false
-    t.text     "reason",                                          default: ""
+    t.integer  "num_of_people",                                  default: 0,    null: false
+    t.text     "msg",                                            default: ""
+    t.integer  "progress",                                       default: 0,    null: false
+    t.text     "reason",                                         default: ""
     t.datetime "review_mail_sent_at"
     t.datetime "review_expiration_date"
     t.datetime "review_landed_at"
@@ -582,17 +617,20 @@ ActiveRecord::Schema.define(version: 20160105013137) do
     t.datetime "review_opened_at"
     t.datetime "created_at",                                                    null: false
     t.datetime "updated_at",                                                    null: false
-    t.decimal  "time_required",           precision: 9, scale: 6, default: 0.0
-    t.integer  "price",                                           default: 0
-    t.integer  "option_price",                                    default: 0
-    t.string   "place",                                           default: ""
-    t.text     "description",                                     default: ""
+    t.decimal  "time_required",          precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                          default: 0
+    t.string   "place",                                          default: ""
+    t.text     "description",                                    default: ""
     t.date     "schedule_end"
-    t.integer  "option_price_per_person",                         default: 0
-    t.text     "place_memo",                                      default: ""
+    t.text     "place_memo",                                     default: ""
     t.integer  "campaign_id"
-    t.integer  "price_other",                                     default: 0
-    t.integer  "refund_rate",                                     default: 0
+    t.integer  "refund_rate",                                    default: 0
+    t.integer  "price_for_support",                              default: 0
+    t.integer  "price_for_both_guides",                          default: 0
+    t.boolean  "space_option",                                   default: true
+    t.boolean  "car_option",                                     default: true
+    t.integer  "guests_cost",                                    default: 0
+    t.text     "included_guests_cost",                           default: ""
   end
 
   add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree
@@ -735,6 +773,8 @@ ActiveRecord::Schema.define(version: 20160105013137) do
   add_foreign_key "favorite_users", "users", column: "to_user_id"
   add_foreign_key "listing_categories", "categories"
   add_foreign_key "listing_categories", "listings"
+  add_foreign_key "listing_detail_options", "listing_details"
+  add_foreign_key "listing_detail_options", "options"
   add_foreign_key "listing_details", "listings"
   add_foreign_key "listing_images", "listings"
   add_foreign_key "listing_languages", "languages"
@@ -765,6 +805,8 @@ ActiveRecord::Schema.define(version: 20160105013137) do
   add_foreign_key "profile_videos", "profiles"
   add_foreign_key "profile_videos", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "reservation_options", "options"
+  add_foreign_key "reservation_options", "reservations"
   add_foreign_key "reservations", "listings"
   add_foreign_key "reservations", "users", column: "guest_id"
   add_foreign_key "reservations", "users", column: "host_id"
