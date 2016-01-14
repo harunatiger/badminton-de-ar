@@ -8,7 +8,7 @@
         = f.hidden_field :campaign_id, value: @reservation.campaign.id if @reservation.campaign.present?
         .card-header
           .h5.text-center
-            | 予約内容
+            | Booking details
         .card-body
           .row.row-condensed.row-space-2.row-space-top-6
             .col-md-4.text-muted.strong.text-right.text-left--sp
@@ -47,16 +47,16 @@
               = simple_format(@reservation.description.present? ? @reservation.description : '')
         .card-header
           .h5.text-center
-            | paypal決済内容
+            | Paypal transaction details
         .card-body
           .row.row-condensed.row-space-2.row-space-top-6
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | 決済者氏名: 
+              | Name: 
             .col-md-8
               = @payment.first_name + ' ' + @payment.last_name
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | 決済者メールアドレス: 
+              | Your email address: 
             .col-md-8
               = @payment.email
           .row.row-condensed.row-space-2.row-space-top-3
@@ -67,7 +67,7 @@
               = @reservation.basic_amount
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | サービス手数料: 
+              | Service commission: 
             .col-md-8
               | ¥&nbsp;
               = @reservation.handling_cost
@@ -80,7 +80,7 @@
                 = 0 - @reservation.campaign.discount
           .row.row-condensed.row-space-6.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | 合計価格: 
+              | Total: 
             .col-md-8
               | ¥&nbsp;
               = @payment.amount
@@ -88,7 +88,7 @@
           .text-center
             .btn-wrapper
               - if Rails.env.production?
-                = f.submit "支払いを確定する", name: 'payment', class: "btn btn-primary", onclick: "_gaq.push(['_trackEvent', 'reservation', 'accept']);"
+                = f.submit "Complete payment", name: 'payment', class: "btn btn-primary", onclick: "_gaq.push(['_trackEvent', 'reservation', 'accept']);"
               - else
-                = f.submit "支払いを確定する", name: 'payment', class: "btn btn-primary"
-              = f.submit "支払いをキャンセルする", name: 'payment_cancel', class: "btn"
+                = f.submit "Complete payment", name: 'payment', class: "btn btn-primary"
+              = f.submit "Cancel payment", name: 'payment_cancel', class: "btn"
