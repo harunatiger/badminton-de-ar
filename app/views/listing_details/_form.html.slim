@@ -87,31 +87,48 @@
       | ゲストが人数によって割り勘できる固定費があれば、記入してください。
       br
       | レンタカー代や会場レンタル代など、全体で変わらない費用はここに記入ください。
-  .row.row-space-5.row-space-top-5.row-table
-    .col-lg-4.text-right.col-middle
-      .h4.text-light
-        | スペースレンタルが含まれるツアー
-    .col-lg-8.fieldset.col-middle
-      .row
-        .col-xs-6
-          .input-opt
-            = f.input_field :space_option
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.fieldset
+      .collapse-panel
+        .collapse-heading
+          = f.input_field :space_option, inline_label: "スペースレンタルが含まれるツアー", class: "space_option-check price_option-check"
+        .collapse#space_options-container
+          .collapse-body
             - space_options.each do |option|
-              = I18n.t('option_price_ja.' + option)
-              = f.input_field option
-            
-  .row.row-space-5.row-space-top-5.row-table
-    .col-lg-4.text-right.col-middle
-      .h4.text-light
-        | 車両レンタル費が含まれるツアー
-    .col-lg-8.fieldset.col-middle
-      .row
-        .col-xs-6
-          .input-opt
-            = f.input_field :car_option
+              .row.row-table
+                .col-lg-4.text-right.col-middle
+                  .h4.text-light
+                    = I18n.t('option_price_ja.' + option)
+                .col-lg-6.fieldset.col-middle
+                  .input-opt
+                    = f.input_field option
+                    span 円
+            p.small1.text-center.text-muted.row-space-top-2.row-space-2
+              | 例えば、古民家を借りて一緒に料理をしたり、会場を借りてワークショップを企画したり。
+              br
+              | そのようなスペースを借りる費用はなどはここに記入ください。
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.fieldset
+      .collapse-panel
+        .collapse-heading
+          = f.input_field :car_option, inline_label: "車両レンタル費が含まれるツアー", class: "car_option-check price_option-check"
+        .collapse#car_options-container
+          .collapse-body
             - car_options.each do |option|
-              = I18n.t('option_price_ja.' + option)
-              = f.input_field option
+              .row.row-table
+                .col-lg-4.text-right.col-middle
+                  .h4.text-light
+                    = I18n.t('option_price_ja.' + option)
+                .col-lg-6.fieldset.col-middle
+                  .input-opt
+                    = f.input_field option
+                    span 円
+            p.small1.text-center.text-muted.row-space-top-2.row-space-2
+              | 例えば、車でしか行けない秘境の温泉へホストを案内することもあるでしょう。
+              br
+              | その時に発生するレンタカー代やガソリン代などはここに記入ください。
+              br
+              | また、車両代などが不要な場合は０円と記入してください。
   hr
   .row-space-top-4
     h3.text-center.row-space-2 ゲストが自己負担する費用

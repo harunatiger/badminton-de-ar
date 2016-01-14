@@ -4,6 +4,21 @@ $ ->
   # listings#new
   if $('body').hasClass('listing_details manage')
 
+    # option price collapse
+    $('.price_option-check').each ->
+      if $(this).is(':checked')
+        $(this).parents('.collapse-heading').next().collapse('show')
+        $(this).parents('.collapse-panel').addClass('active')
+
+    $('.price_option-check').on 'click', (e) ->
+      if $(this).is(':checked')
+        $(this).parents('.collapse-heading').next().collapse('show')
+        $(this).parents('.collapse-panel').addClass('active')
+      else
+        $(this).parents('.collapse-heading').next().collapse('hide')
+        $(this).parents('.collapse-panel').removeClass('active')
+
+
     # add input file for pics
     ###
     $('.add-file-input').on 'click', ->
