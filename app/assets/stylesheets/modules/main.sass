@@ -558,19 +558,20 @@ a.delete
     background-color: $bg2
 
 .tour-price
-  //padding-bottom: 12.5px
-  //border-bottom: 1px solid $border1
   .h3
     small
       font-size: 13px
 
 .tour-price-detail
   padding: 12.5px 12.5px 6.25px
-  //border-top: 1px solid $border1
-  //border: 1px solid $border1
   background-color: $bg1
+  @media (max-width: 767px)
+    padding: 12.5px 18.75px 6.25px
+  .col-xs-7
+    font-size: 13px
   .text-muted
-    .col-md-7
+    .col-xs-7
+      font-size: 12px
       text-indent: 1em
 
 .tour-price-others
@@ -881,14 +882,16 @@ a.delete
     position: relative !important
     top: auto !important
     right: auto !important
+    padding-bottom: 20px
+    border-top: 1px solid $border1
+    border-bottom: 1px solid $border1
   &.pinned
     position: fixed
     top: 40px
 
 /* tour-action
 #tour-action
-
-
+  padding-top: 12.5px
 
 .actions
   .tag
