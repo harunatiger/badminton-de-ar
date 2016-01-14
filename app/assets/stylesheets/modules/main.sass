@@ -1165,7 +1165,27 @@ a.about_payment_link
   .thread-author
     .thread-name
       font-weight: 400
-
+.thread .row
+  margin-left: 0
+  margin-right: 0
+  > a
+    color: $gray1
+    text-decoration: none
+.thread .thread-avatar
+  z-index: 2
+.unread
+  > a, > div
+    color: $gray2
+    background-color: white
+    //.thread-author
+      .thread-name
+    .message-content
+      font-weight: 700
+      background: white
+      span:after
+        background: white
+    &:hover
+      background-color: $bg4
 .thread-body .row, .thread-progress .row
   height: 60px
 
