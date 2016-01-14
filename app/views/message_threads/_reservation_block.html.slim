@@ -63,12 +63,14 @@
               .col-md-3.text-left.text-muted.strong
                 | ガイド料金:
               .col-md-8.strong
+                |¥ 
                 = @reservation.guide_price
             - if @reservation.option_amount > 0
               .row.row-condensed.row-space-1
                 .col-md-3.text-left.text-muted.strong
                   | オプション料金:
                 .col-md-8.strong
+                  |¥ 
                   = @reservation.option_amount
               - if @reservation.space_option
                 - space_options.each do |option|
@@ -77,6 +79,7 @@
                       .col-md-3.text-left.text-muted.strong
                         = I18n.t('option_price_ja.' + option)
                       .col-md-8.strong
+                        |¥ 
                         = @reservation[option]
               - if @reservation.car_option
                 - car_options.each do |option|
@@ -85,16 +88,19 @@
                       .col-md-3.text-left.text-muted.strong
                         = I18n.t('option_price_ja.' + option)
                       .col-md-8.strong
+                        |¥ 
                         = @reservation[option]
             .row.row-condensed.row-space-1
               .col-md-3.text-left.text-muted.strong
                 | サービス手数料:
               .col-md-8.strong
+                |¥ 
                 = @reservation.service_fee
             .row.row-condensed.row-space-1
               .col-md-3.text-left.text-muted.strong
                 | ツアー外予算:
               .col-md-8.strong
+                |¥ 
                 = @reservation.guests_cost
                 = link_to "#", class: "include_what_trigger small1 text-red" do
                   |  ※ツアー外予算に含まれるもの

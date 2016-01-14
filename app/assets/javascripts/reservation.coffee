@@ -8,7 +8,7 @@ $ ->
     radius: 6
 
   # cencel tour btn
-  $('#cancel_tour_btn').on 'click', ->
+  $('.cancel_tour_btn').on 'click', ->
     targetForm = $(this).closest('form')
     spinner = $('.spinner', targetForm)
     spinner.spin('flower', 'white')

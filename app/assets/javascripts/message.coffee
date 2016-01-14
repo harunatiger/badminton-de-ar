@@ -1,5 +1,19 @@
-#message
+#message.coffee
 $ ->
+
+  # message_threads#show
+  if $('body').hasClass('message_threads show')
+
+    # option price collapse
+    $('.option-check').each ->
+      if $(this).is(':checked')
+        $(this).parents('.collapse-trigger').next().collapse('show')
+
+    $('.option-check').on 'click', (e) ->
+      if $(this).is(':checked')
+        $(this).parents('.collapse-trigger').next().collapse('show')
+      else
+        $(this).parents('.collapse-trigger').next().collapse('hide')
 
   # loader preset
   $.fn.spin.presets.flower =

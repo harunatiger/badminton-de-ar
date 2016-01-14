@@ -48,7 +48,7 @@
               .card-footer.btn-group-container
                 /= link_to "Cancel", "#", class: "btn btn-host cc_to_step2"
                 .btn-frame
-                  = f.submit 'Cancel', name: 'cancel', class: 'btn btn-host', id: "cancel_tour_btn"
+                  = f.submit 'Cancel', name: 'cancel', class: 'btn btn-host cancel_tour_btn', id: "cancel_tour_btn"
                   .spinner
                 = link_to "Close", "#", class: "btn btn-default", data: { dismiss: "modal" }
 

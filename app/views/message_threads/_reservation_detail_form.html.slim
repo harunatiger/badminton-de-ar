@@ -34,30 +34,36 @@
       .input-opt
         = number_field :reservation, :price_for_both_guides
         span 円
+  hr
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
       .small2
-        | オプション費用
-  .row.row-condensed.row-space-3
-    label.col-md-4.text-right.text-left--sp
-      .small2
-        | スペースレンタルが含まれるツアー
+        | スペースレンタルが含まれるツアー(オプション費用)
     .col-md-5
-      .input-opt
-        = check_box :reservation, :space_option
+      label.collapse-trigger
+        = check_box :reservation, :space_option, class: "option-check"
+      .collapse
         - space_options.each do |option|
-          = I18n.t('option_price_ja.' + option)
-          = number_field :reservation, option
+          label
+            = I18n.t('option_price_ja.' + option)
+          .input-opt
+            = number_field :reservation, option
+            span 円
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
       .small2
-        | 車両レンタル費が含まれるツアー
+        | 車両レンタル費が含まれるツアー(オプション費用)
     .col-md-5
-      .input-opt
-        = check_box :reservation, :car_option
+      label.collapse-trigger
+        = check_box :reservation, :car_option, class: "option-check"
+      .collapse
         - car_options.each do |option|
-          = I18n.t('option_price_ja.' + option)
-          = number_field :reservation, option
+          label
+            = I18n.t('option_price_ja.' + option)
+          .input-opt
+            = number_field :reservation, option
+            span 円
+  hr
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
       .small2
@@ -70,7 +76,7 @@
       .small2
         | 上記費用の内訳
     .col-md-8
-      = text_field :reservation, :included_guests_cost, class: "textarea-normal", placeholder: "例）交通費 / 飲食費 / 入場料 / 料理体験の食材購入費など", rows: "6"
+      = text_area :reservation, :included_guests_cost, class: "textarea-normal", placeholder: "例）交通費 / 飲食費 / 入場料 / 料理体験の食材購入費など", rows: "6"
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
       | 人数
