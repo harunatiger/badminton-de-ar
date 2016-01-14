@@ -89,7 +89,11 @@
         .row-space-2
           - if user_signed_in?
             - if current_user.id == @listing.user_id or @active_reservation
-              = f.submit '予約をリクエスト', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
+              - if @active_reservation
+                .balloon(title="Under a conversation")
+                  = f.submit '予約をリクエスト', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
+              - else
+                = f.submit '予約をリクエスト', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
             - elsif not profile_self_introduction_exists?
               = link_to '予約をリクエスト', profile_link, class: 'btn btn-large btn-block btn-primary'
             - else
