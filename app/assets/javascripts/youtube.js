@@ -10,7 +10,8 @@ $('#play').on('click',function(){
     new_player = true;
     player = new YT.Player('movie', {
       videoId: 'fhwj6m2cgEY',
-      playerVars: {'showinfo': 0, 'autohide': 1, 'rel': 0, 'loop': 1, 'hd': 1, 'fs': 1, 'autoplay': 1}
+      playerVars: {'showinfo': 0, 'autohide': 1, 'rel': 0, 'loop': 1, 'hd': 1, 'fs': 0, 'autoplay': 1},
+      events: {onStateChange: onPlayerStateChange}
     })
   }
   playFullscreen ();
@@ -25,16 +26,18 @@ function playFullscreen (){
   player.playVideo();
 }
 
-/*document.addEventListener("webkitfullscreenchange", handleFSevent, false);
-document.addEventListener("mozfullscreenchange", handleFSevent, false);
-document.addEventListener("MSFullscreenChange", handleFSevent, false);
-document.addEventListener("fullscreenchange", handleFSevent, false);
-function handleFSevent() {
-	if( (document.webkitFullscreenElement && document.webkitFullscreenElement !== null)
-	 || (document.mozFullScreenElement && document.mozFullScreenElement !== null)
-	 || (document.msFullscreenElement && document.msFullscreenElement !== null)
-	 || (document.fullScreenElement && document.fullScreenElement !== null) ) {
-
-	}else{
-	}
-}*/
+function onPlayerStateChange (){
+  if (player.getPlayerState() == 2){
+    if (document.webkitCancelFullScreen) {
+      document.webkitCancelFullScreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else if(document.cancelFullScreen) {
+      document.cancelFullScreen();
+    } else if(document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+}
