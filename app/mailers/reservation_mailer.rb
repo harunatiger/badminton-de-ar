@@ -94,6 +94,7 @@ class ReservationMailer < ApplicationMailer
     @host = User.find(reservation.host_id)
     @guest = User.find(reservation.guest_id)
     @reservation = reservation
+    @listing_detail = ListingDetail.where(listing_id: @reservation.listing.id).first
     @payment = reservation.try('payment')
     mail(
       to:      ENV["OWNER_MAIL_ADDRESS"],

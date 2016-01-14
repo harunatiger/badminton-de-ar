@@ -32,6 +32,7 @@
 #  parking               :integer          default(0)
 #  guests_cost           :integer          default(0)
 #  included_guests_cost  :text             default("")
+#  stop_if_rain          :boolean          default(FALSE)
 #
 # Indexes
 #

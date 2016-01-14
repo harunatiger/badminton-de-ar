@@ -7,6 +7,10 @@
   <%= @reservation.schedule %>
 ■プラン実施日
   <%= @reservation.schedule %>
+■雨天の場合は中止する
+  <%= @listing_detail.stop_if_rain %>
+■雨天の場合の注意事項
+  <%= @listing_detail.in_case_of_rain %>
 ■キャンセルした人
   ゲストの<%= "#{@guest.profile.first_name} #{@guest.profile.last_name}"%>　さん
   プロフィールURL <%= profile_url(@guest.profile.id) %>

@@ -197,10 +197,11 @@
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
-        | 雨天の場合
+        | 雨天の場合の注意事項
     .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11
+          = f.input_field :stop_if_rain, inline_label: '雨天の場合は中止する'
           = f.input_field :in_case_of_rain,:class => 'imeoff', placeholder: "例) 雨天決行！"
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
