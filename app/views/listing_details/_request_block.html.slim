@@ -1,4 +1,4 @@
-/ listings#request_block
+/ listing_details/request_block
 #tour-action.row-space-top-2
   .card
     .card-body
@@ -70,10 +70,12 @@
 
       .tour-price-others.row-space-top-2
         .row
-          .col-md-7
+          .col-md-5.small1
             | ツアー外予算
-          .col-md-5.text-right.strong
-            | おおよそ¥#{@listing_detail.guests_cost}/人
+          .col-md-7.text-right
+            small おおよそ ¥
+            b #{@listing_detail.guests_cost}
+            |  /人
           .col-md-12.row-space-top-2
             = link_to "#", class: "include_what_trigger small1" do
               i.fa.fa-info-circle

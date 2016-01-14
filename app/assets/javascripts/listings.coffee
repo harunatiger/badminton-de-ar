@@ -247,33 +247,11 @@ $ ->
     google.maps.event.addDomListener window, 'load', initialize
   ###
 
-  # listings#show
-  if $('body').hasClass('listings show')
-    disabled_dates = gon.ngdates
-    disabled_weeks = gon.ngweeks
+  if $('body').hasClass('listings new') && $('#about-guide-tg').length
+    $('#about-guide-tg').modal('show')
 
-    # open include_what
-    $('a.include_what_trigger').on 'click', ->
-      $('#include_what').modal()
-      return false
 
-    $('a.about_price_trigger').on 'click', ->
-      $('#about_price').modal()
-      return false
-
-    $('a.include_price_trigger').on 'click', ->
-      $('#include_price').modal()
-      return false
-
-    # gallery
-    $('.photo-box').magnificPopup
-      delegate: '.galon'
-      type: 'image'
-      gallery:
-        enabled: true
-
-    $('.galon-trigger').on 'click', ->
-      $('.photo-box').magnificPopup('open')
+  if $('body').hasClass('listings show') || $('body').hasClass('listing_details manage')
 
     # price calc
     tourPriceSingleContainer = $('#tour-price-single')
@@ -312,6 +290,34 @@ $ ->
       priceCulc()
     $('#checkin').on 'changeDate', ->
       priceCulc()
+
+  # listings#show
+  if $('body').hasClass('listings show')
+    disabled_dates = gon.ngdates
+    disabled_weeks = gon.ngweeks
+
+    # open include_what
+    $('a.include_what_trigger').on 'click', ->
+      $('#include_what').modal()
+      return false
+
+    $('a.about_price_trigger').on 'click', ->
+      $('#about_price').modal()
+      return false
+
+    $('a.include_price_trigger').on 'click', ->
+      $('#include_price').modal()
+      return false
+
+    # gallery
+    $('.photo-box').magnificPopup
+      delegate: '.galon'
+      type: 'image'
+      gallery:
+        enabled: true
+
+    $('.galon-trigger').on 'click', ->
+      $('.photo-box').magnificPopup('open')
 
     # bootstrap datepicker
     $('.datepicker').datepicker
