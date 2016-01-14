@@ -1,0 +1,61 @@
+/ modal about-guide-tg
+#about-guide-tg.modal[role="dialog" aria-hidden="true"]
+  .modal-dialog.modal-lg
+    .modal-content
+      .card-header
+        = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+        .strong
+          | Huber.
+          span.text-blue  TOMODACHI GUIDE 
+          | の特徴
+      .card-body
+        .row-space-6
+          h3.strong
+            span 1.
+            | ペアで対応します
+          .img-wrapper.row-space-4
+            = image_tag "photo/tomodachi_guide001.jpg", alt: "ペアだから安心", class: ""
+            div
+              h4
+                | 理由 1 ペアだから安心
+              p.text-lead
+                | 友だちをガイドするみたいでいいと言われても、初めての経験になるガイドは不安です。
+                br
+                | でも二人一緒だから心理的負担は1/2、やり遂げた喜びは２倍になります。
+                br
+                | 協力・相談試合ながら対応できます。
+          .img-wrapper.row-space-4
+            = image_tag "photo/tomodachi_guide002.jpg", alt: "ペアだから合法的", class: ""
+            div
+              h4
+                | 理由 2 ペアだから合法的
+              p.text-lead
+                | １人が通訳、１人が案内、という役務を分担して負うことで、ペアならば合法的に、通訳案内士の国家資格がなくても有償で外国語ガイドができます。
+        .row-space-6
+          h3.strong
+            span 2.
+            | ツアーの費用は各自負担
+          p.text-lead
+            | 友だちと遊びに行く時、費用はそれぞれが負担して遊びますよね？
+            br
+            | TOMODACHI GUIDEは、友だちをもてなすようにガイドするカジュアルガイドですからツアー当日個別でかかる交通費や、飲食費、入場料などはガイドも、旅行者もそれぞれ個別で負担する、TOMODACHI スタイルになります。
+        .row-space-2
+          h3.strong
+            span 3.
+            | 知識・経験は不要！
+          p.text-lead
+            | 誰だって、友だちの１人や２人を案内した経験はあると思います。
+            br
+            | TOMODACHI GUIDEは、普段のあなたが楽しんでいる地元の遊び方をツアーにするから知識・経験はほとんどいりません。
+            br
+            | 仮に神社仏閣の歴史は知らなくても、それを知ってる地元の人から聞けばいい。
+            br
+            | 本当に必要なのは「おもてなしの心」です。
+        h3.text-continue.text-center
+          | さぁ、新しい体験のはじまりです。
+          br
+          | 世界中に友だちをつくりましょう。
+
+      .card-footer
+        = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"
+        
