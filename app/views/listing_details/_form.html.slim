@@ -19,7 +19,7 @@
       .row
         .col-xs-11
           .select.select-opt.opt-double
-            = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}
+            = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}, {}, {class: "value_fragile"}
             span 時間
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
@@ -39,7 +39,7 @@
       .row
         .col-xs-11
           .select.select-opt
-            = f.select :max_num_of_people, [*(1..20)]
+            = f.select :max_num_of_people, [*(1..20)], {}, {class: "value_fragile"}
             span 人
   hr
   .row-space-top-4
@@ -58,7 +58,7 @@
       .row
         .col-xs-6
           .input-opt
-            = f.input_field :price
+            = f.input_field :price, class: "value_fragile"
             span 円
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
@@ -68,7 +68,7 @@
       .row
         .col-xs-6
           .input-opt
-            = f.input_field :price_for_support
+            = f.input_field :price_for_support, class: "value_fragile"
             span 円
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
@@ -78,7 +78,7 @@
       .row
         .col-xs-6
           .input-opt
-            = f.input_field :price_for_both_guides
+            = f.input_field :price_for_both_guides, class: "value_fragile "
             span 円
   hr
   .row-space-top-4
@@ -101,12 +101,12 @@
                     = I18n.t('option_price_ja.' + option)
                 .col-lg-6.fieldset.col-middle
                   .input-opt
-                    = f.input_field option
+                    = f.input_field option, class: "value_fragile " + option
                     span 円
             p.small1.text-center.text-muted.row-space-top-2.row-space-2
               | 例えば、古民家を借りて一緒に料理をしたり、会場を借りてワークショップを企画したり。
               br
-              | そのようなスペースを借りる費用はなどはここに記入ください。
+              | そのようなスペースを借りる費用などはここに記入ください。
   .row.row-space-5.row-space-top-5
     .col-lg-12.fieldset
       .collapse-panel
@@ -121,7 +121,7 @@
                     = I18n.t('option_price_ja.' + option)
                 .col-lg-6.fieldset.col-middle
                   .input-opt
-                    = f.input_field option
+                    = f.input_field option, class: "value_fragile " + option
                     span 円
             p.small1.text-center.text-muted.row-space-top-2.row-space-2
               | 例えば、車でしか行けない秘境の温泉へホストを案内することもあるでしょう。
@@ -144,7 +144,7 @@
       .row
         .col-xs-11
           .select.select-opt.opt-double
-            = f.select :guests_cost, [*(0..200)].map{|i| (i * 500)}
+            = f.select :guests_cost, [*(0..200)].map{|i| (i * 500)}, {}, {class: "value_fragile"}
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light

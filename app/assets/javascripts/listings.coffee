@@ -3,6 +3,63 @@ $ ->
 
   # listings#new
   if $('body').hasClass('listing_details manage')
+
+
+    value_calc = ->
+      space_check = 0
+      car_check = 0
+      fv = Number($('#listing_detail_max_num_of_people').val())
+      fv0 = Number($('#listing_detail_time_required').val())
+      fv1 = Number($('#listing_detail_price').val())
+      fv2 = Number($('#listing_detail_price_for_support').val())
+      fv3 = Number($('#listing_detail_price_for_both_guides').val())
+      fv4 = fv1 + fv2 + fv3
+      if $('#listing_detail_space_option').is(':checked')
+        fv5 = Number($('#listing_detail_space_rental').val())
+      else
+        fv5 = 0
+      if $('#listing_detail_car_option').is(':checked')
+        fv6 = Number($('#listing_detail_car_rental').val())
+        fv7 = Number($('#listing_detail_gas').val())
+        fv8 = Number($('#listing_detail_highway').val())
+        fv9 = Number($('#listing_detail_parking').val())
+      else
+        fv6 = 0
+        fv7 = 0
+        fv8 = 0
+        fv9 = 0
+      fv10 = fv5 + fv6 + fv7 + fv8 + fv9
+      fv11 = fv4 + fv10
+      fv12 = Math.ceil((fv11) * 0.125)
+      if fv11 <= 500
+        fv12 = 0
+      fv13 = Number($('#listing_detail_guests_cost').val())
+      fv14 = fv11 + fv12
+
+      $('.max-num-of-people').text(fv)
+      $('.timelapse').text(fv0)
+      $('.guide_price').text(fv4)
+      $('.value_discharge.space_rental').text(fv5)
+      $('.value_discharge.car_rental').text(fv6)
+      $('.value_discharge.gas').text(fv7)
+      $('.value_discharge.highway').text(fv8)
+      $('.value_discharge.parking').text(fv9)
+      $('.value_discharge.option_total').text(fv10)
+      $('.value_discharge.service_fee').text(fv12)
+      $('.value_discharge.guests_cost').text(fv13)
+      $('.value_discharge.total_price').text(fv14)
+
+      $('.value_discharge_option').each ->
+        if $(this).text() == '0'
+          $(this).parent().parent().addClass('hide')
+        else
+          $(this).parent().parent().removeClass('hide')
+
+    $('.value_fragile').on 'change', ->
+      value_calc()
+
+    value_calc()
+
     # include what dismiss
     $('.iw-dismiss-btn').on 'click', ->
       $('#include_what').modal('hide')
@@ -19,6 +76,7 @@ $ ->
       else
         $(this).parents('.collapse-heading').next().collapse('hide')
         $(this).parents('.collapse-panel').removeClass('active')
+      value_calc()
 
 
     # add input file for pics

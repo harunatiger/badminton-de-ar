@@ -4,10 +4,14 @@
     h3.h4.strong.row-space-2 ガイドフィー料金
     .h3.row-space-2
       | ¥
-      b = @listing_detail.amount
+      b.value_discharge.total_price = @listing_detail.amount
       small
-        |  / グループ(MAX #{@listing_detail.max_num_of_people}人・
-        = @listing_detail.time_required.to_s.gsub(/.0/, '')
+        |  / グループ(MAX 
+        span.max-num-of-people
+          = @listing_detail.max_num_of_people
+        | 人・
+        span.timelapse
+          = @listing_detail.time_required.to_s.gsub(/.0/, '')
         | h)
     .tour-price-detail
       .row
@@ -15,40 +19,46 @@
           | ガイド料金
         .col-xs-5.text-right.strong
           | ¥
-          = @listing_detail.guide_price
+          span.value_discharge.guide_price
+            = @listing_detail.guide_price
       - if @listing_detail.option_amount > 0
         .row
           .col-xs-7
             | オプション料金
           .col-xs-5.text-right.strong
             | ¥
-            = @listing_detail.option_amount
+            span.value_discharge.value_discharge_option.option_total
+              = @listing_detail.option_amount
       - if @listing_detail.space_option
         - space_options.each do |option|
-          - if @listing_detail[option] > 0
-            .row.text-muted
-              .col-xs-7
-                |  - 
+          /- if @listing_detail[option] > 0
+          .row.text-muted
+            .col-xs-7
+              |  - 
+              span.value_subject
                 = I18n.t('option_price_ja.' + option)
-              .col-xs-5.text-right.strong
-                | ¥
+            .col-xs-5.text-right.strong
+              | ¥
+              span.value_discharge.value_discharge_option[class="#{option}"]
                 = @listing_detail[option]
       - if @listing_detail.car_option
         - car_options.each do |option|
-          - if @listing_detail[option] > 0
-            .row.text-muted
-              .col-xs-7
-                |  - 
-                = I18n.t('option_price_ja.' + option)
-              .col-xs-5.text-right.strong
-                | ¥
+          /- if @listing_detail[option] > 0
+          .row.text-muted
+            .col-xs-7
+              |  - 
+              = I18n.t('option_price_ja.' + option)
+            .col-xs-5.text-right.strong
+              | ¥
+              .value_discharge.value_discharge_option[class="#{option}"]
                 = @listing_detail[option]
       .row
         .col-xs-7
           | サービス手数料
         .col-xs-5.text-right.strong
           | ¥
-          = @listing_detail.service_fee
+          .value_discharge.service_fee
+            = @listing_detail.service_fee
     .row.row-space-2
       .col-md-8
         label[for="checkin"]
@@ -72,7 +82,7 @@
         | ツアー外予算
       .col-md-7.text-right
         small おおよそ ¥
-        b #{@listing_detail.guests_cost}
+        b.value_discharge.guests_cost #{@listing_detail.guests_cost}
         |  /人
       .col-md-12.row-space-top-2
         = link_to "#", class: "include_what_trigger small1" do

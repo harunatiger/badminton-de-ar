@@ -407,7 +407,9 @@ $ ->
       isChanged = false
       return
     $('a').on 'click', ->
-      if !$(this).attr('data-dismiss') == "modal"
+      if $(this).attr('data-dismiss') == "modal"
+        return
+      else
         handleClick($(this).attr('href'))
     $('#form_change_confirm #pagemove').on 'click', -> modalyesClick()
 
