@@ -147,6 +147,9 @@ $ ->
         disabled_weeks = data.ngweeks
 
   # open include_what
-  $('a.include_what_trigger').on 'click', ->
+  $('a.include_what_trigger').on 'click', (e) ->
     $('#include_what').modal()
+    $('#form_change_confirm').modal('hide')
+    e.preventDefault()
+    e.stopPropagation()
     return false

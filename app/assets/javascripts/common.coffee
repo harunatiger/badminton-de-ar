@@ -406,7 +406,9 @@ $ ->
     $('form').submit ->
       isChanged = false
       return
-    $('a').on 'click', -> handleClick($(this).attr('href'))
+    $('a').on 'click', ->
+      if !$(this).attr('data-dismiss') == "modal"
+        handleClick($(this).attr('href'))
     $('#form_change_confirm #pagemove').on 'click', -> modalyesClick()
 
   #IME disabled

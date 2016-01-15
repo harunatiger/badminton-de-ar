@@ -301,9 +301,8 @@ $ ->
     # open include_what
     $('a.include_what_trigger').on 'click', (e) ->
       $('#include_what').modal()
-      $('.form_change_confirm').modal('hide')
-      #e.preventDefault()
-      #e.stopPropagation()
+      e.preventDefault()
+      e.stopPropagation()
       return false
 
     $('a.about_price_trigger').on 'click', ->
