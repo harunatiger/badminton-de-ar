@@ -29,7 +29,7 @@
       .row
         .col-xs-11
           .select.select-opt
-            = f.select :min_num_of_people, [*(1..20)]
+            = f.select :min_num_of_people, [*(1..20)], {}, {class: "value_fragile"}
             span 人
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
@@ -152,7 +152,7 @@
     .col-lg-8.fieldset.col-middle
       .row
         .col-xs-11
-          = f.input_field :included_guests_cost,:class => 'imeoff', placeholder: "例）交通費 / 飲食費 / 入場料 / 料理体験の食材購入費など", rows: "6"
+          = f.input_field :included_guests_cost,:class => 'value_fragile imeoff', placeholder: "例）交通費 / 飲食費 / 入場料 / 料理体験の食材購入費など", rows: "6"
   hr
   .row-space-top-4
     h3.text-center.row-space-2 集合場所・その他の条件

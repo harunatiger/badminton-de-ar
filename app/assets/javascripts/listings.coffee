@@ -4,11 +4,17 @@ $ ->
   # listings#new
   if $('body').hasClass('listing_details manage')
 
-
+    # price imitation
     value_calc = ->
       space_check = 0
       car_check = 0
+      fvMin = Number($('#listing_detail_min_num_of_people').val())
       fv = Number($('#listing_detail_max_num_of_people').val())
+      $('#num-of-people select option').remove()
+      i = fvMin
+      while i <= fv
+        $('#num-of-people select').append($('<option value="'+[i]+'">'+[i]+'</option>'));
+        i++
       fv0 = Number($('#listing_detail_time_required').val())
       fv1 = Number($('#listing_detail_price').val())
       fv2 = Number($('#listing_detail_price_for_support').val())
@@ -35,6 +41,7 @@ $ ->
         fv12 = 0
       fv13 = Number($('#listing_detail_guests_cost').val())
       fv14 = fv11 + fv12
+      fv15 = $('#listing_detail_included_guests_cost').val()
 
       $('.max-num-of-people').text(fv)
       $('.timelapse').text(fv0)
@@ -54,6 +61,8 @@ $ ->
           $(this).parent().parent().addClass('hide')
         else
           $(this).parent().parent().removeClass('hide')
+
+      $('#include_what .card-body p').text(fv15)
 
     $('.value_fragile').on 'change', ->
       value_calc()
