@@ -193,8 +193,9 @@ $ ->
     rowSize = $('.fc-body .fc-row').size()
     addSize = (winHeight - calendarPosition - 40) / rowSize
     # alert addSize
-    $('.fc-body .fc-row').height(addSize)
-    $('.fc-content-skeleton table').height(addSize)
+    if $('.manage-listing-nav').css('position') == "absolute"
+      $('.fc-body .fc-row').height(addSize)
+      $('.fc-content-skeleton table').height(addSize)
 
     # for drag multiselect
     $('.fc-event-container').each ->

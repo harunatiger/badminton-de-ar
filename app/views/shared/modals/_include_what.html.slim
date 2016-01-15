@@ -4,11 +4,11 @@
     .modal-cell
       .modal-content
         .card-header
-          a.modal-close[href="#" data-dismiss="modal"]
+          = link_to "", "#", class: "modal-close iw-dismiss-btn", data: {dismiss: "modal"}
           | ツアー外予算に含まれるもの
         form
           .card-body
             p
               = hbr(included_guests_cost).html_safe
           .card-footer
-            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"
+            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn iw-dismiss-btn"

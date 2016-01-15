@@ -17,42 +17,42 @@
             | h)
         .tour-price-detail
           .row
-            .col-md-7.small1
+            .col-xs-7
               | ガイド料金
-            .col-md-5.text-right.strong
+            .col-xs-5.text-right.strong
               | ¥
               = listing_detail.guide_price
           - if listing_detail.option_amount > 0
             .row
-              .col-md-7.small1
+              .col-xs-7
                 | オプション料金
-              .col-md-5.text-right.strong
+              .col-xs-5.text-right.strong
                 | ¥
                 = listing_detail.option_amount
           - if listing_detail.space_option
             - space_options.each do |option|
               - if listing_detail[option] > 0
                 .row.text-muted.small2
-                  .col-md-7
+                  .col-xs-7
                     |  - 
                     = I18n.t('option_price_ja.' + option)
-                  .col-md-5.text-right.strong
+                  .col-xs-5.text-right.strong
                     | ¥
                     = listing_detail[option]
           - if listing_detail.car_option
             - car_options.each do |option|
               - if listing_detail[option] > 0
                 .row.text-muted.small2
-                  .col-md-7
+                  .col-xs-7
                     |  - 
                     = I18n.t('option_price_ja.' + option)
-                  .col-md-5.text-right.strong
+                  .col-xs-5.text-right.strong
                     | ¥
                     = listing_detail[option]
           .row
-            .col-md-7.small1
+            .col-xs-7
               | サービス手数料
-            .col-md-5.text-right.strong
+            .col-xs-5.text-right.strong
               | ¥
               = listing.listing_detail.service_fee
 

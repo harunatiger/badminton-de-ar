@@ -3,7 +3,9 @@ $ ->
 
   # listings#new
   if $('body').hasClass('listing_details manage')
-
+    # include what dismiss
+    $('.iw-dismiss-btn').on 'click', ->
+      $('#include_what').modal('hide')
     # option price collapse
     $('.price_option-check').each ->
       if $(this).is(':checked')
@@ -297,8 +299,11 @@ $ ->
     disabled_weeks = gon.ngweeks
 
     # open include_what
-    $('a.include_what_trigger').on 'click', ->
+    $('a.include_what_trigger').on 'click', (e) ->
       $('#include_what').modal()
+      $('.form_change_confirm').modal('hide')
+      #e.preventDefault()
+      #e.stopPropagation()
       return false
 
     $('a.about_price_trigger').on 'click', ->
