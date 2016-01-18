@@ -2,7 +2,7 @@
   .card.row-space-4
     .mini-profile.va-container.media
       .va-top.pull-left
-        = link_to "#", class: "media-photo media-avatar" do
+        = link_to profile_path(counterpart.profile.id), class: "media-photo media-avatar" do
           .size100[style="background-image: url('#{asset_path their_profile_image}')"]
       .va-middle.msg-pic
         .h5.row-space-1

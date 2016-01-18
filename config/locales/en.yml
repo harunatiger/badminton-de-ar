@@ -54,9 +54,8 @@ en:
     highway: "高速代"
     parking: "パーキング代"
   option_price_en:
-    space_rental: "space rental"
-    car_rental: "car rental"
-    gas: "gas"
-    highway: "highway"
-    parking: "parking"
-    
+    space_rental: "Rental Space"
+    car_rental: "Car"
+    gas: "Gas"
+    highway: "Expressway"
+    parking: "Parking"

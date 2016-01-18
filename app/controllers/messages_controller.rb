@@ -51,15 +51,15 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if Message.send_message(mt_obj, message_params)
         reservation_params = params['reservation']
-    
+
         if reservation_params.present? && reservation_params['progress'].present?
           @reservation = Reservation.find(params['message']['reservation_id'])
           @reservation.progress = reservation_params['progress']
           unless @reservation.save
-            format.html { return redirect_to dashboard_path, notice: Settings.message.save.failure }
+            format.html { return redirect_to dashboard_path, alert: Settings.message.save.failure }
             format.json { return render json: { success: false } } if request.xhr?
           end
-          
+
           @ng_event = Ngevent.find_by(reservation_id: params['message']['reservation_id'])
           if reservation_params['progress'] == "accepted"
             @ng_event.update_attribute(:active, 1)
@@ -67,10 +67,10 @@ class MessagesController < ApplicationController
             @ng_event.update_attribute(:active, 0)
           end
           unless @ng_event.save
-            format.html { return redirect_to dashboard_path, notice: Settings.message.save.failure }
+            format.html { return redirect_to dashboard_path, alert: Settings.message.save.failure }
             format.json { return render json: { success: false } } if request.xhr?
           end
-      
+
           if @reservation.accepted? || @reservation.rejected? || @reservation.holded? || @reservation.canceled? || @reservation.canceled_after_accepted?
             #ReservationMailer.send_update_reservation_notification(@reservation, current_user.id).deliver_later!(wait: 1.minute) # if you want to use active job, use this line.
             ReservationMailer.send_update_reservation_notification(@reservation, current_user.id).deliver_now! # if you don't want to use active job, use this line.
@@ -85,7 +85,7 @@ class MessagesController < ApplicationController
         format.html { return redirect_to message_thread_path(mt_obj.id), notice: Settings.message.save.success }
         format.json { return render json: { success: true } } if request.xhr?
       else
-        format.html { return redirect_to message_thread_path(mt_obj.id), notice: Settings.message.save.failure }
+        format.html { return redirect_to message_thread_path(mt_obj.id), alert: Settings.message.save.failure }
         format.json { return render json: { success: false } } if request.xhr?
       end
     end
@@ -105,17 +105,17 @@ class MessagesController < ApplicationController
     else
       file = @message.attached_file.url
     end
-    
+
     file_extension = @message.attached_extension.to_s
     file_name = @message.attached_name.to_s
 
     options = {}
     options[:type] = file_extension ? file_extension : 'text/plain'
     options[:filename] = file_name if file_name.present?
-    
+
     data = open(file)
     ret = send_data data.read, options
-    
+
   end
 
   private
@@ -124,7 +124,7 @@ class MessagesController < ApplicationController
     def set_message
       @message = Message.find(params[:id])
     end
-    
+
     def regulate_user!
       @message = Message.find(params[:id])
       unless current_user.id == @message.to_user_id or current_user.id == @message.from_user_id

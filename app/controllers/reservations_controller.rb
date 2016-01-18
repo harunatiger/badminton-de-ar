@@ -6,9 +6,9 @@ class ReservationsController < ApplicationController
   def create
     if params[:request].present? and !current_user.already_authrized
       if profile_identity = ProfileIdentity.where(user_id: current_user.id, profile_id: current_user.profile.id).first
-        return redirect_to edit_profile_profile_identity_path(profile_id: current_user.profile.id, id:profile_identity.id), notice: Settings.reservation.save.failure.not_authorized_yet
+        return redirect_to edit_profile_profile_identity_path(profile_id: current_user.profile.id, id:profile_identity.id), alert: Settings.reservation.save.failure.not_authorized_yet
       else
-        return redirect_to new_profile_profile_identity_path(current_user.profile), notice: Settings.reservation.save.failure.not_authorized_yet
+        return redirect_to new_profile_profile_identity_path(current_user.profile), alert: Settings.reservation.save.failure.not_authorized_yet
       end
     end
 
@@ -84,11 +84,11 @@ class ReservationsController < ApplicationController
           format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.save.success }
           format.json { render :show, status: :created, location: @reservation }
         else
-          format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.save.failure.no_date }
+          format.html { redirect_to message_thread_path(@reservation.message_thread_id), alert: Settings.reservation.save.failure.no_date }
           format.json { render json: @reservation.errors, status: :unprocessable_entity }
         end
       else
-        format.html { redirect_to @reservation.message_thread_id ? message_thread_path(@reservation.message_thread_id) : listing_path(@reservation.listing_id), notice: Settings.reservation.save.failure.no_date }
+        format.html { redirect_to @reservation.message_thread_id ? message_thread_path(@reservation.message_thread_id) : listing_path(@reservation.listing_id), alert: Settings.reservation.save.failure.no_date }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end
@@ -114,7 +114,7 @@ class ReservationsController < ApplicationController
       )
     else
       respond_to do |format|
-        format.html { redirect_to message_thread_path(session[:message_thread_id]), notice: Settings.reservation.save.failure.paypal_access_failure + ' error：' + details.params['error_codes'] + ' ' + details.params['message']}
+        format.html { redirect_to message_thread_path(session[:message_thread_id]), alert: Settings.reservation.save.failure.paypal_access_failure + ' error：' + details.params['error_codes'] + ' ' + details.params['message']}
       end
     end
     @listing = Listing.find(@reservation.listing_id)
@@ -126,7 +126,7 @@ class ReservationsController < ApplicationController
     session[:message_thread_id] = nil
     session[:campaign_id] = nil
     respond_to do |format|
-      format.html { redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_canceled}
+      format.html { redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.paypal_canceled}
     end
   end
 
@@ -140,7 +140,7 @@ class ReservationsController < ApplicationController
         response = refund(payment,@reservation)
         unless response.success?
           respond_to do |format|
-            format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_refund_failure + ' error：' + response.params['error_codes'] + ' ' + response.params['message']}
+            format.html { return redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.paypal_refund_failure + ' error：' + response.params['error_codes'] + ' ' + response.params['message']}
             format.json { return render :show, status: :ok, location: @reservation }
             format.js { @status = 'failure' }
           end
@@ -161,7 +161,7 @@ class ReservationsController < ApplicationController
       elsif @reservation.before_days?
         para[:refund_rate] = Settings.payment.refunds.before_days_rate
       end
-      
+
       para[:progress] = @reservation.accepted? ? 6 : 1
     elsif params[:accept]
       session[:message_thread_id] = message_thread_id
@@ -170,9 +170,9 @@ class ReservationsController < ApplicationController
       if para[:campaign_code].present?
         campaign = Campaign.where(code: para[:campaign_code]).first
         if campaign.blank?
-          return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.invalid_campaign_code
+          return redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.invalid_campaign_code
         elsif campaign.users.exists?(current_user)
-          return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.used_campaign_code
+          return redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.used_campaign_code
         else
           @reservation.campaign = campaign
           session[:campaign_id] = campaign.id
@@ -197,7 +197,7 @@ class ReservationsController < ApplicationController
         UserCampaign.create(user_id: current_user.id, campaign_id: para[:campaign_id]) if para[:campaign_id].present?
       else
         respond_to do |format|
-          format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_payment_failure + ' error：' + response.params['error_codes'] + ' ' + response.params['message']}
+          format.html { return redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.paypal_payment_failure + ' error：' + response.params['error_codes'] + ' ' + response.params['message']}
           format.json { return render :show, status: :ok, location: @reservation }
         end
       end
@@ -205,7 +205,7 @@ class ReservationsController < ApplicationController
       msg = Settings.reservation.msg.accepted
     elsif params[:payment_cancel]
       respond_to do |format|
-        format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.save.failure.paypal_canceled }
+        format.html { return redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.paypal_canceled }
         format.json { return render :show, status: :ok, location: @reservation }
       end
     end
@@ -220,7 +220,7 @@ class ReservationsController < ApplicationController
           @ng_event.update_attribute(:active, 0)
         end
         unless @ng_event.save
-          format.html { return redirect_to message_thread_path(message_thread_id), notice: Settings.message.save.failure }
+          format.html { return redirect_to message_thread_path(message_thread_id), alert: Settings.message.save.failure }
           format.json { return render json: { success: false } } if request.xhr?
           format.js { @status = 'failure' }
         end
@@ -253,7 +253,7 @@ class ReservationsController < ApplicationController
           format.js { @status = 'failure' }
         end
       else
-        format.html { redirect_to message_thread_path(message_thread_id), notice: Settings.reservation.update.failure }
+        format.html { redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.update.failure }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
         format.js { @status = 'failure' }
       end
@@ -281,7 +281,7 @@ class ReservationsController < ApplicationController
       end
       @reservation.guests_cost = listing.listing_detail.guests_cost
       @reservation.included_guests_cost = listing.listing_detail.included_guests_cost
-      
+
       @listings = User.find(current_user.id).listings.opened
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
@@ -333,7 +333,7 @@ class ReservationsController < ApplicationController
           message_thread_id = session[:message_thread_id]
           session[:message_thread_id] = nil
           p setup_response
-          format.html { redirect_to message_thread_path(message_thread_id), notice: setup_response.success? ? Settings.reservation.save.failure.no_date : Settings.reservation.save.failure.paypal_access_failure + ' error：' + setup_response.params['error_codes'] + ' ' + setup_response.params['message']}
+          format.html { redirect_to message_thread_path(message_thread_id), alert: setup_response.success? ? Settings.reservation.save.failure.no_date : Settings.reservation.save.failure.paypal_access_failure + ' error：' + setup_response.params['error_codes'] + ' ' + setup_response.params['message']}
           format.json { render json: reservation.errors, status: :unprocessable_entity }
         end
       end

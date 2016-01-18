@@ -2,6 +2,14 @@
 $ ->
   if $('body').hasClass('listing_details manage')
     #---------------------------------------------------------------------
+    # open include_what
+    #---------------------------------------------------------------------
+    $('a.include_what_trigger_ja').on 'click', (e) ->
+      $('#include_what_ja').modal()
+      e.preventDefault()
+      e.stopPropagation()
+      return false
+    #---------------------------------------------------------------------
     # SearchBox Enterkey controll
     #---------------------------------------------------------------------
     $('#listing_detail_place').keypress (e) ->

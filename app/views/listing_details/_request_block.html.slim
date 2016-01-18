@@ -1,12 +1,12 @@
 / listing_details/request_block
 #tour-action
   .tour-price.row-space-1
-    h3.h4.strong.row-space-2 ガイドフィー料金
+    h3.h4.strong.row-space-2 ガイド料金
     .h3.row-space-2
       | ¥
       b.value_discharge.total_price = @listing_detail.amount
       small
-        |  / グループ(MAX 
+        |  / グループ(MAX
         span.max-num-of-people
           = @listing_detail.max_num_of_people
         | 人・
@@ -16,7 +16,7 @@
     .tour-price-detail
       .row
         .col-xs-7
-          | ガイド料金
+          | 基本料金
         .col-xs-5.text-right.strong
           | ¥
           span.value_discharge.guide_price
@@ -34,7 +34,7 @@
           /- if @listing_detail[option] > 0
           .row.text-muted
             .col-xs-7
-              |  - 
+              |  -
               span.value_subject
                 = I18n.t('option_price_ja.' + option)
             .col-xs-5.text-right.strong
@@ -46,7 +46,7 @@
           /- if @listing_detail[option] > 0
           .row.text-muted
             .col-xs-7
-              |  - 
+              |  -
               = I18n.t('option_price_ja.' + option)
             .col-xs-5.text-right.strong
               | ¥
@@ -78,17 +78,14 @@
 
   .tour-price-others.row-space-top-2
     .row
-      .col-md-5.small1
-        | ツアー外予算
-      .col-md-7.text-right
-        small おおよそ ¥
-        b.value_discharge.guests_cost #{@listing_detail.guests_cost}
+      .col-md-12.row-space-top-2.small1.text-red
+        | 【ご注意】
+        br
+        | ガイド料金と別にかかる費用の目安
+      .col-md-7
+        small ¥
+        b #{@listing_detail.guests_cost}
         |  /人
-      .col-md-12.row-space-top-2
-        = link_to "#", class: "include_what_trigger small1" do
-          i.fa.fa-info-circle
-          | ツアー外予算に含まれるもの 
-        p.small2.text-red.row-space-top-2
-          | 《ツアー外予算》
-          br
-          | 現地で発生する飲食・入場料・交通費・ショッピング代などは別途個人負担となります。
+      .col-md-5
+        = link_to "#", class: "include_what_trigger_ja small1" do
+          | ＊内訳説明
