@@ -35,5 +35,5 @@
         label.text-right.col-3
           | 口座番号
         .col-8.row-space-2
-          = f.input_field :number
+          = f.input_field :number, type: 'number', pattern: '[0-9]*'
   = f.button :submit, "Registration", class: "btn btn-primary btn-large row-space-4"
