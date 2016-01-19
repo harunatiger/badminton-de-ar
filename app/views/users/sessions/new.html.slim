@@ -20,7 +20,7 @@
             .signin-form
               = f.error_notification
               .control-group.row-space-1
-                = f.input_field :email, class: "decorative-input", placeholder: "Email address", required: true
+                = f.input_field :email, class: "decorative-input", placeholder: "Email address", required: true, type: "email"
               .control-group.row-space-2
                 = f.input_field :password, class: "decorative-input", placeholder: "Password", required: false
               .clearfix.checkbox.row-space-2

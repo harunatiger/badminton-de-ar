@@ -14,7 +14,7 @@
                 br
                 | Click "Resend" after you enter your email address in the box below
               .control-group.row-space-2
-                = f.input_field :email, class: "decorative-input", placeholder: "E-mail address", required: true
+                = f.input_field :email, class: "decorative-input", placeholder: "E-mail address", required: true, type: "email"
               .form-actions
                 = f.button :submit, "Resend", class: "btn btn-primary btn-large btn-block"
         .card-body

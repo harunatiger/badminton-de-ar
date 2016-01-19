@@ -65,7 +65,7 @@
               i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-7
               .required-container
-                = f.input_field :phone, :class => 'imeoff'
+                = f.input_field :phone, :class => 'imeoff', type: 'number', pattern: '[0-9]*'
                 i.fa.fa-asterisk.balloon[title="required"]
               .small1.text-muted.row-space-top-1 This information will be available to guests who sign up for this tour
           .row.row-condensed.row-space-4
@@ -91,7 +91,7 @@
               | Zip code
               i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-6
-              = f.input_field :zipcode, placeholder: 'Ex.） 012-3456'
+              = f.input_field :zipcode, placeholder: 'Ex.） 012-3456', type: 'number', pattern: '[0-9]*'
               .small1.text-muted.row-space-top-1 This information is not open to the public.
           .row.row-condensed.row-space-1
             label.text-right.col-3

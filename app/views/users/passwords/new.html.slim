@@ -14,7 +14,7 @@
                 br
                 | In order to reset your password, enter your email address below and then click "Send".
               .control-group.row-space-2
-                = f.input_field :email, placeholder: "Email address", required: true, autofocus: true
+                = f.input_field :email, placeholder: "Email address", required: true, autofocus: true, type: "email"
               .form-actions
                 = f.submit "Send", class: "btn btn-primary btn-large btn-block"
         .card-body
