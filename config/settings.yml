@@ -56,6 +56,9 @@ listings:
     failure: "Failed to set your tour page to hidden"
   destroy:
     success: "Listing was seccessfully deleted"
+  copy:
+    success: "Tour-page has been updated successfully. Continue with the following steps to complete your tour-page"
+    failure: "Copying a tour failed"
   delivery:
     ok: "出張可"
   error:

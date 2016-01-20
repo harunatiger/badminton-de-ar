@@ -399,17 +399,9 @@ Rails.application.routes.draw do
     #resources :listing_videos do
     #  get 'manage', on: :collection
     #end
-    #resources :dress_codes, only: [:show, :create, :update, :destroy] do
-    #  get 'manage', on: :collection
-    #end
-    #resources :confections, only: [:show, :create, :update, :destroy]  do
-    #  get 'manage', on: :collection
-    #end
-    #resources :tools, only: [:show, :create, :update, :destroy] do
-    #  get 'manage', on: :collection
-    #end
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
+    get 'copy', action: 'copy', as: 'copy'
     resources :ngevents, only: [:index, :create]
     resources :ngevent_weeks, only: [:index, :create] do
       put 'unset', on: :collection

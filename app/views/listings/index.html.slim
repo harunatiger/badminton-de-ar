@@ -81,6 +81,9 @@
                           .listing-criteria-header-message
                             = link_to edit_listing_path(listing), class: "btn btn-primary btn-mw120" do
                               | Edit
+                          .listing-criteria-header-message
+                            = link_to listing_copy_path(listing), class: "btn btn-default btn-mw120" do
+                              | Copy
                           .favorite-icon
                             i.fa.fa-heart
                             = favorite_listings_count(listing.id)
