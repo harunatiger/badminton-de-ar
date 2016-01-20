@@ -2,10 +2,11 @@
 #
 # Table name: message_threads
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  host_id    :integer
+#  id                :integer          not null, primary key
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  host_id           :integer
+#  reservation_reset :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -18,7 +19,7 @@ class MessageThread < ActiveRecord::Base
   has_many :users, through: :message_thread_users, dependent: :destroy
 
   attr_accessor :reservation_progress
-  
+
   scope :order_by_updated_at_desc, -> { order('updated_at') }
 
   def self.exists_thread?(msg_params)
@@ -83,14 +84,14 @@ class MessageThread < ActiveRecord::Base
     end
     result_array
   end
-  
+
   def set_reservation_progress
     message = Message.message_thread(self.id).where.not(listing_id: 0).order('created_at desc').first
     reservation = Reservation.latest_reservation(message.try('guest_id'), message.try('host_id'))
     self.reservation_progress = reservation.try('string_of_progress_english') || ''
     self
   end
-  
+
   def same_thread?(from_user_id)
     message = Message.message_thread(self.id).order('created_at asc').first
     if message.present?

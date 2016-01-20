@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114093822) do
+ActiveRecord::Schema.define(version: 20160120012151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -312,9 +312,10 @@ ActiveRecord::Schema.define(version: 20160114093822) do
   add_index "message_thread_users", ["user_id"], name: "index_message_thread_users_on_user_id", using: :btree
 
   create_table "message_threads", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "host_id"
+    t.boolean  "reservation_reset", default: false
   end
 
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
@@ -574,7 +575,7 @@ ActiveRecord::Schema.define(version: 20160114093822) do
     t.integer  "host_id"
     t.integer  "guest_id"
     t.integer  "listing_id"
-    t.datetime "schedule",                                                      null: false
+    t.datetime "schedule"
     t.integer  "num_of_people",                                  default: 0,    null: false
     t.text     "msg",                                            default: ""
     t.integer  "progress",                                       default: 0,    null: false
