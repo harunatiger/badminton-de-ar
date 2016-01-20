@@ -2,7 +2,7 @@ class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :search]
   #before_action :check_listing_status, only: [:index, :search]
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite_listing]
-  before_action :set_listing_obj, only: [:publish, :unpublish]
+  before_action :set_listing_obj, only: [:publish, :unpublish, :copy]
   before_action :set_listing_related_data, only: [:show, :edit]
   before_action :set_message_thread, only: [:show]
   before_action :set_favorite,  only: [:destroy]
@@ -148,6 +148,14 @@ class ListingsController < ApplicationController
       end
     end
     render json: { status: status, post: post}
+  end
+  
+  def copy
+    if @listing_copied = @listing.dup_all
+      redirect_to edit_listing_path(@listing_copied), notice: Settings.listings.copy.success
+    else
+      redirect_to listings_path, alert: Settings.listings.copy.failure
+    end
   end
 
   private

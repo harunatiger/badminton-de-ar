@@ -80,7 +80,6 @@ class Listing < ActiveRecord::Base
   has_many :pickups, :through =>  :listing_pickups
   has_many :favorite_listing, dependent: :destroy
 
-
   mount_uploader :cover_image, DefaultImageUploader
   mount_uploader :cover_video, ListingVideoUploader
 
@@ -109,7 +108,7 @@ class Listing < ActiveRecord::Base
   scope :available_num_of_guest?, -> num_of_guest { where("capacity >= ?", num_of_guest) }
   scope :available_price_min?, -> price_min { where("price >= ?", price_min) }
   scope :available_price_max?, -> price_max { where("price <= ?", price_max) }
-
+  
   def open_reviews_count
     self.reviews.joins(:reservation).merge(Reservation.review_open?).count
   end
@@ -207,6 +206,20 @@ class Listing < ActiveRecord::Base
   def unpublish
     self.open = false
     self.save
+  end
+
+  def dup_all
+    listing_copied = self.dup
+    listing_copied.listing_detail = self.listing_detail.dup if self.listing_detail.present?
+    listing_copied.cover_image = self.cover_image.file
+    listing_copied.cover_video = self.cover_video.file
+    self.listing_images.each do |listing_image|
+      listing_copied.listing_images.build(order_num: listing_image.order_num, image: listing_image.image.file)
+    end
+    listing_copied.pickup_ids = self.pickups.ids
+    listing_copied.open = false
+    listing_copied.title = self.title + ' 2'
+    listing_copied.save ? listing_copied : false
   end
 
   def self.check_date(listings, search_params)
