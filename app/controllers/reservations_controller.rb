@@ -4,6 +4,20 @@ class ReservationsController < ApplicationController
   include Payments
 
   def create
+    message_thread = MessageThread.find(reservation_params[:message_thread_id])
+    if !params[:request].present?
+      if message_thread.present?
+        message_thread['reservation_reset'] = reservation_params[:listing_id].blank? and true or false
+        ret = message_thread.save
+        if reservation_params[:listing_id].blank?
+          if ret
+            return redirect_to message_thread_path(reservation_params[:message_thread_id]), notice: Settings.reservation.save.success
+          else
+            return redirect_to message_thread_path(reservation_params[:message_thread_id])
+          end
+        end
+      end
+    end
     if params[:request].present? and !current_user.already_authrized
       if profile_identity = ProfileIdentity.where(user_id: current_user.id, profile_id: current_user.profile.id).first
         return redirect_to edit_profile_profile_identity_path(profile_id: current_user.profile.id, id:profile_identity.id), alert: Settings.reservation.save.failure.not_authorized_yet
@@ -81,8 +95,18 @@ class ReservationsController < ApplicationController
         end
 
         if result
-          format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.save.success }
-          format.json { render :show, status: :created, location: @reservation }
+          if message_thread.present?
+            message_thread['reservation_reset'] = false
+            ret = message_thread.save
+            if ret
+              format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.save.success }
+              format.json { render :show, status: :created, location: @reservation }
+            else
+              format.html { redirect_to message_thread_path(@reservation.message_thread_id), alert: Settings.reservation.save.failure.no_date }
+              format.json { render json: @reservation.errors, status: :unprocessable_entity }
+            end
+          end
+
         else
           format.html { redirect_to message_thread_path(@reservation.message_thread_id), alert: Settings.reservation.save.failure.no_date }
           format.json { render json: @reservation.errors, status: :unprocessable_entity }
