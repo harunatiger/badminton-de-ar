@@ -208,6 +208,10 @@ class Listing < ActiveRecord::Base
     self.save
   end
 
+  def unpublish_if_no_image
+    self.unpublish if self.listing_images.blank? and self.cover_image.blank? and self.cover_video.blank?
+  end
+
   def dup_all
     listing_copied = self.dup
     listing_copied.listing_detail = self.listing_detail.dup if self.listing_detail.present?
