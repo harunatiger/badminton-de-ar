@@ -62,8 +62,9 @@
                   .row.row-table
                     .col-xs-4.col-lg-2
                       .media-photo.media-photo-block
-                        .media-cover.text-center
-                          = image_tag(listing_cover_image_url(listing.id), class: "img-responsive-height")
+                        .media-cover.media-cover-img.text-center
+                          /= image_tag(, class: "img-responsive-height")
+                          div[style="height: 63px; background-image: url(#{listing_cover_image_url(listing.id)})"]
                     .col-xs-8.col-lg-6
                       .actions.row-space-1
                         - if listing.open?
@@ -79,11 +80,16 @@
                       .pull-right.pull-change
                         .listing-criteria-header.activation-notification
                           .listing-criteria-header-message
-                            = link_to edit_listing_path(listing), class: "btn btn-primary btn-mw120" do
-                              | Edit
-                          .listing-criteria-header-message
-                            = link_to listing_copy_path(listing), class: "btn btn-default btn-mw120" do
-                              | Copy
-                          .favorite-icon
-                            i.fa.fa-heart
-                            = favorite_listings_count(listing.id)
+                            .row
+                              .col-4
+                                = link_to edit_listing_path(listing), class: "edit-listing" do
+                                  i.fa.fa-edit
+                                  .text-center Edit
+                              .col-4
+                                = link_to listing_copy_path(listing), class: "copy-listing" do
+                                  i.fa.fa-copy
+                                  .text-center Copy
+                              .col-4
+                                .favorite-listing
+                                  i.fa.fa-heart
+                                  .text-center = favorite_listings_count(listing.id)
