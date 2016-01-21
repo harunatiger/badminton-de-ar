@@ -319,7 +319,6 @@ $ ->
   if $('body').hasClass('listings new') && $('#about-guide-tg').length
     $('#about-guide-tg').modal('show')
 
-
   if $('body').hasClass('listings show') || $('body').hasClass('listing_details manage')
 
     # price calc
@@ -572,6 +571,38 @@ $ ->
         return
       ), 200)
       return
+
+  # sp listing manager 1
+  if $('.info--sp').length && $('.info--sp').css('display') == "block"
+    $('.info--sp').on 'click', ->
+      #$('body').addClass('no-scroll')
+      $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').show()
+      setTimeout (->
+        $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').addClass('show-off')
+      ), 100
+      return false
+
+    # close layer
+    $('.close-layer--sp').on 'click', ->
+      if $('.manage-listing-nav').css('display') == "block"
+        $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').hide()
+        $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').removeClass('show-off')
+      else
+        $('.manage-listing-detail, .close-layer--sp').hide()
+        $('.manage-listing-detail, .close-layer--sp').removeClass('show-off')
+      return false
+
+  # sp listing manager 2
+  if $('.price--sp').length && $('.price--sp').css('display') == "block"
+    $('.price--sp').on 'click', ->
+      #$('body').addClass('no-scroll')
+      $('.manage-listing-detail, .close-layer--sp').show()
+      setTimeout (->
+        $('.manage-listing-detail, .close-layer--sp').addClass('show-off')
+      ), 100
+      return false
+
+
 
   ###
   if $('body').hasClass('listings show')

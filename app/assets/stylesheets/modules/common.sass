@@ -16,6 +16,9 @@ body
   background: $bg1
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
+  &.no-scroll
+    position: fixed
+    overflow: hidden
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
   line-height: 1.1
@@ -2004,6 +2007,41 @@ select
           vertical-align: middle
           color: $lightgray1
           margin: 0 5px 3px 0
+    .info--sp, .price--sp, .close-layer--sp
+      display: none
+      position: fixed
+      top: 7px
+      width: 32px
+      height: 32px
+      line-height: 30px
+      text-align: center
+      background-color: $brand-theme
+      border-radius: 50%
+      z-index: 2
+      .fa
+        color: white
+        font-size: 22px
+        vertical-align: middle
+    .info--sp
+      right: 6px
+      @media (max-width: 767px)
+        display: block
+    .price--sp
+      right: 50px
+      @media (max-width: 767px)
+        display: block
+    .close-layer--sp
+      right: 6px
+      line-height: 24px
+      border: 2px solid $brand-theme
+      background-color: white
+      transition: opacity .25s
+      opacity: 0
+      z-index: 22
+      &.show-off
+        opacity: 1
+      .fa
+        color: $brand-theme
     .action--sp
       position: absolute
       right: 10px
@@ -2049,6 +2087,12 @@ select
           line-height: 46px
           &:last-child
             margin-bottom: 0
+          .list-in-list
+            li
+              line-height: 32px
+              font-size: 14px
+              a
+                color: white
         .menu-item:hover
           color: $brand-theme
       &.logged-in

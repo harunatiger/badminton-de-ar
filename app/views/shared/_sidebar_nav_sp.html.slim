@@ -20,6 +20,20 @@
               = link_to Settings.page.listing_new, listings_path, class: "link-reset menu-item", rel: "nofollow"
             -else
               = link_to Settings.page.listings, listings_path, class: "link-reset menu-item", rel: "nofollow"
+              - if controller_name == "listings" && action_name == "edit" || controller_name == "listing_images" && action_name == "manage" || controller_name == "listing_details" && action_name == "manage" || controller_name == "calendar" && action_name == "index"
+                ul.list-in-list
+                  li
+                    = link_to new_or_edit_path(@listing) do
+                      | 紹介文
+                  li
+                    = link_to manage_listing_listing_images_path(@listing.id) do
+                      | 紹介画像・紹介動画
+                  li
+                    = link_to manage_listing_listing_details_path(@listing.id) do
+                      | 料金・条件など
+                  li
+                    = link_to listing_calendar_index_path(@listing) do
+                      | ＮＧ日の設定
             /= link_to Settings.page.listing_new, new_listing_path
           - if current_user.listings.present?
             li
