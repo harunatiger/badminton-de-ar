@@ -1,0 +1,11 @@
+/ static_pages#privacy_policy_en
+= render partial: 'shared/subnav_static'
+.page-container.row-space-top-4.row-space-8
+  .text-right
+    =<> link_to "Japanese", static_pages_privacy_policy_jp_path
+    | /
+    =<> link_to "English", static_pages_privacy_policy_en_path
+  .row
+    .row-space-top-4.row-space-8
+      .col-12
+        h1 Privacy policy
