@@ -201,3 +201,12 @@ $ ->
     e.preventDefault()
     e.stopPropagation()
     return false
+  
+  # open include_what for dashboard
+  $('.include_what_trigger_for_dashboard').on 'click', (e) ->
+    index = $('.include_what_trigger_for_dashboard').index(this)
+    $('.include_what' + index).modal()
+    $('#form_change_confirm').modal('hide')
+    e.preventDefault()
+    e.stopPropagation()
+    return false

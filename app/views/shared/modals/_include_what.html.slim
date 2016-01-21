@@ -1,5 +1,5 @@
 / modal include_what
-#include_what.modal[role="dialog" aria-hidden="true"]
+#include_what.modal[role="dialog" aria-hidden="true" class='include_what#{count.to_s if local_assigns[:count].present?}']
   .modal-table
     .modal-cell
       .modal-content
