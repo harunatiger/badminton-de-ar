@@ -39,7 +39,7 @@ class DefaultImageUploader < CarrierWave::Uploader::Base
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
-    if (model.class.name == 'Listing' and model.id.blank?) or (model.class.name == 'ListingImage' and model.listing_id.blank?)
+    if model.respond_to?(:image_blank_ok) and model.image_blank_ok
       ['jpg', 'jpeg', 'gif', 'png', '']
     else
       %w(jpg jpeg gif png)

@@ -27,6 +27,7 @@
 //= require reservation
 //= require listingdetails
 //= require profiles
+//= require profile_images
 //= require listingimage
 //= require chart
 //= require youtube

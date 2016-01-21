@@ -1,0 +1,15 @@
+#images_list
+  - profile.thumb_images.each_with_index do |thumb_image, i|
+    .row.row-condensed.row-space-4
+      label.text-right.col-3
+        | Current thumbnail #{i + 1}
+      .image-droppable.image-draggable
+        .listing-image-container
+          div[style="background-image: url(#{thumb_image.image.thumb})"]
+          = link_to profile_profile_image_path(profile.id, thumb_image), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
+            i.fa.fa-trash
+    .row.row-condensed.row-space-4
+      .col-3
+      .col-8
+        = simple_form_for([profile, thumb_image], html: { class: "form--sp", id: 'update_image' + i.to_s }, remote: true) do |f|
+          = f.file_field :image, class: "row-space-top-1-file", id: 'update_thumb_image' + i.to_s

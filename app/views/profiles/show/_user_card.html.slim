@@ -1,7 +1,11 @@
 .card.profile-card
   .card-body.card-light
     .profile-face
-      = image_tag(profile_to_image(profile), class: 'img-responsive')
+      - if profile.thumb_images.present?
+        - profile.thumb_images.each do |thumb_image|
+          = image_tag(thumb_image.image.thumb, class: 'img-responsive')
+      - else
+        = image_tag(profile_to_image(profile), class: 'img-responsive')
       - if user_signed_in?
         = link_to favorite_user_profile_path(profile), method: :post, remote: true, class: "favorite-btn" do
           - if current_user.favorite_user?(profile.user_id)
