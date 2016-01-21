@@ -1,0 +1,5 @@
+class RemoveCoverImageFromProfileImage < ActiveRecord::Migration
+  def change
+    remove_column :profile_images, :cover_image, :string
+  end
+end

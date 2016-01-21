@@ -45,11 +45,11 @@ class Profile < ActiveRecord::Base
   acts_as_taggable
 
   belongs_to :user
-  has_one :profile_image, dependent: :destroy
   has_one :profile_video, dependent: :destroy
   has_one :profile_identity, dependent: :destroy
   has_one :profile_bank, dependent: :destroy
   has_one :profile_keyword, dependent: :destroy
+  has_many :profile_images, dependent: :destroy
   has_many :profile_categories, dependent: :destroy
   has_many :categories, :through => :profile_categories, dependent: :destroy
   has_many :profile_languages, dependent: :destroy
@@ -151,6 +151,18 @@ class Profile < ActiveRecord::Base
         profile.update({:listing_count => ret})
       end
     end
+  end
+  
+  def cover
+    self.profile_images.where(cover_flg: true).first
+  end
+  
+  def thumb_images
+    self.profile_images.where.not(cover_flg: true).where.not(image: '').order('order_num')
+  end
+  
+  def thumb_image
+    self.thumb_images.first
   end
 
 end

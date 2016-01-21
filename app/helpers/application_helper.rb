@@ -104,18 +104,9 @@ module ApplicationHelper
   end
 
   def user_id_to_profile_image(user_id)
-    result = User.find(user_id).profile
-    if result.present? and result.profile_image.present? and result.profile_image.image.present?
-      result.profile_image.image
-    else
-      Settings.image.noimage2.url
-    end
-  end
-
-  def user_id_to_profile_image_thumb_one(user_id)
-    result = User.find(user_id).profile
-    if result.profile_image.present? and result.profile_image.image.present?
-      result.profile_image.image.thumb.url
+    profile = Profile.where(user_id: user_id).first
+    if profile.present? and profile.thumb_image.present?
+      profile.thumb_image.try('image') || Settings.image.noimage2.url
     else
       Settings.image.noimage2.url
     end
@@ -127,96 +118,83 @@ module ApplicationHelper
   end
 
   def user_id_to_profile_image_thumb(user_id)
-    result = ProfileImage.mine(user_id)
-    if result.present?
-      result[0].try('image').thumb || Settings.image.noimage2.url
+    profile = Profile.where(user_id: user_id).first
+    if profile.present? and profile.thumb_image.present? and profile.thumb_image.image.present?
+      profile.thumb_image.image.thumb.url
     else
       Settings.image.noimage2.url
     end
   end
 
   def user_id_to_profile_cover_image(user_id)
-    result = ProfileImage.mine(user_id).first
-    if result.present? and result.cover_image.present?
-      result.cover_image
+    profile = Profile.where(user_id: user_id).first
+    if profile.present? and profile.cover.present? and profile.cover.image.present?
+      profile.cover.image
     else
       Settings.image.noimage.url
     end
   end
 
-  def host_image(host_image_obj)
-    host_image_obj.try('image') || Settings.image.noimage2.url
-  end
-
   def profile_image
-    if profile_image = ProfileImage.where(user_id: current_user.id).first
-      profile_image.try('image') || Settings.image.noimage2.url
+    profile = Profile.where(user_id: current_user.id).first
+    if profile.present? and profile.thumb_image.present? and profile.thumb_image.image.present?
+      profile.thumb_image.image.url
     else
-      return Settings.image.noimage2.url
+      Settings.image.noimage2.url
     end
   end
 
   def profile_image_thumb
-    if profile_image = ProfileImage.where(user_id: current_user.id).first
-      profile_image.try('image').thumb || Settings.image.noimage2.url
+    profile = Profile.where(user_id: current_user.id).first
+    if profile.present? and profile.thumb_image.present? and profile.thumb_image.image.present?
+      profile.thumb_image.image.thumb.url
     else
-      return Settings.image.noimage2.url
+      Settings.image.noimage2.url
     end
   end
 
   def profile_cover_image_thumb
-    if profile_image = ProfileImage.where(user_id: current_user.id).first
-      profile_image.try('cover_image').thumb || Settings.image.noimage.url
+    profile = Profile.where(user_id: current_user.id).first
+    if profile.present? and profile.cover.present? and profile.cover.image.present?
+      profile.cover.image.thumb.url
     else
-      return Settings.image.noimage.url
-    end
-  end
-
-  def profile_image_exists?
-    profile_image = ProfileImage.where(user_id: current_user.id, profile_id: current_user.profile.id).first
-    if profile_image.present?
-      profile_image.image.present? ? true : false
-    else
-      false
+      Settings.image.noimage.url
     end
   end
 
   def profile_cover_image_exists?
-    profile_image = ProfileImage.where(user_id: current_user.id, profile_id: current_user.profile.id).first
-    if profile_image.present?
-      profile_image.cover_image.present? ? true : false
-    else
-      false
-    end
+    profile = Profile.where(user_id: current_user.id).first
+    return true if profile.cover.present? and profile.cover.image.present?
+    return false
   end
 
   def profile_to_image(profile)
-    if profile.profile_image.present? and profile.profile_image.image.present?
-      profile.profile_image.image
+    if profile.thumb_image.present? and profile.thumb_image.image.present?
+      profile.thumb_image.image
     else
       Settings.image.noimage2.url
     end
   end
 
   def profile_to_cover_image(profile)
-    if profile.profile_image.present? and profile.profile_image.cover_image.present?
-      profile.profile_image.cover_image
+    if profile.cover.present? and profile.cover.image.present?
+      profile.cover.image
     else
       Settings.image.noimage.url
     end
   end
 
   def profile_to_image_thumb(profile)
-    if profile.profile_image.present? and profile.profile_image.image.present?
-      profile.profile_image.image.thumb
+    if profile.thumb_image.present? and profile.thumb_image.image.present?
+      profile.thumb_image.image.thumb
     else
       Settings.image.noimage2.url
     end
   end
 
   def profile_to_cover_image_thumb(profile)
-    if profile.profile_image.present? and profile.profile_image.cover_image.present?
-      profile.profile_image.cover_image.thumb
+    if profile.cover.present? and profile.cover.image.present?
+      profile.cover.image.thumb
     else
       Settings.image.noimage.url
     end
@@ -353,14 +331,14 @@ module ApplicationHelper
     end
   end
 
-  def profile_image_link
-    profile_image = ProfileImage.where(user_id: current_user.id, profile_id: current_user.profile.id).first
-    if profile_image.present?
-      return edit_profile_profile_image_path(current_user.profile.id, profile_image.id)
-    else
-      new_profile_profile_image_path(current_user.profile.id)
-    end
-  end
+  #def profile_image_link
+  #  profile_image = ProfileImage.where(user_id: current_user.id, profile_id: current_user.profile.id).first
+  #  if profile_image.present?
+  #    return edit_profile_profile_image_path(current_user.profile.id, profile_image.id)
+  #  else
+  #    new_profile_profile_image_path(current_user.profile.id)
+  #  end
+  #end
 
   def profile_link
     if current_user

@@ -348,7 +348,10 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :profiles do
-    resources :profile_images
+    resources :profile_images, only: [:show, :create, :update, :destroy] do
+      get 'manage', on: :collection
+      put 'change_order', on: :collection
+    end
     resources :profile_banks
     resources :profile_identities
     resources :profile_keywords
