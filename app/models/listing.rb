@@ -225,7 +225,7 @@ class Listing < ActiveRecord::Base
     listing_copied.pickup_ids = self.pickups.ids
     listing_copied.open = false
     listing_copied.title = self.title + ' 2'
-    listing_copied.save! ? listing_copied : false
+    listing_copied.save ? listing_copied : false
   end
 
   def self.check_date(listings, search_params)
