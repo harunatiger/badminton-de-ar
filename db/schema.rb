@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120151138) do
+ActiveRecord::Schema.define(version: 20160122011554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -312,10 +312,9 @@ ActiveRecord::Schema.define(version: 20160120151138) do
   add_index "message_thread_users", ["user_id"], name: "index_message_thread_users_on_user_id", using: :btree
 
   create_table "message_threads", force: :cascade do |t|
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "host_id"
-    t.boolean  "reservation_reset", default: false
   end
 
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
@@ -494,9 +493,9 @@ ActiveRecord::Schema.define(version: 20160120151138) do
     t.string   "caption",     default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "cover_image", default: ""
     t.integer  "order_num"
     t.boolean  "cover_flg",   default: false
-    t.string   "cover_image"
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree

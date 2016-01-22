@@ -2,11 +2,10 @@
 #
 # Table name: message_threads
 #
-#  id                :integer          not null, primary key
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  host_id           :integer
-#  reservation_reset :boolean          default(FALSE)
+#  id         :integer          not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  host_id    :integer
 #
 # Indexes
 #

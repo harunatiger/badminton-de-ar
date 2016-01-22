@@ -87,11 +87,7 @@ class MessageThreadsController < ApplicationController
       @guest_id = counterpart_user_id
       @host_id = @message_thread.host_id
       reservation = Reservation.latest_reservation(@guest_id, @host_id)
-      if @message_thread.reservation_reset
-        @reservation = Reservation.new(progress: '')
-      else
-        @reservation = reservation.present? ? Reservation.new(reservation.attributes) : Reservation.new(progress: '')
-      end
+      @reservation = reservation.present? ? Reservation.new(reservation.attributes) : Reservation.new(progress: '')
       @reservation_for_update = reservation
       @reservation.message_thread_id = @message_thread.id
     end

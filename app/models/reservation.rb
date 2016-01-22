@@ -71,7 +71,7 @@ class Reservation < ActiveRecord::Base
 
   validates :host_id, presence: true
   validates :guest_id, presence: true
-  validates :listing_id, presence: true
+  validates :listing_id, presence: true, if: :progress_is_not_holded?
   validates :schedule, presence: true, if: :progress_is_not_holded?
   validates :schedule_end, presence: true, if: :progress_is_not_holded?
   validates :num_of_people, presence: true

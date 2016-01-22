@@ -2,15 +2,16 @@
 #
 # Table name: profile_images
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  profile_id :integer
-#  image      :string           default(""), not null
-#  caption    :string           default("")
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  order_num  :integer
-#  cover_flg  :boolean          default(FALSE)
+#  id          :integer          not null, primary key
+#  user_id     :integer
+#  profile_id  :integer
+#  image       :string           default(""), not null
+#  caption     :string           default("")
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  cover_image :string           default("")
+#  order_num   :integer
+#  cover_flg   :boolean          default(FALSE)
 #
 # Indexes
 #
