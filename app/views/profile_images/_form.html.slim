@@ -1,35 +1,37 @@
 = hidden_field_tag  :profile_id, @profile.id
-.card.row-space-4
-  .card-header Chose a profile picture and a background picture
-  .card-body
-    - if profile_cover_image_exists?
+.form--sp
+  .card.row-space-4
+    .card-header Chose a profile picture and a background picture
+    .card-body
+      - if profile_cover_image_exists?
+        .row.row-condensed.row-space-4
+          label.text-right.col-3
+            | Current cover photo
+          .regist-pics
+            .listing-image-container
+              div[style="background-image: url(#{profile_cover_image_thumb})"]
+              = link_to profile_profile_image_path(@profile.id, @cover_image), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
+                i.fa.fa-trash
       .row.row-condensed.row-space-4
         label.text-right.col-3
-          | Current cover photo
-        .listing-image-container
-          = image_tag(profile_cover_image_thumb)
-          = link_to profile_profile_image_path(@profile.id, @cover_image), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
-            i.fa.fa-trash
-    .row.row-condensed.row-space-4
-      label.text-right.col-3
-        | Cover photo
-      .col-8
-        = simple_form_for([@profile, @cover_image], html: { class: "form--sp", id: 'update_profile_cover_image' }, remote: true) do |f|
-          = f.hidden_field :user_id, value: current_user.id
-          = f.hidden_field :profile_id, value: current_user.profile.id
-          = f.hidden_field :cover_flg, value: true
-          = f.file_field :image, class: "row-space-top-1-file", id: 'profile_cover_image'
-          .small1.text-blue.row-space-top-1 Image size of at least 1280px x 860px is recommended.
-    hr.row-space-4
-    - if @profile.thumb_images.count < 5
-      .row.row-condensed.row-space-2
-        label.text-right.col-3
-          | Thumbnail image
-        .col-8.row-space-4
-          = simple_form_for([@profile, ProfileImage.new], html: { class: "form--sp", id: 'profile_thumb_image'}, remote: true) do |f|
+          | Cover photo
+        .col-8
+          = simple_form_for([@profile, @cover_image], html: { class: "form--sp", id: 'update_profile_cover_image' }, remote: true) do |f|
             = f.hidden_field :user_id, value: current_user.id
             = f.hidden_field :profile_id, value: current_user.profile.id
-            = f.hidden_field :cover_flg, value: false
-            = f.file_field :image, class: "row-space-top-1-file", id: 'upload_image'
-            .small1.text-blue.row-space-top-1 A square image is recommended
-    =render partial: 'images_list', locals: { profile: @profile}
+            = f.hidden_field :cover_flg, value: true
+            = f.file_field :image, class: "row-space-top-1-file", id: 'profile_cover_image'
+            .small1.text-blue.row-space-top-1 Image size of at least 1280px x 860px is recommended.
+      hr.row-space-4
+      - if @profile.thumb_images.count < 5
+        .row.row-condensed.row-space-2
+          label.text-right.col-3
+            | Thumbnail image
+          .col-8.row-space-4
+            = simple_form_for([@profile, ProfileImage.new], html: { class: "form--sp", id: 'profile_thumb_image'}, remote: true) do |f|
+              = f.hidden_field :user_id, value: current_user.id
+              = f.hidden_field :profile_id, value: current_user.profile.id
+              = f.hidden_field :cover_flg, value: false
+              = f.file_field :image, class: "row-space-top-1-file", id: 'upload_image'
+              .small1.text-blue.row-space-top-1 A square image is recommended
+      =render partial: 'images_list', locals: { profile: @profile}
