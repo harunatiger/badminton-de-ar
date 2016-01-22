@@ -8,6 +8,9 @@ class StaticPagesController < ApplicationController
   def specific_commercial_transactions_en
   end
 
+  def privacy_policy_en
+  end
+
   def cancel_policy_jp
   end
 
@@ -16,4 +19,8 @@ class StaticPagesController < ApplicationController
 
   def specific_commercial_transactions_jp
   end
+
+  def privacy_policy_jp
+  end
+
 end

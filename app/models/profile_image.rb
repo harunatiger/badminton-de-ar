@@ -9,7 +9,9 @@
 #  caption     :string           default("")
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
-#  cover_image :string           default("")
+#  order_num   :integer
+#  cover_flg   :boolean          default(FALSE)
+#  cover_image :string
 #
 # Indexes
 #
@@ -23,11 +25,12 @@ class ProfileImage < ActiveRecord::Base
 
   mount_uploader :image, DefaultImageUploader
   mount_uploader :cover_image, DefaultImageUploader
+  attr_accessor :image_blank_ok
 
   validates :user_id, presence: true
   validates :profile_id, presence: true
-  validates :profile_id, uniqueness: true
-  #validates :image, presence: true
+  #validates :profile_id, uniqueness: true
+  validates :image, presence: true
   #validates :order_num, numericality: {
   #  only_integer: true,
   #  equal_to: 0 # set has_one association

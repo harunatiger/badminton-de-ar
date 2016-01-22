@@ -58,7 +58,7 @@
       .row
         .col-xs-6
           .input-opt
-            = f.input_field :price, class: "value_fragile"
+            = f.input_field :price, class: "value_fragile", type: 'number', pattern: '[0-9]*'
             span 円
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
@@ -68,7 +68,7 @@
       .row
         .col-xs-6
           .input-opt
-            = f.input_field :price_for_support, class: "value_fragile"
+            = f.input_field :price_for_support, class: "value_fragile", type: 'number', pattern: '[0-9]*'
             span 円
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
@@ -78,7 +78,7 @@
       .row
         .col-xs-6
           .input-opt
-            = f.input_field :price_for_both_guides, class: "value_fragile "
+            = f.input_field :price_for_both_guides, class: "value_fragile ", type: 'number', pattern: '[0-9]*'
             span 円
   hr
   .row-space-top-4
@@ -101,7 +101,7 @@
                     = I18n.t('option_price_ja.' + option)
                 .col-lg-6.fieldset.col-middle
                   .input-opt
-                    = f.input_field option, class: "value_fragile " + option
+                    = f.input_field option, class: "value_fragile " + option, type: 'number', pattern: '[0-9]*'
                     span 円
             p.small1.text-center.text-muted.row-space-top-2.row-space-2
               | 例えば、古民家を借りて一緒に料理をしたり、会場を借りてワークショップを企画したり。
@@ -121,7 +121,7 @@
                     = I18n.t('option_price_ja.' + option)
                 .col-lg-6.fieldset.col-middle
                   .input-opt
-                    = f.input_field option, class: "value_fragile " + option
+                    = f.input_field option, class: "value_fragile " + option, type: 'number', pattern: '[0-9]*'
                     span 円
             p.small1.text-center.text-muted.row-space-top-2.row-space-2
               | 例えば、車でしか行けない秘境の温泉へホストを案内することもあるでしょう。

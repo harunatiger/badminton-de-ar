@@ -46,6 +46,7 @@ class ListingImagesController < ApplicationController
     @listing.listing_images.order('order_num').each_with_index do |listing_image, i|
       listing_image.update(order_num: i + 1)
     end
+    @listing.unpublish_if_no_image
     respond_to do |format|
       format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.delete.success }
       format.json { head :no_content }
@@ -55,6 +56,7 @@ class ListingImagesController < ApplicationController
   def destroy_cover_image
     @listing.remove_cover_image!
     @listing.save
+    @listing.unpublish_if_no_image
     respond_to do |format|
       format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.delete.success }
       format.json { head :no_content }
@@ -64,6 +66,7 @@ class ListingImagesController < ApplicationController
   def destroy_video
     @listing.remove_cover_video!
     @listing.save
+    @listing.unpublish_if_no_image
     respond_to do |format|
       format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.delete.success }
       format.json { head :no_content }

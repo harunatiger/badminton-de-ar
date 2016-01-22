@@ -6,7 +6,7 @@
 #  host_id                :integer
 #  guest_id               :integer
 #  listing_id             :integer
-#  schedule               :datetime         not null
+#  schedule               :datetime
 #  num_of_people          :integer          default(0), not null
 #  msg                    :text             default("")
 #  progress               :integer          default(0), not null
@@ -71,9 +71,9 @@ class Reservation < ActiveRecord::Base
 
   validates :host_id, presence: true
   validates :guest_id, presence: true
-  validates :listing_id, presence: true
-  validates :schedule, presence: true
-  validates :schedule_end, presence: true
+  validates :listing_id, presence: true, if: :progress_is_not_holded?
+  validates :schedule, presence: true, if: :progress_is_not_holded?
+  validates :schedule_end, presence: true, if: :progress_is_not_holded?
   validates :num_of_people, presence: true
   validates :progress, presence: true
   #validates :price, presence: true
@@ -114,7 +114,7 @@ class Reservation < ActiveRecord::Base
     return "取り消し" if self.rejected?
     return "終了" if self.listing_closed?
   end
-  
+
   def string_of_progress_english
     return "Request" if self.requested?
     return "Cancel" if self.canceled?
@@ -191,19 +191,19 @@ class Reservation < ActiveRecord::Base
   def amount
     result = basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.125).ceil
   end
-  
+
   def amount_for_campaign
     result = basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.125).ceil
     result = result - self.campaign.discount if self.campaign.present?
     result = 0 if result < 0
     result
   end
-  
+
   def basic_amount
     total = self.price + self.price_for_support + self.price_for_both_guides
     total + option_amount
   end
-  
+
   def option_amount
     total = 0
     if self.space_option
@@ -211,7 +211,7 @@ class Reservation < ActiveRecord::Base
         total += self[option]
       end
     end
-    
+
     if self.car_option
       self.car_options.each do |option|
         total += self[option]
@@ -219,37 +219,37 @@ class Reservation < ActiveRecord::Base
     end
     total
   end
-  
+
   def guide_price
     self.price + self.price_for_support + self.price_for_both_guides
   end
-  
+
   def service_fee
     basic_amount < 2000 ? 500 : (basic_amount * 0.125).ceil
   end
-  
+
   def paypal_amount
     result = self.basic_amount + handling_cost
     result = result - self.campaign.discount if self.campaign.present?
     return result * 100
   end
-  
+
   def paypal_sub_total
     self.basic_amount * 100
   end
-  
+
   def handling_cost
     basic_amount < 2000 ? 500 : (basic_amount * 0.125).ceil
   end
-  
+
   def paypal_handling_cost
     basic_amount < 2000 ? 50000 : (basic_amount * 0.125).ceil * 100
   end
-  
+
   def paypal_campaign_discount
     0 - self.campaign.discount * 100
   end
-  
+
   def cancellation_fee_for_dashboard
     if self.before_weeks? or self.amount_for_campaign <= 0
       0
@@ -259,7 +259,7 @@ class Reservation < ActiveRecord::Base
       self.amount_for_campaign
     end
   end
-  
+
   def cancellation_fee
     if self.refund_rate == 100 or self.amount_for_campaign <= 0
       0
@@ -277,37 +277,41 @@ class Reservation < ActiveRecord::Base
       false
     end
   end
-  
+
   def set_price
     self.price = 0 if self.price.blank?
     self.price_for_support = 0 if self.price_for_support.blank?
     self.price_for_both_guides = 0 if self.price_for_both_guides.blank?
-    
+
     self.space_options.each do |option|
       self[option] = 0 if self[option].blank?
     end
-    
+
     self.car_options.each do |option|
       self[option] = 0 if self[option].blank?
     end
-    
+
     self.guests_cost = 0 if self.guests_cost.blank?
     self
   end
-  
+
   def space_options
     ['space_rental']
   end
-    
+
   def car_options
     ['car_rental', 'gas', 'highway', 'parking']
   end
-  
+
   def before_weeks?
     self.schedule.to_date >= Time.zone.today + 14.day
   end
-  
+
   def before_days?
     self.schedule.to_date >= Time.zone.today + 3.day
+  end
+
+  def progress_is_not_holded?
+    self.progress != 'holded'
   end
 end

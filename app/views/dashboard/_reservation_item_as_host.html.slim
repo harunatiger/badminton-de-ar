@@ -41,6 +41,7 @@
                   = link_to "キャンセルについての注意", "#", class: "small2"
         .col-md-12.row-space-top-2
           = render partial: 'shared/reservation_block', locals: { reservation: r, count: i.to_s }
+          = render partial: '/shared/modals/include_what', locals: { included_guests_cost: r.included_guests_cost, count: i.to_s }
 
   /li.card-body
     .row.row-table

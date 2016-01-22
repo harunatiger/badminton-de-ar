@@ -1,0 +1,7 @@
+<% if @status == "success" %>
+  location.reload();
+<% elsif @status == "failure" %>
+  $('.alert').remove();
+  $('#error_message').html($("<%=j render partial: 'shared/error_message', locals: { target: @profile_image } %>").hide().fadeIn('slow'));
+  $("html,body").animate({scrollTop:0},'slow');
+<% end %>

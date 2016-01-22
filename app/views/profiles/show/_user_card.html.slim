@@ -1,7 +1,24 @@
 .card.profile-card
   .card-body.card-light
     .profile-face
-      = image_tag(profile_to_image(profile), class: 'img-responsive')
+      #profie-thumb-carousel.slide data-ride="carousel"
+        - if profile.thumb_images.present?
+          .carousel-inner
+            - profile.thumb_images.each_with_index do |thumb_image, i|
+              - if i == 0
+                .item.active
+                  = image_tag(thumb_image.image.thumb, class: 'img-responsive')
+              - else
+                .item
+                  = image_tag(thumb_image.image.thumb, class: 'img-responsive')
+          = link_to "#profie-thumb-carousel", class: "left carousel-control" do
+            i.fa.fa-chevron-left aria-hidden="true"
+            span.sr-only Previous
+          = link_to "#profie-thumb-carousel", class: "right carousel-control" do
+            i.fa.fa-chevron-right aria-hidden="true"
+            span.sr-only Next
+        - else
+          = image_tag(profile_to_image(profile), class: 'img-responsive')
       - if user_signed_in?
         = link_to favorite_user_profile_path(profile), method: :post, remote: true, class: "favorite-btn" do
           - if current_user.favorite_user?(profile.user_id)

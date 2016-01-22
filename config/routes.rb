@@ -335,11 +335,15 @@ Rails.application.routes.draw do
 
   get 'static_pages/specific_commercial_transactions_en'
 
+  get 'static_pages/privacy_policy_en'
+
   get 'static_pages/cancel_policy_jp'
 
   get 'static_pages/service_agreement_jp'
 
   get 'static_pages/specific_commercial_transactions_jp'
+
+  get 'static_pages/privacy_policy_jp'
 
   #resources :listing_details
 
@@ -348,7 +352,10 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :profiles do
-    resources :profile_images
+    resources :profile_images, only: [:show, :create, :update, :destroy] do
+      get 'manage', on: :collection
+      put 'change_order', on: :collection
+    end
     resources :profile_banks
     resources :profile_identities
     resources :profile_keywords
@@ -399,17 +406,9 @@ Rails.application.routes.draw do
     #resources :listing_videos do
     #  get 'manage', on: :collection
     #end
-    #resources :dress_codes, only: [:show, :create, :update, :destroy] do
-    #  get 'manage', on: :collection
-    #end
-    #resources :confections, only: [:show, :create, :update, :destroy]  do
-    #  get 'manage', on: :collection
-    #end
-    #resources :tools, only: [:show, :create, :update, :destroy] do
-    #  get 'manage', on: :collection
-    #end
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
+    get 'copy', action: 'copy', as: 'copy'
     resources :ngevents, only: [:index, :create]
     resources :ngevent_weeks, only: [:index, :create] do
       put 'unset', on: :collection

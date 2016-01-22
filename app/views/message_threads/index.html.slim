@@ -12,7 +12,7 @@
               - counterpart_id = counterpart_user_id(mt)
               - counterpart_user = counterpart_user_obj(mt)
               - lm = latest_message(mt)
-              - to_user = mt.messages.last.to_user_id
+              - to_user = lm.to_user_id
               - if to_user == current_user.id
                 - li_class = "unread" unless lm.read.present?
               li class="thread #{li_class}"

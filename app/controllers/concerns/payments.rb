@@ -23,14 +23,14 @@ module Payments
     if reservation.campaign.present?
       [{name: reservation.listing.title,
         amount: reservation.paypal_sub_total},
-        {name: 'Service fee',
+        {name: 'Service commission',
         amount: reservation.paypal_handling_cost},
-        {name: 'キャンペーン値引き',
+        {name: 'Discount',
           amount: reservation.paypal_campaign_discount}]
     else
       [{name: reservation.listing.title,
         amount: reservation.paypal_sub_total},
-        {name: 'Service fee',
+        {name: 'Service commission',
         amount: reservation.paypal_handling_cost}]
     end
   end

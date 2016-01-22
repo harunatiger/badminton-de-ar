@@ -47,42 +47,84 @@ $ ->
 
   # set reservation by listing_id for message thread
   logVal = ''
-  $(document).on 'focus', '#reservation_listing_id', ->
+  $(document).on('click', '#reservation_listing_id', ->
     logVal = $('#reservation_listing_id').val()
+    return
+  ).on 'change', '#reservation_listing_id', ->
+    if $('#reservation_listing_id').val() != ''
+      tour = $('#reservation_listing_id option:selected').text() + 'の情報に書き換えます。よろしいですか？これまで編集したガイド内容が上書きされます。ご注意ください。'
+      ret = confirm(tour)
+      if ret
+        set_ngday_reservation_by_listing($('#reservation_listing_id').val(), $('#reservation_id').val())
+        $.ajax(
+          type: 'GET'
+          url: '/reservations/set_reservation_by_listing'
+          data: {
+            listing_id: $('#reservation_listing_id').val(),
+            reservation_id: $('#reservation_id').val()
+          }
+        ).done (data) ->
+          $('#reservation_detail_form').html(data)
+          # i'm stupid, hehe
+          strfChange = $('.checkout').val()
+          strfChange = strfChange.replace(/-/g, '/')
+          $('.checkout').val(strfChange)
+          $('.datepicker').datepicker
+            autoclose: true,
+            startDate: '+1d',
+            language: 'ja',
+            orientation: 'top auto',
+            default: 'yyyy.mm.dd',
+            format: 'yyyy/mm/dd',
+            beforeShowDay: (date) ->
+              formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
+              if $.inArray(formattedDate.toString(), disabled_dates) != -1
+                return { enabled: false }
+              if $.inArray(date.getDay(), disabled_weeks) != -1
+                return { enabled: false }
 
-  $(document).on 'change', '#reservation_listing_id', ->
-    tour = $('#reservation_listing_id option:selected').text() + 'の情報に書き換えます。よろしいですか？これまで編集したガイド内容が上書きされます。ご注意ください。'
-    ret = confirm(tour) if $(this).val() != ''
-    if ret
-      set_ngday_reservation_by_listing($(this).val(), $('#reservation_id').val())
-      $.ajax(
-        type: 'GET'
-        url: '/reservations/set_reservation_by_listing'
-        data: {
-          listing_id: $(this).val(),
-          reservation_id: $('#reservation_id').val()
-        }
-      ).done (data) ->
-        $('#reservation_detail_form').html(data)
-        # i'm stupid, hehe
-        strfChange = $('.checkout').val()
-        strfChange = strfChange.replace(/-/g, '/')
-        $('.checkout').val(strfChange)
-        $('.datepicker').datepicker
-          autoclose: true,
-          startDate: '+1d',
-          language: 'ja',
-          orientation: 'top auto',
-          default: 'yyyy.mm.dd',
-          format: 'yyyy/mm/dd',
-          beforeShowDay: (date) ->
-            formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
-            if $.inArray(formattedDate.toString(), disabled_dates) != -1
-              return { enabled: false }
-            if $.inArray(date.getDay(), disabled_weeks) != -1
-              return { enabled: false }
+          $('.option-check').each ->
+            if $(this).is(':checked')
+              $(this).parents('.collapse-trigger').next().collapse('show')
+
+          $('.option-check').on 'click', (e) ->
+            if $(this).is(':checked')
+              $(this).parents('.collapse-trigger').next().collapse('show')
+            else
+              $(this).parents('.collapse-trigger').next().collapse('hide')
+      else
+        $('#reservation_listing_id').val(logVal)
+        return
     else
-      $('#reservation_listing_id').val(logVal)
+      ret = confirm('編集した内容が全て消えますがツアーを変更してよろしいですか？')
+      if ret
+        $('#reservation_time_required').val('0.0')
+        $('#reservation_schedule_hour').val('00')
+        $('#reservation_schedule_minute').val('00')
+        $('#reservation_price').val('0')
+        $('#reservation_price_for_support').val('0')
+        $('#reservation_price_for_both_guides').val('0')
+        $('#reservation_space_option').prop('checked', true)
+        $('#reservation_space_option').parents('.collapse-trigger').next().collapse('show')
+        $('#reservation_space_rental').val('0')
+        $('#reservation_car_option').prop('checked', true)
+        $('#reservation_car_option').parents('.collapse-trigger').next().collapse('show')
+        $('#reservation_car_rental').val('0')
+        $('#reservation_gas').val('0')
+        $('#reservation_highway').val('0')
+        $('#reservation_parking').val('0')
+        $('#reservation_guests_cost').val('0')
+        $('#reservation_included_guests_cost').val('')
+        $('#reservation_num_of_people').val('1')
+        $('#reservation_schedule_date').val('')
+        $('#reservation_schedule_end').val('')
+        $('#reservation_place').val('')
+        $('#reservation_place_memo').val('')
+        $('#reservation_description').val('')
+        return
+      else
+        $('#reservation_listing_id').val(logVal)
+        return
       return
 
   changed_flg = 0
@@ -123,6 +165,12 @@ $ ->
                 return { enabled: false }
               return
 
+#  $(document).on 'click', '#offer_to_guest', ->
+#    if $('#reservation_schedule_date').val == '' || $('#reservation_schedule_end').val() == ''
+#      alert '開始日と終了日を入力してください'
+#      return false
+
+
   set_ngday_reservation_by_listing = (listing_id, reservation_id) ->
     $.ajax(
         type: 'GET'
@@ -149,6 +197,15 @@ $ ->
   # open include_what
   $('a.include_what_trigger').on 'click', (e) ->
     $('#include_what').modal()
+    $('#form_change_confirm').modal('hide')
+    e.preventDefault()
+    e.stopPropagation()
+    return false
+  
+  # open include_what for dashboard
+  $('.include_what_trigger_for_dashboard').on 'click', (e) ->
+    index = $('.include_what_trigger_for_dashboard').index(this)
+    $('.include_what' + index).modal()
     $('#form_change_confirm').modal('hide')
     e.preventDefault()
     e.stopPropagation()

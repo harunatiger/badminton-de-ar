@@ -88,7 +88,11 @@ class ListingVideoUploader < CarrierWave::Uploader::Base
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
-    %w(mp4 mov)
+    if model.respond_to?(:image_blank_ok) and model.image_blank_ok
+      ['mp4', 'mov','']
+    else
+      %w(mp4 mov)
+    end
   end
 
   # Override the filename of the uploaded files:
