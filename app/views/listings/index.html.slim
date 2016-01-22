@@ -27,16 +27,16 @@
                 | サービス開始前にご連絡いたしますのでしばしお待ち下さい。
             - else
               h3
-                | 現在はβ版運用のため、ガイド登録は行えません。
+                | This website is still in beta mode, so you can’t register as a guide just yet.
               p.text-lead.row-space-4
-                | 正式サービスインは2016 年春を予定しておりますのでしばしお待ち下さい。
+                | Please wait for the official release coming this spring.
                 br
-                | ガイドになることを希望される方は、ボタンよりご登録頂ければ幸いです。
+                | If you are interested in becoming a guide in the future, please click “Apply”.
                 br
-                | サービス開始前にご連絡いたします。
+                | We will send you a message when the site is ready!
               = simple_form_for(PreMail.new) do |f|
                 = f.hidden_field :user_id, value: current_user.id
-                = f.submit '申請する', class: 'btn btn-primary btn-large'
+                = f.submit 'Apply', class: 'btn btn-primary btn-large'
     - else
       .col-md-9
         .card
