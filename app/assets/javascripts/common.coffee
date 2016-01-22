@@ -58,6 +58,21 @@ $ ->
 
   # profile#show
   if $('body').hasClass('profiles show')
+
+    # profile thumbnail carousel
+    if $('#profie-thumb-carousel').length
+      if $('.item').length < 2
+        $('.carousel-control').hide()
+        return
+      else
+        $('#profie-thumb-carousel').carousel(interval: false)
+        $('.carousel-control.left').click ->
+          $('#profie-thumb-carousel').carousel 'prev'
+          return
+        $('.carousel-control.right').click ->
+          $('#profie-thumb-carousel').carousel 'next'
+          return
+
     # profile tour location
     initialize = ->
       bounds = new google.maps.LatLngBounds()
