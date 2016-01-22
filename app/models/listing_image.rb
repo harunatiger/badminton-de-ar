@@ -20,6 +20,7 @@ class ListingImage < ActiveRecord::Base
   belongs_to :listing
 
   mount_uploader :image, DefaultImageUploader
+  attr_accessor :image_blank_ok
 
   scope :slideshow_images, -> id { where(listing_id: id) }
   scope :order_asc, -> { order('order_num asc') }

@@ -220,12 +220,12 @@ class Listing < ActiveRecord::Base
     listing_copied.cover_image = self.cover_image.file
     listing_copied.cover_video = self.cover_video.file
     self.listing_images.each do |listing_image|
-      listing_copied.listing_images.build(order_num: listing_image.order_num, image: listing_image.image.file)
+      listing_copied.listing_images.build(image_blank_ok: true, order_num: listing_image.order_num, image: listing_image.image.file)
     end
     listing_copied.pickup_ids = self.pickups.ids
     listing_copied.open = false
     listing_copied.title = self.title + ' 2'
-    listing_copied.save ? listing_copied : false
+    listing_copied.save! ? listing_copied : false
   end
 
   def self.check_date(listings, search_params)
