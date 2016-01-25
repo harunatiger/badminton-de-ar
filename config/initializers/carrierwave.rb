@@ -12,7 +12,6 @@ CarrierWave.configure do |config|
     #config.cache_storage = :fog # set cache dir s3
     config.cache_dir = "#{Rails.root}/tmp/uploads" # for Heroku
     #config.fog_public = true
-    config.fog_host = ENV['HUBER_AWS_HOST']
   else
     config.storage = :file
   end
