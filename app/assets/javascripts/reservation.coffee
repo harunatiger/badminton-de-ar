@@ -164,6 +164,15 @@ $ ->
               if $.inArray(date.getDay(), disabled_weeks) != -1
                 return { enabled: false }
               return
+          $('.option-check').each ->
+            if $(this).is(':checked')
+              $(this).parents('.collapse-trigger').next().collapse('show')
+
+          $('.option-check').on 'click', (e) ->
+            if $(this).is(':checked')
+              $(this).parents('.collapse-trigger').next().collapse('show')
+            else
+              $(this).parents('.collapse-trigger').next().collapse('hide')
 
 #  $(document).on 'click', '#offer_to_guest', ->
 #    if $('#reservation_schedule_date').val == '' || $('#reservation_schedule_end').val() == ''
@@ -201,7 +210,7 @@ $ ->
     e.preventDefault()
     e.stopPropagation()
     return false
-  
+
   # open include_what for dashboard
   $('.include_what_trigger_for_dashboard').on 'click', (e) ->
     index = $('.include_what_trigger_for_dashboard').index(this)
