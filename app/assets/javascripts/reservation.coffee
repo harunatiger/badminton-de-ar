@@ -173,6 +173,9 @@ $ ->
               $(this).parents('.collapse-trigger').next().collapse('show')
             else
               $(this).parents('.collapse-trigger').next().collapse('hide')
+          $('#reservation_block-form').fadeOut()
+          $('#reservation_block-info').fadeIn()
+          $('html, body').animate(scrollTop: 0)
 
 #  $(document).on 'click', '#offer_to_guest', ->
 #    if $('#reservation_schedule_date').val == '' || $('#reservation_schedule_end').val() == ''
