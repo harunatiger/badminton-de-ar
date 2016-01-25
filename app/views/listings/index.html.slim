@@ -86,7 +86,7 @@
                                   i.fa.fa-edit
                                   .text-center Edit
                               .col-4
-                                = link_to listing_copy_path(listing), class: "copy-listing" do
+                                = link_to listing_copy_path(listing), class: "copy-listing", method: 'POST' do
                                   i.fa.fa-copy
                                   .text-center Copy
                               .col-4

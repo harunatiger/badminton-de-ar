@@ -408,7 +408,7 @@ Rails.application.routes.draw do
     #end
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
-    get 'copy', action: 'copy', as: 'copy'
+    post 'copy', action: 'copy', as: 'copy'
     resources :ngevents, only: [:index, :create]
     resources :ngevent_weeks, only: [:index, :create] do
       put 'unset', on: :collection
