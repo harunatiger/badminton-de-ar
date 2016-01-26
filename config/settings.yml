@@ -228,7 +228,7 @@ pre_mail:
     failure: 'ガイド申請に失敗しました。'
 mailer:
   from:
-    default: "default-from-email@example.com"
+    default: '"Huber." <noreply@huber-japan.com>'
     support: '"Huber." <support@m.huber.co.jp>'
   new_message:
     subject:
