@@ -215,6 +215,8 @@ class Listing < ActiveRecord::Base
 
   def dup_all
     listing_copied = self.dup
+    listing_copied.remove_cover_video!
+    listing_copied.remove_cover_image!
     #listing_copied.image_blank_ok = true
     listing_copied.listing_detail = self.listing_detail.dup if self.listing_detail.present?
     #listing_copied.cover_image = self.cover_image.file
