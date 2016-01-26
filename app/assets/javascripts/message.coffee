@@ -26,6 +26,8 @@ $ ->
   $('#reservation_block-toggle').on 'click', ->
     $('#reservation_block-info').fadeOut()
     $('#reservation_block-form').fadeIn()
+    if $('div.alert').length
+      $('div.alert').remove()
 
   # cancel step
   #$('.cc_to_step2').on 'click', ->
