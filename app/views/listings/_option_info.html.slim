@@ -1,32 +1,37 @@
 / listings/option_info
 #tour-option-info.card.row-space-8
-  .location-container
-    #location
-  .card-body
-    .h6.row-space-1 Meeting at
-    .text-muted.overflow
-      = listing_detail.place if listing_detail.present?
-  .card-body
-    .h6.row-space-1 Note about meeting up
-    .text-muted.overflow
-      = hbr(listing_detail.place_memo).html_safe if listing_detail.present?
-  .card-body
-    .h6.row-space-1 Conditions of Participation
-    .text-muted.overflow
-      = hbr(listing_detail.condition).html_safe if listing_detail.present?
-  .card-body
-    .h6.row-space-1 Refund Policy
-    .text-muted.overflow
-      /= listing_detail.refund_policy
-      | ① 100% refund for cancellation up to 14 days prior to the tour date
-      | (ex. For a guide starting on 5/15 at 15:00, until 5/1 at 23:59)
-      br
-      | ② 50% refund for cancellation 14 to 3 days before guide date
-      | (ex. For a guide starting on 5/15 at 15:00, between 5/2 at 00:00 to 5/12 at 23:59)
-      br
-      | ③ No refund for cancellation less than 3 days prior to the tour date
-      | ex. For a guide starting on 5/10 at 15:00, after 5/9 at 15:00
-  .card-body
-    .h6.row-space-1 In the case of rainy weather
-    .text-muted.overflow
-      = hbr(listing_detail.in_case_of_rain).html_safe if listing_detail.present?
+  - if listing_detail.present?
+    - if listing_detail.place.present?
+      .location-container
+        #location
+      .card-body
+        .h6.row-space-1 Meeting at
+        .text-muted.overflow
+          = listing_detail.place
+    - if listing_detail.place_memo.present?
+      .card-body
+        .h6.row-space-1 Note about meeting up
+        .text-muted.overflow
+          = hbr(listing_detail.place_memo).html_safe
+    - if listing_detail.condition.present?
+      .card-body
+        .h6.row-space-1 Conditions of Participation
+        .text-muted.overflow
+          = hbr(listing_detail.condition).html_safe
+    .card-body
+      .h6.row-space-1 Refund Policy
+      .text-muted.overflow
+        /= listing_detail.refund_policy
+        | ① 100% refund for cancellation up to 14 days prior to the tour date
+        | (ex. For a guide starting on 5/15 at 15:00, until 5/1 at 23:59)
+        br
+        | ② 50% refund for cancellation 14 to 3 days before guide date
+        | (ex. For a guide starting on 5/15 at 15:00, between 5/2 at 00:00 to 5/12 at 23:59)
+        br
+        | ③ No refund for cancellation less than 3 days prior to the tour date
+        | ex. For a guide starting on 5/10 at 15:00, after 5/9 at 15:00
+    - if listing_detail.in_case_of_rain.present?
+      .card-body
+        .h6.row-space-1 In the case of rainy weather
+        .text-muted.overflow
+          = hbr(listing_detail.in_case_of_rain).html_safe
