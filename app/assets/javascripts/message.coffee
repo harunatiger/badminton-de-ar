@@ -15,6 +15,41 @@ $ ->
       else
         $(this).parents('.collapse-trigger').next().collapse('hide')
 
+    isFormcheck = ->
+      if $('#non_special_offer_form #reservation_schedule_hour').val() == ''
+        return false
+      if $('#non_special_offer_form #reservation_time_required').val() == '0.0'
+        return false
+      if $('#non_special_offer_form #reservation_space_option').prop('checked') == true
+        if $('#non_special_offer_form #reservation_space_rental').val() == '0'
+          return false
+      if $('#non_special_offer_form #reservation_car_option').prop('checked') == true
+        rental = $('#non_special_offer_form #reservation_car_rental').val()
+        gas = $('#non_special_offer_form #reservation_gas').val()
+        highway = $('#non_special_offer_form #reservation_highway').val()
+        parking = $('#non_special_offer_form #reservation_parking').val()
+        if parseInt(rental) + parseInt(gas) + parseInt(highway) + parseInt(parking) == 0
+          return false
+      if $('#non_special_offer_form #reservation_guests_cost').val() != 0
+        if $('#non_special_offer_form #reservation_included_guests_cost').val() == ''
+          return false
+      if $('#non_special_offer_form #reservation_schedule_date').val() == ''
+        return false
+      if $('#non_special_offer_form #reservation_schedule_end').val() == ''
+        return false
+      if $('#non_special_offer_form #reservation_place').val() == ''
+        return false
+      if $('#non_special_offer_form #reservation_place_memo').val() == ''
+        return false
+      if $('#non_special_offer_form #reservation_description').val() == ''
+        return false
+      return
+
+    if isFormcheck() == false
+      $('#offer_to_guest').prop("disabled", true)
+    else
+      $('#offer_to_guest').prop("disabled", false)
+
   # loader preset
   $.fn.spin.presets.flower =
     lines: 7

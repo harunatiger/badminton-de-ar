@@ -177,12 +177,6 @@ $ ->
           $('#reservation_block-info').fadeIn()
           $('html, body').animate(scrollTop: 0)
 
-#  $(document).on 'click', '#offer_to_guest', ->
-#    if $('#reservation_schedule_date').val == '' || $('#reservation_schedule_end').val() == ''
-#      alert '開始日と終了日を入力してください'
-#      return false
-
-
   set_ngday_reservation_by_listing = (listing_id, reservation_id) ->
     $.ajax(
         type: 'GET'
