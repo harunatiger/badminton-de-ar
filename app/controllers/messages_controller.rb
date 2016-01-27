@@ -48,6 +48,7 @@ class MessagesController < ApplicationController
     else
       mt_obj = MessageThread.create_thread(message_params)
     end
+    first_message = mt_obj.messages.present? ? 0 : 1
     respond_to do |format|
       if Message.send_message(mt_obj, message_params)
         reservation_params = params['reservation']
@@ -77,11 +78,23 @@ class MessagesController < ApplicationController
           else
             #MessageMailer.send_new_message_notification(mt_obj, message_params).deliver_later!(wait: 1.minute) # if you want to use active job, use this line.
             MessageMailer.send_new_message_notification(mt_obj, message_params).deliver_now! # if you don't want to use active job, use this line.
+            if first_message == 1
+              MessageMailer.send_new_message_notification_to_admin(mt_obj, message_params).deliver_now!
+            end
           end
         else
           #MessageMailer.send_new_message_notification(mt_obj, message_params).deliver_later!(wait: 1.minute) # if you want to use active job, use this line.
           MessageMailer.send_new_message_notification(mt_obj, message_params).deliver_now! # if you don't want to use active job, use this line.
+          if first_message == 1
+            MessageMailer.send_new_message_notification_to_admin(mt_obj, message_params).deliver_now!
+          end
         end
+
+        host_id = mt_obj.host_id.present? ? mt_obj.host_id : 0
+        reply_from_host = host_id.to_i == message_params['from_user_id'].to_i ? 1 : 0
+
+        mt_obj.update(reply_from_host: reply_from_host, first_message: first_message)
+
         format.html { return redirect_to message_thread_path(mt_obj.id), notice: Settings.message.save.success }
         format.json { return render json: { success: true } } if request.xhr?
       else
