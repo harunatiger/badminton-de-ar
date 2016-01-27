@@ -13,7 +13,7 @@
             .card-overlay-bottom-left.flush-left.card-overlay-label
               .h3
                 | ¥&nbsp;
-                = listing.listing_detail.amount if listing.listing_detail.present?
+                = listing.listing_detail.basic_amount if listing.listing_detail.present?
             = link_to favorite_listing_path(favorite_listing_set(listing, current_user)), method: 'DELETE' , class: "favorite-btn" do
               i.fa.fa-heart.favorited
           .card-body

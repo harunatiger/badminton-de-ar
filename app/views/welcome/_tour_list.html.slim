@@ -8,7 +8,7 @@
         .card-overlay-bottom-left.flush-left.card-overlay-label
           .h3
             | ¥
-            = listing.listing_detail.amount
+            = listing.listing_detail.basic_amount
         - if user_signed_in?
           = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
             - if current_user.favorite_listing?(listing)

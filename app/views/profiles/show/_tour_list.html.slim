@@ -14,7 +14,7 @@ h4.row-space-4
           .card-overlay-bottom-left.flush-left.card-overlay-label
             .h3
               | ¥&nbsp;
-              = listing.listing_detail.amount if listing.listing_detail.present?
+              = listing.listing_detail.basic_amount if listing.listing_detail.present?
           - if user_signed_in?
             = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
               - if current_user.favorite_listing?(listing)

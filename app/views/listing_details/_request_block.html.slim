@@ -4,7 +4,7 @@
     h3.h4.strong.row-space-2 ガイド料金
     .h3.row-space-2
       | ¥
-      b.value_discharge.total_price = @listing_detail.amount
+      b.value_discharge.total_price = @listing_detail.basic_amount
       small
         |  / グループ(MAX
         span.max-num-of-people
@@ -29,30 +29,28 @@
             | ¥
             span.value_discharge.value_discharge_option.option_total
               = @listing_detail.option_amount
-      - if @listing_detail.space_option
-        - space_options.each do |option|
-          /- if @listing_detail[option] > 0
-          .row.text-muted
-            .col-xs-7
-              |  -
-              span.value_subject
-                = I18n.t('option_price_ja.' + option)
-            .col-xs-5.text-right.strong
-              | ¥
-              span.value_discharge.value_discharge_option[class="#{option}"]
-                = @listing_detail[option]
-      - if @listing_detail.car_option
-        - car_options.each do |option|
-          /- if @listing_detail[option] > 0
-          .row.text-muted
-            .col-xs-7
-              |  -
+      - space_options.each do |option|
+        /- if @listing_detail[option] > 0
+        .row.text-muted
+          .col-xs-7
+            |  -
+            span.value_subject
               = I18n.t('option_price_ja.' + option)
-            .col-xs-5.text-right.strong
-              | ¥
-              .value_discharge.value_discharge_option[class="#{option}"]
-                = @listing_detail[option]
-      .row
+          .col-xs-5.text-right.strong
+            | ¥
+            span.value_discharge.value_discharge_option[class="#{option}"]
+              = @listing_detail[option]
+      - car_options.each do |option|
+        /- if @listing_detail[option] > 0
+        .row.text-muted
+          .col-xs-7
+            |  -
+            = I18n.t('option_price_ja.' + option)
+          .col-xs-5.text-right.strong
+            | ¥
+            .value_discharge.value_discharge_option[class="#{option}"]
+              = @listing_detail[option]
+      /.row
         .col-xs-7
           | サービス手数料
         .col-xs-5.text-right.strong
