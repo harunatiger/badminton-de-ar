@@ -130,10 +130,48 @@
               .col-md-8
                 = simple_format(@reservation.description)
             - if @host_id == current_user.id
-              .row.row-condensed.row-space-2
-                .col-md-12
-                  .text-right
-                    = link_to 'Edit', '#', class: 'btn btn-primary btn-mw120', id: "reservation_block-toggle"
+              = simple_form_for(@reservation) do |f|
+                = f.hidden_field :message_thread_id, value: @message_thread.id
+                = f.hidden_field :host_id, value: @host_id
+                = f.hidden_field :guest_id, value: @guest_id
+                = f.hidden_field :progress, value: 'requested'
+                = f.hidden_field :listing_id, value: @reservation.listing_id
+                = f.hidden_field :schedule_date, value: @reservation.schedule_date
+                = hidden_field_tag 'reservation_id', @reservation.id
+                = f.hidden_field :time_required, value: @reservation.time_required
+                = f.hidden_field :price, value: @reservation.price
+                = f.hidden_field :price_for_support, value: @reservation.price_for_support
+                = f.hidden_field :price_for_both_guides, value: @reservation.price_for_both_guides
+                = f.hidden_field :space_option, value: @reservation.space_option
+                = f.hidden_field :space_rental, value: @reservation.space_rental
+                = f.hidden_field :car_option, value: @reservation.car_option
+                = f.hidden_field :car_rental, value: @reservation.car_rental
+                = f.hidden_field :gas, value: @reservation.gas
+                = f.hidden_field :highway, value: @reservation.highway
+                = f.hidden_field :parking, value: @reservation.parking
+                = f.hidden_field :guests_cost, value: @reservation.guests_cost
+                = f.hidden_field :included_guests_cost, value: @reservation.included_guests_cost
+                = f.hidden_field :num_of_people, value: @reservation.num_of_people
+                = f.hidden_field :schedule_end, value: @reservation.schedule_end
+                = f.hidden_field :place, value: @reservation.place
+                = f.hidden_field :place_memo, value: @reservation.place_memo
+                = f.hidden_field :schedule_hour, value: @reservation.schedule_hour
+                = f.hidden_field :schedule_minute, value: @reservation.schedule_minute
+                = f.hidden_field :description, value: @reservation.description
+                .row.row-condensed.row-space-2
+                  .col-md-6
+                    .text-left
+                      = button_tag type: 'submit', class: "btn btn-primary disabled", name: 'request', id: 'offer_to_guest' do
+                        i.fa.fa-envelope-o
+                        | ゲストにオファーする
+                      /= f.submit "ゲストにオファーする", class: "btn btn-primary disabled", name: 'request', id: 'offer_to_guest'
+                      .text-red.small1.row-space-top-2
+                        | ＊全ての登録をするとオファーできるようになります
+                  .col-md-6
+                    .text-right
+                      = link_to '#', class: 'btn btn-primary btn-mw120', id: "reservation_block-toggle" do
+                        i.fa.fa-pencil
+                        | Edit
             - elsif @reservation_for_update.present?
               - if @reservation_for_update.requested?
                 = simple_form_for(@reservation_for_update) do |f|

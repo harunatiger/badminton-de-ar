@@ -47,8 +47,8 @@ class ReservationsController < ApplicationController
           'color' => 'red'
           ]
 
-        Ngevent.change_date(ngevent_params, @reservation.id)
         unless params[:save]
+          Ngevent.change_date(ngevent_params, @reservation.id)
           if params[:reserve]
             ReservationMailer.send_new_reservation_notification(@reservation).deliver_now!
           else

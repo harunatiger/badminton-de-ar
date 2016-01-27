@@ -26,7 +26,7 @@
             = link_to "ゲストの支払いに関しての注意点", "#", class: "about_payment_link"
             = f.submit "キャンセル", class: "btn", type: "reset", id: 'cancel_detail'
             /= f.submit "保存", class: "btn", name: "save"
-            = button_tag :submit, class: "btn", name: "save" do
+            = button_tag :submit, class: "btn btn-primary", name: "save" do
               i.fa.fa-save
               |  保存
-            = f.submit "ゲストにオファーする", class: "btn btn-primary", name: 'request', id: 'offer_to_guest'
+            /= f.submit "ゲストにオファーする", class: "btn btn-primary", name: 'request', id: 'offer_to_guest'
