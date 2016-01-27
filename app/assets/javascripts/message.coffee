@@ -20,6 +20,12 @@ $ ->
         return false
       if $('#non_special_offer_form #reservation_time_required').val() == '0.0'
         return false
+      if $('#non_special_offer_form #reservation_price').val() == '0'
+        return false
+      if $('#non_special_offer_form #reservation_price_for_support').val() == '0'
+        return false
+      if $('#non_special_offer_form #reservation_price_for_both_guides').val() == '0'
+        return false
       if $('#non_special_offer_form #reservation_space_option').prop('checked') == true
         if $('#non_special_offer_form #reservation_space_rental').val() == '0'
           return false
