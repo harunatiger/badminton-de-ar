@@ -161,12 +161,17 @@
                 .row.row-condensed.row-space-2
                   .col-md-6
                     .text-left
-                      = f.submit "ゲストにオファーする", class: "btn btn-primary", name: 'request', id: 'offer_to_guest'
+                      = button_tag type: 'submit', class: "btn btn-primary disabled", name: 'request', id: 'offer_to_guest' do
+                        i.fa.fa-envelope-o
+                        | ゲストにオファーする
+                      /= f.submit "ゲストにオファーする", class: "btn btn-primary disabled", name: 'request', id: 'offer_to_guest'
                       .text-red.small1.row-space-top-2
                         | ＊全ての登録をするとオファーできるようになります
                   .col-md-6
                     .text-right
-                      = link_to 'Edit', '#', class: 'btn btn-primary btn-mw120', id: "reservation_block-toggle"
+                      = link_to '#', class: 'btn btn-primary btn-mw120', id: "reservation_block-toggle" do
+                        i.fa.fa-pencil
+                        | Edit
             - elsif @reservation_for_update.present?
               - if @reservation_for_update.requested?
                 = simple_form_for(@reservation_for_update) do |f|

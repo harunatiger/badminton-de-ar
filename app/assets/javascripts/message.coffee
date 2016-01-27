@@ -46,9 +46,9 @@ $ ->
       return
 
     if isFormcheck() == false
-      $('#offer_to_guest').prop("disabled", true)
+      $('#offer_to_guest').addClass("disabled")
     else
-      $('#offer_to_guest').prop("disabled", false)
+      $('#offer_to_guest').removeClass("disabled")
 
   # loader preset
   $.fn.spin.presets.flower =
