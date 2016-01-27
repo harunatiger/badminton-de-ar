@@ -27,9 +27,10 @@
       = link_to listing_path(listing), class: "text-normal" do
         h5.row-space-1.overflow
           = truncate(listing.title, length: 40)
-      .row-space-1
-        - pickup_area_from_listing(listing).each do |area|
-          => link_to pickup_path( area.id ) do
-            = area.short_name
+      - if pickup_area_from_listing(listing).present?
+        .row-space-1.listing-area
+          - pickup_area_from_listing(listing).each do |area|
+            => link_to pickup_path( area.id ) do
+              = area.short_name
       .row-space-1.text-muted
         | #{listing.listing_detail.time_required if listing.listing_detail.present?} hours · Review #{listing.open_reviews_count}

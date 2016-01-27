@@ -14,6 +14,33 @@ slideSwitch = ->
 
 # onload
 $ ->
+  if $('.tour-listing .listing-area').length
+    #windowWidth = $(window).width()
+    #if windowWidth < 767
+    #  maxlength = 65
+    #else if windowWidth > 768 && windowWidth < 1099
+    #  maxlength = 65
+    #else
+    maxlength = 60
+    $('.tour-listing .listing-area').each (index) ->
+      elementChild = $(this).children('a')
+      elementChildNum = elementChild.length
+      i = 0
+      j = 0
+      sum = 0
+      while i < elementChildNum
+        str = $.trim($(elementChild).eq(i).text())
+        sum = sum + str.length
+        if sum >= maxlength
+          j = i
+          break
+        i++
+      if j != 0 && j != elementChildNum
+        while j < elementChildNum
+          $(elementChild).eq(j).remove()
+          j++
+        $(this).append('...')
+
 
   # dropdown-nav
   #old_item = undefined
