@@ -30,4 +30,6 @@ class ProfileBank < ActiveRecord::Base
   #validates :user_name, presence: true
   #validates :number, presence: true
   validates :profile_id, uniqueness: true
+  validates :user_name, format: {with: /^[\p{katakana}ー－[[:blank:]][ｧ-ﾝﾞﾟ]]+$/, :multiline => true, message: :katakana_error}
+  validates :number, length: {maximum: Settings.profile_banks.number_length.to_i, message: I18n.t('errors.messages.too_long', length: Settings.profile_banks.number_length)}
 end

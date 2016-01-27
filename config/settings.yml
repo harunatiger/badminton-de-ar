@@ -24,6 +24,7 @@ profile_banks:
   save:
     success: "Profile updated successfully"
     failure: "Please fill in all sections"
+  number_length: 7
 profile_keywords:
   save:
     success: "Profile updated successfully"

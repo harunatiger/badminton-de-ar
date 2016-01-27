@@ -15,6 +15,8 @@ en:
     messages:
       extension_white_list_error: "format is invalid"
       size_over: "size is too big. Please ensure file size is less than %{size}MB"
+      katakana_error: "はカタカナで入力してください"
+      too_long: "は%{length}文字以内で入力してください"
   activerecord:
     attributes:
       listing:
@@ -28,6 +30,9 @@ en:
         first_name: 'first_name'
       profile:
         phone: 'Phone number'
+      profile_bank:
+        user_name: '口座名義'
+        number: '口座番号'
   mailer:
     new_message:
       subject:
