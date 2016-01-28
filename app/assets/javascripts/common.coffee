@@ -206,10 +206,14 @@ $ ->
         $('body').removeClass('slideout')
       $('body').addClass('paper')
       $('#guest-flow').modal()
+      $('.panel-close-fix').show()
       return false
 
-    $('.close-guest-flow').on 'click', ->
-      $('body').removeClass('paper')
+    # move to $('.close-three-reasons').on 'click', ->
+    #$('.close-guest-flow').on 'click', ->
+    #  $('body').removeClass('paper')
+    #  $('#guest-flow').modal('hide')
+    #  $('.panel-close-fix').hide()
 
     # about guide modal
     $('.about-guide-trigger').on 'click', ->
@@ -236,6 +240,7 @@ $ ->
     $('.close-three-reasons').on 'click', ->
       $('body').removeClass('paper')
       $('#three-reasons').modal('hide')
+      $('#guest-flow').modal('hide')
       $('.panel-close-fix').hide()
 
   # subnav
