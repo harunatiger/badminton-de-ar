@@ -6,7 +6,7 @@ namespace :noreply_notification do
       if m.present?
         if mt.host_id.to_i == m.to_user_id.to_i
           second = Message.time_ago(m)
-          if second <= 3600
+          if second <= 7200
           #if second >= 86400
             ReplyMailer.send_reply_mail_to_host(m).deliver_now!
             ReplyMailer.send_reply_mail_to_admin(m).deliver_now!
