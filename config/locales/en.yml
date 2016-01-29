@@ -52,6 +52,8 @@ en:
         to_guest: "Your TOMODACHI GUIDE %{name} is coming tomorrow!"
     review_accept_notification:
       subject: "Read %{name}'s review"
+    reply_notification:
+      subject: "ゲストがあなたの返信を待っています"
   option_price_ja:
     space_rental: "スペースレンタル代"
     car_rental: "車両代"
