@@ -27,7 +27,8 @@ class MessageMailer < ApplicationMailer
     @to_user_name = "#{@to_user.profile.first_name} #{@to_user.profile.last_name}"
     @body = message_params['content'].to_s
     mail(
-      to:      ENV["OWNER_MAIL_ADDRESS"],
+      #to:      ENV["OWNER_MAIL_ADDRESS"],
+      to:      "chimo@cozi73.com",
       subject: Settings.mailer.new_message_to_admin.subject.arrived
     ) do |format|
       format.text
