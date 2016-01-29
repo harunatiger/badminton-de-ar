@@ -36,6 +36,11 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+develop:
+  <<: *default
+  database: huber_develop
+  username: huber
+  password: <%= ENV['HUBER_DATABASE_PASSWORD'] %>
 staging:
   <<: *default
   database: huber_staging
