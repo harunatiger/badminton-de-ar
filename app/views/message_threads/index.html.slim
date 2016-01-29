@@ -39,6 +39,20 @@
                             = lm.english_content
                           .thread-date
                             = mt.updated_at.to_s
+                          -if mt.reservation_progress != "Accept" && mt.reservation_progress != "Cancel"
+                            -if mt.host_id == current_user.id && !mt.reply_from_host
+                              - unreply_time = time_ago(lm)
+                              - if unreply_time == '24時間以上'
+                                strong
+                                  .reply-status.text-red
+                                    | ゲストがあなたの返信を待っています
+                                    =< unreply_time
+                                    | 経過
+                              - else
+                                .reply-status
+                                  | ゲストがあなたの返信を待っています
+                                  =< unreply_time
+                                  | 経過
                     .col-md-3.thread-progress
                       .row.row-table
                         .col-md-12.col-middle.text-center

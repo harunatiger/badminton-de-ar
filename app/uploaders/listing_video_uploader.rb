@@ -49,7 +49,7 @@ class ListingVideoUploader < CarrierWave::Uploader::Base
   end
 
   def trigger_encode_job(new_file)
-    if Rails.env.staging? || Rails.env.production?
+    if Rails.env.develop? || Rails.env.staging? || Rails.env.production?
     #if 1 #for development
       create_elastic_transcoder_job(
         "#{store_dir}/#{filename}",

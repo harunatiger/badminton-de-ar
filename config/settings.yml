@@ -235,10 +235,16 @@ mailer:
     subject:
       #arrived: "新しいメッセージが届きました！"
       arrived: "You have a new message from"
+  new_message_to_admin:
+    subject:
+      arrived: "新しいメッセージが作成されました"
   new_reservation:
     subject:
       #arrived: "予約リクエストが届きました！"
       arrived: "You have a reservation request from "
+  new_reservation_to_admin:
+    subject:
+      arrived: "新しい予約リクエストが作成されました"
   new_guide_detail:
     subject:
       #arrived: "ガイド内容が届きました！"
@@ -271,6 +277,8 @@ mailer:
     subject: "ガイド申請が届きました。"
   pre_mail_to_user:
     subject: "Huber.ガイド希望の確認メール"
+  reply_mail_to_admin:
+    subject: "ゲストへの返信がまだ行われていません"
 left_steps:
   listing_image: "listing_image"
   listing_detail: "listing_detail"
