@@ -18,8 +18,7 @@ class ReplyMailer < ApplicationMailer
     @to_user = User.find(message.to_user_id)
     @to_user_name = "#{@to_user.profile.first_name} #{@to_user.profile.last_name}"
     mail(
-      #to:      ENV["OWNER_MAIL_ADDRESS"],
-      to:      "chimo@cozi73.com",
+      to:      ENV["OWNER_MAIL_ADDRESS"],
       subject: Settings.mailer.reply_mail_to_admin.subject
     ) do |format|
       format.text
