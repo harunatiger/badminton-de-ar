@@ -1,0 +1,8 @@
+<%= @from_user_name %>(<%= @from_user.present? ? profile_url(@from_user.profile.id) : ''%>)　から
+<%= @to_user_name %>(<%= @to_user.present? ? profile_url(@to_user.profile.id) : ''%>)　へ新しい予約リクエストが送信されました。
+
+<%= @listing.title %>
+<%= @listing.present? ? listing_url(@listing.id) : ''%>
+
+
+

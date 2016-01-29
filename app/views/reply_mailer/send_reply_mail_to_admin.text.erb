@@ -1,0 +1,9 @@
+ゲストへの返信がまだ行われていません。
+
+■ガイド
+<%= @to_user_name %>
+<%= @to_user.present? ? profile_url(@to_user.profile.id) : ''%>
+
+■ゲスト
+<%= @from_user_name %>
+<%= @from_user.present? ? profile_url(@from_user.profile.id) : ''%>

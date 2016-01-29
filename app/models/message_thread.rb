@@ -2,10 +2,12 @@
 #
 # Table name: message_threads
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  host_id    :integer
+#  id              :integer          not null, primary key
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  host_id         :integer
+#  reply_from_host :boolean          default(FALSE)
+#  first_message   :boolean          default(TRUE)
 #
 # Indexes
 #
@@ -20,6 +22,7 @@ class MessageThread < ActiveRecord::Base
   attr_accessor :reservation_progress
 
   scope :order_by_updated_at_desc, -> { order('updated_at') }
+  scope :noreply_push_mail, -> { where(reply_from_host: false, first_message: true) }
 
   def self.exists_thread?(msg_params)
     t_threads = MessageThreadUser.user_joins(msg_params['to_user_id']).select(:message_thread_id)
