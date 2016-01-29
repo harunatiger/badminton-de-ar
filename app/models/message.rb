@@ -107,10 +107,4 @@ class Message < ActiveRecord::Base
     end
   end
 
-  def self.time_ago(message)
-    now = Time.zone.now
-    updated = message.updated_at
-    second = (now - updated).to_i
-  end
-
 end

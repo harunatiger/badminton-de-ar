@@ -51,7 +51,6 @@ class ReservationsController < ApplicationController
           Ngevent.change_date(ngevent_params, @reservation.id)
           if params[:reserve]
             ReservationMailer.send_new_reservation_notification(@reservation).deliver_now!
-            ReservationMailer.send_new_reservation_notification_to_admin(@reservation).deliver_now!
           else
             ReservationMailer.send_new_guide_detail_notification(@reservation).deliver_now!
           end
@@ -64,16 +63,13 @@ class ReservationsController < ApplicationController
             'progress' => @reservation.progress,
             'schedule' => @reservation.schedule,
             'message_thread_id' => @reservation.message_thread_id,
-            'content' => params[:reserve].present? ? Settings.reservation.msg.reserve : Settings.reservation.msg.request,
-            'reply_from_host' => @reservation.host_id == current_user.id ? 1 : 0
+            'content' => params[:reserve].present? ? Settings.reservation.msg.reserve : Settings.reservation.msg.request
           ]
           if @reservation.message_thread_id
             mt_obj = MessageThread.find(@reservation.message_thread_id)
-            mt_obj.update(reply_from_host: msg_params['reply_from_host'],first_message: 0)
           else
             if id = MessageThread.exists_thread?(msg_params)
               mt_obj = MessageThread.find(id)
-              mt_obj.update(reply_from_host: msg_params['reply_from_host'],first_message: 0)
             else
               mt_obj = MessageThread.create_thread(msg_params)
             end
@@ -234,17 +230,6 @@ class ReservationsController < ApplicationController
           ReservationMailer.send_cancel_mail_to_owner(@reservation).deliver_now!
           note = Settings.reservation.update.cancel_success
         end
-
-        if @reservation.host_id == current_user.id
-          reply_from_host = 1
-        else
-          if msg == Settings.reservation.msg.accepted || msg == Settings.reservation.msg.canceled
-            reply_from_host = 1
-          else
-            reply_from_host = 0
-          end
-        end
-
         msg_params = Hash[
           'reservation_id' => @reservation.id,
           'listing_id' => @reservation.listing_id,
@@ -253,12 +238,10 @@ class ReservationsController < ApplicationController
           'progress' => @reservation.progress,
           'schedule' => @reservation.schedule,
           'message_thread_id' => message_thread_id,
-          'content' => msg,
-          'reply_from_host' => reply_from_host
+          'content' => msg
         ]
 
         mt_obj = MessageThread.find(message_thread_id)
-        mt_obj.update(reply_from_host: msg_params['reply_from_host'],first_message: 0)
 
         if Message.send_message(mt_obj, msg_params)
           format.html { redirect_to message_thread_path(message_thread_id), notice: note.present? ? note : Settings.reservation.update.success }

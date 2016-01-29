@@ -509,20 +509,4 @@ module ApplicationHelper
   def pickup_area_from_listing(listing)
     listing.pickups.where(type: 'PickupArea')
   end
-
-  def time_ago(message)
-    now = Time.zone.now
-    updated = message.updated_at
-    second = (now - updated).to_i
-    if second >= 86400
-      unreply_time = '24時間以上'
-    else
-      day = second.to_i / 86400
-      if second >= 3600
-        unreply_time = ((Time.parse("1/1") + (second - day * 86400)).strftime("%H").to_i).to_s + '時間'
-      else
-        unreply_time = ((Time.parse("1/1") + (second - day * 86400)).strftime("%M").to_i).to_s + '分'
-      end
-    end
-  end
 end
