@@ -203,7 +203,7 @@ group :development, :test do
   gem "view_source_map", '0.1.0'
 end
 
-group :production, :staging do
+group :production, :staging, :develop do
   gem 'rails_12factor', '0.0.3' # for heroku
 
   # for cache
