@@ -1,0 +1,36 @@
+.card.tour-listing
+  .card-image
+    = link_to listing_path(listing), class: "media-photo media-photo-block media-cover" do
+      | <div class="tour-cover" style="background-image:url(#{asset_path listing_cover_image_url(listing.id)})"></div>
+    .card-overlay-bottom-left.flush-left.card-overlay-label
+      .h3
+        | ¥&nbsp;
+        = listing.listing_detail.basic_amount if listing.listing_detail.present?
+    - if user_signed_in?
+      = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
+        - if current_user.favorite_listing?(listing)
+          i.fa.fa-heart.favorited
+          i.fa.fa-heart.unfavorite.hide
+          i.fa.fa-heart-o.outline.hide.balloon(title="add to your favorites")
+        - else
+          i.fa.fa-heart.favorited.hide
+          i.fa.fa-heart.unfavorite
+          i.fa.fa-heart-o.outline.balloon(title="add to your favorites")
+    - else
+      = link_to new_profile_path, class: "favorite-btn" do
+        i.fa.fa-heart.unfavorite
+        i.fa.fa-heart-o.outline.balloon(title="add to your favorites")
+  .card-body
+    .media
+      = link_to profile_path(profile), class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+        div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')" title="#{user_id_to_name(profile.user_id)}"]
+      = link_to listing_path(listing), class: "text-normal" do
+        h5.row-space-1.overflow
+          = truncate(listing.title, length: 40)
+      - if pickup_area_from_listing(listing).present?
+        .row-space-1.listing-area
+          - pickup_area_from_listing(listing).each do |area|
+            => link_to pickup_path( area.id ) do
+              = area.short_name
+      .row-space-1.text-muted
+        | #{listing.listing_detail.time_required if listing.listing_detail.present?} hours · Review #{listing.open_reviews_count}

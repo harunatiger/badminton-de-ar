@@ -16,7 +16,7 @@
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
-                        .h2.strong
+                        .h2.strong.overflow
                           = pickup.long_name
                   | </div>
                 = render partial: 'tour_list', locals: { listing: select_pick_up_listing(pickup) }
@@ -29,7 +29,7 @@
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
-                        .h2.strong
+                        .h2.strong.overflow
                           = pickup.short_name
                   | </div>
               - elsif i >= 2 && i <= 3
@@ -41,7 +41,7 @@
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
-                        .h2.strong
+                        .h2.strong.overflow
                           = pickup.short_name
                   | </div>
               - elsif i == 4
@@ -51,7 +51,7 @@
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
-                        .h2.strong
+                        .h2.strong.overflow
                           = pickup.long_name
                   | </div>
               - elsif i == 5
@@ -63,7 +63,7 @@
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
-                        .h2.strong
+                        .h2.strong.overflow
                           = pickup.short_name
                   | </div>
               - elsif i >= 6 && i <= 7
@@ -75,7 +75,7 @@
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
-                        .h2.strong
+                        .h2.strong.overflow
                           = pickup.short_name
                   | </div>
               - else
@@ -88,7 +88,7 @@
                 = link_to pickup_path(@pickups) do
                   .va-container.va-container-v.va-container-h
                     .va-middle.text-center.text-contrast
-                      .h2.strong
+                      .h2.strong.overflow
                         = @pickups.long_name
                 | </div>
               .col-lg-8.col-md-12.rm-padding--sp.visible-sm
@@ -99,7 +99,7 @@
                 = link_to pickup_path(@pickups) do
                   .va-container.va-container-v.va-container-h
                     .va-middle.text-center.text-contrast
-                      .h2.strong
+                      .h2.strong.overflow
                         = @pickups.long_name
                 | </div>
               = render partial: 'tour_list', locals: { listing: Listing.find(@pickups.selected_listing) }

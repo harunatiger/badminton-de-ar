@@ -36,9 +36,10 @@ $ ->
         fv9 = 0
       fv10 = fv5 + fv6 + fv7 + fv8 + fv9
       fv11 = fv4 + fv10
-      fv12 = Math.ceil((fv11) * 0.125)
-      if fv11 <= 500
-        fv12 = 0
+      #fv12 = Math.ceil((fv11) * 0.125)
+      #if fv11 <= 500
+      #  fv12 = 0
+      fv12 = 0
       fv13 = Number($('#listing_detail_guests_cost').val())
       fv14 = fv11 + fv12
       fv15 = $('#listing_detail_included_guests_cost').val()

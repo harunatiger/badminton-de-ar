@@ -291,6 +291,10 @@ module ApplicationHelper
   def listing_id_to_listing_obj(listing_id)
     Listing.find(listing_id)
   end
+  
+  def listing_to_profile(listing)
+    Profile.where(user_id: listing.user_id).first
+  end
 
   def reservation_id_to_reservation_obj(reservation_id)
     Reservation.find(reservation_id)

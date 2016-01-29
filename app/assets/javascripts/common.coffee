@@ -14,6 +14,33 @@ slideSwitch = ->
 
 # onload
 $ ->
+  if $('.tour-listing .listing-area').length
+    #windowWidth = $(window).width()
+    #if windowWidth < 767
+    #  maxlength = 65
+    #else if windowWidth > 768 && windowWidth < 1099
+    #  maxlength = 65
+    #else
+    maxlength = 60
+    $('.tour-listing .listing-area').each (index) ->
+      elementChild = $(this).children('a')
+      elementChildNum = elementChild.length
+      i = 0
+      j = 0
+      sum = 0
+      while i < elementChildNum
+        str = $.trim($(elementChild).eq(i).text())
+        sum = sum + str.length
+        if sum >= maxlength
+          j = i
+          break
+        i++
+      if j != 0 && j != elementChildNum
+        while j < elementChildNum
+          $(elementChild).eq(j).remove()
+          j++
+        $(this).append('...')
+
 
   # dropdown-nav
   #old_item = undefined
@@ -179,10 +206,14 @@ $ ->
         $('body').removeClass('slideout')
       $('body').addClass('paper')
       $('#guest-flow').modal()
+      $('.panel-close-fix').show()
       return false
 
-    $('.close-guest-flow').on 'click', ->
-      $('body').removeClass('paper')
+    # move to $('.close-three-reasons').on 'click', ->
+    #$('.close-guest-flow').on 'click', ->
+    #  $('body').removeClass('paper')
+    #  $('#guest-flow').modal('hide')
+    #  $('.panel-close-fix').hide()
 
     # about guide modal
     $('.about-guide-trigger').on 'click', ->
@@ -209,6 +240,7 @@ $ ->
     $('.close-three-reasons').on 'click', ->
       $('body').removeClass('paper')
       $('#three-reasons').modal('hide')
+      $('#guest-flow').modal('hide')
       $('.panel-close-fix').hide()
 
   # subnav

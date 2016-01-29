@@ -18,6 +18,22 @@ class ReservationMailer < ApplicationMailer
     end
   end
 
+  def send_new_reservation_notification_to_admin(reservation)
+    @reservation = reservation
+    @listing = reservation.listing
+    @from_user = User.find(reservation.guest_id)
+    @from_user_name  = "#{@from_user.profile.first_name} #{@from_user.profile.last_name}"
+    @to_user = User.find(reservation.host_id)
+    @to_user_name = "#{@to_user.profile.first_name} #{@to_user.profile.last_name}"
+    mail(
+      #to:      ENV["OWNER_MAIL_ADDRESS"],
+      to:      "chimo@cozi73.com",
+      subject: Settings.mailer.new_reservation_to_admin.subject.arrived
+    ) do |format|
+      format.text
+    end
+  end
+
   def send_new_guide_detail_notification(reservation)
     from_user = User.find(reservation.host_id)
     @from_user_name  = "#{from_user.profile.first_name} #{from_user.profile.last_name}"
