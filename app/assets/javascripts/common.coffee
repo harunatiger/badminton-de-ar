@@ -430,7 +430,15 @@ $ ->
     isChanged = false
     form_change_target = ''
 
-    handleClick = (target) ->
+    handleClick = (event, target) ->
+      if event.hasClass('info--sp')
+        return
+      if event.hasClass('close-layer--sp')
+        return
+      if event.hasClass('burger--sp')
+        return
+      if event.hasClass('price--sp')
+        return
       if $('body').is('.profiles.self_introduction') and target == '#'
         return
       if $('body').is('.profile_keywords.new') and target == '#'
@@ -457,8 +465,18 @@ $ ->
       if $(this).attr('data-dismiss') == "modal"
         return
       else
-        handleClick($(this).attr('href'))
+        handleClick($(this),$(this).attr('href'))
     $('#form_change_confirm #pagemove').on 'click', -> modalyesClick()
+    $('#form_change_confirm .btn-default').on 'click', ->
+      if $('body').hasClass('slideout')
+        $('body').removeClass('slideout')
+      if $('.manage-listing-nav').css('display') == "block"
+        $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').hide()
+        $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').removeClass('show-off')
+      else
+        $('.manage-listing-detail, .close-layer--sp').hide()
+        $('.manage-listing-detail, .close-layer--sp').removeClass('show-off')
+      return
 
   #IME disabled
   $('.imeoff').bind 'keyup', ->
