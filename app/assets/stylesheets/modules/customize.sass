@@ -1609,6 +1609,26 @@ body.paper
       border-color: $brand-theme
       cursor: default
 
+/* listings#edit
+  ================================================================================ */
+
+.manage-listing-nav
+  .nav-sections
+    .btn.bg-gray
+      background-color: $gray1
+      color: white
+      border: none
+      &:hover
+        color: white
+        background-color: lighten( $gray1, 15% )
+    .published.status
+      background: transparent
+      color: $green1
+      border: none
+    .unpublished.status
+      background: transparent
+      color: $red1
+      border: none
 
 /* listing_details#manage
   ================================================================================ */
@@ -1663,7 +1683,7 @@ body.paper
 .static_pages .specific-commercial
   dd
     padding-left: 1em
-    
+
 .round
   border-radius: 15px
   -webkit-border-radius: 15px
