@@ -16,7 +16,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1.json
   def show
     @listings = Listing.mine(@profile.user_id).opened.includes(:listing_detail).order_by_updated_at_desc
-    gon.listings = @listings.map{|l| l.listing_detail}
+    gon.listings = ListingDetail.where(listing_id: @listings.map{|l| l.id}).where.not('place_longitude = 0 and place_latitude = 0')
     #@reviewed = Review.they_do(@profile.user_id).order_by_updated_at_desc
     @reviewed = Review.they_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
     @reviewed_as_guest = Review.i_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc.includes(:review_reply)
