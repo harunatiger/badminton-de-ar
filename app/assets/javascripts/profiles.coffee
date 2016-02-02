@@ -218,3 +218,13 @@ $ ->
       if event.keyCode == 13
         event.preventDefault()
         $('.bootstrap-tagsinput input').blur()
+
+  $('#profie-thumb-carousel').bind 'slid.bs.carousel', (e) ->
+    img = $('#profie-thumb-carousel').find('.item.active img')
+    if img
+      imgWidth = img.width()
+      imgHeight = img.height()
+      if imgHeight >= imgWidth
+        if imgHeight > 320
+          ih = (imgHeight - 320) / 2
+          img.css("top", "-"+ih+"px")
