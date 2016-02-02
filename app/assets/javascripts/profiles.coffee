@@ -219,12 +219,26 @@ $ ->
         event.preventDefault()
         $('.bootstrap-tagsinput input').blur()
 
-  $('#profie-thumb-carousel').bind 'slid.bs.carousel', (e) ->
-    img = $('#profie-thumb-carousel').find('.item.active img')
-    if img
-      imgWidth = img.width()
-      imgHeight = img.height()
-      if imgHeight >= imgWidth
-        if imgHeight > 320
-          ih = (imgHeight - 320) / 2
-          img.css("top", "-"+ih+"px")
+  $('.profile-face .item img').each (index) ->
+    baseWidth = 273
+    baseHeight = 320
+    img = new Image()
+    img.src = $(this).attr('src')
+    width = img.width
+    height = img.height
+    if height > width
+      calcHeight = height * (baseWidth / width)
+      if calcHeight > 320
+        ih = (calcHeight - 320) / 2
+        $(this).css("top", "-"+ih+"px")
+
+#  $('#profie-thumb-carousel').bind 'slide.bs.carousel', (e) ->
+#    img = $('#profie-thumb-carousel').find('.item.active img')
+#    if img
+#      imgWidth = img.width()
+#      imgHeight = img.height()
+#      if imgHeight >= imgWidth
+#        if imgHeight > width
+#          ih = (height - 320) / 2
+#          $(this).css("top", ih+"px")
+
