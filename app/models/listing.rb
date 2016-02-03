@@ -230,6 +230,21 @@ class Listing < ActiveRecord::Base
     listing_copied.save ? listing_copied : false
   end
 
+  def delete_children
+    self.remove_cover_video!
+    self.save
+    favorite_listings = FavoriteListing.where(listing_id: self.id)
+    favorite_listings.destroy_all if favorite_listings.present?
+    self.listing_detail.destroy if self.listing_detail.present?
+    self.listing_images.each do |listing_image|
+      listing_image.remove_image!
+      listing_image.destroy
+    end
+    self.ngevents.destroy_all if self.ngevents.present?
+    ngevent_weeks = NgeventWeek.where(listing_id: self.id)
+    ngevent_weeks.destroy_all if ngevent_weeks.present?
+  end
+
   def self.check_date(listings, search_params)
     listings_array = []
     listings.each do |listing|

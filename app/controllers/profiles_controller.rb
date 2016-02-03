@@ -1,10 +1,10 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :regulate_user!, only: [:edit]
   before_action :set_profile, only: [:show, :edit, :update, :destroy, :self_introduction, :favorite_user]
   before_action :set_pair_guide, only: [:show]
   before_action :set_message_thread, only: [:show]
   before_action :get_progress, only: [:edit, :self_introduction, :new]
+  authorize_resource
 
   # GET /profiles
   # GET /profiles.json
@@ -127,12 +127,6 @@ class ProfilesController < ApplicationController
 
     def set_pair_guide
       @profiles = Profile.guides.where.not(id: @profile.id)
-    end
-
-    def regulate_user!
-      unless current_user.profile.id == params[:id].to_i
-        redirect_to dashboard_path, notice: Settings.regulate_user.user_id.failure
-      end
     end
 
     def set_message_thread

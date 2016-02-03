@@ -3,6 +3,7 @@ class ListingDetailsController < ApplicationController
   before_action :set_listing
 
   def manage
+    authorize! :manage, @listing
     @listing_detail = ListingDetail.where(listing_id: @listing.id).first
     @listing_detail = ListingDetail.new unless @listing_detail
   end

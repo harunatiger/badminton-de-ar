@@ -2,6 +2,7 @@ class ProfileBanksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile_bank, only: [:show, :edit, :update, :destroy]
   before_action :set_profile
+  authorize_resource
   
   def index
     @profile_bank = ProfileBank.all

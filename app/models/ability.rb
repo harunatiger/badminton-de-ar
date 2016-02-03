@@ -10,8 +10,8 @@ class Ability
     alias_action :index, :show, :search, to: :read
     alias_action :new, to: :create
     alias_action :edit, :destroy, to: :update
-    alias_action :publish, :unpublish, to: :update
     alias_action :manage, to: :update
+    alias_action :publish, :unpublish, to: :update
     alias_action :create, :read, :update, :destroy, to: :crud
 
     # All
@@ -22,13 +22,17 @@ class Ability
     can [:update], models do |listing|
       listing.user_id == user.id
     end
-    models = [ ListingImage, ListingDetail, Confection, Tool ]
+    cannot [:show], models do |listing|
+      listing.user_id != user.id and !listing.open
+    end
+    
+    models = [ ListingImage, ListingDetail ]
     can [:update], models do |related|
       related.listing.user_id == user.id
     end
 
     # Profile Resources
-    models = [ Profile, ProfileImage ]
+    models = [ Profile, ProfileImage, ProfileKeyword, ProfileIdentity, ProfileBank ]
     can [:update], models do |profile|
       profile.user_id == user.id
     end

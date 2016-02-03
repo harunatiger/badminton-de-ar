@@ -4,6 +4,7 @@ class ListingImagesController < ApplicationController
   before_action :set_listing
 
   def manage
+    authorize! :manage, @listing
     @listing_images = @listing.listing_images.order_asc
   end
   
