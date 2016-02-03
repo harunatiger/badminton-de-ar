@@ -5,7 +5,9 @@ class ListingsController < ApplicationController
   before_action :set_listing_obj, only: [:publish, :unpublish, :copy]
   before_action :set_listing_related_data, only: [:show, :edit]
   before_action :set_message_thread, only: [:show]
-  before_action :set_favorite,  only: [:destroy]
+  before_action :deleted_check, only: [:show, :edit]
+  authorize_resource
+  #before_action :set_favorite,  only: [:destroy]
 
   # GET /listings
   # GET /listings.json
@@ -96,8 +98,8 @@ class ListingsController < ApplicationController
   # DELETE /listings/1
   # DELETE /listings/1.json
   def destroy
+    @listing.delete_children
     @listing.update(open: false, soft_destroyed_at: Time.zone.now)
-    @favorite_listing.destroy_all
     respond_to do |format|
       format.html { redirect_to listings_url, notice: Settings.listings.destroy.success }
       format.json { head :no_content }
@@ -168,6 +170,11 @@ class ListingsController < ApplicationController
     def set_listing_obj
       @listing = Listing.find(params[:listing_id])
     end
+  
+    def deleted_check
+      before_url = request.referrer
+      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.listings.error.deleted_listing_id if @listing.soft_destroyed?
+    end
 
     def set_listing_related_data
       @listing_images = ListingImage.where(listing_id: @listing.id).image_limit
@@ -185,9 +192,9 @@ class ListingsController < ApplicationController
       end
     end
 
-    def set_favorite
-      @favorite_listing = FavoriteListing.where(listing_id: @listing.id)
-    end
+    #def set_favorite
+    #  @favorite_listing = FavoriteListing.where(listing_id: @listing.id)
+    #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params

@@ -64,7 +64,7 @@
                       .media-photo.media-photo-block
                         .media-cover.media-cover-img.text-center
                           /= image_tag(, class: "img-responsive-height")
-                          div[style="height: 63px; background-image: url(#{listing_cover_image_url(listing.id)})"]
+                          div[style="height: 63px; background-image: url(#{asset_path listing_cover_image_url(listing.id)})"]
                     .col-xs-8.col-lg-6
                       .actions.row-space-1
                         - if listing.open?

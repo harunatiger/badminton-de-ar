@@ -17,4 +17,12 @@ class ApplicationController < ActionController::Base
       session[:previous_url] = request.fullpath 
     end
   end
+  
+  rescue_from CanCan::AccessDenied do |exception|
+    #before_url = request.referrer
+    respond_to do |format|
+      format.html { redirect_to root_path, alert: Settings.regulate_user.user_id.failure }
+      format.json { head :no_content  }
+    end
+  end
 end

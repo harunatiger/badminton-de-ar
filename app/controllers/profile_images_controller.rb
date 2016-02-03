@@ -24,6 +24,7 @@ class ProfileImagesController < ApplicationController
   end
   
   def manage
+    authorize! :manage, @profile
     @cover_image = @profile.cover.present? ? @profile.cover : ProfileImage.new
   end
 

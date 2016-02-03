@@ -2,6 +2,7 @@ class ProfileIdentitiesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile_identity, only: [:show, :edit, :update, :destroy]
   before_action :set_profile
+  authorize_resource
 
   # GET /profile_images
   # GET /profile_images.json

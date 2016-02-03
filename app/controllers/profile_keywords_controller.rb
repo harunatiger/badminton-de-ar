@@ -3,6 +3,7 @@ class ProfileKeywordsController < ApplicationController
   before_action :set_profile_keyword, only: [:show, :edit, :update, :destroy]
   before_action :set_profile
   before_action :host_user!
+  authorize_resource
 
   # GET /profile_keywords
   # GET /profile_keywords.json
