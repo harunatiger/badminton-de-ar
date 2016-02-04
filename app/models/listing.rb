@@ -50,6 +50,7 @@
 
 class Listing < ActiveRecord::Base
   soft_deletable
+  soft_deletable dependent_associations: [:user]
 =begin
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
@@ -232,10 +233,12 @@ class Listing < ActiveRecord::Base
 
   def delete_children
     self.remove_cover_video!
+    self.open = false
     self.save
     favorite_listings = FavoriteListing.where(listing_id: self.id)
     favorite_listings.destroy_all if favorite_listings.present?
     self.listing_detail.destroy if self.listing_detail.present?
+    self.pickups.destroy_all if self.pickups.present?
     self.listing_images.each do |listing_image|
       listing_image.remove_image!
       listing_image.destroy

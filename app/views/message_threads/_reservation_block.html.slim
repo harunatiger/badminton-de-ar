@@ -161,17 +161,27 @@
                 .row.row-condensed.row-space-2
                   .col-md-6
                     .text-left
-                      = button_tag type: 'submit', class: "btn btn-primary disabled", name: 'request', id: 'offer_to_guest' do
-                        i.fa.fa-envelope-o
-                        | ゲストにオファーする
+                      - if @counterpart.soft_destroyed?
+                        = button_tag type: 'submit', class: "btn btn-primary disabled", name: 'request' do
+                          i.fa.fa-envelope-o
+                          | ゲストにオファーする
+                      - else
+                        = button_tag type: 'submit', class: "btn btn-primary disabled", name: 'request', id: 'offer_to_guest' do
+                          i.fa.fa-envelope-o
+                          | ゲストにオファーする
                       /= f.submit "ゲストにオファーする", class: "btn btn-primary disabled", name: 'request', id: 'offer_to_guest'
                       .text-red.small1.row-space-top-2
                         | ＊全ての登録をするとオファーできるようになります
                   .col-md-6
                     .text-right
-                      = link_to '#', class: 'btn btn-primary btn-mw120', id: "reservation_block-toggle" do
-                        i.fa.fa-pencil
-                        | Edit
+                      - if @counterpart.soft_destroyed?
+                        = link_to '#', class: 'btn btn-primary btn-mw120 disabled', id: "reservation_block-toggle" do
+                          i.fa.fa-pencil
+                          | Edit
+                      - else
+                        = link_to '#', class: 'btn btn-primary btn-mw120', id: "reservation_block-toggle" do
+                          i.fa.fa-pencil
+                          | Edit
             - elsif @reservation_for_update.present?
               - if @reservation_for_update.requested?
                 = simple_form_for(@reservation_for_update) do |f|
@@ -181,8 +191,12 @@
                   .row-space-3
                     = f.input_field :campaign_code, placeholder: "Enter discount code"
                   .text-right.row-space-2
-                    = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
-                    = f.submit 'Cancel', name: 'cancel', class: 'btn'
+                    - if @counterpart.soft_destroyed?
+                      = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary disabled'
+                      = f.submit 'Cancel', name: 'cancel', class: 'btn disabled'
+                    - else
+                      = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
+                      = f.submit 'Cancel', name: 'cancel', class: 'btn'
               - elsif @reservation_for_update.completed?
                 .row-space-top-4.row-space-2
                   = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-host row-space-top-1 row-space-1", data: { toggle: "modal" }

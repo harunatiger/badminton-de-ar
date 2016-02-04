@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
   before_action :set_pair_guide, only: [:show]
   before_action :set_message_thread, only: [:show]
   before_action :get_progress, only: [:edit, :self_introduction, :new]
+  before_action :deleted_check, only: [:show, :edit]
   authorize_resource
 
   # GET /profiles
@@ -127,6 +128,11 @@ class ProfilesController < ApplicationController
 
     def set_pair_guide
       @profiles = Profile.guides.where.not(id: @profile.id)
+    end
+  
+    def deleted_check
+      before_url = request.referrer
+      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.profile.deleted_profile_id if @profile.soft_destroyed?
     end
 
     def set_message_thread

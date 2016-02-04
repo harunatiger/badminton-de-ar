@@ -446,6 +446,11 @@ Rails.application.routes.draw do
     omniauth_callbacks:  'users/omniauth_callbacks',
     confirmations:       'users/confirmations'
   }
+  
+  devise_scope :user do 
+    get 'users/withdraw' => 'users/registrations#withdraw'
+  end
+  
   get "weekly_payment_report" => 'admin/payment#payment_weekly_report'
   get "payment_report_index" => 'admin/payment#index'
   root 'welcome#index'

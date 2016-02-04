@@ -4,6 +4,9 @@ class ReservationsController < ApplicationController
   include Payments
 
   def create
+    p 'aaaaaaaaaaaaa'
+    p params[:request].present?
+    p !current_user.already_authrized
     if params[:request].present? and !current_user.already_authrized
       if profile_identity = ProfileIdentity.where(user_id: current_user.id, profile_id: current_user.profile.id).first
         return redirect_to edit_profile_profile_identity_path(profile_id: current_user.profile.id, id:profile_identity.id), alert: Settings.reservation.save.failure.not_authorized_yet

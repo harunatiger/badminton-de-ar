@@ -56,8 +56,12 @@ div
               | Discount code
             .row-space-3
               = f.input_field :campaign_code, placeholder: "Enter discount code"
-            = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
-            = f.submit 'Cancel', name: 'cancel', class: 'btn'
+            - if @counterpart.soft_destroyed?
+              = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary disabled'
+              = f.submit 'Cancel', name: 'cancel', class: 'btn disabled'
+            - else
+              = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
+              = f.submit 'Cancel', name: 'cancel', class: 'btn'
         - elsif reservation_obj.completed? and current_user.id == guest_id
           .h5.text-green.strong
             = reservation_obj.string_of_progress_for_message_thread

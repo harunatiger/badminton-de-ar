@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122011554) do
+ActiveRecord::Schema.define(version: 20160204102141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -312,9 +312,11 @@ ActiveRecord::Schema.define(version: 20160122011554) do
   add_index "message_thread_users", ["user_id"], name: "index_message_thread_users_on_user_id", using: :btree
 
   create_table "message_threads", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "host_id"
+    t.boolean  "reply_from_host", default: false
+    t.boolean  "first_message",   default: true
   end
 
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
@@ -568,6 +570,7 @@ ActiveRecord::Schema.define(version: 20160122011554) do
     t.string   "prefecture",           default: ""
     t.string   "municipality",         default: ""
     t.string   "other_address",        default: ""
+    t.datetime "soft_destroyed_at"
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
@@ -720,6 +723,9 @@ ActiveRecord::Schema.define(version: 20160122011554) do
     t.string   "uid",                    default: "", null: false
     t.string   "provider",               default: "", null: false
     t.string   "username"
+    t.datetime "soft_destroyed_at"
+    t.string   "email_before_closed",    default: ""
+    t.text     "reason",                 default: ""
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
