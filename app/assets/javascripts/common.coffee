@@ -470,13 +470,14 @@ $ ->
     $('#form_change_confirm .btn-default').on 'click', ->
       if $('body').hasClass('slideout')
         $('body').removeClass('slideout')
-      if $('.manage-listing-nav').css('display') == "block"
-        $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').hide()
-        $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').removeClass('show-off')
-      else
-        $('.manage-listing-detail, .close-layer--sp').hide()
-        $('.manage-listing-detail, .close-layer--sp').removeClass('show-off')
-      return
+      if $('.manage-listing-nav').hasClass('show-off')
+        if $('.manage-listing-nav').css('display') == "block"
+          $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').hide()
+          $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').removeClass('show-off')
+        else
+          $('.manage-listing-detail, .close-layer--sp').hide()
+          $('.manage-listing-detail, .close-layer--sp').removeClass('show-off')
+        return
 
   #IME disabled
   $('.imeoff').bind 'keyup', ->
