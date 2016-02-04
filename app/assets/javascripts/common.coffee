@@ -88,11 +88,10 @@ $ ->
 
     # profile thumbnail carousel
     if $('#profie-thumb-carousel').length
+      $('#profie-thumb-carousel').carousel(interval: false)
       if $('.item').length < 2
         $('.carousel-control').hide()
-        return
       else
-        $('#profie-thumb-carousel').carousel(interval: false)
         $('.carousel-control.left').click ->
           $('#profie-thumb-carousel').carousel 'prev'
           return
