@@ -99,7 +99,7 @@ class ListingsController < ApplicationController
   # DELETE /listings/1.json
   def destroy
     @listing.delete_children
-    @listing.update(open: false, soft_destroyed_at: Time.zone.now)
+    @listing.soft_destroy
     respond_to do |format|
       format.html { redirect_to listings_url, notice: Settings.listings.destroy.success }
       format.json { head :no_content }

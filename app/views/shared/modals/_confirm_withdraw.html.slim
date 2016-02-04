@@ -1,0 +1,65 @@
+= simple_form_for(current_user, url: user_registration_url, html: { class: "cancel-reservation-form", method: :delete }) do |f|
+  #confirm_withdraw.modal[role="dialog" aria-hidden="true"]
+    .modal-step
+      .step.step1.active
+        .modal-table
+          .modal-cell
+            .modal-content
+              .card-header.text-left
+                = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+                .strong.text-red
+                  | 本当に退会しますか？
+              .card-body.text-left
+                p.strong.text-lead
+                  | Huber.ではたくさんの友達が待っています！
+                br
+                p.strong.text-lead
+                  | 退会する場合は理由をご記入の上、送信ボタンを押してください。
+                  | Huber.運営事務局で今後のサービス向上に活用させて頂きます。
+                br
+                p.small1.row-space-1
+                  | 理由
+                = f.input_field :reason, rows: 6, placeholder: "Please write the reason for your cancellation here."
+                /p.strong
+                  | 本当にキャンセルしてもよろしいですか？
+              .card-footer.btn-group-container
+                /= link_to "Cancel", "#", class: "btn btn-host cc_to_step2"
+                .btn-frame
+                  = f.submit '送信する', name: 'cancel', class: 'btn btn-host cancel_tour_btn', id: "cancel_tour_btn"
+                  .spinner
+                = link_to "キャンセル", "#", class: "btn btn-default", data: { dismiss: "modal" }
+
+      /.step.step2
+        .modal-table
+          .modal-cell
+            .modal-content
+              .card-header.text-left
+                /= link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+                | ツアーがキャンセルされました
+              .card-body.text-left
+                p
+                  | よろしければ、キャンセル理由をご記入ください。
+                  br
+                  | Huber.の運用の参考にさせて頂きます。
+                form
+                  label キャンセルした理由
+                  = f.input_field :reason, rows: 8
+              .card-footer
+                = link_to "送信する", "#", data: {toggle:"modal"}, class: "btn btn-primary cc_to_step3"
+                = link_to "skip", "#", data: {toggle:"modal"}, class: "btn cc_to_step3"
+
+      .step.step3
+        .modal-table
+          .modal-cell
+            .modal-content
+              .card-header.text-left
+                = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+                .strong
+                  | Your tour has been successfully cancelled.
+              .card-body.text-left
+                p.strong
+                  | Your Cancellation was successful.
+                p
+                  | A message about your cancellation has been sent to your guide.  Send a message to your guide if you haven’t already told them about your cancellation.
+              .card-footer
+                = link_to "close", "#", data: {dismiss:"modal"}, class: "btn"

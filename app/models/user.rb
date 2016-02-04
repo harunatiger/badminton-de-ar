@@ -25,6 +25,9 @@
 #  uid                    :string           default(""), not null
 #  provider               :string           default(""), not null
 #  username               :string
+#  soft_destroyed_at      :datetime
+#  email_before_closed    :string           default("")
+#  reason                 :text             default("")
 #
 # Indexes
 #
@@ -39,6 +42,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :timeoutable
+  soft_deletable 
   devise :database_authenticatable, :registerable, :lockable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
 
@@ -71,7 +75,7 @@ class User < ActiveRecord::Base
   #validates :password, length: 6..32
 
   scope :mine, -> user_id { where(id: user_id) }
-
+  
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     unless user = User.where(provider: auth.provider, uid: auth.uid).first
       user = User.new(
@@ -142,5 +146,56 @@ class User < ActiveRecord::Base
 
   def favorite_user?(to_user)
     self.favorite_users_of_from_user.exists?(to_user_id: to_user)
+  end
+  
+  def delete_children
+    favorite_users = FavoriteUser.where('from_user_id = ? or to_user_id = ?', self.id, self.id)
+    favorite_users.destroy_all if favorite_users.present?
+    
+    favorite_listings = FavoriteListing.where(listing_id: self.id)
+    favorite_listings.destroy_all if favorite_listings.present?
+    
+    profile_categories = ProfileCategory.where(profile_id: self.profile.id)
+    profile_categories.destroy_all if profile_categories.present?
+    
+    profile_languages = ProfileLanguage.where(profile_id: self.profile.id)
+    profile_languages.destroy_all if profile_languages.present?
+    
+    profile_keywords = ProfileKeyword.where(profile_id: self.profile.id)
+    profile_keywords.destroy_all if profile_keywords.present?
+    
+    auth = Auth.where(user_id: self.id)
+    auth.destroy_all if auth.present?
+    
+    self.profile_identity.destroy if self.profile_identity.present?
+    self.profile_bank.destroy if self.profile_bank.present?
+    self.pre_mail.destroy if self.pre_mail.present?
+    self.profile_images.each do |profile_image|
+      profile_image.remove_image!
+      profile_image.destroy
+    end
+    
+    self.listings.each do |listing|
+      listing.delete_children
+      listing.soft_destroy
+    end
+    
+    self.profile.soft_destroy
+  end
+  
+  def update_user_for_close(reason)
+    email_before_closed = self.email
+    self.reason = reason
+    self.email = SecureRandom.urlsafe_base64(8).to_s + email_before_closed
+    self.email_before_closed = email_before_closed
+    self.uid = User.create_unique_string
+    self.skip_reconfirmation!
+    self.save
+  end
+  
+  # Deviseの認証に関わる箇所
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    self.without_soft_destroyed.where(conditions.to_h).first
   end
 end

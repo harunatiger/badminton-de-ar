@@ -2,10 +2,10 @@
 #
 # Table name: message_threads
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  host_id    :integer
+#  id              :integer          not null, primary key
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  host_id         :integer
 #  reply_from_host :boolean          default(FALSE)
 #  first_message   :boolean          default(TRUE)
 #
