@@ -13,7 +13,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   def destroy
     current_user.delete_children
-    p params[:user][:reason]
     current_user.update_user_for_close(params[:user][:reason])
     current_user.soft_destroy
     sign_out current_user
