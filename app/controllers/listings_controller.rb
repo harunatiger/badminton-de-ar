@@ -5,8 +5,8 @@ class ListingsController < ApplicationController
   before_action :set_listing_obj, only: [:publish, :unpublish, :copy]
   before_action :set_listing_related_data, only: [:show, :edit]
   before_action :set_message_thread, only: [:show]
-  before_action :deleted_check, only: [:show, :edit]
-  authorize_resource
+  before_action :regulate_user, except: [:new, :index, :create, :show, :search, :favorite_listing]
+  before_action :deleted_or_open_check, only: [:show, :edit]
   #before_action :set_favorite,  only: [:destroy]
 
   # GET /listings
@@ -170,11 +170,6 @@ class ListingsController < ApplicationController
     def set_listing_obj
       @listing = Listing.find(params[:listing_id])
     end
-  
-    def deleted_check
-      before_url = request.referrer
-      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.listings.error.deleted_listing_id if @listing.soft_destroyed?
-    end
 
     def set_listing_related_data
       @listing_images = ListingImage.where(listing_id: @listing.id).image_limit
@@ -190,6 +185,16 @@ class ListingsController < ApplicationController
           @message_thread = MessageThread.find(res)
         end
       end
+    end
+  
+    def regulate_user
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id
+    end
+  
+    def deleted_or_open_check
+      before_url = request.referrer
+      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.listings.error.deleted_listing_id if @listing.soft_destroyed?
+      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.listings.error.closed if !@listing.open and (!user_signed_in? or @listing.user_id != current_user.id)
     end
 
     #def set_favorite

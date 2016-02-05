@@ -3,7 +3,7 @@ class ProfileKeywordsController < ApplicationController
   before_action :set_profile_keyword, only: [:show, :edit, :update, :destroy]
   before_action :set_profile
   before_action :host_user!
-  authorize_resource
+  before_action :regulate_user, except: [:index, :create, :show]
 
   # GET /profile_keywords
   # GET /profile_keywords.json
@@ -35,7 +35,7 @@ class ProfileKeywordsController < ApplicationController
     @profile_keyword_collection = ProfileKeywordCollection.new(profile_keyword_collection_params, @profile.user_id, @profile.id)
     respond_to do |format|
       if @profile_keyword_collection.save
-        format.html { redirect_to edit_profile_profile_keyword_path(@profile, @profile_keyword), notice: Settings.profile_keywords.save.success }
+        format.html { redirect_to edit_profile_profile_keyword_path(@profile, @profile.profile_keyword), notice: Settings.profile_keywords.save.success }
         format.json { render :show, status: :created, location: @profile_keyword }
       else
         @profile_keyword = ProfileKeyword.new
@@ -88,6 +88,10 @@ class ProfileKeywordsController < ApplicationController
       if Listing.mine(current_user.id).without_soft_destroyed.order_by_updated_at_desc.blank?
         redirect_to edit_profile_path(current_user.profile.id)
       end
+    end
+  
+    def regulate_user
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @profile.user_id != current_user.id
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

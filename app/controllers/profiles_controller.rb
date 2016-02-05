@@ -4,8 +4,8 @@ class ProfilesController < ApplicationController
   before_action :set_pair_guide, only: [:show]
   before_action :set_message_thread, only: [:show]
   before_action :get_progress, only: [:edit, :self_introduction, :new]
+  before_action :regulate_user, except: [:new, :index, :create, :show, :favorite_user]
   before_action :deleted_check, only: [:show, :edit]
-  authorize_resource
 
   # GET /profiles
   # GET /profiles.json
@@ -129,11 +129,6 @@ class ProfilesController < ApplicationController
     def set_pair_guide
       @profiles = Profile.guides.where.not(id: @profile.id)
     end
-  
-    def deleted_check
-      before_url = request.referrer
-      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.profile.deleted_profile_id if @profile.soft_destroyed?
-    end
 
     def set_message_thread
       if current_user
@@ -146,6 +141,15 @@ class ProfilesController < ApplicationController
 
     def get_progress
       @progress = Profile.get_percentage(@profile.user_id)
+    end
+  
+    def regulate_user
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @profile.user_id != current_user.id
+    end
+  
+    def deleted_check
+      before_url = request.referrer
+      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.profile.deleted_profile_id if @profile.soft_destroyed?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

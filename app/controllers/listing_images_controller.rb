@@ -2,9 +2,9 @@ class ListingImagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_listing_image, only: [:update, :destroy]
   before_action :set_listing
+  before_action :regulate_user, except: [:create]
 
   def manage
-    authorize! :manage, @listing
     @listing_images = @listing.listing_images.order_asc
   end
   
@@ -102,6 +102,10 @@ class ListingImagesController < ApplicationController
   
     def listing_params
       params.require(:listing).permit(:cover_video, :cover_image)
+    end
+  
+    def regulate_user
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id
     end
 
 end

@@ -26,6 +26,7 @@ class MessageThreadsController < ApplicationController
     counterpart_user_id = MessageThreadUser.counterpart_user(@message_thread.id, current_user.id)
     @message = Message.new
     @counterpart = User.find(counterpart_user_id)
+    flash.now[:alert] = Settings.profile.deleted_profile_id if @counterpart.soft_destroyed?
     @listings = User.find(@host_id).listings.opened.without_soft_destroyed
     gon.watch.ngdates = Ngevent.get_ngdates(@reservation)
     gon.watch.ngweeks = NgeventWeek.where(listing_id: @reservation.try('listing_id')).pluck(:dow)
