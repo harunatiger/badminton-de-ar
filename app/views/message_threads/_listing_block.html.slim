@@ -9,13 +9,12 @@ div
         = listing_obj.title
   .row.row-condensed.row-space-2.row-space-top-3
     .col-md-3.text-left.text-muted.strong
-      | hours: 
+      | hours:
     .col-md-8
-      = reservation_obj.time_required
-      | hours
+      = format_time_required(reservation_obj.time_required.to_s, 'hours')
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
-      | Price: 
+      | Price:
     .col-md-8
       | ¥&nbsp;
       - if @host_id == current_user.id
@@ -25,25 +24,25 @@ div
       |(Service fee ¥ #{reservation_obj.handling_cost} included)
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
-      | Number of people: 
+      | Number of people:
     .col-md-8
       = reservation_obj.num_of_people
       |People
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
-      | Booking date: 
+      | Booking date:
     .col-md-8
       = reservation_obj.schedule
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
-      | Meeting at: 
+      | Meeting at:
     .col-md-8
       = reservation_obj.place
       -if reservation_obj.place_memo.present?
         |(#{reservation_obj.place_memo})
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
-      | Tour information: 
+      | Tour information:
     .col-md-8
       = simple_format(reservation_obj.try('description'))
   .row.row-condensed.row-space-2

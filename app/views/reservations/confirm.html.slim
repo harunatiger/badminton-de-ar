@@ -12,14 +12,15 @@
         .card-body
           .row.row-condensed.row-space-2.row-space-top-6
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | Tour: 
+              | Tour:
             .col-md-8
               = @reservation.listing.title
           .row.row-condensed.row-space-2.row-space-top-6
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | Date: 
+              | Date:
             .col-md-8
-              = "#{schedule_span(@reservation)}(#{@reservation.time_required.to_s}hours)" if @reservation.schedule.present?
+              = "#{schedule_span(@reservation)}" if @reservation.schedule.present?
+              /= "#{schedule_span(@reservation)}(#{format_time_required(@reservation.time_required.to_s, 'hours')})" if @reservation.schedule.present?
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
               | Number of people:
@@ -37,12 +38,12 @@
               = @reservation.place_memo
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | Meeting time: 
+              | Meeting time:
             .col-md-8
               = @reservation.schedule
           .row.row-condensed.row-space-8.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | Note: 
+              | Note:
             .col-md-8
               = simple_format(@reservation.description.present? ? @reservation.description : '')
         .card-header
@@ -51,36 +52,36 @@
         .card-body
           .row.row-condensed.row-space-2.row-space-top-6
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | Name: 
+              | Name:
             .col-md-8
               = @payment.first_name + ' ' + @payment.last_name
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | Your email address: 
+              | Your email address:
             .col-md-8
               = @payment.email
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | Price: 
+              | Price:
             .col-md-8
               | ¥&nbsp;
               = @reservation.basic_amount
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | Service commission: 
+              | Service commission:
             .col-md-8
               | ¥&nbsp;
               = @reservation.handling_cost
           - if @reservation.campaign.present?
             .row.row-condensed.row-space-2.row-space-top-3
               .col-md-4.text-muted.strong.text-right.text-left--sp
-                | Discount: 
+                | Discount:
               .col-md-8
                 | ¥&nbsp;
                 = 0 - @reservation.campaign.discount
           .row.row-condensed.row-space-6.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
-              | Total: 
+              | Total:
             .col-md-8
               | ¥&nbsp;
               = @payment.amount

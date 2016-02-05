@@ -29,6 +29,7 @@ $ ->
   # bootstrap datepicker
   disabled_dates = gon.ngdates
   disabled_weeks = gon.ngweeks
+  scheduleDate = $('#reservation_detail_form #reservation_schedule_date').val()
   $('.datepicker').datepicker
     autoclose: true,
     startDate: '+1d',
@@ -43,7 +44,8 @@ $ ->
       if $.inArray(date.getDay(), disabled_weeks) != -1
         return { enabled: false }
       return
-
+  if scheduleDate
+    $('#reservation_detail_form #reservation_schedule_end').datepicker 'setStartDate', scheduleDate
 
   # set reservation by listing_id for message thread
   logVal = ''
@@ -69,6 +71,7 @@ $ ->
           strfChange = $('.checkout').val()
           strfChange = strfChange.replace(/-/g, '/')
           $('#reservation_detail_form .checkout').val(strfChange)
+          scheduleDate = $('#reservation_detail_form #reservation_schedule_date').val()
           $('#reservation_detail_form .datepicker').datepicker
             autoclose: true,
             startDate: '+1d',
@@ -82,6 +85,9 @@ $ ->
                 return { enabled: false }
               if $.inArray(date.getDay(), disabled_weeks) != -1
                 return { enabled: false }
+
+          if scheduleDate
+            $('#reservation_detail_form #reservation_schedule_end').datepicker 'setStartDate', scheduleDate
 
           $('#reservation_detail_form .option-check').each ->
             if $(this).is(':checked')
@@ -126,6 +132,12 @@ $ ->
         $('#reservation_detail_form #reservation_listing_id').val(logVal)
         return
       return
+
+  $('#reservation_detail_form #reservation_schedule_date').datepicker().on 'changeDate', (e) ->
+    selected_date = $(this).val()
+    $('#reservation_detail_form #reservation_schedule_end').val(selected_date)
+    $('#reservation_detail_form #reservation_schedule_end').datepicker 'setStartDate', selected_date
+    return
 
   changed_flg = 0
   $('.message_form').on 'change', ->
