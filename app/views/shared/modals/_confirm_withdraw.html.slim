@@ -12,8 +12,7 @@
               .card-body.text-left
                 p.strong.text-lead
                   | Huber.ではたくさんの友達が待っています！
-                br
-                p.strong.text-lead
+                p.text-lead
                   | 退会する場合は理由をご記入の上、送信ボタンを押してください。
                   | Huber.運営事務局で今後のサービス向上に活用させて頂きます。
                 br
@@ -25,7 +24,7 @@
               .card-footer.btn-group-container
                 /= link_to "Cancel", "#", class: "btn btn-host cc_to_step2"
                 .btn-frame
-                  = f.submit '送信する', name: 'cancel', class: 'btn btn-host cancel_tour_btn', id: "cancel_tour_btn"
+                  = f.submit '退会する', name: 'cancel', class: 'btn btn-danger cancel_tour_btn', id: "cancel_tour_btn"
                   .spinner
                 = link_to "キャンセル", "#", class: "btn btn-default", data: { dismiss: "modal" }
 
