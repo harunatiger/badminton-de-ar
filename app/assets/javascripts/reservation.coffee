@@ -47,6 +47,12 @@ $ ->
   if scheduleDate
     $('#reservation_detail_form #reservation_schedule_end').datepicker 'setStartDate', scheduleDate
 
+  $(document).on 'change', '#reservation_detail_form #reservation_schedule_date', ->
+    selected_date = $(this).val()
+    $('#reservation_detail_form #reservation_schedule_end').val(selected_date)
+    $('#reservation_detail_form #reservation_schedule_end').datepicker 'setStartDate', selected_date
+    return
+
   # set reservation by listing_id for message thread
   logVal = ''
   $(document).on('click', '#reservation_detail_form #reservation_listing_id', ->
@@ -132,12 +138,6 @@ $ ->
         $('#reservation_detail_form #reservation_listing_id').val(logVal)
         return
       return
-
-  $('#reservation_detail_form #reservation_schedule_date').datepicker().on 'changeDate', (e) ->
-    selected_date = $(this).val()
-    $('#reservation_detail_form #reservation_schedule_end').val(selected_date)
-    $('#reservation_detail_form #reservation_schedule_end').datepicker 'setStartDate', selected_date
-    return
 
   changed_flg = 0
   $('.message_form').on 'change', ->
