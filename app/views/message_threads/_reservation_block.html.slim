@@ -163,14 +163,13 @@
                   .col-md-6
                     .text-left
                       - if @counterpart.soft_destroyed?
-                        = button_tag type: 'submit', class: "btn btn-primary disabled", name: 'request' do
-                          i.fa.fa-envelope-o
-                          | ゲストにオファーする
+                        = f.submit 'ゲストにオファーする', class: "btn btn-primary disabled", name: 'request'
+                          /i.fa.fa-envelope-o
+                          /| ゲストにオファーする
                       - else
-                        = button_tag type: 'submit', class: "btn btn-primary disabled", name: 'request', id: 'offer_to_guest' do
-                          i.fa.fa-envelope-o
-                          | ゲストにオファーする
-                      /= f.submit "ゲストにオファーする", class: "btn btn-primary disabled", name: 'request', id: 'offer_to_guest'
+                        = f.submit 'ゲストにオファーする', class: "btn btn-primary disabled", name: 'request', id: 'offer_to_guest'
+                          /i.fa.fa-envelope-o
+                          /| ゲストにオファーする
                       .text-red.small1.row-space-top-2
                         | ＊全ての登録をするとオファーできるようになります
                   .col-md-6
