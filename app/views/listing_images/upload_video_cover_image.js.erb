@@ -1,5 +1,20 @@
 <% if @status == "success" %>
-  location.reload();
+  var image = '';
+  <% if @listing.cover_image.thumb != '' %>
+    image = '<%= @listing.cover_image.thumb %>';
+  <% end %>
+  $('#listing-image-success').on('show.bs.modal', function(e) {
+    if (image != ''){
+      $('#upload-image').css('background-image', 'url('+image+')');
+    } else {
+      $('#upload-image').css('display', 'none');
+      $('#listing-image-success .card-body').css('padding-bottom', '0');
+    }
+  }).modal('show');
+  window.setTimeout(function () {
+    $('#listing-image-success').modal('hide');
+    location.reload();
+  }, 3000);
 <% elsif @status == "failure" %>
   $('.alert').remove();
   $('#error_message').html($("<%=j render partial: 'error_message', locals: { target: @listing } %>").hide().fadeIn('slow'));

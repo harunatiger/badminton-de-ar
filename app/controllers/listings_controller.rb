@@ -5,7 +5,9 @@ class ListingsController < ApplicationController
   before_action :set_listing_obj, only: [:publish, :unpublish, :copy]
   before_action :set_listing_related_data, only: [:show, :edit]
   before_action :set_message_thread, only: [:show]
-  before_action :set_favorite,  only: [:destroy]
+  before_action :regulate_user, except: [:new, :index, :create, :show, :search, :favorite_listing]
+  before_action :deleted_or_open_check, only: [:show, :edit]
+  #before_action :set_favorite,  only: [:destroy]
 
   # GET /listings
   # GET /listings.json
@@ -96,8 +98,8 @@ class ListingsController < ApplicationController
   # DELETE /listings/1
   # DELETE /listings/1.json
   def destroy
-    @listing.update(open: false, soft_destroyed_at: Time.zone.now)
-    @favorite_listing.destroy_all
+    @listing.delete_children
+    @listing.soft_destroy
     respond_to do |format|
       format.html { redirect_to listings_url, notice: Settings.listings.destroy.success }
       format.json { head :no_content }
@@ -184,10 +186,20 @@ class ListingsController < ApplicationController
         end
       end
     end
-
-    def set_favorite
-      @favorite_listing = FavoriteListing.where(listing_id: @listing.id)
+  
+    def regulate_user
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id
     end
+  
+    def deleted_or_open_check
+      before_url = request.referrer
+      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.listings.error.deleted_listing_id if @listing.soft_destroyed?
+      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.listings.error.closed if !@listing.open and (!user_signed_in? or @listing.user_id != current_user.id)
+    end
+
+    #def set_favorite
+    #  @favorite_listing = FavoriteListing.where(listing_id: @listing.id)
+    #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params

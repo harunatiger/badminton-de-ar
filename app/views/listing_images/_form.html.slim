@@ -12,19 +12,20 @@
               = video_player src: { mp4: @listing.cover_video.encoded, webm: @listing.cover_video.encoded }, controls: true, width: "100%", height: "315", id: "tour_movie"
               = link_to destroy_video_listing_listing_images_path(@listing.id), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
                 i.fa.fa-trash
-  .row.row-space-8.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | ツアーの紹介動画
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11.regist-pics
-          = simple_form_for(@listing, url: upload_video_cover_image_listing_listing_images_url(@listing), html: { id: 'upload_video'}, method: 'POST', remote: true) do |f|
-            = f.file_field :cover_video, as: :file, class: "row-space-1"
-            span.text-red
-              | 旅の臨場感を伝えるために動画をアップしましょう
-              br
-              | ※容量制限25MBまで
+  - else
+    .row.row-space-8.row-space-top-5.row-table
+      .col-xs-4.text-right.col-middle
+        .h4.text-light
+          | ツアーの紹介動画
+      .col-xs-8.fieldset.col-middle
+        .row
+          .col-xs-11.regist-pics
+            = simple_form_for(@listing, url: upload_video_cover_image_listing_listing_images_url(@listing), html: { id: 'upload_video'}, method: 'POST', remote: true) do |f|
+              = f.file_field :cover_video, as: :file, class: "row-space-1"
+              span.text-red
+                | 旅の臨場感を伝えるために動画をアップしましょう
+                br
+                | ※容量制限25MBまで
 
   -if @listing.cover_image.present?
     .row.row-space-4.row-space-top-4.row-table
@@ -38,19 +39,22 @@
               div[style="background-image: url(#{@listing.cover_image.thumb})"]
               = link_to destroy_cover_image_listing_listing_images_path(@listing.id), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
                 i.fa.fa-trash
-  .row.row-space-8.row-space-top-4.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | カバー画像
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11.regist-pics
-          = simple_form_for(@listing, url: upload_video_cover_image_listing_listing_images_url(@listing), html: { id: 'upload_cover_image'}, method: 'POST', remote: true) do |f|
-            = f.file_field :cover_image, as: :file
-            span.text-blue 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
+  - else
+    .row.row-space-8.row-space-top-4.row-table
+      .col-xs-4.text-right.col-middle
+        .h4.text-light
+          | カバー画像
+      .col-xs-8.fieldset.col-middle
+        .row
+          .col-xs-11.regist-pics
+            = simple_form_for(@listing, url: upload_video_cover_image_listing_listing_images_url(@listing), html: { id: 'upload_cover_image'}, method: 'POST', remote: true) do |f|
+              = f.file_field :cover_image, as: :file
+              span.text-blue 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
   hr.row-space-4
   p.text-center.row-space-6
-    | ツアーのイメージ画像は簡単に入れ替えられます。写真を選択して入れ替えたい位置の写真の上にドロップしてください。
+    | ツアーのイメージ写真は10枚まで登録できます。
+    br
+    | 尚、順番は簡単に入れ替えられます。写真を選択して入れ替えたい位置の写真の上にドロップしてください。
   - if @listing_images.count < 10
     .row.row-space-8.row-table
       .col-xs-4.text-right.col-middle

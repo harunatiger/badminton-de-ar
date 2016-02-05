@@ -12,6 +12,7 @@ profile:
     success: "Profile updated successfully"
     failure: "電話番号を正しく登録してください"
   send_message: 'Complete your profile in order to contact TOMODACHI GUIDE'
+  deleted_profile_id: "This account has been canceled"
 profile_images:
   save:
     success: "Profile updated successfully"
@@ -66,6 +67,8 @@ listings:
     ok: "出張可"
   error:
     invalid_listing_id: "We couldn't find any results that matched your criteria"
+    deleted_listing_id: "This tour has been deleted"
+    closed: "This tour has been closed"
 listing_images:
   save:
     success: "Successfully uploaded your photo/video"
@@ -191,6 +194,8 @@ user:
     this: 'こちらのガイド'
   noname: '名無し'
   left: '退会済みユーザー'
+  destroy:
+    success: '退会が完了しました。Huber.をご利用頂き誠にありがとうございました。'
 image:
   noimage:
     url: 'no-image-1024x640.gif'

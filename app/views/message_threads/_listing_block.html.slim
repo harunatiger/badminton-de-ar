@@ -9,13 +9,12 @@ div
         = listing_obj.title
   .row.row-condensed.row-space-2.row-space-top-3
     .col-md-3.text-left.text-muted.strong
-      | hours: 
+      | hours:
     .col-md-8
-      = reservation_obj.time_required
-      | hours
+      = format_time_required(reservation_obj.time_required.to_s, 'hours')
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
-      | Price: 
+      | Price:
     .col-md-8
       | ¥&nbsp;
       - if @host_id == current_user.id
@@ -25,25 +24,25 @@ div
       |(Service fee ¥ #{reservation_obj.handling_cost} included)
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
-      | Number of people: 
+      | Number of people:
     .col-md-8
       = reservation_obj.num_of_people
       |People
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
-      | Booking date: 
+      | Booking date:
     .col-md-8
       = reservation_obj.schedule
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
-      | Meeting at: 
+      | Meeting at:
     .col-md-8
       = reservation_obj.place
       -if reservation_obj.place_memo.present?
         |(#{reservation_obj.place_memo})
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
-      | Tour information: 
+      | Tour information:
     .col-md-8
       = simple_format(reservation_obj.try('description'))
   .row.row-condensed.row-space-2
@@ -56,14 +55,21 @@ div
               | Discount code
             .row-space-3
               = f.input_field :campaign_code, placeholder: "Enter discount code"
-            = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
-            = f.submit 'Cancel', name: 'cancel', class: 'btn'
+            - if @counterpart.soft_destroyed?
+              = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary disabled'
+              = f.submit 'Cancel', name: 'cancel', class: 'btn disabled'
+            - else
+              = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
+              = f.submit 'Cancel', name: 'cancel', class: 'btn'
         - elsif reservation_obj.completed? and current_user.id == guest_id
           .h5.text-green.strong
             = reservation_obj.string_of_progress_for_message_thread
           .row-space-top-4.row-space-2
             /= f.submit 'Cancel', name: 'cancel', class: "btn btn-host", data: { confirm: 'この予約をキャンセルします。本当によろしいですか？'}
-            = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-host row-space-top-1 row-space-1", data: { toggle: "modal" }
+            - if @counterpart.soft_destroyed?
+              = link_to "Cancel", "#confirm_cancel1", class: "btn btn-host row-space-top-1 row-space-1 disabled"
+            -else
+              = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-host row-space-top-1 row-space-1", data: { toggle: "modal" }
             = link_to "#", class: "about_cancel_link" do
               | About cancellations after tour confirmation
             = render partial: 'shared/modals/confirm_cancel', locals: { r: reservation_obj}

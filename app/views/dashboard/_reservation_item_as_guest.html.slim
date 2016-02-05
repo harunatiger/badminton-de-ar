@@ -39,7 +39,10 @@
                   | Cancelled
               - if r.completed?
                 div
-                  = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
+                  - if host.soft_destroyed?
+                    = link_to "Cancel", "#confirm_cancel1", class: "btn btn-thread row-space-top-1 row-space-1 text-red disabled", data: { toggle: "modal" }
+                  - else
+                    = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
                 /= simple_form_for(r, html: { class: "cancel-reservation-form" }) do |f|
                   = f.hidden_field :message_thread_id, value: r.message_thread_id
                   = f.submit 'Cancel', name: 'cancel', class: 'btn btn-thread row-space-top-1 row-space-1'

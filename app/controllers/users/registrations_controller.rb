@@ -11,6 +11,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
   end
   
+  def destroy
+    current_user.delete_children
+    current_user.update_user_for_close(params[:user][:reason])
+    current_user.soft_destroy
+    sign_out current_user
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: Settings.user.destroy.success }
+      format.json { head :no_content }
+    end
+  end
+  
+  def withdraw
+  end
+  
   protected
   def update_resource(resource, params)
     if params[:email]

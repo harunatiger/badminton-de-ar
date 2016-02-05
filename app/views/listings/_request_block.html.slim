@@ -13,8 +13,7 @@
           b = listing_detail.basic_amount
           small.time
             | /group(MAX #{listing_detail.max_num_of_people}people・
-            = listing_detail.time_required.to_s.gsub(/.0/, '')
-            | h)
+            = format_time_required(listing_detail.time_required.to_s.gsub(/.0/, ''))+')'
         .tour-price-detail
           .row
             .col-xs-7

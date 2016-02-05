@@ -6,7 +6,7 @@ $ ->
     image_from = ''
     $(document).on 'dragstart', '.image-draggable', ->
       image_from = $('.image-draggable').index(this)
-      
+
     $(document).on 'drop', '.image-droppable', ->
       image_to = $('.image-droppable').index(this)
       listing_id = $('#listing_id').val()
@@ -23,24 +23,31 @@ $ ->
         $('.image-draggable').draggable(revert: 'invalid', scroll: true, zIndex: 1)
         $('.image-droppable').droppable(activeClass: 'image-drag-active', hoverClass: 'image-drag-hover', tolerance: 'touch')
 
+    $(document).on 'ajax:before', (event) ->
+      $('#listing-image-loading').modal()
+    $(document).on 'ajax:success',  (event) ->
+      $('#listing-image-loading').modal('hide')
+    $(document).on 'ajax:error',  (event) ->
+      $('#listing-image-loading').modal('hide')
+
   #upload video
   $(document).on 'change', '#listing_cover_video', ->
     $('#upload_video').submit()
     return
-  
+
   #upload cover_image
   $(document).on 'change', '#listing_cover_image', ->
     $('#upload_cover_image').submit()
     return
-  
+
   #upload image (new)
   $(document).on 'change', '#listing_image_new', ->
     $('#upload_image').submit()
     return
-  
+
   #upload image (update)
   $(document).on 'change', '[id^=update_listing_image]', ->
     id = $(this).attr("id")
     id_num = id.substr(id.length - 1)
     $('#update_image' + id_num).submit()
-    return 
+    return

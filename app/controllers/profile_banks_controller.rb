@@ -2,6 +2,7 @@ class ProfileBanksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_profile_bank, only: [:show, :edit, :update, :destroy]
   before_action :set_profile
+  before_action :regulate_user, except: [:index, :create, :show]
   
   def index
     @profile_bank = ProfileBank.all
@@ -58,6 +59,10 @@ class ProfileBanksController < ApplicationController
 
     def set_profile
       @profile = Profile.find(params[:profile_id])
+    end
+  
+    def regulate_user
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @profile.user_id != current_user.id
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_bank_params

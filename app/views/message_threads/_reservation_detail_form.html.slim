@@ -10,7 +10,8 @@
       | 所要時間
     .col-md-4
       .select.select-opt.opt-double
-        = select :reservation, :time_required, [*(0..48)].map{|i| (i * 0.5)}
+        /= select :time_required, set_time_required , {}, {class: "value_fragile"}
+        = select :reservation, :time_required, set_time_required
         span 時間
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp

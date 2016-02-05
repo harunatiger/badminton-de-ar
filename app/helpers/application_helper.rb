@@ -452,7 +452,11 @@ module ApplicationHelper
     if reservation.holded? and reservation.created_at == reservation.updated_at and reservation.schedule_hour == '00' and reservation.schedule_minute == '00'
       reservation.schedule.to_date.to_s + '〜'
     else
-      reservation.schedule.to_s + '〜' + (reservation.schedule + reservation.time_required.hour).to_s
+      if reservation.time_required.to_s == '24.5'
+        reservation.schedule.to_s + '〜' + reservation.schedule_end.to_s + '/ (24h-)'
+      else
+        reservation.schedule.to_s + '〜' + (reservation.schedule + reservation.time_required.hour).to_s + '(' + reservation.time_required.to_s + 'h)'
+      end
     end
   end
 
@@ -528,5 +532,26 @@ module ApplicationHelper
         unreply_time = ((Time.parse("1/1") + (second - day * 86400)).strftime("%M").to_i).to_s + '分'
       end
     end
+  end
+
+  def set_time_required
+    time_required_hash = Hash.new()
+    0.step(24.5,0.5) do |i|
+      if i == 24.5
+        time_required_hash.store('24.0以上', i)
+      else
+        time_required_hash.store(i, i)
+      end
+    end
+    time_required_hash
+  end
+
+  def format_time_required(str_time, str_style = '')
+    if str_time == '24.5'
+      time_required = '24h-'
+    else
+      time_required = str_style.blank? ? str_time + 'h' : str_time + str_style
+    end
+    time_required
   end
 end

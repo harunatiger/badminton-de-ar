@@ -13,4 +13,7 @@
             p.row-space-top-1.small1.text-blue
               | and pdf files of up to 5MB
             .pull-right
-              = f.submit "Send a message", class: "btn btn-primary"
+              - if @counterpart.soft_destroyed?
+                = f.submit "Send a message", class: "btn btn-primary disabled"
+              - else
+                = f.submit "Send a message", class: "btn btn-primary"

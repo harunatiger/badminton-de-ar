@@ -19,7 +19,8 @@
       .row
         .col-xs-11
           .select.select-opt.opt-double
-            = f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}, {}, {class: "value_fragile"}
+            /= f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}, {}, {class: "value_fragile"}
+            = f.select :time_required, set_time_required , {}, {class: "value_fragile"}
             span 時間
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
@@ -47,7 +48,7 @@
     p.text-center.row-space-6
       | あなたと、あなたのサポートをしてくれるメンバーの収入にあたる部分です。
       br
-      |  設定の目安として、ビギナーの方は時給1,500円程度を設定するのをお勧めします。
+      | 設定の目安として、ビギナーの方は時給1,500円程度を設定するのをお勧めします。
       br
       | また２人に必要になる費用も記入しましょう。
   .row.row-space-5.row-space-top-5.row-table

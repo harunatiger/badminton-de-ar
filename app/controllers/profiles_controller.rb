@@ -1,10 +1,11 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :regulate_user!, only: [:edit]
   before_action :set_profile, only: [:show, :edit, :update, :destroy, :self_introduction, :favorite_user]
   before_action :set_pair_guide, only: [:show]
   before_action :set_message_thread, only: [:show]
   before_action :get_progress, only: [:edit, :self_introduction, :new]
+  before_action :regulate_user, except: [:new, :index, :create, :show, :favorite_user]
+  before_action :deleted_check, only: [:show, :edit]
 
   # GET /profiles
   # GET /profiles.json
@@ -129,12 +130,6 @@ class ProfilesController < ApplicationController
       @profiles = Profile.guides.where.not(id: @profile.id)
     end
 
-    def regulate_user!
-      unless current_user.profile.id == params[:id].to_i
-        redirect_to dashboard_path, notice: Settings.regulate_user.user_id.failure
-      end
-    end
-
     def set_message_thread
       if current_user
         msg_params = Hash['to_user_id' => @profile.user_id,'from_user_id' => current_user.id]
@@ -146,6 +141,15 @@ class ProfilesController < ApplicationController
 
     def get_progress
       @progress = Profile.get_percentage(@profile.user_id)
+    end
+  
+    def regulate_user
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @profile.user_id != current_user.id
+    end
+  
+    def deleted_check
+      before_url = request.referrer
+      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.profile.deleted_profile_id if @profile.soft_destroyed?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

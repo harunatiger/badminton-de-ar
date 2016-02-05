@@ -35,6 +35,7 @@
 #  prefecture           :string           default("")
 #  municipality         :string           default("")
 #  other_address        :string           default("")
+#  soft_destroyed_at    :datetime
 #
 # Indexes
 #
@@ -43,7 +44,9 @@
 
 class Profile < ActiveRecord::Base
   acts_as_taggable
-
+  soft_deletable
+  soft_deletable dependent_associations: [:user]
+  
   belongs_to :user
   has_one :profile_video, dependent: :destroy
   has_one :profile_identity, dependent: :destroy

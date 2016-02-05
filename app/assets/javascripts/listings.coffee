@@ -45,6 +45,10 @@ $ ->
       fv15 = $('#listing_detail_included_guests_cost').val()
 
       $('.max-num-of-people').text(fv)
+      if fv0 == 24.5
+        fv0 = '24h-)'
+      else
+        fv0 = fv0 + 'h)'
       $('.timelapse').text(fv0)
       $('.guide_price').text(fv4)
       $('.value_discharge.space_rental').text(fv5)
