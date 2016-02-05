@@ -66,7 +66,10 @@ div
             = reservation_obj.string_of_progress_for_message_thread
           .row-space-top-4.row-space-2
             /= f.submit 'Cancel', name: 'cancel', class: "btn btn-host", data: { confirm: 'この予約をキャンセルします。本当によろしいですか？'}
-            = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-host row-space-top-1 row-space-1", data: { toggle: "modal" }
+            - if @counterpart.soft_destroyed?
+              = link_to "Cancel", "#confirm_cancel1", class: "btn btn-host row-space-top-1 row-space-1 disabled"
+            -else
+              = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-host row-space-top-1 row-space-1", data: { toggle: "modal" }
             = link_to "#", class: "about_cancel_link" do
               | About cancellations after tour confirmation
             = render partial: 'shared/modals/confirm_cancel', locals: { r: reservation_obj}
