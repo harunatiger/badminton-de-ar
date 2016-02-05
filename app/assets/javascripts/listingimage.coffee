@@ -24,6 +24,7 @@ $ ->
         $('.image-droppable').droppable(activeClass: 'image-drag-active', hoverClass: 'image-drag-hover', tolerance: 'touch')
 
     $(document).on 'ajax:before', (event) ->
+      $('#hidden-form-id').val(event.target.id)
       $('#listing-image-loading').modal()
     $(document).on 'ajax:success',  (event) ->
       $('#listing-image-loading').modal('hide')

@@ -1,8 +1,11 @@
 <% if @status == "success" %>
   var image = '';
-  <% if @listing.cover_image.thumb != '' %>
-    image = '<%= @listing.cover_image.thumb %>';
-  <% end %>
+  var formId = $('#hidden-form-id').val()
+  if (formId == 'upload_cover_image'){
+    <% if @listing.cover_image.thumb != '' %>
+      image = '<%= @listing.cover_image.thumb %>';
+    <% end %>
+  }
   $('#listing-image-success').on('show.bs.modal', function(e) {
     if (image != ''){
       $('#upload-image').css('background-image', 'url('+image+')');
