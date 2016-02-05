@@ -204,7 +204,7 @@ group :development, :test do
 end
 
 group :production, :staging, :develop do
-  gem 'rails_12factor', '0.0.3' # for heroku
+  #gem 'rails_12factor', '0.0.3' # for heroku
 
   # for cache
   gem "memcachier", '0.0.2' # for heroku

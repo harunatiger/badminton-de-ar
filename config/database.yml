@@ -41,13 +41,16 @@ develop:
   database: huber_develop
   username: huber
   password: <%= ENV['HUBER_DATABASE_PASSWORD'] %>
+  host: <%= ENV['HUBER_DATABASE_URL'] %>
 staging:
   <<: *default
   database: huber_staging
   username: huber
   password: <%= ENV['HUBER_DATABASE_PASSWORD'] %>
+  host: <%= ENV['HUBER_DATABASE_URL'] %>
 production:
   <<: *default
   database: huber_production
   username: huber
   password: <%= ENV['HUBER_DATABASE_PASSWORD'] %>
+  host: <%= ENV['HUBER_DATABASE_URL'] %>
