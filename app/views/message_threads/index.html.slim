@@ -37,20 +37,20 @@
                         = lm.english_content
                       .thread-date.row-space-1.pull-left
                         = mt.updated_at.to_s
-                      /-if mt.first_message == true
-                      -if mt.reservation_progress != "Accept" && mt.reservation_progress != "Cancel"
-                        -if mt.host_id == current_user.id && !mt.reply_from_host
-                          - unreply_time = time_ago(lm)
-                          - if unreply_time == '24時間以上'
-                            .reply-status.text-red.strong.row-space-1.pull-left
-                              | ゲストがあなたの返信を待っています
-                              =< unreply_time
-                              | 経過
-                          - else
-                            .reply-status.row-space-1.pull-left
-                              | ゲストがあなたの返信を待っています
-                              =< unreply_time
-                              | 経過
+                      -if mt.first_message == true
+                        -if mt.reservation_progress != "Accept" && mt.reservation_progress != "Cancel"
+                          -if mt.host_id == current_user.id && !mt.reply_from_host
+                            - unreply_time = time_ago(lm)
+                            - if unreply_time == '24時間以上'
+                              .reply-status.text-red.strong.row-space-1.pull-left
+                                | ゲストがあなたの返信を待っています
+                                =< unreply_time
+                                | 経過
+                            - else
+                              .reply-status.row-space-1.pull-left
+                                | ゲストがあなたの返信を待っています
+                                =< unreply_time
+                                | 経過
                     .col-md-4.thread-progress
                       .row.row-table
                         .col-md-12.col-middle.text-center
