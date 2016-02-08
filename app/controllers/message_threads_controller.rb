@@ -91,7 +91,7 @@ class MessageThreadsController < ApplicationController
       if reservation.present?
         @reservation = reservation.accepted? ? Reservation.new(progress: 'holded') : Reservation.new(reservation.attributes)
       else
-        Reservation.new(progress: '')
+        @reservation = Reservation.new(progress: '')
       end
       #@reservation = reservation.present? ? Reservation.new(reservation.attributes) : Reservation.new(progress: '')
       @reservation_for_update = reservation

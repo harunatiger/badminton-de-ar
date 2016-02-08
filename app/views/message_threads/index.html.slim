@@ -31,26 +31,27 @@
                             | Guide
                         .row-space-top-1
                           = user_id_to_name(counterpart_id)
-                  = link_to message_thread_path(mt), class: "" do
-                    .col-md-5.thread-body
+                  = link_to message_thread_path(mt), class: "col-md-8" do
+                    .col-md-8.thread-body
                       .message-content-single.row-space-1
                         = lm.english_content
                       .thread-date
                         = mt.updated_at.to_s
-                      -if mt.reservation_progress != "Accept" && mt.reservation_progress != "Cancel"
-                        -if mt.host_id == current_user.id && !mt.reply_from_host
-                          - unreply_time = time_ago(lm)
-                          - if unreply_time == '24時間以上'
-                            .reply-status.text-red.strong
-                              | ゲストがあなたの返信を待っています
-                              =< unreply_time
-                              | 経過
-                          - else
-                            .reply-status
-                              | ゲストがあなたの返信を待っています
-                              =< unreply_time
-                              | 経過
-                    .col-md-3.thread-progress
+                      -if mt.first_message == true
+                        -if mt.reservation_progress != "Accept" && mt.reservation_progress != "Cancel"
+                          -if mt.host_id == current_user.id && !mt.reply_from_host
+                            - unreply_time = time_ago(lm)
+                            - if unreply_time == '24時間以上'
+                              .reply-status.text-red.strong
+                                | ゲストがあなたの返信を待っています
+                                =< unreply_time
+                                | 経過
+                            - else
+                              .reply-status
+                                | ゲストがあなたの返信を待っています
+                                =< unreply_time
+                                | 経過
+                    .col-md-4.thread-progress
                       .row.row-table
                         .col-md-12.col-middle.text-center
                           - if mt.reservation_progress == "Request"

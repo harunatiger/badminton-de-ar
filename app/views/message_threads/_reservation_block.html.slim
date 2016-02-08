@@ -173,7 +173,7 @@
                 .row.row-condensed.row-space-top-2.row-space-2.tour-price-others
                   .col-md-12
                     .text-center
-                      - if @counterpart.soft_destroyed?
+                      - if @counterpart.soft_destroyed? || @listings.blank?
                         = f.button :button, class: "btn btn-large btn-block btn-primary disabled", name: 'request', value: 'request' do
                           i.fa.fa-envelope-o
                           | ゲストにオファーする
