@@ -1,4 +1,21 @@
 li.thread-list-item
+  - if m.try('content') == Settings.reservation.msg.accepted || m.try('content') == Settings.reservation.msg.canceled
+    .row.row-condensed.row-space-1
+      .col-sm-10.col-md-push-1
+        .card.accepted-box
+          .card-body.row
+            - if m.try('content') == Settings.reservation.msg.accepted
+              .col-md-8.text-green.strong
+                | Congratulations! You have a booking!
+                br
+                | Please check Your Booking!
+              .col-md-4.row-space-top-2.text-center
+                = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, class: "btn btn-primary"
+            - elsif m.try('content') == Settings.reservation.msg.canceled
+              .col-md-12.text-pink.strong
+                | Sorry, Your request(Booking your tour) has been cancelled.
+                br
+                | Let’s try again!
   .row.row-condensed
     .col-sm-10.col-md-push-1
       .row-space-4
