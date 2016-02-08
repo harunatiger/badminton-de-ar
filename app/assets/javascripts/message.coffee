@@ -53,9 +53,6 @@ $ ->
           $('#offer_to_guest').addClass("disabled")
         else
           $('#offer_to_guest').removeClass("disabled")
-      $('#offer_comment').text('＊登録された情報でオファーできます。')
-    else
-      $('#offer_comment').text('＊現在オファー中です。')
 
     $('#offer_to_guest').on 'click', ->
       confirm 'この内容でゲストにオファーします。よろしいですか？'
