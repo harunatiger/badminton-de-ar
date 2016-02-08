@@ -28,12 +28,12 @@
             = f.input_field :account_type, as: :select, :collection => [["普通",0], ["当座",1]], :default => 0
       .row.row-condensed.row-space-4
         label.text-right.col-3
-          | 口座名義
+          | 口座名義(カタカナ)
         .col-8
           = f.input_field :user_name, placeholder: "例）サトウ タケシ"
       .row.row-condensed.row-space-4
         label.text-right.col-3
-          | 口座番号
+          | 口座番号(数字7桁)
         .col-8.row-space-2
           = f.input_field :number, type: 'number', pattern: '[0-9]*'
   = f.button :submit, "Registration", class: "btn btn-primary btn-large row-space-4"

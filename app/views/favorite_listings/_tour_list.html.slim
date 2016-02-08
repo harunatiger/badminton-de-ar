@@ -23,6 +23,11 @@
               = link_to listing_path(listing), class: "text-normal" do
                 h5.row-space-1.overflow
                   = truncate(listing.title, length: 40)
+              - if pickup_area_from_listing(listing).present?
+                .row-space-1.listing-area
+                  - pickup_area_from_listing(listing).each do |area|
+                    => link_to pickup_path( area.id ) do
+                      = area.short_name
               .row-space-1.text-muted
                 | #{format_time_required(listing.listing_detail.time_required.to_s, 'hours') if listing.listing_detail.present?} · Review #{listing.open_reviews_count}
         = link_to favorite_listing_path(favorite_listing_set(listing, current_user)), method: 'DELETE', class: 'favorite-btn-large btn btn-large btn-block' do
