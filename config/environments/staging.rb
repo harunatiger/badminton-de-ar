@@ -18,9 +18,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
   config.cache_store = :dalli_store,
    (ENV["MEMCACHIER_SERVERS"] || "").split(","),
-   {:username => ENV["MEMCACHIER_USERNAME"],
-    :password => ENV["MEMCACHIER_PASSWORD"],
-    :failover => true,
+   {:failover => true,
     :socket_timeout => 1.5,
     :socket_failure_delay => 0.2
    }
@@ -36,8 +34,6 @@ Rails.application.configure do
     :entitystore => 'file:/var/cache/rack/body'
 
   client = Dalli::Client.new((ENV["MEMCACHIER_SERVERS"] || "").split(","),
-                           :username => ENV["MEMCACHIER_USERNAME"],
-                           :password => ENV["MEMCACHIER_PASSWORD"],
                            :failover => true,
                            :socket_timeout => 1.5,
                            :socket_failure_delay => 0.2,
