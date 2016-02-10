@@ -42,7 +42,7 @@ class ReservationsController < ApplicationController
           'start' => @reservation.schedule,
           'end' => @reservation.schedule_end,
           'end_bk' => @reservation.schedule_end,
-          'mode' => 1,  # 1:reservation_mode
+          'mode' => 2,  # 1:reservation_mode,  2:requet_mode
           'active' => 1,# 0:no actice
           'color' => 'red'
           ]
@@ -218,8 +218,10 @@ class ReservationsController < ApplicationController
       if @reservation.update(para)
 
         @ng_event = Ngevent.find_by(reservation_id: @reservation.id)
-        if @reservation.progress == "accepted" or @reservation.progress == "requested"
-          @ng_event.update_attribute(:active, 1)
+        if @reservation.progress == "accepted"
+          @ng_event.update_attributes({:active => 1, :mode => 1})
+        elsif @reservation.progress == "requested"
+          @ng_event.update_attributes({:active => 1, :mode => 2})
         else
           @ng_event.update_attribute(:active, 0)
         end
@@ -315,10 +317,13 @@ class ReservationsController < ApplicationController
   def set_ngday_reservation_by_listing
     if request.xhr?
       listing = Listing.find(params[:listing_id])
-      @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
-      @reservation.listing_id = listing.id
-      ngdates = Ngevent.get_ngdates(@reservation)
-      ngweeks = NgeventWeek.where(listing_id: listing.id).pluck(:dow)
+      #@reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
+      #@reservation.listing_id = listing.id
+      #ngdates = Ngevent.get_ngdates(@reservation)
+      #ngweeks = NgeventWeek.where(listing_id: listing.id).pluck(:dow)
+      user_id = listing.user_id
+      ngdates = Ngevent.get_ngdates(user_id)
+      ngweeks = NgeventWeek.where(user_id: user_id).pluck(:dow)
       render json: { ngdates: ngdates, ngweeks: ngweeks}
     end
   end
@@ -326,8 +331,11 @@ class ReservationsController < ApplicationController
   def set_ngday_reservation_default
     if request.xhr?
       @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
-      ngdates = Ngevent.get_ngdates(@reservation)
-      ngweeks = NgeventWeek.where(listing_id: @reservation.try('listing_id')).pluck(:dow)
+      #ngdates = Ngevent.get_ngdates(@reservation)
+      #ngweeks = NgeventWeek.where(listing_id: @reservation.try('listing_id')).pluck(:dow)
+      user_id = @reservation.try('host_id')
+      ngdates = Ngevent.get_ngdates(user_id)
+      ngweeks = NgeventWeek.where(user_id: user_id).pluck(:dow)
       render json: { ngdates: ngdates, ngweeks: ngweeks}
     end
   end

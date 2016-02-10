@@ -1,6 +1,6 @@
 json.array!(@ngevent_weeks) do |week|
   json.id(week.id)
-  json.color('gray')
+  json.color('#17aedf')
   json.selectable('false')
   json.editable('false')
   json.className do
