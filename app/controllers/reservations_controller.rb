@@ -301,7 +301,7 @@ class ReservationsController < ApplicationController
       @reservation.guests_cost = listing.listing_detail.guests_cost
       @reservation.included_guests_cost = listing.listing_detail.included_guests_cost
 
-      @listings = User.find(current_user.id).listings.opened
+      @listings = User.find(current_user.id).listings.opened.without_soft_destroyed
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
   end
@@ -309,7 +309,7 @@ class ReservationsController < ApplicationController
   def set_reservation_default
     if request.xhr?
       @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
-      @listings = User.find(current_user.id).listings.opened
+      @listings = User.find(current_user.id).listings.opened.without_soft_destroyed
       render partial: 'message_threads/reservation_detail_form', locals: {reservation: @reservation}
     end
   end
