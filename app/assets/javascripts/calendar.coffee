@@ -327,7 +327,7 @@ $ ->
         endDay = new Date(event._end._i)
         while startDay < endDay
           $('.fc-day[data-date="' + formatDate(startDay) + '"]').css('background', event.color)
-          if event.color == '#800080' || event.color == '#F5966D' || event.color == 'gray'
+          if event.color == 'red' || event.color == '#F5966D' || event.color == 'gray'
             $('.fc-day[data-date="' + formatDate(startDay) + '"]').css('opacity', '.2')
             #$('.fc-day-number[data-date="' + formatDate(startDay) + '"]').css('color','#DDD')
           newDate = startDay.setDate(startDay.getDate() + 1)
@@ -770,7 +770,7 @@ $ ->
         endDay = new Date(event._end._i)
         while startDay < endDay
           $('.fc-day[data-date="' + formatDate(startDay) + '"]').css('background', event.color)
-          if event.color == '#800080' || event.color == '#17aedf' || event.color == '#F5966D'
+          if event.color == 'red' || event.color == '#17aedf' || event.color == '#F5966D'
             $('.fc-day[data-date="' + formatDate(startDay) + '"]').css('opacity', '.2')
             #$('.fc-day-number[data-date="' + formatDate(startDay) + '"]').css('color','#DDD')
           newDate = startDay.setDate(startDay.getDate() + 1)
