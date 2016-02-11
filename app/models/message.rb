@@ -64,8 +64,21 @@ class Message < ActiveRecord::Base
       listing_id: listing_id,
       reservation_id: reservation_id
     )
-
-    obj.save
+    ret = obj.save
+    if obj.save
+      ret
+    else
+      if obj.errors.messages.any?
+        message = obj.errors.messages[:attached_file].present? ? obj.errors.messages[:attached_file][0] : ''
+        if message.blank?
+          ret = false
+        else
+          ret = message == Settings.message.save.toobig ? message : Settings.message.save.notavailable
+        end
+      else
+        ret = false
+      end
+    end
   end
 
   def english_content
@@ -101,9 +114,9 @@ class Message < ActiveRecord::Base
     extn = self.attached_extension
     size = self.attached_file.size
     if extn.include?("pdf")
-      errors.add(:attached_file, "5MBを超えたPDFファイルは送信できません") if size > 5.megabytes
+      errors.add(:attached_file, Settings.message.save.toobig) if size > 5.megabytes
     else
-      errors.add(:attached_file, "3MBを超えた画像ファイルは送信できません") if size > 3.megabytes
+      errors.add(:attached_file, Settings.message.save.toobig) if size > 3.megabytes
     end
   end
 

@@ -9,9 +9,9 @@ div
         = listing_obj.title
   .row.row-condensed.row-space-2.row-space-top-3
     .col-md-3.text-left.text-muted.strong
-      | hours:
+      | Hours:
     .col-md-8
-      = format_time_required(reservation_obj.time_required.to_s, 'hours')
+      = format_time_required(reservation_obj.time_required.to_s, ' Hours')
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
       | Price:
@@ -26,7 +26,7 @@ div
     .col-md-3.text-left.text-muted.strong
       | Number of people:
     .col-md-8
-      = reservation_obj.num_of_people
+      => reservation_obj.num_of_people
       |People
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong

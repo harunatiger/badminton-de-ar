@@ -38,7 +38,7 @@
                       .thread-date.row-space-1.pull-left
                         = mt.updated_at.to_s
                       -if mt.first_message == true
-                        -if mt.reservation_progress != "Accept" && mt.reservation_progress != "Cancel"
+                        -if mt.reservation_progress != "Accept" && mt.reservation_progress != "Cancelled"
                           -if mt.host_id == current_user.id && !mt.reply_from_host
                             - unreply_time = time_ago(lm)
                             - if unreply_time == '24時間以上'
@@ -57,7 +57,7 @@
                           - if mt.reservation_progress == "Request"
                             .state.state-primary
                               = mt.reservation_progress
-                          - elsif mt.reservation_progress == "Cancel"
+                          - elsif mt.reservation_progress == "Cancelled"
                             .state.state-danger
                               = mt.reservation_progress
                           - elsif mt.reservation_progress == "Under construction"

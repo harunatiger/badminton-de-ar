@@ -33,7 +33,7 @@ ul.sidenav-list
   - if current_user.listings.present?
     - if controller_name == 'profile_banks'
       li
-        = link_to "銀行情報", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"}
+        = link_to "Bank Details", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"}
     - else
       li
-        = link_to "銀行情報", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "false"}
+        = link_to "Bank Details", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "false"}
