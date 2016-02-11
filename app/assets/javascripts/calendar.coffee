@@ -312,10 +312,10 @@ $ ->
               arry_redDay.push(elem._start._i)
 
         setWeekElement(event.dow[0]).css('background', event.color)
-        #setWeekHeaderElement(event.dow[0]).css('background', '#17aedf')
+        setWeekHeaderElement(event.dow[0]).css('background', '#CCC')
         #setWeekHeaderElement(event.dow[0]).css('color', '#DDD')
         if event.color != '#17aedf'
-          setWeekElement(event.dow[0]).css('opacity', '.2')
+          setWeekElement(event.dow[0]).css('opacity', '.4')
           setWeekHeaderElement(event.dow[0]).css('background','#DDD')
 
         $.each arry_redDay, (index, elem) ->
@@ -328,7 +328,7 @@ $ ->
         while startDay < endDay
           $('.fc-day[data-date="' + formatDate(startDay) + '"]').css('background', event.color)
           if event.color == 'red' || event.color == '#F5966D' || event.color == 'gray'
-            $('.fc-day[data-date="' + formatDate(startDay) + '"]').css('opacity', '.2')
+            $('.fc-day[data-date="' + formatDate(startDay) + '"]').css('opacity', '.4')
             #$('.fc-day-number[data-date="' + formatDate(startDay) + '"]').css('color','#DDD')
           newDate = startDay.setDate(startDay.getDate() + 1)
           startDay = new Date(newDate)
@@ -758,7 +758,7 @@ $ ->
         setWeekHeaderElement(event.dow[0]).css('background', event.color)
 
         if event.color == '#17aedf'
-          setWeekElement(event.dow[0]).css('opacity', '.2')
+          setWeekElement(event.dow[0]).css('opacity', '.4')
           setWeekHeaderElement(event.dow[0]).css('background','#DDD')
 
         $.each arry_redDay, (index, elem) ->
@@ -771,7 +771,7 @@ $ ->
         while startDay < endDay
           $('.fc-day[data-date="' + formatDate(startDay) + '"]').css('background', event.color)
           if event.color == 'red' || event.color == '#17aedf' || event.color == '#F5966D'
-            $('.fc-day[data-date="' + formatDate(startDay) + '"]').css('opacity', '.2')
+            $('.fc-day[data-date="' + formatDate(startDay) + '"]').css('opacity', '.4')
             #$('.fc-day-number[data-date="' + formatDate(startDay) + '"]').css('color','#DDD')
           newDate = startDay.setDate(startDay.getDate() + 1)
           startDay = new Date(newDate)
