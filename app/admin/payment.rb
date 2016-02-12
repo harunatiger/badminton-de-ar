@@ -121,7 +121,9 @@ ActiveAdmin.register_page "Payment" do
               #24 CPディスカウント金額
               campaign_discount: campaign_discount,
               #25 ゲストPaypalID
-              guest_paypal_id: payment.payer_id
+              guest_paypal_id: payment.payer_id,
+              #26 ReservationID
+              reservation_id: payment.reservation_id
             }
             @host_profit_infos << host_profit_info
           end

@@ -29,6 +29,7 @@ csv_str = CSV.generate do |csv|
     'CPコード' => ->(host_profit_info){ host_profit_info[:campaign_code] },
     'CPディスカウント金額' => ->(host_profit_info){ host_profit_info[:campaign_discount] },
     'ゲストPaypalID' => ->(host_profit_info){ host_profit_info[:guest_paypal_id] },
+    'ReservationID' => ->(host_profit_info){ host_profit_info[:reservation_id] },
   }
 
   # header の追加
