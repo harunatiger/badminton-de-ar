@@ -209,10 +209,12 @@ $ ->
       winHeight = $(window).height()
       rowSize = $('.fc-body .fc-row').size()
       addSize = (winHeight - calendarPosition - 40) / rowSize
+      iconSize = (addSize / 4) + 10
       # alert addSize
       if $('.manage-listing-nav').css('position') == "absolute"
         $('.fc-body .fc-row').height(addSize)
         $('.fc-content-skeleton table').height(addSize)
+        $('.fc-event').css('top', '-' + iconSize + 'px')
 
       # for drag multiselect
       $('.fc-event-container').each ->
@@ -651,10 +653,12 @@ $ ->
       winHeight = $(window).height()
       rowSize = $('.fc-body .fc-row').size()
       addSize = (winHeight - calendarPosition - 40) / rowSize
+      iconSize = (addSize / 4) + 10
       # alert addSize
       if $('.manage-listing-nav').css('position') == "absolute"
         $('.fc-body .fc-row').height(addSize)
         $('.fc-content-skeleton table').height(addSize)
+        $('.fc-event').css('top', '-' + iconSize + 'px')
 
       # for drag multiselect
       $('.fc-event-container').each ->
