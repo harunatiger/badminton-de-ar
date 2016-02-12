@@ -1339,10 +1339,18 @@ body.paper
     display: none
   .fc-event-container-custom
     background-color: gray !important
-  .smd-td
-  //  color: white !important
-  //  background-color: gray !important
-  //  opacity: 1 !important
+  .fc-event
+    &:before
+      position: relative
+      top: -15px
+      @media (max-width: 767px)
+        top: 0
+      @media (max-width: 525px)
+        top: -8px
+  //.smd-td
+    //color: white !important
+    //background-color: gray !important
+    //opacity: 1 !important
   .fc-highlight
     background: #bce8f1
     opacity: .3
