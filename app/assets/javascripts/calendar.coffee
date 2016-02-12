@@ -32,7 +32,7 @@ $ ->
           start: start._d,
           end: end._d,
           mode: mode,
-        console.log data
+        #console.log data
         $.ajax
           type: 'POST'
           url: '/ngevents'
@@ -454,10 +454,10 @@ $ ->
     # fullcalendar setting init
     #---------------------------------------------------------------------
     listing_id = gon.listing_id
-    console.log(listing_id)
+    #console.log(listing_id)
     delete_mode = false
     current_dow = []
-    arry_eventDay = []
+    #arry_eventDay = []
     delFlag = 0
     mode = 0
 
