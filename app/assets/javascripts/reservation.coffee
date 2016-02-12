@@ -30,7 +30,7 @@ $ ->
   disabled_dates = gon.ngdates
   disabled_weeks = gon.ngweeks
   scheduleDate = $('#reservation_detail_form #reservation_schedule_date').val()
-  $('.datepicker').datepicker
+  $('#reservation_detail_form .datepicker').datepicker
     autoclose: true,
     startDate: '+1d',
     language: 'ja',

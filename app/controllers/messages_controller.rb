@@ -50,7 +50,8 @@ class MessagesController < ApplicationController
     end
     first_message = mt_obj.messages.present? ? 0 : 1
     respond_to do |format|
-      if Message.send_message(mt_obj, message_params)
+      ret = Message.send_message(mt_obj, message_params)
+      if ret == true
         reservation_params = params['reservation']
 
         if reservation_params.present? && reservation_params['progress'].present?
@@ -98,7 +99,8 @@ class MessagesController < ApplicationController
         format.html { return redirect_to message_thread_path(mt_obj.id), notice: Settings.message.save.success }
         format.json { return render json: { success: true } } if request.xhr?
       else
-        format.html { return redirect_to message_thread_path(mt_obj.id), alert: Settings.message.save.failure }
+        error_message = ret == false ? Settings.message.save.failure : ret
+        format.html { return redirect_to message_thread_path(mt_obj.id), alert: error_message }
         format.json { return render json: { success: false } } if request.xhr?
       end
     end

@@ -3,6 +3,9 @@ ActiveAdmin.register Introduction do
   permit_params :code, :discount
   actions :all, except: [:edit]
   
+  preserve_default_filters!
+  filter :users, :as => :select, :collection => User.all.map{|u| ["#{u.profile.last_name} #{u.profile.first_name}", u.id]}
+  
   index do
     column :id
     column :code

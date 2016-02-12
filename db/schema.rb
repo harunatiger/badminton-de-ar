@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204102141) do
+ActiveRecord::Schema.define(version: 20160209045907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -344,10 +344,12 @@ ActiveRecord::Schema.define(version: 20160204102141) do
   add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id", using: :btree
 
   create_table "ngevent_weeks", force: :cascade do |t|
-    t.integer  "listing_id", null: false
-    t.integer  "dow",        null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "listing_id",             null: false
+    t.integer  "dow",                    null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "mode",       default: 0, null: false
+    t.integer  "user_id"
   end
 
   add_index "ngevent_weeks", ["dow"], name: "index_ngevent_weeks_on_dow", using: :btree
@@ -495,9 +497,9 @@ ActiveRecord::Schema.define(version: 20160204102141) do
     t.string   "caption",     default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.string   "cover_image", default: ""
     t.integer  "order_num"
     t.boolean  "cover_flg",   default: false
+    t.string   "cover_image"
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree

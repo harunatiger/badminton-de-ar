@@ -15,9 +15,9 @@
                 = user_id_to_name(r.host_id)
               - phone = user_id_to_phone_number(r.host_id)
               - if phone.present?
-                .balloon.text-muted.small1[title="＊当日までの間に実際に連絡が取り合えるか確認しておくことをおすすめします。"]
+                .balloon.text-muted.small1[title="＊Make sure that you know how to contact your guide before your tour."]
                   i.fa.fa-phone
-                  ' 
+                  '
                   = phone
         .col-md-5.thread-body
           .row.row-table
@@ -26,7 +26,7 @@
                 = link_to listing_path(r.listing_id) do
                   = listing.title
               .thread-date
-                | Meeting at 
+                | Meeting at
                 = r.schedule.to_s
         .col-md-3.thread-progress
           .row.row-table

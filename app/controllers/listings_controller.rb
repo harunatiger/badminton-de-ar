@@ -31,8 +31,8 @@ class ListingsController < ApplicationController
     @profiles = Profile.guides.where.not(id: @host_info.id)
     @message = Message.new
     #@wishlists = Wishlist.mine(current_user).order_by_created_at_desc
-    gon.ngdates = Ngevent.get_ngdates_from_listing(@listing.id)
-    gon.ngweeks = NgeventWeek.where(listing_id: @listing.id).pluck(:dow)
+    gon.ngdates = Ngevent.get_ngdates_from_listing(@listing.user_id)
+    gon.ngweeks = NgeventWeek.where(user_id: @listing.user_id).pluck(:dow)
     gon.listing = @listing.listing_detail
     @reservation = Reservation.new
     @profile_keyword = ProfileKeyword.where(user_id: @listing.user_id, profile_id: Profile.where(user_id: @listing.user_id).pluck(:id).first).keyword_limit
@@ -151,7 +151,7 @@ class ListingsController < ApplicationController
     end
     render json: { status: status, post: post}
   end
-  
+
   def copy
     if @listing_copied = @listing.dup_all
       redirect_to edit_listing_path(@listing_copied), notice: Settings.listings.copy.success
@@ -186,11 +186,11 @@ class ListingsController < ApplicationController
         end
       end
     end
-  
+
     def regulate_user
       return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id
     end
-  
+
     def deleted_or_open_check
       before_url = request.referrer
       return redirect_to before_url.present? ? before_url : root_path, alert: Settings.listings.error.deleted_listing_id if @listing.soft_destroyed?

@@ -3,7 +3,19 @@ class NgeventWeeksController < ApplicationController
   before_action :set_event_week, only: [:destroy]
 
   def index
-    @ngevent_weeks = NgeventWeek.where(listing_id: params[:listing_id])
+    @ngevent_weeks = NgeventWeek.where(user_id: current_user.id)
+  end
+
+  def common_ngweeks
+    @ngevent_weeks = NgeventWeek.where(user_id: current_user.id, mode: 1)
+  end
+
+  def except_common_ngweeks
+    @ngevent_weeks = NgeventWeek.where(user_id: current_user.id, mode: 0)
+  end
+
+  def listing_ngweeks
+    @ngevent_weeks = NgeventWeek.where(listing_id: params[:listing_id], mode: 0)
   end
 
   def show
@@ -12,6 +24,8 @@ class NgeventWeeksController < ApplicationController
   def create
     ngevent_week_params = Hash[
       'listing_id' => params[:listing_id],
+      'mode' => params['event']['mode'],
+      'user_id' => current_user.id,
       'dow' => params['event']['dow']
     ]
 
@@ -48,12 +62,12 @@ class NgeventWeeksController < ApplicationController
   end
 
   def unset
-    ngevent_week_params = Hash[
-      'listing_id' => params[:listing_id],
-      'dow' => params['event']['dow']
-    ]
+    listing_id = params[:listing_id].present? ? params[:listing_id] : 0
+    user_id = current_user.id
+    dow = params['event']['dow']
+    mode = params['event']['mode']
 
-    @ngevent_week = NgeventWeek.find_by(listing_id: params[:listing_id], dow: params['event']['dow'])
+    @ngevent_week = NgeventWeek.find_by(listing_id: listing_id,user_id: user_id, dow: dow, mode: mode)
 
     if @ngevent_week.nil?
       return render json: { msg: 'ng_week already unset', event: @ngevent_week }, status: 4001

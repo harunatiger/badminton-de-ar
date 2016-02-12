@@ -409,8 +409,15 @@ Rails.application.routes.draw do
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
     post 'copy', action: 'copy', as: 'copy'
-    resources :ngevents, only: [:index, :create]
-    resources :ngevent_weeks, only: [:index, :create] do
+    resources :ngevents, only: [:create] do
+      get 'listing_ngdays', on: :collection
+      get 'listing_reservation_ngdays', on: :collection
+      get 'listing_request_ngdays', on: :collection
+      get 'reservation_except_listing_ngdays', on: :collection
+      get 'request_except_listing_ngdays', on: :collection
+    end
+    resources :ngevent_weeks, only: [:create] do
+      get 'listing_ngweeks', on: :collection
       put 'unset', on: :collection
     end
     resources :calendar
@@ -436,8 +443,19 @@ Rails.application.routes.draw do
   end
 
   resources :wishlists
-  resources :ngevents, except: [:index, :create]
-  resources :ngevent_weeks, except: [:index, :create]
+  resources :ngevents do
+    get 'reservation_ngdays', on: :collection
+    get 'request_ngdays', on: :collection
+    get 'common_ngdays', on: :collection
+  end
+  resources :ngevent_weeks do
+    get 'except_common_ngweeks', on: :collection
+    get 'common_ngweeks', on: :collection
+    put 'unset', on: :collection
+  end
+  resources :calendar do
+    get 'common_ngdays', on: :collection
+  end
 
   devise_for :users, controllers: {
     sessions:            'users/sessions',
@@ -446,11 +464,11 @@ Rails.application.routes.draw do
     omniauth_callbacks:  'users/omniauth_callbacks',
     confirmations:       'users/confirmations'
   }
-  
-  devise_scope :user do 
+
+  devise_scope :user do
     get 'users/withdraw' => 'users/registrations#withdraw'
   end
-  
+
   get "weekly_payment_report" => 'admin/payment#payment_weekly_report'
   get "payment_report_index" => 'admin/payment#index'
   root 'welcome#index'
