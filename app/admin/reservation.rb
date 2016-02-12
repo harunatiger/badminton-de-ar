@@ -1,6 +1,11 @@
 ActiveAdmin.register Reservation do
   permit_params :guest_id, :listing_id, :campaign_id, :schedule, :num_of_people, :progress, :review_mail_sent_at, :review_expiration_date, :review_landed_at, :reviewed_at, :reply_mail_sent_at, :reply_landed_at, :replied_at, :review_opened_at, :time_required, :price, :place, :description, :schedule_end, :place_memo, :refund_rate, :price_for_support, :price_for_both_guides, :space_option, :space_rental, :car_option, :car_rental, :gas, :highway, :parking, :guests_cost, :included_guests_cost, :msg, :reason
   
+  preserve_default_filters!
+  remove_filter :user
+  filter :host_id, :as => :select, :collection => User.all.map{|u| ["#{u.profile.last_name} #{u.profile.first_name}", u.id]}
+  filter :guest_id, :as => :select, :collection => User.all.map{|u| ["#{u.profile.last_name} #{u.profile.first_name}", u.id]}
+
   index do
     column :id do |reservation|
       link_to reservation.id, admin_reservation_path(reservation)
