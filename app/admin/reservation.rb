@@ -13,7 +13,9 @@ ActiveAdmin.register Reservation do
     column :host_id
     column :guest_id
     column :listing_id do |reservation|
-      link_to Listing.find(reservation.listing_id).title, admin_listing_path(reservation.listing_id)
+      if reservation.listing_id.present?
+        link_to Listing.find(reservation.listing_id).title, admin_listing_path(reservation.listing_id)
+      end
     end
     column :schedule
     column :schedule_end
