@@ -1,6 +1,51 @@
 ActiveAdmin.register Reservation do
   permit_params :guest_id, :listing_id, :campaign_id, :schedule, :num_of_people, :progress, :review_mail_sent_at, :review_expiration_date, :review_landed_at, :reviewed_at, :reply_mail_sent_at, :reply_landed_at, :replied_at, :review_opened_at, :time_required, :price, :place, :description, :schedule_end, :place_memo, :refund_rate, :price_for_support, :price_for_both_guides, :space_option, :space_rental, :car_option, :car_rental, :gas, :highway, :parking, :guests_cost, :included_guests_cost, :msg, :reason
   
+  index do
+    column :id do |reservation|
+      link_to reservation.id, admin_reservation_path(reservation)
+    end
+    column :host_id
+    column :guest_id
+    column :listing_id do |reservation|
+      link_to Listing.find(reservation.listing_id).title, admin_listing_path(reservation.listing_id)
+    end
+    column :schedule
+    column :schedule_end
+    column :num_of_people
+    column :progress
+    column :time_required
+    column :price
+    column :price_for_support
+    column :price_for_both_guides
+    column :place
+    column :place_memo
+    column :space_option
+    column :space_rental
+    column :car_option
+    column :car_rental
+    column :gas
+    column :highway
+    column :parking
+    column :guests_cost
+    column :included_guests_cost
+    column :description
+    column :msg
+    column :reason
+    column :refund_rate
+    column :review_mail_sent_at
+    column :review_expiration_date
+    column :review_landed_at
+    column :reviewed_at
+    column :reply_mail_sent_at
+    column :reply_landed_at
+    column :replied_at
+    column :review_opened_at
+    column :created_at
+    column :updated_at
+    actions
+  end
+  
   form do |f|
     f.inputs do
       f.input :guest_id
