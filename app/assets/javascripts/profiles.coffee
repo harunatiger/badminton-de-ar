@@ -65,6 +65,56 @@ $ ->
         ret = confirm('お気に入りを解除します。よろしいですか？')
   else
     $('.favorite-btn').each (index) ->
+      #balloon for favorites
+      if $(window).width() >= 768
+        $(this).find('.fav-balloon').balloon(
+          contents: 'add to your favorites',
+          css:
+            border: 'none',
+            padding: '8px',
+            fontSize: '13px',
+            fontWeight: 'bold',
+            lineHeight: '1.55',
+            backgroundColor: 'rgba(0, 0, 0, .75)',
+            borderRadius: '2px'
+            color: 'white'
+            boxShadow: 'none'
+        )
+      else
+        hasTouch = ('ontouchstart' in window)
+        if hasTouch == true
+          $(this).on 'touchend', ->
+            $(this).find('.fav-balloon').showBalloon(
+              contents: 'add to your favorites',
+              hideDuration: 1000,
+              css:
+                border: 'none',
+                padding: '8px',
+                fontSize: '13px',
+                fontWeight: 'bold',
+                lineHeight: '1.55',
+                backgroundColor: 'rgba(0, 0, 0, .75)',
+                borderRadius: '2px'
+                color: 'white'
+                boxShadow: 'none'
+            )
+          $(this).on 'touchend', ->
+            $(this).find('.fav-balloon').showBalloon().hideBalloon()
+        else
+          $(this).find('.fav-balloon').balloon(
+            contents: 'add to your favorites',
+            css:
+              border: 'none',
+              padding: '8px',
+              fontSize: '13px',
+              fontWeight: 'bold',
+              lineHeight: '1.55',
+              backgroundColor: 'rgba(0, 0, 0, .75)',
+              borderRadius: '2px'
+              color: 'white'
+              boxShadow: 'none'
+          )
+
       $(this).find('i.outline').hover (->
         $(this).prev().addClass 'unfavorite-o'
         ), ->
@@ -231,14 +281,3 @@ $ ->
       if calcHeight > 320
         ih = (calcHeight - 320) / 2
         $(this).css("top", "-"+ih+"px")
-
-#  $('#profie-thumb-carousel').bind 'slide.bs.carousel', (e) ->
-#    img = $('#profie-thumb-carousel').find('.item.active img')
-#    if img
-#      imgWidth = img.width()
-#      imgHeight = img.height()
-#      if imgHeight >= imgWidth
-#        if imgHeight > width
-#          ih = (height - 320) / 2
-#          $(this).css("top", ih+"px")
-
