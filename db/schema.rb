@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209045907) do
+ActiveRecord::Schema.define(version: 20160215004945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -312,11 +312,12 @@ ActiveRecord::Schema.define(version: 20160209045907) do
   add_index "message_thread_users", ["user_id"], name: "index_message_thread_users_on_user_id", using: :btree
 
   create_table "message_threads", force: :cascade do |t|
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "host_id"
-    t.boolean  "reply_from_host", default: false
-    t.boolean  "first_message",   default: true
+    t.boolean  "reply_from_host",   default: false
+    t.boolean  "first_message",     default: true
+    t.boolean  "noticemail_sended", default: false
   end
 
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
@@ -497,9 +498,9 @@ ActiveRecord::Schema.define(version: 20160209045907) do
     t.string   "caption",     default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "cover_image", default: ""
     t.integer  "order_num"
     t.boolean  "cover_flg",   default: false
-    t.string   "cover_image"
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree
@@ -732,6 +733,7 @@ ActiveRecord::Schema.define(version: 20160209045907) do
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["id"], name: "index_users_on_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree

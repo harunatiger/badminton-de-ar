@@ -48,7 +48,18 @@ class MessagesController < ApplicationController
     else
       mt_obj = MessageThread.create_thread(message_params)
     end
-    first_message = mt_obj.messages.present? ? 0 : 1
+
+    host_id = mt_obj.host_id.present? ? mt_obj.host_id.to_i : 0
+    from_user_id = message_params[:from_user_id].present? ? message_params[:from_user_id].to_i : 0
+    reply_from_host = host_id == from_user_id ? 1 : 0
+    mail_to_admin = mt_obj.messages.present? ? 0 : 1
+
+    if mt_obj.first_message?
+      first_message = host_id == from_user_id ? 0 : 1
+    else
+      first_message = 0
+    end
+
     respond_to do |format|
       ret = Message.send_message(mt_obj, message_params)
       if ret == true
@@ -79,20 +90,17 @@ class MessagesController < ApplicationController
           else
             #MessageMailer.send_new_message_notification(mt_obj, message_params).deliver_later!(wait: 1.minute) # if you want to use active job, use this line.
             MessageMailer.send_new_message_notification(mt_obj, message_params).deliver_now! # if you don't want to use active job, use this line.
-            if first_message == 1
+            if first_message == 1 && mail_to_admin == 1
               MessageMailer.send_new_message_notification_to_admin(mt_obj, message_params).deliver_now!
             end
           end
         else
           #MessageMailer.send_new_message_notification(mt_obj, message_params).deliver_later!(wait: 1.minute) # if you want to use active job, use this line.
           MessageMailer.send_new_message_notification(mt_obj, message_params).deliver_now! # if you don't want to use active job, use this line.
-          if first_message == 1
+          if first_message == 1 && mail_to_admin == 1
             MessageMailer.send_new_message_notification_to_admin(mt_obj, message_params).deliver_now!
           end
         end
-
-        host_id = mt_obj.host_id.present? ? mt_obj.host_id : 0
-        reply_from_host = host_id.to_i == message_params['from_user_id'].to_i ? 1 : 0
 
         mt_obj.update(reply_from_host: reply_from_host, first_message: first_message)
 
