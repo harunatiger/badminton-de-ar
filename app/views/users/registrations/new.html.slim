@@ -33,25 +33,25 @@
               .row-space-2.row-space-top-2
                 small
                   | By register with Huber, you agree to 
-                  = link_to "our terms of service", "#"
+                  = link_to "our terms of service", static_pages_service_agreement_en_path
                   | , 
-                  = link_to "privacy policy", "#"
+                  = link_to "privacy policy", static_pages_privacy_policy_en_path
+                  /| , 
+                  /= link_to "refund policy", "#"
                   | , 
-                  = link_to "refund policy", "#"
-                  | , 
-                  = link_to " and guide insurance policy", "#"
+                  = link_to "and special commercial code.", static_pages_specific_commercial_transactions_en_path
               .form-actions
                 = f.button :submit, "Register", class: "btn btn-primary btn-large btn-block"
           .policy-wrapper.row-space-top-2
             small
               | By register with Huber, you agree to 
-              = link_to "our terms of service", "#"
+              = link_to "our terms of service", static_pages_service_agreement_en_path
               | , 
-              = link_to "privacy policy", "#"
+              = link_to "privacy policy", static_pages_privacy_policy_en_path
+              /| , 
+              /= link_to "refund policy", "#"
               | , 
-              = link_to "refund policy", "#"
-              | , 
-              = link_to "and guide insurance policy.", "#"
+              = link_to "and special commercial code.", static_pages_specific_commercial_transactions_en_path
         .card-body
           p.small1
             | Don't have an acount? 
