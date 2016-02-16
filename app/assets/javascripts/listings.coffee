@@ -36,7 +36,7 @@ $ ->
         fv9 = 0
       fv10 = fv5 + fv6 + fv7 + fv8 + fv9
       fv11 = fv4 + fv10
-      #fv12 = Math.ceil((fv11) * 0.125)
+      #fv12 = Math.ceil((fv11) * 0.145)
       #if fv11 <= 500
       #  fv12 = 0
       fv12 = 0
@@ -354,7 +354,7 @@ $ ->
       if tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced < 2000
         serviceCostCalced = 500
       else
-        serviceCostCalced = Math.ceil((tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced) * 0.125)
+        serviceCostCalced = Math.ceil((tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced) * 0.145)
       serviceCostCalcedContainer.text(serviceCostCalced)
       tourPriceResultCalcedContainer.text(tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced + serviceCostCalced)
       return
