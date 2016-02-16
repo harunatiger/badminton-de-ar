@@ -1337,8 +1337,11 @@ body.paper
       border: none
   .fc-content-skeleton tr
     position: relative
-  .fc-content-skeleton tbody tr:nth-child(2)
+  .fc-content-skeleton tbody tr .fc-event-container .fa-close
     display: none
+  .fc-content-skeleton tbody tr:nth-child(1)
+    .fc-event-container .fa-close
+      display: block
   .fc-event-container-custom
     background-color: gray !important
   .fc-event

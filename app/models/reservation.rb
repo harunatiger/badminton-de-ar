@@ -189,11 +189,13 @@ class Reservation < ActiveRecord::Base
   end
 
   def amount
-    result = basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.125).ceil
+    #result = basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.145).ceil
+    result = (basic_amount * 1.145).ceil
   end
 
   def amount_for_campaign
-    result = basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.125).ceil
+    #result = basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.145).ceil
+    result = (basic_amount * 1.145).ceil
     result = result - self.campaign.discount if self.campaign.present?
     result = 0 if result < 0
     result
@@ -225,7 +227,8 @@ class Reservation < ActiveRecord::Base
   end
 
   def service_fee
-    basic_amount < 2000 ? 500 : (basic_amount * 0.125).ceil
+    #basic_amount < 2000 ? 500 : (basic_amount * 0.145).ceil
+    (basic_amount * 0.145).ceil
   end
 
   def paypal_amount
@@ -239,11 +242,13 @@ class Reservation < ActiveRecord::Base
   end
 
   def handling_cost
-    basic_amount < 2000 ? 500 : (basic_amount * 0.125).ceil
+    #basic_amount < 2000 ? 500 : (basic_amount * 0.145).ceil
+    (basic_amount * 0.145).ceil
   end
 
   def paypal_handling_cost
-    basic_amount < 2000 ? 50000 : (basic_amount * 0.125).ceil * 100
+    #basic_amount < 2000 ? 50000 : (basic_amount * 0.145).ceil * 100
+    (basic_amount * 0.145).ceil * 100
   end
 
   def paypal_campaign_discount
