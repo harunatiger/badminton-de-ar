@@ -48,6 +48,10 @@ ActiveAdmin.register Reservation do
     column :reply_landed_at
     column :replied_at
     column :review_opened_at
+    column 'Paypal決済トランID' do |reservation|
+      payment = Payment.where(reservation_id: reservation.id).first
+      payment.try('transaction_id') || '' if payment.present?
+    end
     column :created_at
     column :updated_at
     actions
@@ -95,5 +99,15 @@ ActiveAdmin.register Reservation do
       f.input :review_opened_at
     end
     f.actions
+  end
+  
+  show do
+    attributes_table *default_attribute_table_rows do 
+      row "Paypal決済トランID" do |reservation|
+        payment = Payment.where(reservation_id: reservation.id).first
+        payment.try('transaction_id') || '' if payment.present?
+      end
+    end
+    active_admin_comments
   end
 end
