@@ -217,7 +217,7 @@ page:
   profile: 'Profile'
   account: 'Account'
   favorites: 'Favorites'
-  guest_flow: 'How It Works'
+  guest_flow: 'How to use'
   search: 'Search'
   signup: 'Sign up'
   login: 'Log In'
