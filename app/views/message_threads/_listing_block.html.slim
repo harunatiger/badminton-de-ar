@@ -59,7 +59,10 @@ div
               = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary disabled'
               = f.submit 'Cancel', name: 'cancel', class: 'btn disabled'
             - else
-              = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
+              - if reservation_obj.amount_for_campaign < 1
+                = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary', data: {confirm: "Are you sure you want to approve this tour?"}
+              - else
+                = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
               = f.submit 'Cancel', name: 'cancel', class: 'btn'
         - elsif reservation_obj.completed? and current_user.id == guest_id
           .h5.text-green.strong
