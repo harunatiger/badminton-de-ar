@@ -9,9 +9,9 @@ div
         = listing_obj.title
   .row.row-condensed.row-space-2.row-space-top-3
     .col-md-3.text-left.text-muted.strong
-      | hours:
+      | Hours:
     .col-md-8
-      = format_time_required(reservation_obj.time_required.to_s, 'hours')
+      = format_time_required(reservation_obj.time_required.to_s, ' Hours')
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
       | Price:
@@ -26,7 +26,7 @@ div
     .col-md-3.text-left.text-muted.strong
       | Number of people:
     .col-md-8
-      = reservation_obj.num_of_people
+      => reservation_obj.num_of_people
       |People
   .row.row-condensed.row-space-2
     .col-md-3.text-left.text-muted.strong
@@ -59,7 +59,10 @@ div
               = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary disabled'
               = f.submit 'Cancel', name: 'cancel', class: 'btn disabled'
             - else
-              = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
+              - if reservation_obj.amount_for_campaign < 1
+                = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary', data: {confirm: "Are you sure you want to approve this tour?"}
+              - else
+                = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
               = f.submit 'Cancel', name: 'cancel', class: 'btn'
         - elsif reservation_obj.completed? and current_user.id == guest_id
           .h5.text-green.strong

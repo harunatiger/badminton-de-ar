@@ -16,7 +16,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    @listings = Listing.mine(@profile.user_id).opened.includes(:listing_detail).order_by_updated_at_desc
+    @listings = Listing.mine(@profile.user_id).opened.without_soft_destroyed.includes(:listing_detail).order_by_updated_at_desc
     gon.listings = ListingDetail.where(listing_id: @listings.map{|l| l.id}).where.not('place_longitude = 0 and place_latitude = 0')
     #@reviewed = Review.they_do(@profile.user_id).order_by_updated_at_desc
     @reviewed = Review.they_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
@@ -142,11 +142,11 @@ class ProfilesController < ApplicationController
     def get_progress
       @progress = Profile.get_percentage(@profile.user_id)
     end
-  
+
     def regulate_user
       return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @profile.user_id != current_user.id
     end
-  
+
     def deleted_check
       before_url = request.referrer
       return redirect_to before_url.present? ? before_url : root_path, alert: Settings.profile.deleted_profile_id if @profile.soft_destroyed?

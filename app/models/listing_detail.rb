@@ -92,7 +92,8 @@ class ListingDetail < ActiveRecord::Base
   end
     
   def amount
-    basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.125).ceil
+    #basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.145).ceil
+    (basic_amount * 1.145).ceil
   end
     
   def guide_price
@@ -116,7 +117,7 @@ class ListingDetail < ActiveRecord::Base
   end
     
   def service_fee
-    basic_amount < 2000 ? 500 : (basic_amount * 0.125).ceil
+    basic_amount < 2000 ? 500 : (basic_amount * 0.145).ceil
   end
     
   def set_price

@@ -7,6 +7,8 @@
 #  dow        :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  mode       :integer          default(0), not null
+#  user_id    :integer
 #
 # Indexes
 #

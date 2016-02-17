@@ -36,6 +36,7 @@
               th CPコード
               th CPディスカウント金額
               th ゲストPaypalID
+              th ReservationID
           tbody
             - if @payments.present?
               - @payments.each do | payment |
@@ -106,4 +107,6 @@
                       = campaign.discount
                   td
                     = payment.payer_id
+                  td
+                    = link_to payment.reservation_id, admin_reservation_path(payment.reservation_id)
   = render 'footer'

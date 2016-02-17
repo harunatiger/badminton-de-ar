@@ -1,6 +1,8 @@
 ActiveAdmin.register ProfileIdentity do
   
   permit_params :user_id, :profile_id, :image, :caption, :authorized
+  preserve_default_filters!
+  filter :user, :as => :select, :collection => User.all.map{|u| ["#{u.profile.last_name} #{u.profile.first_name}", u.id]}
   
   index do
     column :id

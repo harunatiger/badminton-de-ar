@@ -9,6 +9,7 @@ namespace :noreply_notification do
           if second >= 86400
             ReplyMailer.send_reply_mail_to_host(m).deliver_now!
             ReplyMailer.send_reply_mail_to_admin(m).deliver_now!
+            mt.update_attribute(:noticemail_sended, 1)
           end
         end
       end

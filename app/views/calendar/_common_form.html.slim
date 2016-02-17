@@ -1,12 +1,9 @@
-/ calendar
-/= render partial: 'shared/subnav'
-.row.row-calendar
+/ common_calendar
+.row.row-space-2.row-space-top-4.row-calendar
   .col-xs-12
     .calendar-header-container
-      .common-calendar.text-right
-        = link_to '共通カレンダー', common_ngdays_calendar_index_path, class: "btn btn-primary"
-      h3.text-center.row-space-1 都合の悪い日を設定しましょう。
-      p.text-center.row-space-2
+      h3.text-center.row-space-2 共通で都合の悪い日を設定しましょう。
+      p.text-center.row-space-6
         | カレンダーの日付をクリックすると都合の悪い日として設定され、旅行者はその日を選択できなくなります。
         br
         | 連続して都合が悪い日がある場合は、開始日から終了日までをドラッグすることで、
@@ -15,6 +12,4 @@
         br
         | 尚、グレーになっている日程を再度クリックすることで都合の悪い日設定を解除できます。
     .calendar-wrapper.ohidden
-      /#delete_mode
-        /button#delete_btn 日程を削除する
       #calendar

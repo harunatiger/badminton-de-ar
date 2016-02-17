@@ -1,17 +1,8 @@
 ActiveAdmin.register Message do
-
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if resource.something?
-#   permitted
-# end
-
-
+  preserve_default_filters!
+  remove_filter :user
+  filter :from_user_id, :as => :select, :collection => User.all.map{|u| ["#{u.profile.last_name} #{u.profile.first_name}", u.id]}
+  filter :to_user_id, :as => :select, :collection => User.all.map{|u| ["#{u.profile.last_name} #{u.profile.first_name}", u.id]}
+  filter :reservation, :as => :select, :collection => Reservation.all.map{|r| [r.id, r.id]}
+  filter :message_thread, :as => :select, :collection => MessageThread.all.map{|mt| [mt.id, mt.id]}
 end

@@ -15,12 +15,11 @@ slideSwitch = ->
 # onload
 $ ->
   if $('.tour-listing .listing-area').length
-    #windowWidth = $(window).width()
-    #if windowWidth < 767
-    #  maxlength = 65
-    #else if windowWidth > 768 && windowWidth < 1099
-    #  maxlength = 65
-    #else
+    $('.tour-listing').each (index) ->
+      titleHeight = $(this).find('h5').height()
+      if titleHeight >= 42
+        $(this).find('.card-body').css('padding-top','5px')
+
     maxlength = 60
     $('.tour-listing .listing-area').each (index) ->
       elementChild = $(this).children('a')

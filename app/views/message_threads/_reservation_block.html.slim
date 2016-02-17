@@ -3,11 +3,11 @@
     .collapse-box
       = link_to "#reservation_block",  data: { toggle:"collapse" }, class: "#{@reservation.listing.present? ? 'reservation_collapse' : 'reservation_collapse collapsed'}" do
         | Tour
-        | Info
+        |  Info
         span rmation
         .state-container
           span.state-label
-            | state:
+            | State:
           - if @reservation.requested?
             .state.state-primary
               = @reservation.string_of_progress_english
@@ -33,12 +33,12 @@
             .small1.text-muted.row-space-3
               | #{user_id_to_name(@guest_id)} can see tour information.
               br
-              | Let's share the contents of the tour with a #{user_id_to_name(@guest_id)} .
+              | Let's share the contents of the tour with #{user_id_to_name(@guest_id)} .
           - else
             .small1.text-muted.row-space-3
               | #{user_id_to_name(@host_id)} edites the contents of the tour and shares it.
               br
-              | Let's make the plan of aspecial trip with a #{user_id_to_name(@host_id)} .
+              | Let's make the plan of a special trip with #{user_id_to_name(@host_id)} .
           #reservation_block-info
             .row.row-condensed.row-space-1
               .col-md-3.text-left.text-muted.strong
@@ -94,7 +94,7 @@
             .row.row-condensed.row-space-1
               .col-md-3.text-left.text-muted.strong
                 | Service Commission:
-              .col-md-8.strong
+              .col-md-8.strong.row-space-top-3.row-space-reset
                 |¥
                 = @reservation.service_fee
             .row.row-condensed.row-space-1
@@ -118,7 +118,7 @@
             .row.row-condensed.row-space-1
               .col-md-3.text-left.text-muted.strong
                 | Detail on meeting place：
-              .col-md-8
+              .col-md-8.row-space-top-3.row-space-reset
                 = @reservation.place_memo
             .row.row-condensed.row-space-1
               .col-md-3.text-left.text-muted.strong
@@ -160,19 +160,7 @@
                 = f.hidden_field :schedule_minute, value: @reservation.schedule_minute
                 = f.hidden_field :description, value: @reservation.description
                 .row.row-condensed.row-space-2
-                  .col-md-6
-                    .text-left
-                      - if @counterpart.soft_destroyed?
-                        = f.button :button, class: "btn btn-primary disabled", name: 'request', value: 'request' do
-                          i.fa.fa-envelope-o
-                          | ゲストにオファーする
-                      - else
-                        = f.button :button, class: "btn btn-primary disabled", name: 'request', value: 'request', id: 'offer_to_guest' do
-                          i.fa.fa-envelope-o
-                          | ゲストにオファーする
-                      .text-red.small1.row-space-top-2
-                        | ＊全ての登録をするとオファーできるようになります
-                  .col-md-6
+                  .col-md-12
                     .text-right
                       - if @counterpart.soft_destroyed?
                         = link_to '#', class: 'btn btn-primary btn-mw120 disabled', id: "reservation_block-toggle" do
@@ -182,6 +170,18 @@
                         = link_to '#', class: 'btn btn-primary btn-mw120', id: "reservation_block-toggle" do
                           i.fa.fa-pencil
                           | Edit
+                .row.row-condensed.row-space-top-2.row-space-2.tour-price-others
+                  .col-md-12
+                    .text-center
+                      - if @counterpart.soft_destroyed? || @listings.blank?
+                        = f.button :button, class: "btn btn-large btn-block btn-primary disabled", name: 'request', value: 'request' do
+                          i.fa.fa-envelope-o
+                          | ゲストにオファーする
+                      - else
+                        = f.button :button, class: "btn btn-large btn-block btn-primary disabled", name: 'request', value: 'request', id: 'offer_to_guest' do
+                          i.fa.fa-envelope-o
+                          | ゲストにオファーする
+                      #offer_comment.text-red.small1.row-space-top-2
             - elsif @reservation_for_update.present?
               - if @reservation_for_update.requested?
                 = simple_form_for(@reservation_for_update) do |f|
@@ -195,10 +195,13 @@
                       = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary disabled'
                       = f.submit 'Cancel', name: 'cancel', class: 'btn disabled'
                     - else
-                      = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
+                      - if @reservation.amount_for_campaign < 1
+                        = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary', data: {confirm: "Are you sure you want to approve this tour?"}
+                      - else
+                        = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
                       = f.submit 'Cancel', name: 'cancel', class: 'btn'
               - elsif @reservation_for_update.completed?
-                .row-space-top-4.row-space-2
+                /.row-space-top-4.row-space-2
                   - if @counterpart.soft_destroyed?
                     = link_to "Cancel", "#confirm_cancel1", class: "btn btn-host row-space-top-1 row-space-1 disabled"
                   - else

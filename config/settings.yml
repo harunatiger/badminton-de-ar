@@ -53,7 +53,7 @@ listings:
   set_lon_lat:
     error: "We couldn't find your exact address. Set an exact location below"
   publish:
-    success: "You've created your tour-page"
+    success: "You've updated your tour-page"
     failure: "More steps needed to finish your tour-page"
   unpublish:
     success: "Tour page hidden"
@@ -158,6 +158,8 @@ message:
   save:
     success: "Your message has been sent"
     failure: "message delivery failed"
+    toobig: "Attached file is too big"
+    notavailable: "This file is not available"
   read:
     string: "Read"
   unread:

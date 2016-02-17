@@ -22,7 +22,7 @@ class MessageThread < ActiveRecord::Base
   attr_accessor :reservation_progress
 
   scope :order_by_updated_at_desc, -> { order('updated_at') }
-  scope :noreply_push_mail, -> { where(reply_from_host: false, first_message: true) }
+  scope :noreply_push_mail, -> { where(noticemail_sended: false, reply_from_host: false, first_message: true) }
 
   def self.exists_thread?(msg_params)
     t_threads = MessageThreadUser.user_joins(msg_params['to_user_id']).select(:message_thread_id)

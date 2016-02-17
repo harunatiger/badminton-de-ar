@@ -7,10 +7,10 @@
             - profile.thumb_images.each_with_index do |thumb_image, i|
               - if i == 0
                 .item.active
-                  = image_tag(thumb_image.image.thumb, class: 'img-responsive')
+                  = image_tag(thumb_image.image, class: 'img-responsive')
               - else
                 .item
-                  = image_tag(thumb_image.image.thumb, class: 'img-responsive')
+                  = image_tag(thumb_image.image, class: 'img-responsive')
           = link_to "#profie-thumb-carousel", class: "left carousel-control" do
             i.fa.fa-chevron-left aria-hidden="true"
             span.sr-only Previous
