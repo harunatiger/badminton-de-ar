@@ -135,6 +135,13 @@ class ReservationsController < ApplicationController
   end
 
   def update
+    if params[:accept].present? and !current_user.already_authrized
+      if profile_identity = ProfileIdentity.where(user_id: current_user.id, profile_id: current_user.profile.id).first
+        return redirect_to edit_profile_profile_identity_path(profile_id: current_user.profile.id, id:profile_identity.id), alert: Settings.reservation.accept.failure.not_authorized_yet
+      else
+        return redirect_to new_profile_profile_identity_path(current_user.profile), alert: Settings.reservation.accept.failure.not_authorized_yet
+      end
+    end
     para = reservation_params
     message_thread_id = para[:message_thread_id].present? ? para[:message_thread_id] : session[:message_thread_id]
     session[:message_thread_id] = nil

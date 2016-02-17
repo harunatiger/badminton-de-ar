@@ -107,6 +107,9 @@ reservation:
       not_authorized_yet: 'We need to do a virtual ID check in order to send your tour plan to guests'
       invalid_campaign_code: 'Your campaign code is invalid'
       used_campaign_code: 'You have already used the campaign code'
+  accept:
+    failure:
+      not_authorized_yet: 'We need to do a virtual ID check in order to approve the tour'
   update:
     success: "Your tour plan has been uploaded successfully"
     cancel_success: 'キャンセルが完了しました。ガイドにもキャンセルの連絡が届けられていますので、まだ今回のキャンセルについて何も伝えていない時はメッセージを送るようにしましょう。'
