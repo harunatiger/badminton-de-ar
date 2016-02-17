@@ -246,6 +246,6 @@
   .row.row-space-top-6
     .col-xs-9.col-offset-3.text-reset-center
       - if 'edit' == controller.action_name
-        = f.button :submit, "この内容で保存する", class: "btn-primary btn-large", id: 'listing-manager-listing-submit'
+        = f.button :submit, "保存して次へ", class: "btn-primary btn-large", id: 'listing-manager-listing-submit'
       - else
         = f.button :submit, "次へ", class: "btn-primary btn-large"

@@ -68,3 +68,7 @@
               = f.hidden_field :listing_id, value: @listing.id
               = f.file_field :image, as: :file, id: 'listing_image_new'
   = render partial: 'images_list', locals: { listing_images: @listing_images}
+  hr
+  .row.row-space-top-6
+    .col-xs-9.col-offset-3.text-reset-center
+      = link_to "保存して次へ", manage_listing_listing_details_path(@listing), class: "btn btn-primary btn-large"
