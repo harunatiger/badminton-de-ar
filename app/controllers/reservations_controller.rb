@@ -317,13 +317,13 @@ class ReservationsController < ApplicationController
   def set_ngday_reservation_by_listing
     if request.xhr?
       listing = Listing.find(params[:listing_id])
-      #@reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
-      #@reservation.listing_id = listing.id
-      #ngdates = Ngevent.get_ngdates(@reservation)
-      #ngweeks = NgeventWeek.where(listing_id: listing.id).pluck(:dow)
-      user_id = listing.user_id
-      ngdates = Ngevent.get_ngdates(user_id)
-      ngweeks = NgeventWeek.where(user_id: user_id).pluck(:dow)
+      @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
+      @reservation.listing_id = listing.id
+      ngdates = Ngevent.get_ngdates(@reservation)
+      ngweeks = NgeventWeek.where(listing_id: listing.id).pluck(:dow)
+      #user_id = listing.user_id
+      #ngdates = Ngevent.get_ngdates(user_id)
+      #ngweeks = NgeventWeek.where(user_id: user_id).pluck(:dow)
       render json: { ngdates: ngdates, ngweeks: ngweeks}
     end
   end
@@ -334,8 +334,10 @@ class ReservationsController < ApplicationController
       #ngdates = Ngevent.get_ngdates(@reservation)
       #ngweeks = NgeventWeek.where(listing_id: @reservation.try('listing_id')).pluck(:dow)
       user_id = @reservation.try('host_id')
-      ngdates = Ngevent.get_ngdates(user_id)
-      ngweeks = NgeventWeek.where(user_id: user_id).pluck(:dow)
+      #ngdates = Ngevent.get_ngdates(user_id)
+      #ngweeks = NgeventWeek.where(user_id: user_id).pluck(:dow)
+      ngdates = Ngevent.get_ngdates(@reservation)
+      ngweeks = NgeventWeek.where(listing_id: @reservation.try('listing_id')).pluck(:dow)
       render json: { ngdates: ngdates, ngweeks: ngweeks}
     end
   end
