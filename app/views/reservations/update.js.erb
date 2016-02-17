@@ -1,6 +1,11 @@
 <% if @status == "success" %>
-  $('.step1').hide();
-  $('.step3').show();
+  if ($('body').hasClass('host_reservation_manager')) {
+    $('.step3').hide();
+    $('.step4').show();
+  } else {
+    $('.step1').hide();
+    $('.step3').show();
+  }
 <% elsif @status == "failure" %>
   alert("Fail to cancel.");
 <% end %>

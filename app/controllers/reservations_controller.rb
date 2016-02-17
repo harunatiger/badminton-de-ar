@@ -54,6 +54,7 @@ class ReservationsController < ApplicationController
             ReservationMailer.send_new_reservation_notification_to_admin(@reservation).deliver_now!
           else
             ReservationMailer.send_new_guide_detail_notification(@reservation).deliver_now!
+            ReservationMailer.send_requested_mail_to_owner(@reservation).deliver_now!
           end
 
           msg_params = Hash[
@@ -147,8 +148,9 @@ class ReservationsController < ApplicationController
     session[:message_thread_id] = nil
     payment = @reservation.payment
     if params[:cancel]
+      para[:refund_user] = @reservation.host_id == current_user.id ? 2 : 1
       if payment.present? and payment.payment_status == 'Completed' and payment.cancel_available(@reservation)
-        response = refund(payment,@reservation)
+        response = refund(payment,@reservation,para[:refund_user])
         unless response.success?
           respond_to do |format|
             format.html { return redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.paypal_refund_failure + ' error：' + response.params['error_codes'] + ' ' + response.params['message']}
@@ -238,27 +240,39 @@ class ReservationsController < ApplicationController
           format.js { @status = 'failure' }
         end
 
-        ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
+        if @reservation.canceled_after_accepted? && @reservation.refund_user == 2
+          ReservationMailer.send_update_reservation_notification(@reservation, @reservation.host_id).deliver_now!
+        else
+          ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
+        end
+
         if @reservation.canceled_after_accepted?
           ReservationMailer.send_cancel_mail_to_owner(@reservation).deliver_now!
           note = Settings.reservation.update.cancel_success
         end
 
+        if @reservation.accepted?
+          ReservationMailer.send_accepted_mail_to_owner(@reservation).deliver_now!
+        end
+
         if @reservation.host_id == current_user.id
           reply_from_host = 1
         else
-          if msg == Settings.reservation.msg.accepted || msg == Settings.reservation.msg.canceled
+          if @reservation.accepted? || @reservation.canceled?
             reply_from_host = 1
           else
             reply_from_host = 0
           end
         end
 
+        from_user_id = @reservation.host_id == current_user.id ? @reservation.host_id : @reservation.guest_id
+        to_user_id = @reservation.host_id == current_user.id ? @reservation.guest_id : @reservation.host_id
+
         msg_params = Hash[
           'reservation_id' => @reservation.id,
           'listing_id' => @reservation.listing_id,
-          'from_user_id' => @reservation.guest_id,
-          'to_user_id' => @reservation.host_id,
+          'from_user_id' => from_user_id,
+          'to_user_id' => to_user_id,
           'progress' => @reservation.progress,
           'schedule' => @reservation.schedule,
           'message_thread_id' => message_thread_id,

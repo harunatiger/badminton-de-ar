@@ -281,8 +281,14 @@ mailer:
     subject: "It is a week to the appointment day!"
   day_before_notification:
     subject: "Tomorrow is the appointment day!"
-  send_cancel_mail_to_owner:
+  send_cancel_from_guest_mail_to_owner:
     subject: "ゲストが予約をキャンセルしました。"
+  send_cancel_from_guide_mail_to_owner:
+    subject: "ガイドが予約をキャンセルしました。"
+  send_accepted_mail_to_owner:
+    subject: "ツアー予約が確定しました。"
+  send_requested_mail_to_owner:
+    subject: "オファーが行われました。"
   pre_mail:
     subject: "ガイド申請が届きました。"
   pre_mail_to_user:

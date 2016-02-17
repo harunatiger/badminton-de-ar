@@ -80,7 +80,7 @@ class MessageThreadsController < ApplicationController
     end
 
     def set_messages
-      @messages = Message.message_thread(params[:id]).order_by_created_at_desc
+      @messages = Message.message_thread(params[:id]).order_by_created_at_desc.includes(:reservation)
     end
 
     def set_reservation
