@@ -94,8 +94,8 @@ class Ngevent < ActiveRecord::Base
     ngdates
   end
 
-  def self.get_ngdates_from_listing(user_id)
-    ngevents = Ngevent.where(user_id: user_id, active: 1)
+  def self.get_ngdates_from_listing(id)
+    ngevents = Ngevent.where(listing_id: id, active: 1)
     ngdates = []
     ngevents.each do |ngevent|
       start_date = ngevent['start']
