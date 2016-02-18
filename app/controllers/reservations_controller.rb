@@ -147,31 +147,58 @@ class ReservationsController < ApplicationController
     session[:message_thread_id] = nil
     payment = @reservation.payment
     if params[:cancel]
-      if payment.present? and payment.payment_status == 'Completed' and payment.cancel_available(@reservation)
-        response = refund(payment,@reservation)
-        unless response.success?
-          respond_to do |format|
-            format.html { return redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.paypal_refund_failure + ' error：' + response.params['error_codes'] + ' ' + response.params['message']}
-            format.json { return render :show, status: :ok, location: @reservation }
-            format.js { @status = 'failure' }
+      if @reservation.host_id == current_user.id
+        para[:refund_user] = 1 #refund by guide
+
+      else
+        if @reservation.before_weeks?
+          para[:refund_user] = 2 #refund by guest before 2weeks
+        elsif @reservation.before_days?
+          para[:refund_user] = 3 #refund by guest before 3days
+        elsif @reservation.less_than_days?
+          para[:refund_user] = 4 #refund by guest less than 3days
+        end
+      end
+      if payment.present? and payment.payment_status == 'Completed'
+        if payment.cancel_available(@reservation)
+          if para[:refund_user] = 1
+            para[:refund_rate] = Settings.payment.refunds.before_weeks_rate
+          elsif para[:refund_user] = 2
+            para[:refund_rate] = Settings.payment.refunds.before_weeks_rate
+          elsif para[:refund_user] = 3
+            para[:refund_rate] = Settings.payment.refunds.before_days_rate
+          end
+
+          response = refund(payment,@reservation)
+          unless response.success?
+            respond_to do |format|
+              format.html { return redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.paypal_refund_failure + ' error：' + response.params['error_codes'] + ' ' + response.params['message']}
+              format.json { return render :show, status: :ok, location: @reservation }
+              format.js { @status = 'failure' }
+            end
+          else
+            payment.transaction_id = response.params['refund_transaction_id']
+            payment.refund_date = response.params['timestamp']
+            payment.payment_status = 'Refunded'
+            payment.save
+
+            if @reservation.campaign.present? and @reservation.before_weeks?
+              current_user.campaigns = current_user.campaigns.where.not(id: @reservation.campaign_id)
+            end
           end
         else
-          payment.transaction_id = response.params['refund_transaction_id']
-          payment.refund_date = response.params['timestamp']
-          payment.payment_status = 'Refunded'
-          payment.save
-
-          if @reservation.campaign.present? and @reservation.before_weeks?
-            current_user.campaigns = current_user.campaigns.where.not(id: @reservation.campaign_id)
+          if @reservation.less_than_days?
+            #less_than_3days?
+            payment.refund_date = Time.zone.now
+          else
+            #60 days or more?
+            payment.refund_date = Time.zone.now
+            payment.payment_status = 'Cancelled'
           end
+          payment.save
         end
       end
       msg = Settings.reservation.msg.canceled
-      if @reservation.before_weeks?
-        para[:refund_rate] = Settings.payment.refunds.before_weeks_rate
-      elsif @reservation.before_days?
-        para[:refund_rate] = Settings.payment.refunds.before_days_rate
-      end
 
       para[:progress] = @reservation.accepted? ? 6 : 1
     elsif params[:accept]
