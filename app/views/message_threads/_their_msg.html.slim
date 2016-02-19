@@ -12,10 +12,15 @@ li.thread-list-item
               .col-md-4.row-space-top-2.text-center
                 = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, class: "btn btn-primary"
             - elsif m.try('content') == Settings.reservation.msg.canceled
-              .col-md-12.text-pink.strong
-                | Sorry, Your request(Booking your tour) has been cancelled.
-                br
-                | Let’s try again!
+              - reservation = reservation_id_to_reservation_obj(m.reservation_id)
+              - if reservation.cancel_by == 1
+                col-md-12.text-pink.strong
+                  | Sorry, Your request(Booking your tour) has been cancelled.
+              - else
+                .col-md-12.text-pink.strong
+                  | Sorry, Your request(Booking your tour) has been cancelled.
+                  br
+                  | Let’s try again!
   .row.row-condensed
     .col-sm-10.col-md-push-1
       .row-space-4

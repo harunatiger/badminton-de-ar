@@ -40,6 +40,7 @@
 #  parking                :integer          default(0)
 #  guests_cost            :integer          default(0)
 #  included_guests_cost   :text             default("")
+#  cancel_by              :integer          default(0)
 #
 # Indexes
 #
@@ -328,6 +329,10 @@ class Reservation < ActiveRecord::Base
 
   def before_days?
     self.schedule.to_date >= Time.zone.today + 3.day
+  end
+
+  def less_than_days?
+    self.schedule.to_date < Time.zone.today + 3.day
   end
 
   def progress_is_not_holded?

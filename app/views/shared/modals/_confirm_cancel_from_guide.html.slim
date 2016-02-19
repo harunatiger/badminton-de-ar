@@ -1,0 +1,87 @@
+/ modal confirm_cancel_from_guide
+= simple_form_for(r, html: { class: "cancel-reservation-form" }, data: { remote: true }) do |f|
+  = f.hidden_field :message_thread_id, value: r.message_thread_id
+  = hidden_field_tag  :count, count
+  #confirm_cancel_from_guide.modal[role="dialog" aria-hidden="true"]
+    .modal-step
+      .step.step1.active
+        .modal-table
+          .modal-cell
+            .modal-content
+              .card-header.text-left
+                = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+                .strong.text-red
+                  | キャンセルについての注意事項
+              .card-body.text-left
+                p
+                  | 本当にキャンセルしてもよろしいですか？
+                p
+                  | あなたとのツアーを楽しみにしていたゲストが悲しみます。
+                p.text-center
+                  = image_tag 'photo/cancel_from_guide.jpg', class: ""
+                .card-footer
+                  = link_to "やめる", "#", class: "btn", data: { dismiss: "modal" }
+                  = link_to "キャンセルする", "#", data: {toggle:"modal"}, class: "btn btn-host cc_to_step2"
+      .step.step2
+        .modal-table
+          .modal-cell
+            .modal-content
+              .card-header.text-left
+                = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+                .strong.text-red
+                  | キャンセルについての注意事項
+              .card-body.text-left
+                p
+                  | キャンセルすると利用規約第15条のキャンセル規定に基くペナルティーが課せられます。
+                p
+                  | それでもキャンセルしますか？
+                p.small
+                  | ＊ガイドのキャンセルポリシーについては
+                  = link_to "#", class: "about_cancel_from_guide_link" do
+                    |「キャンセルについての注意」
+                  | をご覧ください。
+                .card-footer
+                  = link_to "やめる", "#", class: "btn", data: { dismiss: "modal" }
+                  = link_to "キャンセルする", "#", data: {toggle:"modal"}, class: "btn btn-host cc_to_step3"
+
+      .step.step3
+        .modal-table
+          .modal-cell
+            .modal-content
+              .card-header.text-left
+                = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+                .strong.text-red
+                  | キャンセル
+              .card-body.text-left
+                p.small1.row-space-1
+                  | キャンセル理由をご記入ください。
+                  br
+                  | Huber.運営事務局で確認の上、評価させて頂きます。
+                p.small1.row-space-1.row-space-top-1.text-red.notice-blank.hide
+                  | キャンセル理由をご記入ください。
+                = f.input_field :reason, rows: 6, placeholder: "キャンセル理由(必須)"
+                /p.strong
+                  | 本当にキャンセルしてもよろしいですか？
+              .card-footer.btn-group-container
+                /= link_to "Cancel", "#", class: "btn btn-host cc_to_step2"
+                .btn-frame
+                  = f.submit 'Cancel', name: 'cancel', class: 'btn btn-host cancel_tour_from_guide_btn', id: "cancel_tour_from_guide_btn"
+                  .spinner
+                = link_to "Close", "#", class: "btn btn-default", data: { dismiss: "modal" }
+
+      .step.step4
+        .modal-table
+          .modal-cell
+            .modal-content
+              .card-header.text-left
+                = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+                .strong.text-red
+                  | キャンセル完了
+              .card-body.text-left
+                p.strong
+                  | キャンセルが完了しました。
+                p
+                  | ゲストにもキャンセルの連絡が届けられていますので、まだ今回のキャンセルについて何も伝えていない時はメッセージを送るようにしましょう。
+              .card-footer
+                = link_to "close", "#", data: {dismiss:"modal"}, class: "btn"
+

@@ -104,16 +104,55 @@ class ReservationMailer < ApplicationMailer
       format.text
     end
   end
-  
+
   def send_cancel_mail_to_owner(reservation)
     @host = User.find(reservation.host_id)
     @guest = User.find(reservation.guest_id)
     @reservation = reservation
     @listing_detail = ListingDetail.where(listing_id: @reservation.listing.id).first
     @payment = reservation.try('payment')
+    if @reservation.cancel_by == 1
+      @refund_from = @host
+      @refund_to = @guest
+      subject = Settings.mailer.send_cancel_from_guide_mail_to_owner.subject
+    else
+      @refund_from = @guest
+      @refund_to = @host
+      subject = Settings.mailer.send_cancel_from_guest_mail_to_owner.subject
+    end
     mail(
       to:      ENV["OWNER_MAIL_ADDRESS"],
-      subject: Settings.mailer.send_cancel_mail_to_owner.subject
+      subject: subject
+    ) do |format|
+      format.text
+    end
+  end
+
+  def send_accepted_mail_to_owner(reservation)
+    @host = User.find(reservation.host_id)
+    @guest = User.find(reservation.guest_id)
+    @reservation = reservation
+    @listing_detail = ListingDetail.where(listing_id: @reservation.listing.id).first
+    @payment = reservation.try('payment')
+
+    mail(
+      to:      ENV["OWNER_MAIL_TOUR_BOOKED_ADDRESS"],
+      subject: Settings.mailer.send_accepted_mail_to_owner.subject
+    ) do |format|
+      format.text
+    end
+  end
+
+  def send_requested_mail_to_owner(reservation)
+    @host = User.find(reservation.host_id)
+    @guest = User.find(reservation.guest_id)
+    @reservation = reservation
+    @listing_detail = ListingDetail.where(listing_id: @reservation.listing.id).first
+    @payment = reservation.try('payment')
+
+    mail(
+      to:      ENV["OWNER_MAIL_TOUR_BOOKED_ADDRESS"],
+      subject: Settings.mailer.send_requested_mail_to_owner.subject
     ) do |format|
       format.text
     end
