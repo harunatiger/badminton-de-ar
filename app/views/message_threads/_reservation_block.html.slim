@@ -9,14 +9,16 @@
           span.state-label
             | State:
           - if @reservation.requested?
-            .state.state-primary
-              = @reservation.string_of_progress_english
+            - unless @counterpart.soft_destroyed?
+              .state.state-primary
+                = @reservation.string_of_progress_english
           - elsif @reservation.canceled? or @reservation.canceled_after_accepted?
             .state.state-danger
               = @reservation.string_of_progress_english
           - elsif @reservation.holded?
-            .state.state-alert
-              = @reservation.string_of_progress_english
+            - unless @counterpart.soft_destroyed?
+              .state.state-alert
+                = @reservation.string_of_progress_english
           - elsif @reservation.accepted?
             .state.state-success
               = @reservation.string_of_progress_english

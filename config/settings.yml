@@ -152,6 +152,8 @@ payment:
     policy: '8日以上前のキャンセル  ：エスクロー分の全額返金、1日〜7日前のキャンセル：エスクロー分の50％返金、24時間以内のキャンセル：返金なし'
     before_weeks_rate: 100
     before_days_rate: 50
+    withdraw_as_guide: 100
+    withdraw_as_guest: 0
 message_thread:
   show:
     message_form:
@@ -200,7 +202,9 @@ user:
   noname: '名無し'
   left: '退会済みユーザー'
   destroy:
-    success: '退会が完了しました。Huber.をご利用頂き誠にありがとうございました。'
+    success: |-
+      The process for deleting your account has been completed.Thank you for using Huber.
+      退会が完了しました。Huber.をご利用頂き誠にありがとうございました。
 image:
   noimage:
     url: 'no-image-1024x640.gif'

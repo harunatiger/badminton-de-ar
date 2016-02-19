@@ -10,29 +10,50 @@
         li
           = link_to 'Password', edit_user_registration_path(mode: "account", target: "pass"), class: "sidenav-item"
         li
-          = link_to '退会', users_withdraw_path, class: "sidenav-item", aria: { selected: true }
+          = link_to 'Delete your account (退会)', users_withdraw_path, class: "sidenav-item", aria: { selected: true }
     .col-lg-9
       .card.row-space-4
         #change_your_password
           .card-header
-            | 退会
+            | Delete your account (退会)
           .card-body
             .row
               .col-md-12
                 h3.h5.row-space-2
                   i.fa.fa-caret-down
+                  b  About deleting guest account 
+                .row-space-6
+                  p.text-lead.text-red.row-space-1
+                    b If you have currently active bookings, these bookings are automatically cancelled.
+                  p
+                    | In the case that you get your payment refunded, cancel each booking before you delete your account.
+                    br
+                    | We are not able to refund your payment after you delete your account.
+                h3.h5.row-space-2
+                  i.fa.fa-caret-down
                   b  ゲストメンバーの退会について
                 .row-space-6
-                  p.text-lead.text-blue.row-space-1
-                    | 現在、予約しているツアーは全てキャンセルになります。
+                  p.text-lead.text-red.row-space-1
+                    b 現在、予約しているツアーは全てキャンセルになります。
                   p
                     | 支払った料金の返金を受ける場合は、必ず各ツアーのキャンセル処理をしてから退会をお願いします。
                     br
                     | 退会後の申し立て、返金は致しかねますので十分ご注意ください。
+                hr
+                h3.h5.row-space-2
+                  i.fa.fa-caret-down
+                  b  About deleting guide account 
+                .row-space-6
+                  p.text-lead.text-red.row-space-1
+                    b If you have active booking from your guest, we forbid guides to delete their account in principle.
+                  p
+                    | Even though you delete your account with an active booked tour,  a penalty based on Article 15 will be imposed on you.
+                    br
+                    | Also after you delete your account now, booked tour will be cancelled and your guest will get all refunded.
                 h3.h5.row-space-2
                   i.fa.fa-caret-down
                   b  ガイドメンバーの退会について
-                .row-space-2
+                .row-space-6
                   p.text-lead.text-red.row-space-1
                     b 現在、予約確定しているツアーがある場合、原則として退会は禁止しています。
                   p
@@ -40,5 +61,15 @@
                     br
                     | 尚、予約は全てキャンセル処理され、ゲストへは全額返金されます。
           .card-footer
-            = link_to "上記を理解して退会する", "#confirm_withdraw", class: "confirm_withdraw_link btn btn-danger row-space-top-1 row-space-1", data: { toggle: "modal" }
+            - if has_reservation_as_guest
+              = link_to "Delete with your agreement", "#confirm_withdraw_guest", class: "confirm_withdraw_guest_link btn btn-default bg-gray row-space-top-1 row-space-1", data: { toggle: "modal" }
+            - elsif has_reservation_as_guide
+              = link_to "Delete with your agreement", "#confirm_withdraw_guide", class: "confirm_withdraw_guide_link btn btn-default bg-gray row-space-top-1 row-space-1", data: { toggle: "modal" }
+            - else
+              = link_to "Delete with your agreement", "#confirm_withdraw", class: "confirm_withdraw_link btn btn-default bg-gray row-space-top-1 row-space-1", data: { toggle: "modal" }
+              
+- if has_reservation_as_guest
+  = render partial: 'shared/modals/confirm_withdraw_guest'
+- if has_reservation_as_guide
+  = render partial: 'shared/modals/confirm_withdraw_guide'
 = render partial: 'shared/modals/confirm_withdraw'
