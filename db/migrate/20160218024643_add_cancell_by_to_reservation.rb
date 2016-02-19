@@ -19,7 +19,7 @@ class AddCancellByToReservation < ActiveRecord::Migration
         end
       end
       r.record_timestamps = false
-      r.update!(cancel_by: cancel_by)
+      r.update(cancel_by: cancel_by)
       r.record_timestamps = true
     end
   end
