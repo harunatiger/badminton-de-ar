@@ -40,7 +40,7 @@
               - if r.completed?
                 div
                   = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
-                = render partial: 'shared/modals/confirm_cancel_from_guide', locals: { r: r}
+                = render partial: 'shared/modals/confirm_cancel_from_guide', locals: { r: r, count: i.to_s}
                 /= render partial: 'shared/modals/confirm_cancel_from_guide2'
                 /= render partial: 'shared/modals/confirm_cancel_from_guide3', locals: { r: r}
               = link_to "#", class: "small2 btn-block about_cancel_from_guide_link" do

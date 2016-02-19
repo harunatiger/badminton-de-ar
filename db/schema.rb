@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216054638) do
+ActiveRecord::Schema.define(version: 20160218033905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -616,7 +616,7 @@ ActiveRecord::Schema.define(version: 20160216054638) do
     t.integer  "parking",                                        default: 0
     t.integer  "guests_cost",                                    default: 0
     t.text     "included_guests_cost",                           default: ""
-    t.integer  "refund_user",                                    default: 0
+    t.integer  "cancel_by",                                      default: 0
   end
 
   add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree

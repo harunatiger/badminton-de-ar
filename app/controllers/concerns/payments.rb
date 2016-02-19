@@ -41,24 +41,19 @@ module Payments
     response
   end
 
-  def refund(payment, reservation, refund_user = 1)
+  def refund(payment, reservation)
     #note = Settings.payment.refunds.policy
-    if reservation.before_weeks? || refund_user == 2
-      Rails.logger.debug('@@@@@@@@@@@')
-      Rails.logger.debug('refund_user == 2')
-      Rails.logger.debug('@@@@@@@@@@@')
+    if reservation.before_weeks?
       response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY'} )
     elsif reservation.before_days?
-      Rails.logger.debug('@@@@@@@@@@@')
-      Rails.logger.debug('refund_user == 1')
-      Rails.logger.debug('@@@@@@@@@@@')
       response = self.gateway.refund(payment.refund_amount_for_paypal(50), payment.transaction_id, {refund_type: 'Partial', currency: 'JPY'} )
     end
-    Rails.logger.debug('@@@@@@@@@@@')
-    Rails.logger.debug(response)
-    Rails.logger.debug('@@@@@@@@@@@')
     p response
     response
+  end
+
+  def refund_full(payment)
+    response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY'} )
   end
 
   def set_details(token)

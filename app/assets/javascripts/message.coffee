@@ -89,25 +89,25 @@ $ ->
     )
     return false
 
+  booking_index = 0
   $('.confirm_cancel_from_guide_link').on 'click', ->
-    index = $('.confirm_cancel_from_guide_link').index(this)
-    $('#confirm_cancel_from_guide .step1').show()
-    $('#confirm_cancel_from_guide .step2').hide()
-    $('#confirm_cancel_from_guide .step3').hide()
-    $('[id=confirm_cancel_from_guide]').eq(index).modal(
+    booking_index = $('.confirm_cancel_from_guide_link').index(this)
+    $('[id=confirm_cancel_from_guide]').eq(booking_index).modal(
       backdrop: 'static'
     )
     return false
 
   $('.cc_to_step2').on 'click', ->
-    $('.step1').hide()
-    $('.step2').show()
+    element = $('[id=confirm_cancel_from_guide]').eq(booking_index)
+    element.find('.step1').hide()
+    element.find('.step2').show()
   $('.cc_to_step3').on 'click', ->
-    $('.step2').hide()
-    $('.step3').show()
-    $('#reservation_reason').val('')
-    if !$('.notice-blank').hasClass('hide')
-      $('.notice-blank').addClass('hide')
+    element = $('[id=confirm_cancel_from_guide]').eq(booking_index)
+    element.find('.step2').hide()
+    element.find('.step3').show()
+    element.find('#reservation_reason').val('')
+    if !element.find('.notice-blank').hasClass('hide')
+      element.find('.notice-blank').addClass('hide')
 
   $('a.about_cancel_from_guide_link').on 'click', ->
     $('#about_cancel_from_guide').modal()

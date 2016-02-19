@@ -1,6 +1,7 @@
 / modal confirm_cancel_from_guide
 = simple_form_for(r, html: { class: "cancel-reservation-form" }, data: { remote: true }) do |f|
   = f.hidden_field :message_thread_id, value: r.message_thread_id
+  = hidden_field_tag  :count, count
   #confirm_cancel_from_guide.modal[role="dialog" aria-hidden="true"]
     .modal-step
       .step.step1.active
@@ -34,7 +35,7 @@
                   | キャンセルすると利用規約第15条のキャンセル規定に基くペナルティーが課せられます。
                 p
                   | それでもキャンセルしますか？
-                p
+                p.small
                   | ＊ガイドのキャンセルポリシーについては
                   = link_to "#", class: "about_cancel_from_guide_link" do
                     |「キャンセルについての注意」

@@ -1,4 +1,4 @@
-<%=  @reservation.refund_user == 2 ? 'ガイド' : 'ゲスト' %>が予約をキャンセルしました。
+<%=  @reservation.cancel_by == 1 ? 'ガイド' : 'ゲスト' %>が予約をキャンセルしました。
 キャンセル内容は以下です。
 
 ■キャンセル日
@@ -12,10 +12,10 @@
 ■雨天の場合の注意事項
   <%= @listing_detail.in_case_of_rain %>
 ■キャンセルした人
-  <%=  @reservation.refund_user == 2 ? 'ガイド' : 'ゲスト' %>の<%= "#{@refund_from.profile.first_name} #{@refund_from.profile.last_name}"%>　さん
+  <%=  @reservation.cancel_by == 1 ? 'ガイド' : 'ゲスト' %>の<%= "#{@refund_from.profile.first_name} #{@refund_from.profile.last_name}"%>　さん
   プロフィールURL <%= profile_url(@refund_from.profile.id) %>
 ■キャンセルされた人
-  <%=  @reservation.refund_user == 2 ? 'ゲスト' : 'ガイド' %>の<%= "#{@refund_to.profile.first_name} #{@refund_to.profile.last_name}"%>　さん
+  <%=  @reservation.cancel_by == 1 ? 'ゲスト' : 'ガイド' %>の<%= "#{@refund_to.profile.first_name} #{@refund_to.profile.last_name}"%>　さん
   プロフィールURL <%= profile_url(@refund_to.profile.id) %>
 ■プラン名
   <%= @reservation.listing.title %>
@@ -26,7 +26,7 @@
 ■支払い金額
   <%= @payment.amount.present? ? @payment.amount : @reservation.amount_for_campaign %>円
 ■ガイドに返金すべき金額
-  <%= @reservation.refund_user == 2 ? 0 : @reservation.cancellation_fee_for_dashboard %>円
+  <%= @reservation.cancel_by == 1 ? 0 : @reservation.cancellation_fee_for_dashboard %>円
 ■ゲストに返金すべき金額
   0  円
 ■キャンセル理由

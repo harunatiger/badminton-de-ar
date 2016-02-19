@@ -16,8 +16,8 @@ $ ->
 
   $('.cancel_tour_from_guide_btn').on 'click', ->
     targetForm = $(this).closest('form')
-    if $('#reservation_reason').val() == ''
-      $('.notice-blank').removeClass('hide')
+    if targetForm.find('#reservation_reason').val() == ''
+      targetForm.find('.notice-blank').removeClass('hide')
       return false
     else
       spinner = $('.spinner', targetForm)

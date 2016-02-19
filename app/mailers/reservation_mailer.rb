@@ -111,7 +111,7 @@ class ReservationMailer < ApplicationMailer
     @reservation = reservation
     @listing_detail = ListingDetail.where(listing_id: @reservation.listing.id).first
     @payment = reservation.try('payment')
-    if @reservation.refund_user == 2
+    if @reservation.cancel_by == 1
       @refund_from = @host
       @refund_to = @guest
       subject = Settings.mailer.send_cancel_from_guide_mail_to_owner.subject
@@ -136,7 +136,7 @@ class ReservationMailer < ApplicationMailer
     @payment = reservation.try('payment')
 
     mail(
-      to:      ENV["OWNER_MAIL_ADDRESS"],
+      to:      ENV["OWNER_MAIL_TOUR_BOOKED_ADDRESS"],
       subject: Settings.mailer.send_accepted_mail_to_owner.subject
     ) do |format|
       format.text
@@ -151,7 +151,7 @@ class ReservationMailer < ApplicationMailer
     @payment = reservation.try('payment')
 
     mail(
-      to:      ENV["OWNER_MAIL_ADDRESS"],
+      to:      ENV["OWNER_MAIL_TOUR_BOOKED_ADDRESS"],
       subject: Settings.mailer.send_requested_mail_to_owner.subject
     ) do |format|
       format.text
