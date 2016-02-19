@@ -1,0 +1,36 @@
+  #confirm_withdraw_guide.modal[role="dialog" aria-hidden="true"]
+    .modal-step
+      .step.step1.active
+        .modal-table
+          .modal-cell
+            .modal-content
+              .card-header.text-left
+                = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+                .strong.text-red
+                  | Are you sure that you delete your account?
+                  br
+                  | 本当に退会しますか？
+              .card-body.text-left
+                p.strong.text-red
+                  | Currently, you have booked tour from your guest.
+                p.text-lead
+                  | If you delete your account now, a penalty based on Article 15 will be imposed on you.
+                p.text-lead
+                  | Also after you delete your account now, booked tour will be cancelled and guest will get all refunded.
+                br
+                p.text-lead
+                  | Are you sure that you delete your account?
+                br
+                p.strong.text-red
+                  | 現在、予約確定しているツアーがあります。
+                p.text-lead
+                  | このまま退会すると、利用規約第15条のキャンセル規定に基くペナルティーが課せられます。
+                p.text-lead
+                  | 尚、予約は全てキャンセル処理され、ゲストへは全額返金されます。
+                br
+                p.text-lead
+                  | 本当に退会しますか？
+              .card-footer.btn-group-container
+                /= link_to "Cancel", "#", class: "btn btn-host cc_to_step2"
+                = link_to "Cancel", "#", class: "btn btn-default", data: { dismiss: "modal" }
+                = link_to "Delete with your agreement", "#confirm_withdraw", class: "confirm_withdraw_link btn btn-default bg-gray row-space-top-1 row-space-1", data: { toggle: "modal" }

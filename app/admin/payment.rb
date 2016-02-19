@@ -54,22 +54,52 @@ ActiveAdmin.register_page "Payment" do
             end
             host_bank_user_number = guide.profile.profile_bank.number if guide.profile.profile_bank.present?
 
-            #cancel
-            if payment.reservation.canceled_after_accepted?
-              reservation = Reservation.find(payment.reservation_id)
-              refund_price = reservation.cancellation_fee
-              refund_reason = 'ゲストキャンセル'
-            else
-              refund_price = ''
-              refund_reason = ''
-            end
+            #fee caliculate
+            guide_amount = payment.reservation.price + payment.reservation.price_for_support + payment.reservation.price_for_both_guides + payment.reservation.option_amount
+            service_fee_guest = (guide_amount * 0.145).ceil
 
             #campaign code
             if payment.reservation.campaign_id.present?
               campaign = Campaign.find(payment.reservation.campaign_id)
             end
-            campaign_code = campaign.code if campaign.present?
-            campaign_discount = campaign.discount if campaign.present?
+            if campaign.present?
+              campaign_code = campaign.code
+              campaign_discount = campaign.discount
+              settlement_amount = guide_amount + service_fee_guest - campaign_discount
+            else
+              settlement_amount = guide_amount + service_fee_guest
+            end
+
+            #cancel
+            cancel_by = payment.reservation.cancel_by
+            if cancel_by == 0
+              refund_reason = ''
+              fixed_amount = guide_amount * 1
+              guest_refund = settlement_amount * 0
+            elsif cancel_by == 1
+              refund_reason = 'ガイドキャンセル'
+              fixed_amount = guide_amount * 0
+              guest_refund = settlement_amount * 1
+            elsif cancel_by == 2
+              refund_reason = 'ゲストキャンセルA'
+              fixed_amount = guide_amount * 0
+              guest_refund = settlement_amount * 1
+            elsif cancel_by == 3
+              refund_reason = 'ゲストキャンセルB'
+              fixed_amount = (guide_amount * 0.5).ceil
+              guest_refund = (settlement_amount * 0.5).ceil
+            elsif cancel_by == 4
+              refund_reason = 'ゲストキャンセルC'
+              fixed_amount = guide_amount * 1
+              guest_refund = settlement_amount * 0
+            end
+
+            service_fee_guide = (fixed_amount * 0.145).ceil
+            guide_payment = fixed_amount - (fixed_amount * 0.145).ceil
+
+            if cancel_by != 0
+              refund_complete = 'NG' if payment.payment_status == 'Cancelled'
+            end
 
             host_profit_info = {
               #1 決済ID
@@ -80,49 +110,63 @@ ActiveAdmin.register_page "Payment" do
               guest_id: payment.reservation.guest_id,
               #4 プラン実施日
               schedule: payment.reservation.schedule,
-              #5 参加人数
+              #5 キャンセル日
+              cancel_date: payment.refund_date,
+              #6 参加人数
               num_of_people: payment.reservation.num_of_people,
-              #6 ガイド銀行名称
+              #7 ガイド銀行名称
               host_bank_name: host_bank_name,
-              #7 ガイド銀行支店名
+              #8 ガイド銀行支店名
               host_bank_branch: host_bank_branch,
-              #8 口座種別
+              #9 口座種別
               host_bank_account_type: host_bank_account_type,
-              #9 口座名義人
+              #10 口座名義人
               host_bank_user_name: host_bank_user_name,
-              #10 口座番号
+              #11 口座番号
               host_bank_user_number: host_bank_user_number,
-              #11 ガイドEmailアドレス
+              #12 ガイドEmailアドレス
               host_email: guide.email,
-              #12 ゲストEmailアドレス
+              #13 ゲストEmailアドレス
               guest_email: guest.email,
-              #13 プランID
+              #14 プランID
               listing_id: payment.reservation.listing_id,
-              #14 プランタイトル
+              #15 プランタイトル
               listing_title: listing.title,
-              #15 ガイドの収入
+              #16 ガイドの収入
               listing_price: payment.reservation.price,
-              #16 サポートメンバーの収入
+              #17 サポートメンバーの収入
               listing_price_for_support: payment.reservation.price_for_support,
-              #17 2人にかかる費用
+              #18 2人にかかる費用
               listing_price_for_both_guides: payment.reservation.price_for_both_guides,
-              #18 オプション費用
+              #19 オプション費用
               listing_option_amount: payment.reservation.option_amount,
-              #19 決済確定総金額
-              reservation_price: payment.amount,
-              #20 キャンセル後確定金額
-              refund_price: refund_price,
-              #21 キャンセル事由
-              refund_reason: refund_reason,
-              #22 Paypal決済トランID
-              payment_transaction_id: payment.transaction_id,
-              #23 CPコード
-              campaign_code: campaign_code,
-              #24 CPディスカウント金額
+              #20 ガイド料金
+              guide_amount: guide_amount,
+              #21 サービス料金（ゲスト）
+              service_fee_guest: service_fee_guest,
+              #22 CPディスカウント金額
               campaign_discount: campaign_discount,
-              #25 ゲストPaypalID
+              #23 決済金額
+              reservation_price: settlement_amount,
+              #24 キャンセル事由
+              refund_reason: refund_reason,
+              #25 確定ガイド料金
+              fixed_amount: fixed_amount,
+              #26 サービス料金（ガイド）
+              service_fee_guide: service_fee_guide,
+              #27 ガイド支払
+              guide_payment: guide_payment,
+              #28 ゲスト返金
+              guest_refund: guest_refund,
+              #29 自動返金
+              refund_complete: refund_complete,
+              #30 Paypal決済トランID
+              payment_transaction_id: payment.transaction_id,
+              #31 CPコード
+              campaign_code: campaign_code,
+              #32 ゲストPaypalID
               guest_paypal_id: payment.payer_id,
-              #26 ReservationID
+              #33 ReservationID
               reservation_id: payment.reservation_id
             }
             @host_profit_infos << host_profit_info

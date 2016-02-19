@@ -1,0 +1,41 @@
+  #confirm_withdraw_guest.modal[role="dialog" aria-hidden="true"]
+    .modal-step
+      .step.step1.active
+        .modal-table
+          .modal-cell
+            .modal-content
+              .card-header.text-left
+                = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+                .strong.text-red
+                  | Are you sure that you delete your account?
+                  br
+                  | 本当に退会しますか？
+              .card-body.text-left
+                p.strong.text-red
+                  | Currently, you have booking tour.
+                p.text-lead
+                  | If you delete your account now, your booking will be cancelled without you getting any refund.
+                p.text-lead
+                  | If you have booking tour possible to get refunded, please cancel booking tour first and then delete your account.
+                p.text-lead
+                  | Be aware that we are not able to refund your payment after you delete your account.
+                br
+                p.text-lead
+                  | Are you sure that you delete your account?
+                br
+                p.strong.text-red
+                  | 現在、予約しているツアーがあります。
+                p.text-lead
+                  | このまま退会すると全て強制的にキャンセルとなり、一切返金を受けられません。返金のあるツアーがある場合は必ず各ツアーのキャンセル処理をしてから退会をお願いします。
+                p.text-lead
+                  | 退会後の申し立て、返金は致しかねますので十分ご注意ください。
+                br
+                p.text-lead
+                  | 本当に退会しますか？
+              .card-footer.btn-group-container
+                /= link_to "Cancel", "#", class: "btn btn-host cc_to_step2"
+                = link_to "Cancel", "#", class: "btn btn-default", data: { dismiss: "modal" }
+                - if has_reservation_as_guide
+                  = link_to "Delete with your agreement", "#confirm_withdraw_guide", class: "confirm_withdraw_guide_link btn btn-default bg-gray row-space-top-1 row-space-1", data: { toggle: "modal" }
+                - else
+                  = link_to "Delete with your agreement", "#confirm_withdraw", class: "confirm_withdraw_link btn btn-default bg-gray row-space-top-1 row-space-1", data: { toggle: "modal" }

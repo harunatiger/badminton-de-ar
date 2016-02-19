@@ -42,6 +42,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :timeoutable
+  include Payments
   soft_deletable 
   devise :database_authenticatable, :registerable, :lockable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
@@ -183,6 +184,48 @@ class User < ActiveRecord::Base
     self.profile.soft_destroy
   end
   
+  def cancel_reservations
+    self.comming_reservations_as_guest.each do |reservation|
+      ng_event = Ngevent.find_by(reservation_id: reservation.id)
+      ng_event.update_attribute(:active, 0)
+      
+      reservation.progress = 'canceled_after_accepted'
+      reservation.reason = Settings.reservation.reason.withdraw_as_guest
+      reservation.refund_rate = Settings.payment.refunds.withdraw_as_guest
+      reservation.cancel_by = 4
+      reservation.save
+    end
+    
+    self.comming_reservations_as_guide.each do |reservation|
+      reservation.progress = 'canceled_after_accepted'
+      reservation.reason = Settings.reservation.reason.withdraw_as_guide
+      reservation.cancel_by = 1
+      payment = reservation.payment
+      if payment.present? and payment.payment_status == 'Completed' and payment.cancel_available_for_withdraw(reservation)
+        response = refund_full(payment)
+        if response.success?
+          payment.transaction_id = response.params['refund_transaction_id']
+          payment.refund_date = response.params['timestamp']
+          payment.payment_status = 'Refunded'
+          reservation.refund_rate = Settings.payment.refunds.withdraw_as_guide
+          reservation.payment = payment
+        else
+          payment.payment_status = 'RefundFailure'
+          reservation.refund_rate = 0
+          reservation.payment = payment
+        end
+      else
+        payment.payment_status = 'Cancelled' unless payment.cancel_available_for_withdraw(reservation)
+        reservation.payment = payment
+      end
+      if reservation.campaign.present?
+        guest = User.find(reservation.guest_id)
+        guest.campaigns = guest.campaigns.where.not(id: reservation.campaign_id)
+      end
+      reservation.save
+    end
+  end
+  
   def update_user_for_close(reason)
     email_before_closed = self.email
     self.reason = reason
@@ -197,5 +240,13 @@ class User < ActiveRecord::Base
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     self.without_soft_destroyed.where(conditions.to_h).first
+  end
+  
+  def comming_reservations_as_guest
+    Reservation.all.as_guest(self.id).accepts.not_finished
+  end
+  
+  def comming_reservations_as_guide
+    Reservation.all.as_host(self.id).accepts.not_finished
   end
 end

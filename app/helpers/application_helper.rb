@@ -554,4 +554,17 @@ module ApplicationHelper
     end
     time_required
   end
+  
+  def notice_format(text)
+    return text if text.blank?
+    sanitize text.gsub(/\r\n|\r|\n/, "<br />"), :tag => %w(br)
+  end
+  
+  def has_reservation_as_guest
+    current_user.comming_reservations_as_guest.present?
+  end
+  
+  def has_reservation_as_guide
+    current_user.comming_reservations_as_guide.present?
+  end
 end

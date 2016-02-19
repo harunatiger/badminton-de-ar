@@ -107,6 +107,9 @@ reservation:
       not_authorized_yet: 'We need to do a virtual ID check in order to send your tour plan to guests'
       invalid_campaign_code: 'Your campaign code is invalid'
       used_campaign_code: 'You have already used the campaign code'
+  accept:
+    failure:
+      not_authorized_yet: 'We need to do a virtual ID check in order to approve the tour'
   update:
     success: "Your tour plan has been uploaded successfully"
     cancel_success: 'キャンセルが完了しました。ガイドにもキャンセルの連絡が届けられていますので、まだ今回のキャンセルについて何も伝えていない時はメッセージを送るようにしましょう。'
@@ -144,11 +147,16 @@ reservation:
     canceled: "Sorry, Your request(Booking your tour) has been cancelled"
     accepted: "Congratulations! You have a booking!"
     rejected: "Tour plan was deleted, please confirm new information"
+  reason:
+    withdraw_as_guide: 'ガイド退会'
+    withdraw_as_guest: 'ゲスト退会'
 payment:
   refunds:
     policy: '8日以上前のキャンセル  ：エスクロー分の全額返金、1日〜7日前のキャンセル：エスクロー分の50％返金、24時間以内のキャンセル：返金なし'
     before_weeks_rate: 100
     before_days_rate: 50
+    withdraw_as_guide: 100
+    withdraw_as_guest: 0
 message_thread:
   show:
     message_form:
@@ -197,7 +205,9 @@ user:
   noname: '名無し'
   left: '退会済みユーザー'
   destroy:
-    success: '退会が完了しました。Huber.をご利用頂き誠にありがとうございました。'
+    success: |-
+      The process for deleting your account has been completed.Thank you for using Huber.
+      退会が完了しました。Huber.をご利用頂き誠にありがとうございました。
 image:
   noimage:
     url: 'no-image-1024x640.gif'
@@ -217,7 +227,7 @@ page:
   profile: 'Profile'
   account: 'Account'
   favorites: 'Favorites'
-  guest_flow: 'How It Works'
+  guest_flow: 'How to use'
   search: 'Search'
   signup: 'Sign up'
   login: 'Log In'
@@ -278,8 +288,14 @@ mailer:
     subject: "It is a week to the appointment day!"
   day_before_notification:
     subject: "Tomorrow is the appointment day!"
-  send_cancel_mail_to_owner:
+  send_cancel_from_guest_mail_to_owner:
     subject: "ゲストが予約をキャンセルしました。"
+  send_cancel_from_guide_mail_to_owner:
+    subject: "ガイドが予約をキャンセルしました。"
+  send_accepted_mail_to_owner:
+    subject: "ツアー予約が確定しました。"
+  send_requested_mail_to_owner:
+    subject: "オファーが行われました。"
   pre_mail:
     subject: "ガイド申請が届きました。"
   pre_mail_to_user:

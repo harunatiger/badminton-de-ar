@@ -11,15 +11,15 @@
         - if current_user.favorite_listing?(listing)
           i.fa.fa-heart.favorited
           i.fa.fa-heart.unfavorite.hide
-          i.fa.fa-heart-o.outline.hide.balloon(title="add to your favorites")
+          i.fa.fa-heart-o.outline.hide.fav-balloon
         - else
           i.fa.fa-heart.favorited.hide
           i.fa.fa-heart.unfavorite
-          i.fa.fa-heart-o.outline.balloon(title="add to your favorites")
+          i.fa.fa-heart-o.outline.fav-balloon
     - else
       = link_to new_profile_path, class: "favorite-btn" do
         i.fa.fa-heart.unfavorite
-        i.fa.fa-heart-o.outline.balloon(title="add to your favorites")
+        i.fa.fa-heart-o.outline.fav-balloon
   .card-body
     .media
       = link_to profile_path(profile), class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do

@@ -148,8 +148,7 @@ class ProfilesController < ApplicationController
     end
 
     def deleted_check
-      before_url = request.referrer
-      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.profile.deleted_profile_id if @profile.soft_destroyed?
+      return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.profile.deleted_profile_id if @profile.soft_destroyed?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

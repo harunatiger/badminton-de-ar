@@ -173,9 +173,6 @@ class ListingsController < ApplicationController
 
     def set_listing_related_data
       @listing_images = ListingImage.where(listing_id: @listing.id).image_limit
-      @confection = Confection.find_by(listing_id: @listing.id)
-      @dress_code = DressCode.find_by(listing_id: @listing.id)
-      @tool = Tool.find_by(listing_id: @listing.id)
     end
 
     def set_message_thread
@@ -192,9 +189,8 @@ class ListingsController < ApplicationController
     end
 
     def deleted_or_open_check
-      before_url = request.referrer
-      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.listings.error.deleted_listing_id if @listing.soft_destroyed?
-      return redirect_to before_url.present? ? before_url : root_path, alert: Settings.listings.error.closed if !@listing.open and (!user_signed_in? or @listing.user_id != current_user.id)
+      return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.listings.error.deleted_listing_id if @listing.soft_destroyed?
+      return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.listings.error.closed if !@listing.open and (!user_signed_in? or @listing.user_id != current_user.id)
     end
 
     #def set_favorite

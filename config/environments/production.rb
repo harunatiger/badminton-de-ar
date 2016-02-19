@@ -99,7 +99,7 @@ Rails.application.configure do
 
   ## set your project mailer config below.
   ## config below is sample to use heroku addon 'SENDGRID'
-  config.action_mailer.default_url_options = { :host => "huber-japan.com" }
+  config.action_mailer.default_url_options = { :host => ENV['ELB_DOMAIN'] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :user_name      => ENV['SENDGRID_USERNAME'],

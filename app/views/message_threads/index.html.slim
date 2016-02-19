@@ -55,14 +55,16 @@
                       .row.row-table
                         .col-md-12.col-middle.text-center
                           - if mt.reservation_progress == "Request"
-                            .state.state-primary
-                              = mt.reservation_progress
+                            - unless counterpart_user.soft_destroyed?
+                              .state.state-primary
+                                = mt.reservation_progress
                           - elsif mt.reservation_progress == "Cancelled"
                             .state.state-danger
                               = mt.reservation_progress
                           - elsif mt.reservation_progress == "Under construction"
-                            .state.state-alert
-                              = mt.reservation_progress
+                            - unless counterpart_user.soft_destroyed?
+                              .state.state-alert
+                                = mt.reservation_progress
                           - elsif mt.reservation_progress == "Accept"
                             .state.state-success
                               = mt.reservation_progress

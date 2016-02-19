@@ -54,6 +54,7 @@ class ReservationsController < ApplicationController
             ReservationMailer.send_new_reservation_notification_to_admin(@reservation).deliver_now!
           else
             ReservationMailer.send_new_guide_detail_notification(@reservation).deliver_now!
+            ReservationMailer.send_requested_mail_to_owner(@reservation).deliver_now!
           end
 
           msg_params = Hash[
@@ -135,36 +136,85 @@ class ReservationsController < ApplicationController
   end
 
   def update
+    if params[:accept].present? and !current_user.already_authrized
+      if profile_identity = ProfileIdentity.where(user_id: current_user.id, profile_id: current_user.profile.id).first
+        return redirect_to edit_profile_profile_identity_path(profile_id: current_user.profile.id, id:profile_identity.id), alert: Settings.reservation.accept.failure.not_authorized_yet
+      else
+        return redirect_to new_profile_profile_identity_path(current_user.profile), alert: Settings.reservation.accept.failure.not_authorized_yet
+      end
+    end
     para = reservation_params
     message_thread_id = para[:message_thread_id].present? ? para[:message_thread_id] : session[:message_thread_id]
     session[:message_thread_id] = nil
+    @booking_index = params[:count] if params[:count].present? #for dashboard/_reservation_item_as_host
     payment = @reservation.payment
     if params[:cancel]
-      if payment.present? and payment.payment_status == 'Completed' and payment.cancel_available(@reservation)
-        response = refund(payment,@reservation)
-        unless response.success?
-          respond_to do |format|
-            format.html { return redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.paypal_refund_failure + ' error：' + response.params['error_codes'] + ' ' + response.params['message']}
-            format.json { return render :show, status: :ok, location: @reservation }
-            format.js { @status = 'failure' }
-          end
+      if payment.present?
+        if @reservation.host_id == current_user.id
+          para[:cancel_by] = 1 #refund by guide
         else
-          payment.transaction_id = response.params['refund_transaction_id']
-          payment.refund_date = response.params['timestamp']
-          payment.payment_status = 'Refunded'
-          payment.save
-
-          if @reservation.campaign.present? and @reservation.before_weeks?
-            current_user.campaigns = current_user.campaigns.where.not(id: @reservation.campaign_id)
+          if @reservation.before_weeks?
+            para[:cancel_by] = 2 #refund by guest before 2weeks
+          elsif @reservation.before_days?
+            para[:cancel_by] = 3 #refund by guest before 3days
+          elsif @reservation.less_than_days?
+            para[:cancel_by] = 4 #refund by guest less than 3days
           end
+        end
+        if payment.payment_status == 'Completed'
+          if para[:cancel_by] == 1 #100% refund when cancell by guide
+            para[:refund_rate] = Settings.payment.refunds.before_weeks_rate
+            response = refund_full(payment)
+          else
+            if payment.cancel_available(@reservation)
+              if para[:cancel_by] == 2 #refund by guest before 2weeks
+                para[:refund_rate] = Settings.payment.refunds.before_weeks_rate
+              elsif para[:cancel_by] == 3 #refund by guest before 3days
+                para[:refund_rate] = Settings.payment.refunds.before_days_rate
+              end
+              response = refund(payment,@reservation)
+            else
+              if para[:cancel_by] == 4
+                #refund by guest less than 3days
+                payment.refund_date = Time.zone.now
+              else
+                #60 days or more?
+                payment.refund_date = Time.zone.now
+                payment.payment_status = 'Cancelled'
+              end
+              payment.save
+            end
+          end
+
+          if response.present?
+            unless response.success?
+              respond_to do |format|
+                format.html { return redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.paypal_refund_failure + ' error：' + response.params['error_codes'] + ' ' + response.params['message']}
+                format.json { return render :show, status: :ok, location: @reservation }
+                format.js { @status = 'failure' }
+              end
+            else
+              payment.transaction_id = response.params['refund_transaction_id']
+              payment.refund_date = response.params['timestamp']
+              payment.payment_status = 'Refunded'
+              payment.save
+
+              if para[:cancel_by] == 1
+                guest_user = User.find(@reservation.guest_id)
+                guest_user.campaigns = guest_user.campaigns.where.not(id: @reservation.campaign_id)
+              else
+                if @reservation.campaign.present? and @reservation.before_weeks?
+                  current_user.campaigns = current_user.campaigns.where.not(id: @reservation.campaign_id)
+                end
+              end
+            end
+          end
+        elsif payment.payment_status == '' and payment.transaction_id == '' #if free tour?
+          payment.refund_date = Time.zone.now
+          payment.save
         end
       end
       msg = Settings.reservation.msg.canceled
-      if @reservation.before_weeks?
-        para[:refund_rate] = Settings.payment.refunds.before_weeks_rate
-      elsif @reservation.before_days?
-        para[:refund_rate] = Settings.payment.refunds.before_days_rate
-      end
 
       para[:progress] = @reservation.accepted? ? 6 : 1
     elsif params[:accept]
@@ -231,27 +281,37 @@ class ReservationsController < ApplicationController
           format.js { @status = 'failure' }
         end
 
-        ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
         if @reservation.canceled_after_accepted?
+          mail_to_user = @reservation.cancel_by == 1 ? @reservation.host_id : @reservation.guest_id
           ReservationMailer.send_cancel_mail_to_owner(@reservation).deliver_now!
+          ReservationMailer.send_update_reservation_notification(@reservation, mail_to_user).deliver_now!
           note = Settings.reservation.update.cancel_success
+        else
+          ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
+        end
+
+        if @reservation.accepted?
+          ReservationMailer.send_accepted_mail_to_owner(@reservation).deliver_now!
         end
 
         if @reservation.host_id == current_user.id
           reply_from_host = 1
         else
-          if msg == Settings.reservation.msg.accepted || msg == Settings.reservation.msg.canceled
+          if @reservation.accepted? || @reservation.canceled?
             reply_from_host = 1
           else
             reply_from_host = 0
           end
         end
 
+        from_user_id = @reservation.host_id == current_user.id ? @reservation.host_id : @reservation.guest_id
+        to_user_id = @reservation.host_id == current_user.id ? @reservation.guest_id : @reservation.host_id
+
         msg_params = Hash[
           'reservation_id' => @reservation.id,
           'listing_id' => @reservation.listing_id,
-          'from_user_id' => @reservation.guest_id,
-          'to_user_id' => @reservation.host_id,
+          'from_user_id' => from_user_id,
+          'to_user_id' => to_user_id,
           'progress' => @reservation.progress,
           'schedule' => @reservation.schedule,
           'message_thread_id' => message_thread_id,

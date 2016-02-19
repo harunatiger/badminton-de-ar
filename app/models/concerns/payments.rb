@@ -3,10 +3,10 @@ module Payments
   def gateway
     @gateway ||= PaypalExpressGateway.new(
       :login => Rails.application.secrets.paypal_express_user_name,
-      :password => Rails.application.secrets.paypal_express_user_password,
+      :password => Rails.application.secrets.paypal_express_user_password,    
       :signature => Rails.application.secrets.paypal_express_signature)
   end
-
+  
   def set_checkout(reservation)
     setup_response = self.gateway.setup_authorization(
             reservation.paypal_amount,
@@ -18,7 +18,7 @@ module Payments
             no_shipping: 1,
             items: item_params(reservation))
   end
-
+  
   def item_params(reservation)
     if reservation.campaign.present?
       [{name: reservation.listing.title,
@@ -34,13 +34,13 @@ module Payments
         amount: reservation.paypal_handling_cost}]
     end
   end
-
+  
   def purchase(payment)
     response = process_purchase(payment)
     p response
     response
   end
-
+  
   def refund(payment, reservation)
     #note = Settings.payment.refunds.policy
     if reservation.before_weeks?
@@ -52,10 +52,6 @@ module Payments
     response
   end
   
-  def refund_full(payment)
-    response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY'} )
-  end
-
   def refund_full(payment)
     response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY'} )
   end

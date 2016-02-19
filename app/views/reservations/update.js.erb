@@ -1,6 +1,14 @@
 <% if @status == "success" %>
-  $('.step1').hide();
-  $('.step3').show();
+  if ($('body').hasClass('host_reservation_manager')) {
+    element = $('ul.thread-list li.thread').eq('<%= @booking_index %>')
+    element.find('.step1').hide()
+    element.find('.step2').hide()
+    element.find('.step3').hide()
+    element.find('.step4').show()
+  } else {
+    $('.step1').hide();
+    $('.step3').show();
+  }
 <% elsif @status == "failure" %>
   alert("Fail to cancel.");
 <% end %>
