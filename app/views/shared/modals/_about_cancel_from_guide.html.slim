@@ -1,0 +1,26 @@
+/ modal about_cancel
+#about_cancel_from_guide.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+          | キャンセルについての注意事項
+        form
+          .card-body
+            p
+              | ガイド側からのキャンセルは認めていません。
+              | 当日、事前に関わらずキャンセルした場合は、利用規約第15条のキャンセル規定に基くペナルティーが課せられます。
+            p
+              | ただし以下のような理由でのキャンセルの場合は、情状酌量される場合もありますので、以下の注意事項をよく読んでキャンセルの判断をしてください。
+            p.strong.row-space-top-2 正当なキャンセルとして認められる例
+            ul
+              li.row-space-2
+                | 親族・親類の死や危篤
+              li.row-space-2
+                | 大規模災害
+              li.row-space-2
+                | システム側のトラブルなど
+
+          .card-footer
+            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

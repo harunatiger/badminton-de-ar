@@ -1,0 +1,34 @@
+オファーが行われました。
+オファー内容は以下です。
+
+■プラン実施日
+  <%= @reservation.schedule %>
+■ガイド
+  <%= "#{@host.profile.first_name} #{@host.profile.last_name}"%>　さん
+  プロフィールURL <%= profile_url(@host.profile.id) %>
+■ゲスト
+  <%= "#{@guest.profile.first_name} #{@guest.profile.last_name}"%>　さん
+  プロフィールURL <%= profile_url(@guest.profile.id) %>
+■プラン名
+  <%= @reservation.listing.title %>
+  プランページURL <%= listing_url(@reservation.listing.id) %>
+■雨天の場合は中止する
+  <%= @listing_detail.stop_if_rain? ? '有' : '無'%>
+■決済料金:
+  <%= @payment.present? ? @payment.amount : @reservation.amount_for_campaign %>円
+■あなたの収入:
+  <%= @reservation.price %>円
+■サポートメンバーの収入:
+  <%= @reservation.price_for_support %>円
+■2人にかかる経費:
+  <%= @reservation.price_for_both_guides %>円
+■スペースレンタル代:
+  <%= @reservation.space_option? ? @reservation.space_rental : 0 %>円
+■車両代:
+  <%= @reservation.car_option? ? @reservation.car_rental : 0 %>円
+■ガソリン代:
+  <%= @reservation.car_option? ? @reservation.gas : 0 %>円
+■高速代:
+  <%= @reservation.car_option? ? @reservation.highway : 0 %>円
+■パーキング代:
+  <%= @reservation.car_option? ? @reservation.parking : 0 %>円

@@ -88,6 +88,46 @@ $ ->
       backdrop: 'static'
     )
     return false
+
+  booking_index = 0
+  $('.confirm_cancel_from_guide_link').on 'click', ->
+    booking_index = $('.confirm_cancel_from_guide_link').index(this)
+    $('[id=confirm_cancel_from_guide]').eq(booking_index).modal(
+      backdrop: 'static'
+    )
+    return false
+
+  $('.cc_to_step2').on 'click', ->
+    element = $('[id=confirm_cancel_from_guide]').eq(booking_index)
+    element.find('.step1').hide()
+    element.find('.step2').show()
+  $('.cc_to_step3').on 'click', ->
+    element = $('[id=confirm_cancel_from_guide]').eq(booking_index)
+    element.find('.step2').hide()
+    element.find('.step3').show()
+    element.find('#reservation_reason').val('')
+    if !element.find('.notice-blank').hasClass('hide')
+      element.find('.notice-blank').addClass('hide')
+
+  $('a.about_cancel_from_guide_link').on 'click', ->
+    $('#about_cancel_from_guide').modal()
+    return false
+
+  #booking_index = 0
+  #$('.confirm_cancel_from_guide_link').each (index) ->
+  #  $(this).on 'click' , ->
+  #    booking_index = index
+  #    $('#confirm_cancel_from_guide1').modal()
+  #$('.confirm_cancel_from_guide2').on 'click', ->
+  #  $('#confirm_cancel_from_guide1').modal('hide')
+  #  $('#confirm_cancel_from_guide2').modal()
+  #$('.confirm_cancel_from_guide3').on 'click', ->
+  #  $('#confirm_cancel_from_guide2').modal('hide')
+  #  $('[id=confirm_cancel_from_guide3]').eq(booking_index).modal(
+  #    backdrop: 'static'
+  #  )
+
+
   $('a.about_cancel_link').on 'click', ->
     if $(this).hasClass('from_modal')
       $('#about_cancel').addClass('from_modal')

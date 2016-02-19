@@ -15,6 +15,7 @@
               th ガイドユーザーID
               th ゲストユーザーID
               th プラン実施日
+              th キャンセル日
               th 参加人数
               th ガイド銀行名称
               th ガイド銀行支店名
@@ -29,12 +30,18 @@
               th サポートメンバーの収入
               th 2人にかかる費用
               th オプション費用
-              th 決済確定総金額
-              th キャンセル後確定金額
+              th ガイド料金
+              th サービス料金（ゲスト）
+              th CPディスカウント金額
+              th 決済金額
               th キャンセル事由
+              th 確定ガイド料金
+              th サービス料金（ガイド）
+              th ガイド支払
+              th ゲスト返金
+              th 自動返金
               th Paypal決済トランID
               th CPコード
-              th CPディスカウント金額
               th ゲストPaypalID
               th ReservationID
           tbody
@@ -43,8 +50,13 @@
                 - guide = User.includes(:profile).find(payment.reservation.host_id)
                 - guest = User.find(payment.reservation.guest_id)
                 - listing = Listing.find(payment.reservation.listing_id)
+                - cancel_by = payment.reservation.cancel_by
+                - guide_amount = payment.reservation.price + payment.reservation.price_for_support + payment.reservation.price_for_both_guides + payment.reservation.option_amount
+                - service_fee_guest = (guide_amount * 0.145).ceil
                 - if payment.reservation.campaign_id.present?
                   - campaign = Campaign.find(payment.reservation.campaign_id)
+                  - if campaign.present?
+                      - discount = campaign.discount
                 tr
                   td
                     = payment.id
@@ -54,6 +66,8 @@
                     = payment.reservation.guest_id
                   td
                     = payment.reservation.schedule
+                  td
+                    = payment.refund_date
                   td
                     = payment.reservation.num_of_people
                   td
@@ -88,23 +102,70 @@
                   td
                     = payment.reservation.option_amount
                   td
-                    = payment.amount
+                    = guide_amount
                   td
-                    - if payment.reservation.canceled_after_accepted?
-                      - reservation = Reservation.find(payment.reservation_id)
-                      - refund_price = reservation.cancellation_fee
-                      = refund_price
+                    = service_fee_guest
                   td
-                    - if payment.reservation.canceled_after_accepted?
-                      = 'ゲストキャンセル'
+                    - if campaign.present?
+                      = discount
+                  td
+                    - if campaign.present?
+                      - settlement_amount = guide_amount + service_fee_guest - discount
+                      = settlement_amount
+                    - else
+                      - settlement_amount = guide_amount + service_fee_guest
+                      = settlement_amount
+                  td
+                    - if cancel_by == 0
+                      |
+                    - elsif cancel_by == 1
+                      | ガイドキャンセル
+                    - elsif cancel_by == 2
+                      | ゲストキャンセルA
+                    - elsif cancel_by == 3
+                      | ゲストキャンセルB
+                    - elsif cancel_by == 4
+                      | ゲストキャンセルC
+                  td
+                    - if cancel_by == 0
+                      - fixed_amount = guide_amount * 1
+                      = fixed_amount
+                    - elsif cancel_by == 1
+                      - fixed_amount = guide_amount * 0
+                      = fixed_amount
+                    - elsif cancel_by == 2
+                      - fixed_amount = guide_amount * 0
+                      = fixed_amount
+                    - elsif cancel_by == 3
+                      - fixed_amount = (guide_amount * 0.5).ceil
+                      = fixed_amount
+                    - elsif cancel_by == 4
+                      - fixed_amount = guide_amount * 1
+                      = fixed_amount
+                  td
+                    = (fixed_amount * 0.145).ceil
+                  td
+                    = fixed_amount - (fixed_amount * 0.145).ceil
+                  td
+                    - if cancel_by == 0
+                      = settlement_amount * 0
+                    - elsif cancel_by == 1
+                      = settlement_amount * 1
+                    - elsif cancel_by == 2
+                      = settlement_amount * 1
+                    - elsif cancel_by == 3
+                      = (settlement_amount * 0.5).ceil
+                    - elsif cancel_by == 4
+                      = settlement_amount * 0
+                  td
+                    - if cancel_by != 0
+                      - if payment.payment_status == 'Cancelled'
+                        | 'NG'
                   td
                     = payment.transaction_id
                   td
                     - if campaign.present?
                       = campaign.code
-                  td
-                    - if campaign.present?
-                      = campaign.discount
                   td
                     = payment.payer_id
                   td
