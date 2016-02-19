@@ -13,11 +13,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   def destroy
     current_user.delete_children
+    current_user.cancel_reservations
     current_user.update_user_for_close(params[:user][:reason])
     current_user.soft_destroy
     sign_out current_user
     respond_to do |format|
-      format.html { redirect_to root_path, notice: Settings.user.destroy.success }
+      flash[:notice] = Settings.user.destroy.success
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end

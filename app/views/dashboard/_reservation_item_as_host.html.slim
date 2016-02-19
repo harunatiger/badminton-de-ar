@@ -14,7 +14,7 @@
               .h5.strong.row-space-1
                 = user_id_to_name(r.guest_id)
               - phone = user_id_to_phone_number(r.guest_id)
-              - if phone.present?
+              - if phone.present? and !guest.soft_destroyed?
                 .balloon.text-muted.small1[title="＊Make sure that you know how to contact your guide before your tour."]
                   i.fa.fa-phone
                   '

@@ -85,6 +85,7 @@ class Reservation < ActiveRecord::Base
   scope :accepts, -> { where(progress: 3) }
   scope :for_dashboard, -> { where('progress = ? or progress = ?', 3, 6) }
   scope :finished_before_yesterday, -> { where("schedule_end <= ?", Time.zone.yesterday.in_time_zone('UTC')) }
+  scope :not_finished, -> { where('schedule >= ?', Time.zone.tomorrow.beginning_of_day.in_time_zone('UTC') ) }
   scope :review_mail_never_be_sent, -> { where(review_mail_sent_at: nil) }
   scope :reviewed, -> { where.not(reviewed_at: nil) }
   scope :review_reply_mail_never_be_sent, -> { where(reply_mail_sent_at: nil) }
@@ -120,7 +121,10 @@ class Reservation < ActiveRecord::Base
     return "Cancelled" if self.canceled?
     return "Cancelled" if self.canceled_after_accepted?
     return "Under construction" if self.holded?
-    return "Accept" if self.accepted?
+    if self.accepted?
+      return "Finished" if self.finished?
+      return "Accept"
+    end
     return "Delete" if self.rejected?
     return "Close" if self.listing_closed?
   end
@@ -275,9 +279,19 @@ class Reservation < ActiveRecord::Base
     end
   end
 
+  #cancelボタンの表示非表示判断
   def completed?
     if self.schedule.present?
       self.accepted? and self.schedule.to_date > Time.zone.today
+    else
+      false
+    end
+  end
+
+  #ツアーが終了したかどうか
+  def finished?
+    if self.schedule_end.present?
+      self.accepted? and self.schedule_end > Time.zone.today
     else
       false
     end
