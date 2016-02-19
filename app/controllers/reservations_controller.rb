@@ -199,8 +199,13 @@ class ReservationsController < ApplicationController
               payment.payment_status = 'Refunded'
               payment.save
 
-              if @reservation.campaign.present? and @reservation.before_weeks?
-                current_user.campaigns = current_user.campaigns.where.not(id: @reservation.campaign_id)
+              if para[:cancel_by] == 1
+                guest_user = User.find(@reservation.guest_id)
+                guest_user.campaigns = guest_user.campaigns.where.not(id: @reservation.campaign_id)
+              else
+                if @reservation.campaign.present? and @reservation.before_weeks?
+                  current_user.campaigns = current_user.campaigns.where.not(id: @reservation.campaign_id)
+                end
               end
             end
           end

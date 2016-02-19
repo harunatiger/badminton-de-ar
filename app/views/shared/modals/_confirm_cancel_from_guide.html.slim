@@ -18,7 +18,7 @@
                 p
                   | あなたとのツアーを楽しみにしていたゲストが悲しみます。
                 p.text-center
-                  = image_tag 'photo/cancel_from_guide.jpg', class: ""
+                  = image_tag 'photo/cancel_from_guide.jpg', class: "img-responsive"
                 .card-footer
                   = link_to "やめる", "#", class: "btn", data: { dismiss: "modal" }
                   = link_to "キャンセルする", "#", data: {toggle:"modal"}, class: "btn btn-host cc_to_step2"
@@ -35,7 +35,7 @@
                   | キャンセルすると利用規約第15条のキャンセル規定に基くペナルティーが課せられます。
                 p
                   | それでもキャンセルしますか？
-                p.small
+                p
                   | ＊ガイドのキャンセルポリシーについては
                   = link_to "#", class: "about_cancel_from_guide_link" do
                     |「キャンセルについての注意」
