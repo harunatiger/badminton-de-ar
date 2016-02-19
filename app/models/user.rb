@@ -190,16 +190,18 @@ class User < ActiveRecord::Base
       ng_event.update_attribute(:active, 0)
       
       reservation.progress = 'canceled_after_accepted'
-      reservation.reason = 'withdraw_as_guest'
+      reservation.reason = Settings.reservation.reason.withdraw_as_guest
       reservation.refund_rate = Settings.payment.refunds.withdraw_as_guest
+      reservation.cancel_by = 4
       reservation.save
     end
     
     self.comming_reservations_as_guide.each do |reservation|
       reservation.progress = 'canceled_after_accepted'
-      reservation.reason = 'withdraw_as_guide'
+      reservation.reason = Settings.reservation.reason.withdraw_as_guide
+      reservation.cancel_by = 1
       payment = reservation.payment
-      if payment.present? and payment.payment_status == 'Completed' and payment.cancel_available(reservation)
+      if payment.present? and payment.payment_status == 'Completed' and payment.cancel_available_for_withdraw(reservation)
         response = refund_full(payment)
         if response.success?
           payment.transaction_id = response.params['refund_transaction_id']
@@ -212,6 +214,9 @@ class User < ActiveRecord::Base
           reservation.refund_rate = 0
           reservation.payment = payment
         end
+      else
+        payment.payment_status = 'Cancelled' unless payment.cancel_available_for_withdraw(reservation)
+        reservation.payment = payment
       end
       if reservation.campaign.present?
         guest = User.find(reservation.guest_id)
