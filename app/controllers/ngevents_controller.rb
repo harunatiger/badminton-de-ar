@@ -52,7 +52,6 @@ class NgeventsController < ApplicationController
     ngevent_params = Hash[
           'user_id' => current_user.id,
           'listing_id' => listing_id,
-          'listing_id' => params[:listing_id],
           'start' => params['event']['start'],
           'end' => params['event']['end'].to_date.yesterday,
           'end_bk' => params['event']['end'].to_date.yesterday,
