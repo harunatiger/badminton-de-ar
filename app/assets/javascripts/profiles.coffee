@@ -81,9 +81,8 @@ $ ->
             boxShadow: 'none'
         )
       else
-        hasTouch = ('ontouchstart' in window)
-        if hasTouch == true
-          $(this).on 'touchend', ->
+        $(this).on 'click', ->
+          if !$(this).find('.fav-balloon').hasClass('hide')
             $(this).find('.fav-balloon').showBalloon(
               contents: 'add to your favorites',
               hideDuration: 1000,
@@ -98,22 +97,41 @@ $ ->
                 color: 'white'
                 boxShadow: 'none'
             )
-          $(this).on 'touchend', ->
-            $(this).find('.fav-balloon').showBalloon().hideBalloon()
-        else
-          $(this).find('.fav-balloon').balloon(
-            contents: 'add to your favorites',
-            css:
-              border: 'none',
-              padding: '8px',
-              fontSize: '13px',
-              fontWeight: 'bold',
-              lineHeight: '1.55',
-              backgroundColor: 'rgba(0, 0, 0, .75)',
-              borderRadius: '2px'
-              color: 'white'
-              boxShadow: 'none'
-          )
+
+
+#        hasTouch = ('ontouchstart' in window)
+#        if hasTouch == true
+#          $(this).on 'touchend', ->
+#            $(this).find('.fav-balloon').showBalloon(
+#              contents: 'add to your favorites',
+#              hideDuration: 1000,
+#              css:
+#                border: 'none',
+#                padding: '8px',
+#                fontSize: '13px',
+#                fontWeight: 'bold',
+#                lineHeight: '1.55',
+#                backgroundColor: 'rgba(0, 0, 0, .75)',
+#                borderRadius: '2px'
+#                color: 'white'
+#                boxShadow: 'none'
+#            )
+#          $(this).on 'touchend', ->
+#            $(this).find('.fav-balloon').showBalloon().hideBalloon()
+#        else
+#          $(this).find('.fav-balloon').balloon(
+#            contents: 'add to your favorites',
+#            css:
+#              border: 'none',
+#              padding: '8px',
+#              fontSize: '13px',
+#              fontWeight: 'bold',
+#              lineHeight: '1.55',
+#              backgroundColor: 'rgba(0, 0, 0, .75)',
+#              borderRadius: '2px'
+#              color: 'white'
+#              boxShadow: 'none'
+#          )
 
       $(this).find('i.outline').hover (->
         $(this).prev().addClass 'unfavorite-o'
@@ -125,6 +143,10 @@ $ ->
             $(this).find('i.favorited').removeClass 'hide'
             $(this).find('i.unfavorite').addClass 'hide'
             $(this).find('i.outline').addClass 'hide'
+            if $(window).width() < 768
+              window.setTimeout (->
+                $('body').find('.fav-balloon').showBalloon().hideBalloon()
+              ), 1000
           else if ajax.responseJSON.post == 'delete'
             $(this).find('i.favorited').addClass 'hide'
             $(this).find('i.unfavorite').removeClass 'hide'
