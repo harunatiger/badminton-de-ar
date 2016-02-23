@@ -1335,13 +1335,14 @@ $lines-to-show: 2
     position: absolute
     top: 15px
     left: 0
+    width: 100%
     .row-table
       display: block
       width: auto
   .thread-avatar, .thread-name
     display: block
     float: left
-    width: auto
+    //width: auto
     padding-right: 0
   .thread-name
     padding-top: 4px
@@ -1372,6 +1373,12 @@ $lines-to-show: 2
     .col-middle
       display: block
 
+  .message_threads.index, .dashboard
+    .thread-body
+      padding: 50px 0 0 120px
+    .reply-status
+      width: 100%
+@media (max-width: 630px)
   .message_threads.index, .dashboard
     .thread-body
       padding: 50px 0 0 78px

@@ -19,17 +19,17 @@
                 .row
                   .col-md-4.thread-author
                     .row.row-table
-                      .col-md-4.col-middle.thread-avatar
+                      .col-sm-3.col-md-4.col-middle.thread-avatar
                         = link_to profile_path(counterpart_user.profile.id), class: "media-round media-photo media-avatar" do
                           .size60[style="background-image: url('#{asset_path profile_to_image_thumb(counterpart_user.profile)}')"]
-                      = link_to message_thread_path(mt), class: "h5 col-sm-8 col-middle thread-name" do
+                      = link_to message_thread_path(mt), class: "h5 col-sm-9 col-md-8 col-middle thread-name" do
                         -if mt.host_id == current_user.id
                           span.user-type.user-guest
                             | Guest
                         -else
                           span.user-type.user-guide
                             | Guide
-                        .row-space-top-1
+                        .row-space-top-1.user-name
                           = user_id_to_name(counterpart_id)
                   = link_to message_thread_path(mt), class: "col-md-8" do
                     .col-md-8.thread-body.clearfix
