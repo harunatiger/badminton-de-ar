@@ -56,10 +56,6 @@ module Payments
     response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY'} )
   end
 
-  def refund_full(payment)
-    response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY'} )
-  end
-
   def set_details(token)
     details = self.gateway.details_for(token)
   end
@@ -71,12 +67,21 @@ module Payments
   end
 
   def express_purchase_options(payment)
-    {
-      :ip => request.remote_ip,
-      :token => payment.token,
-      :currency => 'JPY',
-      :payer_id => payment.payer_id,
-      items: item_params(payment.reservation)
-    }
+    if Rails.env.production?
+      {
+        :ip => request.remote_ip,
+        :token => payment.token,
+        :currency => 'JPY',
+        :payer_id => payment.payer_id,
+        :items => item_params(payment.reservation)
+      }
+    else
+      {
+        :ip => request.remote_ip,
+        :token => payment.token,
+        :currency => 'JPY',
+        :payer_id => payment.payer_id
+      }
+    end
   end
 end
