@@ -345,6 +345,8 @@ Rails.application.routes.draw do
 
   get 'static_pages/privacy_policy_jp'
 
+  get 'static_pages/about'
+
   #resources :listing_details
 
   devise_for :admin_users, ActiveAdmin::Devise.config
