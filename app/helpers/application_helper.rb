@@ -449,7 +449,7 @@ module ApplicationHelper
   end
 
   def schedule_span(reservation)
-    if reservation.holded? and reservation.created_at == reservation.updated_at and reservation.schedule_hour == '00' and reservation.schedule_minute == '00'
+    if reservation.under_construction? and reservation.created_at == reservation.updated_at and reservation.schedule_hour == '00' and reservation.schedule_minute == '00'
       reservation.schedule.to_date.to_s + '〜'
     else
       if reservation.time_required.to_s == '24.5'
@@ -461,7 +461,7 @@ module ApplicationHelper
   end
 
   def meeting_at(reservation)
-    if reservation.holded? and reservation.created_at == reservation.updated_at and reservation.schedule_hour == '00' and reservation.schedule_minute == '00'
+    if reservation.under_construction? and reservation.created_at == reservation.updated_at and reservation.schedule_hour == '00' and reservation.schedule_minute == '00'
       reservation.schedule.to_date.to_s
     else
       reservation.schedule.to_s

@@ -111,7 +111,7 @@ class ReservationMailer < ApplicationMailer
     @reservation = reservation
     @listing_detail = ListingDetail.where(listing_id: @reservation.listing.id).first
     @payment = reservation.try('payment')
-    if @reservation.cancel_by == 1
+    if @reservation.guide?
       @refund_from = @host
       @refund_to = @guest
       subject = Settings.mailer.send_cancel_from_guide_mail_to_owner.subject

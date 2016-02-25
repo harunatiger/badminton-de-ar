@@ -106,7 +106,7 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'google-analytics-rails'
 
 #paypal payment
-gem 'activemerchant'
+gem 'activemerchant', '1.57.0'
 
 # dotenv
 gem 'dotenv-rails'

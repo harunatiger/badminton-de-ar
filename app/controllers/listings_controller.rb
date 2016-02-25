@@ -179,8 +179,7 @@ class ListingsController < ApplicationController
 
     def set_message_thread
       if current_user
-        msg_params = Hash['to_user_id' => @listing.user_id,'from_user_id' => current_user.id]
-        if res = MessageThread.exists_thread?(msg_params)
+        if res = MessageThread.exists_thread?(@listing.user_id, current_user.id)
           @message_thread = MessageThread.find(res)
         end
       end

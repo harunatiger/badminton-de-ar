@@ -91,7 +91,7 @@ class MessageThreadsController < ApplicationController
       @host_id = @message_thread.host_id
       reservation = Reservation.latest_reservation(@guest_id, @host_id)
       if reservation.present?
-        @reservation = reservation.accepted? ? Reservation.new(progress: 'holded') : Reservation.new(reservation.attributes)
+        @reservation = reservation.accepted? ? Reservation.new(progress: 'under_construction') : reservation
       else
         @reservation = Reservation.new(progress: '')
       end

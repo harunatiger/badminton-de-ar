@@ -35,7 +35,7 @@ li.thread-list-item
                   - reservation = reservation_id_to_reservation_obj(m.reservation_id)
                   span.text-pink.strong
                     | I cancelled your tour plan
-                    - if reservation.canceled_after_accepted? && reservation.cancel_by != 1
+                    - if reservation.canceled_after_accepted? && !reservation.guide?
                       br
                       | Cancellation fee ¥#{reservation.cancellation_fee}
                 - elsif m.try('content').end_with?(Settings.reservation.msg.contact)
@@ -56,7 +56,7 @@ li.thread-list-item
                     = m.attached_name
                 div#preview-show
             - if !m.reservation_id.zero? and m.try('content') == Settings.reservation.msg.request
-              = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
+              /= render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
 
         .time-container.text-muted
           small.time

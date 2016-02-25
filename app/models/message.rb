@@ -80,6 +80,57 @@ class Message < ActiveRecord::Base
       end
     end
   end
+  
+  # use when create reservation
+  def self.send_request_message(reservation)
+    if reservation.message_thread_id
+      mt_obj = MessageThread.find(reservation.message_thread_id)
+    else
+      if id = MessageThread.exists_thread?(reservation.host_id, reservation.guest_id)
+        mt_obj = MessageThread.find(id)
+      else
+        mt_obj = MessageThread.create_thread(to_user_id, from_user_id)
+      end
+    end
+    
+    Message.create(
+      message_thread_id: mt_obj.id,
+      content: Settings.reservation.msg.reserve,
+      read: false,
+      from_user_id: reservation.guest_id,
+      to_user_id: reservation.host_id,
+      listing_id: reservation.try(:listing_id) || 0,
+      reservation_id: reservation.id
+    )
+  end
+  
+  def self.send_reservation_message_to_host(reservation, content, reply_from_host=nil)
+    mt_obj = MessageThread.find(reservation.message_thread_id)
+    mt_obj.update(reply_from_host: reply_from_host, first_message: false) if reply_from_host.present?
+    Message.create(
+      message_thread_id: mt_obj.id,
+      content: content,
+      read: false,
+      from_user_id: reservation.guest_id,
+      to_user_id: reservation.host_id,
+      listing_id: reservation.try(:listing_id) || 0,
+      reservation_id: reservation.id
+    )
+  end
+  
+  def self.send_reservation_message_to_guest(reservation, content)
+    mt_obj = MessageThread.find(reservation.message_thread_id)
+    mt_obj.update(reply_from_host: true, first_message: false)
+    Message.create(
+      message_thread_id: mt_obj.id,
+      content: content,
+      read: false,
+      from_user_id: reservation.host_id,
+      to_user_id: reservation.guest_id,
+      listing_id: reservation.try(:listing_id) || 0,
+      reservation_id: reservation.id
+    )
+  end
 
   def english_content
     if self.try('content') == Settings.reservation.msg.request

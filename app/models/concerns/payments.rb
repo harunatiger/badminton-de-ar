@@ -1,18 +1,15 @@
 include ActiveMerchant::Billing
 module Payments
   def gateway
-    @gateway ||= PaypalExpressGateway.new(
-      :login => Rails.application.secrets.paypal_express_user_name,
-      :password => Rails.application.secrets.paypal_express_user_password,    
-      :signature => Rails.application.secrets.paypal_express_signature)
+    @gateway = EXPRESS_GATEWAY
   end
   
-  def set_checkout(reservation)
+  def set_checkout(reservation, request, return_url, cancel_return_url)
     setup_response = self.gateway.setup_authorization(
             reservation.paypal_amount,
             :ip => request.remote_ip,
-            :return_url => confirm_reservations_url,
-            :cancel_return_url => cancel_reservations_url,
+            :return_url => return_url,
+            :cancel_return_url => cancel_return_url,
             :currency => 'JPY',
             description: reservation.listing.title,
             no_shipping: 1,
@@ -41,19 +38,12 @@ module Payments
     response
   end
   
-  def refund(payment, reservation)
-    #note = Settings.payment.refunds.policy
-    if reservation.before_weeks?
-      response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY'} )
-    elsif reservation.before_days?
-      response = self.gateway.refund(payment.refund_amount_for_paypal(50), payment.transaction_id, {refund_type: 'Partial', currency: 'JPY'} )
-    end
-    p response
-    response
-  end
-  
   def refund_full(payment)
     response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY'} )
+  end
+  
+  def refund_partial(payment, percentage)
+    response = self.gateway.refund(payment.refund_amount_for_paypal(percentage), payment.transaction_id, {refund_type: 'Partial', currency: 'JPY'} )
   end
 
   def set_details(token)
