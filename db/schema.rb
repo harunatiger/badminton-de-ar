@@ -146,6 +146,32 @@ ActiveRecord::Schema.define(version: 20160225152203) do
   add_index "favorite_users", ["from_user_id"], name: "index_favorite_users_on_from_user_id", using: :btree
   add_index "favorite_users", ["to_user_id"], name: "index_favorite_users_on_to_user_id", using: :btree
 
+  create_table "help_categories", force: :cascade do |t|
+    t.string   "name_ja"
+    t.string   "name_en"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "help_categories", ["lft"], name: "index_help_categories_on_lft", using: :btree
+  add_index "help_categories", ["parent_id"], name: "index_help_categories_on_parent_id", using: :btree
+  add_index "help_categories", ["rgt"], name: "index_help_categories_on_rgt", using: :btree
+
+  create_table "help_topics", force: :cascade do |t|
+    t.integer  "help_category_id"
+    t.string   "title_ja"
+    t.string   "title_en"
+    t.text     "body_ja"
+    t.text     "body_en"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "help_topics", ["help_category_id"], name: "index_help_topics_on_help_category_id", using: :btree
+
   create_table "languages", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false

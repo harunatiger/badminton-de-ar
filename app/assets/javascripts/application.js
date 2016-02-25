@@ -33,3 +33,4 @@
 //= require youtube
 //= require pre_mail
 //= require users
+//= require helps

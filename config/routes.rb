@@ -117,6 +117,10 @@ Rails.application.routes.draw do
     get 'common_ngdays', on: :collection
   end
 
+  scope "(:locale)", locale: /ja|en/ do
+    resources :help_topics, only: [:index]
+  end
+
   devise_for :users, controllers: {
     sessions:            'users/sessions',
     registrations:       'users/registrations',

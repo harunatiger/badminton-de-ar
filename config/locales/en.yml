@@ -66,3 +66,8 @@ en:
     gas: "Gas"
     highway: "Expressway"
     parking: "Parking"
+  help:
+    about_link: "About Huber."
+    help_guide_link: "Guide Q & A"
+    help_other_link: "Other Q & A"
+
