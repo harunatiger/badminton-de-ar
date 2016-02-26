@@ -98,7 +98,7 @@
       | 終了日
     .col-md-6
       .required-container
-        = text_field :reservation, :schedule_end, class: 'checkout datepicker'
+        = text_field :reservation, :schedule_end, class: 'checkout datepicker', value: @reservation.schedule_end.to_s
         /i.fa.fa-asterisk.balloon[title="required"]
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
