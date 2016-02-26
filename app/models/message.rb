@@ -89,7 +89,7 @@ class Message < ActiveRecord::Base
       if id = MessageThread.exists_thread?(reservation.host_id, reservation.guest_id)
         mt_obj = MessageThread.find(id)
       else
-        mt_obj = MessageThread.create_thread(to_user_id, from_user_id)
+        mt_obj = MessageThread.create_thread(reservation.host_id, reservation.guest_id)
       end
     end
     

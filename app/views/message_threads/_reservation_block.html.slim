@@ -176,11 +176,11 @@
                   .col-md-12
                     .text-center
                       - if @counterpart.soft_destroyed? || @listings.blank?
-                        = f.button :button, class: "btn btn-large btn-block btn-primary disabled", name: 'offer' do
+                        = f.button :button, class: "btn btn-large btn-block btn-primary disabled", value: 'offer', name: 'offer' do
                           i.fa.fa-envelope-o
                           | ゲストにオファーする
                       - else
-                        = f.button :button, class: "btn btn-large btn-block btn-primary disabled", name: 'offer', id: 'offer_to_guest' do
+                        = f.button :button, class: "btn btn-large btn-block btn-primary disabled", value: 'offer', name: 'offer', id: 'offer_to_guest' do
                           i.fa.fa-envelope-o
                           | ゲストにオファーする
                       #offer_comment.text-red.small1.row-space-top-2

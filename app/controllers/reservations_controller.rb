@@ -1,7 +1,7 @@
 class ReservationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_reservation, only: [:update]
-  before_action :check_profile_identity, only: [:offer, :confirm]
+  before_action :check_profile_identity, only: [:update]
   before_action :check_campaign_code, only: [:update]
   include Payments
 
@@ -299,13 +299,14 @@ class ReservationsController < ApplicationController
       @reservation.message_thread_id = reservation_params[:message_thread_id]
     end
   
-  #TODO message!!!!!!
     def check_profile_identity
-      unless current_user.already_authrized
-        if current_user.profile_identity.present?
-          return redirect_to edit_profile_profile_identity_path(current_user.profile, current_user.profile_identity), alert: Settings.reservation.save.failure.not_authorized_yet
-        else
-          return redirect_to new_profile_profile_identity_path(current_user.profile), alert: Settings.reservation.save.failure.not_authorized_yet
+      if params[:offer].present? or params[:confirm].present?
+        unless current_user.already_authrized
+          if current_user.profile_identity.present?
+            return redirect_to edit_profile_profile_identity_path(current_user.profile, current_user.profile_identity), alert: params[:offer].present? ? Settings.reservation.save.failure.not_authorized_yet : Settings.reservation.accept.failure.not_authorized_yet
+          else
+            return redirect_to new_profile_profile_identity_path(current_user.profile), alert: params[:offer].present? ? Settings.reservation.save.failure.not_authorized_yet : Settings.reservation.accept.failure.not_authorized_yet
+          end
         end
       end
     end
