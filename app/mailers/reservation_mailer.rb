@@ -60,7 +60,7 @@ class ReservationMailer < ApplicationMailer
     to_user = User.find(to_user_id)
     @to_user_name = "#{to_user.profile.first_name} #{to_user.profile.last_name}"
 
-    @progress = reservation.string_of_progress_english
+    @progress = reservation.body_of_update_mail
 
     mail(
       to:      to_user.email,

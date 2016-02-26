@@ -278,6 +278,11 @@ mailer:
       accepted: "Reservation has been accepted!"
       #rejected: "予約が不成立となりました。"
       rejected: "Reservation has been rejected."
+    body:
+      canceled: "canceled"
+      under_construction: "holded"
+      accepted: "accepted"
+      rejected: "rejected"
   review_notification:
     #subject: "レビューの記入をしませんか？"
     subject: "Please write a review for "

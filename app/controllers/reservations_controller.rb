@@ -76,7 +76,6 @@ class ReservationsController < ApplicationController
     respond_to do |format|
       if @reservation.update(reservation_params)
         Ngevent.offer(@reservation)
-        ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
         ReservationMailer.send_new_guide_detail_notification(@reservation).deliver_now!
         ReservationMailer.send_requested_mail_to_owner(@reservation).deliver_now!
         message = Message.send_reservation_message_to_guest(@reservation, Settings.reservation.msg.request)
@@ -98,6 +97,7 @@ class ReservationsController < ApplicationController
       if @reservation.update(reservation_params)
         @reservation.canceled!
         Ngevent.cancel(@reservation)
+        ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
         message = Message.send_reservation_message_to_host(@reservation, Settings.reservation.msg.canceled, false)
         
         format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.save.success }

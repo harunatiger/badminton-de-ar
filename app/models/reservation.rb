@@ -122,10 +122,7 @@ class Reservation < ActiveRecord::Base
     return Settings.reservation.progress.canceled if self.canceled?
     return Settings.reservation.progress.canceled_after_accepted if self.canceled_after_accepted?
     return Settings.reservation.progress.under_construction if self.under_construction?
-    if self.accepted?
-      return Settings.reservation.progress.finished if self.finished?
-      return Settings.reservation.progress.accepted
-    end
+    return Settings.reservation.progress.accepted if self.accepted?
     return Settings.reservation.progress.rejected if self.rejected?
     return Settings.reservation.progress.listing_closed if self.listing_closed?
   end
@@ -136,6 +133,14 @@ class Reservation < ActiveRecord::Base
     return Settings.mailer.update_reservation.subject.under_construction if self.under_construction?
     return Settings.mailer.update_reservation.subject.accepted if self.accepted?
     return Settings.mailer.update_reservation.subject.rejected if self.rejected?
+  end
+  
+  def body_of_update_mail
+    return Settings.mailer.update_reservation.body.canceled if self.canceled?
+    return Settings.mailer.update_reservation.body.canceled if self.canceled_after_accepted?
+    return Settings.mailer.update_reservation.body.under_construction if self.under_construction?
+    return Settings.mailer.update_reservation.body.accepted if self.accepted?
+    return Settings.mailer.update_reservation.body.rejected if self.rejected?
   end
 
   def save_review_landed_at_now
