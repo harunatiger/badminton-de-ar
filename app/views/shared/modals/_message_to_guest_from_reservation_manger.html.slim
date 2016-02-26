@@ -19,15 +19,15 @@
               span.share-error
               p
                 .select
-                  = select :reservation, :progress, [["保留", "holded"], ["承諾", "accepted"], ["拒否", "rejected"]], {include_blank: "予約を承諾しますか？", selected: "予約を承諾しますか？"}
+                  = select :reservation, :progress, [["保留", "under_construction"], ["承諾", "accepted"], ["拒否", "rejected"]], {include_blank: "予約を承諾しますか？", selected: "予約を承諾しますか？"}
             - elsif r.accepted?
               span.share-error
               p
-                = select :reservation, :progress, [["保留", "holded"], ["拒否", "rejected"]], {include_blank: "予約は成立しております。変更しますか？", selected: "予約は成立しております。変更しますか？"}
+                = select :reservation, :progress, [["保留", "under_construction"], ["拒否", "rejected"]], {include_blank: "予約は成立しております。変更しますか？", selected: "予約は成立しております。変更しますか？"}
             - elsif r.rejected?
               span.share-error
               p
-                = select :reservation, :progress, [["保留", "holded"], ["承諾", "accepted"]], {include_blank: "予約は不成立しております。変更しますか？", selected: "予約は成立しております。変更しますか？"}
+                = select :reservation, :progress, [["保留", "under_construction"], ["承諾", "accepted"]], {include_blank: "予約は不成立しております。変更しますか？", selected: "予約は成立しております。変更しますか？"}
             span.share-error
             p
               = text_area :message, :content, id: "email_message", class: "input-large input-block", rows: 6, placeholder: Settings.message.modal.message_to_guest_from_reservation_manager.form.content.placeholder

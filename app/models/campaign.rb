@@ -25,4 +25,11 @@ class Campaign < ActiveRecord::Base
   validates :code, uniqueness: true
   
   attr_accessor :used_count
+  
+  def self.remove_used_code(reservation)
+    if reservation.campaign.present?
+      user = User.find(reservation.guest_id)
+      user.campaigns = user.campaigns.where.not(id: reservation.campaign_id)
+    end
+  end
 end

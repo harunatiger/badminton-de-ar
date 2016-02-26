@@ -62,9 +62,9 @@ class Reservation < ActiveRecord::Base
   has_one :payment
   has_many :ngevents, dependent: :destroy
 
-  # Check config/settings.yml: Settings.reservation.progress
-  enum progress: { requested: 0, canceled: 1, holded: 2, accepted: 3, rejected: 4, listing_closed: 5, canceled_after_accepted: 6}
-  #enum progress: [requested, canceled, holded, accepted, rejected, listing_closed]
+  #Progress 4&5 are not used. Should delete records of progress 4 some day.
+  enum progress: { requested: 0, canceled: 1, under_construction: 2, accepted: 3, rejected: 4, listing_closed: 5, canceled_after_accepted: 6}
+  enum cancel_by: { default: 0, guide: 1, guest_before_weeks: 2, guest_before_days: 3, guest_less_than_days: 4}
 
   attr_accessor :message_thread_id
   attr_accessor :campaign_code
@@ -72,9 +72,9 @@ class Reservation < ActiveRecord::Base
 
   validates :host_id, presence: true
   validates :guest_id, presence: true
-  validates :listing_id, presence: true, if: :progress_is_not_holded?
-  validates :schedule, presence: true, if: :progress_is_not_holded?
-  validates :schedule_end, presence: true, if: :progress_is_not_holded?
+  validates :listing_id, presence: true, if: :progress_is_not_under_construction?
+  validates :schedule, presence: true, if: :progress_is_not_under_construction?
+  validates :schedule_end, presence: true, if: :progress_is_not_under_construction?
   validates :num_of_people, presence: true
   validates :progress, presence: true
   #validates :price, presence: true
@@ -100,7 +100,7 @@ class Reservation < ActiveRecord::Base
   integrate_datetime_fields :schedule
 
   def continued?
-    if self.requested? || self.holded?
+    if self.requested? || self.under_construction?
       return true
     else
       false
@@ -111,39 +111,36 @@ class Reservation < ActiveRecord::Base
     return "承認依頼中" if self.requested?
     return "キャンセル" if self.canceled?
     return "キャンセル" if self.canceled_after_accepted?
-    return "調整中" if self.holded?
+    return "調整中" if self.under_construction?
     return "ツアー決定" if self.accepted?
     return "取り消し" if self.rejected?
     return "終了" if self.listing_closed?
   end
 
   def string_of_progress_english
-    return "Request" if self.requested?
-    return "Cancelled" if self.canceled?
-    return "Cancelled" if self.canceled_after_accepted?
-    return "Under construction" if self.holded?
-    if self.accepted?
-      return "Finished" if self.finished?
-      return "Accept"
-    end
-    return "Delete" if self.rejected?
-    return "Close" if self.listing_closed?
-  end
-
-  def string_of_progress_for_message_thread
-    return Settings.reservation.progress_for_message_thread.requested if self.requested?
-    return Settings.reservation.progress_for_message_thread.canceled if self.canceled?
-    return Settings.reservation.progress_for_message_thread.canceled if self.canceled_after_accepted?
-    return Settings.reservation.progress_for_message_thread.accepted if self.accepted?
-    return Settings.reservation.progress_for_message_thread.rejected if self.rejected?
+    return Settings.reservation.progress.requested if self.requested?
+    return Settings.reservation.progress.canceled if self.canceled?
+    return Settings.reservation.progress.canceled_after_accepted if self.canceled_after_accepted?
+    return Settings.reservation.progress.under_construction if self.under_construction?
+    return Settings.reservation.progress.accepted if self.accepted?
+    return Settings.reservation.progress.rejected if self.rejected?
+    return Settings.reservation.progress.listing_closed if self.listing_closed?
   end
 
   def subject_of_update_mail
     return Settings.mailer.update_reservation.subject.canceled if self.canceled?
     return Settings.mailer.update_reservation.subject.canceled if self.canceled_after_accepted?
-    return Settings.mailer.update_reservation.subject.holded if self.holded?
+    return Settings.mailer.update_reservation.subject.under_construction if self.under_construction?
     return Settings.mailer.update_reservation.subject.accepted if self.accepted?
     return Settings.mailer.update_reservation.subject.rejected if self.rejected?
+  end
+  
+  def body_of_update_mail
+    return Settings.mailer.update_reservation.body.canceled if self.canceled?
+    return Settings.mailer.update_reservation.body.canceled if self.canceled_after_accepted?
+    return Settings.mailer.update_reservation.body.under_construction if self.under_construction?
+    return Settings.mailer.update_reservation.body.accepted if self.accepted?
+    return Settings.mailer.update_reservation.body.rejected if self.rejected?
   end
 
   def save_review_landed_at_now
@@ -183,10 +180,6 @@ class Reservation < ActiveRecord::Base
     else
       false
     end
-  end
-
-  def self.requested_reservation(guest_id, host_id)
-    self.where(guest_id: guest_id, host_id: host_id, progress: 'requested').first
   end
 
   def self.latest_reservation(guest_id, host_id)
@@ -335,7 +328,71 @@ class Reservation < ActiveRecord::Base
     self.schedule.to_date < Time.zone.today + 3.day
   end
 
-  def progress_is_not_holded?
-    self.progress != 'holded'
+  def progress_is_not_under_construction?
+    !self.under_construction?
+  end
+  
+  def set_details(details)
+    payment = self.payment.present? ? self.payment : Payment.create(reservation_id: self.id)
+    payment.update(
+        token: details.token,
+        payer_id: details.payer_id,
+        payers_status: details.params['payer_status'],
+        amount: details.params['order_total'],
+        currency_code: details.params['order_total_currency_id'],
+        email: details.params['payer'],
+        first_name: details.params['first_name'],
+        last_name: details.params['last_name'],
+        country_code: details.params['country'],
+        status: 'confirmed'
+      )
+    payment
+  end
+  
+  def set_purchase(response)
+    self.payment.update(
+      transaction_id: response.params['transaction_id'],
+      transaction_date: response.params['payment_date'],
+      status: 'completed')
+  end
+  
+  def set_refund(response=nil, current_user)
+    self.payment.update(
+      transaction_id: response.params['refund_transaction_id'],
+      refund_date: response.params['timestamp'],
+      status: 'refunded') if response.present?
+    set_cancel_by(current_user)
+  end
+  
+  def set_cancel_by(current_user)
+    #default: 0, guide: 1, guest_before_weeks: 2, guest_before_days: 3, guest_less_than_days: 4
+    self.canceled_after_accepted!
+    if self.host_id == current_user.id
+      self.update(cancel_by: 'guide', refund_rate: Settings.payment.refunds.guide_cancel)
+    elsif self.before_weeks?
+      self.update(cancel_by: 'guest_before_weeks', refund_rate: Settings.payment.refunds.before_weeks_rate)
+    elsif self.before_days?
+      self.update(cancel_by: 'guest_before_days', refund_rate: Settings.payment.refunds.before_days_rate)
+    else
+      self.guest_less_than_days!
+    end
+  end
+  
+  def self.for_message_thread(guest_id, host_id)
+    reservation = self.latest_reservation(guest_id, host_id)
+    reservation.campaign_id = nil
+    reservation.refund_rate = 0
+    reservation.cancel_by = 0
+    if reservation.present?
+      if reservation.accepted?
+        self.new(progress: 'under_construction')
+      elsif reservation.canceled_after_accepted?
+        self.new(reservation.attributes)
+      else
+        reservation
+      end
+    else
+      self.new(progress: '')
+    end
   end
 end

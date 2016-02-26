@@ -61,7 +61,7 @@
         = f.hidden_field :host_id, value: @listing.user_id
         = f.hidden_field :guest_id, value: user_id
         = f.hidden_field :listing_id, value: @listing.id
-        = f.hidden_field :progress, value: 'holded'
+        = f.hidden_field :progress, value: 'under_construction'
         = f.hidden_field :schedule_hour, value: 00
         = f.hidden_field :schedule_minute, value: 00
         = f.hidden_field :price, value: listing.listing_detail.price
@@ -99,7 +99,7 @@
             - elsif not profile_self_introduction_exists?
               = link_to 'Request Booking', profile_link, class: 'btn btn-large btn-block btn-primary'
             - else
-              = f.submit 'Request Booking', id: 'book_it_button', name: 'reserve', class: "btn btn-large btn-block btn-primary"
+              = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary"
           - else
             button.btn.btn-large.btn-block.btn-primary
               | Request Booking

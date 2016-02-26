@@ -15,7 +15,7 @@
           - elsif @reservation.canceled? or @reservation.canceled_after_accepted?
             .state.state-danger
               = @reservation.string_of_progress_english
-          - elsif @reservation.holded?
+          - elsif @reservation.under_construction?
             - unless @counterpart.soft_destroyed?
               .state.state-alert
                 = @reservation.string_of_progress_english
@@ -176,17 +176,17 @@
                   .col-md-12
                     .text-center
                       - if @counterpart.soft_destroyed? || @listings.blank?
-                        = f.button :button, class: "btn btn-large btn-block btn-primary disabled", name: 'request', value: 'request' do
+                        = f.button :button, class: "btn btn-large btn-block btn-primary disabled", value: 'offer', name: 'offer' do
                           i.fa.fa-envelope-o
                           | ゲストにオファーする
                       - else
-                        = f.button :button, class: "btn btn-large btn-block btn-primary disabled", name: 'request', value: 'request', id: 'offer_to_guest' do
+                        = f.button :button, class: "btn btn-large btn-block btn-primary disabled", value: 'offer', name: 'offer', id: 'offer_to_guest' do
                           i.fa.fa-envelope-o
                           | ゲストにオファーする
                       #offer_comment.text-red.small1.row-space-top-2
-            - elsif @reservation_for_update.present?
-              - if @reservation_for_update.requested?
-                = simple_form_for(@reservation_for_update) do |f|
+            - else
+              - if @reservation.requested?
+                = simple_form_for(@reservation) do |f|
                   = f.hidden_field :message_thread_id, value: @message_thread.id
                   .row-space-1.strong.text-muted
                     | Discount code
@@ -194,24 +194,14 @@
                     = f.input_field :campaign_code, placeholder: "Enter discount code"
                   .text-right.row-space-2
                     - if @counterpart.soft_destroyed?
-                      = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary disabled'
+                      = f.submit 'Confirm', name: 'confirm', class: 'btn btn-primary disabled'
                       = f.submit 'Cancel', name: 'cancel', class: 'btn disabled'
                     - else
                       - if @reservation.amount_for_campaign < 1
-                        = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary', data: {confirm: "Are you sure you want to approve this tour?"}
+                        = f.submit 'Confirm', name: 'confirm', class: 'btn btn-primary', data: {confirm: "Are you sure you want to approve this tour?"}
                       - else
-                        = f.submit 'Confirm', name: 'accept', class: 'btn btn-primary'
+                        = f.submit 'Confirm', name: 'confirm', class: 'btn btn-primary'
                       = f.submit 'Cancel', name: 'cancel', class: 'btn'
-              - elsif @reservation_for_update.completed?
-                /.row-space-top-4.row-space-2
-                  - if @counterpart.soft_destroyed?
-                    = link_to "Cancel", "#confirm_cancel1", class: "btn btn-host row-space-top-1 row-space-1 disabled"
-                  - else
-                    = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-host row-space-top-1 row-space-1", data: { toggle: "modal" }
-                  = link_to "#", class: "about_cancel_link" do
-                    | About cancellations after tour confirmation
-                  - @reservation_for_update.message_thread_id = @message_thread.id
-                  = render partial: 'shared/modals/confirm_cancel', locals: { r: @reservation_for_update}
           - if @host_id == current_user.id
             #reservation_block-form
               = render partial: 'reservation_form', locals: { reservation: @reservation }

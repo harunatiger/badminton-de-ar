@@ -32,17 +32,17 @@ $ ->
         parking = $('#non_special_offer_form #reservation_parking').val()
         if parseInt(rental) + parseInt(gas) + parseInt(highway) + parseInt(parking) == 0
           return false
-      if $('#non_special_offer_form #reservation_guests_cost').val() != '0'
-        if $('#non_special_offer_form #reservation_included_guests_cost').val() == ''
-          return false
+      #if $('#non_special_offer_form #reservation_guests_cost').val() != '0'
+      #  if $('#non_special_offer_form #reservation_included_guests_cost').val() == ''
+      #    return false
       if $('#non_special_offer_form #reservation_schedule_date').val() == ''
         return false
       if $('#non_special_offer_form #reservation_schedule_end').val() == ''
         return false
       if $('#non_special_offer_form #reservation_place').val() == ''
         return false
-      if $('#non_special_offer_form #reservation_place_memo').val() == ''
-        return false
+      #if $('#non_special_offer_form #reservation_place_memo').val() == ''
+      #  return false
       if $('#non_special_offer_form #reservation_description').val() == ''
         return false
       return
@@ -248,3 +248,18 @@ $ ->
       else
         return false
     return false
+
+
+  if $('body').hasClass('message_threads index')
+    if $(window).width() < 768
+      # ellipsis message_thread username
+      $setElm = $('.thread-name .user-name')
+      cutFigure = '35'
+      afterTxt = ' …'
+      $setElm.each ->
+        beforeTxt = $.trim($(this).text())
+        textLength = beforeTxt.length
+        textTrim = beforeTxt.substr(0, cutFigure)
+        if cutFigure < textLength
+          $(this).html(textTrim + afterTxt)
+        return

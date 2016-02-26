@@ -186,7 +186,7 @@ module ApplicationHelper
 
   def profile_to_image_thumb(profile)
     if profile.thumb_image.present? and profile.thumb_image.image.present?
-      profile.thumb_image.image.thumb
+      profile.thumb_image.image
     else
       Settings.image.noimage2.url
     end
@@ -194,7 +194,7 @@ module ApplicationHelper
 
   def profile_to_cover_image_thumb(profile)
     if profile.cover.present? and profile.cover.image.present?
-      profile.cover.image.thumb
+      profile.cover.image
     else
       Settings.image.noimage.url
     end
@@ -449,7 +449,7 @@ module ApplicationHelper
   end
 
   def schedule_span(reservation)
-    if reservation.holded? and reservation.created_at == reservation.updated_at and reservation.schedule_hour == '00' and reservation.schedule_minute == '00'
+    if reservation.under_construction? and reservation.created_at == reservation.updated_at and reservation.schedule_hour == '00' and reservation.schedule_minute == '00'
       reservation.schedule.to_date.to_s + '〜'
     else
       if reservation.time_required.to_s == '24.5'
@@ -461,7 +461,7 @@ module ApplicationHelper
   end
 
   def meeting_at(reservation)
-    if reservation.holded? and reservation.created_at == reservation.updated_at and reservation.schedule_hour == '00' and reservation.schedule_minute == '00'
+    if reservation.under_construction? and reservation.created_at == reservation.updated_at and reservation.schedule_hour == '00' and reservation.schedule_minute == '00'
       reservation.schedule.to_date.to_s
     else
       reservation.schedule.to_s
@@ -554,16 +554,16 @@ module ApplicationHelper
     end
     time_required
   end
-  
+
   def notice_format(text)
     return text if text.blank?
     sanitize text.gsub(/\r\n|\r|\n/, "<br />"), :tag => %w(br)
   end
-  
+
   def has_reservation_as_guest
     current_user.comming_reservations_as_guest.present?
   end
-  
+
   def has_reservation_as_guide
     current_user.comming_reservations_as_guide.present?
   end
