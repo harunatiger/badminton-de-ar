@@ -289,9 +289,9 @@ mailer:
   day_before_notification:
     subject: "Tomorrow is the appointment day!"
   send_cancel_from_guest_mail_to_owner:
-    subject: "ゲストが予約をキャンセルしました。"
+    subject: "ゲストがツアーをキャンセルしました。"
   send_cancel_from_guide_mail_to_owner:
-    subject: "ガイドが予約をキャンセルしました。"
+    subject: "ガイドがツアーをキャンセルしました。"
   send_accepted_mail_to_owner:
     subject: "ツアー予約が確定しました。"
   send_requested_mail_to_owner:

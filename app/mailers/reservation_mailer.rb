@@ -115,13 +115,15 @@ class ReservationMailer < ApplicationMailer
       @refund_from = @host
       @refund_to = @guest
       subject = Settings.mailer.send_cancel_from_guide_mail_to_owner.subject
+      to_address = ENV["OWNER_MAIL_TOUR_CANCEL_GUIDE_ADDRESS"]
     else
       @refund_from = @guest
       @refund_to = @host
       subject = Settings.mailer.send_cancel_from_guest_mail_to_owner.subject
+      to_address = ENV["OWNER_MAIL_TOUR_CANCEL_GUEST_ADDRESS"]
     end
     mail(
-      to:      ENV["OWNER_MAIL_ADDRESS"],
+      to:      to_address,
       subject: subject
     ) do |format|
       format.text
