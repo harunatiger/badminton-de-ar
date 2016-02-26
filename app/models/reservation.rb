@@ -372,4 +372,20 @@ class Reservation < ActiveRecord::Base
       self.guest_less_than_days!
     end
   end
+  
+  def self.for_message_thread(guest_id, host_id)
+    reservation = self.latest_reservation(guest_id, host_id)
+    reservation.campaign_id = nil
+    if reservation.present?
+      if reservation.accepted?
+        self.new(progress: 'under_construction')
+      elsif reservation.canceled_after_accepted?
+        self.new(reservation.attributes)
+      else
+        reservation
+      end
+    else
+      self.new(progress: '')
+    end
+  end
 end

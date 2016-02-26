@@ -8,6 +8,8 @@ class ReservationsController < ApplicationController
   # request button of the listing view (guest)
   def create
     return save if params[:save]
+    return offer if params[:offer]
+    
     para = reservation_params
     para['schedule_date'] = Date.strptime(para['schedule_date'], '%m/%d/%Y').to_s
     para['schedule_end'] = para['schedule_date']
@@ -70,6 +72,7 @@ class ReservationsController < ApplicationController
   
   # offer button of the message thread (guide)
   def offer
+    @reservation = Reservation.new if @reservation.blank?
     respond_to do |format|
       if @reservation.update(reservation_params)
         Ngevent.offer(@reservation)
