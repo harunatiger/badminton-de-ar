@@ -13,7 +13,7 @@ li.thread-list-item
                 = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, class: "btn btn-primary"
             - elsif m.try('content') == Settings.reservation.msg.canceled
               - reservation = reservation_id_to_reservation_obj(m.reservation_id)
-              - if reservation.cancel_by == 1
+              - if reservation.guide?
                 col-md-12.text-pink.strong
                   | Sorry, Your request(Booking your tour) has been cancelled.
               - else
@@ -55,7 +55,7 @@ li.thread-list-item
                     = m.attached_name
                 div#preview-show
             - if !m.reservation_id.zero? and m.try('content') == Settings.reservation.msg.request
-              = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
+              /= render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
         .time-container.text-muted.text-right
           small.time
             = m.try('created_at').strftime("%m/%d %H:%M") || ''

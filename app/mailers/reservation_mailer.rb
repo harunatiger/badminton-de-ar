@@ -60,7 +60,7 @@ class ReservationMailer < ApplicationMailer
     to_user = User.find(to_user_id)
     @to_user_name = "#{to_user.profile.first_name} #{to_user.profile.last_name}"
 
-    @progress = reservation.string_of_progress_english
+    @progress = reservation.body_of_update_mail
 
     mail(
       to:      to_user.email,
@@ -111,7 +111,7 @@ class ReservationMailer < ApplicationMailer
     @reservation = reservation
     @listing_detail = ListingDetail.where(listing_id: @reservation.listing.id).first
     @payment = reservation.try('payment')
-    if @reservation.cancel_by == 1
+    if @reservation.guide?
       @refund_from = @host
       @refund_to = @guest
       subject = Settings.mailer.send_cancel_from_guide_mail_to_owner.subject

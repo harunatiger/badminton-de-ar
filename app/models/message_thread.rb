@@ -2,12 +2,13 @@
 #
 # Table name: message_threads
 #
-#  id              :integer          not null, primary key
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  host_id         :integer
-#  reply_from_host :boolean          default(FALSE)
-#  first_message   :boolean          default(TRUE)
+#  id                :integer          not null, primary key
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  host_id           :integer
+#  reply_from_host   :boolean          default(FALSE)
+#  first_message     :boolean          default(TRUE)
+#  noticemail_sended :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -24,9 +25,9 @@ class MessageThread < ActiveRecord::Base
   scope :order_by_updated_at_desc, -> { order('updated_at') }
   scope :noreply_push_mail, -> { where(noticemail_sended: false, reply_from_host: false, first_message: true) }
 
-  def self.exists_thread?(msg_params)
-    t_threads = MessageThreadUser.user_joins(msg_params['to_user_id']).select(:message_thread_id)
-    f_threads = MessageThreadUser.user_joins(msg_params['from_user_id']).select(:message_thread_id)
+  def self.exists_thread?(to_user_id, from_user_id)
+    t_threads = MessageThreadUser.user_joins(to_user_id).select(:message_thread_id)
+    f_threads = MessageThreadUser.user_joins(from_user_id).select(:message_thread_id)
     tt_array = []
     ft_array = []
     t_threads.each do |tt|
@@ -35,7 +36,7 @@ class MessageThread < ActiveRecord::Base
     f_threads.each do |ft|
       ft_array << ft.message_thread_id
     end
-    MessageThread.common_threads(tt_array, ft_array, msg_params['from_user_id'])
+    MessageThread.common_threads(tt_array, ft_array, from_user_id)
   end
 
   def self.common_threads(a_array, b_array, from_user_id)
@@ -53,15 +54,15 @@ class MessageThread < ActiveRecord::Base
     res
   end
 
-  def self.create_thread(msg_params)
-    mt = MessageThread.create(host_id: msg_params['to_user_id'].to_i)
+  def self.create_thread(to_user_id, from_user_id)
+    mt = MessageThread.create(host_id: to_user_id)
     MessageThreadUser.create(
       message_thread_id: mt.id,
-      user_id: msg_params['to_user_id'].to_i
+      user_id: to_user_id
     )
     MessageThreadUser.create(
       message_thread_id: mt.id,
-      user_id: msg_params['from_user_id'].to_i
+      user_id: from_user_id
     )
     mt
   end

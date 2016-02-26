@@ -54,24 +54,24 @@
                     .col-md-4.thread-progress
                       .row.row-table
                         .col-md-12.col-middle.text-center
-                          - if mt.reservation_progress == "Request"
+                          - if mt.reservation_progress == Settings.reservation.progress.requested
                             - unless counterpart_user.soft_destroyed?
                               .state.state-primary
                                 = mt.reservation_progress
-                          - elsif mt.reservation_progress == "Cancelled"
+                          - elsif mt.reservation_progress == Settings.reservation.progress.canceled
                             .state.state-danger
                               = mt.reservation_progress
-                          - elsif mt.reservation_progress == "Under construction"
+                          - elsif mt.reservation_progress == Settings.reservation.progress.under_construction
                             - unless counterpart_user.soft_destroyed?
                               .state.state-alert
                                 = mt.reservation_progress
-                          - elsif mt.reservation_progress == "Accept"
+                          /- elsif mt.reservation_progress == Settings.reservation.progress.accepted
                             .state.state-success
                               = mt.reservation_progress
-                          - elsif mt.reservation_progress == "Delete"
+                          - elsif mt.reservation_progress == Settings.reservation.progress.rejected
                             .state.state-alert
                               = mt.reservation_progress
-                          - elsif mt.reservation_progress == "Close"
+                          - elsif mt.reservation_progress == Settings.reservation.progress.listing_closed
                             .state.state-normal
                               = mt.reservation_progress
                           /- else

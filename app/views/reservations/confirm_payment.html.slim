@@ -89,7 +89,7 @@
           .text-center
             .btn-wrapper
               - if Rails.env.production?
-                = f.submit "Complete payment", name: 'payment', class: "btn btn-primary", onclick: "_gaq.push(['_trackEvent', 'reservation', 'accept']);"
+                = f.submit "Complete payment", name: 'purchase', class: "btn btn-primary", onclick: "_gaq.push(['_trackEvent', 'reservation', 'accept']);"
               - else
-                = f.submit "Complete payment", name: 'payment', class: "btn btn-primary"
-              = f.submit "Cancel payment", name: 'payment_cancel', class: "btn"
+                = f.submit "Complete payment", name: 'purchase', class: "btn btn-primary"
+              = f.submit "Cancel payment", name: 'cancel_payment', class: "btn"

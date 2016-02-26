@@ -67,7 +67,7 @@
                   td
                     = payment.reservation.schedule
                   td
-                    = payment.refund_date
+                    = payment.reservation.updated_at if payment.reservation.canceled_after_accepted?
                   td
                     = payment.reservation.num_of_people
                   td
@@ -116,30 +116,30 @@
                       - settlement_amount = guide_amount + service_fee_guest
                       = settlement_amount
                   td
-                    - if cancel_by == 0
+                    - if payment.reservation.default?
                       |
-                    - elsif cancel_by == 1
+                    - elsif payment.reservation.guide?
                       | ガイドキャンセル
-                    - elsif cancel_by == 2
+                    - elsif payment.reservation.guest_before_weeks?
                       | ゲストキャンセルA
-                    - elsif cancel_by == 3
+                    - elsif payment.reservation.guest_before_days?
                       | ゲストキャンセルB
-                    - elsif cancel_by == 4
+                    - elsif payment.reservation.guest_less_than_days?
                       | ゲストキャンセルC
                   td
-                    - if cancel_by == 0
+                    - if payment.reservation.default?
                       - fixed_amount = guide_amount * 1
                       = fixed_amount
-                    - elsif cancel_by == 1
+                    - elsif payment.reservation.guide?
                       - fixed_amount = guide_amount * 0
                       = fixed_amount
-                    - elsif cancel_by == 2
+                    - elsif payment.reservation.guest_before_weeks?
                       - fixed_amount = guide_amount * 0
                       = fixed_amount
-                    - elsif cancel_by == 3
+                    - elsif payment.reservation.guest_before_days?
                       - fixed_amount = (guide_amount * 0.5).ceil
                       = fixed_amount
-                    - elsif cancel_by == 4
+                    - elsif payment.reservation.guest_less_than_days?
                       - fixed_amount = guide_amount * 1
                       = fixed_amount
                   td
@@ -147,19 +147,19 @@
                   td
                     = fixed_amount - (fixed_amount * 0.145).ceil
                   td
-                    - if cancel_by == 0
+                    - if payment.reservation.default?
                       = settlement_amount * 0
-                    - elsif cancel_by == 1
+                    - elsif payment.reservation.guide?
                       = settlement_amount * 1
-                    - elsif cancel_by == 2
+                    - elsif payment.reservation.guest_before_weeks?
                       = settlement_amount * 1
-                    - elsif cancel_by == 3
+                    - elsif payment.reservation.guest_before_days?
                       = (settlement_amount * 0.5).ceil
-                    - elsif cancel_by == 4
+                    - elsif payment.reservation.guest_less_than_days?
                       = settlement_amount * 0
                   td
-                    - if cancel_by != 0
-                      - if payment.payment_status == 'Cancelled'
+                    - if !payment.reservation.default?
+                      - if payment.refund_disabled?
                         | 'NG'
                   td
                     = payment.transaction_id

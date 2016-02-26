@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218033905) do
+ActiveRecord::Schema.define(version: 20160225152203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -381,7 +381,6 @@ ActiveRecord::Schema.define(version: 20160218033905) do
     t.string   "payer_id",         default: ""
     t.string   "payers_status",    default: ""
     t.string   "transaction_id",   default: ""
-    t.string   "payment_status",   default: ""
     t.integer  "amount"
     t.string   "currency_code",    default: ""
     t.string   "email",            default: ""
@@ -392,6 +391,7 @@ ActiveRecord::Schema.define(version: 20160218033905) do
     t.datetime "refund_date"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.integer  "status",           default: 0
   end
 
   add_index "payments", ["reservation_id"], name: "index_payments_on_reservation_id", using: :btree
@@ -498,9 +498,9 @@ ActiveRecord::Schema.define(version: 20160218033905) do
     t.string   "caption",     default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.string   "cover_image", default: ""
     t.integer  "order_num"
     t.boolean  "cover_flg",   default: false
+    t.string   "cover_image"
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree
@@ -734,7 +734,6 @@ ActiveRecord::Schema.define(version: 20160218033905) do
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["id"], name: "index_users_on_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree

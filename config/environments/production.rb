@@ -115,5 +115,11 @@ Rails.application.configure do
 
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :production
+    paypal_options = {
+      login: Rails.application.secrets.paypal_express_user_name,
+      password: Rails.application.secrets.paypal_express_user_password,
+      signature: Rails.application.secrets.paypal_express_signature
+    }
+    ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
   end
 end

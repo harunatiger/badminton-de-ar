@@ -32,13 +32,48 @@ class Ngevent < ActiveRecord::Base
   validates :start, presence: true
   #validates :end, presence: true, date: { after: :start }
 
-  def self.change_date(ngevent_params, reservation_id)
-    ngevent_before = Ngevent.where(reservation_id: reservation_id).first
-    if ngevent_before.present?
-      ngevent_before.update(ngevent_params)
-    else
-      self.create(ngevent_params)
-    end
+  def self.set_date(reservation)
+    ngevent_params = Hash[
+          'reservation_id' => reservation.id,
+          'listing_id' => reservation.listing_id,
+          'user_id' => reservation.host_id,
+          'guest_id' => reservation.guest_id,
+          'start' => reservation.schedule,
+          'end' => reservation.schedule_end,
+          'end_bk' => reservation.schedule_end,
+          'mode' => 2,  # 1:reservation_mode,  2:requet_mode
+          'active' => 1,# 0:no actice
+          'color' => 'red'
+          ]
+    self.create(ngevent_params)
+  end
+  
+  def self.offer(reservation)
+    ngevent_params = Hash[
+          'reservation_id' => reservation.id,
+          'listing_id' => reservation.listing_id,
+          'user_id' => reservation.host_id,
+          'guest_id' => reservation.guest_id,
+          'start' => reservation.schedule,
+          'end' => reservation.schedule_end,
+          'end_bk' => reservation.schedule_end,
+          'mode' => 2,  # 1:reservation_mode,  2:requet_mode
+          'active' => 1,# 0:no actice
+          'color' => 'red'
+          ]
+    ng_event = self.find_by(reservation_id: reservation.id)
+    return ng_event.update(ngevent_params) if ng_event.present?
+    return self.create(ngevent_params)
+  end
+  
+  def self.cancel(reservation)
+    ng_event = self.where(reservation_id: reservation.id)
+    ng_event.destroy_all
+  end
+  
+  def self.accept(reservation)
+    ng_event = self.find_by(reservation_id: reservation.id)
+    ng_event.update_attributes({:active => 1, :mode => 1})
   end
 
   def is_settable(current_event_id, listing_id)

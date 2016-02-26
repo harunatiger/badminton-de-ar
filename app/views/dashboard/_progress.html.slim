@@ -4,7 +4,7 @@
 - elsif r.canceled? || r.listing_closed? || r.canceled_after_accepted?
   span.label.status-contact
     = r.string_of_progress
-- elsif r.holded?
+- elsif r.under_construction?
   span.label.status-withhold.text-blue
     = r.string_of_progress
 - elsif r.accepted?

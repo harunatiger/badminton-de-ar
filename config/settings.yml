@@ -135,13 +135,14 @@ reservation:
   progress:
     select: "予約を承認しますか？"
     select_by_guest: "予約をキャンセルする場合は、選択してください。"
-    requested: "requested"
-    canceled: "canceled"
-    holded: "holded"
-    accepted: "accepted"
-    rejected: "rejected"
-    listing_closed: "listing_closed"
-    canceled_after_accepted: "canceled_after_accepted"
+    requested: "Request"
+    canceled: "Cancelled"
+    under_construction: "Under construction"
+    accepted: "Accept"
+    rejected: "Delete"
+    listing_closed: "Close"
+    canceled_after_accepted: "Cancelled"
+    finished: "Finished"
   progress_for_message_thread:
     requested: "Sending your tour plan..."
     canceled: "Sorry, Your request(Booking your tour) has been cancelled"
@@ -155,6 +156,7 @@ payment:
     policy: '8日以上前のキャンセル  ：エスクロー分の全額返金、1日〜7日前のキャンセル：エスクロー分の50％返金、24時間以内のキャンセル：返金なし'
     before_weeks_rate: 100
     before_days_rate: 50
+    guide_cancel: 100
     withdraw_as_guide: 100
     withdraw_as_guest: 0
 message_thread:
@@ -270,12 +272,17 @@ mailer:
     subject:
       #canceled: "予約がキャンセルされました。"
       canceled: "Reservation has been canceled."
-      #holded: "予約が保留されました。"
-      holded: "Reservation has been holded."
+      #under_construction: "予約が保留されました。"
+      under_construction: "Reservation has been holded."
       #accepted: "予約が成立しました！"
       accepted: "Reservation has been accepted!"
       #rejected: "予約が不成立となりました。"
       rejected: "Reservation has been rejected."
+    body:
+      canceled: "canceled"
+      under_construction: "holded"
+      accepted: "accepted"
+      rejected: "rejected"
   review_notification:
     #subject: "レビューの記入をしませんか？"
     subject: "Please write a review for "

@@ -71,24 +71,25 @@ ActiveAdmin.register_page "Payment" do
             end
 
             #cancel
-            cancel_by = payment.reservation.cancel_by
-            if cancel_by == 0
+            reservation = payment.reservation
+            #{ default: 0, guide: 1, guest_before_weeks: 2, guest_before_days: 3, guest_less_than_days: 4}
+            if reservation.default?
               refund_reason = ''
               fixed_amount = guide_amount * 1
               guest_refund = settlement_amount * 0
-            elsif cancel_by == 1
+            elsif reservation.guide?
               refund_reason = 'ガイドキャンセル'
               fixed_amount = guide_amount * 0
               guest_refund = settlement_amount * 1
-            elsif cancel_by == 2
+            elsif reservation.guest_before_weeks?
               refund_reason = 'ゲストキャンセルA'
               fixed_amount = guide_amount * 0
               guest_refund = settlement_amount * 1
-            elsif cancel_by == 3
+            elsif reservation.guest_before_days?
               refund_reason = 'ゲストキャンセルB'
               fixed_amount = (guide_amount * 0.5).ceil
               guest_refund = (settlement_amount * 0.5).ceil
-            elsif cancel_by == 4
+            elsif reservation.guest_less_than_days?
               refund_reason = 'ゲストキャンセルC'
               fixed_amount = guide_amount * 1
               guest_refund = settlement_amount * 0
@@ -97,8 +98,8 @@ ActiveAdmin.register_page "Payment" do
             service_fee_guide = (fixed_amount * 0.145).ceil
             guide_payment = fixed_amount - (fixed_amount * 0.145).ceil
 
-            if cancel_by != 0
-              refund_complete = 'NG' if payment.payment_status == 'Cancelled'
+            if !reservation.default?
+              refund_complete = 'NG' if payment.refund_disabled?
             end
 
             host_profit_info = {
