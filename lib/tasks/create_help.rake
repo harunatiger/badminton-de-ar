@@ -2,34 +2,31 @@ namespace :helptopic do
   desc "create records to HelpCategory"
   task create: :environment do
     help_categories = []
-    help_categories << {'id' =>  1,'name_ja' =>  "その他のQ&A",'name_en' =>  "Other Q&A",'parent_id' =>  nil,'lft' =>  1,'rgt' =>  24}
-    help_categories << {'id' =>  2,'name_ja' =>  "ガイドのQ&A",'name_en' =>  "Guide Q&A",'parent_id' =>  nil,'lft' =>  1,'rgt' =>  24}
-    help_categories << {'id' =>  3,'name_ja' =>  "はじめに",'name_en' =>  "Getting started",'parent_id' =>  1,'lft' =>  2,'rgt' =>  3}
-    help_categories << {'id' =>  4,'name_ja' =>  "新規登録",'name_en' =>  "Sign up",'parent_id' =>  1,'lft' =>  4,'rgt' =>  5}
-    help_categories << {'id' =>  5,'name_ja' =>  "プロフィール管理",'name_en' =>  "Manage your profile",'parent_id' =>  1,'lft' =>  6,'rgt' =>  13}
-    help_categories << {'id' =>  6,'name_ja' =>  "プロフィール",'name_en' =>  "Profile",'parent_id' =>  5,'lft' =>  7,'rgt' =>  8}
-    help_categories << {'id' =>  7,'name_ja' =>  "認証",'name_en' =>  "Verification",'parent_id' =>  5,'lft' =>  9,'rgt' =>  10}
-    help_categories << {'id' =>  8,'name_ja' =>  "退会",'name_en' =>  "Quit",'parent_id' =>  5,'lft' =>  11,'rgt' =>  12}
-    help_categories << {'id' =>  9,'name_ja' =>  "セキュリティ＆パスワード",'name_en' =>  "Security&Password",'parent_id' =>  1,'lft' =>  14,'rgt' =>  15}
-    help_categories << {'id' =>  10,'name_ja' =>  "言語&通貨",'name_en' =>  "Other Q&A",'parent_id' =>  1,'lft' =>  16,'rgt' =>  17}
-    help_categories << {'id' =>  11,'name_ja' =>  "ツアー予約までの流れ",'name_en' =>  "Booking a tour",'parent_id' =>  1,'lft' =>  18,'rgt' =>  19}
-    help_categories << {'id' =>  12,'name_ja' =>  "ツアーのキャンセル",'name_en' =>  "Tour cancel",'parent_id' =>  1,'lft' =>  20,'rgt' =>  21}
-    help_categories << {'id' =>  13,'name_ja' =>  "ツアー体験",'name_en' =>  "Experience",'parent_id' =>  1,'lft' =>  22,'rgt' =>  23}
-    help_categories << {'id' =>  14,'name_ja' =>  "ガイドをはじめる前に",'name_en' =>  "Before you start guide",'parent_id' =>  2,'lft' =>  26,'rgt' =>  27}
-    help_categories << {'id' =>  15,'name_ja' =>  "ツアーを作る",'name_en' =>  "Make your tour",'parent_id' =>  2,'lft' =>  28,'rgt' =>  39}
-    help_categories << {'id' =>  16,'name_ja' =>  "事前準備",'name_en' =>  "Be ready for making tour",'parent_id' =>  15,'lft' =>  29,'rgt' => 30}
-    help_categories << {'id' =>  17,'name_ja' =>  "ツアー登録",'name_en' =>  "Create a tour",'parent_id' =>  15,'lft' =>  31,'rgt' =>  32}
-    help_categories << {'id' =>  18,'name_ja' =>  "紹介画像・動画",'name_en' =>  "Pictures and movie for your tour",'parent_id' =>  15,'lft' =>  33,'rgt' =>  34}
-    help_categories << {'id' =>  19,'name_ja' =>  "料金・条件",'name_en' =>  "Price and condition",'parent_id' =>  15,'lft' =>  35,'rgt' =>  36}
-    help_categories << {'id' =>  20,'name_ja' =>  "ツアーを公開する",'name_en' =>  "Publish tour",'parent_id' =>  15,'lft' =>  37,'rgt' =>  38}
-    help_categories << {'id' =>  21,'name_ja' =>  "ガイドする",'name_en' =>  "Start guide",'parent_id' =>  2,'lft' =>  40,'rgt' =>  47}
-    help_categories << {'id' =>  22,'name_ja' =>  "ガイド",'name_en' =>  "Guide",'parent_id' =>  21,'lft' =>  41,'rgt' =>  42}
-    help_categories << {'id' =>  23,'name_ja' =>  "レビュー",'name_en' =>  "Review",'parent_id' =>  21,'lft' =>  43,'rgt' =>  44}
-    help_categories << {'id' =>  24,'name_ja' =>  "代金の受取",'name_en' =>  "Receive your guide reward",'parent_id' =>  21,'lft' =>  45,'rgt' => 46}
-    help_categories << {'id' =>  25,'name_ja' =>  "ガイドの退会",'name_en' =>  "Quit guide",'parent_id' => 2,'lft' => 48,'rgt' => 49}
-    help_categories.each do |help_category|
-      HelpCategory.create(help_category)
-    end
+    root1 = HelpCategory.create({'id' => 1,'name_ja' => "その他のQ&A",'name_en' => "Other Q&A",'parent_id' => nil})
+    root2 = HelpCategory.create({'id' => 2,'name_ja' => "ガイドのQ&A",'name_en' => "Guide Q&A",'parent_id' => nil})
+    child1 = root1.children.create({'id' => 3, 'name_ja' => "はじめに",'name_en' => "Getting started",'parent_id' => 1})
+    child2 = root1.children.create({'id' => 4,'name_ja' => "新規登録",'name_en' => "Sign up",'parent_id' => 1})
+    child3 = root1.children.create({'id' => 5,'name_ja' => "プロフィール管理",'name_en' => "Manage your profile",'parent_id' => 1})
+    child3_1 = child3.children.create({'id' => 6,'name_ja' => "プロフィール",'name_en' => "Profile",'parent_id' => 5})
+    child3_2 = child3.children.create({'id' => 7,'name_ja' => "認証",'name_en' => "Verification",'parent_id' => 5})
+    child3_3 = child3.children.create({'id' => 8,'name_ja' => "退会",'name_en' => "Quit",'parent_id' => 5})
+    child4 = root1.children.create({'id' => 9,'name_ja' => "セキュリティ＆パスワード",'name_en' => "Security&Password",'parent_id' => 1})
+    child5 = root1.children.create({'id' => 10,'name_ja' => "言語&通貨",'name_en' => "Language&Currency",'parent_id' => 1})
+    child6 = root1.children.create({'id' => 11,'name_ja' => "ツアー予約までの流れ",'name_en' => "Booking a tour",'parent_id' => 1})
+    child7 = root1.children.create({'id' => 12,'name_ja' => "ツアーのキャンセル",'name_en' => "Tour cancel",'parent_id' => 1})
+    child8 = root1.children.create({'id' => 13,'name_ja' => "ツアー体験",'name_en' => "Experience",'parent_id' => 1})
+    child9 = root2.children.create({'id' => 14,'name_ja' => "ガイドをはじめる前に",'name_en' => "Before you start guide",'parent_id' => 2})
+    child10 = root2.children.create({'id' => 15,'name_ja' => "ツアーを作る",'name_en' => "Make your tour",'parent_id' => 2})
+    child10_1 = child10.children.create({'id' => 16,'name_ja' => "事前準備",'name_en' => "Be ready for making tour",'parent_id' => 15})
+    child10_2 = child10.children.create({'id' => 17,'name_ja' => "ツアー登録",'name_en' => "Create a tour",'parent_id' => 15})
+    child10_3 = child10.children.create({'id' => 18,'name_ja' => "紹介画像・動画",'name_en' => "Pictures and movie for your tour",'parent_id' => 15})
+    child10_4 = child10.children.create({'id' => 19,'name_ja' => "料金・条件",'name_en' => "Price and condition",'parent_id' => 15})
+    child10_5 = child10.children.create({'id' => 20,'name_ja' => "ツアーを公開する",'name_en' => "Publish tour",'parent_id' => 15})
+    child11 = root2.children.create({'id' => 21,'name_ja' => "ガイドする",'name_en' => "Start guide",'parent_id' => 2})
+    child12 = child11.children.create({'id' => 22,'name_ja' => "ガイド",'name_en' => "Guide",'parent_id' => 21})
+    child13 = child11.children.create({'id' => 23,'name_ja' => "レビュー",'name_en' => "Review",'parent_id' => 21})
+    child14 = child11.children.create({'id' => 24,'name_ja' => "代金の受取",'name_en' => "Receive your guide reward",'parent_id' => 21})
+    child15 = root2.children.create({'id' => 25,'name_ja' => "ガイドの退会",'name_en' => "Quit guide",'parent_id' => 2})
 
     help_topics = []
     help_topics << {
