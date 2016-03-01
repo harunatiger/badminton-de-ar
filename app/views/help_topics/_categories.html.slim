@@ -35,9 +35,10 @@
               = link_to :anchor => "category-#{c.id}" do
                 = c.name
                 i.fa.fa-angle-right
-    ul.help-nav-footer.text-center
-      li
-        = link_to I18n.t("help.help_guide_link"), '#', class: 'help_guide_trigger'
+    - if current_user.listings.present?
+      ul.help-nav-footer.text-center
+        li
+          = link_to I18n.t("help.help_guide_link"), '#', class: 'help_guide_trigger'
   .help_guide_list
     ul
       - if categories_guide.present?
@@ -96,9 +97,10 @@
             li.help-category-item.anchor-scroll
               = link_to :anchor => "category-#{c.id}" do
                 = c.name
-    ul.help-nav-footer.text-right
-      li.btn
-        = link_to I18n.t("help.help_guide_link"), '#', class: 'help_guide_trigger'
+    - if current_user.listings.present?
+      ul.help-nav-footer.text-right
+        li.btn
+          = link_to I18n.t("help.help_guide_link"), '#', class: 'help_guide_trigger'
   .help_guide_list
     ul
       - if categories_guide.present?

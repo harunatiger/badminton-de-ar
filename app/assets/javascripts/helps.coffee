@@ -76,9 +76,9 @@ $ ->
           $('li.help-category-item a').removeClass('nav-active')
           $(this).addClass('nav-active')
           $('.collapse.in').collapse('hide')
-          #child_first_elem = $(this).parent().next().find('li.help-category-item-children:first').children('a')
-          #if child_first_elem.length != -1
-            #child_first_elem.addClass('nav-active')
+          child_first_elem = $(this).parent().next().find('li.help-category-item-children:first').children('a')
+          if child_first_elem.length != -1
+            child_first_elem.addClass('nav-active')
 
           if $(this).parent().next().hasClass('collapse in')
             $(this).parent().next().collapse('hide')
@@ -92,6 +92,7 @@ $ ->
         $(this).on 'click', (e) ->
           $('li.help-category-item a').removeClass('nav-active')
           $(this).addClass('nav-active')
+          $(this).parent().parent().prev('.parent-category').find('a').addClass('nav-active')
           getScrollTarget($(this).attr('href'))
 
 
@@ -133,8 +134,8 @@ $ ->
           else
             $(this).parent().next().collapse('show')
             $(this).parent().next().css('padding-left','30px')
-
-          getScrollTarget($(this).attr('href'))
+          return false
+          #getScrollTarget($(this).attr('href'))
 
       $('li.help-category-item-children.anchor-scroll a').each ->
         $(this).on 'click', (e) ->
