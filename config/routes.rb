@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'static_pages/specific_commercial_transactions_jp'
   get 'static_pages/privacy_policy_jp'
   get 'static_pages/about'
-  
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -107,10 +107,12 @@ Rails.application.routes.draw do
     get 'reservation_ngdays', on: :collection
     get 'request_ngdays', on: :collection
     get 'common_ngdays', on: :collection
+    get 'set_ngday_listing', on: :collection
   end
   resources :ngevent_weeks do
     get 'except_common_ngweeks', on: :collection
     get 'common_ngweeks', on: :collection
+    get 'set_ngweek_listing', on: :collection
     put 'unset', on: :collection
   end
   resources :calendar do

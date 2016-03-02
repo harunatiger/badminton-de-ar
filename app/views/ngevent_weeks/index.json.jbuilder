@@ -4,7 +4,7 @@ json.array!(@ngevent_weeks) do |week|
   json.selectable('false')
   json.editable('false')
   json.className do
-    json.array! ['ng-event-week', 'fa', 'fa-close']
+    json.array! ['ng-event-week', 'listing' + (week.listing_id).to_s]
   end
   json.dow do
     json.array! [week.dow]

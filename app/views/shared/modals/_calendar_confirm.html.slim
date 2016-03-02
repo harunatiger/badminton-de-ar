@@ -1,0 +1,15 @@
+/ modal include_what
+#calendar_confirm.modal[role="dialog" aria-hidden="true" class='include_what#{count.to_s if local_assigns[:count].present?}']
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          = link_to "", "#", class: "modal-close iw-dismiss-btn", data: {dismiss: "modal"}
+          | NG日設定
+        form
+          .card-body.text-center
+            #listing_title
+            #comment
+          .card-footer.text-center
+            button#ngdel.btn.btn-primary.disabled 解除する
+            button.btn.btn-default[data-dismiss="modal"]閉じる

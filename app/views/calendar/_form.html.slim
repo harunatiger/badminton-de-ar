@@ -2,26 +2,56 @@
 /= render partial: 'shared/subnav'
 - left_steps = left_step_count_and_elements(@listing)
 - left_step_count = left_steps[0]
-.row.row-calendar
-  .col-xs-12
-    .calendar-header-container
-      /.common-calendar.text-right
-        = link_to '共通カレンダー', common_ngdays_calendar_index_path, class: "btn btn-primary"
-      h3.text-center.row-space-2 都合の悪い日を設定しましょう。
-      p.text-center.row-space-6
-        | カレンダーの日付をクリックすると都合の悪い日として設定され、旅行者はその日を選択できなくなります。
-        br
-        | 連続して都合が悪い日がある場合は、開始日から終了日までをドラッグすることで、
-        br
-        | またカレンダー上部の曜日を選択することで都合の悪い曜日をまとめて設定することもできます。
-        br
-        | 尚、グレーになっている日程を再度クリックすることで都合の悪い日設定を解除できます。
-    .calendar-wrapper.ohidden
-      /#delete_mode
-        /button#delete_btn 日程を削除する
-      #calendar
-.row.row-space-top-6
-  .col-xs-9.col-offset-3.text-reset-center
-    = link_to "保存する", listings_path(current_user), class: "btn btn-primary btn-large"
-    - if left_step_count.zero?
-      = link_to "公開する", listing_publish_path(@listing), class: "btn btn-primary btn-large"
+#calendar-container
+  .row.row-calendar
+    .col-xs-12
+      .calendar-header-container
+        h3.text-center.row-space-2 NG日の設定
+        p.text-center.row-space-2
+          | ゲストから予約リクエストを受け付けない日を設定してください。
+        .collapse-panel
+          .collapse-heading
+            .calendar-description
+              .row
+                .col-sm-12.col-md-6
+                  | 予約リクエストを受け付けない日を設定する方法
+                .col-sm-12.col-md-6.text-right
+                  | 詳しく見る
+                  i.fa.fa-caret-down
+          .collapse
+            .collapse-body
+              i.fa.fa-square-o
+              | 予約リクエストを受け付けない日を設定する方法
+              ol
+                li カレンダー上部で設定する対象ツアーを選択します。
+                li
+                  | 日付をクリックして設定します。
+                  br
+                  | 開始日から終了日までをドラッグするとまとめて設定できます。
+                  br
+                  | 曜日を一括設定する場合はカレンダー上部の曜日をクリックしてください。
+              i.fa.fa-square-o
+              | 設定を解除する方法
+              ol
+                li 設定した日をクリックすると設定された内容と解除ボタンが表示されます。
+                li
+                  | 解除ボタンを押すと設定が解除されます。
+                  br
+                  | ＊尚、予約日は解除できません。
+        hr
+        p.text-left.row-space-2.row-space-top-4
+          | ツアーの予約が確定している日や相談を受けている日を表示しています。
+          br
+          | 予定が入っている日をクリックすると内容が確認できます。
+      .listing-container.row-space-2.row-space-top-2
+        .select
+          = select_tag :calendar_listing, options_from_collection_for_select(@listings, :id, :title, @listing.id), :prompt => "全てのツアー"
+        | の予約を受け付けない日を設定する
+      .calendar-wrapper.ohidden
+        #calendar
+  .row.row-space-top-6
+    .col-xs-9.col-offset-3.text-reset-center
+      = link_to "保存する", listings_path(current_user), class: "btn btn-primary btn-large"
+      - if left_step_count.zero?
+        = link_to "公開する", listing_publish_path(@listing), class: "btn btn-primary btn-large"
+= render partial: '/shared/modals/calendar_confirm'

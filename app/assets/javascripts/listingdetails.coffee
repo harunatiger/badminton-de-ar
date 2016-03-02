@@ -150,6 +150,14 @@ $ ->
       return
     return
 
+  $('.calendar-description').on 'click', (e) ->
+    if $(this).parents('.collapse-panel').hasClass('active')
+      $(this).parents('.collapse-heading').next().collapse('hide')
+      $(this).parents('.collapse-panel').removeClass('active')
+    else
+      $(this).parents('.collapse-heading').next().collapse('show')
+      $(this).parents('.collapse-panel').addClass('active')
+
 #calc price
 $ ->
   price = Number($('#listing_detail_price').val())
