@@ -1,0 +1,8 @@
+ID認証依頼がありました。
+
+■ユーザ名
+  <%= user_obj_to_name(@user) %>　さん
+■プロフィールURL
+  <%= profile_url(@user.profile.id)%>
+■管理画面URL
+  <%= admin_profile_identity_url(@user.profile_identity.id)%>

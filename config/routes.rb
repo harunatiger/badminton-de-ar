@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       put 'change_order', on: :collection
     end
     resources :profile_banks
-    resources :profile_identities
+    resources :profile_identities, only: [:new, :edit, :create, :update, :destroy]
     resources :profile_keywords
     member do
       get 'self_introduction',    action: 'self_introduction'
