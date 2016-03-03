@@ -33,6 +33,8 @@ en:
       profile_bank:
         user_name: '口座名義'
         number: '口座番号'
+      profile_identity:
+        image: 'ID picture'
   mailer:
     new_message:
       subject:

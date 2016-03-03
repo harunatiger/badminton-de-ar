@@ -309,6 +309,8 @@ mailer:
     subject: "Huber.ガイド希望の確認メール"
   reply_mail_to_admin:
     subject: "ゲストへの返信がまだ行われていません"
+  send_id_uploaded_notification:
+    subject: 'ID認証依頼がありました。'
 left_steps:
   listing_image: "listing_image"
   listing_detail: "listing_detail"
