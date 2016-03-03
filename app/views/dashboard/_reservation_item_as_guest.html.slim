@@ -37,6 +37,7 @@
               - else
                 .state.state-normal
                   | Cancelled
+                br
               - if r.completed?
                 div
                   - if host.soft_destroyed?
@@ -46,7 +47,7 @@
                 /= simple_form_for(r, html: { class: "cancel-reservation-form" }) do |f|
                   = f.hidden_field :message_thread_id, value: r.message_thread_id
                   = f.submit 'Cancel', name: 'cancel', class: 'btn btn-thread row-space-top-1 row-space-1'
-              = render partial: 'shared/modals/confirm_cancel', locals: { r: r}
+                = render partial: 'shared/modals/confirm_cancel', locals: { r: r}
               = link_to "#", class: "small2 about_cancel_link" do
                 | Guest Refund Policy
         .col-md-12.row-space-top-2
