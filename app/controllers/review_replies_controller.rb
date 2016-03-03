@@ -3,7 +3,7 @@ class ReviewRepliesController < ApplicationController
   before_action :regulate_user!
   before_action :set_reservation
   before_action :set_review
-  before_action :set_review_reply
+  #before_action :set_review_reply
   
   def new
     @review_reply = ReviewReply.new
@@ -30,9 +30,9 @@ class ReviewRepliesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_review_reply
-      @review_reply = ReviewReply.find_by(review_id: @review.id)
-    end
+    #def set_review_reply
+    #  @review_reply = ReviewReply.find_by(review_id: @review.id)
+    #end
 
     def set_review
       @review = Review.find_by(reservation_id: params[:reservation_id])
@@ -47,12 +47,8 @@ class ReviewRepliesController < ApplicationController
       review = Review.where(reservation_id: params[:reservation_id].to_i).first
       if reservation.present?
         if current_user.id == reservation.host_id
-          if review.present?
-            if ReviewReply.exists?(review_id: review.id)
-              redirect_to root_path, alert: Settings.regulate_user.entry.deplicated
-            end
-          else
-            redirect_to root_path, alert: Settings.regulate_user.review_not_found
+          if review.present? and ReviewReply.exists?(review_id: review.id)
+            redirect_to root_path, alert: Settings.regulate_user.entry.deplicated
           end
         else
           redirect_to root_path, alert: Settings.regulate_user.user_id.failure

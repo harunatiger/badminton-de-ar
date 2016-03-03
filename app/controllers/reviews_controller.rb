@@ -41,12 +41,12 @@ class ReviewsController < ApplicationController
       reservation = Reservation.where(id: params[:reservation_id].to_i).first
       if reservation.present?
         if current_user.id == reservation.guest_id
-          if Review.exists?(reservation_id: reservation.id, guest_id: current_user.id)
+          if User.find(reservation.host_id).soft_destroyed?
+            redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.profile.deleted_profile_id
+          elsif Review.exists?(reservation_id: reservation.id, guest_id: current_user.id)
             redirect_to root_path, alert: Settings.regulate_user.entry.duplicated
-          else
-            if Time.zone.now > reservation.review_expiration_date
-              redirect_to root_path, alert: Settings.regulate_term.expired
-            end
+          elsif !reservation.review_enabled?
+            redirect_to root_path, alert: Settings.regulate_term.expired
           end
         else
           redirect_to root_path, alert: Settings.regulate_user.user_id.failure

@@ -273,7 +273,7 @@ class Reservation < ActiveRecord::Base
     end
   end
 
-  #cancelボタンの表示非表示判断
+  #display cancel button or not
   def completed?
     if self.schedule.present?
       self.accepted? and self.schedule.to_date > Time.zone.today
@@ -282,13 +282,17 @@ class Reservation < ActiveRecord::Base
     end
   end
 
-  #ツアーが終了したかどうか
+  #finished tour or not
   def finished?
     if self.schedule_end.present?
-      self.accepted? and self.schedule_end > Time.zone.today
+      self.accepted? and self.schedule_end < Time.zone.today
     else
       false
     end
+  end
+  
+  def review_enabled?
+    self.finished? and self.schedule_end + Settings.review.expiration_date.day >= Time.zone.today and self.reviewed_at.blank?
   end
 
   def set_price
