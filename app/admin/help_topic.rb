@@ -1,6 +1,7 @@
 ActiveAdmin.register HelpTopic do
   index do
     column :help_category
+    column :order_num
     column :title_ja
     column :body_ja
     column :title_en
@@ -8,6 +9,7 @@ ActiveAdmin.register HelpTopic do
     actions
   end
 
+  filter :order_num
   filter :title_ja
   filter :body_ja
   filter :title_en
@@ -16,6 +18,9 @@ ActiveAdmin.register HelpTopic do
   form do |f|
     inputs 'Details' do
       input :help_category_id, as: :select, collection: HelpCategory.all.map { |c| [c.name_ja, c.id] }
+      input :order_num,
+            :as => :select,
+            :collection => [*1..20]
       input :title_ja
       input :body_ja
       input :title_en
@@ -36,7 +41,7 @@ ActiveAdmin.register HelpTopic do
 
     def permitted_params
       params.permit :utf8, :_method, :authenticity_token, :locale, :commit, :id,
-                    help_topic: [:help_category_id, :title_ja, :body_ja, :title_en, :body_en]
+                    help_topic: [:help_category_id, :title_ja, :body_ja, :title_en, :body_en, :order_num]
     end
   end
 end

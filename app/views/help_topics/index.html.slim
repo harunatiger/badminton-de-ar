@@ -16,14 +16,14 @@
                   h4[id="category-#{category_child.id}"]
                     i.fa.fa-square-o
                     = category_child.name
-                  - HelpTopic.select_topics(category_child.id).each do |topic|
+                  - HelpTopic.select_topics(category_child.id).order_num.each do |topic|
                     li.topic-block
                       .topic-title.strong
                         = topic.title
                       .topic-content
                         = hbr_noescape(topic.body).html_safe
               - else
-                - HelpTopic.select_topics(category.id).each do |topic|
+                - HelpTopic.select_topics(category.id).order_num.each do |topic|
                   li.topic-block
                     .topic-title.strong
                       = topic.title
@@ -41,16 +41,16 @@
                     h4[id="category-#{category_child.id}"]
                       i.fa.fa-square-o
                       = category_child.name
-                    - HelpTopic.where(help_category_id: category_child.id).each do |topic|
+                    - HelpTopic.select_topics(category_child.id).order_num.each do |topic|
                       li.topic-block
                         .topic-title.strong
                           = topic.title
                         .topic-content
-                          = hbr(topic.body).html_safe
+                          = hbr_noescape(topic.body).html_safe
               - else
-                - HelpTopic.where(help_category_id: category.id).each do |topic|
+                - HelpTopic.select_topics(category.id).order_num.each do |topic|
                   li.topic-block
                     .topic-title.strong
                       = topic.title
                     .topic-content
-                      = hbr(topic.body).html_safe
+                      = hbr_noescape(topic.body).html_safe

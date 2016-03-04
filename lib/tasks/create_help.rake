@@ -30,7 +30,7 @@ namespace :helptopic do
 
     help_topics = []
     help_topics << {
-     'id' => 1, 'help_category_id' => 3,
+     'id' => 1, 'help_category_id' => 3, 'order_num' => 1,
      'title_ja' => 'TOMODACHI GUIDEとは？',
      'title_en' => 'What is TOMODACHI GUIDE?',
      'body_ja' => "日本を訪れる外国人旅行者の方々を、英語を学びたい日本人が「友達を持て成すように」ガイドする、新感覚ガイドマッチングサービスです。
@@ -39,7 +39,7 @@ namespace :helptopic do
 With university students as the main users, it is a unique service where you can make a free account and sign up to make tours of your everyday hangouts.    "
     }
     help_topics << {
-     'id' => 2, 'help_category_id' => 3,
+     'id' => 2, 'help_category_id' => 3, 'order_num' => 2,
      'title_ja' => 'TOMODACHI GUIDEの特徴は？',
      'title_en' => 'What is feature of TOMODACHI GUIDE',
      'body_ja' => '①地元ならではの、今までにないツアーがいっぱい
@@ -62,7 +62,7 @@ TOMODACHI GUIDE is not a normal guide, but a sharing experience.
 TOMODACHI GUIDE is a platform where the main users are university students who want to learn English. They are really excited to meet you. Talk with them, ask them about Japan and then become closer with them. This will make your trip the best it can be.'
     }
     help_topics << {
-     'id' => 3, 'help_category_id' => 3,
+     'id' => 3, 'help_category_id' => 3, 'order_num' => 3,
      'title_ja' => 'ツアー申込みまでの流れ',
      'title_en' => 'How it works',
      'body_ja' => "①Find trips for you
@@ -85,14 +85,14 @@ TOMODACHI GUIDE is a platform where the main users are university students who w
       Don't feel confined to the plan and feel free to be spontaneous on your trip!"
     }
     help_topics << {
-     'id' => 4, 'help_category_id' => 3,
+     'id' => 4, 'help_category_id' => 3, 'order_num' => 4,
      'title_ja' => 'ツアーが終わったら',
      'title_en' => 'After you finish tour',
      'body_ja' => "TOMODACHI GUIDEたちは、あなたを満足させられたかどうか、とても気になっていると思います。ツアー終了後にはレビュー依頼のメールが送られますので、あなたなりに感じたツアーの評価を伝えてあげてください。それが彼らのモチベーションになります。",
      'body_en' => "TOMODACHI GUIDEs really want to make sure they can offer the best tours. After the tour, please give a review to your guide. This will help them in future tours."
     }
     help_topics << {
-     'id' => 5, 'help_category_id' => 4,
+     'id' => 5, 'help_category_id' => 4, 'order_num' => 1,
      'title_ja' => 'アカウントを作成するにはどうすればいいですか？',
      'title_en' => 'How can I sign up',
      'body_ja' => "Huber.のアカウントをお持ちでない方は<a href='http://localhost:3000/users/sign_up'>こちら</a>から登録できます。
@@ -106,21 +106,21 @@ You can make a Huber account for free.
 After you finish making your account, please complete your profile."
     }
     help_topics << {
-     'id' => 6, 'help_category_id' => 6,
+     'id' => 6, 'help_category_id' => 6, 'order_num' => 1,
      'title_ja' => 'Account infomationって何ですか？',
      'title_en' => 'What is Account information?',
      'body_ja' => "プロフィール情報の記入項目欄への情報追加状況の進捗を示しています。",
      'body_en' => "It shows how much you proceed to enter your information."
     }
     help_topics << {
-     'id' => 7, 'help_category_id' => 7,
+     'id' => 7, 'help_category_id' => 7, 'order_num' => 1,
      'title_ja' => 'ID認証ってなんですか？',
      'title_en' => 'What is ID verification?',
      'body_ja' => "ID認証はHuber.のプロフィールをFacebookのプロフィールやお電話番号、メールアドレス、写真入り身分証明書などの個人情報と繋げ、本人確認をする機能です。",
      'body_en' => "ID verification is a function to confirm your identity by connecting your private information with your Facebook account, phone number, email address and official photo ID."
     }
     help_topics << {
-     'id' => 8, 'help_category_id' => 7,
+     'id' => 8, 'help_category_id' => 7, 'order_num' => 2,
      'title_ja' => '認証済みIDとは何ですか？',
      'title_en' => 'What is verified ID?',
      'body_ja' => "「認証済みID取得プロセス」は、コミュニティ内部の信頼を高め、ゲスト・ホストともに安心してサービスを利用できるサービスとするために導入しています。
@@ -128,9 +128,9 @@ After you finish making your account, please complete your profile."
 ◼︎認証済みID取得の流れ
 ID認証は、Huber.のプロフィールを他の情報元と照会することで行われます。ID認証に際しては、Huber.から次のようなことをお願いすることがあります。
 
-１、政府発行の写真付き身分証明書（パスポートなど）のスキャン画像をアップロードすること
-２、Facebookなどの外部アカウントのオンライン・プロフィールとHuber.アカウントを連携させること
-３、Huber.アカウントのプロフィールに顔写真をアップロードし、電話番号とメールアドレスを入力すること
+１．政府発行の写真付き身分証明書（パスポートなど）のスキャン画像をアップロードすること
+２．Facebookなどの外部アカウントのオンライン・プロフィールとHuber.アカウントを連携させること
+３．Huber.アカウントのプロフィールに顔写真をアップロードし、電話番号とメールアドレスを入力すること
 
 ◼︎認証完了はどんな時に必要？
 サイトでは一定の状況下で、ID認証完了を要求されます。
@@ -161,7 +161,7 @@ In addition, Huber will never make posts on your behalf if you connect your acco
 When your ID is approved, your profile will display your ID confirmed status. Both guests and guides care about whether or not your ID is approved when they decide to book the tour."
     }
     help_topics << {
-     'id' => 9, 'help_category_id' => 7,
+     'id' => 9, 'help_category_id' => 7, 'order_num' => 3,
      'title_ja' => 'メール通知が届きません。なぜ？',
      'title_en' => "Why can't I recieve notification?",
      'body_ja' => "◼︎メールアドレスに間違いがないかチェック
@@ -191,14 +191,14 @@ Emails from Huber might accidentally get sorted into the Junk email folder.
 '
     }
     help_topics << {
-     'id' => 10, 'help_category_id' => 8,
+     'id' => 10, 'help_category_id' => 8, 'order_num' => 1,
      'title_ja' => '退会するには？',
      'title_en' => "How to quit",
      'body_ja' => "マイページのAccount内にある退会欄から手続きが可能です。
 ツアー予約がされている状態で退会手続きを行うと、すべてのツアーはキャンセルポリシーに則り、キャンセルされます。
 ツアー実施１４日以内でのキャンセルについては、キャンセル手数料が発生しますので、詳しくはサービス規約をご確認ください。
 
-＊ガイドの退会の場合はは条件が変わりますので、「ガイドの退会」をご覧ください。",
+＊ガイドの退会の場合は条件が変わりますので、「ガイドの退会」をご覧ください。",
      'body_en' => 'You can delete your account in the "Account" section of your page.
 If you quit with bookings still active, your bookings will be cancelled based on our cancellation policy.
 You will be charged a cancellation fee if you cancel less than 14 days before your tour.
@@ -206,40 +206,40 @@ You will be charged a cancellation fee if you cancel less than 14 days before yo
 *Please be aware that there are different conditions for deletion of a guide account. Refer to "Deletion of Guide Accounts" for more details.'
     }
     help_topics << {
-     'id' => 11, 'help_category_id' => 9,
+     'id' => 11, 'help_category_id' => 9, 'order_num' => 1,
      'title_ja' => 'パスワードを再設定するにはどうすればいいですか？',
      'title_en' => "How can I reset my password?",
-     'body_ja' => "１、ログイン時の画面で「Forgot your password?」をクリックします。
-２、次の画面で、登録したメールアドレスを入力します。
-３、届いたメール内のリンク「Changing password」をクリックします。
-４、新しいパスワードを再設定し、完了。",
+     'body_ja' => "１．ログイン時の画面で「Forgot your password?」をクリックします。
+２．次の画面で、登録したメールアドレスを入力します。
+３．届いたメール内のリンク「Changing password」をクリックします。
+４．新しいパスワードを再設定し、完了。",
      'body_en' => '1. Click "Forget your password?"
 2. Enter your registered email address in the next page
 3. When you receive the email from Huber, follow the link to change your password.
 4. Reset new password'
 }
     help_topics << {
-     'id' => 12, 'help_category_id' => 9,
+     'id' => 12, 'help_category_id' => 9, 'order_num' => 2,
      'title_ja' => 'Huber.登録メールアドレスの変更方法は？',
      'title_en' => "How can I change email address registered on Huber?",
-     'body_ja' => "１、マイアカウントの「Profile」をクリック
-２、「E-mail address」をクリック
-３、Change E-mail address 欄にて、新しいメールアドレスを入力
-４、画面下部の「Change E-mail address」をクリックし、完了。",
+     'body_ja' => "１．マイアカウントの「Profile」をクリック
+２．「E-mail address」をクリック
+３．Change E-mail address 欄にて、新しいメールアドレスを入力
+４．画面下部の「Change E-mail address」をクリックし、完了。",
      'body_en' => '1. Click "Profile" in your account.
 2. Click "Email address"
 3. Enter new email address in "Change email address"
 4. Click "Change email address" on the screen below.'
     }
     help_topics << {
-     'id' => 13, 'help_category_id' => 10,
+     'id' => 13, 'help_category_id' => 10, 'order_num' => 1,
      'title_ja' => '支払いはどの通貨でも大丈夫？',
      'title_en' => "Is any currency available?",
      'body_ja' => "ツアーの料金の支払いは、円建てでの支払いになります。",
      'body_en' => "Guide price is paid by Japanese yen,"
     }
     help_topics << {
-     'id' => 14, 'help_category_id' => 10,
+     'id' => 14, 'help_category_id' => 10, 'order_num' => 2,
      'title_ja' => '為替レートはどのように計算されますか？',
      'title_en' => "How is currency rate culculated?",
      'body_ja' => "当社はPayPal決済を採用しております。お支払で使用する通貨（予約の通貨）が円以外の通貨の場合、PayPal内の独自為替レートにて換算され支払われます。詳しくはPayPal内のQ&Aをご参照ください。",
@@ -247,7 +247,7 @@ You will be charged a cancellation fee if you cancel less than 14 days before yo
 Please check the PayPal Q&A for detail."
     }
     help_topics << {
-     'id' => 15, 'help_category_id' => 11,
+     'id' => 15, 'help_category_id' => 11, 'order_num' => 1,
      'title_ja' => '魅力的なツアーを探しましょう',
      'title_en' => "Look for attractive tour for you",
      'body_ja' => "エリア、カテゴリ、ガイド…様々な方法で検索が可能です。
@@ -256,7 +256,7 @@ Please check the PayPal Q&A for detail."
 Find the best tour to suit your needs. "
     }
     help_topics << {
-     'id' => 16, 'help_category_id' => 11,
+     'id' => 16, 'help_category_id' => 11, 'order_num' => 2,
      'title_ja' => 'お気に入りの作成＆管理',
      'title_en' => "Make and manage your favorites",
      'body_ja' => "ツアー、またはガイドページに「ハート」マークがありますよね？
@@ -265,7 +265,7 @@ Find the best tour to suit your needs. "
 Add tours and guides to your favorites by clicking the heart."
     }
     help_topics << {
-     'id' => 17, 'help_category_id' => 11,
+     'id' => 17, 'help_category_id' => 11, 'order_num' => 3,
      'title_ja' => '￥0のツアーって無料なの？',
      'title_en' => "Is free tour really free?",
      'body_ja' => "TOMODACHI GUIDEはセミオーダータイプのガイドサービスです。
@@ -278,7 +278,7 @@ Many of free tours are flexible tours for you that those guide receive your ques
 Check tour information in detail and contact those guides."
     }
     help_topics << {
-     'id' => 18, 'help_category_id' => 11,
+     'id' => 18, 'help_category_id' => 11, 'order_num' => 4,
      'title_ja' => 'まずは相談しよう',
      'title_en' => "Send message to your favorite guide",
      'body_ja' => "TOMODACHI GUIDEは、国際交流を望む人たちです。彼らは皆さんからの連絡を待っています。
@@ -287,7 +287,7 @@ Check tour information in detail and contact those guides."
      'body_en' => "TOMODACHI GUIDE is "
     }
     help_topics << {
-     'id' => 19, 'help_category_id' => 11,
+     'id' => 19, 'help_category_id' => 11, 'order_num' => 5,
      'title_ja' => 'カスタマイズしよう',
      'title_en' => "Customize a tour",
      'body_ja' => "TOMODACHI GUIDEは、セミオーダー型のガイドサービスです。
@@ -296,7 +296,7 @@ Check tour information in detail and contact those guides."
      'body_en' => "TOMODACHI GUIDE is "
     }
     help_topics << {
-     'id' => 20, 'help_category_id' => 11,
+     'id' => 20, 'help_category_id' => 11, 'order_num' => 6,
      'title_ja' => '予約申込みと支払い',
      'title_en' => "Booking and payment",
      'body_ja' => "相談して納得のいくツアーになったら、ガイド側からオファーがきます。
@@ -306,7 +306,7 @@ Check tour information in detail and contact those guides."
 You will need a PayPal account or a credit card."
     }
     help_topics << {
-     'id' => 21, 'help_category_id' => 11,
+     'id' => 21, 'help_category_id' => 11, 'order_num' => 7,
      'title_ja' => 'サービス料とはなんですか？',
      'title_en' => "What is service commission?",
      'body_ja' => "当サービスの利用料となります。またこの中には、決済手数料や為替手数料などの諸費用も含まれております。",
@@ -314,7 +314,7 @@ You will need a PayPal account or a credit card."
 The service commission includes a commission fee for transactions and currency exchanges."
     }
     help_topics << {
-     'id' => 22, 'help_category_id' => 11,
+     'id' => 22, 'help_category_id' => 11, 'order_num' => 8,
      'title_ja' => 'クーポンコードとは何ですか？',
      'title_en' => "What is coupon code?",
      'body_ja' => "所定のクーポンコードを入力して予約を申込むことで、一定条件を満たすと割引やキャッシュバックを受けることができます。
@@ -323,7 +323,7 @@ The service commission includes a commission fee for transactions and currency e
 Please check the terms of your coupon code for details."
     }
     help_topics << {
-     'id' => 23, 'help_category_id' => 11,
+     'id' => 23, 'help_category_id' => 11, 'order_num' => 9,
      'title_ja' => 'ツアー予約をしたが、支払い画面が出てきません',
      'title_en' => "Payment screen doesn't come up even though I booked tour",
      'body_ja' => "TOMODACHI GUIDEは、旅行者の方に最良の体験を提供するため、相談して納得してから申込みを頂く流れになっています。メッセージのやり取りの中でツアー内容がFixしたら、ガイドからオファーが届きますので、それを承認すればお支払い画面に移行します。",
@@ -331,7 +331,7 @@ Please check the terms of your coupon code for details."
 You can go to payment screen after you approve the offer."
     }
     help_topics << {
-     'id' => 24, 'help_category_id' => 12,
+     'id' => 24, 'help_category_id' => 12, 'order_num' => 1,
      'title_ja' => 'キャンセル方法',
      'title_en' => "How to cancel",
      'body_ja' => "マイページ内の「Message＞TourInformation」か、「Your Trips」から、ツアーのキャンセルを行うことができます。
@@ -342,7 +342,7 @@ Please be aware that a cancelation fee will be charged if you cancel 14 days or 
 Please check our service policy for details.'
     }
     help_topics << {
-     'id' => 25, 'help_category_id' => 12,
+     'id' => 25, 'help_category_id' => 12, 'order_num' => 2,
      'title_ja' => 'キャンセル料金はいつから発生しますか？',
      'title_en' => "When is cancellation commission charged?",
      'body_ja' => "ツアー実施１４日前からキャンセル手数料が発生します。詳しくはサービス規約をご確認ください。
@@ -352,7 +352,7 @@ After your refund is authorized, you will receive your payment minus any cancell
 "
     }
     help_topics << {
-     'id' => 26, 'help_category_id' => 12,
+     'id' => 26, 'help_category_id' => 12, 'order_num' => 3,
      'title_ja' => '雨天の場合はどうなりますか？',
      'title_en' => "How is tour going on bad weather?",
      'body_ja' => "ツアーごとに異なります。
@@ -367,7 +367,7 @@ Please check "In the case of rainy weather" in tour page for details.
 Please first ask your guide if you want to cancel the tour because of rainy weather. If your guide agrees to cancel the tour due to rainy weather, you can cancel the tour without being charged a cancellation fee.'
     }
     help_topics << {
-     'id' => 27, 'help_category_id' => 12,
+     'id' => 27, 'help_category_id' => 12, 'order_num' => 4,
      'title_ja' => 'キャンセル時に発生する手数料',
      'title_en' => "Commission on cancellation",
      'body_ja' => "ツアー終了後、Huber.よりゲスト向けにレビュー及び評価の依頼メールが送信されます。ゲストがレビューの登録を完了したらガイドにもレビュー及び評価の依頼メールが届きます。双方が登録し終えた段階でサイト上に公開されます。お互いのレビューと評価を見れるのは公開されてからになります。",
@@ -375,7 +375,7 @@ Please first ask your guide if you want to cancel the tour because of rainy weat
 When you cancel the tour and get refunded, please be aware that a cancellation commission by PayPal is subtracted from your refunded money."
     }
     help_topics << {
-     'id' => 28, 'help_category_id' => 13,
+     'id' => 28, 'help_category_id' => 13, 'order_num' => 1,
      'title_ja' => 'ツアー中の予定変更はできますか？',
      'title_en' => "Can I change itinerary on the tour on the day?",
      'body_ja' => "可能です。TOMODACHI GUIDEサービスは、食事代、交通費、入場料などの「個人にかかる経費」はすべて自己負担となっています。
@@ -385,7 +385,7 @@ When you cancel the tour and get refunded, please be aware that a cancellation c
      'body_en' => "You can. In TOMODACHI GUIDE service, guides and guests cover their own costs such as food, transportation and entrance fee by themselves. This is why they can offer you flexible tours."
     }
     help_topics << {
-     'id' => 29, 'help_category_id' => 13,
+     'id' => 29, 'help_category_id' => 13, 'order_num' => 2,
      'title_ja' => '当日ガイドと連絡が取れなかったら？',
      'title_en' => "In the case that I can't contact guide in the day",
      'body_ja' => "Huber.の問合せ窓口まで詳細をご連絡ください。",
@@ -394,23 +394,36 @@ When you cancel the tour and get refunded, please be aware that a cancellation c
 guide_support@m.huber.co.jp"
     }
     help_topics << {
-     'id' => 30, 'help_category_id' => 14,
+     'id' => 30, 'help_category_id' => 14, 'order_num' => 1,
      'title_ja' => 'TOMODACHI GUIDEとの旅が楽しい３つ理由',
      'title_en' => "Three Reasons to Choose TOMODACHI GUIDE",
-     'body_ja' => "TOMODACHI GUIDE との旅が楽しい３つの理由
+     'body_ja' => "1.楽しいへのミート率が上がる　（or 未知との遭遇を楽しめる）
 
-1.楽しいへのミート率が上がる　（or 未知との遭遇を楽しめる）
-
-観光ガイド本に載っている外国人向けのアトラクションやレストランではなく、地元の人間に愛されるところに行ってみたいと思いませんか？TOMODACHI GUIDEと一緒なら、あなたはポピュラーな観光地はもちろん、地元の人間でなきゃ知らない場所や遊びに出会うことでしょう。英語が通じないからという理由で外国の方々に紹介されていない素晴らしいレストラン、英語の地図には詳しく表記されていない素敵な散歩道や絶景ポイントがたくさんあります。もし事前にあなたのやりたいことや食べたいものなどをTOMODACHI GUIDEと相談しておけば、その確率は格段にアップするでしょう。そして実際の旅では、TOMODACHI GUIDE は常にペアであなたをサポートしますので、旅の途中で思いついたことや、発見してもっと知りたくなったことなどにフレキシブルに対応できます。つまり、あなたは旅行という限られた時間を最大限にあなたらしく楽しむことができるでしょう。
+観光ガイド本に載っている外国人向けのアトラクションやレストランではなく、地元の人間に愛されるところに行ってみたいと思いませんか？
+TOMODACHI GUIDEと一緒なら、あなたはポピュラーな観光地はもちろん、地元の人間でなきゃ知らない場所や遊びに出会うことでしょう。英語が通じないからという理由で外国の方々に紹介されていない素晴らしいレストラン、英語の地図には詳しく表記されていない素敵な散歩道や絶景ポイントがたくさんあります。
+もし事前にあなたのやりたいことや食べたいものなどをTOMODACHI GUIDEと相談しておけば、その確率は格段にアップするでしょう。
+そして実際の旅では、TOMODACHI GUIDE は常にペアであなたをサポートしますので、旅の途中で思いついたことや、発見してもっと知りたくなったことなどにフレキシブルに対応できます。
+つまり、あなたは旅行という限られた時間を最大限にあなたらしく楽しむことができるでしょう。
 
 2.たくさんのエピソードが生まれる （or たくさんのエピソードに出会える）
 
 建物や景色を見る旅も良いですが、思い出に残るのって人との出会いだったりしませんか？
-TOMODACHI GUIDE はあなたに会うこと、交流することを楽しみにしている人間の集まりです。あなたをどうやって楽しませようかを考え、あなたがどうしたいのかを感じ取ろうとするでしょう。あなたが喜ぶことは、他の大勢の方が喜ぶことと同じではないでしょうから、画一的な案内をするのではなく、あなたの気持ちに歩調を合わせるでしょう。でもTOMODACHI GUIDE はガイドだけを仕事にしている人間ではありませんから、プロの通訳ガイドのように英語で案内することに慣れていないかもしれません。多くの外国の方が喜ぶ一般的な情報を持っていないかもしれません。その代わりに、あなたの思いを英語でちゃんと汲み取れる人間と、英語はそこそこでもあなたの知りたい情報に詳しい人間がペアを組みあなたをサポートします。そしてTOMODACHI GUIDE は皆、友達を大切にすることが大好きな人間です。地元にそれぞれの大切にしている繋がりがあって、行く先々で出逢う人々に、あなたを友人として紹介するでしょう。旅が終わる頃にはきっと、あなたはたくさんの出会いの思い出を手にしていることでしょう。
+TOMODACHI GUIDE はあなたに会うこと、交流することを楽しみにしている人間の集まりです。
+あなたをどうやって楽しませようかを考え、あなたがどうしたいのかを感じ取ろうとするでしょう。
+あなたが喜ぶことは、他の大勢の方が喜ぶことと同じではないでしょうから、画一的な案内をするのではなく、あなたの気持ちに歩調を合わせるでしょう。
+でもTOMODACHI GUIDE はガイドだけを仕事にしている人間ではありませんから、プロの通訳ガイドのように英語で案内することに慣れていないかもしれません。多くの外国の方が喜ぶ一般的な情報を持っていないかもしれません。
+その代わりに、あなたの思いを英語でちゃんと汲み取れる人間と、英語はそこそこでもあなたの知りたい情報に詳しい人間がペアを組みあなたをサポートします。
+そしてTOMODACHI GUIDE は皆、友達を大切にすることが大好きな人間です。地元にそれぞれの大切にしている繋がりがあって、行く先々で出逢う人々に、あなたを友人として紹介するでしょう。
+旅が終わる頃にはきっと、あなたはたくさんの出会いの思い出を手にしていることでしょう。
 
 3.自分のインスピレーションに素直でいられる（or やりたいことに素直でいられる）
 
-情報不足や言葉の壁のせいで、楽しい体験を逃してしまうなんてもったいないと思いませんか？私たちは、せっかくあなたが旅行先として日本を選んでくれたのに、そんなの絶対にもったいない！と思います。TOMODACHI GUIDE は、宿泊先選び、クルマの手配や運転、アトラクションやレストランの予約、観光のスケジューリング、もちろんあなたの気分や体調に合わせてリスケジュールすることも、きっといっしょに楽しみます。もしそういったことをビジネスとして請け負う執事のような者を旅先であなたが雇うとしたら、とても高額になるでしょう。リーズナブルなパッケージで提案してくれるツアー会社のプランだと、あなたらしく自由に行動はできないでしょう。一方で、あなたに日本の素晴らしさを知って欲しかったり、あなたと交流することでグローバルな感覚を磨きたいと思っている日本人はたくさんいるのです。友人としての信頼関係が成立すれば、あなたにとって負担になってしまうことを自分の楽しみとして行える、そんな人間がTOMODACHI GUIDEにたくさん参加しています。まずはあなたと気が合いそうなTOMODACHI GUIDEに話しかけてみてください。それからは簡単、いっしょにあなたらしい旅を計画し、ワクワクしながら日本へと飛んできてください！",
+情報不足や言葉の壁のせいで、楽しい体験を逃してしまうなんてもったいないと思いませんか？
+私たちは、せっかくあなたが旅行先として日本を選んでくれたのに、そんなの絶対にもったいない！と思います。
+TOMODACHI GUIDE は、宿泊先選び、クルマの手配や運転、アトラクションやレストランの予約、観光のスケジューリング、もちろんあなたの気分や体調に合わせてリスケジュールすることも、きっといっしょに楽しみます。
+もしそういったことをビジネスとして請け負う執事のような者を旅先であなたが雇うとしたら、とても高額になるでしょう。リーズナブルなパッケージで提案してくれるツアー会社のプランだと、あなたらしく自由に行動はできないでしょう。
+一方で、あなたに日本の素晴らしさを知って欲しかったり、あなたと交流することでグローバルな感覚を磨きたいと思っている日本人はたくさんいるのです。友人としての信頼関係が成立すれば、あなたにとって負担になってしまうことを自分の楽しみとして行える、そんな人間がTOMODACHI GUIDEにたくさん参加しています。
+まずはあなたと気が合いそうなTOMODACHI GUIDEに話しかけてみてください。それからは簡単、いっしょにあなたらしい旅を計画し、ワクワクしながら日本へと飛んできてください！",
      'body_en' => "Three Reasons to Choose TOMODACHI GUIDE
 
 1. More chances of enjoying yourself!
@@ -425,7 +438,7 @@ It’s too bad you have to miss out on so many fun experiences for reasons like 
 "
     }
     help_topics << {
-     'id' => 31, 'help_category_id' => 14,
+     'id' => 31, 'help_category_id' => 14, 'order_num' => 2,
      'title_ja' => 'TOMODACHI GUIDE ７つの心得',
      'title_en' => 'What is feature of TOMODACHI GUIDE',
      'body_ja' => "＜７つの心得＞
@@ -499,7 +512,7 @@ Support each other.
 In Japan, being honestly yourself is the best way to make friends."
     }
     help_topics << {
-     'id' => 32, 'help_category_id' => 14,
+     'id' => 32, 'help_category_id' => 14, 'order_num' => 3,
      'title_ja' => 'どんな人がガイドになれるのですか？',
      'title_en' => "What kind of people can become guide?",
      'body_ja' => "前述の３つの理由、７つの心得に共感してくれる方で、
@@ -507,7 +520,7 @@ In Japan, being honestly yourself is the best way to make friends."
      'body_en' => "Anyone can become a TOMODACHI GUIDE as long as they agree with the above three reasons and the seven 心得, and want to participate in international exchange. "
     }
     help_topics << {
-     'id' => 33, 'help_category_id' => 14,
+     'id' => 33, 'help_category_id' => 14, 'order_num' => 4,
      'title_ja' => 'なぜペアガイドなのでしょうか？',
      'title_en' => "Why two guides?",
      'body_ja' => "友だちをガイドするみたいでいいと言われても、初めての経験になるガイドは不安です。でも二人一緒だから心理的負担は1/2、やり遂げた喜びは２倍になります。協力・相談試合ながら対応できます。また１人が通訳、１人が案内、という役務を分担して負うことで、ペアならば合法的に、通訳案内士の国家資格がなくても有償で外国語ガイドができます。",
@@ -516,7 +529,7 @@ You can cooperate and talk with your support guide.
 Also, because you and your support guide can separate your roles between guide and translator, you can legally guide your guests even if you are not a licensed tour guide."
     }
     help_topics << {
-     'id' => 34, 'help_category_id' => 14,
+     'id' => 34, 'help_category_id' => 14, 'order_num' => 5,
      'title_ja' => '法律や規制の面で気をつけるべきことは何ですか？',
      'title_en' => "What shold I care about in terms of law and leagal points?",
      'body_ja' => "前述の通り、ガイド実施時に１名が通訳の役割、１名が案内の役割を担うのであれば問題ありません。
@@ -525,7 +538,7 @@ Also, because you and your support guide can separate your roles between guide a
 When you meet your guests, it would be a good idea to explain this to them. "
     }
     help_topics << {
-     'id' => 35, 'help_category_id' => 14,
+     'id' => 35, 'help_category_id' => 14, 'order_num' => 6,
      'title_ja' => '１人でもガイドできますか？',
      'title_en' => "Can I guide by myself?",
      'body_ja' => "TOMODACHI GUIDEとしてのサービス提供はできません。必ず２人１組でのガイド実施が必要となります。
@@ -533,7 +546,7 @@ Huber.はガイドパートナーを探すために、様々な仕組みを用�
      'body_en' => "You can't guide your guests alone as a TOMODACHI GUIDE. You need to guide with your support guide. Huber prepares various systems for you to find your support guide, so please find a good partner with the use of our system."
     }
     help_topics << {
-     'id' => 36, 'help_category_id' => 14,
+     'id' => 36, 'help_category_id' => 14, 'order_num' => 7,
      'title_ja' => 'どんな言語に対応していますか？',
      'title_en' => "Which language does Huber adopt?",
      'body_ja' => "Huber.は、英語が話せる訪日外国人旅行者と、英語を学びたい日本人のマッチングサービスです。
@@ -545,7 +558,7 @@ Chinese and other languages are also available on your profile, but other sectio
 "
     }
     help_topics << {
-     'id' => 37, 'help_category_id' => 14,
+     'id' => 37, 'help_category_id' => 14, 'order_num' => 8,
      'title_ja' => 'どんな人たちがお客様になるのですか？',
      'title_en' => "What kind of guest is in Huber?",
      'body_ja' => "英語が話せる多様なお客様がいらっしゃいます。
@@ -555,7 +568,7 @@ Chinese and other languages are also available on your profile, but other sectio
 Even though they speak English, cultural values are different in each country. In order to give your guest the best hospitality, communicate well with your guest about things such as what kind of food they want to eat, what kind of experiences they want to have, what they don't want to do during your tour."
     }
     help_topics << {
-     'id' => 38, 'help_category_id' => 14,
+     'id' => 38, 'help_category_id' => 14, 'order_num' => 9,
      'title_ja' => '食事や交通費などは、ガイド代金に含みますか？',
      'title_en' => "Does guide price include food and transportation fees?",
      'body_ja' => "友だちと遊びに行く時、お金の払いは基本割り勘ですよね？
@@ -566,7 +579,7 @@ TOMODACHI GUIDE is a service where Japanese people guide foreign tourists like a
 Food, transportation fees and other individual costs are covered by each person themselves in this service, which makes your tour flexible if you want to change your itinerary. Even though we assume that your guest will ask you about these costs on the day, you can tell your guest about this and ask your guests to prepare for cost on the day."
     }
     help_topics << {
-     'id' => 39, 'help_category_id' => 14,
+     'id' => 39, 'help_category_id' => 14, 'order_num' => 10,
      'title_ja' => '英語はどの程度話せる必要がありますか？',
      'title_en' => "How fluently do I need to speak English?",
      'body_ja' => "日常会話ができれば問題ありません。言葉が通じなければ、通じた時の感動は人一倍になりますから。
@@ -577,7 +590,7 @@ If you are not confident with your English,  tell your guest that you can only s
 After both the guest and guide have agreed with that, you can enjoy communicating with your guest."
     }
     help_topics << {
-     'id' => 40, 'help_category_id' => 14,
+     'id' => 40, 'help_category_id' => 14, 'order_num' => 11,
      'title_ja' => 'どんなツアーを作ったらいいですか？',
      'title_en' => "What kind of tuor shod I make?",
      'body_ja' => "いきなりツアーを作ると言われても難しいですよね？
@@ -591,7 +604,7 @@ You can respond to emergencies such as restroom breaks and sudden changes of wea
 Your guests are interested in your lifestyle, so just being natural is the most appealing for them."
     }
     help_topics << {
-     'id' => 41, 'help_category_id' => 14,
+     'id' => 41, 'help_category_id' => 14, 'order_num' => 12,
      'title_ja' => 'ツアーの価格設定について',
      'title_en' => "About tour price setting",
      'body_ja' => "自分の普段の遊びに価値をつける、というのは難しいですよね。わかります。
@@ -601,7 +614,7 @@ Our beginner guides usually set their guide fee to about 1000~1500 yen per hour 
 If you still feel worried about pricing your tour, you can ask your friends in TOMODACHI GUIDE. By getting more experience of guiding your guests, you can adjust and find out the best price for you and your guests."
     }
     help_topics << {
-     'id' => 42, 'help_category_id' => 14,
+     'id' => 42, 'help_category_id' => 14, 'order_num' => 13,
      'title_ja' => 'システム手数料って何ですか？',
      'title_en' => "What is service commission?",
      'body_ja' => "Huber.のシステムを活用してガイドマッチングを行う場合、ガイド料金の14.5%のシステム手数料の支払いが必要となります。
@@ -610,7 +623,7 @@ If you still feel worried about pricing your tour, you can ask your friends in T
 This service commission will be charged when your guide fee goes into your bank account. Please check service policy for details."
     }
     help_topics << {
-     'id' => 43, 'help_category_id' => 14,
+     'id' => 43, 'help_category_id' => 14, 'order_num' => 14,
      'title_ja' => 'TOMODACHI GUIDEに慣れてきたら',
      'title_en' => "When you get used to TOMODACHI GUIDE",
      'body_ja' => "経験を積んで、自信がついてきたら、面白いツアー作りに挑戦してみましょう。
@@ -621,7 +634,7 @@ TOMODACHI GUIDE is a pair guide service, so tours such as a cooking experience w
 The more combinations there are, the more diverse the tours become, which becomes a great experience."
     }
     help_topics << {
-     'id' => 44, 'help_category_id' => 16,
+     'id' => 44, 'help_category_id' => 16, 'order_num' => 1,
      'title_ja' => 'アカウントを作ろう',
      'title_en' => "Make your account",
      'body_ja' => "サイト右上の「Sign up」をクリックすると、Facebook認証か、メールアドレス登録を行うことでアカウントを作成することができます。
@@ -640,7 +653,7 @@ When you click with the condition of logged in facebook, your account is automat
 After you submit your email address and password, a confirmation email is sent to your email address. Your account will be created when you click the URL in that email.'
     }
     help_topics << {
-     'id' => 45, 'help_category_id' => 16,
+     'id' => 45, 'help_category_id' => 16, 'order_num' => 2,
      'title_ja' => 'プロフィール登録をしよう',
      'title_en' => "Register your profile",
      'body_ja' => "画面右上のニックネームをクリックすると、マイページ一覧が表示されます。その中の「Profile」をクリックすると、プロフィール設定画面となります。
@@ -664,7 +677,7 @@ ID information
 Bank Details"
     }
     help_topics << {
-     'id' => 46, 'help_category_id' => 16,
+     'id' => 46, 'help_category_id' => 16, 'order_num' => 3,
      'title_ja' => '笑顔の写真を登録しよう',
      'title_en' => "Register your smiling face",
      'body_ja' => "マイページ内の「Profile」の「Profile picture」をクリックすると、カバー写真とプロフィール写真が設定できます。
@@ -673,7 +686,7 @@ Bank Details"
 Pictures show your personality. Show your guests a nice smile and appeal to guests all over the world.'
     }
     help_topics << {
-     'id' => 47, 'help_category_id' => 16,
+     'id' => 47, 'help_category_id' => 16, 'order_num' => 4,
      'title_ja' => '支払先を登録しよう',
      'title_en' => "Register your bank account",
      'body_ja' => "マイページ内の「Profile」の「銀行情報」をクリックすると、入力フォームが表示されますので、必要情報を記入ください。
@@ -682,7 +695,7 @@ Pictures show your personality. Show your guests a nice smile and appeal to gues
 Attention: You cant have your guide fee paid to your bank account until you finish registering your bank details.'
     }
     help_topics << {
-     'id' => 48, 'help_category_id' => 16,
+     'id' => 48, 'help_category_id' => 16, 'order_num' => 5,
      'title_ja' => '街へリサーチに出かけよう',
      'title_en' => "Go and reserch for your tour",
      'body_ja' => "Huber.は普段の自分の遊びをツアーにするサービスです。
@@ -700,7 +713,7 @@ But when you walk around your town from the point of view of a guide, you can fi
 In order to show the attractiveness of your tour, pictures are also important. Take some pictures and movies when you go out to demonstrate your tour. "
     }
     help_topics << {
-     'id' => 49, 'help_category_id' => 17,
+     'id' => 49, 'help_category_id' => 17, 'order_num' => 1,
      'title_ja' => '登録してみよう',
      'title_en' => "Register",
      'body_ja' => "マイページ内「Tour Page」へアクセスし、「Create a new tour」をクリックすることでツアー登録を開始することができます。
@@ -725,7 +738,7 @@ When you have entered all the information above, click "Publish this tour"
 Your tour will be published and publically displayed on the website.'
     }
     help_topics << {
-     'id' => 50, 'help_category_id' => 17,
+     'id' => 50, 'help_category_id' => 17, 'order_num' => 2,
      'title_ja' => '日本語の入力ができません',
      'title_en' => "I can't type in Japanese",
      'body_ja' => "はい。仕様です。その通りです。
@@ -735,7 +748,7 @@ Huber.TOMODACHI GUIDEでは、世界最大の共通言語である「英語」�
 As the most common language around the world, English is strongly recommended in Huber.TOMODACHI GUIDE. You can only use English on the tour page, profile and pages shown to guests."
     }
     help_topics << {
-     'id' => 51, 'help_category_id' => 18,
+     'id' => 51, 'help_category_id' => 18, 'order_num' => 1,
      'title_ja' => '動画アップ時の容量制限はありますか？',
      'title_en' => "Is size for movie limited",
      'body_ja' => "はい、あります。最大で２５MBまでアップ可能です。
@@ -744,7 +757,7 @@ As the most common language around the world, English is strongly recommended in
 About movies on your tour, 1sec Camera, SnapMovie and <road movie maker> is recommended on our platform."
     }
     help_topics << {
-     'id' => 52, 'help_category_id' => 18,
+     'id' => 52, 'help_category_id' => 18, 'order_num' => 2,
      'title_ja' => 'ツアーのイメージ画像を複数枚登録したいのですができますか？',
      'title_en' => "Is it possible to register some pitures on my tour",
      'body_ja' => "もちろん可能です。
@@ -755,7 +768,7 @@ You can upload at most 10 pictures by " choose file" in "Pictures and movie" of 
 You can also change the order of pictures by dragging '
     }
     help_topics << {
-     'id' => 53, 'help_category_id' => 19,
+     'id' => 53, 'help_category_id' => 19, 'order_num' => 1,
      'title_ja' => '所要時間が想定より長くなった場合、追加料金の請求はしても良いのでしょうか？',
      'title_en' => "In the case that length of tour time is longer than assumed,
 is it ok to ask guest to pay me more?",
@@ -765,7 +778,7 @@ is it ok to ask guest to pay me more?",
 Please communicate with your guest and decide what you do with agreement from both you and your guest."
     }
     help_topics << {
-     'id' => 54, 'help_category_id' => 19,
+     'id' => 54, 'help_category_id' => 19, 'order_num' => 2,
      'title_ja' => '当日予定よりも多くの人がきました。どうすればいいですか？',
      'title_en' => "On the day, more people than booked came to my tour.
 How should I do?",
@@ -780,7 +793,7 @@ The important thing is to tell your guests and agree with your guests that you m
 If you can't manage this kind of situation with your guest, please contact Huber staff."
     }
     help_topics << {
-     'id' => 55, 'help_category_id' => 19,
+     'id' => 55, 'help_category_id' => 19, 'order_num' => 3,
      'title_ja' => '自動車やスペースレンタルをおこなうツアー',
      'title_en' => "Tour with car or rental space",
      'body_ja' => "自動車の利用料金、ガソリン代、駐車場料金など、グループ単位で発生する費用については、別途で設定する必要があります。
@@ -800,7 +813,7 @@ About the cost of parking lot, set the price of the parking lot you are planning
 If those costs are likely to change due to your tour-plan or sudden changes of schedule, mention this and ask your guests to pay you on the day."
     }
     help_topics << {
-     'id' => 56, 'help_category_id' => 19,
+     'id' => 56, 'help_category_id' => 19, 'order_num' => 4,
      'title_ja' => '２人にかかる費用って？',
      'title_en' => "What is guide cost?",
      'body_ja' => "ツアー提供にかかる費用は、事前にゲストへ請求しておくことができます。
@@ -810,7 +823,7 @@ TOMODACHI GUIDEは、ペアでのサービス提供が前提となっており�
 You need to guide with support guide in TOMODACHI GUIDE so you can set costs for both guides."
     }
     help_topics << {
-     'id' => 57, 'help_category_id' => 19,
+     'id' => 57, 'help_category_id' => 19, 'order_num' => 5,
      'title_ja' => 'スムーズに合流するには？',
      'title_en' => "To meet guest and guide smoothly",
      'body_ja' => "お互いに初めて会うのですから、工夫が必要な部分です。
@@ -821,7 +834,7 @@ For example, when you meet your guest at the station, decide which gate your gue
 Check in advance what color clothes you should wear on the day and your phone number."
     }
     help_topics << {
-     'id' => 58, 'help_category_id' => 20,
+     'id' => 58, 'help_category_id' => 20, 'order_num' => 1,
      'title_ja' => 'ツアーを公開する',
      'title_en' => "Publish tour",
      'body_ja' => "すべての設定が完了したら、いよいよツアー公開！
@@ -830,7 +843,7 @@ Check in advance what color clothes you should wear on the day and your phone nu
 When you click "Publish this tour" on the left side of screen in tour page, your tour will be publically displayed on the website.'
     }
     help_topics << {
-     'id' => 59, 'help_category_id' => 20,
+     'id' => 59, 'help_category_id' => 20, 'order_num' => 2,
      'title_ja' => 'ツアーを非公開に戻すには',
      'title_en' => "To hide tour",
      'body_ja' => "ちょっと休みたいな、と思ったら、いつでもツアーを非公開にできます。
@@ -839,7 +852,7 @@ When you click "Publish this tour" on the left side of screen in tour page, your
 When you click "Unpublish this tour" on the left side of screen in the tour page, your tour will be hidden on the website.'
     }
     help_topics << {
-     'id' => 60, 'help_category_id' => 22,
+     'id' => 60, 'help_category_id' => 22, 'order_num' => 1,
      'title_ja' => 'ツアー中のキャンセルについて',
      'title_en' => "Cancel",
      'body_ja' => "急な雨天や、当日のやむをえないトラブルのため、当日キャンセルが必要になってしまった場合は、急ぎHuber.スタッフへご連絡ください。
@@ -848,7 +861,7 @@ When you click "Unpublish this tour" on the left side of screen in the tour page
 We will respond to any trouble and proceed refund according to the terms of service. "
     }
     help_topics << {
-     'id' => 61, 'help_category_id' => 23,
+     'id' => 61, 'help_category_id' => 23, 'order_num' => 1,
      'title_ja' => 'レビューを書こう',
      'title_en' => "Rate your guest",
      'body_ja' => "Huber.では、ガイド・ゲストの相互評価システムを採用しています。
@@ -860,7 +873,7 @@ After you finish your tour, we will send an email to remind you to write a revie
 Don't only write a review, but also your thoughts about the tour experience, which will help to motivate your guide or guest in the future."
     }
     help_topics << {
-     'id' => 62, 'help_category_id' => 24,
+     'id' => 62, 'help_category_id' => 24, 'order_num' => 1,
      'title_ja' => '支払いまでの流れ',
      'title_en' => "Proceed to payment",
      'body_ja' => "ゲストが支払ったガイド料金は、予約確定時に一旦Huber.のPayPal口座に振り込まれます。
@@ -870,7 +883,7 @@ Don't only write a review, but also your thoughts about the tour experience, whi
 Guide fee is calculated every Sunday at 23:59, and then the guide reward minus a 14.5% service commission will be sent to your bank account by 10:00am the following Thursday. See our service policy for more details. "
     }
     help_topics << {
-     'id' => 63, 'help_category_id' => 24,
+     'id' => 63, 'help_category_id' => 24, 'order_num' => 2,
      'title_ja' => 'ガイド代金の受取',
      'title_en' => "Recieve guide price",
      'body_ja' => "銀行振込で行われます。マイページの「Profile」内、画面左側のタブ「銀行口座」をクリックすると、振込先口座を登録できます。",
@@ -878,7 +891,7 @@ Guide fee is calculated every Sunday at 23:59, and then the guide reward minus a
 When you click "bank details" in "Profile" of your page, you can register your bank account.'
     }
     help_topics << {
-     'id' => 64, 'help_category_id' => 25,
+     'id' => 64, 'help_category_id' => 25, 'order_num' => 1,
      'title_ja' => 'ガイドを退会するには？',
      'title_en' => "How to quit guide",
      'body_ja' => "マイページのAccount内にある退会欄から手続きが可能です。
