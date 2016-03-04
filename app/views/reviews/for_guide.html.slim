@@ -1,0 +1,39 @@
+- counterpart = user_id_to_user_obj(@reservation.host_id)
+.page-container.row-space-top-6.row-space-8
+  .row
+    .col-lg-4.col-md-12
+      .card.row-space-4.host_n_listing-info-box
+        .col-xs-4.col-lg-12
+          .media.media-photo-block.dashboard-profile-photo.panel-image
+            = link_to profile_path(counterpart.id)
+              = image_tag(user_id_to_profile_image(counterpart.id), class: 'img-responsive')
+        .col-xs-8.col-lg-12
+          .card-body.card-body-condensed
+            h4.text-center
+              = user_obj_to_name(counterpart)
+            .row.row-condensed
+              .col-md-3.hide--sp
+                = image_tag(listing_cover_image_url(@reservation.listing_id), class: "img-responsive")
+              .col-md-9
+                p
+                  = listing_name(@reservation.listing_id)
+            
+    .col-lg-8.col-md-12
+      .row-space-4
+        .h3.row-space-2
+          | Send feedback to 
+          = link_to profile_path(counterpart.profile.id)
+             = user_obj_to_name(counterpart)
+        p.row-space-3
+          | You can send your thoughts and comments about your recent tour to your guide.
+          br
+          | Give your honest feelings, thanks, and any advice to help your guide improve future tours.
+        p.row-space-3.text-red
+          strong
+            | ＊ You can send a review during the two weeks after the end of your tour.
+            br
+            | ＊ The review will be published on your page as soon as both the guide and guest have sent their reviews.
+            br
+            | ＊ Reviews will be published at the end of the two weeks even if one side hasn’t sent a review.
+        .card.card-bald
+          == render 'form_for_guide'

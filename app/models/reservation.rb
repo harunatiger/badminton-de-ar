@@ -91,6 +91,8 @@ class Reservation < ActiveRecord::Base
   scope :reviewed, -> { where.not(reviewed_at: nil) }
   scope :review_reply_mail_never_be_sent, -> { where(reply_mail_sent_at: nil) }
   scope :review_open?, -> { where(arel_table[:review_opened_at].not_eq(nil)) }
+  scope :review_not_opened_yet, -> { where(arel_table[:review_opened_at].eq(nil)) }
+  scope :review_expiration_date_is_before_yesterday, -> { where("schedule_end <= ?", Time.zone.yesterday.in_time_zone('UTC') - Settings.review.expiration_date.day) }
   scope :week_before, -> { where('schedule >= ? AND schedule <= ?', (Time.zone.today + 7.day).beginning_of_day.in_time_zone('UTC'), (Time.zone.today + 7.day).end_of_day.in_time_zone('UTC')) }
   scope :day_before, -> { where('schedule >= ? AND schedule <= ?', Time.zone.tomorrow.beginning_of_day.in_time_zone('UTC'),Time.zone.tomorrow.end_of_day.in_time_zone('UTC') ) }
 
@@ -291,8 +293,12 @@ class Reservation < ActiveRecord::Base
     end
   end
   
-  def review_enabled?
+  def review_for_guide_enabled?
     self.finished? and self.schedule_end + Settings.review.expiration_date.day >= Time.zone.today and self.reviewed_at.blank?
+  end
+  
+  def review_for_guest_enabled?
+    self.finished? and self.schedule_end + Settings.review.expiration_date.day >= Time.zone.today and self.replied_at.blank?
   end
 
   def set_price

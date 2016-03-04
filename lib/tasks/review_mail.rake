@@ -14,7 +14,7 @@ namespace :review_mail do
     end
 
     # if you want to use update_all, use this below
-    reservations.update_all(review_mail_sent_at: Time.zone.now, reply_mail_sent_at: Time.zone.now)
+    reservations.update_all(review_mail_sent_at: Time.zone.now)
 
   end
 end

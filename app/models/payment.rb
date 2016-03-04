@@ -8,7 +8,6 @@
 #  payer_id         :string           default("")
 #  payers_status    :string           default("")
 #  transaction_id   :string           default("")
-#  payment_status   :string           default("")
 #  amount           :integer
 #  currency_code    :string           default("")
 #  email            :string           default("")

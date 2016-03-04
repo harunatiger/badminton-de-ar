@@ -17,6 +17,7 @@
 #  msg              :text             default("")
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  type             :string           not null
 #
 # Indexes
 #
@@ -31,7 +32,6 @@ class Review < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'guest_id'
   belongs_to :listing
   belongs_to :reservation
-  has_one :review_reply
 
   validates :guest_id, presence: true
   validates :host_id, presence: true
@@ -45,13 +45,10 @@ class Review < ActiveRecord::Base
   validates :check_in, presence: true
   validates :cost_performance, presence: true
   validates :total, presence: true
+  validates :type, presence: true
 
-  scope :this_listing, -> listing_id { where(listing_id: listing_id) }
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
-  scope :i_do, -> user_id { where(guest_id: user_id) }
-  scope :they_do, -> user_id { where(host_id: user_id) }
-  scope :all_do, -> user_id { where('reviews.host_id = ? or reviews.guest_id = ?', user_id, user_id)}
 
   def calc_average
     self.calc_ave_of_listing
@@ -60,35 +57,69 @@ class Review < ActiveRecord::Base
 
   def calc_ave_of_listing
     l = Listing.find(self.listing_id)
-    r_count = Review.where(listing_id: self.listing_id).count
+    r_count = ReviewForGuide.where(listing_id: self.listing_id).joins(:reservation).merge(Reservation.review_open?).count
+    review = ReviewForGuide.where(reservation_id: self.reservation_id).first
     if r_count == 1
-      ave_total = self.total
+      ave_total = review.total
     else
-      ave_total = (l.ave_total * (r_count - 1) + self.total) / r_count 
+      ave_total = (l.ave_total * (r_count - 1) + review.total) / r_count 
     end
     l.ave_total = ave_total
     l.save
   end
 
   def calc_ave_of_profile
-    prof = Profile.find(self.host_id)
-    r_count = Review.all_do(self.host_id).joins(:reservation).merge(Reservation.review_open?).count
+    review_for_guide = ReviewForGuide.where(reservation_id: self.reservation_id).first
+    review_for_guest = ReviewForGuest.where(reservation_id: self.reservation_id).first
+    host = User.find(self.host_id)
+    guest = User.find(self.guest_id)
+    
+    prof = Profile.find(host.profile.id)
+    r_count = Review.my_reviewed_count(host.id)
     if r_count == 1
-      ave_total = self.total
+      ave_total = review_for_guide.total
     else
-      ave_total = (prof.ave_total * (r_count - 1) + self.total) / r_count 
+      ave_total = (prof.ave_total * (r_count - 1) + review_for_guide.total) / r_count 
     end
     prof.ave_total = ave_total
+    prof.enable_strict_validation = false
     prof.save
     
-    prof = Profile.find(self.guest_id)
-    r_count = Review.all_do(self.guest_id).joins(:reservation).merge(Reservation.review_open?).count
+    prof = Profile.find(guest.profile.id)
+    r_count = Review.my_reviewed_count(guest.id)
     if r_count == 1
-      ave_total = self.review_reply.total
+      ave_total = review_for_guest.total
     else
-      ave_total = (prof.ave_total * (r_count - 1) + self.review_reply.total) / r_count 
+      ave_total = (prof.ave_total * (r_count - 1) + review_for_guest.total) / r_count 
     end
     prof.ave_total = ave_total
+    prof.enable_strict_validation = false
     prof.save
+  end
+  
+  def for_guide?
+    self.type == 'ReviewForGuide'
+  end
+  
+  def for_guest?
+    self.type == 'ReviewForGuest'
+  end
+  
+  def self.my_reviewed_count(user_id)
+    reviewed_as_guide_count = ReviewForGuide.where(host_id: user_id).joins(:reservation).merge(Reservation.review_open?).count
+    review_for_guest_count = ReviewForGuest.where(guest_id: user_id).joins(:reservation).merge(Reservation.review_open?).count
+    reviewed_as_guide_count + review_for_guest_count
+  end
+  
+  def self.reviewed_as_guest(user_id)
+    ReviewForGuest.where(guest_id: user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
+  end
+  
+  def self.reviewed_as_guide(user_id)
+    ReviewForGuide.where(host_id: user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
+  end
+  
+  def self.this_listing(listing_id)
+    ReviewForGuide.where(listing_id: listing_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
   end
 end

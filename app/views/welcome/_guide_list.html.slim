@@ -9,13 +9,13 @@
       /p.text-lead 現地に住む友だちガイドと行くあなただけの旅の計画を始めましょう！
     .guide_list-tiles
       - @profiles[0..2].each do | profile |
-        - @all_reviewed_count = Review.all_do(profile.user_id).joins(:reservation).merge(Reservation.review_open?).count
+        - @all_reviewed_count = Review.my_reviewed_count(profile.user_id)
           br
         = render partial: 'guide_card', locals: { all_reviewed_count: @all_reviewed_count, profile: profile }
       - if @profiles.size > 3
         #allguides.collapse
           - @profiles[3..-1].each do | profile |
-            - @all_reviewed_count = Review.all_do(profile.user_id).joins(:reservation).merge(Reservation.review_open?).count
+            - @all_reviewed_count = Review.my_reviewed_count(profile.user_id)
               br
             = render partial: 'guide_card', locals: { all_reviewed_count: @all_reviewed_count, profile: profile }
       .col-sm-12.rm-padding--sp.row-space-6.text-center

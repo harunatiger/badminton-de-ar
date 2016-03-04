@@ -16,15 +16,6 @@
             p
               = review.msg
             .expandable-indicator.expandable-indicator-light
-      /.media.row-space-2
-        .media-photo.media-round.pull-left[href="3"]
-          = link_to profile_path(host_info.user_id) do
-            .size68[style="background-image: url('#{host_image(host_image)}')"]
-
-        .media-body
-          b ガイドの方より返答：
-          p
-            = review_id_to_review_reply_msg(review.id)
   .row.row-space-2
       .col-md-9.col-md-push-3
         hr
