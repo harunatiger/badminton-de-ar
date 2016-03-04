@@ -1362,6 +1362,23 @@ body.paper
     background: #bce8f1
     opacity: .3
     filter: alpha(opacity=30)
+.calendar-header-container
+  .collapse-panel
+    background: white
+    cursor: pointer
+    .fa-caret-down
+      margin-left: 5px
+      font-size: 20px
+    .fa-square-o
+      margin-right: 5px
+#calendar_confirm
+  .modal-content
+    max-width: 400px
+    @media (max-width: 767px)
+      max-width: none
+  .card-footer
+    text-align: center
+
 /* profile
   ================================================================================ */
 .profiles.show
@@ -1786,3 +1803,109 @@ body.paper
   &:hover
     color: white
     background-color: lighten( $gray1, 15% )
+
+/* help-topics
+  ================================================================================ */
+.help-topic-main
+  padding: 37.5px 15px
+  .help-topic-list
+    list-style: none
+  .help-topic-index
+    h2.h3
+      padding: 20px 10px
+    .about-link
+      li
+        border-bottom: 1px solid #e4e4e4
+    .help-nav-header
+      //padding-bottom: 10px
+      //margin-bottom: 20px
+    .help-nav-footer
+      //padding-top: 10px
+      margin: 20px 0
+    .nav-active
+      color: $white
+      background-color: $brand-theme
+      font-weight: normal
+    ul
+      padding-left: 0
+      list-style: none
+      li
+        line-height: 1.2em
+      li.help-category-item,
+      li.help-category-item-children,
+      li.about-link-item
+        a
+          display: block
+          padding: 10px
+          margin: 5px 0
+          font-size: 16px
+          color: #82888a
+          position: relative
+          border-radius: 5px
+          outline: none
+          &:hover, &:focus
+            text-decoration: none
+            background-color: $brand-theme
+            color: $white
+          .fa
+            position: absolute
+            right: 10px
+        .nav-active
+          color: white
+      li.help-category-item
+        border-bottom: 1px solid #e4e4e4
+    ul.help-nav-footer
+      li a
+        font-size: 16px
+  .help-topic-details
+    .category-block
+      background: white
+      padding: 10px 40px
+      margin-bottom: 30px
+      border-radius: 5px
+      -webkit-border-radius: 5px
+      -moz-border-radius: 5px
+      h3
+        margin: 40px 0 10px
+        .fa
+          font-size: 32px
+          margin-right: 10px
+          color: #cacccd
+          position: relative
+          top: -2px
+          vertical-align: middle
+      h4
+        margin: 40px 0 10px
+        font-weight: normal
+        .fa
+          font-size: 32x
+          margin-right: 10px
+          color: #cacccd
+          position: relative
+          top: -2px
+          vertical-align: middle
+      ul.help-topic-list
+        padding-left: 0
+    .topic-block
+      border-bottom: 1px solid #ededed
+      padding: 20px 0
+      .topic-title
+        margin-bottom: 10px
+      .topic-content
+        line-height: 1.8em
+  #help-nav
+    width: 220px
+  #help-nav-sp
+    display: none
+  @media (max-width: 1099px)
+    #help-nav
+      display: none
+    #help-nav-sp
+      display: block
+      width: 100%
+      .about-link
+        margin: 0
+        ul
+          margin: 0
+
+

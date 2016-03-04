@@ -15,7 +15,6 @@ ActiveAdmin.register_page "Payment" do
         @enddate = Date.parse(params[:enddate])
         @payments = Payment.all
           .with_reservation
-          .filter_by_progress
           .term( @startdate, @enddate )
           .order_by_schedule
           .includes(:reservation)
@@ -28,7 +27,6 @@ ActiveAdmin.register_page "Payment" do
         @enddate = Date.parse(params[:enddate])
         @payments = Payment.all
           .with_reservation
-          .filter_by_progress
           .term( @startdate, @enddate )
           .order_by_schedule
           .includes(:reservation)
@@ -72,6 +70,7 @@ ActiveAdmin.register_page "Payment" do
 
             #cancel
             reservation = payment.reservation
+            cancel_date = payment.reservation.canceled_after_accepted? ? payment.reservation.updated_at : ''
             #{ default: 0, guide: 1, guest_before_weeks: 2, guest_before_days: 3, guest_less_than_days: 4}
             if reservation.default?
               refund_reason = ''
@@ -112,7 +111,7 @@ ActiveAdmin.register_page "Payment" do
               #4 プラン実施日
               schedule: payment.reservation.schedule,
               #5 キャンセル日
-              cancel_date: payment.refund_date,
+              cancel_date: cancel_date,
               #6 参加人数
               num_of_people: payment.reservation.num_of_people,
               #7 ガイド銀行名称

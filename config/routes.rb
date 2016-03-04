@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'static_pages/specific_commercial_transactions_jp'
   get 'static_pages/privacy_policy_jp'
   get 'static_pages/about'
-  
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       put 'change_order', on: :collection
     end
     resources :profile_banks
-    resources :profile_identities
+    resources :profile_identities, only: [:new, :edit, :create, :update, :destroy]
     resources :profile_keywords
     member do
       get 'self_introduction',    action: 'self_introduction'
@@ -89,8 +89,13 @@ Rails.application.routes.draw do
   resources :pickups, only: [:show]
 
   resources :reservations, only: [:create, :update] do
-    resource :reviews do
-      resource :review_replies
+    resource :reviews, only: [:create] do
+      collection do
+        get 'for_guest'
+        get 'for_guide'
+        post 'create_guest'
+        post 'create_guide'
+      end
     end
     collection do
       get 'confirm_payment'
@@ -107,14 +112,20 @@ Rails.application.routes.draw do
     get 'reservation_ngdays', on: :collection
     get 'request_ngdays', on: :collection
     get 'common_ngdays', on: :collection
+    get 'set_ngday_listing', on: :collection
   end
   resources :ngevent_weeks do
     get 'except_common_ngweeks', on: :collection
     get 'common_ngweeks', on: :collection
+    get 'set_ngweek_listing', on: :collection
     put 'unset', on: :collection
   end
   resources :calendar do
     get 'common_ngdays', on: :collection
+  end
+
+  scope "(:locale)", locale: /ja|en/ do
+    resources :help_topics, only: [:index]
   end
 
   devise_for :users, controllers: {

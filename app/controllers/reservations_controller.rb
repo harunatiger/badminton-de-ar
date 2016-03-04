@@ -9,13 +9,13 @@ class ReservationsController < ApplicationController
   def create
     return save if params[:save]
     return offer if params[:offer]
-    
+
     para = reservation_params
     para['schedule_date'] = Date.strptime(para['schedule_date'], '%m/%d/%Y').to_s
     para['schedule_end'] = para['schedule_date']
-    
+
     reservation_before = Reservation.latest_reservation(reservation_params['guest_id'], reservation_params['host_id'])
-    if reservation_before and reservation_before.canceled? 
+    if reservation_before and reservation_before.canceled?
       @reservation = reservation_before
       result = @reservation.update(para)
     else
@@ -40,7 +40,7 @@ class ReservationsController < ApplicationController
       end
     end
   end
-  
+
   def update
     # save button of the message thread (guide)
     return save if params[:save]
@@ -57,7 +57,7 @@ class ReservationsController < ApplicationController
     # cancel button of the dashboard
     return canceled_after_accepted if params[:canceled_after_accepted]
   end
-  
+
   # save button of the message thread (guide)
   def save
     @reservation = Reservation.new if @reservation.blank?
@@ -69,7 +69,7 @@ class ReservationsController < ApplicationController
       end
     end
   end
-  
+
   # offer button of the message thread (guide)
   def offer
     @reservation = Reservation.new if @reservation.blank?
@@ -90,7 +90,7 @@ class ReservationsController < ApplicationController
       end
     end
   end
-  
+
   # cancel button of the message thread (guest)
   def cancel
     respond_to do |format|
@@ -99,20 +99,20 @@ class ReservationsController < ApplicationController
         Ngevent.cancel(@reservation)
         ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
         message = Message.send_reservation_message_to_host(@reservation, Settings.reservation.msg.canceled, false)
-        
+
         format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.save.success }
       else
         format.html { redirect_to message_thread_path(reservation_params[:message_thread_id]), alert: Settings.reservation.save.failure.no_date }
       end
     end
   end
-  
+
   # confirm button of the message thread (guest)
   def confirm
     session[:message_thread_id] = reservation_params[:message_thread_id]
     session[:reservation_id] = @reservation.id
     return checkout(@reservation) if @reservation.amount_for_campaign > 0
-    
+
     # if @reservation.amount_for_campaign <= 0
     UserCampaign.create(user_id: current_user.id, campaign_id: @campaign.id) if @campaign.present?
     Payment.create(reservation_id: @reservation.id) if @reservation.payment.blank?
@@ -145,7 +145,7 @@ class ReservationsController < ApplicationController
       format.html { redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.paypal_canceled}
     end
   end
-  
+
   # purchase button of the payment confirmation view
   def purchase
     message_thread_id = session[:message_thread_id]
@@ -158,7 +158,7 @@ class ReservationsController < ApplicationController
         format.html { return redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.save.failure.paypal_payment_failure + ' error：' + response.params['error_codes'] + ' ' + response.params['message']}
       end
     end
-    
+
     @reservation.set_purchase(response)
     @reservation.accepted!
     UserCampaign.create(user_id: current_user.id, campaign_id: @reservation.campaign_id) if @reservation.campaign_id.present?
@@ -170,23 +170,23 @@ class ReservationsController < ApplicationController
       format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.update.success }
     end
   end
-  
+
   def canceled_after_accepted
     @booking_index = params[:count] if params[:count].present? #for dashboard/_reservation_item_as_host
     payment = @reservation.payment
-    
+
     if payment.completed?
       if payment.cancel_available(@reservation)
         if @reservation.host_id == current_user.id
           response = refund_full(payment)
-        elsif 
+        elsif
           response = refund(payment,@reservation)
         end
       elsif @reservation.before_days?
         payment.refund_disabled!
       end
     end
-    
+
     if response.present? and !response.success?
       respond_to do |format|
         format.js { @status = 'failure' }
@@ -198,24 +198,24 @@ class ReservationsController < ApplicationController
       if @reservation.guide? or @reservation.before_weeks?
         Campaign.remove_used_code(@reservation)
       end
-      
+
       Ngevent.cancel(@reservation)
       mail_to_user = @reservation.guide? ? @reservation.host_id : @reservation.guest_id
       ReservationMailer.send_cancel_mail_to_owner(@reservation).deliver_now!
       ReservationMailer.send_update_reservation_notification(@reservation, mail_to_user).deliver_now!
-      
+
       if @reservation.host_id == current_user.id
         message = Message.send_reservation_message_to_guest(@reservation, Settings.reservation.msg.canceled)
       else
         message = Message.send_reservation_message_to_host(@reservation, Settings.reservation.msg.canceled, false)
       end
-      
+
       respond_to do |format|
         format.js { @status = 'success' }
       end
     end
   end
-  
+
   # payment confirmation after paypal authorization
   def confirm_payment
     @reservation = Reservation.find(session[:reservation_id])
@@ -273,11 +273,9 @@ class ReservationsController < ApplicationController
       listing = Listing.find(params[:listing_id])
       @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
       @reservation.listing_id = listing.id
-      ngdates = Ngevent.get_ngdates(@reservation)
-      ngweeks = NgeventWeek.where(listing_id: listing.id).pluck(:dow)
-      #user_id = listing.user_id
-      #ngdates = Ngevent.get_ngdates(user_id)
-      #ngweeks = NgeventWeek.where(user_id: user_id).pluck(:dow)
+      user_id = listing.user_id
+      ngdates = Ngevent.get_ngdates_except_request(user_id, @reservation.id)
+      ngweeks = NgeventWeek.where(user_id: user_id).pluck(:dow)
       render json: { ngdates: ngdates, ngweeks: ngweeks}
     end
   end
@@ -285,13 +283,9 @@ class ReservationsController < ApplicationController
   def set_ngday_reservation_default
     if request.xhr?
       @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
-      #ngdates = Ngevent.get_ngdates(@reservation)
-      #ngweeks = NgeventWeek.where(listing_id: @reservation.try('listing_id')).pluck(:dow)
       user_id = @reservation.try('host_id')
-      #ngdates = Ngevent.get_ngdates(user_id)
-      #ngweeks = NgeventWeek.where(user_id: user_id).pluck(:dow)
-      ngdates = Ngevent.get_ngdates(@reservation)
-      ngweeks = NgeventWeek.where(listing_id: @reservation.try('listing_id')).pluck(:dow)
+      ngdates = Ngevent.get_ngdates_except_request(user_id, @reservation.id)
+      ngweeks = NgeventWeek.where(user_id: user_id).pluck(:dow)
       render json: { ngdates: ngdates, ngweeks: ngweeks}
     end
   end
@@ -301,7 +295,7 @@ class ReservationsController < ApplicationController
       @reservation = Reservation.find(params[:id])
       @reservation.message_thread_id = reservation_params[:message_thread_id]
     end
-  
+
     def check_profile_identity
       if params[:offer].present? or params[:confirm].present?
         unless current_user.already_authrized
@@ -313,7 +307,7 @@ class ReservationsController < ApplicationController
         end
       end
     end
-  
+
     def check_campaign_code
       if params[:confirm].present? and  reservation_params[:campaign_code].present?
         @campaign = Campaign.where(code: reservation_params[:campaign_code]).first
@@ -341,7 +335,7 @@ class ReservationsController < ApplicationController
         end
       end
     end
-  
+
     def reservation_params
       params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :price_for_support, :price_for_both_guides, :space_option, :car_option, :space_rental, :car_option, :car_rental, :gas, :highway, :parking, :guests_cost, :included_guests_cost, Reservation::REGISTRABLE_ATTRIBUTES, :place, :place_memo, :description, :message_thread_id, :schedule_end, :campaign_id, :campaign_code)
     end

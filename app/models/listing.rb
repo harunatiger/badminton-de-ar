@@ -112,7 +112,7 @@ class Listing < ActiveRecord::Base
   scope :available_price_max?, -> price_max { where("price <= ?", price_max) }
   
   def open_reviews_count
-    self.reviews.joins(:reservation).merge(Reservation.review_open?).count
+    self.reviews.where(type: 'ReviewForGuide').joins(:reservation).merge(Reservation.review_open?).count
   end
 
   def set_lon_lat

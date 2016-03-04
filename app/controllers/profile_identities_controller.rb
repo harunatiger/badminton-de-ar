@@ -31,11 +31,10 @@ class ProfileIdentitiesController < ApplicationController
     pp @profile_identity
     respond_to do |format|
       if @profile_identity.save
+        ProfileIdentityMailer.send_id_uploaded_notification(@profile_identity).deliver_now!
         format.html { redirect_to edit_profile_profile_identity_path(@profile, @profile_identity), notice: Settings.profile_identities.save.success }
-        format.json { render :show, status: :created, location: @profile_identity }
       else
         format.html { render :new }
-        format.json { render json: @profile_identity.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,14 +43,15 @@ class ProfileIdentitiesController < ApplicationController
   # PATCH/PUT /profile_images/1.json
   def update
     @profile_identity = current_user.profile_identity
-    @profile_identity.authorized = false
+    @profile_identity.authorized = false if profile_identity_params[:image].present?
+    
     respond_to do |format|
-      if @profile_identity.update(profile_identity_params)
+      if profile_identity_params[:image].present? and @profile_identity.update(profile_identity_params)
+        ProfileIdentityMailer.send_id_uploaded_notification(@profile_identity).deliver_now!
         format.html { redirect_to edit_profile_profile_identity_path(@profile, @profile_identity), notice: Settings.profile_identities.save.success }
-        format.json { render :show, status: :ok, location: @profile_identity }
       else
+        @profile_identity.errors.add(:image, :blank)
         format.html { render :edit }
-        format.json { render json: @profile_identity.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -8,7 +8,6 @@
 #  payer_id         :string           default("")
 #  payers_status    :string           default("")
 #  transaction_id   :string           default("")
-#  payment_status   :string           default("")
 #  amount           :integer
 #  currency_code    :string           default("")
 #  email            :string           default("")
@@ -28,14 +27,13 @@
 
 class Payment < ActiveRecord::Base
   include Payments
-  
+
   belongs_to :reservation
 
   scope :with_reservation, -> { joins(:reservation) }
-  scope :term, -> (from, to){ where('schedule >= ? AND schedule <= ?', from.beginning_of_day,to.end_of_day ) }
-  scope :filter_by_progress, -> { where('progress = ? or progress = ?', 3, 6) }
+  scope :term, -> (from, to){ where('(schedule >= ? AND schedule <= ? AND progress = ?) OR (reservations.updated_at >= ? AND reservations.updated_at <= ? AND progress = ?)', from.beginning_of_day,to.end_of_day, 3, from.beginning_of_day,to.end_of_day, 6 ) }
   scope :order_by_schedule, -> { order('schedule') }
-  
+
   enum status: { default: 0, confirmed: 1, completed: 2, refunded: 3, refund_disabled: 4}
 
   def amount_for_paypal
@@ -45,7 +43,7 @@ class Payment < ActiveRecord::Base
   def cancel_available(reservation)
     self.updated_at.to_date + 60.days >= Time.zone.today and reservation.before_days?
   end
-  
+
   def cancel_available_for_withdraw(reservation)
     self.updated_at.to_date + 60.days >= Time.zone.today
   end

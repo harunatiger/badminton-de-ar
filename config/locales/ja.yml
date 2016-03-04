@@ -43,3 +43,7 @@ ja:
       subject: "Read %{name}'s review"
     reply_notification:
       subject: "ゲストがあなたの返信を待っています"
+  help:
+    about_link: "Huber.とは"
+    help_guide_link: "ガイドのQ＆Aへ"
+    help_other_link: "その他のQ＆Aへ"

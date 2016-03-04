@@ -1,13 +1,13 @@
 Hello, <%= @to_user_name %>
 
 
-Let's fill in a review of <%= @guest_user_name %> who was participated <%= @listing.title %> (<%= @reservation.schedule %>)
+Would you like to write a review for <%= @guest_user_name %> from your tour <%= @listing.title %> (<%= @reservation.schedule %>)?
 
-You can fill in the review from the following link.
+You can write a review by clicking the following link.
 
-<%= new_reservation_reviews_review_replies_url(@reservation.id) %>
+<%= for_guest_reservation_reviews_url(@reservation.id) %>
 
-When you fill in the review, it will be published i profile page.
+After both the guide and guest finish writing reviews, each review will be published on their own page.
 
 
 --

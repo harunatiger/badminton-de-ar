@@ -47,7 +47,7 @@ class Ngevent < ActiveRecord::Base
           ]
     self.create(ngevent_params)
   end
-  
+
   def self.offer(reservation)
     ngevent_params = Hash[
           'reservation_id' => reservation.id,
@@ -65,12 +65,12 @@ class Ngevent < ActiveRecord::Base
     return ng_event.update(ngevent_params) if ng_event.present?
     return self.create(ngevent_params)
   end
-  
+
   def self.cancel(reservation)
     ng_event = self.where(reservation_id: reservation.id)
     ng_event.destroy_all
   end
-  
+
   def self.accept(reservation)
     ng_event = self.find_by(reservation_id: reservation.id)
     ng_event.update_attributes({:active => 1, :mode => 1})
@@ -101,22 +101,8 @@ class Ngevent < ActiveRecord::Base
     ng_array
   end
 
-  #def self.get_ngdates(user_id)
-  #  ngevents = Ngevent.where(user_id: user_id, active: 1)
-  #  ngdates = []
-  #  ngevents.each do |ngevent|
-  #    start_date = ngevent['start']
-  #    end_date = ngevent['end_bk']
-  #    while start_date <= end_date do
-  #      ngdates << (start_date - 1.day).strftime("%Y.%m.%d")
-  #      start_date = start_date + 1.day
-  #    end
-  #  end
-  #  ngdates
-  #end
-
-  def self.get_ngdates(reservation)
-    ngevents = Ngevent.where(listing_id: reservation.try('listing_id'), active: 1)
+  def self.get_ngdates(user_id)
+    ngevents = Ngevent.where(user_id: user_id, active: 1)
     ngdates = []
     ngevents.each do |ngevent|
       start_date = ngevent['start']
@@ -129,22 +115,10 @@ class Ngevent < ActiveRecord::Base
     ngdates
   end
 
-  def self.get_ngdates_from_listing(id)
-    ngevents = Ngevent.where(listing_id: id, active: 1)
-    ngdates = []
-    ngevents.each do |ngevent|
-      start_date = ngevent['start']
-      end_date = ngevent['end_bk']
-      while start_date <= end_date do
-        ngdates << (start_date - 1.day).strftime("%Y.%m.%d")
-        start_date = start_date + 1.day
-      end
-    end
-    ngdates
-  end
-
-  def self.get_ngdates_except_self(reservation)
-    ngevents = Ngevent.all.where(listing_id: reservation.try('listing_id'), active: 1).where.not(guest_id: reservation.try(:guest_id))
+  def self.get_ngdates_except_request(user_id, reservation_id)
+    reservation_ngevents = Ngevent.where(user_id: user_id, active: 1).where.not(reservation_id: reservation_id)
+    all_ngevents = Ngevent.where(user_id: user_id, active: 1).where(reservation_id: nil)
+    ngevents = all_ngevents.to_a + reservation_ngevents.to_a
     ngdates = []
     ngevents.each do |ngevent|
       start_date = ngevent['start']
@@ -159,56 +133,6 @@ class Ngevent < ActiveRecord::Base
 
   def self.fix_ngdates_for_show(user_id)
     ngevents = Ngevent.where(user_id: user_id, active: 1, mode: 0)
-    ngevents_fixed = []
-    ngevents.each do |ngevent|
-      ngevent['end'] = (ngevent['end'] + 1.day).strftime("%Y.%m.%d")
-      ngevents_fixed << ngevent
-    end
-    ngevents_fixed
-  end
-
-  def self.fix_listing_ngdays_for_show(user_id, listing_id)
-    ngevents = Ngevent.where(user_id: user_id, listing_id: listing_id, active: 1, mode: 0)
-    ngevents_fixed = []
-    ngevents.each do |ngevent|
-      ngevent['end'] = (ngevent['end'] + 1.day).strftime("%Y.%m.%d")
-      ngevents_fixed << ngevent
-    end
-    ngevents_fixed
-  end
-
-  def self.fix_listing_reservation_ngdays_for_show(user_id, listing_id)
-    ngevents = Ngevent.where(user_id: user_id, listing_id: listing_id, active: 1, mode: 1)
-    ngevents_fixed = []
-    ngevents.each do |ngevent|
-      ngevent['end'] = (ngevent['end'] + 1.day).strftime("%Y.%m.%d")
-      ngevents_fixed << ngevent
-    end
-    ngevents_fixed
-  end
-
-  def self.fix_listing_request_ngdays_for_show(user_id, listing_id)
-    ngevents = Ngevent.where(user_id: user_id, listing_id: listing_id, active: 1, mode: 2)
-    ngevents_fixed = []
-    ngevents.each do |ngevent|
-      ngevent['end'] = (ngevent['end'] + 1.day).strftime("%Y.%m.%d")
-      ngevents_fixed << ngevent
-    end
-    ngevents_fixed
-  end
-
-  def self.fix_reservation_except_listing_ngdays_for_show(user_id, listing_id)
-    ngevents = Ngevent.where(user_id: user_id, active: 1, mode: 1).where.not(listing_id: listing_id)
-    ngevents_fixed = []
-    ngevents.each do |ngevent|
-      ngevent['end'] = (ngevent['end'] + 1.day).strftime("%Y.%m.%d")
-      ngevents_fixed << ngevent
-    end
-    ngevents_fixed
-  end
-
-  def self.fix_request_except_listing_ngdays_for_show(user_id, listing_id)
-    ngevents = Ngevent.where(user_id: user_id, active: 1, mode: 2).where.not(listing_id: listing_id)
     ngevents_fixed = []
     ngevents.each do |ngevent|
       ngevent['end'] = (ngevent['end'] + 1.day).strftime("%Y.%m.%d")

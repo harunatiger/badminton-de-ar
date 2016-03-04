@@ -448,6 +448,10 @@ module ApplicationHelper
     target.gsub(/\r\n|\r|\n/, "<br />")
   end
 
+  def hbr_noescape(target)
+    target.gsub(/\r\n|\r|\n/, "<br />")
+  end
+
   def schedule_span(reservation)
     if reservation.under_construction? and reservation.created_at == reservation.updated_at and reservation.schedule_hour == '00' and reservation.schedule_minute == '00'
       reservation.schedule.to_date.to_s + '〜'
