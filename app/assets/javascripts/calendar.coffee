@@ -80,18 +80,23 @@ $ ->
   #---------------------------------------------------------------------
   ##Confirm Modal for Day
   confirmModal = (event) ->
-    g_current_mode = 0
-    g_select_listing = ''
     g_event_id = event.id
-    g_event_className = event.className
     g_select_dow = event.dow
 
+    g_event_className = ''
+    g_event_className = event.className
+
+    g_select_listing = ''
     g_event_className.forEach (val, index, ar) ->
       if val.match(/^listing/) != null
         g_select_listing = val.replace(/listing/g,"")
+        return
+
+    g_current_mode = 0
     g_event_className.forEach (val, index, ar) ->
       if val.match(/^mode/) != null
         g_current_mode = val.replace(/mode/g,"")
+        return
 
     $.ajax(
       type: 'GET'
@@ -125,6 +130,7 @@ $ ->
       $('#calendar_confirm').find('#listing_title').html('[ '+data.title+' ] ' + afterText)
       $('#calendar_confirm').find('#comment').html(comment)
       $('#calendar_confirm').modal()
+    return
 
   ##Confirm Modal for Week
   confirmModalWeek = (element) ->
@@ -499,6 +505,15 @@ $ ->
         evExist = false
         return false
     return evExist
+
+  #eventExistLoad = (event, element) ->
+  #  current_startdate = event._start._d
+  #  $.each array_startdate, (index, elem) ->
+  #    if formatDate(current_startdate) == formatDate(elem)
+  #      $(array_event[index]).addClass('hide')
+  #  array_event.push(element)
+  #  array_startdate.push(current_startdate)
+  #  return
 
 
   #---------------------------------------------------------------------
