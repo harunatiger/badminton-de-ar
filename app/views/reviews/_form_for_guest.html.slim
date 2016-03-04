@@ -1,0 +1,28 @@
+= simple_form_for([@reservation, @review], url: create_guest_reservation_reviews_path(@reservation), method: :POST) do |f|
+  .card-body
+      = f.hidden_field :guest_id, value: @reservation.guest_id
+      = f.hidden_field :host_id, value: current_user.id
+      = f.hidden_field :reservation_id, value: @reservation.id
+      = f.hidden_field :listing_id, value: @reservation.listing_id
+      = f.hidden_field :accuracy, value: 0
+      = f.hidden_field :communication, value: 0
+      = f.hidden_field :clearliness, value: 0
+      = f.hidden_field :location, value: 0
+      = f.hidden_field :check_in, value: 0
+      = f.hidden_field :cost_performance, value: 0
+      = f.hidden_field :type, value: @review.type
+      .row.row-space-5
+        .col-12
+          = f.input_field :msg, required: true, rows: "7", placeholder: "例） 楽しいひとときを過ごせました。ありがとうございます。是非またお会いしましょう！"
+      .row.row-space-5
+        label.col-12
+          .h5
+            | 評価
+            small
+              ' 　あなたの判断でガイドの評価を最高星5つでつけてみてください
+        .col-12
+          fieldset.rating
+            = f.input_field :total, as: :radio_buttons, required: true, boolean_style: :inline, collection: [["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], label_method: :last, item_wrapper_tag: false
+      
+  .card-footer
+    = f.submit "この内容で送信する", class: "btn btn-primary"

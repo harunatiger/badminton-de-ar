@@ -4,7 +4,7 @@
   .row
     - favorite_users.each do |favorite|
       - profile = favorite_user_to_profile(favorite.to_user_id)
-      - all_reviewed_count = Review.all_do(profile.user_id).joins(:reservation).merge(Reservation.review_open?).count
+      - all_reviewed_count = Review.my_reviewed_count(profile.user_id)
       .col-md-6.row-space-4.favorite-card
         div.favorite-card-inner
           = link_to favorite_user_path(favorite_user_set(profile.user_id, current_user.id)), method: 'DELETE' , class: "favorite-btn" do

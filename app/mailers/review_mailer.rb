@@ -25,9 +25,8 @@ class ReviewMailer < ApplicationMailer
   #
   #   en.review_mailer.send_review_reply_mail.subject
   #
-  def send_review_reply_notification(reservation, review)
+  def send_review_reply_notification(reservation)
     @reservation = reservation
-    @review = review
     @listing = reservation.listing
     to_user = User.find(reservation.host_id)
     @to_user_name = "#{to_user.profile.last_name} #{to_user.profile.first_name}"

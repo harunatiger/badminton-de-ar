@@ -1,0 +1,33 @@
+- counterpart = user_id_to_user_obj(@reservation.guest_id)
+.page-container.row-space-top-6.row-space-8
+  .row
+    .col-md-3.hide--sp
+      .row-space-4
+        .media.media-photo-block.dashboard-profile-photo.panel-image
+          = link_to profile_path(counterpart.id)
+            = image_tag(user_id_to_profile_image(counterpart.id), class: 'img-responsive')
+        h4.text-center
+          .row-space-top-2
+            = user_obj_to_name(counterpart)
+            
+    .col-md-9
+      .row-space-4
+        .h3.row-space-2
+          = link_to profile_path(counterpart.profile.id)
+            = user_obj_to_name(counterpart)
+             | さん
+          | に評価を送りましょう。
+        p.row-space-3
+          | 先日のツアーの評価や感想をゲストの方に送ることができます。
+          br
+          | あまり難しく考えず、あなたの率直な感想を伝えましょう。
+          br
+          | 次回このゲストさんとご一緒される方に大変役立ちます。ぜひ一筆お願い申し上げます。
+        p.row-space-3.text-red
+          strong
+            | ＊ レビューできるのはツアー終了から2週間以内です。尚、片方からしかレビュー投稿が無かった場合、2週間経ったら公開されます。
+            br
+            | ＊ 双方がレビューを終えたらプロフィールページなどに公開されます。
+
+        .card.card-bald
+          == render 'form_for_guest'

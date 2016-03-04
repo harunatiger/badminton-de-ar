@@ -1,17 +1,16 @@
 Hello,  <%= @to_user_name %>
 
 
-Would you like to fill in the review of <%= @listing.title %> (<%= @reservation.schedule %>) planned by <%= @host_user_name %>
+Would you like to write a review for <%= @listing.title %> (<%= @reservation.schedule %>) planned by <%= @host_user_name %>?
 
-You can fill in the review from the following link.
+You can write a review by clicking the following link.
 
-<%= new_reservation_reviews_url(@reservation.id) %>
+<%= for_guide_reservation_reviews_url(@reservation.id) %>
 
-When you write a review, a guide will reply.
-When the reply comes, your review will be published.
-
+After both the guide and guest finish writing reviews, each review will be published on their own page.
 
 
-The writing your review is valid for <%= Settings.review.expiration_date %> days
+
+You have <%= Settings.review.expiration_date %> days to write a review for this tour.
 --
 Huber.					
