@@ -80,6 +80,8 @@ $ ->
   #---------------------------------------------------------------------
   ##Confirm Modal for Day
   confirmModal = (event) ->
+    g_current_mode = 0
+    g_select_listing = ''
     g_event_id = event.id
     g_event_className = event.className
     g_select_dow = event.dow

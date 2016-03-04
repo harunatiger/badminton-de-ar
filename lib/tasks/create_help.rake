@@ -95,7 +95,7 @@ TOMODACHI GUIDE is a platform where the main users are university students who w
      'id' => 5, 'help_category_id' => 4, 'order_num' => 1,
      'title_ja' => 'アカウントを作成するにはどうすればいいですか？',
      'title_en' => 'How can I sign up',
-     'body_ja' => "Huber.のアカウントをお持ちでない方は<a href='http://localhost:3000/users/sign_up'>こちら</a>から登録できます。
+     'body_ja' => "Huber.のアカウントをお持ちでない方は<a href='https://huber-japan.com/users/sign_up'>こちら</a>から登録できます。
 利用登録はメールアドレスだけでなく、Facebookに接続して済ますこともできます。Huber.アカウントの作成は完全に無料です。
 
 登録が済んだら、必ずプロフィールを作成しておきましょう。",
