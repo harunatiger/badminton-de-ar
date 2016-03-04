@@ -2,8 +2,8 @@
 .row.row-space-2.row-space-top-4.row-calendar
   .col-xs-12
     .calendar-header-container
-      h3.text-center.row-space-2 カレンダー
-      p.text-center.row-space-2
+      h3.text-center.row-space-4 カレンダー
+      p.text-left.row-space-2
         | ツアーの予約が確定している日や相談を受けている日を確認できます。
         br
         | 予定が入っている日をクリックすると内容が確認できます。
@@ -14,24 +14,25 @@
             .calendar-description
               .row
                 .col-sm-12.col-md-6
+                  i.fa.fa-square-o
                   | 予約リクエストを受け付けない日を設定する方法
                 .col-sm-12.col-md-6.text-right
                   | 詳しく見る
                   i.fa.fa-caret-down
           .collapse
             .collapse-body
-              i.fa.fa-square-o
-              | 予約リクエストを受け付けない日を設定する方法
               ol
                 li カレンダー上部で設定する対象ツアーを選択します。
-                li
-                  | 日付をクリックして設定します。
-                  br
-                  | 開始日から終了日までをドラッグするとまとめて設定できます。
-                  br
-                  | 曜日を一括設定する場合はカレンダー上部の曜日をクリックしてください。
-              i.fa.fa-square-o
-              | 設定を解除する方法
+                li 日付をクリックして設定します。
+              .row-space-1
+                i.fa.fa-square-o
+                span 3日間など連続した日、もしくは毎週月曜日などを設定する方法
+              ul
+                li 開始日から終了日までをドラッグするとまとめて設定できます。
+                li 曜日を一括設定する場合はカレンダー上部の曜日をクリックしてください。
+              .row-space-1
+                i.fa.fa-square-o
+                span 設定を解除する方法
               ol
                 li 設定した日をクリックすると設定された内容と解除ボタンが表示されます。
                 li

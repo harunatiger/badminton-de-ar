@@ -9,13 +9,18 @@ $ ->
   g_weekdelFlag = 0
   g_mode = 0
   g_current_mode = 0
+  g_event_className = []
+
+  #use when create event
   g_listing_id = ''
   g_event_id = ''
-  g_event_className = []
+  g_dow = -1
+
+  #use when selected event and drop event
   g_select_listing = ''
   g_select_listing_week = ''
   g_select_dow = ''
-  g_dow = -1
+
 
   #---------------------------------------------------------------------
   # Set Listing
@@ -197,7 +202,7 @@ $ ->
           ajaxUrl = '/ngevent_weeks'
           week_mode = 1
         else
-          ajaxUrl = '/listings/' + g_select_listing + '/ngevent_weeks'
+          ajaxUrl = '/listings/' + g_listing_id + '/ngevent_weeks'
           week_mode = 0
         data = event:
           dow: g_dow,

@@ -66,7 +66,7 @@
               i.fa.fa-check
       - if controller_name == "calendar"
         li.nav-item.nav-active
-          = link_to calendar_index_path do
+          = link_to listing_calendar_index_path(@listing) do
             | ＮＧ日の設定
             i.fa.fa-plus
       - else
