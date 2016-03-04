@@ -328,11 +328,13 @@ regulate_user:
 regulate_term:
   expired: "You've missed the deadline for reviewing this tour"
 review:
-  save:
-    success: "Your review has been posted succesfully. Please wait for a reply from your TOMODACHI GUIDE"
-    failure: "Failed to post review"
+  for_guide:
+    save:
+      success: "Your review has been posted succesfully. Please wait for a reply from your TOMODACHI GUIDE"
+      failure: "Failed to post review"
+  for_guest:
+    save:
+      success: "Your review has been posted succesfully. Please wait for a reply from your guest"
+      failure: "Failed to post review"
+  opened: "Your review has been sent successfully. This review will be seen on your public page."
   expiration_date: 14
-review_reply:
-  save:
-    success: "Your review has been sent successfully. This review will be seen on your public page."
-    failure: "Failed to reply to review"

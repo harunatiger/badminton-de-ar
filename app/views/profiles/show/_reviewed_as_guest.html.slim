@@ -26,7 +26,7 @@
                       .comment-container.expandable.expandable-trigger-more.row-space-2.expanded
                         .expandable-content
                           p 
-                            = r.review_reply.msg
+                            = r.msg
                           .expandable-indicator
                         /a.expandable-trigger-more.text-muted href="#"
                           /strong もっと詳しく
@@ -37,17 +37,6 @@
                     .listing-name.text-center--sp
                       = link_to listing_path(l.id) 
                         = l.title
-                    /.media
-                      .media-photo.media-round.pull-left
-                        = link_to profile_path(r.host_id)
-                          .size36[style="background-image: url('#{user_id_to_profile_image(r.host_id)}')"]
-
-                      /.media-body
-                        strong
-                          | 返信：
-                        p
-                          = review_id_to_review_reply_msg(r.id)
-
             .row.row-space-2.line-separation
               .col-10.col-offset-2
                 hr

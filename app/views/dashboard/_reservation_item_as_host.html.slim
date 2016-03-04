@@ -34,13 +34,20 @@
               - if r.accepted?
                 .state.state-primary
                   | Booked
+                br
               - else
                 .state.state-normal
                   | Cancelled
+                br
               - if r.completed?
-                div
+                - if guest.soft_destroyed?
+                  = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red disabled", data: { toggle: "modal" }
+                - else
                   = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
                 = render partial: 'shared/modals/confirm_cancel_from_guide', locals: { r: r, count: i.to_s}
+              - elsif r.review_for_guest_enabled?
+                = link_to "Review", for_guest_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"    
+                br
               = link_to "#", class: "small2 btn-block about_cancel_from_guide_link" do
                 | Guide Refund Policy
         .col-md-12.row-space-top-2

@@ -21,17 +21,19 @@
     .col-lg-8.col-md-12
       .row-space-4
         .h3.row-space-2
-          = link_to profile_path(counterpart.id)
+          | Send feedback to 
+          = link_to profile_path(counterpart.profile.id)
              = user_obj_to_name(counterpart)
-             | さん
-          | に評価を送りましょう。
         p.row-space-3
-          | 先日のツアーの評価や感想をガイドの方に送ることができます。
+          | You can send your thoughts and comments about your recent tour to your guide.
           br
-          | あまり難しく考えず、あなたの率直な感想をお伝えしましょう。
-          br
-          | 感謝の内容や、改善の希望など、次回このガイドさんとご一緒される方に大変役立ちます。
-          br
-          | ぜひ一筆お願い申し上げます。
+          | Give your honest feelings, thanks, and any advice to help your guide improve future tours.
+        p.row-space-3.text-red
+          strong
+            | ＊ You can send a review during the two weeks after the end of your tour.
+            br
+            | ＊ The review will be published on your page as soon as both the guide and guest have sent their reviews.
+            br
+            | ＊ Reviews will be published at the end of the two weeks even if one side hasn’t sent a review.
         .card.card-bald
-          == render 'form'
+          == render 'form_for_guide'

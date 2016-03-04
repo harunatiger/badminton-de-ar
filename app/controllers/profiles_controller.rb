@@ -18,9 +18,8 @@ class ProfilesController < ApplicationController
   def show
     @listings = Listing.mine(@profile.user_id).opened.without_soft_destroyed.includes(:listing_detail).order_by_updated_at_desc
     gon.listings = ListingDetail.where(listing_id: @listings.map{|l| l.id}).where.not('place_longitude = 0 and place_latitude = 0')
-    #@reviewed = Review.they_do(@profile.user_id).order_by_updated_at_desc
-    @reviewed = Review.they_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
-    @reviewed_as_guest = Review.i_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc.includes(:review_reply)
+    @reviewed = Review.reviewed_as_guide(@profile.user_id)
+    @reviewed_as_guest = Review.reviewed_as_guest(@profile.user_id)
     @profile_keyword = ProfileKeyword.where(user_id: @profile.user_id, profile_id: @profile.id).keyword_limit
     gon.keywords = @profile_keyword
   end
@@ -112,8 +111,8 @@ class ProfilesController < ApplicationController
         status = 'error'
       end
     end
-    @reviewed = Review.they_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
-    @reviewed_as_guest = Review.i_do(@profile.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc.includes(:review_reply)
+    @reviewed = Review.reviewed_as_guide(@profile.user_id)
+    @reviewed_as_guest = Review.reviewed_as_guest(@profile.user_id)
     reviewed_count = @reviewed.count
     reviewed_as_guest_count = @reviewed_as_guest.count
     html = render_to_string partial: '/profiles/show/user_card', locals: { profile: @profile, reviewed_count: reviewed_count + reviewed_as_guest_count }
