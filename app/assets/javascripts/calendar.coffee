@@ -34,6 +34,8 @@ $ ->
 
   ## listing change
   $(document).on 'change', '#calendar_listing', ->
+    $.each $('#calendar').fullCalendar('clientEvents'), (index, elem) ->
+      console.log elem._start._d
     #Set listing
     if $('#calendar_listing').val() == ''
       g_listing_id = 0
@@ -472,12 +474,24 @@ $ ->
         if val.match(/^listing/) != null
           g_select_listing_week = val.replace(/listing/g,"")
 
+      arry_redDay = []
+
       if $.inArray(event.dow[0], g_current_dow) == -1
         g_current_dow.push(event.dow[0])
+
+        $.each $('#calendar').fullCalendar('clientEvents'), (index, elem) ->
+          if elem.color == 'red'
+            eventDay = new Date(elem._start._i)
+            redWeek = eventDay.getDay()
+            if redWeek == event.dow[0]
+              arry_redDay.push(elem._start._i)
 
       setWeekElement(event.dow[0]).css('background', event.color)
       setWeekNumElement(event.dow[0]).css('color','white')
       setWeekHeaderElement(event.dow[0],g_select_listing_week).css('background', event.color)
+
+      $.each arry_redDay, (index, elem) ->
+        $('.fc-day[data-date="' + elem + '"]').css('background', 'red')
       return
     else
       startDay = new Date(event._start._i)
@@ -576,7 +590,7 @@ $ ->
       { url: '/ngevents.json'},
       { url: '/ngevents/common_ngdays.json'},
       { url: '/ngevents/request_ngdays.json'},
-      { url: '/ngevents/reservation_ngdays.json'}
+      { url: '/ngevents/reservation_ngdays.json'},
     ]
     eventStartEditable: false,
     eventAfterAllRender: ->

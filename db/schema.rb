@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160304003326) do
-=======
 ActiveRecord::Schema.define(version: 20160303175723) do
->>>>>>> add_review_button
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
