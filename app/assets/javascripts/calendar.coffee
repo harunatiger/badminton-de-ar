@@ -585,13 +585,12 @@ $ ->
     eventRender: eventSetting,
     eventOverlap: disallowOverlap,
     eventSources: [
+      { url: '/ngevent_weeks/common_ngweeks.json' },
+      { url: '/ngevent_weeks/except_common_ngweeks.json' },
       { url: '/ngevents.json'},
       { url: '/ngevents/common_ngdays.json'},
       { url: '/ngevents/request_ngdays.json'},
       { url: '/ngevents/reservation_ngdays.json'},
-      { url: '/ngevent_weeks/common_ngweeks.json' },
-      { url: '/ngevent_weeks/except_common_ngweeks.json' }
-
     ]
     eventStartEditable: false,
     eventAfterAllRender: ->
