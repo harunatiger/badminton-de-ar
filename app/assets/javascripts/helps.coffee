@@ -22,7 +22,7 @@ $ ->
       if navi.outerHeight(true) + target_top < main.outerHeight(true) + sub_top
         $(window).scroll ->
           ws = $(window).scrollTop()
-          sub_scroll = main.offset().top + main.outerHeight(true) - navi.outerHeight(true) - parseInt(navi.css('margin-top'), 10)
+          sub_scroll = main.offset().top + main.outerHeight(true) - navi.outerHeight(true) - parseInt(navi.css('margin-top'), 30)
           if ws > sub_scroll
             navi_parent.css
               position: 'fixed'
