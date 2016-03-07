@@ -1,24 +1,23 @@
 # help_topics
 $ ->
-  if $('body').hasClass('help_topics index')
+  if $('body').hasClass('help_topics for_user') || $('body').hasClass('help_topics for_guide')
     getScrollTarget = (href) ->
       hrefSplit = href.split(/#/)
       target = $('#' + hrefSplit[1])
-      console.log target
       position = target.offset().top - 40
       $('body,html').animate(scrollTop:position)
       return false
 
-    setNavScroll =(navi, main) ->
+    setNavScroll = () ->
+      navi = $('.help_categories')
+      main = $('#help_content')
       navi_parent = $('#help-nav')
-      #before = $(window).scrollTop()
       navi_parent.css
         position: 'relative'
         top: '0px'
       footerHeight = $('footer').height() + 100
       target_top = navi.offset().top - parseInt(navi.css('margin-top'), 10)
       sub_top = main.offset().top - parseInt(main.css('margin-top'), 10)
-      #sub_scroll = main.offset().top + main.outerHeight(true) - navi.outerHeight(true) - parseInt(navi.css('margin-top'), 10)
       if navi.outerHeight(true) + target_top < main.outerHeight(true) + sub_top
         $(window).scroll ->
           ws = $(window).scrollTop()
@@ -28,11 +27,9 @@ $ ->
               position: 'fixed'
               top: sub_scroll - (ws + footerHeight) + 'px'
           else if ws > target_top
-            #if before > ws
             navi_parent.css
               position: 'fixed'
               top: '10px'
-            #else
           else
             navi_parent.css
               position: 'relative'
@@ -40,28 +37,11 @@ $ ->
           return
       return
 
-    $('.help_guide_list').css('display','none')
-    $('#help_guide_content').css('display','none')
-
     if $('#help-nav').css('display') == 'block'
-      setNavScroll($('#help-nav .help_other_list'), $('#help_other_content'))
+      setNavScroll()
 
-      $('a.help_guide_trigger').on 'click', (e) ->
-        $('.help_other_list').css('display','none')
-        $('.help_guide_list').css('display','block')
-        $('#help_other_content').css('display','none')
-        $('#help_guide_content').css('display','block')
-        $('body,html').animate(scrollTop:0)
-        setNavScroll($('#help-nav .help_guide_list'), $('#help_guide_content'))
-
-
-      $('a.help_other_trigger').on 'click', (e) ->
-        $('.help_other_list').css('display','block')
-        $('.help_guide_list').css('display','none')
-        $('#help_other_content').css('display','block')
-        $('#help_guide_content').css('display','none')
-        $('body,html').animate(scrollTop:0)
-        setNavScroll($('#help-nav .help_other_list'), $('#help_other_content'))
+      $('a.help_page_link').on 'click', (e) ->
+        setNavScroll()
 
       $('li.help-category-item.anchor-scroll a').each ->
         $(this).on 'click', (e) ->
@@ -97,20 +77,28 @@ $ ->
 
 
     else if $('#help-nav-sp').css('display') == 'block'
+      #return top button
+      top_button = $('.return-top')
+      navi_sp = $('#help-nav-sp')
+      navi_top = navi_sp.offset().top
+      footerHeight = $('footer').height() + 150
+      $(window).scroll ->
+        ws = $(window).scrollTop()
+        scrollHeight = $(document).height()
+        scrollPosition = $(window).height() + ws
+        if ws > navi_top
+          top_button.removeClass('hide')
+          if scrollHeight - scrollPosition < footerHeight
+            top_button.css
+              bottom: footerHeight
+          else
+            top_button.css
+              bottom: '50px'
+        else
+          top_button.addClass('hide')
 
-      $('a.help_guide_trigger').on 'click', (e) ->
-        $('.help_other_list').css('display','none')
-        $('.help_guide_list').css('display','block')
-        $('#help_other_content').css('display','none')
-        $('#help_guide_content').css('display','block')
-        $('body,html').animate(scrollTop:0)
-
-      $('a.help_other_trigger').on 'click', (e) ->
-        $('.help_other_list').css('display','block')
-        $('.help_guide_list').css('display','none')
-        $('#help_other_content').css('display','block')
-        $('#help_guide_content').css('display','none')
-        $('body,html').animate(scrollTop:0)
+      top_button.on 'click', (e) ->
+        $('body,html').animate(scrollTop: 0)
 
       $('li.help-category-item.anchor-scroll a').each ->
         $(this).on 'click', (e) ->
@@ -125,9 +113,6 @@ $ ->
           $('li.help-category-item a').removeClass('nav-active')
           $(this).addClass('nav-active')
           $('.collapse.in').collapse('hide')
-          #child_first_elem = $(this).parent().next().find('li.help-category-item-children:first').children('a')
-          #if child_first_elem.length != -1
-            #child_first_elem.addClass('nav-active')
 
           if $(this).parent().next().hasClass('collapse in')
             $(this).parent().next().collapse('hide')
@@ -135,7 +120,6 @@ $ ->
             $(this).parent().next().collapse('show')
             $(this).parent().next().css('padding-left','30px')
           return false
-          #getScrollTarget($(this).attr('href'))
 
       $('li.help-category-item-children.anchor-scroll a').each ->
         $(this).on 'click', (e) ->

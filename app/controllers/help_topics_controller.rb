@@ -1,8 +1,11 @@
 class HelpTopicsController < ApplicationController
   before_action :set_locale
 
-  def index
+  def for_user
     @help_categories_other = HelpCategory.where(parent_id: 1).includes(:children)
+  end
+
+  def for_guide
     @help_categories_guide = HelpCategory.where(parent_id: 2).includes(:children)
   end
 

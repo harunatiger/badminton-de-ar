@@ -12,11 +12,10 @@
         = link_to static_pages_about_path, class: '' do
           = I18n.t("help.about_link")
           i.fa.fa-angle-right
-  .help_other_list
+  .help_categories
     ul
-      - if categories_other.present?
-        /- help_type = categories.first.parent_id
-        - categories_other.each do |c|
+      - if categories.present?
+        - categories.each do |c|
           - if c.children.present?
             - parent_anchor = c.children.first.id
             li.help-category-item
@@ -38,33 +37,10 @@
     - if user_signed_in? and current_user.listings.present?
       ul.help-nav-footer.text-center
         li
-          = link_to I18n.t("help.help_guide_link"), '#', class: 'help_guide_trigger'
-  .help_guide_list
-    ul
-      - if categories_guide.present?
-        /- help_type = categories.first.parent_id
-        - categories_guide.each do |c|
-          - if c.children.present?
-            li.help-category-item
-              .collapse-trigger.parent-category
-                = link_to :anchor => "category-#{c.id}"  do
-                  = c.name
-                  i.fa.fa-angle-right
-              ul.collapse.child-category
-                - c.children.each do |cc|
-                  li.help-category-item-children.anchor-scroll
-                    = link_to :anchor => "category-#{cc.id}" do
-                      = cc.name
-                      i.fa.fa-angle-right
-          - else
-            li.help-category-item.anchor-scroll
-              = link_to :anchor => "category-#{c.id}" do
-                = c.name
-                i.fa.fa-angle-right
-    ul.help-nav-footer.text-center
-      li
-        = link_to I18n.t("help.help_other_link"), '#', class: 'help_other_trigger'
+          = link_to I18n.t("help.help_guide_link"), for_guide_help_topics_path, class: 'help_page_link'
 #help-nav-sp
+  = link_to '#', class: 'return-top hide' do
+    i.fa.fa-angle-up
   ul.text-right.help-nav-header
     li.btn
       =<> link_to "Japanese", url_for(params.merge(locale: 'ja'))
@@ -77,11 +53,10 @@
       li.about-link-item
         = link_to static_pages_about_path, class: '' do
           = I18n.t("help.about_link")
-  .help_other_list
+  .help_categories
     ul
-      - if categories_other.present?
-        /- help_type = categories.first.parent_id
-        - categories_other.each do |c|
+      - if categories.present?
+        - categories.each do |c|
           - if c.children.present?
             - parent_anchor = c.children.first.id
             li.help-category-item
@@ -100,26 +75,4 @@
     - if user_signed_in? and current_user.listings.present?
       ul.help-nav-footer.text-right
         li.btn
-          = link_to I18n.t("help.help_guide_link"), '#', class: 'help_guide_trigger'
-  .help_guide_list
-    ul
-      - if categories_guide.present?
-        /- help_type = categories.first.parent_id
-        - categories_guide.each do |c|
-          - if c.children.present?
-            li.help-category-item
-              .collapse-trigger.parent-category
-                = link_to :anchor => "category-#{c.id}" do
-                  = c.name
-              ul.collapse.child-category
-                - c.children.each do |cc|
-                  li.help-category-item-children.anchor-scroll
-                    = link_to :anchor => "category-#{cc.id}" do
-                      = cc.name
-          - else
-            li.help-category-item.anchor-scroll
-              = link_to :anchor => "category-#{c.id}" do
-                = c.name
-    ul.help-nav-footer.text-right
-      li.btn
-        = link_to I18n.t("help.help_other_link"), '#', class: 'help_other_trigger'
+          = link_to I18n.t("help.help_guide_link"), for_guide_help_topics_path, class: 'help_page_link'

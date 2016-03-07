@@ -234,7 +234,7 @@ page:
   signup: 'Sign up'
   login: 'Log In'
   logout: 'Log Out'
-  help: 'Help'
+  help: 'Q&A'
   subnav:
     top: 'Top'
     photos: '写真'
