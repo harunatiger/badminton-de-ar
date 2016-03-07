@@ -68,6 +68,11 @@
           = render partial: 'shared/modals/guide_request'
     - if user_signed_in?
       ul.nav.pull-right
+        li.pull-left
+          = link_to for_user_help_topics_path ,class: "qa-link" do
+            i.fa.fa-question-circle
+            span.qa
+              = Settings.page.help
         li.user-item.user-nav-toggle.pull-left
           = link_to profile_path(current_user.profile.id), class: "" do
             .media-photo.media-round.user-profile-image.media-avatar

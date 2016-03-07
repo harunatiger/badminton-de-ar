@@ -1,0 +1,30 @@
+.page-container.help-topic-main
+  .row
+    .col-lg-3.col-md-12.col-sm-12.help-topic-index
+      = render 'categories_for_guide', categories: @help_categories_guide
+    .col-lg-9.col-md-12.col-sm-12.help-topic-details
+      #help_content
+        - @help_categories_guide.each do |category|
+          .category-block
+            h3[id="category-#{category.id}"]
+              i.fa.fa-file-text-o
+              = category.name
+            ul.help-topic-list
+              - if category.children.present?
+                - category.children.each do |category_child|
+                  h4[id="category-#{category_child.id}"]
+                    i.fa.fa-square-o
+                    = category_child.name
+                  - HelpTopic.select_topics(category_child.id).order_num.each do |topic|
+                    li.topic-block
+                      .topic-title.strong
+                        = topic.title
+                      .topic-content
+                        = hbr_noescape(topic.body).html_safe
+              - else
+                - HelpTopic.select_topics(category.id).order_num.each do |topic|
+                  li.topic-block
+                    .topic-title.strong
+                      = topic.title
+                    .topic-content
+                      = hbr_noescape(topic.body).html_safe
