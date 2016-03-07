@@ -10,6 +10,7 @@ $ ->
   g_mode = 0
   g_current_mode = 0
   g_event_className = []
+  g_arry_redDay = []
 
   #use when create event
   g_listing_id = ''
@@ -34,8 +35,6 @@ $ ->
 
   ## listing change
   $(document).on 'change', '#calendar_listing', ->
-    $.each $('#calendar').fullCalendar('clientEvents'), (index, elem) ->
-      console.log elem._start._d
     #Set listing
     if $('#calendar_listing').val() == ''
       g_listing_id = 0
@@ -82,6 +81,7 @@ $ ->
   #---------------------------------------------------------------------
   ##Confirm Modal for Day
   confirmModal = (events) ->
+    console.log events
     event_count = events.length
     elem = events[event_count-1]
     #$.each events, (index, elem) ->
@@ -472,42 +472,36 @@ $ ->
 
   ## BackgroundColor initiarized when event render
   eventSetting = (event, element, view) ->
-    #console.log event
     if $.inArray('ng-event-week', event.className) != -1
+      redDayflg = 0
       event.className.forEach (val, index, ar) ->
         if val.match(/^listing/) != null
           g_select_listing_week = val.replace(/listing/g,"")
-
-      arry_redDay = []
-      arry_pinkDay = []
 
       if $.inArray(event.dow[0], g_current_dow) == -1
         g_current_dow.push(event.dow[0])
 
         $.each $('#calendar').fullCalendar('clientEvents'), (index, elem) ->
-          if elem.color == 'red'
+
+          if elem.color == 'red' || elem.color == '#E8868F'
             eventDay = new Date(elem._start._i)
             redWeek = eventDay.getDay()
             if redWeek == event.dow[0]
-              arry_redDay.push(elem._start._i)
-          else if  elem.color == '#E8868F'
-            eventDay = new Date(elem._start._i)
-            pinkWeek = eventDay.getDay()
-            if pinkWeek == event.dow[0]
-              arry_pinkDay.push(elem._start._i)
+              g_arry_redDay.push(elem._start._d)
 
-      setWeekElement(event.dow[0]).css('background', event.color)
-      setWeekNumElement(event.dow[0]).css('color','white')
+      startDay = new Date(event._start._d)
+      $.each g_arry_redDay, (index, elem) ->
+        redDay = new Date(elem)
+        if formatDate(startDay) == formatDate(redDay)
+          redDayflg = 1
+
+      if redDayflg == 0
+        $('.fc-day[data-date="' + formatDate(startDay) + '"]').css('background', event.color)
+        $('.fc-day-number[data-date="' + formatDate(startDay) + '"]').css('color','white')
+      #setWeekElement(event.dow[0]).css('background', event.color)
+      #setWeekNumElement(event.dow[0]).css('color','white')
       setWeekHeaderElement(event.dow[0],g_select_listing_week).css('background', event.color)
-      console.log arry_pinkDay
-      $.each arry_redDay, (index, elem) ->
-        $('.fc-day[data-date="' + elem + '"]').css('background', 'red')
-        console.log 'red'
-        console.log elem
-      $.each arry_pinkDay, (index, elem) ->
-        $('.fc-day[data-date="' + elem + '"]').css('background', '#E8868F')
-        console.log 'pink'
-        console.log elem
+
       return
     else
       startDay = new Date(event._start._i)
@@ -535,16 +529,6 @@ $ ->
         evExist = false
         return false
     return evExist
-
-  #eventExistLoad = (event, element) ->
-  #  current_startdate = event._start._d
-  #  $.each array_startdate, (index, elem) ->
-  #    if formatDate(current_startdate) == formatDate(elem)
-  #      $(array_event[index]).addClass('hide')
-  #  array_event.push(element)
-  #  array_startdate.push(current_startdate)
-  #  return
-
 
   #---------------------------------------------------------------------
   # fullcalendar settings
@@ -621,23 +605,20 @@ $ ->
       endDate = new Date(date.year(), date.month(), date.date(), 23, 59, 59)
       jsEvent.preventDefault()
       events = view.calendar.clientEvents((event) ->
-        event.start >= startDate and event.start < endDate
+        eventStart = event.start
+        eventEnd = event.end
+        if eventStart >= startDate && eventStart <= endDate
+          true
+        else if eventEnd >= startDate && eventEnd >= endDate
+          if startDate <= eventStart && endDate <= eventStart
+            false
+          else
+            true
+        else
+          false
       )
       if events.length != 0
         confirmModal(events)
         g_delFlag = 1
       return
-      #$('#calendar').fullCalendar 'clientEvents', (event) ->
-      #  eventStart = event.start
-      #  eventEnd = event.end
-      #  if eventStart >= startDate && eventStart <= endDate
-      #    confirmModal(event)
-      #    g_delFlag = 1
-      #  else if eventEnd >= startDate && eventEnd >= endDate
-      #    if startDate <= eventStart && endDate <= eventStart
-      #    else
-      #      confirmModal(event)
-      #      g_delFlag = 1
-      #  else
-      #  return
   )
