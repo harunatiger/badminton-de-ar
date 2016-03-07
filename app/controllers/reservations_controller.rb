@@ -294,6 +294,11 @@ class ReservationsController < ApplicationController
     def set_reservation
       @reservation = Reservation.find(params[:id])
       @reservation.message_thread_id = reservation_params[:message_thread_id]
+      if params[:save].present? or params[:offer].present?
+        @reservation.campaign_id = nil
+        @reservation.refund_rate = 0
+        @reservation.cancel_by = 0
+      end
     end
 
     def check_profile_identity
