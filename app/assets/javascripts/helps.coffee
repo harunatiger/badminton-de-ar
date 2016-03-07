@@ -81,7 +81,7 @@ $ ->
       top_button = $('.return-top')
       navi_sp = $('#help-nav-sp')
       navi_top = navi_sp.offset().top
-      footerHeight = $('footer').height() + 150
+      footerHeight = $('footer').height()
       $(window).scroll ->
         ws = $(window).scrollTop()
         scrollHeight = $(document).height()
@@ -90,7 +90,7 @@ $ ->
           top_button.removeClass('hide')
           if scrollHeight - scrollPosition < footerHeight
             top_button.css
-              bottom: footerHeight
+              bottom: footerHeight + 150
           else
             top_button.css
               bottom: '50px'
