@@ -81,12 +81,15 @@ $ ->
   # Confirm Modal
   #---------------------------------------------------------------------
   ##Confirm Modal for Day
-  confirmModal = (event) ->
-    g_event_id = event.id
-    g_select_dow = event.dow
+  confirmModal = (events) ->
+    event_count = events.length
+    elem = events[event_count-1]
+    #$.each events, (index, elem) ->
+    g_event_id = elem.id
+    g_select_dow = elem.dow
 
     g_event_className = ''
-    g_event_className = event.className
+    g_event_className = elem.className
 
     g_select_listing = ''
     g_event_className.forEach (val, index, ar) ->
@@ -469,12 +472,14 @@ $ ->
 
   ## BackgroundColor initiarized when event render
   eventSetting = (event, element, view) ->
+    #console.log event
     if $.inArray('ng-event-week', event.className) != -1
       event.className.forEach (val, index, ar) ->
         if val.match(/^listing/) != null
           g_select_listing_week = val.replace(/listing/g,"")
 
       arry_redDay = []
+      arry_pinkDay = []
 
       if $.inArray(event.dow[0], g_current_dow) == -1
         g_current_dow.push(event.dow[0])
@@ -485,13 +490,24 @@ $ ->
             redWeek = eventDay.getDay()
             if redWeek == event.dow[0]
               arry_redDay.push(elem._start._i)
+          else if  elem.color == '#E8868F'
+            eventDay = new Date(elem._start._i)
+            pinkWeek = eventDay.getDay()
+            if pinkWeek == event.dow[0]
+              arry_pinkDay.push(elem._start._i)
 
       setWeekElement(event.dow[0]).css('background', event.color)
       setWeekNumElement(event.dow[0]).css('color','white')
       setWeekHeaderElement(event.dow[0],g_select_listing_week).css('background', event.color)
-
+      console.log arry_pinkDay
       $.each arry_redDay, (index, elem) ->
         $('.fc-day[data-date="' + elem + '"]').css('background', 'red')
+        console.log 'red'
+        console.log elem
+      $.each arry_pinkDay, (index, elem) ->
+        $('.fc-day[data-date="' + elem + '"]').css('background', '#E8868F')
+        console.log 'pink'
+        console.log elem
       return
     else
       startDay = new Date(event._start._i)
@@ -599,23 +615,29 @@ $ ->
     windowResize: ->
       smDick()
       return
-    dayClick: (date, jsEvent) ->
+    dayClick: (date, jsEvent, view) ->
       count = 0
       startDate = new Date(date.year(), date.month(), date.date(), 0, 0, 0)
       endDate = new Date(date.year(), date.month(), date.date(), 23, 59, 59)
       jsEvent.preventDefault()
-      $('#calendar').fullCalendar 'clientEvents', (event) ->
-        eventStart = event.start
-        eventEnd = event.end
-        if eventStart >= startDate && eventStart <= endDate
-          confirmModal(event)
-          g_delFlag = 1
-        else if eventEnd >= startDate && eventEnd >= endDate
-          if startDate <= eventStart && endDate <= eventStart
-          else
-            confirmModal(event)
-            g_delFlag = 1
-        else
-        return
+      events = view.calendar.clientEvents((event) ->
+        event.start >= startDate and event.start < endDate
+      )
+      if events.length != 0
+        confirmModal(events)
+        g_delFlag = 1
+      return
+      #$('#calendar').fullCalendar 'clientEvents', (event) ->
+      #  eventStart = event.start
+      #  eventEnd = event.end
+      #  if eventStart >= startDate && eventStart <= endDate
+      #    confirmModal(event)
+      #    g_delFlag = 1
+      #  else if eventEnd >= startDate && eventEnd >= endDate
+      #    if startDate <= eventStart && endDate <= eventStart
+      #    else
+      #      confirmModal(event)
+      #      g_delFlag = 1
+      #  else
+      #  return
   )
-
