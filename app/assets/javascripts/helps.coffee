@@ -18,11 +18,16 @@ $ ->
       footerHeight = $('footer').height() + 100
       target_top = navi.offset().top - parseInt(navi.css('margin-top'), 10)
       sub_top = main.offset().top - parseInt(main.css('margin-top'), 10)
+      footer_top = $('footer').offset().top - 150
       if navi.outerHeight(true) + target_top < main.outerHeight(true) + sub_top
         $(window).scroll ->
           ws = $(window).scrollTop()
-          sub_scroll = main.offset().top + main.outerHeight(true) - navi.outerHeight(true) - parseInt(navi.css('margin-top'), 30)
+          sub_scroll = main.offset().top + main.outerHeight(true) - navi.outerHeight(true) - parseInt(navi.css('margin-top'), 10)
           if ws > sub_scroll
+            navi_parent.css
+              position: 'fixed'
+              top: sub_scroll - (ws + footerHeight) + 'px'
+          else if ws + navi.outerHeight(true) > footer_top
             navi_parent.css
               position: 'fixed'
               top: sub_scroll - (ws + footerHeight) + 'px'

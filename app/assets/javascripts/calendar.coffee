@@ -81,7 +81,6 @@ $ ->
   #---------------------------------------------------------------------
   ##Confirm Modal for Day
   confirmModal = (events) ->
-    console.log events
     event_count = events.length
     elem = events[event_count-1]
     #$.each events, (index, elem) ->

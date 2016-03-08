@@ -390,9 +390,6 @@ class Reservation < ActiveRecord::Base
   
   def self.for_message_thread(guest_id, host_id)
     reservation = self.latest_reservation(guest_id, host_id)
-    reservation.campaign_id = nil
-    reservation.refund_rate = 0
-    reservation.cancel_by = 0
     if reservation.present?
       if reservation.accepted?
         self.new(progress: 'under_construction')

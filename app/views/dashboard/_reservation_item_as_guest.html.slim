@@ -44,9 +44,9 @@
                   = link_to "Cancel", "#confirm_cancel1", class: "btn btn-thread row-space-top-1 row-space-1 text-red disabled", data: { toggle: "modal" }
                 - else
                   = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
-                = render partial: 'shared/modals/confirm_cancel', locals: { r: r}
+                = render partial: 'shared/modals/confirm_cancel', locals: { r: r, count: i.to_s}
               - elsif r.review_for_guide_enabled?
-                = link_to "Review", for_guide_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"    
+                = link_to "Review", for_guide_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"
                 br
               = link_to "#", class: "small2 about_cancel_link" do
                 | Guest Refund Policy

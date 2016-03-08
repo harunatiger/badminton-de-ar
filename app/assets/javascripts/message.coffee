@@ -263,3 +263,31 @@ $ ->
         if cutFigure < textLength
           $(this).html(textTrim + afterTxt)
         return
+
+  if $('body').hasClass('dashboard host_reservation_manager')
+    $(document).on 'ajax:success',  (event) ->
+      $target = $(event.target)
+      count = $target.children('#count').val()
+      element = $('ul.thread-list li.thread').eq(count)
+      console.log element
+      element.find('.thread-progress .state').removeClass('state-primary')
+      element.find('.thread-progress .state').addClass('state-normal')
+      element.find('.thread-progress .state').text('Cancelled')
+      element.find('.confirm_cancel_from_guide_link').addClass('hide')
+      element.find('.step1').hide()
+      element.find('.step2').hide()
+      element.find('.step3').hide()
+      element.find('.step4').show()
+
+  if $('body').hasClass('dashboard guest_reservation_manager')
+    $(document).on 'ajax:success',  (event) ->
+      $target = $(event.target)
+      count = $target.children('#count').val()
+      element = $('ul.thread-list li.thread').eq(count)
+      console.log element
+      element.find('.thread-progress .state').removeClass('state-primary')
+      element.find('.thread-progress .state').addClass('state-normal')
+      element.find('.thread-progress .state').text('Cancelled')
+      element.find('.confirm_cancel_link').addClass('hide')
+      element.find('.step1').hide()
+      element.find('.step3').show()
