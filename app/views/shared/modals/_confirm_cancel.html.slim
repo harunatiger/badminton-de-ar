@@ -2,6 +2,7 @@
 - today = Time.zone.now
 = simple_form_for(r, html: { class: "cancel-reservation-form" }, data: { remote: true }) do |f|
   = f.hidden_field :message_thread_id, value: r.message_thread_id
+  = hidden_field_tag  :count, count
   #confirm_cancel.modal[role="dialog" aria-hidden="true"]
     .modal-step
       .step.step1.active
@@ -16,26 +17,26 @@
                 p.strong.text-lead
                   | It’s the #{(r.schedule.to_date - today.to_date).to_i} day before your tour.
                 p.strong.text-lead
-                  | You will be charged 
+                  | You will be charged
                   span.strong.text-red ¥&nbsp#{r.cancellation_fee_for_dashboard}
-                  |  if you cancel now. 
+                  |  if you cancel now.
                 p.small1
-                  /i.fa.fa-exclamation-circle.fa-red 
+                  /i.fa.fa-exclamation-circle.fa-red
                   |  #{today}
-                  | This information is correct as of time date. 
+                  | This information is correct as of time date.
                   br
-                  | Please be aware that these conditions are subject to change. 
+                  | Please be aware that these conditions are subject to change.
                   br
-                  | Please check 
+                  | Please check
                   = link_to "the cancellation policy", "#", class: "about_cancel_link"
                   |  for more datails.
                   br
                   br
-                  | Attention:  Regarding rainy weather cancellations 
+                  | Attention:  Regarding rainy weather cancellations
                   br
                   | *If you would like to cancel a tour with a rainy weather substitution due to rain on the day, please send a message to your guide to inform them of your decision to cancel your tour.
                   br
-                  | If you request a cancellation of a tour due to rainy weather, your tour will be cancelled without incurring any cancellation fees.  
+                  | If you request a cancellation of a tour due to rainy weather, your tour will be cancelled without incurring any cancellation fees.
 
 
 

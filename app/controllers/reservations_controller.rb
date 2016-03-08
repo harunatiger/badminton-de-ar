@@ -172,7 +172,7 @@ class ReservationsController < ApplicationController
   end
 
   def canceled_after_accepted
-    @booking_index = params[:count] if params[:count].present? #for dashboard/_reservation_item_as_host
+    #@booking_index = params[:count] if params[:count].present? #for dashboard/_reservation_item_as_host
     payment = @reservation.payment
 
     if payment.completed?
