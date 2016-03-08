@@ -22,7 +22,8 @@ class ReviewsController < ApplicationController
           @reservation.save_review_opened_at_now
           @review.calc_average
           notice = Settings.review.opened
-          #ReviewMailer.send_review_accept_notification(@review).deliver_now!
+          ReviewMailer.send_review_accept_notification(@review.host_id, @review.guest_id).deliver_now!
+          ReviewMailer.send_review_accept_notification(@review.guest_id, @review.host_id).deliver_now!
         else
           notice = Settings.review.for_guest.save.success
         end
@@ -43,7 +44,8 @@ class ReviewsController < ApplicationController
           @reservation.save_review_opened_at_now 
           @review.calc_average
           notice = Settings.review.opened
-          #ReviewMailer.send_review_accept_notification(@review).deliver_now!
+          ReviewMailer.send_review_accept_notification(@review.host_id, @review.guest_id).deliver_now!
+          ReviewMailer.send_review_accept_notification(@review.guest_id, @review.host_id).deliver_now!
         else
           notice = Settings.review.for_guide.save.success
         end
