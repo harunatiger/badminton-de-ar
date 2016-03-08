@@ -40,9 +40,9 @@ class ReviewMailer < ApplicationMailer
     end
   end
   
-  def send_review_accept_notification(review)
-    from_user = User.find(review.host_id)
-    @to_user = User.find(review.guest_id)
+  def send_review_accept_notification(to_user_id, from_user_id)
+    from_user = User.find(from_user_id)
+    @to_user = User.find(to_user_id)
     @to_user_name = "#{@to_user.profile.last_name} #{@to_user.profile.first_name}"
     @from_user_name = "#{from_user.profile.last_name} #{from_user.profile.first_name}"
     mail(
