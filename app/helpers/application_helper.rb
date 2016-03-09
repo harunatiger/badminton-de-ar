@@ -1,5 +1,6 @@
 module ApplicationHelper
   include ActsAsTaggableOn::TagsHelper
+  require "uri"
 
   def full_title(page_title)
     base_title = Settings.site_info.base_title
@@ -570,5 +571,14 @@ module ApplicationHelper
 
   def has_reservation_as_guide
     current_user.comming_reservations_as_guide.present?
+  end
+
+  def text_url_to_link(text)
+    URI.extract(text, ['http']).uniq.each do |url|
+      sub_text = ""
+      sub_text << "<a href=" << url << " target=\"_blank\">" << url << "</a>"
+      text.gsub!(url, sub_text)
+    end
+    return text
   end
 end
