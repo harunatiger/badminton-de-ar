@@ -182,6 +182,11 @@ $ ->
     # sidenav switch
     $('a.burger--sp').on 'click', ->
       $('body').addClass('slideout')
+      if $('.nav-content--sp').hasClass('logged-in')
+        nav_content_height = $('.nav-content--sp').height()
+        nav_header_height = $('.nav-header').height()
+        $('.nav-menu-wrapper').css('height', nav_content_height - nav_header_height+'px')
+
     $('.nav-mask--sp').on 'click', ->
       $('body').removeClass('slideout')
 

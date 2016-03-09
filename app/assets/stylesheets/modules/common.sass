@@ -691,6 +691,7 @@ select
   border: 0
   border-radius: 0
   background: transparent
+  z-index: 1
   > div
     padding: 12px
     margin-bottom: 0
@@ -2092,7 +2093,7 @@ select
         border-color: rgba(255, 255, 255, 0.2)
       .nav-header
         display: block
-        height: 48px
+        height: auto
       .nav-menu-wrapper
         height: 100%
         overflow-x: hidden
@@ -2118,7 +2119,7 @@ select
           color: $brand-theme
       &.logged-in
         .nav-menu-wrapper
-          height: calc(100% - 48px)
+          //height: calc(100% - 48px)
     .nav-mask--sp
       position: absolute
       cursor: pointer
