@@ -186,7 +186,7 @@ module ApplicationHelper
 
   def profile_to_image_thumb(profile)
     if profile.thumb_image.present? and profile.thumb_image.image.present?
-      profile.thumb_image.image
+      profile.thumb_image.image.url
     else
       Settings.image.noimage2.url
     end

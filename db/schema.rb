@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303175723) do
+ActiveRecord::Schema.define(version: 20160310132119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,16 @@ ActiveRecord::Schema.define(version: 20160303175723) do
   add_index "favorite_users", ["from_user_id"], name: "index_favorite_users_on_from_user_id", using: :btree
   add_index "favorite_users", ["to_user_id"], name: "index_favorite_users_on_to_user_id", using: :btree
 
+  create_table "friendships", force: :cascade do |t|
+    t.integer  "friendable_id"
+    t.string   "friendable_type"
+    t.integer  "friend_id"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "blocker_id"
+  end
+
   create_table "help_categories", force: :cascade do |t|
     t.string   "name_ja"
     t.string   "name_en"
@@ -162,17 +172,16 @@ ActiveRecord::Schema.define(version: 20160303175723) do
 
   create_table "help_topics", force: :cascade do |t|
     t.integer  "help_category_id"
-    t.integer  "order_num",        default: 0
     t.string   "title_ja"
     t.string   "title_en"
     t.text     "body_ja"
     t.text     "body_en"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "order_num",        default: 0
   end
 
   add_index "help_topics", ["help_category_id"], name: "index_help_topics_on_help_category_id", using: :btree
-  add_index "help_topics", ["order_num"], name: "index_help_topics_on_order_num", using: :btree
 
   create_table "languages", force: :cascade do |t|
     t.string   "name"
@@ -526,9 +535,9 @@ ActiveRecord::Schema.define(version: 20160303175723) do
     t.string   "caption",     default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.string   "cover_image", default: ""
     t.integer  "order_num"
     t.boolean  "cover_flg",   default: false
+    t.string   "cover_image"
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree
@@ -763,7 +772,6 @@ ActiveRecord::Schema.define(version: 20160303175723) do
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["id"], name: "index_users_on_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree

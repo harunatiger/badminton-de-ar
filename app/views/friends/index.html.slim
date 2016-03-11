@@ -1,0 +1,19 @@
+= render partial: 'shared/subnav'
+.row-space-top-4
+  h3.text-center.row-space-2 ペアガイド仲間
+.page-container.row-space-top-4.row-space-8
+  .row
+    .card.row-space-4
+      .card-header
+        = form_tag(search_friends_path, method: :get, remote: true, id: 'friends_search') do
+          .row.row-space-1.row-space-top-1.row-table
+            .col-lg-1.col-middle
+              .h4.text-light
+                | 名前
+            .col-lg-5.fieldset.col-middle
+              = text_field 'search', 'keyword'
+            .col-lg-5.fieldset.col-middle
+              .select.select-opt.opt-double.pull-right
+                = select 'search', 'friends_or_not', [["仲間", 'friends'], ["その他", 'not_friends']]
+      = render partial: 'friends_list', locals: { friends: @friends }
+      = render partial: 'not_friends_list', locals: { not_friends: @not_friends }

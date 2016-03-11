@@ -229,6 +229,7 @@ page:
   profile: 'Profile'
   account: 'Account'
   favorites: 'Favorites'
+  friends: 'Friends'
   guest_flow: 'How to use'
   search: 'Search'
   signup: 'Sign up'

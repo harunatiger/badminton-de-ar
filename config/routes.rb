@@ -87,6 +87,14 @@ Rails.application.routes.draw do
   resources :favorite_listings, only: [:index, :destroy]
   resources :favorite_users, only: [:index, :destroy]
   resources :pickups, only: [:show]
+  resources :friends, only: [:index, :destroy] do
+    member do
+      post 'send_request'
+    end
+    collection do
+      get 'search'
+    end
+  end
 
   resources :reservations, only: [:create, :update] do
     resource :reviews, only: [:create] do

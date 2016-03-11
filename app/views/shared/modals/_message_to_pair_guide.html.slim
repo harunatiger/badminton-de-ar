@@ -1,0 +1,28 @@
+.modal[role="dialog" aria-hidden="true" id="message-to-host-from-reservation-manager-#{r.id}"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          a.modal-close[href="#" data-dismiss="modal"]
+          = Settings.message.modal.message_to_host_from_reservation_manager.title.label
+        = form_tag( messages_path, method: 'post', remote: true, class: 'message-to-host-with-reservation-form', id: "message-to-host-with-reservation-form-#{r.id}" )
+          .card-body
+            = hidden_field :message, :to_user_id, value: listing.user_id
+            = hidden_field :message, :from_user_id, value: current_user.id
+            = hidden_field :message, :listing_id, value: r.listing_id
+            = hidden_field :message, :reservation_id, value: r.id
+            p.h5.row-space-1
+              = user_id_to_name(r.host_id)
+            - if r.continued?
+              span.share-error
+                p
+                  = hidden_field :reservation, :id, value: r.id
+                  .select
+                    = select :reservation, :progress, [["cancel", "canceled"]], {include_blank: Settings.reservation.progress.select_by_guest, selected: Settings.reservation.progress.select_by_guest}
+            span.share-error
+            p
+              = text_area :message, :content, id: "email_message", class: "input-large input-block", rows: 6, placeholder: Settings.message.modal.message_to_host_from_reservation_manager.form.content.placeholder
+          .card-footer
+            div.btn-frame
+              = submit_tag Settings.message.modal.message_to_host_from_reservation_manager.form.submit.label, id: "message-to-host-with-reservation-btn-#{r.id}", class: "btn btn-primary", data: { num: r.id }
+              .spinner

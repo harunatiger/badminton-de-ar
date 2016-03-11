@@ -97,6 +97,9 @@
               = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path, rel: "nofollow"
             li
               = link_to Settings.page.favorites, favorite_listings_path, rel: "nofollow"
+            - if current_user.listings.present?
+              li
+                = link_to Settings.page.friends, friends_path, rel: "nofollow"
             /li
               /= link_to Settings.page.wishlists, wishlists_path, rel: "nofollow"
             li

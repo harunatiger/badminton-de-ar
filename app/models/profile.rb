@@ -68,6 +68,8 @@ class Profile < ActiveRecord::Base
   validates :first_name, :country, :phone, presence: true, if: :enable_strict_validation, on: :update
   VALID_PHONE_REGEX = /\A[-+0-9]+\z/
   validates :phone, format: { with: VALID_PHONE_REGEX, if: :enable_strict_validation, on: :update }
+  
+  scope :contains?, -> name { where('last_name like ? or first_name like ?', '%' + name + '%', '%' + name + '%') }
 
   def last_name_presence
     if self.last_name.empty?
@@ -167,5 +169,4 @@ class Profile < ActiveRecord::Base
   def thumb_image
     self.thumb_images.first
   end
-
 end

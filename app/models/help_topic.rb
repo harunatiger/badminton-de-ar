@@ -4,18 +4,17 @@
 #
 #  id               :integer          not null, primary key
 #  help_category_id :integer
-#  order_num        :integer          default(0)
 #  title_ja         :string
 #  title_en         :string
 #  body_ja          :text
 #  body_en          :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  order_num        :integer          default(0)
 #
 # Indexes
 #
 #  index_help_topics_on_help_category_id  (help_category_id)
-#  index_help_topics_on_order_num         (order_num)
 #
 
 class HelpTopic < ActiveRecord::Base

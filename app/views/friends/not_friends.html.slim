@@ -1,0 +1,15 @@
+= render partial: 'shared/subnav'
+.page-container.row-space-top-4.row-space-8
+  .row
+    .card.row-space-4
+      .card-header
+        | ペアガイド仲間
+        .select.select-opt.opt-double.pull-right
+          = select 'select', 'friends_or_not', [["仲間", friends_url], ["その他", not_friends_url]], selected: not_friends_url
+      .card-body
+        .page-container.page-container-no-padding.row-space-8.guide_list-wrapper
+          .guide_list-tiles
+            = render partial: 'not_friends_list', locals: { not_friends: @not_friends }
+      .card-footer
+        .text-center
+          = paginate(@not_friends)

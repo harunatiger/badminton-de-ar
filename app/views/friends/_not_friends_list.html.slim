@@ -1,0 +1,13 @@
+#not_friends_list
+  .card-body
+    .page-container.page-container-no-padding.row-space-8.guide_list-wrapper
+      .guide_list-tiles
+        - not_friends.each do |profile|
+          - all_reviewed_count = Review.my_reviewed_count(profile.user_id)
+          .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
+            = render partial: 'guide_card', locals: { all_reviewed_count: all_reviewed_count, profile: profile }
+            = form_tag(send_request_friend_path(profile.user_id), method: :post) do
+              = submit_tag '仲間申請', class: 'btn btn-primary btn-large btn-block row-space-top-1 row-space-1'
+  .card-footer
+    .text-center
+      = paginate(not_friends)
