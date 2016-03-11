@@ -138,7 +138,7 @@ reservation:
     requested: "Request"
     canceled: "Cancelled"
     under_construction: "Under construction"
-    accepted: "Accept"
+    accepted: "Booked"
     rejected: "Delete"
     listing_closed: "Close"
     canceled_after_accepted: "Cancelled"
