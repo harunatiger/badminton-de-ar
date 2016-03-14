@@ -716,16 +716,17 @@ select
     background-color: rgba(249, 47, 68, 0.9)
 
 .is-simpleHeader
-  //.alert
-  //  position: absolute
-  //  top: 80px
-  //  left: 45px
-  //  right: 45px
-  //  > div
-  //    border-radius: 4px
-  //  @media (max-width: 767px)
-  //    left: 20px
-  //    right: 20px
+  .alert
+    @media (min-width: 768px)
+      position: absolute
+      top: 80px
+      left: 45px
+      right: 45px
+      > div
+        border-radius: 4px
+    //@media (max-width: 767px)
+      //left: 20px
+      //right: 20px
 
 .app_view
   min-height: 400px
