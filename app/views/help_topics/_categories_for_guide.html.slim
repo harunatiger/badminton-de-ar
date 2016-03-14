@@ -6,12 +6,6 @@
       =<> link_to "English", url_for(params.merge(locale: 'en'))
   h2.h3
     = I18n.t("help.guide_title")
-  .about-link
-    ul
-      li.about-link-item
-        = link_to static_pages_about_path, class: '' do
-          = I18n.t("help.about_link")
-          i.fa.fa-angle-right
   .help_categories
     ul
       - if categories.present?
@@ -46,11 +40,6 @@
       =<> link_to "English", url_for(params.merge(locale: 'en'))
   h2.h3
     = I18n.t("help.guide_title")
-  .about-link
-    ul
-      li.about-link-item
-        = link_to static_pages_about_path, class: '' do
-          = I18n.t("help.about_link")
   .help_categories
     ul
       - if categories.present?
