@@ -3,7 +3,6 @@ class HelpTopicsController < ApplicationController
 
   def for_user
     @help_categories_other = HelpCategory.where(parent_id: 1).includes(:children)
-    @pre_mail = current_user.pre_mail
   end
 
   def for_guide
