@@ -28,7 +28,7 @@
               = link_to :anchor => "category-#{c.id}" do
                 = c.name
                 i.fa.fa-angle-right
-    - if user_signed_in? and @pre_mail.present?
+    - if user_signed_in? and current_user.listings.present?
       ul.help-nav-footer.text-center
         li
           = link_to I18n.t("help.help_guide_link"), for_guide_help_topics_path, class: 'help_page_link'
@@ -61,7 +61,7 @@
             li.help-category-item.anchor-scroll
               = link_to :anchor => "category-#{c.id}" do
                 = c.name
-    - if user_signed_in? and @pre_mail.present?
+    - if user_signed_in? and current_user.listings.present?
       ul.help-nav-footer.text-right
         li.btn
           = link_to I18n.t("help.help_guide_link"), for_guide_help_topics_path, class: 'help_page_link'
