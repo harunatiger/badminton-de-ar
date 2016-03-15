@@ -4,6 +4,6 @@ json.array!(@ngevents) do |event|
   json.end(event.end)
   json.color('gray')
   json.className do
-    json.array! ['listing' + (event.listing_id).to_s, 'mode' + (event.mode).to_s, 'ng-event-common']
+    json.array! ['listing' + (event.listing_id).to_s, 'mode' + (event.mode).to_s]
   end
 end

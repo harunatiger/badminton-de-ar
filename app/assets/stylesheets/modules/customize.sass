@@ -1366,18 +1366,31 @@ body.paper
   .collapse-panel
     background: white
     cursor: pointer
-    .fa-caret-down
+    .fa-caret-down,
+    .fa-caret-up
       margin-left: 5px
       font-size: 20px
-    .fa-square-o
+    .fa-dot-circle-o
       margin-right: 5px
+
 #calendar_confirm
-  .modal-content
-    max-width: 400px
-    @media (max-width: 767px)
-      max-width: none
-  .card-footer
-    text-align: center
+  table#ngday
+    width: 100%
+  .ngday-block
+    th
+      padding: 10px 0
+      float: left
+    td
+      @media (max-width: 767px)
+        float: left
+        padding-bottom: 20px
+
+  //.modal-content
+  //  max-width: 400px
+  //  @media (max-width: 767px)
+  //    max-width: none
+  //.card-footer
+  //  text-align: center
 
 /* profile
   ================================================================================ */

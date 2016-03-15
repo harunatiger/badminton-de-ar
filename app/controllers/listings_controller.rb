@@ -31,8 +31,8 @@ class ListingsController < ApplicationController
     @profiles = Profile.guides.where.not(id: @host_info.id)
     @message = Message.new
     #@wishlists = Wishlist.mine(current_user).order_by_created_at_desc
-    gon.ngdates = Ngevent.get_ngdates(@listing.user_id)
-    gon.ngweeks = NgeventWeek.where(user_id: @listing.user_id).pluck(:dow)
+    gon.ngdates = Ngevent.get_ngdates(@listing)
+    gon.ngweeks = NgeventWeek.get_ngweeks_from_listing(@listing).pluck(:dow)
     gon.listing = @listing.listing_detail
     @reservation = Reservation.new
     @profile_keyword = ProfileKeyword.where(user_id: @listing.user_id, profile_id: Profile.where(user_id: @listing.user_id).pluck(:id).first).keyword_limit
