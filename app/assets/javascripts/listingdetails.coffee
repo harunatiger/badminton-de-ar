@@ -154,9 +154,13 @@ $ ->
     if $(this).parents('.collapse-panel').hasClass('active')
       $(this).parents('.collapse-heading').next().collapse('hide')
       $(this).parents('.collapse-panel').removeClass('active')
+      $(this).find('i.fa-caret-up').addClass('fa-caret-down')
+      $(this).find('i.fa-caret-up').removeClass('fa-caret-up')
     else
       $(this).parents('.collapse-heading').next().collapse('show')
       $(this).parents('.collapse-panel').addClass('active')
+      $(this).find('i.fa-caret-down').addClass('fa-caret-up')
+      $(this).find('i.fa-caret-down').removeClass('fa-caret-down')
 
 #calc price
 $ ->

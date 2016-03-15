@@ -28,8 +28,13 @@ class MessageThreadsController < ApplicationController
     @counterpart = User.find(counterpart_user_id)
     flash.now[:alert] = Settings.profile.deleted_profile_id if @counterpart.soft_destroyed?
     @listings = User.find(@host_id).listings.opened.without_soft_destroyed
-    gon.watch.ngdates = Ngevent.get_ngdates_except_request(@host_id, @reservation.id)
-    gon.watch.ngweeks = NgeventWeek.where(user_id: @host_id).pluck(:dow)
+    if @reservation.try('id').nil?
+      gon.watch.ngdates = Ngevent.fix_common_ngdays(current_user.id)
+      gon.watch.ngweeks = NgeventWeek.fix_common_ngweeks(current_user.id).pluck(:dow)
+    else
+      gon.watch.ngdates = Ngevent.get_ngdates_except_request(@reservation, @reservation.try('listing_id'))
+      gon.watch.ngweeks = NgeventWeek.get_ngweeks_from_reservation(@reservation).pluck(:dow)
+    end
   end
 
   # POST /message_threads
