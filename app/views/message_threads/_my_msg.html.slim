@@ -41,6 +41,15 @@ li.thread-list-item
                   span.text-pink.strong
                     /= message_to_listing(m).try('title')
                     |I sent you reservation request
+                - elsif m.try('content') == Settings.friend.msg.request
+                  span.text-blue.strong
+                    = Settings.friend.msg.request
+                - elsif m.try('content') == Settings.friend.msg.accept
+                  span.text-pink.strong
+                    = Settings.friend.msg.accept
+                - elsif m.try('content') == Settings.friend.msg.rejected
+                  span.text-pink.strong
+                    = Settings.friend.msg.rejected
                 - else
                   = hbr(m.try('content')).html_safe
             - if m.attached_file.present?

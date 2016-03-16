@@ -1,0 +1,2 @@
+class GuideThread < MessageThread
+end

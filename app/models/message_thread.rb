@@ -23,11 +23,15 @@ class MessageThread < ActiveRecord::Base
   attr_accessor :reservation_progress
 
   scope :order_by_updated_at_desc, -> { order('updated_at') }
-  scope :noreply_push_mail, -> { where(noticemail_sended: false, reply_from_host: false, first_message: true) }
+  scope :typed, -> type { where(type: type)}
+  
+  def counterpart_user(my_user_id)
+    self.users.where.not(id: my_user_id).first
+  end
 
   def self.exists_thread?(to_user_id, from_user_id)
-    t_threads = MessageThreadUser.user_joins(to_user_id).select(:message_thread_id)
-    f_threads = MessageThreadUser.user_joins(from_user_id).select(:message_thread_id)
+    t_threads = MessageThreadUser.user_joins(to_user_id).joins(:message_thread).merge(MessageThread.typed(self.model_name.name)).select(:message_thread_id)
+    f_threads = MessageThreadUser.user_joins(from_user_id).joins(:message_thread).merge(MessageThread.typed(self.model_name.name)).select(:message_thread_id)
     tt_array = []
     ft_array = []
     t_threads.each do |tt|
@@ -53,9 +57,27 @@ class MessageThread < ActiveRecord::Base
     end
     res
   end
+  
+  def self.exists_thread_for_pair_request?(to_user_id, from_user_id)
+    t_threads = User.find(to_user_id).message_threads.typed(self.model_name.name)
+    f_threads = User.find(from_user_id).message_threads.typed(self.model_name.name)
+    
+    result = t_threads & f_threads
+    if result.size.zero?
+      res = false
+    else
+      result.each do |mt|
+        if mt.origin_from_user_id == from_user_id
+          res = mt
+          break
+        end
+      end
+    end
+    res
+  end
 
   def self.create_thread(to_user_id, from_user_id)
-    mt = MessageThread.create(host_id: to_user_id)
+    mt = MessageThread.create(host_id: to_user_id, type: self.model_name.name)
     MessageThreadUser.create(
       message_thread_id: mt.id,
       user_id: to_user_id
@@ -68,7 +90,7 @@ class MessageThread < ActiveRecord::Base
   end
 
   def self.unread(user_id)
-    mts = MessageThreadUser.where(user_id: user_id)
+    mts = MessageThreadUser.where(user_id: user_id).joins(:message_thread).merge(MessageThread.typed(self.model_name.name))
     result_array = []
     mts.each do |mt|
       result_array << mt.id if Message.exists?(message_thread_id: mt.message_thread_id, to_user_id: user_id, read: false)
@@ -96,11 +118,28 @@ class MessageThread < ActiveRecord::Base
   end
 
   def same_thread?(from_user_id)
-    message = Message.message_thread(self.id).order('created_at asc').first
-    if message.present?
-      message.from_user_id == from_user_id
+    if self.origin_from_user_id
+      self.origin_from_user_id == from_user_id
     else
       self.host_id != from_user_id
     end
+  end
+  
+  def guest_thread?
+    self.type == 'GuestThread'
+  end
+  
+  def guide_thread?
+    self.type == 'GuideThread'
+  end
+  
+  def origin_from_user_id
+    message = Message.message_thread(self.id).order('created_at asc').first
+    message.present? ? message.from_user_id : false
+  end
+  
+  def origin_to_user_id
+    message = Message.message_thread(self.id).order('created_at asc').first
+    message.present? ? message.to_user_id : false
   end
 end

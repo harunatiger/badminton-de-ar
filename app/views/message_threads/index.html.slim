@@ -9,8 +9,7 @@
         - else
           ul.thread-list.list-layout
             - @message_threads.each do |mt|
-              - counterpart_id = counterpart_user_id(mt)
-              - counterpart_user = counterpart_user_obj(mt)
+              - counterpart_user = mt.counterpart_user(current_user.id)
               - lm = latest_message(mt)
               - to_user = lm.to_user_id
               - if to_user == current_user.id
@@ -23,21 +22,24 @@
                         = link_to profile_path(counterpart_user.profile.id), class: "media-round media-photo media-avatar" do
                           .size60[style="background-image: url('#{asset_path profile_to_image_thumb(counterpart_user.profile)}')"]
                       = link_to message_thread_path(mt), class: "h5 col-sm-9 col-md-8 col-middle thread-name" do
-                        -if mt.host_id == current_user.id
+                        -if mt.guide_thread?
+                          span.user-type.user-guide
+                            | Pair Guide
+                        -elsif mt.host_id == current_user.id
                           span.user-type.user-guest
                             | Guest
                         -else
                           span.user-type.user-guide
                             | Guide
                         .row-space-top-1.user-name
-                          = user_id_to_name(counterpart_id)
+                          = user_id_to_name(counterpart_user.id)
                   = link_to message_thread_path(mt), class: "col-md-8" do
                     .col-md-8.thread-body.clearfix
                       .message-content-single.row-space-1.pull-left
                         = lm.english_content
                       .thread-date.row-space-1.pull-left
                         = mt.updated_at.to_s
-                      -if mt.first_message == true
+                      -if mt.first_message == true and mt.guest_thread?
                         -if mt.reservation_progress != "Accept" && mt.reservation_progress != "Cancelled"
                           -if mt.host_id == current_user.id && !mt.reply_from_host
                             - unreply_time = time_ago(lm)

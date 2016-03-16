@@ -154,6 +154,14 @@ $ ->
 
   $('#message-host-link-fixed').on 'click', ->
     $('#message-to-host').modal()
+    
+  guide_index = 0
+  $('.message_to_pair_guide_link').on 'click', ->
+    guide_index = $('.message_to_pair_guide_link').index(this)
+    $('[id=message_to_pair_guide]').eq(guide_index).modal(
+      backdrop: 'static'
+    )
+    return false
 
   # Start Message Sending Process
   ## message from lisitng detail page

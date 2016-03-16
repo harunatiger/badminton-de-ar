@@ -159,6 +159,13 @@ payment:
     guide_cancel: 100
     withdraw_as_guide: 100
     withdraw_as_guest: 0
+friend:
+  msg:
+    request: 'ガイド仲間申請を送りました。'
+    accept: 'ガイド仲間申請を承認しました。'
+    rejected: 'ガイド仲間申請を拒否しました。'
+  save:
+    failure: 'ガイド仲間ステータスの更新に失敗しました。'
 message_thread:
   show:
     message_form:

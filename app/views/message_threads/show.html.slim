@@ -2,12 +2,16 @@
 = render partial: 'shared/subnav'
 - my_profile_image = profile_to_image_thumb(current_user.profile)
 - their_profile_image = profile_to_image_thumb(@counterpart.profile)
+- origin_to_user = User.find(@message_thread.origin_to_user_id)
 .page-container.row-space-top-5
   h1.h2.text-center.row-space-5
     = "Conversation with #{user_id_to_name(@counterpart.id)}"
   .row
     .col-lg-8
-      = render partial: 'reservation_block'
+      - if @message_thread.guest_thread?
+        = render partial: 'reservation_block'
+      - elsif @message_thread.guide_thread? and origin_to_user.friend_requested?(@counterpart.id)
+        = render partial: 'pair_request_block'
       ul.list-unstyled
         li.thread-list-item
           .row.row-condensed.row-space-4
@@ -27,8 +31,6 @@
             = render partial: 'my_msg', locals: { m: m, my_profile_image: my_profile_image }
           - else
             = render partial: 'their_msg', locals: { m: m, counterpart: @counterpart, their_profile_image: their_profile_image }
-          /- if !m.reservation_id.zero? && reservation_id_to_messages(m.reservation_id).first.id == m.id
-            = render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
             
     = render partial: 'profile_block', locals: { counterpart: @counterpart, their_profile_image: their_profile_image }
 

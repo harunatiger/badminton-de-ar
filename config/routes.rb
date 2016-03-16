@@ -90,6 +90,8 @@ Rails.application.routes.draw do
   resources :friends, only: [:index, :destroy] do
     member do
       post 'send_request'
+      post 'accept'
+      post 'reject'
     end
     collection do
       get 'search'

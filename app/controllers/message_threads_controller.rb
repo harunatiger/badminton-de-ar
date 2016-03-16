@@ -8,13 +8,12 @@ class MessageThreadsController < ApplicationController
   # GET /message_threads
   # GET /message_threads.json
   def index
-    message_thread_ids = MessageThreadUser.mine(current_user.id).pluck(:message_thread_id)
+    message_threads_ids = MessageThreadUser.mine(current_user.id).pluck(:message_thread_id)
     @message_threads = []
-    message_thread_ids.each do |mt_id|
+    message_threads_ids.each do |mt_id|
       message_thread = MessageThread.find(mt_id)
       @message_threads << message_thread.set_reservation_progress if message_thread.messages.present?
     end
-    # @message_threads.sort_by! { |mt| mt.updated_at }
     @message_threads.sort_by! &:updated_at
     @message_threads.reverse!
   end
@@ -23,13 +22,14 @@ class MessageThreadsController < ApplicationController
   # GET /message_threads/1.json
   def show
     Message.make_all_read(@message_thread.id, current_user.id)
-    counterpart_user_id = MessageThreadUser.counterpart_user(@message_thread.id, current_user.id)
     @message = Message.new
-    @counterpart = User.find(counterpart_user_id)
+    @counterpart = @message_thread.counterpart_user(current_user.id)
     flash.now[:alert] = Settings.profile.deleted_profile_id if @counterpart.soft_destroyed?
-    @listings = User.find(@host_id).listings.opened.without_soft_destroyed
-    gon.watch.ngdates = Ngevent.get_ngdates_except_request(@host_id, @reservation.id)
-    gon.watch.ngweeks = NgeventWeek.where(user_id: @host_id).pluck(:dow)
+    if @message_thread.guest_thread?
+      @listings = User.find(@host_id).listings.opened.without_soft_destroyed
+      gon.watch.ngdates = Ngevent.get_ngdates_except_request(@host_id, @reservation.id)
+      gon.watch.ngweeks = NgeventWeek.where(user_id: @host_id).pluck(:dow)
+    end
   end
 
   # POST /message_threads
@@ -84,8 +84,7 @@ class MessageThreadsController < ApplicationController
     end
 
     def set_reservation
-      counterpart_user_id = MessageThreadUser.counterpart_user(@message_thread.id, @message_thread.host_id)
-      @guest_id = counterpart_user_id
+      @guest_id = @message_thread.counterpart_user(@message_thread.host_id).id
       @host_id = @message_thread.host_id
       @reservation = Reservation.for_message_thread(@guest_id, @host_id)
       @reservation.message_thread_id = @message_thread.id

@@ -8,7 +8,7 @@
         .h5.row-space-1
           = link_to profile_path(counterpart.profile.id), class: 'text-normal' do
             = user_id_to_name(counterpart.id)
-        - if @host_id == counterpart.id
+        - if @message_thread.guide_thread? or @host_id == counterpart.id
           span.user-type.user-guide
             | Guide
         - else

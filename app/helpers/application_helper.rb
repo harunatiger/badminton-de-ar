@@ -272,16 +272,7 @@ module ApplicationHelper
   end
 
   def new_messages_came(user_id)
-    MessageThread.unread(user_id).count
-  end
-
-  def counterpart_user_id(message_thread_id)
-    MessageThreadUser.counterpart_user(message_thread_id, current_user.id)
-  end
-
-  def counterpart_user_obj(message_thread_id)
-    user_id = MessageThreadUser.counterpart_user(message_thread_id, current_user.id)
-    User.find(user_id)
+    GuestThread.unread(user_id).count
   end
 
   def latest_message(message_thread_id)

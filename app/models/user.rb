@@ -255,9 +255,29 @@ class User < ActiveRecord::Base
     Profile.where(user_id: users.ids)
   end
   
+  def requested_friends_profiles
+    users = self.requested_friends
+    Profile.where(user_id: users.ids)
+  end
+  
+  def pending_friends_profiles
+    users = self.pending_friends
+    Profile.where(user_id: users.ids)
+  end
+  
   def not_friends_profiles
-    return Profile.guides.where.not(id: self.profile.id) if self.friends_profiles.blank?
-    return Profile.guides.where.not(id: self.friends_profiles.ids).where.not(id: self.profile.id)
+    ids = []
+    ids << self.profile.id
+    ids << self.friends_profiles.ids if self.friends_profiles.present?
+    Profile.guides.where.not(id: ids)
+  end
+  
+  def friend_pending?(user_id)
+    self.pending_friends.where(id: user_id).present?
+  end
+  
+  def friend_requested?(user_id)
+    self.requested_friends.where(id: user_id).present?
   end
   
   def search_friends(search_params)

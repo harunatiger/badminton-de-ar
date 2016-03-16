@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310132119) do
+ActiveRecord::Schema.define(version: 20160311191522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -355,6 +355,7 @@ ActiveRecord::Schema.define(version: 20160310132119) do
     t.boolean  "reply_from_host",   default: false
     t.boolean  "first_message",     default: true
     t.boolean  "noticemail_sended", default: false
+    t.string   "type"
   end
 
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
