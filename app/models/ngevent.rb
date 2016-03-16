@@ -108,7 +108,7 @@ class Ngevent < ActiveRecord::Base
       start_date = ngevent['start']
       end_date = ngevent['end_bk']
       while start_date <= end_date do
-        ngdates << (start_date - 1.day).strftime("%Y.%m.%d")
+        ngdates << start_date.strftime("%Y.%m.%d")
         start_date = start_date + 1.day
       end
     end

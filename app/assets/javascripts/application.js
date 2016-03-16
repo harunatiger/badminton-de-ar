@@ -20,6 +20,7 @@
 //= require video-js
 //= require lib/bootstrap-tagsinput
 //= require Chart
+//= require moment
 
 //= require common
 //= require message
