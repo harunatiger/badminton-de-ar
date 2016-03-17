@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311191522) do
+ActiveRecord::Schema.define(version: 20160317111951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -356,9 +356,11 @@ ActiveRecord::Schema.define(version: 20160311191522) do
     t.boolean  "first_message",     default: true
     t.boolean  "noticemail_sended", default: false
     t.string   "type"
+    t.integer  "reservation_id"
   end
 
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
+  add_index "message_threads", ["reservation_id"], name: "index_message_threads_on_reservation_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "message_thread_id",                  null: false
@@ -374,6 +376,7 @@ ActiveRecord::Schema.define(version: 20160311191522) do
     t.string   "attached_file"
     t.string   "attached_extension"
     t.string   "attached_name"
+    t.boolean  "friends_request",    default: false
   end
 
   add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id", using: :btree
@@ -655,12 +658,15 @@ ActiveRecord::Schema.define(version: 20160311191522) do
     t.integer  "guests_cost",                                    default: 0
     t.text     "included_guests_cost",                           default: ""
     t.integer  "cancel_by",                                      default: 0
+    t.integer  "pair_guide_id"
+    t.integer  "pair_guide_status",                              default: 0
   end
 
   add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree
   add_index "reservations", ["guest_id"], name: "index_reservations_on_guest_id", using: :btree
   add_index "reservations", ["host_id"], name: "index_reservations_on_host_id", using: :btree
   add_index "reservations", ["listing_id"], name: "index_reservations_on_listing_id", using: :btree
+  add_index "reservations", ["pair_guide_id"], name: "index_reservations_on_pair_guide_id", using: :btree
 
   create_table "review_replies", force: :cascade do |t|
     t.integer  "review_id"
@@ -810,6 +816,7 @@ ActiveRecord::Schema.define(version: 20160311191522) do
   add_foreign_key "listings", "users"
   add_foreign_key "message_thread_users", "message_threads"
   add_foreign_key "message_thread_users", "users"
+  add_foreign_key "message_threads", "reservations"
   add_foreign_key "message_threads", "users", column: "host_id"
   add_foreign_key "messages", "message_threads"
   add_foreign_key "messages", "users", column: "from_user_id"
@@ -834,6 +841,7 @@ ActiveRecord::Schema.define(version: 20160311191522) do
   add_foreign_key "reservations", "listings"
   add_foreign_key "reservations", "users", column: "guest_id"
   add_foreign_key "reservations", "users", column: "host_id"
+  add_foreign_key "reservations", "users", column: "pair_guide_id"
   add_foreign_key "review_replies", "reviews"
   add_foreign_key "reviews", "listings"
   add_foreign_key "reviews", "reservations"

@@ -44,9 +44,11 @@ li.thread-list-item
                   span.text-pink.strong
                     /= message_to_listing(m).try('title')
                     |I sent you reservation request
-                - elsif m.try('content') == Settings.friend.msg.request
+                - elsif m.friends_request
                   span.text-blue.strong
                     = Settings.friend.msg.request
+                  hr
+                  = m.try('content')
                 - elsif m.try('content') == Settings.friend.msg.accept
                   span.text-pink.strong
                     = Settings.friend.msg.accept

@@ -44,10 +44,11 @@
 #
 # Indexes
 #
-#  index_reservations_on_campaign_id  (campaign_id)
-#  index_reservations_on_guest_id     (guest_id)
-#  index_reservations_on_host_id      (host_id)
-#  index_reservations_on_listing_id   (listing_id)
+#  index_reservations_on_campaign_id    (campaign_id)
+#  index_reservations_on_guest_id       (guest_id)
+#  index_reservations_on_host_id        (host_id)
+#  index_reservations_on_listing_id     (listing_id)
+#  index_reservations_on_pair_guide_id  (pair_guide_id)
 #
 
 class Reservation < ActiveRecord::Base
@@ -56,6 +57,7 @@ class Reservation < ActiveRecord::Base
 
   belongs_to :user, class_name: 'User', foreign_key: 'host_id'
   belongs_to :user, class_name: 'User', foreign_key: 'guest_id'
+  belongs_to :user, class_name: 'User', foreign_key: 'pair_guide_id'
   belongs_to :listing
   belongs_to :campaign
   has_one :review
@@ -65,6 +67,7 @@ class Reservation < ActiveRecord::Base
   #Progress 4&5 are not used. Should delete records of progress 4 some day.
   enum progress: { requested: 0, canceled: 1, under_construction: 2, accepted: 3, rejected: 4, listing_closed: 5, canceled_after_accepted: 6}
   enum cancel_by: { default: 0, guide: 1, guest_before_weeks: 2, guest_before_days: 3, guest_less_than_days: 4}
+  enum pair_guide_status: { pg_default: 0, pg_under_construction: 1, pg_offering: 2, pg_completion: 3}
 
   attr_accessor :message_thread_id
   attr_accessor :campaign_code

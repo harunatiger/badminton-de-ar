@@ -562,4 +562,16 @@ module ApplicationHelper
   def has_reservation_as_guide
     current_user.comming_reservations_as_guide.present?
   end
+  
+  def users_to_guide_thread(to_user_id, from_user_id)
+    if mt = GuideThread.exists_thread_for_pair_request?(to_user_id, from_user_id)
+      mt
+    else
+      GuideThread.create_thread(to_user_id, from_user_id)
+    end
+  end
+  
+  def disp_friends_request_block?(mt, counterpart_id)
+    mt.guide_thread? and current_user.friend_requested?(counterpart_id)
+  end
 end

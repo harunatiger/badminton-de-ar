@@ -9,10 +9,12 @@
 #  reply_from_host   :boolean          default(FALSE)
 #  first_message     :boolean          default(TRUE)
 #  noticemail_sended :boolean          default(FALSE)
+#  type              :string
 #
 # Indexes
 #
-#  index_message_threads_on_host_id  (host_id)
+#  index_message_threads_on_host_id         (host_id)
+#  index_message_threads_on_reservation_id  (reservation_id)
 #
 
 class MessageThread < ActiveRecord::Base
@@ -57,27 +59,12 @@ class MessageThread < ActiveRecord::Base
     end
     res
   end
-  
-  def self.exists_thread_for_pair_request?(to_user_id, from_user_id)
-    t_threads = User.find(to_user_id).message_threads.typed(self.model_name.name)
-    f_threads = User.find(from_user_id).message_threads.typed(self.model_name.name)
-    
-    result = t_threads & f_threads
-    if result.size.zero?
-      res = false
-    else
-      result.each do |mt|
-        if mt.origin_from_user_id == from_user_id
-          res = mt
-          break
-        end
-      end
-    end
-    res
-  end
 
   def self.create_thread(to_user_id, from_user_id)
-    mt = MessageThread.create(host_id: to_user_id, type: self.model_name.name)
+    mt = MessageThread.create(type: self.model_name.name)
+    mt.update(host_id: to_user_id) if mt.guest_thread?
+    #mt.update(main_guide_id: from_user_id) if mt.guide_thread?
+    
     MessageThreadUser.create(
       message_thread_id: mt.id,
       user_id: to_user_id
@@ -121,7 +108,7 @@ class MessageThread < ActiveRecord::Base
     if self.origin_from_user_id
       self.origin_from_user_id == from_user_id
     else
-      self.host_id != from_user_id
+      return self.host_id != from_user_id
     end
   end
   

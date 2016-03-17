@@ -16,6 +16,7 @@
 #  attached_file      :string
 #  attached_extension :string
 #  attached_name      :string
+#  friends_request    :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -107,7 +108,6 @@ class Message < ActiveRecord::Base
   # use when send pair guide request
   def self.send_firends_message(to_user_id, from_user_id, content, message_thread_id, msg=nil)
     unless message_thread_id.present?
-      GuideThread.exists_thread_for_pair_request?(to_user_id, from_user_id)
       if mt = GuideThread.exists_thread_for_pair_request?(to_user_id, from_user_id)
         mt_obj = mt
       else
@@ -123,17 +123,18 @@ class Message < ActiveRecord::Base
         content: msg,
         read: false,
         from_user_id: from_user_id,
+        to_user_id: to_user_id,
+        friends_request: true
+      )
+    else
+      Message.create(
+        message_thread_id: mt_obj.id,
+        content: content,
+        read: false,
+        from_user_id: from_user_id,
         to_user_id: to_user_id
       )
     end
-    
-    Message.create(
-      message_thread_id: mt_obj.id,
-      content: content,
-      read: false,
-      from_user_id: from_user_id,
-      to_user_id: to_user_id
-    )
   end
   
   def self.send_reservation_message_to_host(reservation, content, reply_from_host=nil)
@@ -173,6 +174,8 @@ class Message < ActiveRecord::Base
       Settings.reservation.msg.canceled_en
     elsif self.try('content') == Settings.reservation.msg.reserve
       Settings.reservation.msg.reserve_en
+    elsif self.friends_request
+      Settings.friend.msg.request
     else
       self.try('content')
     end

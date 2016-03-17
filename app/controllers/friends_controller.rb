@@ -8,7 +8,7 @@ class FriendsController < ApplicationController
   end
   
   def send_request
-    message = Message.send_firends_message(@guide.id, current_user.id, Settings.friend.msg.request, nil, send_request_params[:message])
+    message = Message.send_firends_message(@guide.id, current_user.id, nil, nil, send_request_params[:message])
     if message
       current_user.friend_request(@guide)
       redirect_to message_thread_path(message.message_thread_id), notice: Settings.friend.msg.request

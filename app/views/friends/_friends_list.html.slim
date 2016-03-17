@@ -6,6 +6,7 @@
           - all_reviewed_count = Review.my_reviewed_count(profile.user_id)
           .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
             = render partial: 'guide_card', locals: { all_reviewed_count: all_reviewed_count, profile: profile }
+            = link_to 'メッセージ', message_thread_path(users_to_guide_thread(profile.user_id, current_user.id)), class: "btn btn-primary btn-large btn-block row-space-top-1 row-space-1"
             = form_tag(friend_path(profile.user_id), method: :delete) do
               = button_tag(type: "submit", class: "favorite-btn-large btn btn-large btn-block") do
                 i.fa.fa-times
