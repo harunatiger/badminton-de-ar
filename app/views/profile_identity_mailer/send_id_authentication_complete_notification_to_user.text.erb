@@ -1,0 +1,12 @@
+Hello, <%= user_obj_to_name(@user) %>
+
+Your ID "<%= user_obj_to_name(@user) %>" has been confirmed.
+You can now start to book tours!
+
+Please click the following link to confirm.
+<%= profile_url(@user.profile.id)%>
+
+We hope you enjoy travelling with Huber!
+
+--
+Huber.

@@ -1,5 +1,24 @@
+- slider_images = listing_slider_url(listing, listing_images)
+- favorite_count = favorite_listings_count(listing.id)
 .listing
-  #photos.with-photos.with-modal
+  #slider-wrapper.with-photos.with-modal
+    - if slider_images.length < 3
+      #listing_slider-normal.slider-pro
+        .sp-slides
+          - slider_images.each do |slider_image|
+            .sp-slide
+              = link_to "#{slider_image}", class:"slider-popup" do
+                img.sp-image[src="#{slider_image}" data-src="#{slider_image}"]
+
+    - else
+      #listing_slider-carousel.slider-pro
+        .sp-slides
+          - slider_images.each do |slider_image|
+            .sp-slide
+              = link_to "#{slider_image}", class:"slider-popup" do
+                img.sp-image[src="#{slider_image}" data-src="#{slider_image}"]
+
+  /#photos.with-photos.with-modal
     = link_to "#", class:"galon-trigger", title:"#{listing.cover_image}" do
       .cover-img-container
         .cover-img[style="background-image:url(#{listing.try('cover_image') || ''})"]
@@ -14,7 +33,6 @@
           | 写真
           = count
         - count += 1
-
     /.cover-img-container
       | <div class="cover-img" style="background-image:url(#{@listing.try('cover_image') || ''})">
   .title-section
@@ -25,6 +43,7 @@
             = @listing.title
           #listing_area.overflow.text-center--md
             - if pickup_area_from_listing(listing).present?
+              i.fa.fa-map-marker
               - pickup_area_from_listing(listing).each do |area|
                 => link_to pickup_path( area.id ) do
                   = area.short_name
@@ -40,7 +59,11 @@
             i.fa.fa-heart.favorited.hide
             i.fa.fa-heart.unfavorite
             i.fa.fa-heart-o.outline.fav-balloon
+          span.favorited-count
+            = favorite_count
       - else
         = link_to new_profile_path, class: "favorite-btn" do
           i.fa.fa-heart.unfavorite
           i.fa.fa-heart-o.outline.fav-balloon
+          span.favorited-count
+            = favorite_count

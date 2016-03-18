@@ -7,9 +7,8 @@
           = link_to "", "#", class: "modal-close iw-dismiss-btn", data: {dismiss: "modal"}
           | NG日設定
         form
-          .card-body.text-center
-            #listing_title
-            #comment
-          .card-footer.text-center
-            button#ngdel.btn.btn-primary.disabled 解除する
+          .card-body
+            table#ngday
+          .card-footer
+            button#ngadd.btn.btn-primary 追加する
             button.btn.btn-default[data-dismiss="modal"]閉じる

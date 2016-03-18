@@ -2,20 +2,24 @@ $ ->
   #---------------------------------------------------------------------
   # fullCalendar Setting Init
   #---------------------------------------------------------------------
-  #delete_mode = false
-  #calendar = ''
-  g_current_dow = []
   g_delFlag = 0
+  g_addFlag = 0
+  g_start = ''
+  g_end = ''
   g_weekdelFlag = 0
   g_mode = 0
+  g_modenum = 0
   g_current_mode = 0
   g_event_className = []
   g_arry_redDay = []
+  g_arry_ngday = []
+  g_arry_ngweek = []
 
   #use when create event
   g_listing_id = ''
   g_event_id = ''
   g_dow = -1
+  g_add_week = 0
 
   #use when selected event and drop event
   g_select_listing = ''
@@ -80,94 +84,123 @@ $ ->
   # Confirm Modal
   #---------------------------------------------------------------------
   ##Confirm Modal for Day
-  confirmModal = (events) ->
-    event_count = events.length
-    elem = events[event_count-1]
-    #$.each events, (index, elem) ->
-    g_event_id = elem.id
-    g_select_dow = elem.dow
-
-    g_event_className = ''
-    g_event_className = elem.className
-
-    g_select_listing = ''
-    g_event_className.forEach (val, index, ar) ->
-      if val.match(/^listing/) != null
-        g_select_listing = val.replace(/listing/g,"")
-        return
-
-    g_current_mode = 0
-    g_event_className.forEach (val, index, ar) ->
-      if val.match(/^mode/) != null
-        g_current_mode = val.replace(/mode/g,"")
-        return
-
+  confirmModal = ->
     $.ajax(
       type: 'GET'
-      url: '/ngevents/set_ngday_listing'
+      url: '/ngevents/select_ngdays'
       data: {
-        listing_id: g_select_listing
+        arry_ngday: g_arry_ngday
+        arry_ngweek: g_arry_ngweek
       }
     ).done (data) ->
-      if g_event_className.indexOf('ng-event-week') != -1
-        afterText = 'の'+formatWeek(g_select_dow)+'がNG日に設定されています。'
-        comment = '解除する場合は曜日タイトルをクリックしてください。'
-        $('#calendar_confirm').find('#ngdel').addClass('disabled')
-      else
-        if g_current_mode == '1'
-          afterText = '予約確定'
-          comment = ''
-          $('#calendar_confirm').find('#ngdel').addClass('disabled')
-        else if g_current_mode == '2'
-          afterText = 'リクエスト'
-          comment = ''
-          $('#calendar_confirm').find('#ngdel').addClass('disabled')
-        else if g_current_mode == '3'
-          afterText = 'NG'
-          comment = ''
-          $('#calendar_confirm').find('#ngdel').removeClass('disabled')
-        else
-          afterText = 'NG'
-          comment = ''
-          $('#calendar_confirm').find('#ngdel').removeClass('disabled')
-
-      $('#calendar_confirm').find('#listing_title').html('[ '+data.title+' ] ' + afterText)
-      $('#calendar_confirm').find('#comment').html(comment)
-      $('#calendar_confirm').modal()
+      $("#calendar_confirm table#ngday").html('')
+      if data.ngevents != null
+        $.each data.ngevents, (index, value) ->
+          setConfirm(value['title'], value['id'],value['category'],value['mode'], value['modenum'])
+        $('#calendar_confirm').modal()
     return
 
+
+
   ##Confirm Modal for Week
-  confirmModalWeek = (element) ->
-    g_select_listing_week = $(element).attr('id').replace(/listing/g,"")
-    if parseInt(g_select_listing_week) == 0
-      g_current_mode = 1
-    else
-      g_current_mode = 0
+  confirmModalWeek = ->
     $.ajax(
       type: 'GET'
       url: '/ngevent_weeks/set_ngweek_listing'
       data: {
-        listing_id: g_select_listing_week
+        dow: g_dow
       }
     ).done (data) ->
-      g_weekdelFlag = 1
-      afterText = 'の'+formatWeek(g_dow)+'がNG日に設定されています。'
-      comment = ''
-      $('#calendar_confirm').find('#listing_title').html('[ '+data.title+' ] ' + afterText)
-      $('#calendar_confirm').find('#comment').html(comment)
-      $('#calendar_confirm').find('#ngdel').removeClass('disabled')
-      $('#calendar_confirm').modal()
+      $("#calendar_confirm table#ngday").html('')
+      if data.ngweeks.length != 0
+        $.each data.ngweeks, (index, value) ->
+          setConfirm(value['title'], value['id'],value['category'],value['mode'], value['modenum'])
+        $('#calendar_confirm').modal()
+      else
+        $("#calendar_confirm table#ngday").append(
+          $("<tr class='ngday-block'></tr>")
+            .append($("<th class='col-sm-12 col-md-12'></th>").text(formatWeek(g_dow) + 'が全てNG日に設定されます。'))
+        )
+        $('#calendar_confirm').find('#ngadd').css('visibility', 'visible')
+        $('#calendar_confirm').find('.ngday-remove').css('visibility', 'hidden')
+        $('#calendar_confirm').modal()
+    return
 
-  modalyesClick = ->
-    $('#calendar_confirm').modal('hide')
-    if g_weekdelFlag == 1
-      removeWeek()
+
+  setConfirm = (title, id, category, mode, modenum) ->
+    if category == 'week'
+      $("#calendar_confirm table#ngday").append(
+        $("<tr class='ngday-block row'></tr>")
+          .append($("<th class='col-sm-12 col-md-12'></th>").text('[' + title + '] ' + formatWeek(g_dow) + mode))
+          .append($("<td class='col-sm-12 col-md-2 text-right'><a class='ngday-remove btn bg-gray btn-default' data-remote='true' rel='nofollow' data-method='delete' href='/ngevent_weeks/" + id + "'>解除する</a></td>"))
+      )
+      if modenum == 1
+        $('#calendar_confirm').find('#ngadd').css('visibility', 'hidden')
+        $('#calendar_confirm').find('.ngday-remove').css('visibility', 'visible')
+        g_modenum = 1
+      else
+        if g_modenum == 0
+          $('#calendar_confirm').find('#ngadd').css('visibility', 'visible')
+          $('#calendar_confirm').find('.ngday-remove').css('visibility', 'visible')
+    else
+      if modenum == 3
+        $("#calendar_confirm table#ngday").append(
+          $("<tr class='ngday-block row'></tr>")
+            .append($("<th class='col-sm-12 col-md-12'></th>").text('[' + title + '] ' + mode))
+            .append($("<td class='col-sm-12 col-md-2 text-right'><a class='ngday-remove btn bg-gray btn-default' data-remote='true' rel='nofollow' data-method='delete' href='/ngevents/" + id + "'>解除する</a></td>"))
+          )
+        $('#calendar_confirm').find('#ngadd').css('visibility', 'hidden')
+        $('#calendar_confirm').find('.ngday-remove').css('visibility', 'visible')
+        g_modenum = 1
+      else if modenum == 1 || modenum == 2
+        $("#calendar_confirm table#ngday").append(
+          $("<tr class='ngday-block row'></tr>")
+            .append($("<th class='col-sm-12 col-md-12'></th>").text('[' + title + '] ' + mode))
+          )
+        $('#calendar_confirm').find('#ngadd').css('visibility', 'hidden')
+        g_modenum = 1
+      else
+        $("#calendar_confirm table#ngday").append(
+          $("<tr class='ngday-block row'></tr>")
+            .append($("<th class='col-sm-12 col-md-12'></th>").text('[' + title + '] ' + mode))
+            .append($("<td class='col-sm-12 col-md-2 text-right'><a class='ngday-remove btn bg-gray btn-default' data-remote='true' rel='nofollow' data-method='delete' href='/ngevents/" + id + "'>解除する</a></td>"))
+          )
+        if g_modenum == 0
+          $('#calendar_confirm').find('#ngadd').css('visibility', 'visible')
+          $('#calendar_confirm').find('.ngday-remove').css('visibility', 'visible')
+
+    $('#calendar_confirm table#ngday .ngday-remove').on 'ajax:complete',  (event, ajax, status) ->
+      index = $('#calendar_confirm table#ngday .ngday-remove').index(this)
+      if index != -1
+        if status == 'success'
+          del_elem = $('#calendar_confirm table#ngday .ngday-block').eq(index)
+          del_elem.remove()
+          ng_elem_length = $('#calendar_confirm table#ngday .ngday-block').length
+          if ng_elem_length == 0
+            $('#calendar_confirm').modal('hide')
+          else
+            if ajax.responseJSON.category == 'ngweek'
+              g_modenum = 0
+              confirmModalWeek()
+            else
+              g_modenum = 0
+              confirmModal()
+          clearColor()
+          calendar.fullCalendar 'refetchEvents'
+        return
+
+
+  $('#calendar_confirm #ngadd').on 'click' , ->
+    if g_add_week == 1
+      setWeek()
       return false
     else
-      removeEvent()
+      g_addFlag = 1
+      g_delFlag = 0
+      select(g_start, g_end)
       return false
 
-  $('#calendar_confirm #ngdel').on 'click', -> modalyesClick()
+
 
   #---------------------------------------------------------------------
   # Event Create
@@ -175,8 +208,12 @@ $ ->
   ## Set Event day
   select = (start, end) ->
     if g_delFlag == 0
-      if eventExist(start.format()) == false
-        return false
+      if g_addFlag == 1
+        startdate = start
+        enddate = end
+      else
+        startdate = start._d
+        enddate = end._d
 
       #Common NGDay
       if g_mode == 3
@@ -186,54 +223,78 @@ $ ->
         ajaxUrl = '/listings/' + g_listing_id + '/ngevents'
 
       data = event:
-        start: start._d,
-        end: end._d,
-        mode: g_mode,
-      $.ajax
+        start: startdate,
+        end: enddate,
+        mode: g_mode
+      $.ajax(
         type: 'POST'
         url: ajaxUrl
         data: data
         dataType: 'json'
-        success: ->
-          if $('.fc-highlight').length
-            $('.fc-highlight').css('background', 'gray')
-          calendar.fullCalendar 'refetchEvents'
-          return
-        error: ->
+      ).done (data) ->
+        if data.status == 'success'
+          if g_addFlag == 1
+            g_addFlag = 0
+            g_arry_ngday.push(data.ngevent.id)
+            g_modenum = 0
+            confirmModal()
+            calendar.fullCalendar 'refetchEvents'
+          else
+            if $('.fc-highlight').length
+              $('.fc-highlight').css('background', 'gray')
+            calendar.fullCalendar 'refetchEvents'
+        else if data.status == 'exist'
+          g_addFlag = 0
+          alert $('#calendar_listing option:selected').text()+' は既に設定済みです。'
+        else
+          g_addFlag = 0
           calendar.fullCalendar 'refetchEvents'
           console.log 'error-select'
+        return
+      return
     else
       g_delFlag = 0
       return
 
   ## Set Event each week
   selectWeek = (element) ->
-    if $.inArray(g_dow, g_current_dow) == -1
-      if confirm 'この曜日は全てNG日に設定されます。よろしいですか？'
-        if g_mode == 3
-          ajaxUrl = '/ngevent_weeks'
-          week_mode = 1
-        else
-          ajaxUrl = '/listings/' + g_listing_id + '/ngevent_weeks'
-          week_mode = 0
-        data = event:
-          dow: g_dow,
-          mode: week_mode,
-        $.ajax
-          type: 'POST'
-          url: ajaxUrl
-          data: data
-          dataType: 'json'
-          success: ->
-            g_current_dow.push(g_dow)
-            calendar.fullCalendar 'refetchEvents'
-            return
-          error: (status) ->
-            calendar.fullCalendar 'refetchEvents'
-            console.log 'error-select'
-            return
+    g_add_week = 1
+    g_modenum = 0
+    confirmModalWeek()
+
+
+  setWeek = ->
+    if g_mode == 3
+      ajaxUrl = '/ngevent_weeks'
+      week_mode = 1
     else
-      confirmModalWeek(element)
+      ajaxUrl = '/listings/' + g_listing_id + '/ngevent_weeks'
+      week_mode = 0
+    data = event:
+      dow: g_dow,
+      mode: week_mode,
+    $.ajax(
+      type: 'POST'
+      url: ajaxUrl
+      data: data
+      dataType: 'json'
+    ).done (data) ->
+      if data.status == 'success'
+        if g_add_week == 1
+          g_arry_ngday.push(data.ngevent_week.id)
+          g_modenum = 0
+          confirmModalWeek()
+          calendar.fullCalendar 'refetchEvents'
+        else
+          calendar.fullCalendar 'refetchEvents'
+      else if data.status == 'exist'
+        alert $('#calendar_listing option:selected').text()+' は既に設定済みです。'
+      else
+        calendar.fullCalendar 'refetchEvents'
+        console.log 'error-select'
+      return
+    return
+
 
   ## Resize Event
   resizeEvent = (event, revertFunc) ->
@@ -279,61 +340,7 @@ $ ->
         console.log 'dropEvent-fail'
     return false
 
-  #---------------------------------------------------------------------
-  # Event Remove
-  #---------------------------------------------------------------------
-  ## remove event day
-  removeEvent = ->
-    $('.fc-day-number').removeClass('smd-td')
-    if g_event_className.indexOf('ng-event-week') != -1
-      return false
-    data =
-      _method: 'DELETE',
-      mode: g_mode,
-    $.ajax
-      type: 'DELETE'
-      url: '/ngevents/' + g_event_id
-      data: data
-      dataType: 'json'
-      success: ->
-        clearColor()
-        calendar.fullCalendar 'refetchEvents'
-        return false
-      error: ->
-        calendar.fullCalendar 'refetchEvents'
-        console.log 'removeEvent-fail'
 
-  ## remove event each week
-  removeWeek = ->
-    #Common NGDay
-    if g_current_mode == 1
-      ajaxUrl = '/ngevent_weeks/unset'
-    #listing NGDay
-    else
-      ajaxUrl = '/listings/' + g_select_listing_week + '/ngevent_weeks/unset'
-
-    data =
-      _method: 'put'
-      event:
-        dow: g_dow,
-        mode: g_current_mode,
-    $.ajax
-      type: 'PUT'
-      url: ajaxUrl
-      data: data
-      dataType: 'json'
-      success: ->
-        clearColor()
-        g_weekdelFlag = 0
-        i = $.inArray(g_dow, g_current_dow)
-        if i != -1
-          g_current_dow.splice(i)
-        calendar.fullCalendar 'refetchEvents'
-        return false
-      error: ->
-        g_weekdelFlag = 0
-        calendar.fullCalendar 'refetchEvents'
-        console.log 'removeEvent-fail'
 
   #---------------------------------------------------------------------
   # Function for Week Settings
@@ -477,17 +484,6 @@ $ ->
         if val.match(/^listing/) != null
           g_select_listing_week = val.replace(/listing/g,"")
 
-      if $.inArray(event.dow[0], g_current_dow) == -1
-        g_current_dow.push(event.dow[0])
-
-        $.each $('#calendar').fullCalendar('clientEvents'), (index, elem) ->
-
-          if elem.color == 'red' || elem.color == '#E8868F'
-            eventDay = new Date(elem._start._i)
-            redWeek = eventDay.getDay()
-            if redWeek == event.dow[0]
-              g_arry_redDay.push(elem._start._d)
-
       startDay = new Date(event._start._d)
       $.each g_arry_redDay, (index, elem) ->
         redDay = new Date(elem)
@@ -497,8 +493,6 @@ $ ->
       if redDayflg == 0
         $('.fc-day[data-date="' + formatDate(startDay) + '"]').css('background', event.color)
         $('.fc-day-number[data-date="' + formatDate(startDay) + '"]').css('color','white')
-      #setWeekElement(event.dow[0]).css('background', event.color)
-      #setWeekNumElement(event.dow[0]).css('color','white')
       setWeekHeaderElement(event.dow[0],g_select_listing_week).css('background', event.color)
 
       return
@@ -512,22 +506,6 @@ $ ->
         startDay = new Date(newDate)
       return
 
-  ## if exist event, disallow add event when drop
-  disallowOverlap = (stillEvent, movingEvent) ->
-    return false
-
-  ## if exist event, disallow add event when dayClick
-  eventExist = (start) ->
-    evExist = true
-    eventDay = new Date(start)
-    if $.inArray(eventDay.getDay(), g_current_dow) != -1
-      evExist = false
-      return false
-    $.each $('#calendar').fullCalendar('clientEvents'), (index, elem) ->
-      if start == elem._start._i
-        evExist = false
-        return false
-    return evExist
 
   #---------------------------------------------------------------------
   # fullcalendar settings
@@ -577,12 +555,12 @@ $ ->
     ignoreTimezone: false,
     editable: true,
     select: select,
-    eventClick: confirmModal,
+    #eventClick: confirmModal,
     eventResize: resizeEvent,
     eventDrop: dropEvent,
     viewRender: setWeekevent,
     eventRender: eventSetting,
-    eventOverlap: disallowOverlap,
+    #eventOverlap: disallowOverlap,
     eventSources: [
       { url: '/ngevent_weeks/common_ngweeks.json' },
       { url: '/ngevent_weeks/except_common_ngweeks.json' },
@@ -617,7 +595,20 @@ $ ->
           false
       )
       if events.length != 0
-        confirmModal(events)
+        g_arry_ngday = []
+        g_arry_ngweek = []
+        $.each events, (index, elem) ->
+          if elem.className.indexOf('ng-event-week') != -1
+            g_arry_ngweek.push(elem.id)
+          else
+            g_arry_ngday.push(elem.id)
+
         g_delFlag = 1
+        g_add_week = 0
+        g_modenum = 0
+        g_start = new Date(date.year(), date.month(), date.date(), 9, 0, 0)
+        g_end = new Date(date.year(), date.month(), date.date()+1, 9, 0, 0)
+        g_dow = startDate.getDay()
+        confirmModal()
       return
   )

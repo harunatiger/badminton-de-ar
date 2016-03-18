@@ -16,7 +16,7 @@ class CalendarController < ApplicationController
     end
 
     def set_listings
-      @listings = User.find(current_user.id).listings.opened.without_soft_destroyed
+      @listings = User.find(current_user.id).listings.without_soft_destroyed
     end
 
     def regulate_user

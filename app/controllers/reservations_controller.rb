@@ -274,8 +274,13 @@ class ReservationsController < ApplicationController
       @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
       @reservation.listing_id = listing.id
       user_id = listing.user_id
-      ngdates = Ngevent.get_ngdates_except_request(user_id, @reservation.id)
-      ngweeks = NgeventWeek.where(user_id: user_id).pluck(:dow)
+      if @reservation.try('id').nil?
+        ngdates = Ngevent.get_ngdates_from_listing(listing)
+        ngweeks = NgeventWeek.get_ngweeks_from_listing(listing).pluck(:dow)
+      else
+        ngdates = Ngevent.get_ngdates_except_request(@reservation, listing.id)
+        ngweeks = NgeventWeek.get_ngweeks_from_listing(listing).pluck(:dow)
+      end
       render json: { ngdates: ngdates, ngweeks: ngweeks}
     end
   end
@@ -284,9 +289,17 @@ class ReservationsController < ApplicationController
     if request.xhr?
       @reservation = params[:reservation_id].present? ? Reservation.find(params[:reservation_id]) : Reservation.new
       user_id = @reservation.try('host_id')
-      ngdates = Ngevent.get_ngdates_except_request(user_id, @reservation.id)
-      ngweeks = NgeventWeek.where(user_id: user_id).pluck(:dow)
+      ngdates = Ngevent.get_ngdates_from_reservation(@reservation)
+      ngweeks = NgeventWeek.get_ngweeks_from_reservation(@reservation).pluck(:dow)
       render json: { ngdates: ngdates, ngweeks: ngweeks}
+    end
+  end
+
+  def exist_ngday_reservation
+    if request.xhr?
+      reservation = Reservation.find(params[:reservation_id])
+      ret = Ngevent.is_settable_from_reservation(reservation)
+      render json: { ret: ret }
     end
   end
 
