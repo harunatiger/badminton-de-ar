@@ -8,26 +8,6 @@ class NgeventsController < ApplicationController
     @ngevents = Ngevent.fix_ngdates_for_show(current_user.id)
   end
 
-#  def listing_ngdays
-#    @ngevents = Ngevent.fix_listing_ngdays_for_show(current_user.id, params[:listing_id])
-#  end
-
-#  def listing_reservation_ngdays
-#    @ngevents = Ngevent.fix_listing_reservation_ngdays_for_show(current_user.id, params[:listing_id])
-#  end
-
-#  def listing_request_ngdays
-#    @ngevents = Ngevent.fix_listing_request_ngdays_for_show(current_user.id, params[:listing_id])
-#  end
-
-#  def reservation_except_listing_ngdays
-#    @ngevents = Ngevent.fix_reservation_except_listing_ngdays_for_show(current_user.id, params[:listing_id])
-#  end
-
-#  def request_except_listing_ngdays
-#    @ngevents = Ngevent.fix_request_except_listing_ngdays_for_show(current_user.id, params[:listing_id])
-#  end
-
   def reservation_ngdays
     @ngevents = Ngevent.fix_reservation_ngdays_for_show(current_user.id)
   end
@@ -39,19 +19,6 @@ class NgeventsController < ApplicationController
   def common_ngdays
     @ngevents = Ngevent.fix_common_ngdays_for_show(current_user.id)
   end
-
-  #def set_ngday_listing
-  #  if request.xhr?
-  #    listing_id = params[:listing_id]==0 ? 0 : params[:listing_id]
-  #    if listing_id.to_i == 0
-  #      title = '全ツアー'
-  #    else
-  #      listing = Listing.find(listing_id)
-  #      title = listing.title
-  #    end
-  #    render json: { title: title }
-  #  end
-  #end
 
   def select_ngdays
     if request.xhr?
@@ -153,7 +120,7 @@ class NgeventsController < ApplicationController
     respond_to do |format|
       #format.html { redirect_to ngevents_url, notice: 'Event was successfully destroyed.' }
       #format.json { head :no_content }
-      format.json { return render json: { status: 'success' } }
+      format.json { return render json: { status: 'success', category: 'ngday' } }
     end
   end
 
