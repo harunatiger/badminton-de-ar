@@ -62,7 +62,7 @@ class ReservationsController < ApplicationController
     return cancel_pair_guide if params[:cancel_pair_guide]
     # accept button of the pair guide thread
     return accept_pair_guide if params[:accept_pair_guide]
-    # cancel button of the dashboard
+    # cancel pair guide button of the dashboard
     return cancel_pair_guide_from_dashboard if params[:cancel_pair_guide_from_dashboard]
   end
 
@@ -213,9 +213,10 @@ class ReservationsController < ApplicationController
       ReservationMailer.send_update_reservation_notification(@reservation, mail_to_user).deliver_now!
 
       if @reservation.host_id == current_user.id
-        message = Message.send_reservation_message_to_guest(@reservation, Settings.reservation.msg.canceled)
+        Message.send_reservation_message_to_guest(@reservation, Settings.reservation.msg.canceled)
+        Message.send_pair_guide_message(PairGuideThread.existed_pair_guide_thread(@reservation.id, @reservation.pair_guide_id), Settings.reservation.msg.cancel_pair_guide_from_dashboard, current_user.id, @reservation.pair_guide_id) if @reservation.pg_completion?
       else
-        message = Message.send_reservation_message_to_host(@reservation, Settings.reservation.msg.canceled, false)
+        Message.send_reservation_message_to_host(@reservation, Settings.reservation.msg.canceled, false)
       end
 
       respond_to do |format|
@@ -251,8 +252,9 @@ class ReservationsController < ApplicationController
   end
   
   def cancel_pair_guide
+    pair_guide_id = @reservation.pair_guide_id
     if @reservation.update(pair_guide_params)
-      message = Message.send_pair_guide_message(@reservation.message_thread_id, Settings.reservation.msg.pair_guide_cancel, current_user.id, @reservation.pair_guide_id)
+      message = Message.send_pair_guide_message(@reservation.message_thread_id, Settings.reservation.msg.pair_guide_cancel, current_user.id, pair_guide_id)
       redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.pair_guide.success
     else
       redirect_to message_thread_path(pair_guide_params[:message_thread_id]), alert: Settings.reservation.pair_guide.failure
@@ -262,7 +264,7 @@ class ReservationsController < ApplicationController
   def cancel_pair_guide_from_dashboard
     message_thread = PairGuideThread.existed_pair_guide_thread(@reservation, @reservation.pair_guide_id)
     if @reservation.update(pair_guide_params)
-      message = Message.send_pair_guide_message(message_thread.id, Settings.reservation.msg.pair_guide_cancel, current_user.id, @reservation.host_id)
+      message = Message.send_pair_guide_message(message_thread.id, Settings.reservation.msg.cancel_pair_guide_from_dashboard, current_user.id, @reservation.host_id)
       redirect_to message_thread_path(message_thread.id), notice: Settings.reservation.pair_guide.success
     else
       redirect_to message_thread_path(message_thread.id), alert: Settings.reservation.pair_guide.failure

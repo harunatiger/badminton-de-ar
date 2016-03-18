@@ -56,24 +56,25 @@
                     .col-md-4.thread-progress
                       .row.row-table
                         .col-md-12.col-middle.text-center
-                          - if mt.reservation_progress == Settings.reservation.progress.requested
-                            - unless counterpart_user.soft_destroyed?
-                              .state.state-primary
+                          - if mt.guest_thread?
+                            - if mt.reservation_progress == Settings.reservation.progress.requested
+                              - unless counterpart_user.soft_destroyed?
+                                .state.state-primary
+                                  = mt.reservation_progress
+                            - elsif mt.reservation_progress == Settings.reservation.progress.canceled
+                              .state.state-danger
                                 = mt.reservation_progress
-                          - elsif mt.reservation_progress == Settings.reservation.progress.canceled
-                            .state.state-danger
-                              = mt.reservation_progress
-                          - elsif mt.reservation_progress == Settings.reservation.progress.under_construction
-                            - unless counterpart_user.soft_destroyed?
+                            - elsif mt.reservation_progress == Settings.reservation.progress.under_construction
+                              - unless counterpart_user.soft_destroyed?
+                                .state.state-alert
+                                  = mt.reservation_progress
+                            - elsif mt.reservation_progress == Settings.reservation.progress.rejected
                               .state.state-alert
                                 = mt.reservation_progress
-                          - elsif mt.reservation_progress == Settings.reservation.progress.rejected
-                            .state.state-alert
-                              = mt.reservation_progress
-                          - elsif mt.reservation_progress == Settings.reservation.progress.listing_closed
-                            .state.state-normal
-                              = mt.reservation_progress
-                          - elsif mt.pair_guide_thread?
+                            - elsif mt.reservation_progress == Settings.reservation.progress.listing_closed
+                              .state.state-normal
+                                = mt.reservation_progress
+                          - elsif mt.pair_guide_thread? and mt.reservation.accepted? and !mt.reservation.finished?
                             -if mt.reservation.pg_under_construction?
                               .state.state-alert
                                 = mt.reservation.pair_guide_status_string

@@ -64,6 +64,9 @@ li.thread-list-item
                 - elsif m.try('content') == Settings.reservation.msg.pair_guide_accept
                   span.text-pink.strong
                     = m.try('content')
+                - elsif m.try('content') == Settings.reservation.msg.cancel_pair_guide_from_dashboard
+                  span.text-pink.strong
+                    = m.try('content')
                 - else
                   = hbr(m.try('content')).html_safe
             - if m.attached_file.present?

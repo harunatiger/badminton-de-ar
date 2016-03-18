@@ -1,10 +1,23 @@
 class FriendsController < ApplicationController
   before_action :authenticate_user!
+  before_action :regulate_user
   before_action :set_guide, only: [:send_request, :destroy, :accept, :reject]
   
   def index
-    @friends = current_user.friends_profiles.page(params[:page]).per(12)
-    @not_friends = current_user.not_friends_profiles.page(params[:page]).per(12)
+    if params[:friends_page]
+      if params[:friends_page] == 'true'
+        @friends = current_user.friends_profiles.page(params[:page]).per(Settings.friend.page_count)
+      else
+        @not_friends = current_user.not_friends_profiles.page(params[:page]).per(Settings.friend.page_count)
+      end
+    else
+      @friends = current_user.friends_profiles.page(params[:page]).per(Settings.friend.page_count)
+      @not_friends = current_user.not_friends_profiles.page(params[:page]).per(Settings.friend.page_count)
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def send_request
@@ -44,15 +57,23 @@ class FriendsController < ApplicationController
   end
   
   def search
-    @friends = current_user.search_friends(search_params).page(params[:page]).per(12)
-    @not_friends = current_user.search_not_friends(search_params).page(params[:page]).per(12)
+    if params[:friends_page]
+      if params[:friends_page] == 'true'
+        @friends = current_user.search_friends(search_params).page(params[:page]).per(Settings.friend.page_count)
+      else
+        @not_friends = current_user.search_not_friends(search_params).page(params[:page]).per(Settings.friend.page_count)
+      end
+    else
+      @friends = current_user.search_friends(search_params).page(params[:page]).per(Settings.friend.page_count)
+      @not_friends = current_user.search_not_friends(search_params).page(params[:page]).per(Settings.friend.page_count)
+    end
     respond_to do |format|
       format.js {}
     end
   end
   
   def search_friends
-    @friends = current_user.search_friends(search_params).page(params[:page]).per(12)
+    @friends = current_user.search_friends(search_params).page(params[:page]).per(Settings.friend.page_count)
     respond_to do |format|
       format.js {}
     end
@@ -60,8 +81,12 @@ class FriendsController < ApplicationController
   
   def friends_list
     session[:guide_ids] = nil if session[:previous_url].blank? or !session[:previous_url].include?('friends')
-    @friends = current_user.friends_profiles.page(params[:page]).per(12)
+    @friends = current_user.friends_profiles.page(params[:page]).per(Settings.friend.page_count)
     @reservation = Reservation.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def send_message_to_selected_guides
@@ -115,5 +140,9 @@ class FriendsController < ApplicationController
   
   def send_request_params
     params.require(:send_request).permit(:message)
+  end
+  
+  def regulate_user
+    return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if current_user.listings.blank?
   end
 end

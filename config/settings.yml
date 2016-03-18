@@ -136,6 +136,7 @@ reservation:
     pair_guide_offer: 'ペアガイドオファーを送りました。'
     pair_guide_cancel: 'ペアガイドオファーをキャンセルしました。'
     pair_guide_accept: 'ペアガイドオファーを承認しました。'
+    cancel_pair_guide_from_dashboard: 'ペアガイドをキャンセルしました。'
   progress:
     select: "予約を承認しますか？"
     select_by_guest: "予約をキャンセルする場合は、選択してください。"
@@ -171,6 +172,7 @@ payment:
     withdraw_as_guide: 100
     withdraw_as_guest: 0
 friend:
+  page_count: 12
   msg:
     request: 'ガイド仲間申請を送りました。'
     accept: 'ガイド仲間申請を承認しました。'

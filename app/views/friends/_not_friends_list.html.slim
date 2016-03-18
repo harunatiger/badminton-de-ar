@@ -13,6 +13,5 @@
             - else
               = link_to '仲間申請する', '#', class: 'btn btn-primary btn-large btn-block row-space-top-1 row-space-1 message_to_pair_guide_link'
               = render partial: 'shared/modals/message_to_pair_guide', locals: { profile: profile }
-  .card-footer
-    .text-center
-      = paginate(not_friends)
+  .text-center
+    = paginate not_friends, remote: true, params: { friends_page: false}

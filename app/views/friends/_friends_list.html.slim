@@ -19,6 +19,5 @@
                 = link_to '選択中', '#', class: "btn btn-primary btn-large btn-block row-space-top-1 row-space-1 select_friend_link", id: 'select_friend_link'
               - else
                 = link_to '候補にする', '#', class: "btn btn-default btn-large btn-block row-space-top-1 row-space-1 select_friend_link", id: 'select_friend_link'
-  .card-footer
-    .text-center
-      = paginate(friends)
+  .text-center
+    = paginate friends, remote: true, params: { friends_page: true}

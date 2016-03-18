@@ -8,17 +8,18 @@
         .state-container
           span.state-label
             | State:
-          - if @reservation.pg_offering?
-            - unless @counterpart.soft_destroyed?
-              .state.state-primary
+          - if @reservation.accepted? and !@reservation.finished?
+            - if @reservation.pg_offering?
+              - unless @counterpart.soft_destroyed?
+                .state.state-primary
+                  = @reservation.pair_guide_status_string
+            - elsif @reservation.pg_under_construction?
+              - unless @counterpart.soft_destroyed?
+                .state.state-alert
+                  = @reservation.pair_guide_status_string
+            - elsif @reservation.pair_guide_status_string
+              .state.state-success
                 = @reservation.pair_guide_status_string
-          - elsif @reservation.pg_under_construction?
-            - unless @counterpart.soft_destroyed?
-              .state.state-alert
-                = @reservation.pair_guide_status_string
-          - elsif @reservation.pair_guide_status_string
-            .state.state-success
-              = @reservation.pair_guide_status_string
 
       #reservation_block[class="#{@listing.present? ? 'collapse in' : 'collapse'}"]
         .collapse-inner
