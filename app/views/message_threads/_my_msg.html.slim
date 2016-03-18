@@ -68,7 +68,7 @@ li.thread-list-item
                   span.text-pink.strong
                     = m.try('content')
                 - else
-                  = hbr(m.try('content')).html_safe
+                  = text_url_to_link(hbr(m.try('content'))).html_safe
             - if m.attached_file.present?
               div
                 - if m.attached_extension.include?('pdf')

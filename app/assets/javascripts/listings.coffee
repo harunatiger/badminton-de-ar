@@ -384,15 +384,43 @@ $ ->
       $('#include_price').modal()
       return false
 
+    #slider
+    $('#listing_slider-carousel').sliderPro
+      width: 600
+      arrows: true
+      buttons: false
+      slideDistance: 0
+      waitForLayers: true
+      visibleSize: '100%'
+      fadeArrows: false
+      autoplayDelay: 4000
+      slideAnimationDuration: 1000
+
+    $('#listing_slider-normal').sliderPro
+      width: '100%'
+      arrows: true
+      buttons: false
+      waitForLayers: true
+      fadeArrows: false
+      autoplayDelay: 4000
+      slideAnimationDuration: 1000
+
     # gallery
-    $('.photo-box').magnificPopup
-      delegate: '.galon'
+    $('.sp-slides').magnificPopup
+      delegate: '.slider-popup'
       type: 'image'
       gallery:
         enabled: true
 
-    $('.galon-trigger').on 'click', ->
-      $('.photo-box').magnificPopup('open')
+    #$('.photo-box').magnificPopup
+    #  delegate: '.galon'
+    #  type: 'image'
+    #  gallery:
+    #    enabled: true
+
+    #$('.galon-trigger').on 'click', ->
+    #  $('.photo-box').magnificPopup('open')
+
 
     # bootstrap datepicker
     $('.datepicker').datepicker
@@ -401,7 +429,7 @@ $ ->
       language: 'en',
       default: 'yyyy.mm.dd',
       beforeShowDay: (date) ->
-        formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'en')
+        formattedDate = moment(date).format('YYYY.MM.DD')
         if $.inArray(formattedDate.toString(), disabled_dates) != -1
           return { enabled: false }
         if $.inArray(date.getDay(), disabled_weeks) != -1

@@ -98,41 +98,6 @@ $ ->
                 boxShadow: 'none'
             )
 
-
-#        hasTouch = ('ontouchstart' in window)
-#        if hasTouch == true
-#          $(this).on 'touchend', ->
-#            $(this).find('.fav-balloon').showBalloon(
-#              contents: 'add to your favorites',
-#              hideDuration: 1000,
-#              css:
-#                border: 'none',
-#                padding: '8px',
-#                fontSize: '13px',
-#                fontWeight: 'bold',
-#                lineHeight: '1.55',
-#                backgroundColor: 'rgba(0, 0, 0, .75)',
-#                borderRadius: '2px'
-#                color: 'white'
-#                boxShadow: 'none'
-#            )
-#          $(this).on 'touchend', ->
-#            $(this).find('.fav-balloon').showBalloon().hideBalloon()
-#        else
-#          $(this).find('.fav-balloon').balloon(
-#            contents: 'add to your favorites',
-#            css:
-#              border: 'none',
-#              padding: '8px',
-#              fontSize: '13px',
-#              fontWeight: 'bold',
-#              lineHeight: '1.55',
-#              backgroundColor: 'rgba(0, 0, 0, .75)',
-#              borderRadius: '2px'
-#              color: 'white'
-#              boxShadow: 'none'
-#          )
-
       $(this).find('i.outline').hover (->
         $(this).prev().addClass 'unfavorite-o'
         ), ->
@@ -151,6 +116,8 @@ $ ->
             $(this).find('i.favorited').addClass 'hide'
             $(this).find('i.unfavorite').removeClass 'hide'
             $(this).find('i.outline').removeClass 'hide'
+          count = ajax.responseJSON.count
+          $(this).find('span.favorited-count').text(count)
 
   #balloon for languages
   $('.balloon').balloon(

@@ -12,17 +12,17 @@
       = f.hidden_field :cost_performance, value: 0
       = f.hidden_field :type, value: @review.type
       .row.row-space-5
-        .col-12
-          = f.input_field :msg, required: true, rows: "7", placeholder: "Eg. Thank you for the tour the other day!I had a really great day!"
-      .row.row-space-5
         label.col-12
           .h5
             | Rating
             small
-              ' 　Please rate your guide out of five stars 
+              ' 　Please rate your guide out of five stars
         .col-12
           fieldset.rating
             = f.input_field :total, as: :radio_buttons, required: true, boolean_style: :inline, collection: [["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], label_method: :last, item_wrapper_tag: false
-      
+      .row.row-space-5
+        .col-12
+          = f.input_field :msg, required: true, rows: "7", placeholder: "Eg. Thank you for the tour the other day!I had a really great day!"
+
   .card-footer
     = f.submit "Send this feedback", class: "btn btn-primary"

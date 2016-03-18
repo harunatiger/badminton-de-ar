@@ -37,8 +37,12 @@
           .row.row-table
             .col-md-12.col-middle.text-center
               - if r.accepted?
-                .state.state-primary
-                  | Booked
+                - if r.finished?
+                  .state.state-primary
+                    = Settings.reservation.progress.finished
+                - else
+                  .state.state-primary
+                    = Settings.reservation.progress.accepted
                 br
               - else
                 .state.state-normal
@@ -60,7 +64,7 @@
                     = f.submit 'Cancel PairGuide', class: 'btn btn-thread row-space-top-1 row-space-1 text-red', id: "reservation_block-toggle", name: 'cancel_pair_guide_from_dashboard', data: {confirm: '本当にキャンセルしてよろしいですか？'}
               
               - elsif r.review_for_guest_enabled? and r.host_id == current_user.id
-                = link_to "Review", for_guest_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"    
+                = link_to "Review", for_guest_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"
                 br
               = link_to "#", class: "small2 btn-block about_cancel_from_guide_link" do
                 | Guide Refund Policy

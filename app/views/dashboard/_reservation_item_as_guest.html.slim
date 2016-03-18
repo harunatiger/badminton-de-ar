@@ -34,8 +34,12 @@
           .row.row-table
             .col-md-12.col-middle.text-center
               - if r.accepted?
-                .state.state-primary
-                  | Booked
+                - if r.finished?
+                  .state.state-primary
+                    = Settings.reservation.progress.finished
+                - else
+                  .state.state-primary
+                    = Settings.reservation.progress.accepted
                 br
               - else
                 .state.state-normal
