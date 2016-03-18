@@ -149,7 +149,8 @@ class ListingsController < ApplicationController
         status = 'error'
       end
     end
-    render json: { status: status, post: post}
+    count = FavoriteListing.where(listing_id: @listing.id).count
+    render json: { status: status, post: post, count: count}
   end
 
   def copy
