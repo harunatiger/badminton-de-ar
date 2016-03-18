@@ -143,7 +143,7 @@ reservation:
     requested: "Request"
     canceled: "Cancelled"
     under_construction: "Under construction"
-    accepted: "Accept"
+    accepted: "Booked"
     rejected: "Delete"
     listing_closed: "Close"
     canceled_after_accepted: "Cancelled"
@@ -335,6 +335,8 @@ mailer:
     subject: "ゲストへの返信がまだ行われていません"
   send_id_uploaded_notification:
     subject: 'ID認証依頼がありました。'
+  send_id_authentication_complete_notification_to_user:
+    subject: 'Your ID has been confirmed.'
 left_steps:
   listing_image: "listing_image"
   listing_detail: "listing_detail"

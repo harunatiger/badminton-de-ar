@@ -691,6 +691,7 @@ select
   border: 0
   border-radius: 0
   background: transparent
+  z-index: 1
   > div
     padding: 12px
     margin-bottom: 0
@@ -716,15 +717,16 @@ select
 
 .is-simpleHeader
   .alert
-    position: absolute
-    top: 80px
-    left: 45px
-    right: 45px
-    > div
-      border-radius: 4px
-    @media (max-width: 767px)
-      left: 20px
-      right: 20px
+    @media (min-width: 768px)
+      position: absolute
+      top: 80px
+      left: 45px
+      right: 45px
+      > div
+        border-radius: 4px
+    //@media (max-width: 767px)
+      //left: 20px
+      //right: 20px
 
 .app_view
   min-height: 400px
@@ -2092,7 +2094,7 @@ select
         border-color: rgba(255, 255, 255, 0.2)
       .nav-header
         display: block
-        height: 48px
+        height: auto
       .nav-menu-wrapper
         height: 100%
         overflow-x: hidden
@@ -2118,7 +2120,7 @@ select
           color: $brand-theme
       &.logged-in
         .nav-menu-wrapper
-          height: calc(100% - 48px)
+          //height: calc(100% - 48px)
     .nav-mask--sp
       position: absolute
       cursor: pointer

@@ -1,5 +1,6 @@
 module ApplicationHelper
   include ActsAsTaggableOn::TagsHelper
+  require "uri"
 
   def full_title(page_title)
     base_title = Settings.site_info.base_title
@@ -53,6 +54,23 @@ module ApplicationHelper
     else
       return ci.title
     end
+  end
+
+  def listing_slider_url(listing, listing_images)
+    slider_images = []
+    if listing.cover_image.present?
+      slide = listing.cover_image.url.blank? ? '' : listing.cover_image.url
+      slider_images << slide
+    end
+
+    if listing_images.present?
+      listing_images.each do |listing_image|
+        slide = listing_image.image.url.blank? ? '' : listing_image.image.url
+        slider_images << slide
+      end
+    end
+
+    slider_images
   end
 
   def unread_messages
@@ -573,5 +591,14 @@ module ApplicationHelper
   
   def disp_friends_request_block?(mt, counterpart_id)
     mt.guide_thread? and current_user.friend_requested?(counterpart_id)
+  end
+
+  def text_url_to_link(text)
+    URI.extract(text, ['http','https']).uniq.each do |url|
+      sub_text = ""
+      sub_text << "<a href=" << url << " target=\"_blank\">" << url << "</a>"
+      text.gsub!(url, sub_text)
+    end
+    return text
   end
 end

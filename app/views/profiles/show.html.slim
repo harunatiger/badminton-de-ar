@@ -19,8 +19,10 @@
         = render partial: '/profiles/show/tour_list', locals: { profile: @profile}
 
 .reviews.card
-  = render partial: '/profiles/show/reviewed', locals: { reviewed: @reviewed, reviewed_count: reviewed_count }
-  = render partial: '/profiles/show/reviewed_as_guest', locals: { reviewed_as_guest: @reviewed_as_guest, reviewed_as_guest_count: reviewed_as_guest_count }
+  - if @reviewed.present?
+    = render partial: '/profiles/show/reviewed', locals: { reviewed: @reviewed, reviewed_count: reviewed_count }
+  - if @reviewed_as_guest.present?
+    = render partial: '/profiles/show/reviewed_as_guest', locals: { reviewed_as_guest: @reviewed_as_guest, reviewed_as_guest_count: reviewed_as_guest_count }
 
 .card-dark
   .page-container.row-space-top-6.row-space-8

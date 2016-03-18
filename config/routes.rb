@@ -116,6 +116,7 @@ Rails.application.routes.draw do
       get 'set_reservation_default'
       get 'set_ngday_reservation_by_listing'
       get 'set_ngday_reservation_default'
+      get 'exist_ngday_reservation'
     end
     member do
       get 'friends_list' => 'friends#friends_list'
@@ -129,6 +130,7 @@ Rails.application.routes.draw do
     get 'request_ngdays', on: :collection
     get 'common_ngdays', on: :collection
     get 'set_ngday_listing', on: :collection
+    get 'select_ngdays', on: :collection
   end
   resources :ngevent_weeks do
     get 'except_common_ngweeks', on: :collection

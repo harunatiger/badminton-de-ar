@@ -28,15 +28,13 @@ class NgeventWeeksController < ApplicationController
     @ngevent_week = NgeventWeek.new(ngevent_week_params)
     current_week = NgeventWeek.where(listing_id: params[:listing_id], dow: params['event']['dow'])
     unless current_week.blank?
-      return render json: { msg: 'ng_week configured', event: @ngevent_week }, status: 4001
+      return render json: { status: 'exist' }
     end
     respond_to do |format|
       if @ngevent_week.save!
-        format.html { redirect_to @ngevent_week, notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: @ngevent_week }
+        format.json { return render json: { status: 'success', ngevent_week: @ngevent_week  } }
       else
-        format.html { render :new }
-        format.json { render json: @ngevent_week.errors, status: :unprocessable_entity }
+        format.json { return render json: { status: 'error' } }
       end
     end
   end
@@ -47,8 +45,9 @@ class NgeventWeeksController < ApplicationController
   def destroy
     @ngevent_week.destroy
     respond_to do |format|
-      format.html { redirect_to ngevents_url, notice: 'Event was successfully destroyed.' }
-      format.json { head :no_content }
+    #  format.html { redirect_to ngevents_url, notice: 'Event was successfully destroyed.' }
+    #  format.json { head :no_content }
+      format.json { return render json: { status: 'success', category: 'ngweek' } }
     end
   end
 
@@ -70,14 +69,9 @@ class NgeventWeeksController < ApplicationController
 
   def set_ngweek_listing
     if request.xhr?
-      listing_id = params[:listing_id]==0 ? 0 : params[:listing_id]
-      if listing_id.to_i == 0
-        title = '全ツアー'
-      else
-        listing = Listing.find(listing_id)
-        title = listing.title
-      end
-      render json: { title: title }
+      dow = params[:dow]
+      ngweeks = dow.present? ? NgeventWeek.select_ngweeks_for_user(current_user.id, dow) : []
+      render json: { ngweeks: ngweeks }
     end
   end
 

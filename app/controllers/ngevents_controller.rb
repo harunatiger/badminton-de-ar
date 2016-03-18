@@ -8,26 +8,6 @@ class NgeventsController < ApplicationController
     @ngevents = Ngevent.fix_ngdates_for_show(current_user.id)
   end
 
-#  def listing_ngdays
-#    @ngevents = Ngevent.fix_listing_ngdays_for_show(current_user.id, params[:listing_id])
-#  end
-
-#  def listing_reservation_ngdays
-#    @ngevents = Ngevent.fix_listing_reservation_ngdays_for_show(current_user.id, params[:listing_id])
-#  end
-
-#  def listing_request_ngdays
-#    @ngevents = Ngevent.fix_listing_request_ngdays_for_show(current_user.id, params[:listing_id])
-#  end
-
-#  def reservation_except_listing_ngdays
-#    @ngevents = Ngevent.fix_reservation_except_listing_ngdays_for_show(current_user.id, params[:listing_id])
-#  end
-
-#  def request_except_listing_ngdays
-#    @ngevents = Ngevent.fix_request_except_listing_ngdays_for_show(current_user.id, params[:listing_id])
-#  end
-
   def reservation_ngdays
     @ngevents = Ngevent.fix_reservation_ngdays_for_show(current_user.id)
   end
@@ -40,16 +20,21 @@ class NgeventsController < ApplicationController
     @ngevents = Ngevent.fix_common_ngdays_for_show(current_user.id)
   end
 
-  def set_ngday_listing
+  def select_ngdays
     if request.xhr?
-      listing_id = params[:listing_id]==0 ? 0 : params[:listing_id]
-      if listing_id.to_i == 0
-        title = '全ツアー'
-      else
-        listing = Listing.find(listing_id)
-        title = listing.title
+      arry_ngday = params[:arry_ngday]
+      arry_ngweek = params[:arry_ngweek]
+
+      if arry_ngday.present?
+        ngevents = Ngevent.select_ngdays(current_user.id, arry_ngday)
       end
-      render json: { title: title }
+
+      if arry_ngweek.present?
+        ngweeks = NgeventWeek.select_ngweeks(current_user.id, arry_ngweek)
+      end
+
+      result_array = [ngevents, ngweeks].compact.reduce([], :|)
+      render json: { ngevents: result_array }
     end
   end
 
@@ -72,15 +57,27 @@ class NgeventsController < ApplicationController
     ]
     @ngevent = Ngevent.new(ngevent_params)
     unless @ngevent.is_settable(params[:id], params[:listing_id])
-      return render json: { msg: 'ng date', event: @ngevent }, status: 4001
+      if request.xhr?
+        return render json: { status: 'exist' }
+      else
+        return render json: { msg: 'ng date', event: @ngevent }, status: 4001
+      end
     end
     respond_to do |format|
       if @ngevent.save!
-        format.html { redirect_to @ngevent, notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: @ngevent }
+        if request.xhr?
+          format.json { return render json: { status: 'success', ngevent: @ngevent  } }
+        else
+          format.html { redirect_to @ngevent, notice: 'Event was successfully created.' }
+          format.json { render :show, status: :created, location: @ngevent }
+        end
       else
-        format.html { render :new }
-        format.json { render json: @ngevent.errors, status: :unprocessable_entity }
+        if request.xhr?
+          format.json { return render json: { status: 'error' } }
+        else
+          format.html { render :new }
+          format.json { render json: @ngevent.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -115,15 +112,15 @@ class NgeventsController < ApplicationController
   # DELETE /ngevents/1
   # DELETE /ngevents/1.json
   def destroy
-    mode = params['mode']
     if @ngevent.mode == 1 || @ngevent.mode == 2
       return render json: { msg: 'ng date', event: @ngevent }, status: 4001
     end
 
     @ngevent.destroy
     respond_to do |format|
-      format.html { redirect_to ngevents_url, notice: 'Event was successfully destroyed.' }
-      format.json { head :no_content }
+      #format.html { redirect_to ngevents_url, notice: 'Event was successfully destroyed.' }
+      #format.json { head :no_content }
+      format.json { return render json: { status: 'success', category: 'ngday' } }
     end
   end
 

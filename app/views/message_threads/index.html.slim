@@ -68,6 +68,9 @@
                               - unless counterpart_user.soft_destroyed?
                                 .state.state-alert
                                   = mt.reservation_progress
+                            - elsif mt.reservation_progress == Settings.reservation.progress.accepted
+                              .state.state-success
+                                = mt.reservation_progress
                             - elsif mt.reservation_progress == Settings.reservation.progress.rejected
                               .state.state-alert
                                 = mt.reservation_progress

@@ -49,7 +49,7 @@ $ ->
     default: 'yyyy.mm.dd',
     format: 'yyyy/mm/dd',
     beforeShowDay: (date) ->
-      formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
+      formattedDate = moment(date).format('YYYY.MM.DD')
       if $.inArray(formattedDate.toString(), disabled_dates) != -1
         return { enabled: false }
       if $.inArray(date.getDay(), disabled_weeks) != -1
@@ -97,7 +97,7 @@ $ ->
             default: 'yyyy.mm.dd',
             format: 'yyyy/mm/dd',
             beforeShowDay: (date) ->
-              formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
+              formattedDate = moment(date).format('YYYY.MM.DD')
               if $.inArray(formattedDate.toString(), disabled_dates) != -1
                 return { enabled: false }
               if $.inArray(date.getDay(), disabled_weeks) != -1
@@ -154,6 +154,15 @@ $ ->
   $('.message_form').on 'change', ->
     changed_flg = 1
 
+  ngday_exist = false
+  $('#offer_to_guest').on 'click', ->
+    if exist_ngday_reservation($('#reservation_form #reservation_id').val())
+      if ngday_exist == true
+        confirm 'この内容でゲストにオファーします。よろしいですか？'
+      else
+        alert 'NG日が設定されています。'
+        return false
+
   # set reservation default for message thread
   $(document).on 'click', '#cancel_detail', ->
     if changed_flg == 0
@@ -181,7 +190,7 @@ $ ->
             default: 'yyyy.mm.dd',
             format: 'yyyy/mm/dd',
             beforeShowDay: (date) ->
-              formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy.mm.dd', 'ja')
+              formattedDate = moment(date).format('YYYY.MM.DD')
               if $.inArray(formattedDate.toString(), disabled_dates) != -1
                 return { enabled: false }
               if $.inArray(date.getDay(), disabled_weeks) != -1
@@ -222,6 +231,17 @@ $ ->
       ).done (data) ->
         disabled_dates = data.ngdates
         disabled_weeks = data.ngweeks
+
+  exist_ngday_reservation = (reservation_id) ->
+    $.ajax(
+      type: 'GET'
+      url: '/reservations/exist_ngday_reservation'
+      data: {
+        reservation_id: reservation_id
+      }
+      async: false
+    ).done (data) ->
+      ngday_exist = data.ret
 
   # open include_what
   $('a.include_what_trigger').on 'click', (e) ->

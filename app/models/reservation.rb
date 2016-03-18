@@ -140,7 +140,7 @@ class Reservation < ActiveRecord::Base
     return Settings.mailer.update_reservation.subject.accepted if self.accepted?
     return Settings.mailer.update_reservation.subject.rejected if self.rejected?
   end
-  
+
   def body_of_update_mail
     return Settings.mailer.update_reservation.body.canceled if self.canceled?
     return Settings.mailer.update_reservation.body.canceled if self.canceled_after_accepted?
@@ -302,11 +302,11 @@ class Reservation < ActiveRecord::Base
       false
     end
   end
-  
+
   def review_for_guide_enabled?
     self.finished? and self.schedule_end + Settings.review.expiration_date.day >= Time.zone.today and self.reviewed_at.blank?
   end
-  
+
   def review_for_guest_enabled?
     self.finished? and self.schedule_end + Settings.review.expiration_date.day >= Time.zone.today and self.replied_at.blank?
   end
@@ -351,7 +351,7 @@ class Reservation < ActiveRecord::Base
   def progress_is_not_under_construction?
     !self.under_construction?
   end
-  
+
   def set_details(details)
     payment = self.payment.present? ? self.payment : Payment.create(reservation_id: self.id)
     payment.update(
@@ -368,14 +368,14 @@ class Reservation < ActiveRecord::Base
       )
     payment
   end
-  
+
   def set_purchase(response)
     self.payment.update(
       transaction_id: response.params['transaction_id'],
       transaction_date: response.params['payment_date'],
       status: 'completed')
   end
-  
+
   def set_refund(response=nil, current_user)
     self.payment.update(
       transaction_id: response.params['refund_transaction_id'],
@@ -383,7 +383,7 @@ class Reservation < ActiveRecord::Base
       status: 'refunded') if response.present?
     set_cancel_by(current_user)
   end
-  
+
   def set_cancel_by(current_user)
     #default: 0, guide: 1, guest_before_weeks: 2, guest_before_days: 3, guest_less_than_days: 4
     self.canceled_after_accepted!
@@ -397,12 +397,12 @@ class Reservation < ActiveRecord::Base
       self.guest_less_than_days!
     end
   end
-  
+
   def self.for_message_thread(guest_id, host_id)
     reservation = self.latest_reservation(guest_id, host_id)
     if reservation.present?
       if reservation.accepted?
-        self.new(progress: 'under_construction')
+        self.new(progress: 'accepted')
       elsif reservation.canceled_after_accepted?
         self.new(reservation.attributes)
       else
