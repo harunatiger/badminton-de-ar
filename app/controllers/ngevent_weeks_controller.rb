@@ -47,7 +47,7 @@ class NgeventWeeksController < ApplicationController
     respond_to do |format|
     #  format.html { redirect_to ngevents_url, notice: 'Event was successfully destroyed.' }
     #  format.json { head :no_content }
-      format.json { return render json: { status: 'success' } }
+      format.json { return render json: { status: 'success', category: 'ngweek' } }
     end
   end
 

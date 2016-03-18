@@ -113,7 +113,6 @@ $ ->
     ).done (data) ->
       $("#calendar_confirm table#ngday").html('')
       if data.ngweeks.length != 0
-        console.log data.ngweeks
         $.each data.ngweeks, (index, value) ->
           setConfirm(value['title'], value['id'],value['category'],value['mode'], value['modenum'])
         $('#calendar_confirm').modal()
@@ -176,11 +175,18 @@ $ ->
         if status == 'success'
           del_elem = $('#calendar_confirm table#ngday .ngday-block').eq(index)
           del_elem.remove()
-          clearColor()
-          calendar.fullCalendar 'refetchEvents'
           ng_elem_length = $('#calendar_confirm table#ngday .ngday-block').length
           if ng_elem_length == 0
             $('#calendar_confirm').modal('hide')
+          else
+            if ajax.responseJSON.category == 'ngweek'
+              g_modenum = 0
+              confirmModalWeek()
+            else
+              g_modenum = 0
+              confirmModal()
+          clearColor()
+          calendar.fullCalendar 'refetchEvents'
         return
 
 
