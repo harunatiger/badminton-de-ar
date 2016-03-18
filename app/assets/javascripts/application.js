@@ -21,6 +21,7 @@
 //= require lib/bootstrap-tagsinput
 //= require Chart
 //= require moment
+//= require lib/jquery.sliderPro
 
 //= require common
 //= require message

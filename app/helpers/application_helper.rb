@@ -56,6 +56,23 @@ module ApplicationHelper
     end
   end
 
+  def listing_slider_url(listing, listing_images)
+    slider_images = []
+    if listing.cover_image.present?
+      slide = listing.cover_image.url.blank? ? '' : listing.cover_image.url
+      slider_images << slide
+    end
+
+    if listing_images.present?
+      listing_images.each do |listing_image|
+        slide = listing_image.image.url.blank? ? '' : listing_image.image.url
+        slider_images << slide
+      end
+    end
+
+    slider_images
+  end
+
   def unread_messages
     Message.unread_messages(current_user.id).count
   end
