@@ -39,18 +39,43 @@
                 .state.state-normal
                   | Cancelled
                 br
-              - if r.completed?
+              - if r.completed? and r.host_id == current_user.id
                 - if guest.soft_destroyed?
                   = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red disabled", data: { toggle: "modal" }
                 - else
                   = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
                 = render partial: 'shared/modals/confirm_cancel_from_guide', locals: { r: r, count: i.to_s}
-              - elsif r.review_for_guest_enabled?
+              - elsif r.completed? and r.host_id != current_user.id
+                - if guest.soft_destroyed?
+                  = link_to "Cancel PairGuide", class: "btn btn-thread row-space-top-1 row-space-1 text-red disabled"
+                - else
+                  = simple_form_for(r) do |f|
+                    = f.hidden_field :pair_guide_status, value: 'pg_under_construction'
+                    = f.hidden_field :pair_guide_id, value: nil
+                    = f.submit 'Cancel PairGuide', class: 'btn btn-thread row-space-top-1 row-space-1 text-red', id: "reservation_block-toggle", name: 'cancel_pair_guide_from_dashboard', data: {confirm: '本当にキャンセルしてよろしいですか？'}
+              
+              - elsif r.review_for_guest_enabled? and r.host_id == current_user.id
                 = link_to "Review", for_guest_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"    
                 br
               = link_to "#", class: "small2 btn-block about_cancel_from_guide_link" do
                 | Guide Refund Policy
+              - if r.pg_completion?
+                | ペアガイド決定！
+              - elsif r.completed?
+                | ペアガイド未確定
         .col-md-12.row-space-top-2
-          = render partial: 'shared/reservation_block', locals: { reservation: r, count: i.to_s }
+          - if r.host_id == current_user.id
+            = render partial: 'shared/reservation_block', locals: { reservation: r, count: i.to_s }
+          - else
+            = render partial: 'shared/pair_guide_block', locals: { reservation: r, count: i.to_s }
           = render partial: '/shared/modals/include_what', locals: { included_guests_cost: r.included_guests_cost, count: i.to_s }
+        - if r.completed? and !r.pg_completion?
+          .col-md-12.bg-warning.text-red
+            .col-md-10.row-space-1.row-space-top-1
+              | このプランはペアガイドがまだ決まっていません。
+              br
+              | 予約の1週間前までにはペアガイドを確定させてください。
+            .col-md-2.text-right.row-space-1.row-space-top-1
+              | ※期日まであと #{(r.schedule.to_date - Time.zone.now.to_date).to_i} 日
+              = link_to '仲間から探す', friends_list_reservation_path(r.id), class: 'btn btn-primary'
   = render partial: 'shared/modals/message_to_guest_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }

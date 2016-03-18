@@ -29,6 +29,8 @@ class MessageThreadsController < ApplicationController
       @listings = User.find(@host_id).listings.opened.without_soft_destroyed
       gon.watch.ngdates = Ngevent.get_ngdates_except_request(@host_id, @reservation.id)
       gon.watch.ngweeks = NgeventWeek.where(user_id: @host_id).pluck(:dow)
+    elsif @message_thread.pair_guide_thread?
+      @listing = Listing.find(@reservation.listing_id)
     end
   end
 
@@ -85,8 +87,8 @@ class MessageThreadsController < ApplicationController
 
     def set_reservation
       @guest_id = @message_thread.counterpart_user(@message_thread.host_id).id
-      @host_id = @message_thread.host_id
-      @reservation = Reservation.for_message_thread(@guest_id, @host_id)
+      @host_id = @message_thread.pair_guide_thread? ? @message_thread.reservation.host_id : @message_thread.host_id
+      @reservation = @message_thread.pair_guide_thread? ? @message_thread.reservation : Reservation.for_message_thread(@guest_id, @host_id)
       @reservation.message_thread_id = @message_thread.id
     end
 

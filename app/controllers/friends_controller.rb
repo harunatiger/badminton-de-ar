@@ -51,6 +51,58 @@ class FriendsController < ApplicationController
     end
   end
   
+  def search_friends
+    @friends = current_user.search_friends(search_params).page(params[:page]).per(12)
+    respond_to do |format|
+      format.js {}
+    end
+  end
+  
+  def friends_list
+    session[:guide_ids] = nil if session[:previous_url].blank? or !session[:previous_url].include?('friends')
+    @friends = current_user.friends_profiles.page(params[:page]).per(12)
+    @reservation = Reservation.find(params[:id])
+  end
+  
+  def send_message_to_selected_guides
+    @reservation = Reservation.find(params[:id])
+    if session[:guide_ids].blank?
+      redirect_to friends_list_reservation_path(@reservation.id), alert: Settings.friend.send_message_to_selected_guides.failure
+    else
+      session[:guide_ids].each do |guide_id|
+        Message.send_message_to_selected_guides(@reservation, guide_id)
+      end
+      @reservation.pg_under_construction!
+      session[:guide_ids] = nil
+      redirect_to friends_list_reservation_path(@reservation.id), notice: Settings.friend.send_message_to_selected_guides.success
+    end
+  end
+  
+  #select guide ajax
+  def set_selected_guides
+    if request.xhr?
+      if session[:guide_ids].blank?
+        selected_guides = []
+        selected_guides.push(params[:guide_id])
+        session[:guide_ids] = selected_guides
+        return render text: 'added'
+      else
+        selected_guides = session[:guide_ids]
+        if selected_guides.include?(params[:guide_id])
+          selected_guides.delete(params[:guide_id])
+          session[:guide_ids] = selected_guides
+          return render text: 'deleted'
+        elsif selected_guides.count > 5
+          return render text: 'count_over'
+        else
+          selected_guides.push(params[:guide_id])
+          session[:guide_ids] = selected_guides
+          return render text: 'added'
+        end
+      end
+    end
+  end
+  
   private
   
   def set_guide

@@ -6,11 +6,19 @@
           - all_reviewed_count = Review.my_reviewed_count(profile.user_id)
           .col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
             = render partial: 'guide_card', locals: { all_reviewed_count: all_reviewed_count, profile: profile }
-            = link_to 'メッセージ', message_thread_path(users_to_guide_thread(profile.user_id, current_user.id)), class: "btn btn-primary btn-large btn-block row-space-top-1 row-space-1"
-            = form_tag(friend_path(profile.user_id), method: :delete) do
-              = button_tag(type: "submit", class: "favorite-btn-large btn btn-large btn-block") do
-                i.fa.fa-times
-                | 仲間からはずす
+            
+            - if action_name == 'index' or action_name == 'search'
+              = link_to 'メッセージ', message_thread_path(users_to_guide_thread(profile.user_id, current_user.id)), class: "btn btn-primary btn-large btn-block row-space-top-1 row-space-1"
+              = form_tag(friend_path(profile.user_id), method: :delete) do
+                = button_tag(type: "submit", class: "favorite-btn-large btn btn-large btn-block") do
+                  i.fa.fa-times
+                  | 仲間からはずす
+            - elsif action_name == 'friends_list' or action_name == 'search_friends'
+              = hidden_field_tag :guide_id, profile.user_id, class: 'guide_id'
+              - if session[:guide_ids].present? and session[:guide_ids].include?(profile.user_id.to_s)
+                = link_to '選択中', '#', class: "btn btn-primary btn-large btn-block row-space-top-1 row-space-1 select_friend_link", id: 'select_friend_link'
+              - else
+                = link_to '候補にする', '#', class: "btn btn-default btn-large btn-block row-space-top-1 row-space-1 select_friend_link", id: 'select_friend_link'
   .card-footer
     .text-center
       = paginate(friends)

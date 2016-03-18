@@ -55,6 +55,18 @@ li.thread-list-item
                 - elsif m.try('content') == Settings.friend.msg.rejected
                   span.text-pink.strong
                     = Settings.friend.msg.rejected
+                - elsif m.try('content') == Settings.reservation.msg.send_message
+                  span.text-pink.strong
+                    = m.try('content')
+                - elsif m.try('content') == Settings.reservation.msg.pair_guide_offer
+                  span.text-blue.strong
+                    = m.try('content')
+                - elsif m.try('content') == Settings.reservation.msg.pair_guide_cancel
+                  span.text-pink.strong
+                    = m.try('content')
+                - elsif m.try('content') == Settings.reservation.msg.pair_guide_accept
+                  span.text-pink.strong
+                    = m.try('content')
                 - else
                   = hbr(m.try('content')).html_safe
             - if m.attached_file.present?

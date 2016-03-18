@@ -95,6 +95,8 @@ Rails.application.routes.draw do
     end
     collection do
       get 'search'
+      get 'search_friends'
+      post 'set_selected_guides'
     end
   end
 
@@ -114,6 +116,10 @@ Rails.application.routes.draw do
       get 'set_reservation_default'
       get 'set_ngday_reservation_by_listing'
       get 'set_ngday_reservation_default'
+    end
+    member do
+      get 'friends_list' => 'friends#friends_list'
+      post 'send_message_to_selected_guides' => 'friends#send_message_to_selected_guides'
     end
   end
 

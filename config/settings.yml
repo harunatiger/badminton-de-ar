@@ -132,6 +132,10 @@ reservation:
     accepted_en: "I approved your tour plan"
     canceled_en: "I cancelled your tour plan"
     refunded_en: "Your refund has been authorized"
+    send_message: 'ペアガイドの相談をさせてください。'
+    pair_guide_offer: 'ペアガイドオファーを送りました。'
+    pair_guide_cancel: 'ペアガイドオファーをキャンセルしました。'
+    pair_guide_accept: 'ペアガイドオファーを承認しました。'
   progress:
     select: "予約を承認しますか？"
     select_by_guest: "予約をキャンセルする場合は、選択してください。"
@@ -143,6 +147,13 @@ reservation:
     listing_closed: "Close"
     canceled_after_accepted: "Cancelled"
     finished: "Finished"
+  pair_guide:
+    success: 'ペアガイドステータスを更新しました。'
+    failure: 'ペアガイドステータスの更新に失敗しました。'
+  pair_guide_status:
+    pg_under_construction: "Under construction"
+    pg_offering: 'Offering'
+    pg_completion: 'Completion'
   progress_for_message_thread:
     requested: "Sending your tour plan..."
     canceled: "Sorry, Your request(Booking your tour) has been cancelled"
@@ -166,6 +177,9 @@ friend:
     rejected: 'ガイド仲間申請を拒否しました。'
   save:
     failure: 'ガイド仲間ステータスの更新に失敗しました。'
+  send_message_to_selected_guides:
+    success: 'メッセージを送信しました。'
+    failure: 'ガイドが選択されていません。'
 message_thread:
   show:
     message_form:

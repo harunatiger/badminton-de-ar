@@ -56,6 +56,14 @@ class ReservationsController < ApplicationController
     return purchase if params[:purchase]
     # cancel button of the dashboard
     return canceled_after_accepted if params[:canceled_after_accepted]
+    # offer button of the pair guide thread
+    return offer_pair_guide if params[:offer_pair_guide]
+    # cancel button of the pair guide thread
+    return cancel_pair_guide if params[:cancel_pair_guide]
+    # accept button of the pair guide thread
+    return accept_pair_guide if params[:accept_pair_guide]
+    # cancel button of the dashboard
+    return cancel_pair_guide_from_dashboard if params[:cancel_pair_guide_from_dashboard]
   end
 
   # save button of the message thread (guide)
@@ -232,6 +240,43 @@ class ReservationsController < ApplicationController
       end
     end
   end
+  
+  def offer_pair_guide
+    if @reservation.update(pair_guide_params)
+      message = Message.send_pair_guide_message(@reservation.message_thread_id, Settings.reservation.msg.pair_guide_offer, current_user.id, @reservation.pair_guide_id)
+      redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.pair_guide.success
+    else
+      redirect_to message_thread_path(pair_guide_params[:message_thread_id]), alert: Settings.reservation.pair_guide.failure
+    end
+  end
+  
+  def cancel_pair_guide
+    if @reservation.update(pair_guide_params)
+      message = Message.send_pair_guide_message(@reservation.message_thread_id, Settings.reservation.msg.pair_guide_cancel, current_user.id, @reservation.pair_guide_id)
+      redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.pair_guide.success
+    else
+      redirect_to message_thread_path(pair_guide_params[:message_thread_id]), alert: Settings.reservation.pair_guide.failure
+    end
+  end
+  
+  def cancel_pair_guide_from_dashboard
+    message_thread = PairGuideThread.existed_pair_guide_thread(@reservation, @reservation.pair_guide_id)
+    if @reservation.update(pair_guide_params)
+      message = Message.send_pair_guide_message(message_thread.id, Settings.reservation.msg.pair_guide_cancel, current_user.id, @reservation.host_id)
+      redirect_to message_thread_path(message_thread.id), notice: Settings.reservation.pair_guide.success
+    else
+      redirect_to message_thread_path(message_thread.id), alert: Settings.reservation.pair_guide.failure
+    end
+  end
+  
+  def accept_pair_guide
+    if @reservation.update(pair_guide_params)
+      message = Message.send_pair_guide_message(@reservation.message_thread_id, Settings.reservation.msg.pair_guide_accept, current_user.id, @reservation.host_id)
+      redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.pair_guide.success
+    else
+      redirect_to message_thread_path(pair_guide_params[:message_thread_id]), alert: Settings.reservation.pair_guide.failure
+    end
+  end
 
   def set_reservation_by_listing
     if request.xhr?
@@ -294,11 +339,6 @@ class ReservationsController < ApplicationController
     def set_reservation
       @reservation = Reservation.find(params[:id])
       @reservation.message_thread_id = reservation_params[:message_thread_id]
-      #if params[:save].present? or params[:offer].present?
-      #  @reservation.campaign_id = nil
-      #  @reservation.refund_rate = 0
-      #  @reservation.cancel_by = 0
-      #end
     end
 
     def check_profile_identity
@@ -314,7 +354,7 @@ class ReservationsController < ApplicationController
     end
 
     def check_campaign_code
-      if params[:confirm].present? and  reservation_params[:campaign_code].present?
+      if params[:confirm].present? and reservation_params[:campaign_code].present?
         @campaign = Campaign.where(code: reservation_params[:campaign_code]).first
         if @campaign.blank?
           redirect_to message_thread_path(reservation_params[:message_thread_id]), alert: Settings.reservation.save.failure.invalid_campaign_code
@@ -342,6 +382,10 @@ class ReservationsController < ApplicationController
     end
 
     def reservation_params
-      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :price_for_support, :price_for_both_guides, :space_option, :car_option, :space_rental, :car_option, :car_rental, :gas, :highway, :parking, :guests_cost, :included_guests_cost, Reservation::REGISTRABLE_ATTRIBUTES, :place, :place_memo, :description, :message_thread_id, :schedule_end, :campaign_id, :campaign_code)
+      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :price_for_support, :price_for_both_guides, :space_option, :car_option, :space_rental, :car_option, :car_rental, :gas, :highway, :parking, :guests_cost, :included_guests_cost, Reservation::REGISTRABLE_ATTRIBUTES, :place, :place_memo, :description, :message_thread_id, :schedule_end, :campaign_id, :campaign_code, :pair_guide_id, :pair_guide_status)
+    end
+  
+    def pair_guide_params
+      params.require(:reservation).permit(:pair_guide_id, :pair_guide_status, :message_thread_id)
     end
 end

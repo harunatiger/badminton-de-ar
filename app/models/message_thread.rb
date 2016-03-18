@@ -60,10 +60,10 @@ class MessageThread < ActiveRecord::Base
     res
   end
 
-  def self.create_thread(to_user_id, from_user_id)
+  def self.create_thread(to_user_id, from_user_id, reservation_id=nil)
     mt = MessageThread.create(type: self.model_name.name)
     mt.update(host_id: to_user_id) if mt.guest_thread?
-    #mt.update(main_guide_id: from_user_id) if mt.guide_thread?
+    mt.update(reservation_id: reservation_id) if mt.pair_guide_thread?
     
     MessageThreadUser.create(
       message_thread_id: mt.id,
@@ -118,6 +118,10 @@ class MessageThread < ActiveRecord::Base
   
   def guide_thread?
     self.type == 'GuideThread'
+  end
+  
+  def pair_guide_thread?
+    self.type == 'PairGuideThread'
   end
   
   def origin_from_user_id

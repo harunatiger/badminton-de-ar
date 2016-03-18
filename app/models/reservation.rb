@@ -84,6 +84,7 @@ class Reservation < ActiveRecord::Base
 
   scope :as_guest, -> user_id { where(guest_id: user_id) }
   scope :as_host, -> user_id { where(host_id: user_id) }
+  scope :as_host_and_pair_guide, -> user_id { where('(pair_guide_id = ? and pair_guide_status = ?) or host_id = ?', user_id, 3, user_id) }
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :new_requests, -> user_id { where(host_id: user_id, progress: 'requested') }
   scope :accepts, -> { where(progress: 3) }
@@ -146,6 +147,12 @@ class Reservation < ActiveRecord::Base
     return Settings.mailer.update_reservation.body.under_construction if self.under_construction?
     return Settings.mailer.update_reservation.body.accepted if self.accepted?
     return Settings.mailer.update_reservation.body.rejected if self.rejected?
+  end
+  
+  def pair_guide_status_string
+    return Settings.reservation.pair_guide_status.pg_under_construction if self.pg_under_construction?
+    return Settings.reservation.pair_guide_status.pg_offering if self.pg_offering?
+    return Settings.reservation.pair_guide_status.pg_completion if self.pg_completion?
   end
 
   def save_review_landed_at_now

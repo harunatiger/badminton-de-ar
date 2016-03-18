@@ -164,6 +164,30 @@ class Message < ActiveRecord::Base
       reservation_id: reservation.id
     )
   end
+  
+  def self.send_message_to_selected_guides(reservation, to_user_id)
+    unless mt_obj = PairGuideThread.existed_pair_guide_thread(reservation.id, to_user_id)
+      mt_obj = PairGuideThread.create_thread(to_user_id, reservation.host_id, reservation.id)
+    end
+    Message.create(
+      message_thread_id: mt_obj.id,
+      content: Settings.reservation.msg.send_message,
+      read: false,
+      from_user_id: reservation.host_id,
+      to_user_id: to_user_id
+    )
+  end
+  
+  def self.send_pair_guide_message(message_thread_id, content, from_user_id, to_user_id)
+    mt_obj = PairGuideThread.find(message_thread_id)
+    Message.create(
+      message_thread_id: mt_obj.id,
+      content: content,
+      read: false,
+      from_user_id: from_user_id,
+      to_user_id: to_user_id
+    )
+  end
 
   def english_content
     if self.try('content') == Settings.reservation.msg.request

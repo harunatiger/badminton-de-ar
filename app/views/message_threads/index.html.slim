@@ -22,7 +22,7 @@
                         = link_to profile_path(counterpart_user.profile.id), class: "media-round media-photo media-avatar" do
                           .size60[style="background-image: url('#{asset_path profile_to_image_thumb(counterpart_user.profile)}')"]
                       = link_to message_thread_path(mt), class: "h5 col-sm-9 col-md-8 col-middle thread-name" do
-                        -if mt.guide_thread?
+                        -if mt.guide_thread? or mt.pair_guide_thread?
                           span.user-type.user-guide
                             | Pair Guide
                         -elsif mt.host_id == current_user.id
@@ -67,15 +67,19 @@
                             - unless counterpart_user.soft_destroyed?
                               .state.state-alert
                                 = mt.reservation_progress
-                          /- elsif mt.reservation_progress == Settings.reservation.progress.accepted
-                            .state.state-success
-                              = mt.reservation_progress
                           - elsif mt.reservation_progress == Settings.reservation.progress.rejected
                             .state.state-alert
                               = mt.reservation_progress
                           - elsif mt.reservation_progress == Settings.reservation.progress.listing_closed
                             .state.state-normal
                               = mt.reservation_progress
-                          /- else
-                            .state.state-normal
-                              = mt.reservation_progress
+                          - elsif mt.pair_guide_thread?
+                            -if mt.reservation.pg_under_construction?
+                              .state.state-alert
+                                = mt.reservation.pair_guide_status_string
+                            - elsif mt.reservation.pg_offering?
+                              .state.state-primary
+                                = mt.reservation.pair_guide_status_string
+                            - elsif mt.reservation.pg_completion?
+                              .state.state-success
+                                = mt.reservation.pair_guide_status_string
