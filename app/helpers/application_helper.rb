@@ -99,6 +99,15 @@ module ApplicationHelper
     end
   end
 
+  def user_id_to_firstname(user_id)
+    results = User.mine(user_id)
+    if results.size.zero?
+      return Settings.user.left
+    else
+      return "#{results[0].profile.first_name}"
+    end
+  end
+
   def user_id_to_phone_number(user_id)
     results = User.mine(user_id)
     if results.size.zero?
