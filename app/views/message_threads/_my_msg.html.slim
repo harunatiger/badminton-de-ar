@@ -40,7 +40,7 @@ li.thread-list-item
                 - elsif m.try('content') == Settings.reservation.msg.reserve
                   span.text-pink.strong
                     /= message_to_listing(m).try('title')
-                    |I sent you reservation request
+                    | I sent you reservation request
                 - elsif m.friends_request
                   span.text-blue.strong
                     = Settings.friend.msg.request

@@ -4,87 +4,101 @@
   li.thread.reserve-thread
     /= link_to message_thread_path(r.host_id), class: "unread" do
     div.unread
-      .row
-        .col-md-4.thread-author
-          .row.row-table
-            .col-md-4.col-middle.thread-avatar
-              .media-round.media-photo.media-avatar
-                .size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.guest_id)}')"]
-                - if r.pg_completion?
-                  - if current_user.id == r.pair_guide_id
-                    .size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.host_id)}')"]
+      .reserve-thread-container
+        .reserve-thread-inner
+          .row
+            .col-md-4.thread-author
+              .row.row-table
+                .col-md-4.col-middle.thread-avatar
+                  .media-photo.media-avatar.media-avatar-double
+                    .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.guest_id)}')"]
+                    - if r.pg_completion?
+                      /.media-round.media-photo.media-avatar
+                      - if current_user.id == r.pair_guide_id
+                        .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.host_id)}')"]
+                      - else
+                        .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.pair_guide_id)}')"]
+                .col-sm-8.col-middle.thread-name
+                  .h5.strong.row-space-1
+                    = user_id_to_name(r.guest_id)
+                  - phone = user_id_to_phone_number(r.guest_id)
+                  - if phone.present? and !guest.soft_destroyed?
+                    .balloon.text-muted.small1[title="＊Make sure that you know how to contact your guide before your tour."]
+                      i.fa.fa-phone
+                      '
+                      = phone
+            .col-md-5.thread-body
+              .row.row-table
+                .col-md-12.col-middle
+                  .message-content-single.row-space-1
+                    = link_to listing_path(r.listing_id) do
+                      = listing.title
+                  .thread-date
+                    | Meeting at
+                    = r.schedule.to_s
+            .col-md-3.thread-progress
+              .row.row-table
+                .col-md-12.col-middle.text-center
+                  - if r.accepted?
+                    - if r.finished?
+                      .state.state-primary
+                        = Settings.reservation.progress.finished
+                    - else
+                      .state.state-primary
+                        = Settings.reservation.progress.accepted
+                    br
                   - else
-                    .size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.pair_guide_id)}')"]
-            .col-sm-8.col-middle.thread-name
-              .h5.strong.row-space-1
-                = user_id_to_name(r.guest_id)
-              - phone = user_id_to_phone_number(r.guest_id)
-              - if phone.present? and !guest.soft_destroyed?
-                .balloon.text-muted.small1[title="＊Make sure that you know how to contact your guide before your tour."]
-                  i.fa.fa-phone
-                  '
-                  = phone
-        .col-md-5.thread-body
-          .row.row-table
-            .col-md-12.col-middle
-              .message-content-single.row-space-1
-                = link_to listing_path(r.listing_id) do
-                  = listing.title
-              .thread-date
-                | Meeting at
-                = r.schedule.to_s
-        .col-md-3.thread-progress
-          .row.row-table
-            .col-md-12.col-middle.text-center
-              - if r.accepted?
-                - if r.finished?
-                  .state.state-primary
-                    = Settings.reservation.progress.finished
-                - else
-                  .state.state-primary
-                    = Settings.reservation.progress.accepted
-                br
+                    .state.state-normal
+                      | Cancelled
+                    br
+                  - if r.completed? and r.host_id == current_user.id
+                    - if guest.soft_destroyed?
+                      = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red disabled", data: { toggle: "modal" }
+                    - else
+                      = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
+                    = render partial: 'shared/modals/confirm_cancel_from_guide', locals: { r: r, count: i.to_s}
+                  - elsif r.completed? and r.host_id != current_user.id
+                    - if guest.soft_destroyed?
+                      = link_to "Cancel PairGuide", class: "btn btn-thread row-space-top-1 row-space-1 text-red disabled"
+                    - else
+                      = simple_form_for(r) do |f|
+                        = f.hidden_field :pair_guide_status, value: 'pg_under_construction'
+                        = f.hidden_field :pair_guide_id, value: nil
+                        = f.submit 'Cancel PairGuide', class: 'btn btn-thread row-space-top-1 row-space-1 text-red', id: "reservation_block-toggle", name: 'cancel_pair_guide_from_dashboard', data: {confirm: '本当にキャンセルしてよろしいですか？'}
+                  
+                  - elsif r.review_for_guest_enabled? and r.host_id == current_user.id
+                    = link_to "Review", for_guest_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"
+                    br
+                  = link_to "#", class: "small2 btn-block about_cancel_from_guide_link" do
+                    | Guide Refund Policy
+                  - if r.pg_completion?
+                    .row-space-top-1.small2.pairguide--yes
+                      | ペアガイド決定！
+                  - elsif r.completed?
+                    .row-space-top-1.small2.pairguide--no
+                      | ペアガイド未確定
+            .col-md-12.row-space-top-2
+              - if r.host_id == current_user.id
+                = render partial: 'shared/reservation_block', locals: { reservation: r, count: i.to_s }
               - else
-                .state.state-normal
-                  | Cancelled
-                br
-              - if r.completed? and r.host_id == current_user.id
-                - if guest.soft_destroyed?
-                  = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red disabled", data: { toggle: "modal" }
-                - else
-                  = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
-                = render partial: 'shared/modals/confirm_cancel_from_guide', locals: { r: r, count: i.to_s}
-              - elsif r.completed? and r.host_id != current_user.id
-                - if guest.soft_destroyed?
-                  = link_to "Cancel PairGuide", class: "btn btn-thread row-space-top-1 row-space-1 text-red disabled"
-                - else
-                  = simple_form_for(r) do |f|
-                    = f.hidden_field :pair_guide_status, value: 'pg_under_construction'
-                    = f.hidden_field :pair_guide_id, value: nil
-                    = f.submit 'Cancel PairGuide', class: 'btn btn-thread row-space-top-1 row-space-1 text-red', id: "reservation_block-toggle", name: 'cancel_pair_guide_from_dashboard', data: {confirm: '本当にキャンセルしてよろしいですか？'}
-              
-              - elsif r.review_for_guest_enabled? and r.host_id == current_user.id
-                = link_to "Review", for_guest_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"
-                br
-              = link_to "#", class: "small2 btn-block about_cancel_from_guide_link" do
-                | Guide Refund Policy
-              - if r.pg_completion?
-                | ペアガイド決定！
-              - elsif r.completed?
-                | ペアガイド未確定
-        .col-md-12.row-space-top-2
-          - if r.host_id == current_user.id
-            = render partial: 'shared/reservation_block', locals: { reservation: r, count: i.to_s }
-          - else
-            = render partial: 'shared/pair_guide_block', locals: { reservation: r, count: i.to_s }
-          = render partial: '/shared/modals/include_what', locals: { included_guests_cost: r.included_guests_cost, count: i.to_s }
+                = render partial: 'shared/pair_guide_block', locals: { reservation: r, count: i.to_s }
+
+              = render partial: '/shared/modals/include_what', locals: { included_guests_cost: r.included_guests_cost, count: i.to_s }
+
         - if r.completed? and !r.pg_completion?
-          .col-md-12.bg-warning.text-red
-            .col-md-10.row-space-1.row-space-top-1
-              | このプランはペアガイドがまだ決まっていません。
-              br
-              | 予約の1週間前までにはペアガイドを確定させてください。
-            .col-md-2.text-right.row-space-1.row-space-top-1
-              | ※期日まであと #{(r.schedule.to_date - Time.zone.now.to_date).to_i} 日
-              = link_to '仲間から探す', friends_list_reservation_path(r.id), class: 'btn btn-primary'
+          .row
+            .pairguide-warning.bg-warning.text-red
+              .col-md-10
+                .row-space-top-1
+                  | このプランはペアガイドがまだ決まっていません。 
+                  br
+                  | 予約の1週間前までにはペアガイドを確定させてください。
+              .col-md-2
+                .pull-right.text-center
+                  span.small1
+                    | ※期日まであと 
+                    b #{(r.schedule.to_date - Time.zone.now.to_date).to_i} 
+                    |  日
+                  = link_to '仲間から探す', friends_list_reservation_path(r.id), class: 'btn btn-primary'
+ 
   = render partial: 'shared/modals/message_to_guest_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }

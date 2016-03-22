@@ -11,17 +11,17 @@
           = area.short_name
 .page-container.row-space-top-4.row-space-8
   .row
-    .card.row-space-4
-      .card-header
-        = form_tag(search_friends_friends_path, method: :get, remote: true, id: 'friends_search') do
-          .row.row-space-1.row-space-top-1.row-table
-            .col-lg-1.col-middle
-              .h4.text-light
+    .col-md-12
+      .card.row-space-4
+        .card-header
+          = form_tag(search_friends_friends_path, method: :get, remote: true, id: 'friends_search') do
+            .row.row-condensed
+              label.col-md-2.col-lg-1.col-lg-offset-2.text-right.hide--sp
                 | 名前
-            .col-lg-5.fieldset.col-middle
-              = text_field 'search', 'keyword'
-      = render partial: 'friends_list', locals: { friends: @friends }
+              .col-md-8.col-lg-6.fieldset
+                = text_field 'search', 'keyword', placeholder: "名前から検索"
+        = render partial: 'friends_list', locals: { friends: @friends }
   .text-center
     = form_tag(send_message_to_selected_guides_reservation_path(@reservation.id), method: :post) do
-      = submit_tag '選択したガイドに相談する', class: "btn btn-primary btn-large row-space-1"
+      = submit_tag '選択したガイドに相談する', class: "btn btn-primary btn-large"
   

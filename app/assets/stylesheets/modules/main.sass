@@ -1235,6 +1235,7 @@ a.about_payment_link
   .thread-author
     .thread-name
       font-weight: 400
+
 .thread .row
   margin-left: 0
   margin-right: 0
@@ -1242,8 +1243,10 @@ a.about_payment_link
     color: $gray1
     text-decoration: none
     outline: none
+
 .thread .thread-avatar
   z-index: 2
+
 .unread
   > a, > div
     color: $gray2
@@ -1263,9 +1266,32 @@ a.about_payment_link
 
 .thread.reserve-thread
   > div
-    padding: 20px 20px 0px
-    &:hover
-      background-color: inherit
+    padding: 0
+    .reserve-thread-container
+    .reserve-thread-inner
+      padding: 20px 0 0
+      @media (max-width: 767px)
+        padding: 20px
+
+    //&:hover
+      //background-color: inherit
+
+.pairguide--yes, .pairguide--no
+  display: inline-block
+  height: 26px
+  line-height: 24px
+  padding: 0 8px
+  color: $green1
+  border: 1px solid $green1
+  border-radius: 13px
+
+.pairguide--no
+  color: $red1
+  border: 1px solid $red1
+
+.pairguide-warning
+  padding: 20px
+  overflow: hidden
 
 .btn-thread
   min-width: 80px

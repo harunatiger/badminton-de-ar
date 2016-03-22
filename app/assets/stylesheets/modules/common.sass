@@ -1417,6 +1417,10 @@ select
   h2, .h2
     font-size: 22px
 
+.col-hide--sp
+  @media (min-width: 767px)
+    display: none
+
 /* page-container */
 .page-container
   width: auto
@@ -1480,6 +1484,12 @@ select
     background-repeat: no-repeat
     background-position: center top
     background-size: cover
+
+.media-avatar-double
+  background-color: white
+  overflow: visible
+  > div:last-child
+    margin-bottom: -60px
 
 .media-cover, .media-cover-dark:after
   position: absolute
