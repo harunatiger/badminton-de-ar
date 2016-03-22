@@ -18,14 +18,14 @@ en:
       unconfirmed: "You have to confirm your email address before continuing."
     mailer:
       confirmation_instructions:
-        subject: "Complete your registration"
+        subject: "Please complete your registration"
       reset_password_instructions:
         subject: "Reset password instructions"
       unlock_instructions:
         subject: "You have exceeded your login attempts"
       user:
         confirmation_instructions:
-          subject: "Complete your registration"
+          subject: "Please complete your registration"
         reset_password_instructions:
           subject: "Reset password instructions"
         unlock_instructions:
