@@ -401,7 +401,7 @@ $ ->
       breakpoints: {
         767: {
           width: '100%'
-          height:250
+          height:200
         }
       }
       #waitForLayers: true
@@ -417,7 +417,7 @@ $ ->
       breakpoints: {
         767: {
           width: '100%'
-          height:250
+          height:200
         }
       }
 
