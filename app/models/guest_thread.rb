@@ -10,6 +10,7 @@
 #  first_message     :boolean          default(TRUE)
 #  noticemail_sended :boolean          default(FALSE)
 #  type              :string
+#  reservation_id    :integer
 #
 # Indexes
 #

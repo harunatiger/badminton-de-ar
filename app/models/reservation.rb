@@ -41,6 +41,8 @@
 #  guests_cost            :integer          default(0)
 #  included_guests_cost   :text             default("")
 #  cancel_by              :integer          default(0)
+#  pair_guide_id          :integer
+#  pair_guide_status      :integer          default(0)
 #
 # Indexes
 #
