@@ -11,23 +11,22 @@
           .reviews_section.as_host
             .reviews
               - reviewed.each do |r|
-                .row.text-center-sm
-                  .col-md-2.col-sm-12
-                    .avatar-wrapper
+                .row.text-center-sm.row-space-4
+                  .col-md-2.col-sm-12.row-space-2
+                    .avatar-wrapper.text-center
                       = link_to profile_path(user_id_to_profile_id(r.guest_id)), class: "text-muted" do
-                        .media-photo.media-round.media-avatar.row-space-1.text-center
+                        .media-photo.media-round.media-avatar.text-center
                           .size68[style="background-image: url('#{user_id_to_profile_image(r.guest_id)}')"]
-                        .text-center.profile-name.text-wrap
-                          = user_id_to_name(r.guest_id)
-                      /.text-muted.date.show-sm 
+                        .text-center.profile-name.text-wrap.text-truncate
+                          = user_id_to_firstname(r.guest_id)
+                      /.text-muted.date.show-sm
                         = r.created_at.strftime("%y年%m月%d日")
                   .col-md-10.col-sm-12
-                    .row-space-2
-                      .comment-container.expandable.expandable-trigger-more.row-space-2.expanded
-                        .expandable-content
-                          p 
-                            = r.msg
-                          .expandable-indicator
+                    .comment-container.expandable.expandable-trigger-more.expanded
+                      .expandable-content
+                        p
+                          = r.msg
+                        .expandable-indicator
                         /a.expandable-trigger-more.text-muted href="#"
                           /strong もっと詳しく
                     .text-muted.date.hide-sm
@@ -35,7 +34,7 @@
                       - l = listing_id_to_listing_obj(r.listing_id)
                       /= reserv.schedule
                     .listing-name.text-center--sp
-                      = link_to listing_path(l.id) 
+                      = link_to listing_path(l.id)
                         = l.title
             .row.row-space-2.line-separation
               .col-10.col-offset-2
