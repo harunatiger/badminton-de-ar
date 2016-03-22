@@ -1102,33 +1102,37 @@ body.paper
     #slider-wrapper
       height: auto
     .favorite-wrapper
+      z-index: 1
+      @media (max-width: 767px)
+        display: none
+    .favorite-wrapper-sp
       position: absolute
-      bottom: 52px
-      text-align: right
       width: 100%
       z-index: 1
-      @media (max-width: 1099px)
-        top: 10px
-        bottom: auto
-        text-align: right
-        padding-right: 10px
+      top: 10px
+      text-align: right
+      right: 10px
+      @media (min-width: 768px)
+        display: none
     /* title-section */
     .title-section
       position: relative
       background: white
       border-bottom: 1px solid $border1
       z-index: 1
+      padding: 15px 0
       #listing_name
         color: $gray2
         padding-bottom: 0
         text-shadow: none
+        padding: 0
       #listing_area
-        padding-bottom: 26px
+        //padding-bottom: 26px
         font-size: 18px
         overflow: hidden
         white-space: nowrap
         text-overflow: ellipsis
-        min-height: 50px
+        //min-height: 50px
         a
           color: $brand-theme
         .fa-map-marker
@@ -1138,7 +1142,7 @@ body.paper
           color: $lightgray2
       @media (max-width: 1099px)
         position: relative
-        background: none
+        background: white
         #listing_name
           color: $gray2
           text-shadow: none
