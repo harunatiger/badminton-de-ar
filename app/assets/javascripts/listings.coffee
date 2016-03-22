@@ -401,20 +401,19 @@ $ ->
       breakpoints: {
         767: {
           width: '100%'
-          height:300
+          height:250
         }
       }
       #waitForLayers: true
 
     $('#listing_slider-normal').sliderPro
-      width: '100%'
-      height:432
+      width:'100%'
+      height:427
       arrows: true
-      buttons: false
-      #waitForLayers: true
-      fadeArrows: false
-      autoplayDelay: 3000
+      fadeArrows:false
+      autoplayDelay:3000
       slideAnimationDuration: 1000
+      buttons:false
       breakpoints: {
         767: {
           width: '100%'
