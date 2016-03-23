@@ -1,0 +1,14 @@
+#listing_area.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          = link_to "", "#", class: "modal-close", data: {dismiss: "modal"}
+          | ツアーのエリアを選択してください
+        form
+          .card-body
+            .row
+              = collection_check_boxes(listing, pickup_ids, areas, id, short_name) do |b|
+                = b.label(class: "col-lg-4, col-xs-6") { b.check_box + b.text }
+          .card-footer
+            button.btn.btn-primary.listing-manager-area-submit[type="button"] OK

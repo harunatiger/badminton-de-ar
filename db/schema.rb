@@ -230,6 +230,11 @@ ActiveRecord::Schema.define(version: 20160324180127) do
     t.integer  "guests_cost",                                   default: 0
     t.text     "included_guests_cost",                          default: ""
     t.boolean  "stop_if_rain",                                  default: false
+    t.boolean  "bicycle_option",                                default: false
+    t.integer  "bicycle_rental",                                default: 0
+    t.boolean  "other_option",                                  default: false
+    t.integer  "other_cost",                                    default: 0
+    t.boolean  "register_detail",                               default: false
   end
 
   add_index "listing_details", ["latitude"], name: "index_listing_details_on_latitude", using: :btree
@@ -327,6 +332,9 @@ ActiveRecord::Schema.define(version: 20160324180127) do
     t.string   "recommend2",                                      default: ""
     t.string   "recommend3",                                      default: ""
     t.datetime "soft_destroyed_at"
+    t.string   "interview1",                                      default: ""
+    t.string   "interview2",                                      default: ""
+    t.string   "interview3",                                      default: ""
   end
 
   add_index "listings", ["capacity"], name: "index_listings_on_capacity", using: :btree

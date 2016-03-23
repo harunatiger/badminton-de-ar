@@ -35,6 +35,9 @@
 #  recommend2              :string           default("")
 #  recommend3              :string           default("")
 #  soft_destroyed_at       :datetime
+#  interview1              :string           default("")
+#  interview2              :string           default("")
+#  interview3              :string           default("")
 #
 # Indexes
 #
@@ -85,6 +88,8 @@ class Listing < ActiveRecord::Base
   mount_uploader :cover_video, ListingVideoUploader
   attr_accessor :image_blank_ok
 
+  accepts_nested_attributes_for :listing_detail
+
   validates :user_id, presence: true
   #validates :location, presence: true
   #validates :longitude, presence: true
@@ -110,7 +115,7 @@ class Listing < ActiveRecord::Base
   scope :available_num_of_guest?, -> num_of_guest { where("capacity >= ?", num_of_guest) }
   scope :available_price_min?, -> price_min { where("price >= ?", price_min) }
   scope :available_price_max?, -> price_max { where("price <= ?", price_max) }
-  
+
   def open_reviews_count
     self.reviews.where(type: 'ReviewForGuide').joins(:reservation).merge(Reservation.review_open?).count
   end
@@ -193,7 +198,8 @@ class Listing < ActiveRecord::Base
     result = []
     #result << Settings.left_steps.listing_image unless ListingImage.exists?(listing_id: self.id
     result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_video.present?)
-    result << Settings.left_steps.listing_detail unless ListingDetail.exists?(listing_id: self.id)
+    result << Settings.left_steps.listing_detail if ListingDetail.where(listing_id: self.id).pluck(:register_detail).first == false
+    #result << Settings.left_steps.listing_detail unless ListingDetail.exists?(listing_id: self.id)
     #result << Settings.left_steps.confection unless Confection.exists?(listing_id: self.id)
     #result << Settings.left_steps.tool unless Tool.exists?(listing_id: self.id)
     #result << Settings.left_steps.dress_code unless DressCode.exists?(listing_id: self.id)

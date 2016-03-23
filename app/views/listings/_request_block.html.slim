@@ -28,7 +28,7 @@
               .col-xs-5.text-right.strong
                 | ¥
                 = listing_detail.option_amount
-          - if listing_detail.space_option
+          /- if listing_detail.space_option
             - space_options.each do |option|
               - if listing_detail[option] > 0
                 .row.text-muted.small2
@@ -39,7 +39,19 @@
                     | ¥
                     = listing_detail[option]
           - if listing_detail.car_option
+            - car_rental_cost = 0
             - car_options.each do |option|
+              - if listing_detail[option] > 0
+                - car_rental_cost += listing_detail[option]
+            .row.text-muted.small2
+              .col-xs-7
+                |  -
+                = I18n.t('option_price_en.' + 'car_rental')
+              .col-xs-5.text-right.strong
+                | ¥
+                = car_rental_cost
+          - if listing_detail.bicycle_option
+            - bicycle_options.each do |option|
               - if listing_detail[option] > 0
                 .row.text-muted.small2
                   .col-xs-7
@@ -48,6 +60,17 @@
                   .col-xs-5.text-right.strong
                     | ¥
                     = listing_detail[option]
+          - if listing_detail.other_option
+            - other_options.each do |option|
+              - if listing_detail[option] > 0
+                .row.text-muted.small2
+                  .col-xs-7
+                    |  -
+                    = I18n.t('option_price_en.' + option)
+                  .col-xs-5.text-right.strong
+                    | ¥
+                    = listing_detail[option]
+
           /.row
             .col-xs-7
               | Service Commission

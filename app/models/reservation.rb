@@ -205,7 +205,8 @@ class Reservation < ActiveRecord::Base
   end
 
   def basic_amount
-    total = self.price + self.price_for_support + self.price_for_both_guides
+    #total = self.price + self.price_for_support + self.price_for_both_guides
+    total = self.price + self.price_for_support
     total + option_amount
   end
 
@@ -226,7 +227,8 @@ class Reservation < ActiveRecord::Base
   end
 
   def guide_price
-    self.price + self.price_for_support + self.price_for_both_guides
+    #self.price + self.price_for_support + self.price_for_both_guides
+    self.price + self.price_for_support
   end
 
   def service_fee

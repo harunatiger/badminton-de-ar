@@ -540,6 +540,14 @@ module ApplicationHelper
     ['car_rental', 'gas', 'highway', 'parking']
   end
 
+  def bicycle_options
+    ['bicycle_rental']
+  end
+
+  def other_options
+    ['other_cost']
+  end
+
   def pickup_area_from_listing(listing)
     listing.pickups.where(type: 'PickupArea')
   end

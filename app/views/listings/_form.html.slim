@@ -1,3 +1,8 @@
+.row.row-space-2.row-space-top-2
+    .col-lg-12.text-left
+      .row-space-2.strong.text-red.listing-manager-notice
+        i.fa.fa-exclamation-circle
+        | 入力は全て英語で行ってください
 = simple_form_for(@listing, html: {class: "form--sp"}) do |f|
   = f.error_notification
   = f.hidden_field :user_id, value: current_user.id
@@ -7,75 +12,133 @@
   -if false
     = f.input_field :longitude, as: :string, placeholder: "経度"
     = f.input_field :latitude, as: :string, placeholder: "緯度"
-  .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
+  #tour-title.row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h4.row-space-2.text-light
         |  ツアーのタイトル
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11
-          .required-container
-            = f.input_field :title, :class => 'imeoff', placeholder: "例) 鎌倉市のガイドマスターが案内します！"
-            i.fa.fa-asterisk.balloon[title="required"]
-  hr
+    .col-lg-12
+      .required-container
+        = f.input_field :title, :class => 'imeoff', placeholder: "例) 鎌倉野菜を食べ尽くす女子会ツアー"
+        i.fa.fa-asterisk.balloon[title="required"]
+
+  #tour-overview.row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h4.row-space-2.text-light
+        |  ツアーの概要
+    .col-lg-12
+      .required-container
+        = f.input_field :overview, :class => 'imeoff', placeholder: "このツアーのテーマと流れを簡単に入力ください", rows: "12", maxlength: 1000
+        i.fa.fa-asterisk.balloon[title="required"]
+  /.row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h4.row-space-2
+        | オススメポイント
+      p.input-label
+        strong 1
+        = f.input_field :recommend1, :class => 'imeoff'
+      p.input-label
+        strong 2
+        = f.input_field :recommend2, :class => 'imeoff'
+      p.input-label
+        strong 3
+        = f.input_field :recommend3, :class => 'imeoff'
+
+  /.row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h4.row-space-2
+        | ツアーのコダワリ
+      .col-lg-12
+        = f.input_field :description, :class => 'imeoff', placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
+
   .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        |  ツアー紹介文
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11
-          .row-space-1.small1.text-muted
-            h5
-              | 1.オススメポイントを３つ書こう
-            p
-              | まずはあなたのプランのセールスポイントを
-              br
-              | ３つだけ、ざっくり伝えよう！
-            p
-              = f.input_field :recommend1, :class => 'imeoff'
-            p
-              = f.input_field :recommend2, :class => 'imeoff'
-            p
-              = f.input_field :recommend3, :class => 'imeoff'
+    .col-lg-12.text-left
+      .h4.row-space-2.text-light
+        |  エリア
+        button.btn.btn-primary.listing-manager-area[type="button"] 追加
+    .col-lg-12
+      .listing-manager-area-container
 
-      .row.row-space-top-4
-        .col-xs-11
-          .row-space-1.small1.text-muted
-            h5
-              | 2.あなたのコダワリを伝えよう
-            ul.list-normal
-              li なんでこのプランを作ったのか
-              li 自分が体験してみてどこが良かったか
-              li 思い出や思い入れがあれば付け加える
-            = f.input_field :description, :class => 'imeoff', placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
+  #listing_area.modal[role="dialog" aria-hidden="true"]
+    .modal-table
+      .modal-cell
+        .modal-content
+          .card-header
+            = link_to "", "#", class: "modal-close", data: {dismiss: "modal"}
+            | ツアーのエリアを選択してください
+          .card-body
+            .row
+              = collection_check_boxes(:listing, :pickup_ids, @areas, :id, :short_name) do |b|
+                = b.label(class: "col-lg-4, col-xs-6") { b.check_box + b.text }
+          .card-footer
+            button.btn.btn-primary.listing-manager-area-submit[type="button"] OK
 
-      .row.row-space-top-4
-        .col-xs-11
-          .row-space-1.small1.text-muted
-            h5
-              | 3.プランの概要を伝えよう（1000文字）
-            p
-              | 《記載方法のコツ》
-            ul.list-normal
-              li どんなテーマ
-              li どんな時間の流れ（言葉で簡単に）
-              li どんな魅力ポイントがあるのか
-              li どんなオプションがあって、それがどういう風にいいのか
-              li その他
-            = f.input_field :overview, :class => 'imeoff', placeholder: "あなたのツアーの紹介文を入力ください", rows: "12", maxlength: 1000
+  = f.simple_fields_for :listing_detail do |ff|
+    .row.row-space-5.row-space-top-5
+      .col-lg-12.text-left
+        .h4.row-space-2.text-light
+          | 当日の集合場所
+      .col-lg-12
+        = ff.hidden_field :place_longitude
+        = ff.hidden_field :place_latitude
+        = ff.input_field :place,:class => 'imeoff', placeholder: "Googleマップから検索できます"
+    #map-wrapper.row.row-space-5.row-space-top-5
+      .col-lg-12
+        #map
+    .row.row-space-5.row-space-top-5
+      .col-lg-12.text-left
+        .h4.row-space-2.text-light
+          | 集合場所の説明
+      .col-lg-12
+        = ff.input_field :place_memo,:class => 'imeoff', placeholder: "例）駅の南口に薬局があります。その前に集合してください。"
 
-      .row.row-space-top-4
-        .col-xs-11
-          .row-space-1.small1.text-muted
-            h5
-              | 4.当日準備するもの、注意事項
-            p
-              |《例》
-            ul.list-normal
-              li 山道を歩くので、スニーカーなど動きやすい靴や動きやすい格好でお越しください…など
-              li ろくろ体験は泥で汚れるので、汚れてもよい格好でご来訪ください…など
-            = f.input_field :notes, :class => 'imeoff', placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
+  #tour-notes.row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h4.row-space-2.text-light
+        | もちもの・注意事項
+    .col-lg-12
+      = f.input_field :notes, :class => 'imeoff', placeholder: "例）山道を歩くので、スニーカーなど動きやすい靴や動きやすい格好でお越しください。例）肉料理が出るので、ベジタリアンの方はあらかじめご連絡ください。", rows: "12"
+
+  = f.simple_fields_for :listing_detail do |ff|
+    #tour-condition.row.row-space-5.row-space-top-5
+      .col-lg-12.text-left
+        .h4.row-space-2.text-light
+          | 参加条件
+      .col-12
+        = ff.input_field :condition,:class => 'imeoff', placeholder: "例) 女子会なので男性の方はご遠慮ください。"
+    .row.row-space-5.row-space-top-5
+      .col-lg-12.text-left.stop_if_rain
+        = ff.input_field :stop_if_rain, inline_label: '雨天の場合は中止する'
+
+  hr
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left.listing-manager-intaview
+      .h4.row-space-2.border-block.text-light
+        | ツアーのこだわりインタビュー
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h5.row-space-2.text-light
+        | このツアーを作ったきっかけは何ですか？
+    .col-12
+        = f.input_field :interview1,:class => 'imeoff'
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h5.row-space-2.text-light
+        | このツアーの一番の見どころは何ですか？
+    .col-12
+        = f.input_field :interview2,:class => 'imeoff'
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h5.row-space-2.text-light
+        | どんな人におすすめですか？
+    .col-12
+        = f.input_field :interview3,:class => 'imeoff'
+  hr
+  .row.row-space-top-6
+    .col-xs-9.col-offset-3.text-reset-center
+      - if 'edit' == controller.action_name
+        = f.button :submit, "保存して次のステップへ", class: "btn-primary btn-large", id: 'listing-manager-listing-submit'
+      - else
+        = f.button :submit, "次へ", class: "btn-primary btn-large"
 
   / .row.row-space-5.row-space-top-5.row-table
   /   .col-xs-4.text-right.col-middle
@@ -171,7 +234,7 @@
       .row
         .col-xs-11
           = f.input_field :location, placeholder: "郵便番号を入力すれば自動で出力されます"
-  - if @categories.present?
+  /- if @categories.present?
     hr
     .row.row-space-5.row-space-top-5.row-table
       .col-xs-4.text-right.col-middle
@@ -182,7 +245,7 @@
           .col-xs-11
             = collection_check_boxes(:listing, :pickup_ids, @categories, :id, :short_name) do |b|
               = b.label { b.check_box + b.text }
-  - if @tags.present?
+  /- if @tags.present?
     hr
     .row.row-space-5.row-space-top-5.row-table
       .col-xs-4.text-right.col-middle
@@ -193,7 +256,7 @@
           .col-xs-11
             = collection_check_boxes(:listing, :pickup_ids, @tags, :id, :short_name) do |b|
               = b.label { b.check_box + b.text }
-  - if @areas.present?
+  /- if @areas.present?
     hr
     .row.row-space-5.row-space-top-5.row-table
       .col-xs-4.text-right.col-middle
@@ -242,10 +305,3 @@
         .col-xs-11.regist-pics
           = collection_check_boxes(:listing, :language_ids, Language.all, :id, :name) do |l|
             = l.label { l.check_box + l.text }
-  hr
-  .row.row-space-top-6
-    .col-xs-9.col-offset-3.text-reset-center
-      - if 'edit' == controller.action_name
-        = f.button :submit, "保存して次へ", class: "btn-primary btn-large", id: 'listing-manager-listing-submit'
-      - else
-        = f.button :submit, "次へ", class: "btn-primary btn-large"
