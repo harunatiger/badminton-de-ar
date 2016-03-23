@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :set_profile, only: [:show, :edit, :update, :destroy, :self_introduction, :favorite_user]
-  before_action :set_pair_guide, only: [:show]
+  #before_action :set_pair_guide, only: [:show]
   before_action :set_message_thread, only: [:show]
   before_action :get_progress, only: [:edit, :self_introduction, :new]
   before_action :regulate_user, except: [:new, :index, :create, :show, :favorite_user]
@@ -125,9 +125,9 @@ class ProfilesController < ApplicationController
       @profile = Profile.find(params[:id])
     end
 
-    def set_pair_guide
-      @profiles = Profile.guides.where.not(id: @profile.id)
-    end
+    #def set_pair_guide
+    #  @profiles = Profile.guides.where.not(id: @profile.id)
+    #end
 
     def set_message_thread
       if current_user
