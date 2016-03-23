@@ -24,7 +24,17 @@ ActiveAdmin.register User do
                 :username,
                 :soft_destroyed_at,
                 :email_before_closed,
-                :reason
+                :reason,
+                :user_type
+  form do |f|
+    f.inputs do
+      f.input :user_type,
+              :as => :select,
+              :include_blank => false,
+              :collection => User.user_types.keys
+    end
+    f.actions
+  end
   
   #set filters temporary as has_friendship works bad... 
   filter :auths

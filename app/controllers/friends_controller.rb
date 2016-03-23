@@ -143,6 +143,6 @@ class FriendsController < ApplicationController
   end
   
   def regulate_user
-    return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if current_user.listings.blank?
+    return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if current_user.guest?
   end
 end

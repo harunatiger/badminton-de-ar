@@ -75,6 +75,8 @@ class User < ActiveRecord::Base
   #validates :email, format: { with: VALID_EMAIL_REGEX }
   #validates :password, presence: true
   #validates :password, length: 6..32
+  
+  enum user_type: { guest: 0, main_guide: 1, support_guide: 2}
 
   scope :mine, -> user_id { where(id: user_id) }
   
@@ -269,7 +271,7 @@ class User < ActiveRecord::Base
     ids = []
     ids << self.profile.id
     ids << self.friends_profiles.ids if self.friends_profiles.present?
-    Profile.guides.where.not(id: ids)
+    Profile.main_and_support_guides.where.not(id: ids)
   end
   
   def friend_pending?(user_id)

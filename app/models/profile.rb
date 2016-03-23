@@ -100,6 +100,12 @@ class Profile < ActiveRecord::Base
     users = User.where(id: user_ids)
     Profile.where(user_id: users.ids)
   end
+  
+  def self.main_and_support_guides
+    user_ids = User.main_guide + User.support_guide
+    users = User.where(id: user_ids)
+    Profile.where(user_id: users.ids)
+  end
 
   def self.get_percentage(id)
     user = User.find(id)
