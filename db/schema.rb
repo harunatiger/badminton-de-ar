@@ -759,6 +759,7 @@ ActiveRecord::Schema.define(version: 20160303175723) do
     t.datetime "soft_destroyed_at"
     t.string   "email_before_closed",    default: ""
     t.text     "reason",                 default: ""
+    t.integer  "user_type",              default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
