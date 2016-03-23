@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303175723) do
+ActiveRecord::Schema.define(version: 20160324090637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,17 +162,16 @@ ActiveRecord::Schema.define(version: 20160303175723) do
 
   create_table "help_topics", force: :cascade do |t|
     t.integer  "help_category_id"
-    t.integer  "order_num",        default: 0
     t.string   "title_ja"
     t.string   "title_en"
     t.text     "body_ja"
     t.text     "body_en"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "order_num",        default: 0
   end
 
   add_index "help_topics", ["help_category_id"], name: "index_help_topics_on_help_category_id", using: :btree
-  add_index "help_topics", ["order_num"], name: "index_help_topics_on_order_num", using: :btree
 
   create_table "languages", force: :cascade do |t|
     t.string   "name"
@@ -221,6 +220,11 @@ ActiveRecord::Schema.define(version: 20160303175723) do
     t.integer  "guests_cost",                                   default: 0
     t.text     "included_guests_cost",                          default: ""
     t.boolean  "stop_if_rain",                                  default: false
+    t.boolean  "bicycle_option",                                default: false
+    t.integer  "bicycle_rental",                                default: 0
+    t.boolean  "other_option",                                  default: false
+    t.integer  "other_cost",                                    default: 0
+    t.boolean  "register_detail",                               default: false
   end
 
   add_index "listing_details", ["latitude"], name: "index_listing_details_on_latitude", using: :btree
@@ -317,6 +321,9 @@ ActiveRecord::Schema.define(version: 20160303175723) do
     t.string   "recommend2",                                      default: ""
     t.string   "recommend3",                                      default: ""
     t.datetime "soft_destroyed_at"
+    t.string   "interview1",                                      default: ""
+    t.string   "interview2",                                      default: ""
+    t.string   "interview3",                                      default: ""
   end
 
   add_index "listings", ["capacity"], name: "index_listings_on_capacity", using: :btree

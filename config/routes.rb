@@ -66,6 +66,7 @@ Rails.application.routes.draw do
     end
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
+    get 'preview'
     post 'copy', action: 'copy', as: 'copy'
     resources :ngevents, only: [:create] do
       get 'listing_ngdays', on: :collection

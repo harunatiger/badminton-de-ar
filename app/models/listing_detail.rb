@@ -33,6 +33,11 @@
 #  guests_cost           :integer          default(0)
 #  included_guests_cost  :text             default("")
 #  stop_if_rain          :boolean          default(FALSE)
+#  bicycle_option        :boolean          default(FALSE)
+#  bicycle_rental        :integer          default(0)
+#  other_option          :boolean          default(FALSE)
+#  other_cost            :integer          default(0)
+#  register_detail       :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -47,9 +52,9 @@
 class ListingDetail < ActiveRecord::Base
   belongs_to :listing
   before_save :set_price
-  
+
   validates :listing_id, uniqueness: true
-  
+
   def set_lon_lat
     hash = Hash.new
     if self.location.present?
@@ -85,63 +90,85 @@ class ListingDetail < ActiveRecord::Base
     end
     hash
   end
-    
+
   def basic_amount
-    total = self.price + self.price_for_support + self.price_for_both_guides
+    #total = self.price + self.price_for_support + self.price_for_both_guides
+    total = self.price + self.price_for_support
     total + option_amount
   end
-    
+
   def amount
     #basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.145).ceil
     (basic_amount * 1.145).ceil
   end
-    
+
   def guide_price
-    self.price + self.price_for_support + self.price_for_both_guides
+    #self.price + self.price_for_support + self.price_for_both_guides
+    self.price + self.price_for_support
   end
-    
+
   def option_amount
     total = 0
-    if self.space_option
-      self.space_options.each do |option|
-        total += self[option]
-      end
-    end
-    
+    #if self.space_option
+    #  self.space_options.each do |option|
+    #    total += self[option]
+    #  end
+    #end
+
     if self.car_option
       self.car_options.each do |option|
         total += self[option]
       end
     end
+
+    if self.bicycle_option
+      self.bicycle_options.each do |option|
+        total += self[option]
+      end
+    end
+
+    if self.other_option
+      self.other_options.each do |option|
+        total += self[option]
+      end
+    end
     total
   end
-    
+
   def service_fee
     basic_amount < 2000 ? 500 : (basic_amount * 0.145).ceil
   end
-    
+
   def set_price
     self.price = 0 if self.price.blank?
     self.price_for_support = 0 if self.price_for_support.blank?
     self.price_for_both_guides = 0 if self.price_for_both_guides.blank?
-    
+
     self.space_options.each do |option|
       self[option] = 0 if self[option].blank?
     end
-    
+
     self.car_options.each do |option|
       self[option] = 0 if self[option].blank?
     end
-    
+
     self.guests_cost = 0 if self.guests_cost.blank?
     self
   end
-    
+
   def space_options
     ['space_rental']
   end
-    
+
   def car_options
     ['car_rental', 'gas', 'highway', 'parking']
+  end
+
+  def bicycle_options
+    ['bicycle_rental']
+  end
+
+  def other_options
+    ['other_cost']
   end
 end

@@ -18,12 +18,13 @@ $ ->
       fv0 = Number($('#listing_detail_time_required').val())
       fv1 = Number($('#listing_detail_price').val())
       fv2 = Number($('#listing_detail_price_for_support').val())
-      fv3 = Number($('#listing_detail_price_for_both_guides').val())
-      fv4 = fv1 + fv2 + fv3
-      if $('#listing_detail_space_option').is(':checked')
-        fv5 = Number($('#listing_detail_space_rental').val())
-      else
-        fv5 = 0
+      #fv3 = Number($('#listing_detail_price_for_both_guides').val())
+      #fv4 = fv1 + fv2 + fv3
+      fv4 = fv1 + fv2
+      #if $('#listing_detail_space_option').is(':checked')
+      #  fv5 = Number($('#listing_detail_space_rental').val())
+      #else
+      #  fv5 = 0
       if $('#listing_detail_car_option').is(':checked')
         fv6 = Number($('#listing_detail_car_rental').val())
         fv7 = Number($('#listing_detail_gas').val())
@@ -34,7 +35,8 @@ $ ->
         fv7 = 0
         fv8 = 0
         fv9 = 0
-      fv10 = fv5 + fv6 + fv7 + fv8 + fv9
+      #fv10 = fv5 + fv6 + fv7 + fv8 + fv9
+      fv10 = fv6 + fv7 + fv8 + fv9
       fv11 = fv4 + fv10
       #fv12 = Math.ceil((fv11) * 0.145)
       #if fv11 <= 500
@@ -44,6 +46,16 @@ $ ->
       fv14 = fv11 + fv12
       fv15 = $('#listing_detail_included_guests_cost').val()
 
+      if $('#listing_detail_bicycle_option').is(':checked')
+        fv16 = Number($('#listing_detail_bicycle_rental').val()) * fvMin
+      else
+        fv16 = 0
+
+      if $('#listing_detail_other_option').is(':checked')
+        fv17 = Number($('#listing_detail_other_cost').val())
+      else
+        fv17 = 0
+
       $('.max-num-of-people').text(fv)
       if fv0 == 24.5
         fv0 = '24h-)'
@@ -51,15 +63,17 @@ $ ->
         fv0 = fv0 + 'h)'
       $('.timelapse').text(fv0)
       $('.guide_price').text(fv4)
-      $('.value_discharge.space_rental').text(fv5)
-      $('.value_discharge.car_rental').text(fv6)
-      $('.value_discharge.gas').text(fv7)
-      $('.value_discharge.highway').text(fv8)
-      $('.value_discharge.parking').text(fv9)
-      $('.value_discharge.option_total').text(fv10)
+      #$('.value_discharge.space_rental').text(fv5)
+      $('.value_discharge.car_rental').text(fv6 + fv7 + fv8 + fv9)
+      #$('.value_discharge.gas').text(fv7)
+      #$('.value_discharge.highway').text(fv8)
+      #$('.value_discharge.parking').text(fv9)
+      $('.value_discharge.bicycle_rental').text(fv16)
+      $('.value_discharge.other_cost').text(fv17)
+      $('.value_discharge.option_total').text(fv10 + fv16 + fv17)
       $('.value_discharge.service_fee').text(fv12)
       $('.value_discharge.guests_cost').text(fv13)
-      $('.value_discharge.total_price').text(fv14)
+      $('.value_discharge.total_price').text(fv14 + fv16 + fv17)
 
       $('.value_discharge_option').each ->
         if $(this).text() == '0'
@@ -364,8 +378,17 @@ $ ->
     $('#checkin').on 'changeDate', ->
       priceCulc()
 
+  if $('body').hasClass('listings preview')
+    if $('.header--sp').css('display') == 'none'
+      $(window).scroll ->
+        scrollTop = $(window).scrollTop()
+        if scrollTop > 50
+          $('.preview_link').css('top', 0)
+        else
+          $('.preview_link').css('top', 50)
+
   # listings#show
-  if $('body').hasClass('listings show')
+  if $('body').hasClass('listings show') || $('body').hasClass('listings preview')
     disabled_dates = gon.ngdates
     disabled_weeks = gon.ngweeks
 
@@ -645,13 +668,39 @@ $ ->
   if $('.price--sp').length && $('.price--sp').css('display') == "block"
     $('.price--sp').on 'click', ->
       #$('body').addClass('no-scroll')
+      $('.manage-listing-help-panel').css('position', 'relative')
+      $('#tour-action-preview').css('position', 'relative')
+      $('.manage-listing-help-panel').css('top', '0')
+      $('#tour-action-preview').css('top', '0')
+      $('.manage-listing-help-panel').css('margin-top', '20px')
+      $('#tour-action-preview').css('margin-top', '20px')
+      $('.manage-listing-help-panel').css('width', 'auto')
+      $('#tour-action-preview').css('width', 'auto')
+
       $('.manage-listing-detail, .close-layer--sp').show()
       setTimeout (->
         $('.manage-listing-detail, .close-layer--sp').addClass('show-off')
       ), 100
       return false
 
-
+  # sp listing manager 3
+  if $('.edit-help--sp').length && $('.edit-help--sp').css('display') == "block"
+    $('.edit-help--sp').on 'click', ->
+      $('.manage-listing-help-panel').css('position', 'relative')
+      $('.manage-listing-help-panel').css('top', '0')
+      $('.manage-listing-help-panel').css('margin-top', '20px')
+      $('.manage-listing-help-panel').css('width', 'auto')
+      $('.manage-listing-edit, .close-layer--sp').show()
+      setTimeout (->
+        $('.manage-listing-edit, .close-layer--sp').addClass('show-off')
+      ), 100
+      return false
+    # close layer
+    $('.close-layer--sp').on 'click', ->
+      if $('.manage-listing-edit').css('display') == "block"
+        $('.manage-listing-edit, .remove-listing-btn, .close-layer--sp').hide()
+        $('.manage-listing-edit, .remove-listing-btn, .close-layer--sp').removeClass('show-off')
+      return false
 
   ###
   if $('body').hasClass('listings show')

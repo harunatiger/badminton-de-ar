@@ -295,10 +295,10 @@ $ ->
           return
         else
           if scrollTop >= stickyNavTop
-            $('.subnav, .manage-listing-nav, .manage-listing-detail').addClass 'pinned'
+            #$('.subnav, .manage-listing-nav, .manage-listing-detail').addClass 'pinned'
             $('.subnav-placeholder').removeClass 'hide'
           else
-            $('.subnav, .manage-listing-nav, .manage-listing-detail').removeClass 'pinned'
+            #$('.subnav, .manage-listing-nav, .manage-listing-detail').removeClass 'pinned'
             $('.subnav-placeholder').addClass 'hide'
           return
         return
@@ -465,6 +465,8 @@ $ ->
       isChanged = false
       return
     $('a').on 'click', ->
+      if $(this).hasClass("ignore_form_change")
+        return
       if $(this).attr('data-dismiss') == "modal"
         return
       else

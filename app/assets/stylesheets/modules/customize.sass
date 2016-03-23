@@ -1177,6 +1177,81 @@ body.paper
       //  #listing_area
       //    line-height: 1.3
       //    font-size: 16px
+.listings.preview
+  .listing
+    position: relative
+    .favorite-wrapper
+      z-index: 1
+      @media (max-width: 767px)
+        display: none
+    .favorite-wrapper-sp
+      position: absolute
+      width: 100%
+      z-index: 1
+      top: 10px
+      text-align: right
+      right: 10px
+      @media (min-width: 768px)
+        display: none
+    /* title-section */
+    .title-section
+      position: relative
+      background: white
+      border-bottom: 1px solid $border1
+      z-index: 1
+      padding: 15px 0
+      #listing_name
+        color: $gray2
+        padding-bottom: 0
+        text-shadow: none
+        padding: 0
+      #listing_area
+        //padding-bottom: 26px
+        font-size: 18px
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+        //min-height: 50px
+        a
+          color: $brand-theme
+        .fa-map-marker
+          font-size: 20px
+          margin-left: 2px
+          margin-right: 5px
+          color: $lightgray2
+      @media (max-width: 1099px)
+        position: relative
+        background: white
+        #listing_name
+          color: $gray2
+          text-shadow: none
+          text-align: left
+          padding-left: 0
+        #listing_area
+          text-align: left
+          padding-left: 0
+          min-height: 0px
+          a
+            color: $brand-theme
+      @media (max-width: 767px)
+        #listing_name
+          line-height: 1.6
+          font-size: 28px
+          text-align: center
+        #listing_area
+          text-align: center
+.preview_link
+  position: fixed
+  width: 100%
+  z-index: 2
+  background: rgba(0, 0, 0, 0.75)
+  color: white
+  font-size: 18px
+  @media (min-width: 768px)
+    top: 50px
+  @media (max-width: 767px)
+    bottom: 0
+
 
 /* listings_images
   ================================================================================ */
@@ -1757,6 +1832,109 @@ body.paper
 
 /* listings#edit
   ================================================================================ */
+.listings.index
+  .listing-criteria-header
+    margin-top: 20px
+  .index-remove-listing-btn
+    display: block
+    width: 25px
+    height: 25px
+    border: solid 1px
+    border-radius: 25px
+    padding: 2px
+    text-align: center
+    color: $lightgray1
+    position: absolute
+    top: 5px
+    right: 5px
+    z-index: 2
+    .fa
+      font-size: 18px
+    &:hover
+      color: $gray1
+
+.input-label
+  strong
+    margin-right: 5px
+  input[type="text"]
+    display: inline-block
+    width: 80%
+.stop_if_rain label
+  font-size: 16px
+.select_max_num_of_people
+  margin-left: 20px
+.border-block
+  border: 1px solid $brand-theme
+  padding: 5px 15px
+  background: white
+  display: inline-block
+  color: $brand-theme
+.no-border
+  border: none
+.fee-container
+  padding: 15px
+  background: white
+  margin-bottom: 15px
+  border: solid 1px $border1
+.manage-listing-content
+  .collapse-panel:hover,
+  .collapse-panel.active
+    background: $bg1
+  label.checkbox,
+  .h5
+    line-height: 1.5
+    @media (max-width: 1099px)
+      font-size: 14px
+
+.listing-manager-notice
+  font-size: 16px
+  .fa
+    margin-right: 5px
+.listing-manager-area
+  margin-left: 30px
+.listing-manager-area-container
+  min-height: 50px
+  padding: 5px 15px
+  background-color: white
+  border: 1px dashed $lightgray2
+  border-radius: 4px
+.listing-area-item
+  padding: 8px
+  display: inline-block
+.listing_help_block,
+.request-block
+  padding-top: 20px
+.manage-listing-help-panel
+  border: solid 1px $border1
+  position: absolute
+  width: 92%
+  .listing-help-icon-container
+    width: 50px
+    height: 5px
+    position: relative
+    top: -15px
+    left: -15px
+.listing-help-icon
+  display: inline-block
+  width: 40px
+  height: 40px
+  background-image: image-url('illust/idea.png')
+  background-position: center center
+  background-repeat: no-repeat
+  background-size: 40px auto
+#tour-action-preview
+  padding: 20px
+  position: absolute
+  border: solid 1px $border1
+  width: 92%
+.listing-help-sp-header
+  display: none
+  @media (max-width: 767px)
+    display: block !important
+    padding: 14px 20px
+    color: white
+    border-bottom: 1px solid $border1
+    background-color: $brand-theme
 
 .manage-listing-nav
   .nav-sections

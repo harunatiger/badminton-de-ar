@@ -52,7 +52,8 @@
         #calendar
   .row.row-space-top-6
     .col-xs-9.col-offset-3.text-reset-center
-      = link_to "保存する", listings_path(current_user), class: "btn btn-primary btn-large"
-      - if left_step_count.zero?
+      = link_to "ツアーを下書き保存", listings_path(current_user), class: "btn btn-primary btn-large row-space-1--sp"
+      = link_to "ツアープレビューを表示", listing_preview_path(@listing), class: "btn btn-primary btn-large row-space-1--sp"
+      /- if left_step_count.zero?
         = link_to "公開する", listing_publish_path(@listing), class: "btn btn-primary btn-large"
 = render partial: '/shared/modals/calendar_confirm'
