@@ -7,6 +7,7 @@ class ListingsController < ApplicationController
   before_action :set_message_thread, only: [:show]
   before_action :regulate_user, except: [:new, :index, :create, :show, :search, :favorite_listing, :preview]
   before_action :deleted_or_open_check, only: [:show, :edit]
+  before_action :only_main_guide, only: [:new, :edit, :create, :update, :destroy, :publish, :unpublish, :copy]
   #before_action :set_favorite,  only: [:destroy]
 
   # GET /listings
@@ -201,6 +202,10 @@ class ListingsController < ApplicationController
 
     def regulate_user
       return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id
+    end
+  
+    def only_main_guide
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure unless current_user.main_guide?
     end
 
     def deleted_or_open_check

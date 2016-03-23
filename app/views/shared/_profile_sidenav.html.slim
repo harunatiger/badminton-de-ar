@@ -30,7 +30,7 @@ ul.sidenav-list
   - else
     li
       = link_to "ID information", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"}
-  - if current_user.listings.present?
+  - if !current_user.guest?
     - if controller_name == 'profile_banks'
       li
         = link_to "Bank Details", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"}
