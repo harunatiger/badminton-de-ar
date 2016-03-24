@@ -56,7 +56,7 @@ li.thread-list-item
 
         .time-container.text-muted
           small.time
-            - if m.read.present?
-              = Settings.message.read.string
-            |
             = m.try('created_at').strftime("%m/%d %H:%M") || ''
+            - if m.read.present?
+              span<
+              = Settings.message.read.string
