@@ -386,24 +386,40 @@ $ ->
 
     #slider
     $('#listing_slider-carousel').sliderPro
-      width: 600
-      arrows: true
-      buttons: false
-      slideDistance: 0
-      waitForLayers: true
+      width:'50%'
+      height:500
+      aspectRatio: 1.5
       visibleSize: '100%'
-      fadeArrows: false
-      autoplayDelay: 4000
+      forceSize: 'fullWidth'
+      arrows: true
+      fadeArrows:false
+      autoplayDelay:3000
       slideAnimationDuration: 1000
+      buttons:false
+      keyboard:false
+      slideDistance:1
+      breakpoints: {
+        767: {
+          width: '100%'
+          height:200
+        }
+      }
+      #waitForLayers: true
 
     $('#listing_slider-normal').sliderPro
-      width: '100%'
+      width:'100%'
+      height:427
       arrows: true
-      buttons: false
-      waitForLayers: true
-      fadeArrows: false
-      autoplayDelay: 4000
+      fadeArrows:false
+      autoplayDelay:3000
       slideAnimationDuration: 1000
+      buttons:false
+      breakpoints: {
+        767: {
+          width: '100%'
+          height:200
+        }
+      }
 
     # gallery
     $('.sp-slides').magnificPopup
