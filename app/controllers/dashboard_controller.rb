@@ -10,10 +10,18 @@ class DashboardController < ApplicationController
 
   def host_reservation_manager
     @reservations = Reservation.as_host(current_user).for_dashboard.order_by_created_at_desc
+    @reservations.each do |reservation|		
+      message = Message.where(reservation_id: reservation.id).first		
+      reservation.message_thread_id = message.message_thread_id if message.present?
+    end
   end
 
   def guest_reservation_manager
     @reservations = Reservation.as_guest(current_user).for_dashboard.includes(:campaign).order_by_created_at_desc
+    @reservations.each do |reservation|		
+      message = Message.where(reservation_id: reservation.id).first		
+      reservation.message_thread_id = message.message_thread_id if message.present?
+    end
   end
 
   private
