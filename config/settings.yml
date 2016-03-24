@@ -155,6 +155,9 @@ reservation:
     pg_under_construction: "Under construction"
     pg_offering: 'Offering'
     pg_completion: 'Completion'
+    offer: "オファー"
+    accepted: "承認"
+    canceled: "キャンセル"
   progress_for_message_thread:
     requested: "Sending your tour plan..."
     canceled: "Sorry, Your request(Booking your tour) has been cancelled"
@@ -182,6 +185,9 @@ friend:
   send_message_to_selected_guides:
     success: 'メッセージを送信しました。'
     failure: 'ガイドが選択されていません。'
+  status:
+    accepted: "承認"
+    rejected: "拒否"
 message_thread:
   show:
     message_form:

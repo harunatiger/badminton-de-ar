@@ -56,6 +56,14 @@ en:
       subject: "Read %{name}'s review"
     reply_notification:
       subject: "ゲストがあなたの返信を待っています"
+    send_request_notification:
+      subject: "仲間申請が届きました。"
+    send_update_notification:
+      subject: "仲間申請が%{status}されました。"
+    selected_notification:
+      subject: "ペアガイドの相談が届きました。"
+    send_update_pair_guide_notification:
+      subject: "ペアガイドが%{status}されました。"
   option_price_ja:
     space_rental: "スペースレンタル代"
     car_rental: "車両代"

@@ -1,0 +1,9 @@
+こんにちは、 <%= user_obj_to_name(@to_user) %> さん
+
+<%= user_obj_to_name(@from_user) %> さんが仲間申請を<%= @status %>しました。
+
+以下URLよりご確認ください。
+<%= message_thread_url(@message_thread_id) %>
+
+--
+Huber.

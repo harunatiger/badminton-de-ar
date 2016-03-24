@@ -21,9 +21,10 @@ class FriendsController < ApplicationController
   end
   
   def send_request
-    message = Message.send_firends_message(@guide.id, current_user.id, nil, nil, send_request_params[:message])
+    message = Message.send_firends_message(@guide.id, current_user.id, nil, nil, send_request_params[:message].present? ? send_request_params[:message] : 'no_message')
     if message
       current_user.friend_request(@guide)
+      FriendMailer.send_request_notification(current_user, @guide, message.message_thread_id).deliver_now!
       redirect_to message_thread_path(message.message_thread_id), notice: Settings.friend.msg.request
     else
       flash.now[:alert] = Settings.friend.save.failure
@@ -35,6 +36,7 @@ class FriendsController < ApplicationController
     message = Message.send_firends_message(@guide.id, current_user.id, Settings.friend.msg.accept, params[:message_thread_id])
     if message
       current_user.accept_request(@guide)
+      FriendMailer.send_update_notification(current_user, @guide, message.message_thread_id, Settings.friend.status.accepted).deliver_now!
       redirect_to message_thread_path(message.message_thread_id), notice: Settings.friend.msg.accept
     else
       redirect_to message_thread_path(params[:message_thread_id]), alert: Settings.friend.save.failure
@@ -45,6 +47,7 @@ class FriendsController < ApplicationController
     message = Message.send_firends_message(@guide.id, current_user.id, Settings.friend.msg.rejected, params[:message_thread_id])
     if message
       current_user.decline_request(@guide)
+      FriendMailer.send_update_notification(current_user, @guide, message.message_thread_id, Settings.friend.status.rejected).deliver_now!
       redirect_to message_thread_path(message.message_thread_id), notice: Settings.friend.msg.rejected
     else
       redirect_to message_thread_path(params[:message_thread_id]), alert: Settings.friend.save.failure
@@ -95,7 +98,8 @@ class FriendsController < ApplicationController
       redirect_to friends_list_reservation_path(@reservation.id), alert: Settings.friend.send_message_to_selected_guides.failure
     else
       session[:guide_ids].each do |guide_id|
-        Message.send_message_to_selected_guides(@reservation, guide_id)
+        message = Message.send_message_to_selected_guides(@reservation, guide_id)
+        PairGuideMailer.selected_notification(current_user, User.find(guide_id), message.message_thread_id).deliver_now!
       end
       @reservation.pg_under_construction!
       session[:guide_ids] = nil
@@ -117,7 +121,7 @@ class FriendsController < ApplicationController
           selected_guides.delete(params[:guide_id])
           session[:guide_ids] = selected_guides
           return render text: 'deleted'
-        elsif selected_guides.count > 5
+        elsif selected_guides.count > 4
           return render text: 'count_over'
         else
           selected_guides.push(params[:guide_id])

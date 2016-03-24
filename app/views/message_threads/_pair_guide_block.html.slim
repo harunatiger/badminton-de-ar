@@ -97,9 +97,10 @@
               - if @reservation.pg_offering? and @reservation.pair_guide_id == current_user.id
                 = simple_form_for(@reservation) do |f|
                   = f.hidden_field :message_thread_id, value: @message_thread.id
-                  = f.hidden_field :pair_guide_status, value: 'pg_completion'
                   .text-right.row-space-2
                     - if @counterpart.soft_destroyed?
                       = f.submit 'Accept', class: 'btn btn-primary btn-mw120 disabled', id: "reservation_block-toggle"
+                      = f.submit 'Cancel', class: 'btn btn-primary btn-mw120 disabled', id: "reservation_block-toggle"
                     - else
                       = f.submit 'Accept', class: 'btn btn-primary btn-mw120', id: "reservation_block-toggle", name: 'accept_pair_guide'
+                      = f.submit 'Cancel', class: 'btn btn-default btn-mw120', id: "reservation_block-toggle", name: 'cancel_pair_guide', data: {confirm: '本当にキャンセルしてよろしいですか？'}

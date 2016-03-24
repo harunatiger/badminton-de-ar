@@ -102,7 +102,7 @@ class Profile < ActiveRecord::Base
   end
   
   def self.main_and_support_guides
-    user_ids = User.main_guide + User.support_guide
+    user_ids = User.main_guide.without_soft_destroyed + User.support_guide.without_soft_destroyed
     users = User.where(id: user_ids)
     Profile.where(user_id: users.ids)
   end
