@@ -14,7 +14,7 @@ class AddListingInterviewToListing < ActiveRecord::Migration
           notes = ''
         end
         if in_case_of_rain.present?
-          m_notes = "\r\n" + '[In the case of rainy weather]' + "\r\n" + in_case_of_rain
+          m_notes = "\r\n\r\n" + '[In the case of rainy weather]' + "\r\n" + in_case_of_rain
         end
         m_notes = notes + m_notes
 
@@ -41,7 +41,7 @@ class AddListingInterviewToListing < ActiveRecord::Migration
         end
 
         if m_recommend.present?
-          m_recommend =  "\r\n" + '[Best features of My Tour]' + "\r\n" + m_recommend
+          m_recommend =  "\r\n\r\n" + '[Best features of My Tour]' + "\r\n" + m_recommend
         end
 
         m_description = ''
