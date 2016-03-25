@@ -611,10 +611,6 @@ module ApplicationHelper
     return text
   end
   
-  def selected_category?(listing_image, category)
-    listing_image.category_list.present? and listing_image.category_list.include?(category)
-  end
-  
   def image_category_display_name(category)
     I18n.t('listing_images.category.' + category)
   end

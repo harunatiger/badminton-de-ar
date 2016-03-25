@@ -24,6 +24,7 @@ en:
         cover_image: 'cover photo'
       listing_image:
         image: 'photo'
+        caption: 'コメント'
       pre_mail:
         email: 'email'
         last_name: 'last_name'

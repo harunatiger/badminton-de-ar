@@ -8,7 +8,6 @@
             = link_to destroy_video_listing_listing_images_path(@listing.id), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
               i.fa.fa-trash
       - listing_images.each_with_index do |listing_image, i|
-        - category_list = listing_image.my_category_hash
         .col-xs-4.regist-pics
           .image-droppable.image-draggable
             .listing-image-container
@@ -21,14 +20,13 @@
                 = listing_image.caption
               - else
                 | 写真にコメントをつけましょう
-            - if category_list.count == 0
+            - if listing_image.category.blank?
               = link_to '#', class: 'set_listing_image_link', listing_image_id: listing_image.id do
                 p
                   i.fa.fa-plus-circle
                   | 写真にカテゴリーを設定しましょう
             - else
-              - category_list.each do |c|
-                = image_tag c[:image], class: 'size50'
+              = image_tag listing_image.category_image, class: 'size50'
         = render partial: 'shared/modals/set_listing_image', locals: { listing: @listing, listing_image: listing_image}
       .col-xs-4.regist-pics
         .listing-image-container

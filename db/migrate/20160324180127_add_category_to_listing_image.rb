@@ -1,6 +1,6 @@
 class AddCategoryToListingImage < ActiveRecord::Migration
   def change
-    add_column :listing_images, :category_list, :string, default: '', index: true
+    add_column :listing_images, :category, :string, default: '', index: true
     Listing.without_soft_destroyed.each do |listing|
       if listing.cover_image.present?
         listing_images = listing.listing_images

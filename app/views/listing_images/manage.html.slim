@@ -11,22 +11,13 @@
         h3.text-center.row-space-2 ツアーの動画と写真を追加しましょう。
         p.text-center.row-space-6
           | ゲストに魅力をよく伝えるために、写真や動画を登録しましょう。
-          /| 動画については、iPhoneユーザーは
-          /= link_to "https://itunes.apple.com/us/app/clipbox-1seccamera/id980538523?mt=8", target: "_blank" do
-            | 「1secCamera」
-          /|、
-          /br
-          /| Androidユーザーは
-          /= link_to "https://play.google.com/store/apps/details?id=net.rena.roadmovie.lite", target: "_blank" do
-          /  | 「SnapMovie (road movie maker)」
-          /| のご利用を推奨しています。
       = render 'form'
     .manage-listing-edit.col-md-4.col-lg-3
       = render 'listing_help_block'
     = render partial: 'shared/manage_listing_nav'
-    = render partial: 'shared/modals/form_change_confirm'
-    = render partial: 'shared/modals/listing_image_loading'
-    = render partial: 'shared/modals/listing_image_success'
-  .listing-help-sp-wrapper
-    = link_to "#", class: "edit-help--sp" do
-      span.listing-help-icon
+= render partial: 'shared/modals/listing_image_loading'
+= render partial: 'shared/modals/listing_image_success'
+= render partial: 'shared/modals/form_change_confirm'
+.listing-help-sp-wrapper
+  = link_to "#", class: "edit-help--sp" do
+    span.listing-help-icon

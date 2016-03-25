@@ -246,13 +246,13 @@ ActiveRecord::Schema.define(version: 20160325010939) do
 
   create_table "listing_images", force: :cascade do |t|
     t.integer  "listing_id"
-    t.string   "image",         default: ""
+    t.string   "image",       default: ""
     t.integer  "order_num"
-    t.string   "caption",       default: ""
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.text     "description",   default: ""
-    t.string   "category_list", default: ""
+    t.string   "caption",     default: ""
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.text     "description", default: ""
+    t.string   "category",    default: ""
   end
 
   add_index "listing_images", ["listing_id"], name: "index_listing_images_on_listing_id", using: :btree

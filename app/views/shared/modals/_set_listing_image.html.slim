@@ -10,7 +10,7 @@ div[id="set_listing_image#{listing_image.id.to_s}" class="modal" role="dialog" a
               = hidden_field_tag  :category, category[:title]
               .col-xs-2
                 .media-round.media-photo.media-avatar.balloon(title=image_category_display_name(category[:title]))
-                  - if selected_category?(listing_image, category[:title])
+                  - if listing_image.category == category[:title]
                     = link_to "#", class: "set_category_link listing_image_selected", listing_image_id: listing_image.id do
                       = image_tag category[:image], class: 'size60'
                   - else

@@ -1,9 +1,13 @@
 <% if @status == "success" %>
+  $('.alert').remove();
   $('#listing-image-loading').modal('hide');
   $('#images_list').html($("<%=j render partial: 'images_list', locals: { cover_video: @listing.cover_video, listing_images: @listing.listing_images.order_asc} %>").hide().fadeIn('slow'));
   $('#set_listing_image').hide
 <% elsif @status == "failure" %>
   $('.alert').remove();
+  $('#listing-image-loading').modal('hide');
+  $('#images_list').html($("<%=j render partial: 'images_list', locals: { cover_video: @listing.cover_video, listing_images: @listing.listing_images.order_asc} %>").hide().fadeIn('slow'));
   $('#error_message').html($("<%=j render partial: 'error_message', locals: { target: @listing_image } %>").hide().fadeIn('slow'));
+  $('#set_listing_image').hide
   $("html,body").animate({scrollTop:0},'slow');
 <% end %>

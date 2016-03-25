@@ -80,8 +80,10 @@ class ListingImagesController < ApplicationController
   
   def set_category
     if request.xhr?
-      if @listing_image.update(category_list: params[:category])
-        return render partial: 'shared/modals/set_listing_image', locals: { listing: @listing, listing_image: @listing_image}
+      distance = ListingImage.distance(params[:category], @listing_image.category)
+      if @listing_image.update(category: params[:category])
+        return render text: distance
+        #return render partial: 'shared/modals/set_listing_image', locals: { listing: @listing, listing_image: @listing_image}
       else
         raise
       end
