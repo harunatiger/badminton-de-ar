@@ -122,9 +122,8 @@ class ListingDetail < ActiveRecord::Base
     end
 
     if self.bicycle_option
-      self.bicycle_options.each do |option|
-        total += self[option]
-      end
+      bicycle_per = self.bicycle_rental
+      total += bicycle_per * self.min_num_of_people
     end
 
     if self.other_option

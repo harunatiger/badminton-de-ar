@@ -28,7 +28,7 @@
               th プランタイトル
               th ガイドの収入
               th サポートメンバーの収入
-              th 2人にかかる費用
+              //th 2人にかかる費用
               th オプション費用
               th ガイド料金
               th サービス料金（ゲスト）
@@ -51,7 +51,8 @@
                 - guest = User.find(payment.reservation.guest_id)
                 - listing = Listing.find(payment.reservation.listing_id)
                 - cancel_by = payment.reservation.cancel_by
-                - guide_amount = payment.reservation.price + payment.reservation.price_for_support + payment.reservation.price_for_both_guides + payment.reservation.option_amount
+                /- guide_amount = payment.reservation.price + payment.reservation.price_for_support + payment.reservation.price_for_both_guides + payment.reservation.option_amount
+                - guide_amount = payment.reservation.price + payment.reservation.price_for_support + payment.reservation.option_amount
                 - service_fee_guest = (guide_amount * 0.145).ceil
                 - if payment.reservation.campaign_id.present?
                   - campaign = Campaign.find(payment.reservation.campaign_id)
@@ -97,7 +98,7 @@
                     = payment.reservation.price
                   td
                     = payment.reservation.price_for_support
-                  td
+                  /td
                     = payment.reservation.price_for_both_guides
                   td
                     = payment.reservation.option_amount

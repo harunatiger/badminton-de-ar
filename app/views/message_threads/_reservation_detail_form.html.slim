@@ -29,7 +29,7 @@
       .input-opt
         = number_field :reservation, :price_for_support, type: 'number', pattern: '[0-9]*'
         span 円
-  .row.row-condensed.row-space-3
+  /.row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
       .small2
         | ２人にかかる経費
@@ -38,7 +38,7 @@
         = number_field :reservation, :price_for_both_guides, type: 'number', pattern: '[0-9]*'
         span 円
   hr
-  .row.row-condensed.row-space-3
+  /.row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
       .small2
         | スペースレンタルが含まれるツアー(オプション費用)
@@ -61,6 +61,34 @@
         = check_box :reservation, :car_option, class: "option-check"
       .collapse
         - car_options.each do |option|
+          label
+            = I18n.t('option_price_ja.' + option)
+          .input-opt
+            = number_field :reservation, option, type: 'number', pattern: '[0-9]*'
+            span 円
+  .row.row-condensed.row-space-3
+    label.col-md-4.text-right.text-left--sp
+      .small2
+        | 自転車レンタル費が含まれるツアー(オプション費用)
+    .col-md-5
+      label.collapse-trigger
+        = check_box :reservation, :bicycle_option, class: "option-check"
+      .collapse
+        - bicycle_options.each do |option|
+          label
+            = I18n.t('option_price_ja.' + option)
+          .input-opt
+            = number_field :reservation, option, type: 'number', pattern: '[0-9]*'
+            span 円
+  .row.row-condensed.row-space-3
+    label.col-md-4.text-right.text-left--sp
+      .small2
+        | その他（交通費、飲食代、体験料、場所代、人件費など）が含まれるツアー(オプション費用)
+    .col-md-5
+      label.collapse-trigger
+        = check_box :reservation, :other_option, class: "option-check"
+      .collapse
+        - other_options.each do |option|
           label
             = I18n.t('option_price_ja.' + option)
           .input-opt
