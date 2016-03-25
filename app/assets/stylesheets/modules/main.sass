@@ -854,6 +854,33 @@ a.delete
   @media (max-width: 767px)
     margin-left: 0 !important
 
+.manage-listing-edit
+  position: absolute
+  top: 0
+  right: 0
+  @media (max-width: 767px)
+    display: none
+    position: fixed !important
+    top: 0 !important
+    left: 0
+    right: 0 !important
+    bottom: 0
+    width: 100%
+    padding: 5px 20px 25px
+    background-color: white
+    transition: opacity .25s
+    opacity: 0
+    overflow: auto
+    z-index: 11
+    //padding-bottom: 20px
+    //border-top: 1px solid $border1
+    //border-bottom: 1px solid $border1
+    &.show-off
+      opacity: 1
+  &.pinned
+    position: fixed
+    top: 40px
+
 .manage-listing-nav
   position: absolute
   top: 0
@@ -1400,8 +1427,7 @@ $lines-to-show: 2
   cursor: row-resize
   &:hover
     .listing-image-container
-      > div
-        opacity: 0.3
+      opacity: 0.7
       .delete-image
         opacity: 1
 .image-drag-active

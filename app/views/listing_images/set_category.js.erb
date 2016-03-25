@@ -1,5 +1,0 @@
-<% if @status == "success" %>
-  $('#set_listing_image').html($("<%=j render partial: 'shared/modals/set_listing_image', locals: { listing: @listing, listing_image: @listing_image} %>").hide().fadeIn('slow'));
-<% elsif @status == "failure" %>
-  alert "データの更新に失敗しました。";
-<% end %>

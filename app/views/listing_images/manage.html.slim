@@ -5,7 +5,7 @@
   /= render partial: 'shared/manage_listing_header', locals: { listing: @listing }
   = render partial: 'shared/subnav', locals: { listing: @listing }
   .manage-listing-row-container
-    .manage-listing-content.col-md-9.col-offset-3
+    .manage-listing-content.col-md-5.col-lg-6.col-offset-3
       .row-space-top-4
         h3.text-center.row-space-2 ツアーの動画と写真を追加しましょう。
         p.text-center.row-space-6
@@ -20,7 +20,12 @@
           /  | 「SnapMovie (road movie maker)」
           /| のご利用を推奨しています。
       = render 'form'
+    .manage-listing-edit.col-md-4.col-lg-3
+      = render 'listing_help_block'
     = render partial: 'shared/manage_listing_nav'
     = render partial: 'shared/modals/form_change_confirm'
     = render partial: 'shared/modals/listing_image_loading'
     = render partial: 'shared/modals/listing_image_success'
+  .listing-help-sp-wrapper
+    = link_to "#", class: "edit-help--sp" do
+      span.listing-help-icon

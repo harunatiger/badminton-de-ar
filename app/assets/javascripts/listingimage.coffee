@@ -2,9 +2,10 @@ $ ->
   if $('body').hasClass('listing_images manage')
     $('#listing_cover_video').filestyle input: false, buttonText: '動画を追加', size: "lg", iconName: "fa fa-cloud-upload", badge: false
     $('#listing_image_new').filestyle input: false, buttonText: '画像を追加', size: "lg", iconName: "fa fa-cloud-upload", badge: false
+    $('#listing_image_new_footer').filestyle input: false, buttonText: '画像を追加', size: "lg", iconName: "fa fa-cloud-upload", badge: false
     
     $('.image-draggable').draggable(revert: 'invalid', scroll: true, zIndex: 1)
-    $('.image-droppable').droppable(activeClass: 'image-drag-active', hoverClass: 'image-drag-hover', tolerance: 'touch')
+    $('.image-droppable').droppable(activeClass: 'image-drag-active', hoverClass: 'image-drag-hover', tolerance: 'intersect')
 
     image_from = ''
     $(document).on 'dragstart', '.image-draggable', ->
@@ -24,7 +25,7 @@ $ ->
       ).done (data) ->
         $('#images_list').html(data)
         $('.image-draggable').draggable(revert: 'invalid', scroll: true, zIndex: 1)
-        $('.image-droppable').droppable(activeClass: 'image-drag-active', hoverClass: 'image-drag-hover', tolerance: 'touch')
+        $('.image-droppable').droppable(activeClass: 'image-drag-active', hoverClass: 'image-drag-hover', tolerance: 'intersect')
 
     $(document).on 'ajax:before', (event) ->
       $('#hidden-form-id').val(event.target.id)
@@ -44,10 +45,9 @@ $ ->
     $('#upload_image').submit()
     return
   
-  image_index = 0
   $(document).on 'click', '.set_listing_image_link', ->
-    image_index = $('.set_listing_image_link').index(this)
-    $('[id=set_listing_image]').eq(image_index).modal(
+    listing_image_id = $(this).attr("listing_image_id")
+    $('[id=set_listing_image' + listing_image_id + ']').modal(
       backdrop: 'static'
     )
     return false
@@ -58,17 +58,23 @@ $ ->
     listing_image_id = $('.set_category_link').eq(category_index).attr("listing_image_id")
     listing_id = $('#listing_id').val()
     category = $('[id=category]').eq(category_index).val()
-    $.ajax(
+    $.ajax
       type: 'POST'
       url: '/listings/' + listing_id + '/listing_images/' + listing_image_id + '/set_category'
-      data: {
-        category: category
-      }
-    ).done (result) ->
-      if result == 'deleted'
-        $('.set_category_link').eq(category_index).removeClass 'listing_image_selected'
-      else if result == 'added'
-        $('.set_category_link').eq(category_index).addClass 'listing_image_selected'
-      else
-        console.log 'faile to update'
+      data: {category: category}
+      success: (data) ->
+        $('#listing-image-loading').modal('hide')
+        doc = $('#set_listing_image' + listing_image_id)
+        console.log doc.html()
+        doc.empty().modal('show')
+        #doc.html(data)
+        #console.log doc.html()
+        #doc.modal()
+      error: ->
+        return
+    return
+  
+  $(document).on 'click', '.add_image', ->
+    $('#listing_image_new').trigger 'click'
     return false
+  

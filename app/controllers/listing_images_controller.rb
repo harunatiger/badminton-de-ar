@@ -73,15 +73,18 @@ class ListingImagesController < ApplicationController
       image_from.update(order_num: params[:image_to])
       image_to.update(order_num: params[:image_from])
         
-      @listing_images = listing.listing_images.order_asc
-      render partial: 'images_list', locals: { cover_video: listing.cover_video, listing_images: @listing_images}
+      @listing_images = listing.listing_images
+      render partial: 'images_list', locals: { cover_video: listing.cover_video, listing_images: @listing_images.order_asc}
     end
   end
   
   def set_category
     if request.xhr?
-      result = @listing_image.set_category(params[:category])
-      return render text: result
+      if @listing_image.update(category_list: params[:category])
+        return render partial: 'shared/modals/set_listing_image', locals: { listing: @listing, listing_image: @listing_image}
+      else
+        raise
+      end
     end
   end
 

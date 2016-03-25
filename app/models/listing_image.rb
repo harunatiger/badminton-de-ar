@@ -53,4 +53,16 @@ class ListingImage < ActiveRecord::Base
     return 'failure' unless self.update(category_list: category_list)
     result
   end
+  
+  def category_array
+    self.category_list.present? ? self.category_list.split(",") : []
+  end
+  
+  def my_category_hash
+    result = []
+    ListingImage.image_categories.each do |category|
+      result.push(category) if self.category_list.include?(category[:title])
+    end
+    result
+  end
 end
