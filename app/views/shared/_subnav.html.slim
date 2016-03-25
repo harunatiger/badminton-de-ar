@@ -14,7 +14,7 @@
       - else
         li
           = link_to Settings.page.messages, message_threads_path
-      - if controller_name =="listings" || controller_name =="listing_images" || controller_name =="calendar"
+      - if controller_name =="listings" || controller_name =="listing_images" || controller_name =="calendar" || controller_name =="listing_details"
         li.active
           /= link_to Settings.page.listings, current_user.listings.blank? ? new_listing_path : edit_listing_path(current_user.listings[0].id)
           = link_to Settings.page.listings, listings_path

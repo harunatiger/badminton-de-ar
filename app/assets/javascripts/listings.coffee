@@ -3,18 +3,28 @@ $ ->
 
   # listings#new
   if $('body').hasClass('listing_details manage')
+    car1 = Number($('#listing_detail_car_rental').val())
+    car2 = Number($('#listing_detail_gas').val())
+    car3 = Number($('#listing_detail_highway').val())
+    car4 = Number($('#listing_detail_parking').val())
+    car_cost = car1 + car2 + car3 + car4
+    if car_cost == 0
+      $('#listing_detail_car_option').prop("checked",false)
 
+    numOfPeople = false
     # price imitation
     value_calc = ->
       space_check = 0
       car_check = 0
       fvMin = Number($('#listing_detail_min_num_of_people').val())
       fv = Number($('#listing_detail_max_num_of_people').val())
-      $('#num-of-people select option').remove()
-      i = fvMin
-      while i <= fv
-        $('#num-of-people select').append($('<option value="'+[i]+'">'+[i]+'</option>'));
-        i++
+      if numOfPeople == false
+        $('#num-of-people select option').remove()
+        i = fvMin
+        while i <= fv
+          $('#num-of-people select').append($('<option value="'+[i]+'">'+[i]+'</option>'));
+          i++
+      num_of_people = Number($('#sample_num_of_people option:selected').text())
       fv0 = Number($('#listing_detail_time_required').val())
       fv1 = Number($('#listing_detail_price').val())
       fv2 = Number($('#listing_detail_price_for_support').val())
@@ -47,7 +57,7 @@ $ ->
       fv15 = $('#listing_detail_included_guests_cost').val()
 
       if $('#listing_detail_bicycle_option').is(':checked')
-        fv16 = Number($('#listing_detail_bicycle_rental').val()) * fvMin
+        fv16 = Number($('#listing_detail_bicycle_rental').val()) * num_of_people
       else
         fv16 = 0
 
@@ -84,6 +94,18 @@ $ ->
       $('#include_what .card-body p').text(fv15)
 
     $('.value_fragile').on 'change', ->
+      value_calc()
+
+    $('#sample_num_of_people').on 'change', ->
+      numOfPeople = true
+      value_calc()
+
+    $('#listing_detail_min_num_of_people').on 'change', ->
+      numOfPeople = false
+      value_calc()
+
+    $('#listing_detail_max_num_of_people').on 'change', ->
+      numOfPeople = false
       value_calc()
 
     value_calc()

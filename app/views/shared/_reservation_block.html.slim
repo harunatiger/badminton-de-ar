@@ -33,7 +33,7 @@
               .col-md-8.text-muted.strong
                 |¥
                 = reservation.option_amount
-            - if reservation.space_option
+            /- if reservation.space_option
               - space_options.each do |option|
                 - if reservation[option] > 0
                   .row.row-condensed.row-space-1
@@ -44,6 +44,25 @@
                       = reservation[option]
             - if reservation.car_option
               - car_options.each do |option|
+                - if reservation[option] > 0
+                  .row.row-condensed.row-space-1
+                    .col-md-3.text-left.text-muted.strong
+                      = I18n.t('option_price_en.' + option)
+                    .col-md-8.text-muted.strong
+                      |¥
+                      = reservation[option]
+            - if reservation.bicycle_option
+              - num_of_people = reservation.num_of_people
+              - bicycle_options.each do |option|
+                - if reservation[option] > 0
+                  .row.row-condensed.row-space-1
+                    .col-md-3.text-left.text-muted.strong
+                      = I18n.t('option_price_en.' + option)
+                    .col-md-8.text-muted.strong
+                      |¥
+                      = reservation[option] * num_of_people
+            - if reservation.other_option
+              - other_options.each do |option|
                 - if reservation[option] > 0
                   .row.row-condensed.row-space-1
                     .col-md-3.text-left.text-muted.strong

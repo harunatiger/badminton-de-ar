@@ -33,44 +33,44 @@
         - if @listing_detail.option_amount > 0
           .row
             .col-xs-7
-              | ツアーにかかる料金
+              | ツアーにかかる経費
             .col-xs-5.text-right.strong
               | ¥
               span.value_discharge.value_discharge_option.option_total
                 = @listing_detail.option_amount
-        - if @listing_detail.car_rental > 0
-          - car_rental_cost = 0
-          - car_options.each do |option|
-            - car_rental_cost += @listing_detail[option]
-          .row.text-muted
-            .col-xs-7
-              |  -
-              span.value_subject
-                = I18n.t('option_price_ja.' + 'car_option')
-            .col-xs-5.text-right.strong
-              | ¥
-              span.value_discharge.value_discharge_option[class="car_rental"]
-                = car_rental_cost
-        - if @listing_detail.bicycle_rental > 0
-          .row.text-muted
-            .col-xs-7
-              |  -
-              span.value_subject
-                = I18n.t('option_price_ja.' + 'bicycle_option')
-            .col-xs-5.text-right.strong
-              | ¥
-              span.value_discharge.value_discharge_option[class="bicycle_rental"]
-                = @listing_detail.bicycle_rental
-        - if @listing_detail.other_cost > 0
-          .row.text-muted
-            .col-xs-7
-              |  -
-              span.value_subject
-                = I18n.t('option_price_ja.' + 'other_cost')
-            .col-xs-5.text-right.strong
-              | ¥
-              span.value_discharge.value_discharge_option[class="other_cost"]
-                = @listing_detail.other_cost
+        /- if @listing_detail.car_rental > 0
+        - car_rental_cost = 0
+        - car_options.each do |option|
+          - car_rental_cost += @listing_detail[option]
+        .row.text-muted
+          .col-xs-7
+            |  -
+            span.value_subject
+              = I18n.t('option_price_ja.' + 'car_option')
+          .col-xs-5.text-right.strong
+            | ¥
+            span.value_discharge.value_discharge_option[class="car_rental"]
+              = car_rental_cost
+        /- if @listing_detail.bicycle_rental > 0
+        .row.text-muted
+          .col-xs-7
+            |  -
+            span.value_subject
+              = I18n.t('option_price_ja.' + 'bicycle_option')
+          .col-xs-5.text-right.strong
+            | ¥
+            span.value_discharge.value_discharge_option[class="bicycle_rental"]
+              = @listing_detail.bicycle_rental
+        /- if @listing_detail.other_cost > 0
+        .row.text-muted
+          .col-xs-7
+            |  -
+            span.value_subject
+              = I18n.t('option_price_ja.' + 'other_cost')
+          .col-xs-5.text-right.strong
+            | ¥
+            span.value_discharge.value_discharge_option[class="other_cost"]
+              = @listing_detail.other_cost
 
 
         /.row
