@@ -8,7 +8,7 @@
     .card-body
       .tour-price.row-space-1
         h3.h4.strong.row-space-2 GUIDE PRICE
-        .h3.row-space-2
+        #tour-basic-amount.h3.row-space-2
           | ¥
           b = listing_detail.basic_amount
           small.time
@@ -25,7 +25,7 @@
             .row
               .col-xs-7
                 | Optional Price
-              .col-xs-5.text-right.strong
+              #tour-option-amount.col-xs-5.text-right.strong
                 | ¥
                 = listing_detail.option_amount
           /- if listing_detail.space_option
@@ -47,19 +47,20 @@
               .col-xs-7
                 |  -
                 = I18n.t('option_price_en.' + 'car_rental')
-              .col-xs-5.text-right.strong
+              #tour-option-car.col-xs-5.text-right.strong
                 | ¥
                 = car_rental_cost
           - if listing_detail.bicycle_option
+            - min_num_of_people = listing_detail.min_num_of_people
             - bicycle_options.each do |option|
               - if listing_detail[option] > 0
                 .row.text-muted.small2
                   .col-xs-7
                     |  -
                     = I18n.t('option_price_en.' + option)
-                  .col-xs-5.text-right.strong
+                  #tour-option-bicycle.col-xs-5.text-right.strong
                     | ¥
-                    = listing_detail[option]
+                    = listing_detail[option] * min_num_of_people
           - if listing_detail.other_option
             - other_options.each do |option|
               - if listing_detail[option] > 0
@@ -67,7 +68,7 @@
                   .col-xs-7
                     |  -
                     = I18n.t('option_price_en.' + option)
-                  .col-xs-5.text-right.strong
+                  #tour-option-other.col-xs-5.text-right.strong
                     | ¥
                     = listing_detail[option]
 
@@ -90,16 +91,22 @@
         = f.hidden_field :price, value: listing.listing_detail.price
         = f.hidden_field :price_for_support, value: listing.listing_detail.price_for_support
         = f.hidden_field :price_for_both_guides, value: listing.listing_detail.price_for_both_guides
-        = f.hidden_field :space_option, value: listing.listing_detail.space_option
+        /= f.hidden_field :space_option, value: listing.listing_detail.space_option
         = f.hidden_field :car_option, value: listing.listing_detail.car_option
+        = f.hidden_field :bicycle_option, value: listing.listing_detail.bicycle_option
+        = f.hidden_field :other_option, value: listing.listing_detail.other_option
         = f.hidden_field :guests_cost, value: listing.listing_detail.guests_cost
         = f.hidden_field :included_guests_cost, value: listing.listing_detail.included_guests_cost
         = f.hidden_field :time_required, value: listing.listing_detail.time_required
         = f.hidden_field :place, value: listing.listing_detail.place
         = f.hidden_field :place_memo, value: listing.listing_detail.place_memo
-        - space_options.each do |option|
+        /- space_options.each do |option|
           = f.hidden_field option, value: listing.listing_detail[option]
         - car_options.each do |option|
+          = f.hidden_field option, value: listing.listing_detail[option]
+        - bicycle_options.each do |option|
+          = f.hidden_field option, value: listing.listing_detail[option]
+        - other_options.each do |option|
           = f.hidden_field option, value: listing.listing_detail[option]
         .row.row-space-2
           .col-md-8

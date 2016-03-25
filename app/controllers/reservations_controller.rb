@@ -244,12 +244,20 @@ class ReservationsController < ApplicationController
       @reservation.price_for_both_guides = listing.listing_detail.price_for_both_guides
       @reservation.place = listing.listing_detail.place
       @reservation.place_memo = listing.listing_detail.place_memo
-      @reservation.space_option = listing.listing_detail.space_option
+      #@reservation.space_option = listing.listing_detail.space_option
       @reservation.car_option = listing.listing_detail.car_option
-      @reservation.space_options.each do |option|
+      @reservation.bicycle_option = listing.listing_detail.bicycle_option
+      @reservation.other_option = listing.listing_detail.other_option
+      #@reservation.space_options.each do |option|
+      #  @reservation[option] = listing.listing_detail[option]
+      #end
+      @reservation.car_options.each do |option|
         @reservation[option] = listing.listing_detail[option]
       end
-      @reservation.car_options.each do |option|
+      @reservation.bicycle_options.each do |option|
+        @reservation[option] = listing.listing_detail[option]
+      end
+      @reservation.other_options.each do |option|
         @reservation[option] = listing.listing_detail[option]
       end
       @reservation.guests_cost = listing.listing_detail.guests_cost
@@ -355,6 +363,6 @@ class ReservationsController < ApplicationController
     end
 
     def reservation_params
-      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :price_for_support, :price_for_both_guides, :space_option, :car_option, :space_rental, :car_option, :car_rental, :gas, :highway, :parking, :guests_cost, :included_guests_cost, Reservation::REGISTRABLE_ATTRIBUTES, :place, :place_memo, :description, :message_thread_id, :schedule_end, :campaign_id, :campaign_code)
+      params.require(:reservation).permit(:listing_id, :host_id, :guest_id, :num_of_people, :content, :progress, :reason,:time_required, :price, :price_for_support, :price_for_both_guides, :space_option, :car_option, :space_rental, :car_option, :car_rental, :gas, :highway, :parking, :bicycle_option, :bicycle_rental, :other_option, :other_cost, :guests_cost, :included_guests_cost, Reservation::REGISTRABLE_ATTRIBUTES, :place, :place_memo, :description, :message_thread_id, :schedule_end, :campaign_id, :campaign_code)
     end
 end

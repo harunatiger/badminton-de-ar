@@ -21,7 +21,6 @@ csv_str = CSV.generate do |csv|
     'プランタイトル' => ->(host_profit_info){ host_profit_info[:listing_title] },
     'ガイドの収入' => ->(host_profit_info){ host_profit_info[:listing_price] },
     'サポートメンバーの収入' => ->(host_profit_info){ host_profit_info[:listing_price_for_support] },
-    '2人にかかる費用' => ->(host_profit_info){ host_profit_info[:listing_price_for_both_guides] },
     'オプション費用' => ->(host_profit_info){ host_profit_info[:listing_option_amount] },
     'ガイド料金' => ->(host_profit_info){ host_profit_info[:guide_amount] },
     'サービス料金（ゲスト）' => ->(host_profit_info){ host_profit_info[:service_fee_guest] },

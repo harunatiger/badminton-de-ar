@@ -84,6 +84,7 @@ $ ->
           }
         ).done (data) ->
           $('#reservation_detail_form').html(data)
+          console.log data
           # i'm stupid, hehe
           strfChange = $('.checkout').val()
           strfChange = strfChange.replace(/-/g, '/')
@@ -127,15 +128,21 @@ $ ->
         $('#reservation_detail_form #reservation_price').val('0')
         $('#reservation_detail_form #reservation_price_for_support').val('0')
         $('#reservation_detail_form #reservation_price_for_both_guides').val('0')
-        $('#reservation_detail_form #reservation_space_option').prop('checked', true)
-        $('#reservation_detail_form #reservation_space_option').parents('.collapse-trigger').next().collapse('show')
-        $('#reservation_detail_form #reservation_space_rental').val('0')
+        #$('#reservation_detail_form #reservation_space_option').prop('checked', true)
+        #$('#reservation_detail_form #reservation_space_option').parents('.collapse-trigger').next().collapse('show')
+        #$('#reservation_detail_form #reservation_space_rental').val('0')
         $('#reservation_detail_form #reservation_car_option').prop('checked', true)
         $('#reservation_detail_form #reservation_car_option').parents('.collapse-trigger').next().collapse('show')
         $('#reservation_detail_form #reservation_car_rental').val('0')
         $('#reservation_detail_form #reservation_gas').val('0')
         $('#reservation_detail_form #reservation_highway').val('0')
         $('#reservation_detail_form #reservation_parking').val('0')
+        $('#reservation_detail_form #reservation_bicycle_option').prop('checked', true)
+        $('#reservation_detail_form #reservation_bicycle_option').parents('.collapse-trigger').next().collapse('show')
+        $('#reservation_detail_form #reservation_bicycle_rental').val('0')
+        $('#reservation_detail_form #reservation_other_option').prop('checked', true)
+        $('#reservation_detail_form #reservation_other_option').parents('.collapse-trigger').next().collapse('show')
+        $('#reservation_detail_form #reservation_other_cost').val('0')
         $('#reservation_detail_form #reservation_guests_cost').val('0')
         $('#reservation_detail_form #reservation_included_guests_cost').val('')
         $('#reservation_detail_form #reservation_num_of_people').val('1')

@@ -212,14 +212,25 @@ class Reservation < ActiveRecord::Base
 
   def option_amount
     total = 0
-    if self.space_option
-      self.space_options.each do |option|
+    #if self.space_option
+    #  self.space_options.each do |option|
+    #    total += self[option]
+    #  end
+    #end
+
+    if self.car_option
+      self.car_options.each do |option|
         total += self[option]
       end
     end
 
-    if self.car_option
-      self.car_options.each do |option|
+    if self.bicycle_option
+      bicycle_per = self.bicycle_rental
+      total += bicycle_per * self.num_of_people
+    end
+
+    if self.other_option
+      self.other_options.each do |option|
         total += self[option]
       end
     end
@@ -329,6 +340,14 @@ class Reservation < ActiveRecord::Base
 
   def car_options
     ['car_rental', 'gas', 'highway', 'parking']
+  end
+
+  def bicycle_options
+    ['bicycle_rental']
+  end
+
+  def other_options
+    ['other_cost']
   end
 
   def before_weeks?

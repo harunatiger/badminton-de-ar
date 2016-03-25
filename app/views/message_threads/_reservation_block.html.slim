@@ -75,7 +75,7 @@
                 .col-md-8.strong
                   |¥
                   = @reservation.option_amount
-              - if @reservation.space_option
+              /- if @reservation.space_option
                 - space_options.each do |option|
                   - if @reservation[option] > 0
                     .row.row-condensed.row-space-1
@@ -86,6 +86,25 @@
                         = @reservation[option]
               - if @reservation.car_option
                 - car_options.each do |option|
+                  - if @reservation[option] > 0
+                    .row.row-condensed.row-space-1
+                      .col-md-3.text-left.text-muted.strong
+                        = I18n.t('option_price_en.' + option)
+                      .col-md-8.strong
+                        |¥
+                        = @reservation[option]
+              - if @reservation.bicycle_option
+                - num_of_people = @reservation.num_of_people
+                - bicycle_options.each do |option|
+                  - if @reservation[option] > 0
+                    .row.row-condensed.row-space-1
+                      .col-md-3.text-left.text-muted.strong
+                        = I18n.t('option_price_en.' + option)
+                      .col-md-8.strong
+                        |¥
+                        = @reservation[option] * num_of_people
+              - if @reservation.other_option
+                - other_options.each do |option|
                   - if @reservation[option] > 0
                     .row.row-condensed.row-space-1
                       .col-md-3.text-left.text-muted.strong
@@ -145,13 +164,17 @@
                 = f.hidden_field :price, value: @reservation.price
                 = f.hidden_field :price_for_support, value: @reservation.price_for_support
                 = f.hidden_field :price_for_both_guides, value: @reservation.price_for_both_guides
-                = f.hidden_field :space_option, value: @reservation.space_option
-                = f.hidden_field :space_rental, value: @reservation.space_rental
+                /= f.hidden_field :space_option, value: @reservation.space_option
+                /= f.hidden_field :space_rental, value: @reservation.space_rental
                 = f.hidden_field :car_option, value: @reservation.car_option
                 = f.hidden_field :car_rental, value: @reservation.car_rental
                 = f.hidden_field :gas, value: @reservation.gas
                 = f.hidden_field :highway, value: @reservation.highway
                 = f.hidden_field :parking, value: @reservation.parking
+                = f.hidden_field :bicycle_option, value: @reservation.bicycle_option
+                = f.hidden_field :bicycle_rental, value: @reservation.bicycle_rental
+                = f.hidden_field :other_option, value: @reservation.other_option
+                = f.hidden_field :other_cost, value: @reservation.other_cost
                 = f.hidden_field :guests_cost, value: @reservation.guests_cost
                 = f.hidden_field :included_guests_cost, value: @reservation.included_guests_cost
                 = f.hidden_field :num_of_people, value: @reservation.num_of_people

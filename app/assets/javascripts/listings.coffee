@@ -338,7 +338,7 @@ $ ->
   if $('body').hasClass('listings new') && $('#about-guide-tg').length
     $('#about-guide-tg').modal('show')
 
-  if $('body').hasClass('listings show') || $('body').hasClass('listing_details manage')
+  if $('body').hasClass('listings show') || $('body').hasClass('listing_details manage') || $('body').hasClass('listings preview')
 
     # price calc
     tourPriceSingleContainer = $('#tour-price-single')
@@ -377,6 +377,20 @@ $ ->
       priceCulc()
     $('#checkin').on 'changeDate', ->
       priceCulc()
+
+    $('#reservation_num_of_people').on 'change', ->
+      numOfPeople = Number($('#reservation_num_of_people option:selected').text())
+
+      basicPrice = Number($('#reservation_price').val()) + Number($('#reservation_price_for_support').val())
+      bycycleCost = Number($('#reservation_bicycle_rental').val()) * numOfPeople
+      carCost = Number($('#reservation_car_rental').val()) + Number($('#reservation_gas').val()) + Number($('#reservation_highway').val()) + Number($('#reservation_parking').val())
+      otherCost = Number($('#reservation_other_cost').val())
+      optionAmount = carCost + bycycleCost + otherCost
+      basicPrice = basicPrice + optionAmount
+      $('#tour-option-bicycle').text('¥' + bycycleCost)
+      $('#tour-option-amount').text('¥' + optionAmount)
+      $('#tour-basic-amount').text('¥' + basicPrice)
+
 
   if $('body').hasClass('listings preview')
     if $('.header--sp').css('display') == 'none'

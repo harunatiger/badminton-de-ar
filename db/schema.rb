@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160324180127) do
+ActiveRecord::Schema.define(version: 20160325010939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -632,9 +632,9 @@ ActiveRecord::Schema.define(version: 20160324180127) do
     t.integer  "guest_id"
     t.integer  "listing_id"
     t.datetime "schedule"
-    t.integer  "num_of_people",                                  default: 0,    null: false
+    t.integer  "num_of_people",                                  default: 0,     null: false
     t.text     "msg",                                            default: ""
-    t.integer  "progress",                                       default: 0,    null: false
+    t.integer  "progress",                                       default: 0,     null: false
     t.text     "reason",                                         default: ""
     t.datetime "review_mail_sent_at"
     t.datetime "review_expiration_date"
@@ -644,8 +644,8 @@ ActiveRecord::Schema.define(version: 20160324180127) do
     t.datetime "reply_landed_at"
     t.datetime "replied_at"
     t.datetime "review_opened_at"
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
     t.decimal  "time_required",          precision: 9, scale: 6, default: 0.0
     t.integer  "price",                                          default: 0
     t.string   "place",                                          default: ""
@@ -666,8 +666,10 @@ ActiveRecord::Schema.define(version: 20160324180127) do
     t.integer  "guests_cost",                                    default: 0
     t.text     "included_guests_cost",                           default: ""
     t.integer  "cancel_by",                                      default: 0
-    t.integer  "pair_guide_id"
-    t.integer  "pair_guide_status",                              default: 0
+    t.boolean  "bicycle_option",                                 default: false
+    t.integer  "bicycle_rental",                                 default: 0
+    t.boolean  "other_option",                                   default: false
+    t.integer  "other_cost",                                     default: 0
   end
 
   add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree
