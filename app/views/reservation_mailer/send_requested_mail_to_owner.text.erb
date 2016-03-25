@@ -20,10 +20,6 @@
   <%= @reservation.price %>円
 ■サポートメンバーの収入:
   <%= @reservation.price_for_support %>円
-■2人にかかる経費:
-  <%= @reservation.price_for_both_guides %>円
-■スペースレンタル代:
-  <%= @reservation.space_option? ? @reservation.space_rental : 0 %>円
 ■車両代:
   <%= @reservation.car_option? ? @reservation.car_rental : 0 %>円
 ■ガソリン代:
@@ -32,3 +28,7 @@
   <%= @reservation.car_option? ? @reservation.highway : 0 %>円
 ■パーキング代:
   <%= @reservation.car_option? ? @reservation.parking : 0 %>円
+■自転車レンタル代:
+  <%= @reservation.bicycle_option? ? @reservation.bicycle_rental : 0 %>円
+■その他オプション代:
+  <%= @reservation.other_option? ? @reservation.other_cost : 0 %>円

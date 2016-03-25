@@ -11,31 +11,32 @@
         | ツアーの条件
   .row.row-space-5.row-space-top-2.row-table
     .col-lg-5.text-left.col-middle
-      .h4.text-light
+      .h4.text-light.required-container
         | ツアーの所要時間（目安）
+        i.fa.fa-asterisk.balloon[title="required"]
     .col-lg-7.fieldset.col-middle
       .row
         .col-xs-11
-          .select.select-opt.opt-double.required-container
+          .select.select-opt.opt-double
             /= f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}, {}, {class: "value_fragile"}
             = f.select :time_required, set_time_required , {}, {class: "value_fragile"}
             span 時間
-            i.fa.fa-asterisk.balloon[title="required"]
 
   .row.row-space-8.row-space-top-5.row-table
     .col-lg-5.text-left.col-middle
-      .h4.text-light
+      .h4.text-light.required-container
         | ツアーの参加者
+        i.fa.fa-asterisk.balloon[title="required"]
     .col-lg-7.fieldset.col-middle
       .row
         .col-xs-11
           .select.select-opt
-            = f.select :min_num_of_people, [*(1..20)], {}, {class: "value_fragile"}
+            = f.select :min_num_of_people, [*(1..20)], {}, {class: ""}
             span 人から
-          .select.select-opt.select_max_num_of_people.required-container
-            = f.select :max_num_of_people, [*(1..20)], {}, {class: "value_fragile"}
+          .select.select-opt.select_max_num_of_people
+            = f.select :max_num_of_people, [*(1..20)], {}, {class: ""}
             span 人まで
-            i.fa.fa-asterisk.balloon[title="required"]
+
   /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
