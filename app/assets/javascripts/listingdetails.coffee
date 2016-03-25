@@ -41,9 +41,9 @@ $ ->
 
     previewHelp.css('top', '40px')
     actionHelp.css('top', previewHeight + 40 + 'px')
-    peopleHelp.css('top', previewHeight + actionHeight + 80 + 'px')
-    guidefeeHelp.css('top', previewHeight + actionHeight + peopleHeight + 80 + 'px')
-    optionfeeHelp.css('top', previewHeight + actionHeight + peopleHeight + guidefeeHeight + 80 + 'px')
+    peopleHelp.css('top', previewHeight + actionHeight + 120 + 'px')
+    guidefeeHelp.css('top', previewHeight + actionHeight + peopleHeight + 120 + 'px')
+    optionfeeHelp.css('top', previewHeight + actionHeight + peopleHeight + guidefeeHeight + 120 + 'px')
 
 
   if $('body').hasClass('listings edit') ||  $('body').hasClass('listings new')
