@@ -9,19 +9,16 @@
       .row-space-top-4
         h3.text-center.row-space-2 ツアーの動画と写真を追加しましょう。
         p.text-center.row-space-6
-          | ゲストに魅力をよく伝えるために、あなたのツアーをイメージできる素材を使うことをおすすめします。
-          br
-          | あなた自身が参加したいと思うようなツアーの動画や写真があれば完璧です。
-          br
-          | 動画については、iPhoneユーザーは
-          = link_to "https://itunes.apple.com/us/app/clipbox-1seccamera/id980538523?mt=8", target: "_blank" do
+          | ゲストに魅力をよく伝えるために、写真や動画を登録しましょう。
+          /| 動画については、iPhoneユーザーは
+          /= link_to "https://itunes.apple.com/us/app/clipbox-1seccamera/id980538523?mt=8", target: "_blank" do
             | 「1secCamera」
-          |、
-          br
-          | Androidユーザーは
-          = link_to "https://play.google.com/store/apps/details?id=net.rena.roadmovie.lite", target: "_blank" do
-            | 「SnapMovie (road movie maker)」
-          | のご利用を推奨しています。
+          /|、
+          /br
+          /| Androidユーザーは
+          /= link_to "https://play.google.com/store/apps/details?id=net.rena.roadmovie.lite", target: "_blank" do
+          /  | 「SnapMovie (road movie maker)」
+          /| のご利用を推奨しています。
       = render 'form'
     = render partial: 'shared/manage_listing_nav'
     = render partial: 'shared/modals/form_change_confirm'

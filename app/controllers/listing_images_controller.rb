@@ -1,6 +1,6 @@
 class ListingImagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_listing_image, only: [:update, :destroy]
+  before_action :set_listing_image, only: [:update, :destroy, :set_category]
   before_action :set_listing
   before_action :regulate_user, except: [:create]
 
@@ -23,6 +23,7 @@ class ListingImagesController < ApplicationController
     count = ListingImage.where(listing_id: @listing.id).size
     @listing_image.order_num = count + 1
     respond_to do |format|
+      format.js { @status = 'count_over' } if count > Settings.listing_images.max_count
       if @listing_image.save
         format.js { @status = 'success' }
       else
@@ -54,16 +55,6 @@ class ListingImagesController < ApplicationController
     end
   end
   
-  def destroy_cover_image
-    @listing.remove_cover_image!
-    @listing.save
-    @listing.unpublish_if_no_image
-    respond_to do |format|
-      format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listing_images.delete.success }
-      format.json { head :no_content }
-    end
-  end
-  
   def destroy_video
     @listing.remove_cover_video!
     @listing.save
@@ -83,7 +74,14 @@ class ListingImagesController < ApplicationController
       image_to.update(order_num: params[:image_from])
         
       @listing_images = listing.listing_images.order_asc
-      render partial: 'images_list', locals: { listing_images: @listing_images}
+      render partial: 'images_list', locals: { cover_video: listing.cover_video, listing_images: @listing_images}
+    end
+  end
+  
+  def set_category
+    if request.xhr?
+      result = @listing_image.set_category(params[:category])
+      return render text: result
     end
   end
 
@@ -101,7 +99,7 @@ class ListingImagesController < ApplicationController
     end
   
     def listing_params
-      params.require(:listing).permit(:cover_video, :cover_image)
+      params.require(:listing).permit(:cover_video)
     end
   
     def regulate_user

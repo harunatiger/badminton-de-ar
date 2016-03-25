@@ -1,5 +1,8 @@
 $ ->
   if $('body').hasClass('listing_images manage')
+    $('#listing_cover_video').filestyle input: false, buttonText: '動画を追加', size: "lg", iconName: "fa fa-cloud-upload", badge: false
+    $('#listing_image_new').filestyle input: false, buttonText: '画像を追加', size: "lg", iconName: "fa fa-cloud-upload", badge: false
+    
     $('.image-draggable').draggable(revert: 'invalid', scroll: true, zIndex: 1)
     $('.image-droppable').droppable(activeClass: 'image-drag-active', hoverClass: 'image-drag-hover', tolerance: 'touch')
 
@@ -36,19 +39,36 @@ $ ->
     $('#upload_video').submit()
     return
 
-  #upload cover_image
-  $(document).on 'change', '#listing_cover_image', ->
-    $('#upload_cover_image').submit()
-    return
-
   #upload image (new)
   $(document).on 'change', '#listing_image_new', ->
     $('#upload_image').submit()
     return
+  
+  image_index = 0
+  $(document).on 'click', '.set_listing_image_link', ->
+    image_index = $('.set_listing_image_link').index(this)
+    $('[id=set_listing_image]').eq(image_index).modal(
+      backdrop: 'static'
+    )
+    return false
 
-  #upload image (update)
-  $(document).on 'change', '[id^=update_listing_image]', ->
-    id = $(this).attr("id")
-    id_num = id.substr(id.length - 1)
-    $('#update_image' + id_num).submit()
-    return
+  category_index = 0
+  $(document).on 'click', '.set_category_link', ->
+    category_index = $('.set_category_link').index(this)
+    listing_image_id = $('.set_category_link').eq(category_index).attr("listing_image_id")
+    listing_id = $('#listing_id').val()
+    category = $('[id=category]').eq(category_index).val()
+    $.ajax(
+      type: 'POST'
+      url: '/listings/' + listing_id + '/listing_images/' + listing_image_id + '/set_category'
+      data: {
+        category: category
+      }
+    ).done (result) ->
+      if result == 'deleted'
+        $('.set_category_link').eq(category_index).removeClass 'listing_image_selected'
+      else if result == 'added'
+        $('.set_category_link').eq(category_index).addClass 'listing_image_selected'
+      else
+        console.log 'faile to update'
+    return false

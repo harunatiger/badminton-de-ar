@@ -30,20 +30,20 @@ module ApplicationHelper
   end
 
   def listing_cover_image_url(listing_id)
-    ci = Listing.find(listing_id)
-    if ci.cover_image.blank?
+    listing = Listing.find(listing_id)
+    if listing.cover.blank?
       return Settings.image.noimage.url
     else
-      return ci.cover_image
+      return listing.cover
     end
   end
 
   def listing_cover_image_thumb_url(listing_id)
-    ci = Listing.find(listing_id)
-    if ci.cover_image.blank?
+    listing = Listing.find(listing_id)
+    if listing.cover.blank?
       return Settings.image.noimage.url
     else
-      return ci.cover_image.thumb
+      return listing.cover.thumb
     end
   end
 
@@ -56,13 +56,8 @@ module ApplicationHelper
     end
   end
 
-  def listing_slider_url(listing, listing_images)
+  def listing_slider_url(listing_images)
     slider_images = []
-    if listing.cover_image.present?
-      slide = listing.cover_image.url.blank? ? '' : listing.cover_image.url
-      slider_images << slide
-    end
-
     if listing_images.present?
       listing_images.each do |listing_image|
         slide = listing_image.image.url.blank? ? '' : listing_image.image.url
@@ -606,5 +601,9 @@ module ApplicationHelper
       text.gsub!(url, sub_text)
     end
     return text
+  end
+  
+  def selected_category?(listing_image, category)
+    listing_image.category_list.present? and listing_image.category_list.include?(category)
   end
 end

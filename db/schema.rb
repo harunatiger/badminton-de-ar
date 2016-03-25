@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303175723) do
+ActiveRecord::Schema.define(version: 20160324180127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,6 +146,16 @@ ActiveRecord::Schema.define(version: 20160303175723) do
   add_index "favorite_users", ["from_user_id"], name: "index_favorite_users_on_from_user_id", using: :btree
   add_index "favorite_users", ["to_user_id"], name: "index_favorite_users_on_to_user_id", using: :btree
 
+  create_table "friendships", force: :cascade do |t|
+    t.integer  "friendable_id"
+    t.string   "friendable_type"
+    t.integer  "friend_id"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "blocker_id"
+  end
+
   create_table "help_categories", force: :cascade do |t|
     t.string   "name_ja"
     t.string   "name_en"
@@ -162,17 +172,16 @@ ActiveRecord::Schema.define(version: 20160303175723) do
 
   create_table "help_topics", force: :cascade do |t|
     t.integer  "help_category_id"
-    t.integer  "order_num",        default: 0
     t.string   "title_ja"
     t.string   "title_en"
     t.text     "body_ja"
     t.text     "body_en"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "order_num",        default: 0
   end
 
   add_index "help_topics", ["help_category_id"], name: "index_help_topics_on_help_category_id", using: :btree
-  add_index "help_topics", ["order_num"], name: "index_help_topics_on_order_num", using: :btree
 
   create_table "languages", force: :cascade do |t|
     t.string   "name"
@@ -232,12 +241,13 @@ ActiveRecord::Schema.define(version: 20160303175723) do
 
   create_table "listing_images", force: :cascade do |t|
     t.integer  "listing_id"
-    t.string   "image",       default: ""
+    t.string   "image",         default: ""
     t.integer  "order_num"
-    t.string   "caption",     default: ""
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.text     "description", default: ""
+    t.string   "caption",       default: ""
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.text     "description",   default: ""
+    t.string   "category_list", default: ""
   end
 
   add_index "listing_images", ["listing_id"], name: "index_listing_images_on_listing_id", using: :btree
@@ -346,9 +356,11 @@ ActiveRecord::Schema.define(version: 20160303175723) do
     t.boolean  "reply_from_host",   default: false
     t.boolean  "first_message",     default: true
     t.boolean  "noticemail_sended", default: false
+    t.integer  "reservation_id"
   end
 
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
+  add_index "message_threads", ["reservation_id"], name: "index_message_threads_on_reservation_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "message_thread_id",                  null: false
@@ -364,6 +376,7 @@ ActiveRecord::Schema.define(version: 20160303175723) do
     t.string   "attached_file"
     t.string   "attached_extension"
     t.string   "attached_name"
+    t.boolean  "friends_request",    default: false
   end
 
   add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id", using: :btree
@@ -526,9 +539,9 @@ ActiveRecord::Schema.define(version: 20160303175723) do
     t.string   "caption",     default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.string   "cover_image", default: ""
     t.integer  "order_num"
     t.boolean  "cover_flg",   default: false
+    t.string   "cover_image"
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree
@@ -645,12 +658,15 @@ ActiveRecord::Schema.define(version: 20160303175723) do
     t.integer  "guests_cost",                                    default: 0
     t.text     "included_guests_cost",                           default: ""
     t.integer  "cancel_by",                                      default: 0
+    t.integer  "pair_guide_id"
+    t.integer  "pair_guide_status",                              default: 0
   end
 
   add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree
   add_index "reservations", ["guest_id"], name: "index_reservations_on_guest_id", using: :btree
   add_index "reservations", ["host_id"], name: "index_reservations_on_host_id", using: :btree
   add_index "reservations", ["listing_id"], name: "index_reservations_on_listing_id", using: :btree
+  add_index "reservations", ["pair_guide_id"], name: "index_reservations_on_pair_guide_id", using: :btree
 
   create_table "review_replies", force: :cascade do |t|
     t.integer  "review_id"
@@ -763,7 +779,6 @@ ActiveRecord::Schema.define(version: 20160303175723) do
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["id"], name: "index_users_on_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
@@ -801,6 +816,7 @@ ActiveRecord::Schema.define(version: 20160303175723) do
   add_foreign_key "listings", "users"
   add_foreign_key "message_thread_users", "message_threads"
   add_foreign_key "message_thread_users", "users"
+  add_foreign_key "message_threads", "reservations"
   add_foreign_key "message_threads", "users", column: "host_id"
   add_foreign_key "messages", "message_threads"
   add_foreign_key "messages", "users", column: "from_user_id"
@@ -825,6 +841,7 @@ ActiveRecord::Schema.define(version: 20160303175723) do
   add_foreign_key "reservations", "listings"
   add_foreign_key "reservations", "users", column: "guest_id"
   add_foreign_key "reservations", "users", column: "host_id"
+  add_foreign_key "reservations", "users", column: "pair_guide_id"
   add_foreign_key "review_replies", "reviews"
   add_foreign_key "reviews", "listings"
   add_foreign_key "reviews", "reservations"

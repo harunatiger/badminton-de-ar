@@ -1,23 +1,20 @@
 #images_list
-  - listing_images.each_with_index do |listing_image, i|
-    .row.row-space-2.row-space-top-8.row-table
-      .col-xs-4.text-right.col-middle
-        .h4.text-light
-          |  現在の画像
-          = i + 1
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11.regist-pics
-            .image-droppable.image-draggable
-              .listing-image-container
-                div[style="background-image: url(#{listing_image.image.thumb})"]
-                = link_to listing_listing_image_path(listing_image.listing_id, listing_image), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
-                  i.fa.fa-trash
-    /.row.row-space-8.row-table
-      .col-xs-4.text-right.col-middle
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11.regist-pics
-            = simple_form_for([@listing, listing_image], html: { id: 'update_image' + i.to_s}, remote: true) do |f|
-              = f.hidden_field :listing_id, value: @listing.id
-              = f.file_field :image, as: :file, id: 'update_listing_image' + i.to_s
+  .row
+    .col-xs-12
+    - if cover_video.present?
+      .col-xs-4.regist-pics
+        .listing-video-container
+          = video_player src: { mp4: @listing.cover_video.encoded, webm: @listing.cover_video.encoded }, controls: true, width: "200", height: "120", id: "tour_movie"
+          = link_to destroy_video_listing_listing_images_path(@listing.id), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
+            i.fa.fa-trash
+    - listing_images.each_with_index do |listing_image, i|
+      .col-xs-4.regist-pics
+        .image-droppable.image-draggable
+          .listing-image-container
+            div[style="background-image: url(#{listing_image.image.thumb})"]
+            = link_to listing_listing_image_path(listing_image.listing_id, listing_image), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
+              i.fa.fa-trash
+          = link_to '#', class: 'set_listing_image_link' do
+            i.fa.fa-plus-circle
+            = listing_image.caption
+      = render partial: 'shared/modals/set_listing_image', locals: { listing: @listing, listing_image: listing_image}

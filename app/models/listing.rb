@@ -192,7 +192,7 @@ class Listing < ActiveRecord::Base
   def complete_steps
     result = []
     #result << Settings.left_steps.listing_image unless ListingImage.exists?(listing_id: self.id
-    result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_image.present? or self.cover_video.present?)
+    result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_video.present?)
     result << Settings.left_steps.listing_detail unless ListingDetail.exists?(listing_id: self.id)
     #result << Settings.left_steps.confection unless Confection.exists?(listing_id: self.id)
     #result << Settings.left_steps.tool unless Tool.exists?(listing_id: self.id)
@@ -211,7 +211,11 @@ class Listing < ActiveRecord::Base
   end
 
   def unpublish_if_no_image
-    self.unpublish if self.listing_images.blank? and self.cover_image.blank? and self.cover_video.blank?
+    self.unpublish if self.listing_images.blank? and self.cover_video.blank?
+  end
+    
+  def cover
+    self.listing_images.first.present? ? self.listing_images.first.image : ''
   end
 
   def dup_all

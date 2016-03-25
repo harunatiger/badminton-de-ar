@@ -1,0 +1,22 @@
+#set_listing_image.modal[role="dialog" aria-hidden="true" class='set_listing_image#{listing_image.id}']
+  .modal-table
+    .modal-cell
+      .modal-content
+        = simple_form_for([listing, listing_image], method: :patch, remote: true) do |f|
+          .card-header
+            | 写真にタグとコメントを設定すると、ゲストにツアーのよさが伝わります。
+          .card-body
+            - ListingImage.image_categories.each do |category|
+              = hidden_field_tag  :category, category[:title]
+              .col-xs-2
+                .media-round.media-photo.media-avatar.balloon(title=category[:title])
+                  - if selected_category?(listing_image, category[:title])
+                    = link_to "#", class: "set_category_link listing_image_selected", listing_image_id: listing_image.id do
+                      = image_tag category[:image], class: 'size60'
+                  - else
+                    = link_to "#", class: "set_category_link", listing_image_id: listing_image.id do
+                      = image_tag category[:image], class: 'size60'
+            = f.text_area :caption, rows: 6, placeholder: "写真にコメントをつけましょう"
+          .card-footer
+            = f.submit "設定する", class: "btn btn-primary"
+            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn btn-default"
