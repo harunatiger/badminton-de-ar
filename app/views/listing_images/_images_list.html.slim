@@ -1,34 +1,41 @@
 #images_list
   .row
-    .col-xs-12
-      - if cover_video.present?
-        .col-xs-4.regist-pics
-          .listing-video-container
-            = video_player src: { mp4: @listing.cover_video.encoded, webm: @listing.cover_video.encoded }, controls: true, width: "180", height: "120", id: "tour_movie"
-            = link_to destroy_video_listing_listing_images_path(@listing.id), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
-              i.fa.fa-trash
-      - listing_images.each_with_index do |listing_image, i|
-        .col-xs-4.regist-pics
-          .image-droppable.image-draggable
+    - if cover_video.present?
+      .col-lg-6.row-space-4.regist-pics
+        .listing-video-container
+          = video_player src: { mp4: @listing.cover_video.encoded, webm: @listing.cover_video.encoded }, controls: true, width: "100%", height: "240px", id: "tour_movie"
+          = link_to destroy_video_listing_listing_images_path(@listing.id), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
+            i.fa.fa-trash
+    - listing_images.each_with_index do |listing_image, i|
+      .col-lg-6.row-space-4.regist-pics
+        .image-droppable.image-draggable
+          .card
             .listing-image-container
               div[style="background-image: url(#{asset_path listing_image.image.thumb})"]
               = link_to listing_listing_image_path(listing_image.listing_id, listing_image), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
                 i.fa.fa-trash
-            = link_to '#', class: 'set_listing_image_link', listing_image_id: listing_image.id do
-              i.fa.fa-plus-circle
-              - if listing_image.caption.present?
-                = listing_image.caption
+            .category-container.text-right
+              - if listing_image.category.blank?
+                = link_to '#', class: 'set_listing_image_link small1', listing_image_id: listing_image.id do
+                  i.fa.fa-question.media-round
+                  | カテゴリーを設定する
               - else
-                | 写真にコメントをつけましょう
-            - if listing_image.category.blank?
-              = link_to '#', class: 'set_listing_image_link', listing_image_id: listing_image.id do
-                p
+                = link_to '#', class: 'set_listing_image_link', listing_image_id: listing_image.id do
+                  .media-avatar
+                    = image_tag listing_image.category_image, class: 'media-round size44'
+                  = image_category_display_name(listing_image.category)
+                  /= debug listing_image
+            .card-body
+              = link_to '#', class: 'set_listing_image_link set_listing_image_link_text small1 row-space-1', listing_image_id: listing_image.id do
+                - if listing_image.caption.present?
+                  = listing_image.caption
+                - else
                   i.fa.fa-plus-circle
-                  | 写真にカテゴリーを設定しましょう
-            - else
-              = image_tag listing_image.category_image, class: 'size50'
-        = render partial: 'shared/modals/set_listing_image', locals: { listing: @listing, listing_image: listing_image}
-      .col-xs-4.regist-pics
-        .listing-image-container
-          = link_to image_tag(Settings.image.noimage.url, class: 'add_image'), '#'
-      
+                  | 写真にコメントをつけましょう
+      = render partial: 'shared/modals/set_listing_image', locals: { listing: @listing, listing_image: listing_image}
+    .col-lg-6.row-space-4.regist-pics
+      = link_to '#', class: "add-image-link" do
+        i.fa.fa-image.row-space-2.row-space-top-8
+        span.h5.add-text
+          i.fa.fa-plus
+          |  Add image

@@ -1,16 +1,19 @@
-.form--sp
-  #hidden-form-id
-  = hidden_field_tag  :listing_id, @listing.id
-  .row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      = simple_form_for(@listing, url: upload_video_cover_image_listing_listing_images_url(@listing), html: { id: 'upload_video'}, method: 'POST', remote: true) do |f|
-        = f.file_field :cover_video, as: :file, class: "row-space-1"
-    .col-xs-4.text-right.col-middle
-      = simple_form_for([@listing, ListingImage.new(listing_id: @listing.id)], html: { id: 'upload_image'}, remote: true) do |f|
-        = f.hidden_field :listing_id, value: @listing.id
-        = f.file_field :image, as: :file, id: 'listing_image_new'
-  = render partial: 'images_list', locals: { cover_video: @listing.cover_video, listing_images: @listing_images}
-  hr
-  .row.row-space-top-6
-    .col-xs-9.col-offset-3.text-reset-center
-      = link_to "次のステップへ", manage_listing_listing_details_path(@listing), class: "btn btn-primary btn-large"
+.row
+  .col-lg-10.col-lg-offset-1
+    #hidden-form-id
+    = hidden_field_tag  :listing_id, @listing.id
+    .row.row-condensed.row-space-5.add-listing-images
+      .col-xs-6.add-listing-images-movie
+        = simple_form_for(@listing, url: upload_video_cover_image_listing_listing_images_url(@listing), html: { id: 'upload_video'}, method: 'POST', remote: true) do |f|
+          = f.file_field :cover_video, as: :file, class: ""
+      .col-xs-6.add-listing-images-image
+        = simple_form_for([@listing, ListingImage.new(listing_id: @listing.id)], html: { id: 'upload_image'}, remote: true) do |f|
+          = f.hidden_field :listing_id, value: @listing.id
+          = f.file_field :image, as: :file, id: 'listing_image_new'
+
+  .col-md-12
+    = render partial: 'images_list', locals: { cover_video: @listing.cover_video, listing_images: @listing_images}
+    hr
+    .row.row-space-top-6
+      .col-xs-9.col-offset-3.text-reset-center
+        = link_to "次のステップへ", manage_listing_listing_details_path(@listing), class: "btn btn-primary btn-large"

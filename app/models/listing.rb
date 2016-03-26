@@ -35,9 +35,6 @@
 #  recommend2              :string           default("")
 #  recommend3              :string           default("")
 #  soft_destroyed_at       :datetime
-#  interview1              :string           default("")
-#  interview2              :string           default("")
-#  interview3              :string           default("")
 #
 # Indexes
 #

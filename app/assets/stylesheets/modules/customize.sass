@@ -774,8 +774,8 @@ body.paper
       display: table-cell
 
 .listing_image_selected
-  opacity: 0.5
-    
+  //opacity: 0.5
+
 /* Style Star Rating Widget
   ================================================================================ */
 
@@ -1299,7 +1299,7 @@ body.paper
 
 .listing-video-container
   position: relative
-  display: inline-block
+  display: block
   .delete-image
     display: block
     position: absolute
@@ -1319,6 +1319,36 @@ body.paper
   &:hover
     .delete-image
       opacity: 1
+
+.regist-pics
+  .image-droppable
+    width: 100%
+  .card
+    height: 240px
+    .card-body
+      padding: 12px
+    .listing-image-container
+      display: block
+      div
+        width: 100%
+        margin: 0 auto
+        border: 0
+        border-radius: 0
+    .set_listing_image_link
+      display: block
+      overflow: hidden
+    .set_listing_image_link_text
+      display: block
+      /* Fallback for non-webkit
+      display: -webkit-box
+      height: 56px
+      /* Fallback for non-webkit
+      line-height: 1.4
+      -webkit-line-clamp: 3
+      -webkit-box-orient: vertical
+      overflow: hidden
+      text-overflow: ellipsis
+
 
 /* calendar (listings/calendar)
   ================================================================================ */
@@ -2158,5 +2188,3 @@ body.paper
         margin: 0
         ul
           margin: 0
-
-

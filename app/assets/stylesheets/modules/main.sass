@@ -1440,6 +1440,94 @@ $lines-to-show: 2
     > div
       opacity: 0.8
 
+.add-listing-images
+  .bootstrap-filestyle
+    width: 100%
+    margin: 0 auto
+    .btn
+      display: block
+      padding-top: 12px
+      padding-bottom: 12px
+      @media (max-width: 767px)
+        font-size: 14px
+  .add-listing-images-movie, .add-listing-images-image
+    @media (max-width: 767px)
+      padding: 0 4px
+  .add-listing-images-movie
+    .fa-cloud-upload
+      &::before
+        content: "\f1c8"
+        font-family: 'fontAwesome'
+        font-size: 20px
+  .add-listing-images-image
+    .fa-cloud-upload
+      &::before
+        content: "\f1c5"
+        font-family: 'fontAwesome'
+        font-size: 20px
+
+.category-container
+  position: relative
+  height: 32px
+  line-height: 32px
+  padding: 0 7px 0 50px
+  background-color: $bg1
+  .media-avatar, .fa-question
+    position: absolute
+    top: -16px
+    left: 5px
+  .fa-question
+    width: 44px
+    height: 44px
+    line-height: 40px
+    margin: 0
+    color: white
+    font-size: 30px
+    text-align: center
+    background-color: $border1
+
+.add-image-link
+  display: block
+  height: 240px
+  text-align: center
+  background-color: white
+  border: 1px solid $border1
+  &:hover
+    text-decoration: none
+    background-color: $bg1
+  .fa-image
+    display: block
+    color: $border1
+    font-size: 74px
+
+.category-modal
+  .modal-lg
+    .modal-content
+      .card-body
+        img
+          float: none
+          width: 100%
+          height: auto
+          border-radius: 50%
+
+.listing_image_selected
+  display: block
+  position: relative
+  .fa-check
+    display: block
+    position: absolute
+    top: 0px
+    right: 0px
+    width: 32px
+    height: 32px
+    line-height: 28px
+    color: white
+    font-size: 18px
+    text-align: center
+    background-color: $green1
+    border: 2px solid white
+    border-radius: 50%
+
 /* tag cloud */
 .css1
   font-size: 1.0em
