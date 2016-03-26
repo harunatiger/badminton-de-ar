@@ -1,5 +1,9 @@
 - slider_images = listing_slider_url(listing_images)
 - favorite_count = favorite_listings_count(listing.id)
+
+/- listing_images.each do |listing_image|
+  = debug listing_image.caption
+
 .listing
   #slider-wrapper.with-photos.with-modal
     - if slider_images.length < 3
@@ -9,9 +13,8 @@
             .sp-slides
               - slider_images.each do |slider_image|
                 .sp-slide
-                  = link_to "#{slider_image}", class:"slider-popup" do
+                  = link_to "#{slider_image}", class:"slider-popup", data: {source: "#{asset_path('apple-touch-icon.png')}"}, title: "nice and easy.nice and easy.nice and easy.nice and easy.nice and easy.nice and easy.nice and easy.nice and easy.nice and easy." do
                     img.sp-image[src="#{slider_image}" data-src="#{slider_image}"]
-
     - else
       #listing_slider-carousel.slider-pro
         .sp-slides-container
@@ -19,7 +22,7 @@
             .sp-slides
               - slider_images.each do |slider_image|
                 .sp-slide
-                  = link_to "#{slider_image}", class:"slider-popup" do
+                  = link_to "#{slider_image}", class:"slider-popup", data: {source: "#{asset_path('apple-touch-icon.png')}"}, title: "nice and easy.nice and easy.nice and easy.nice and easy.nice and easy.nice and easy.nice and easy.nice and easy.nice and easy." do
                     img.sp-image[src="#{slider_image}" data-src="#{slider_image}"]
 
   /#photos.with-photos.with-modal
