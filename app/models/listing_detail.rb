@@ -33,6 +33,11 @@
 #  guests_cost           :integer          default(0)
 #  included_guests_cost  :text             default("")
 #  stop_if_rain          :boolean          default(FALSE)
+#  bicycle_option        :boolean          default(FALSE)
+#  bicycle_rental        :integer          default(0)
+#  other_option          :boolean          default(FALSE)
+#  other_cost            :integer          default(0)
+#  register_detail       :boolean          default(FALSE)
 #
 # Indexes
 #

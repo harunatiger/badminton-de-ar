@@ -43,6 +43,10 @@
 #  cancel_by              :integer          default(0)
 #  pair_guide_id          :integer
 #  pair_guide_status      :integer          default(0)
+#  bicycle_option         :boolean          default(FALSE)
+#  bicycle_rental         :integer          default(0)
+#  other_option           :boolean          default(FALSE)
+#  other_cost             :integer          default(0)
 #
 # Indexes
 #
