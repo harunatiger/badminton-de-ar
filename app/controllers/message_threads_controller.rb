@@ -47,7 +47,7 @@ class MessageThreadsController < ApplicationController
     @message_thread.message_thread_users.build(user_id: @message_thread.host_id)
     respond_to do |format|
       if @message_thread.save
-        format.html { redirect_to @message_thread}
+        format.html { redirect_to message_thread_path(@message_thread.id)}
         format.json { render :show, status: :created, location: @message_thread }
       else
         format.html { render :new }
@@ -103,6 +103,6 @@ class MessageThreadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_thread_params
-      params.require(:message_thread).permit(:id, :host_id)
+      params.require(:message_thread).permit(:id, :host_id, :type)
     end
 end
