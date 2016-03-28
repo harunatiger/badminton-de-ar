@@ -72,13 +72,15 @@ $ ->
         data: {category: category}
         success: (data) ->
           old_index = (Number data) + (Number category_index)
+          $('.set_category_link').eq(old_index).children("i").remove()
           $('.set_category_link').eq(old_index).removeClass 'listing_image_selected'
+          $('.set_category_link').eq(category_index).append("<i class='fa fa-check'></i>")
           $('.set_category_link').eq(category_index).addClass 'listing_image_selected'
           return false
         error: ->
           return false
       return
 
-    $(document).on 'click', '.add_image', ->
+    $(document).on 'click', '.add-image-link', ->
       $('#listing_image_new').trigger 'click'
       return false
