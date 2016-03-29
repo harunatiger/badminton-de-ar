@@ -11,7 +11,7 @@
                 - ListingImage.image_categories.each do |category|
                   = hidden_field_tag  :category, category[:title]
                   .col-sm-3.col-md-2.row-space-2
-                    .media-round.media-photo.media-avatar.balloon(title=image_category_display_name(category[:title]))
+                    .set_category_container.media-round.media-photo.media-avatar.balloon(title=image_category_display_name(category[:title]))
                       - if listing_image.category == category[:title]
                         = link_to "#", class: "set_category_link listing_image_selected", listing_image_id: listing_image.id do
                           = image_tag category[:image]
@@ -21,6 +21,9 @@
                           = image_tag category[:image]
               .row
                 .col-md-12
+                  p.row-space-1.small1.text-red
+                    i.fa.fa-exclamation-triangle
+                    |  入力は英語・半角100文字以内で行ってください。
                   = f.text_area :caption, rows: 4, placeholder: "例）長谷寺の大仏です。大きさにびっくりすると思いますよ！"
             .card-footer
               = f.submit "設定する", class: "btn btn-primary"
