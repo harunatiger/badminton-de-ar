@@ -61,12 +61,8 @@
         = link_to "#", class: "" do
           |  Help
       li.list-your-thing.pull-left
-        -if user_signed_in? and current_user.guest?
-          = link_to Settings.page.listing_new, listings_path, class: "btn btn-become-a-guide"
-        - elsif !user_signed_in?
+        - if !user_signed_in?
           = link_to Settings.page.listing_new, "#guide_request", class: "guide_request btn btn-become-a-guide", data: { toggle: "modal" }
-          = render partial: 'shared/modals/guide_request'
-          = render partial: 'shared/modals/guide_request2'
     - if user_signed_in?
       ul.nav.pull-right
         li.pull-left
@@ -88,9 +84,9 @@
           ul.user-nav.dropdown-menu.dropdown-menu-top-right
             li
               = link_to Settings.page.dashboard, dashboard_path, rel: "nofollow"
-            li
-              /= link_to Settings.page.listings, current_user.listings.blank? ? new_listing_path : edit_listing_path(current_user.listings[0].id), rel: "nofollow"
-              = link_to Settings.page.listings, listings_path, rel: "nofollow"
+            - if current_user.main_guide?
+              li
+                = link_to Settings.page.listings, listings_path, rel: "nofollow"
             - if !current_user.guest?
               li
                 = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, rel: "nofollow"
@@ -122,3 +118,7 @@
         li#login.pull-left
           = link_to new_user_session_path, rel: "nofollow" do
             = Settings.page.login
+
+- if !user_signed_in? or current_user.guest?
+  = render partial: 'shared/modals/guide_request'
+  = render partial: 'shared/modals/guide_request2'
