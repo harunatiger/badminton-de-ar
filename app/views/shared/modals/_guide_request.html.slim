@@ -1,9 +1,8 @@
-/ modal about_cancel
-= simple_form_for(PreMail.new) do |f|
-  #guide_request.modal[role="dialog" aria-hidden="true"]
-    .modal-table
-      .modal-cell
-        .modal-content
+#guide_request.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        = simple_form_for(PreMail.new, remote: true) do |f|
           .card-header
             = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
             | ガイド申請
@@ -29,5 +28,7 @@
                   .row-space-3
                     = f.input_field :first_name, placeholder: "太郎"
             .card-footer
-              = f.submit '登録する', class: 'btn btn-primary'
+              .btn-frame
+                = f.submit '登録する', class: 'btn btn-primary'
+                .spinner
               = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

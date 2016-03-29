@@ -14,12 +14,13 @@
       - else
         li
           = link_to Settings.page.messages, message_threads_path
-      - if controller_name =="listings" || controller_name =="listing_images" || controller_name =="calendar"
-        li.active
-          = link_to Settings.page.listings, listings_path
-      - else
-        li
-          = link_to Settings.page.listings, listings_path
+      - if current_user.main_guide?
+        - if controller_name =="listings" || controller_name =="listing_images" || controller_name =="calendar" || controller_name =="listing_details"
+          li.active
+            = link_to Settings.page.listings, listings_path
+        - else
+          li
+            = link_to Settings.page.listings, listings_path
       - if !current_user.guest?
         - if action_name =="host_reservation_manager"
           li.active

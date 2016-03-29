@@ -8,16 +8,14 @@
     - if @listings.blank?
       .col-md-9
         .card
-          /.card-body
-            h3
-              | ガイドするツアーがありません。
-            p.text-lead.row-space-4
-              | あなたのガイドを待っているゲストがいます。
-              br
-              | ガイドになってたくさんの出会いを楽しみましょう。
-            = link_to new_listing_path, class: "btn btn-host" do
-              | Become a guide
           .card-body
+            h3
+              | あなたのこだわりのツアーを登録しましょう！
+            p.text-lead.row-space-4
+              | Create a new tour を押すとはじめてツアーを作成する方への案内の後、ツアー作成画面が表示されます。
+              br
+              | ツアー登録は途中で保存することもできますので、まずは気軽に登録に進んでみましょう。
+          /.card-body
             - if @pre_mail.present?
               h3
                 | ガイド申請を受付けました。
