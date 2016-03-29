@@ -96,6 +96,7 @@ class Listing < ActiveRecord::Base
   #validates :latitude, presence: true
   #validates :price, presence: true
   validates :title, presence: true
+  validates :overview, presence: true
   #validates :description, presence: true
   #validates :capacity, presence: true
   validates_each :cover_video do |record, attr, value|
@@ -196,13 +197,21 @@ class Listing < ActiveRecord::Base
 
   def complete_steps
     result = []
-    #result << Settings.left_steps.listing_image unless ListingImage.exists?(listing_id: self.id
-    result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_video.present?)
-    result << Settings.left_steps.listing_detail if ListingDetail.where(listing_id: self.id).pluck(:register_detail).first == false
-    #result << Settings.left_steps.listing_detail unless ListingDetail.exists?(listing_id: self.id)
-    #result << Settings.left_steps.confection unless Confection.exists?(listing_id: self.id)
-    #result << Settings.left_steps.tool unless Tool.exists?(listing_id: self.id)
-    #result << Settings.left_steps.dress_code unless DressCode.exists?(listing_id: self.id)
+    if self.id.nil?
+      result << Settings.left_steps.listing
+      result << Settings.left_steps.listing_detail
+      result << Settings.left_steps.listing_image
+    else
+      listing = Listing.find(self.id)
+      listing_detail = ListingDetail.where(listing_id: self.id).first
+      result << Settings.left_steps.listing if listing.title.blank? || listing.overview.blank?
+      result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_video.present?)
+      if listing_detail.present?
+        result << Settings.left_steps.listing_detail if listing_detail.time_required == 0.0
+      else
+        result << Settings.left_steps.listing_detail
+      end
+    end
     result
   end
 

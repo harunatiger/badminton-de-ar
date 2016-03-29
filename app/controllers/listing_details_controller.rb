@@ -57,7 +57,8 @@ class ListingDetailsController < ApplicationController
         format.html { redirect_to listing_calendar_index_path(@listing), notice: Settings.listing_details.save.success }
         format.json { render :show, status: :ok, location: @listing_detail }
       else
-        flash.now[:alert] = Settings.listing_details.save.failure
+        flash.now[:alert] = @listing_detail.errors.full_messages[0]
+        #flash.now[:alert] = Settings.listing_details.save.failure
         format.html { render 'manage' }
         format.json { render json: @listing_detail.errors, status: :unprocessable_entity }
       end

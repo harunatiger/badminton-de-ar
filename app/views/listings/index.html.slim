@@ -80,7 +80,7 @@
                           .state.state-danger
                             | Unpublished
                       .h4
-                        = link_to listing, class: "text-normal trans" do
+                        = link_to listing_preview_path(listing), class: "text-normal trans" do
                           = listing.title
                     .col-md-12.col-lg-4
                       .pull-right.pull-change

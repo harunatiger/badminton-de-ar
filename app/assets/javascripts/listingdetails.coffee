@@ -45,8 +45,11 @@ $ ->
     guidefeeHelp.css('top', previewHeight + actionHeight + peopleHeight + 120 + 'px')
     optionfeeHelp.css('top', previewHeight + actionHeight + peopleHeight + guidefeeHeight + 120 + 'px')
 
+  if $('body').hasClass('listings edit') ||  $('body').hasClass('listings new') || $('body').hasClass('listings create')
+    $elementReference = document.getElementById( "listing_notes" )
+    $placeholder = '例）山道を歩くので、スニーカーなど動きやすい靴や動きやすい格好でお越しください。' + "\n" + '例）肉料理が出るので、ベジタリアンの方はあらかじめご連絡ください。'
+    $elementReference.placeholder = $placeholder
 
-  if $('body').hasClass('listings edit') ||  $('body').hasClass('listings new')
     $('.listing-manager-area-container').text('')
     areas = []
     $('[name="listing[pickup_ids][]"]:checked').each ->
@@ -226,7 +229,7 @@ $ ->
     return
 
 
-  if $('body').hasClass('listing_details manage')
+  if $('body').hasClass('listing_details manage') || $('body').hasClass('listing_details update')
 
     helpScrollManage()
 

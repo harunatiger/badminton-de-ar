@@ -1,11 +1,11 @@
 class ListingsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :search, :preview]
+  before_action :authenticate_user!, except: [:index, :show, :search]
   #before_action :check_listing_status, only: [:index, :search]
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite_listing]
   before_action :set_listing_obj, only: [:publish, :unpublish, :copy, :preview]
   before_action :set_listing_related_data, only: [:show, :edit, :preview]
   before_action :set_message_thread, only: [:show]
-  before_action :regulate_user, except: [:new, :index, :create, :show, :search, :favorite_listing, :preview]
+  before_action :regulate_user, except: [:new, :index, :create, :show, :search, :favorite_listing]
   before_action :deleted_or_open_check, only: [:show, :edit]
   #before_action :set_favorite,  only: [:destroy]
 
@@ -57,13 +57,14 @@ class ListingsController < ApplicationController
   # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
+    @listing.listing_detail.register_detail = false
     #if @listing.set_lon_lat
     respond_to do |format|
       if @listing.save
         format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
       else
-        @categories = PickupCategory.all
-        @tags = PickupTag.all
+        #@categories = PickupCategory.all
+        #@tags = PickupTag.all
         @areas = PickupArea.all
         flash.now[:alert] = Settings.listings.save.failure
         format.html { render :new}
@@ -80,6 +81,7 @@ class ListingsController < ApplicationController
   def update
     #@listing.location = listing_params['location']
     #if @listing.set_lon_lat
+    @listing.listing_detail.register_detail = false
     respond_to do |format|
       if @listing.update(listing_params)
           format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }

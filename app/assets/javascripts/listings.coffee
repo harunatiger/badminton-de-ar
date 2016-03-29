@@ -2,7 +2,7 @@
 $ ->
 
   # listings#new
-  if $('body').hasClass('listing_details manage')
+  if $('body').hasClass('listing_details manage') || $('body').hasClass('listing_details update')
     car1 = Number($('#listing_detail_car_rental').val())
     car2 = Number($('#listing_detail_gas').val())
     car3 = Number($('#listing_detail_highway').val())
@@ -700,8 +700,8 @@ $ ->
         $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').hide()
         $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').removeClass('show-off')
       else
-        $('.manage-listing-detail, .close-layer--sp').hide()
-        $('.manage-listing-detail, .close-layer--sp').removeClass('show-off')
+        $('.manage-listing-nav, .close-layer--sp').hide()
+        $('.manage-listing-nav, .close-layer--sp').removeClass('show-off')
       return false
 
   # sp listing manager 2
@@ -722,6 +722,15 @@ $ ->
         $('.manage-listing-detail, .close-layer--sp').addClass('show-off')
       ), 100
       return false
+    # close layer
+    $('.close-layer--sp').on 'click', ->
+      if $('.manage-listing-detail').css('display') == "block"
+        $('.manage-listing-detail, .remove-listing-btn, .close-layer--sp').hide()
+        $('.manage-listing-detail, .remove-listing-btn, .close-layer--sp').removeClass('show-off')
+      else
+        $('.manage-listing-detail, .close-layer--sp').hide()
+        $('.manage-listing-detail, .close-layer--sp').removeClass('show-off')
+      return false
 
   # sp listing manager 3
   if $('.edit-help--sp').length && $('.edit-help--sp').css('display') == "block"
@@ -735,11 +744,14 @@ $ ->
         $('.manage-listing-edit, .close-layer--sp').addClass('show-off')
       ), 100
       return false
-    # close layer
+  # close layer
     $('.close-layer--sp').on 'click', ->
       if $('.manage-listing-edit').css('display') == "block"
         $('.manage-listing-edit, .remove-listing-btn, .close-layer--sp').hide()
         $('.manage-listing-edit, .remove-listing-btn, .close-layer--sp').removeClass('show-off')
+      else
+        $('.manage-listing-edit, .close-layer--sp').hide()
+        $('.manage-listing-edit, .close-layer--sp').removeClass('show-off')
       return false
 
   ###
