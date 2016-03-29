@@ -23,7 +23,7 @@ class ListingImage < ActiveRecord::Base
   mount_uploader :image, DefaultImageUploader
   attr_accessor :image_blank_ok
   
-  validates :caption, length: { maximum: 200, length:200}
+  validates :caption, length: { maximum: 100, length:100}
 
   scope :slideshow_images, -> id { where(listing_id: id) }
   scope :order_asc, -> { order('order_num asc') }
@@ -52,7 +52,8 @@ class ListingImage < ActiveRecord::Base
     ListingImage.image_categories.each_with_index do |category, i|
       if new_category == category[:title]
         new_coutn = i
-      elsif old_category == category[:title]
+      end
+      if old_category == category[:title]
         old_count = i
       end
     end

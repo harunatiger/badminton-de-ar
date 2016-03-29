@@ -21,7 +21,7 @@
                           = image_tag category[:image]
               .row
                 .col-md-12
-                  = f.text_area :caption, rows: 4, placeholder: "写真にコメントをつけましょう(半角100文字程度)"
+                  = f.text_area :caption, rows: 4, placeholder: "例）長谷寺の大仏です。大きさにびっくりすると思いますよ！"
             .card-footer
               = f.submit "設定する", class: "btn btn-primary"
               = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn btn-default"

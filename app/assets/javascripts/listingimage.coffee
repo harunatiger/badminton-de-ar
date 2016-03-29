@@ -6,7 +6,12 @@ $ ->
     imageHelp.css('top', '300px')
     
     #change file button style
-    $('#listing_cover_video').filestyle input: false, buttonText: '動画を追加', size: "lg", iconName: "fa fa-cloud-upload", badge: false
+    video_button_text = ""
+    if $('#tour_movie').length == 0
+      video_button_text = '動画を追加'
+    else
+      video_button_text = '動画を変更'
+    $('#listing_cover_video').filestyle input: false, buttonText: video_button_text, size: "lg", iconName: "fa fa-cloud-upload", badge: false
     $('#listing_image_new').filestyle input: false, buttonText: '画像を追加', size: "lg", iconName: "fa fa-cloud-upload", badge: false
     $('#listing_image_new_footer').filestyle input: false, buttonText: '画像を追加', size: "lg", iconName: "fa fa-cloud-upload", badge: false
     
@@ -72,10 +77,14 @@ $ ->
         data: {category: category}
         success: (data) ->
           old_index = (Number data) + (Number category_index)
-          $('.set_category_link').eq(old_index).children("i").remove()
-          $('.set_category_link').eq(old_index).removeClass 'listing_image_selected'
-          $('.set_category_link').eq(category_index).append("<i class='fa fa-check'></i>")
-          $('.set_category_link').eq(category_index).addClass 'listing_image_selected'
+          if (Number data) == 0
+            $('.set_category_link').eq(category_index).children("i").remove()
+            $('.set_category_link').eq(category_index).removeClass 'listing_image_selected'
+          else
+            $('.set_category_link').eq(old_index).children("i").remove()
+            $('.set_category_link').eq(old_index).removeClass 'listing_image_selected'
+            $('.set_category_link').eq(category_index).append("<i class='fa fa-check'></i>")
+            $('.set_category_link').eq(category_index).addClass 'listing_image_selected'
           return false
         error: ->
           return false

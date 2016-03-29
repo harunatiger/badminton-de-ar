@@ -31,7 +31,7 @@
                   = listing_image.caption
                 - else
                   i.fa.fa-plus-circle
-                  | 写真にコメントをつけましょう(半角100文字程度)
+                  | 写真に説明を付ける
       = render partial: 'shared/modals/set_listing_image', locals: { listing: @listing, listing_image: listing_image}
     .col-lg-6.row-space-4.regist-pics
       = link_to '#', class: "add-image-link" do
