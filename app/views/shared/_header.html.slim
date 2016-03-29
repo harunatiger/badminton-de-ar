@@ -66,6 +66,7 @@
         - elsif !user_signed_in?
           = link_to Settings.page.listing_new, "#guide_request", class: "guide_request btn btn-become-a-guide", data: { toggle: "modal" }
           = render partial: 'shared/modals/guide_request'
+          = render partial: 'shared/modals/guide_request2'
     - if user_signed_in?
       ul.nav.pull-right
         li.pull-left
