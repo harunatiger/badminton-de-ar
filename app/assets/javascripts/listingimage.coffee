@@ -12,8 +12,8 @@ $ ->
     else
       video_button_text = '動画を変更'
     $('#listing_cover_video').filestyle input: false, buttonText: video_button_text, size: "lg", iconName: "fa fa-cloud-upload", badge: false
-    $('#listing_image_new').filestyle input: false, buttonText: '画像を追加', size: "lg", iconName: "fa fa-cloud-upload", badge: false
-    $('#listing_image_new_footer').filestyle input: false, buttonText: '画像を追加', size: "lg", iconName: "fa fa-cloud-upload", badge: false
+    $('#listing_image_new').filestyle input: false, buttonText: '写真を追加', size: "lg", iconName: "fa fa-cloud-upload", badge: false
+    $('#listing_image_new_footer').filestyle input: false, buttonText: '写真を追加', size: "lg", iconName: "fa fa-cloud-upload", badge: false
     
     # drag and drop
     $('.image-draggable').draggable(revert: 'invalid', scroll: true, zIndex: 1)

@@ -5,7 +5,7 @@
         .modal-content
           = simple_form_for([listing, listing_image], method: :patch, remote: true) do |f|
             .card-header
-              | 写真にタグとコメントを設定すると、ゲストにツアーのよさが伝わります。
+              | 写真にカテゴリとコメントを設定すると、ゲストにツアーのよさが伝わります。
             .card-body
               .row.row-space-4
                 - ListingImage.image_categories.each do |category|
