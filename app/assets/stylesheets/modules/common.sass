@@ -2403,6 +2403,8 @@ select
     font-size: 16px
     &:hover, &:focus
       text-decoration: none
+  a.link-disabled
+    color: $lightgray1
 .nav-active
   font-weight: 700
   background-color: $bg1
@@ -2416,15 +2418,17 @@ select
 .listing-help-sp-wrapper
   display: none
   @media (max-width: 767px)
-    display: block !important
-    background: $bg4
-    width: 50px
-    height: 50px
-    border-radius: 50px
-    padding: 5px
+    display: block
     position: fixed
-    bottom: 30px
-    right: 10px
+    top: 7px
+    right: 6px
+    width: 32px
+    height: 32px
+    line-height: 30px
+    text-align: center
+    background-color: $brand-theme
+    border-radius: 50%
+    z-index: 2
 .edit-help--sp
   display: none
   @media (max-width: 767px)
@@ -2448,6 +2452,9 @@ select
     padding: 2px
     &:hover
       text-decoration: none
+  a.disable-item
+    border: solid 1px $lightgray1
+    color: $lightgray1
 .nav-active-sp
   a
     border: solid 1px $brand-theme

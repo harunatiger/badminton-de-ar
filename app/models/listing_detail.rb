@@ -54,6 +54,7 @@ class ListingDetail < ActiveRecord::Base
   before_save :set_price
 
   validates :listing_id, uniqueness: true
+  validates :time_required, numericality: {greater_than: 0.0}, on: :update, if: 'register_detail?'
 
   def set_lon_lat
     hash = Hash.new

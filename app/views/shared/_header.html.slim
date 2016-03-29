@@ -4,8 +4,8 @@
       i.fa.fa-reorder
     .title--sp.text-center
       = link_to "", root_path, class: "header-logo"
-    - if controller_name == "listings" && action_name == "edit" || controller_name == "listing_images" && action_name == "manage" || controller_name == "listing_details" && action_name == "manage" || controller_name == "calendar" && action_name == "index"
-      = link_to "#", class: "info--sp" do
+    - if controller_name == "listings" && action_name == "edit" || controller_name == "listing_images" && action_name == "manage" || controller_name == "listing_details" && action_name == "manage" || controller_name == "calendar" && action_name == "index" || controller_name == "listing_details" && action_name == "update" || controller_name == "listing_details" && action_name == "new" || controller_name == "listings" && action_name == "update" || controller_name == "listings" && action_name == "new" || controller_name == "listings" && action_name == "create"
+      /= link_to "#", class: "info--sp" do
         i.fa.fa-info
       = link_to "#", class: "close-layer--sp" do
         i.fa.fa-times

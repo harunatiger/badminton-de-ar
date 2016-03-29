@@ -11,5 +11,6 @@
       .col-lg-4.col-right
         = render partial: 'request_block', locals: { listing: @listing }
         = render partial: 'option_info', locals: { listing_detail: @listing.listing_detail }
-= render partial: '/shared/modals/include_what', locals: { included_guests_cost: @listing.listing_detail.included_guests_cost }
+-if @listing.listing_detail.present?
+  = render partial: '/shared/modals/include_what', locals: { included_guests_cost: @listing.listing_detail.included_guests_cost }
 /= render partial: '/shared/modals/pair_guide_list'

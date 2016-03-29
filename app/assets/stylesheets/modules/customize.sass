@@ -1177,6 +1177,8 @@ body.paper
       //  #listing_area
       //    line-height: 1.3
       //    font-size: 16px
+  .listing-description
+    word-break: break-word
 .listings.preview
   .listing
     position: relative
@@ -1240,6 +1242,8 @@ body.paper
           text-align: center
         #listing_area
           text-align: center
+  .listing-description
+    word-break: break-word
 .preview_link
   position: fixed
   width: 100%
@@ -1922,6 +1926,15 @@ body.paper
   background-position: center center
   background-repeat: no-repeat
   background-size: 40px auto
+.listing-help-sp-wrapper
+  .listing-help-icon
+    display: inline-block
+    width: 32px
+    height: 32px
+    background-image: image-url('illust/idea.png')
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: 25px auto
 #tour-action-preview
   padding: 20px
   position: absolute
@@ -1930,12 +1943,10 @@ body.paper
 .listing-help-sp-header
   display: none
   @media (max-width: 767px)
-    display: block !important
+    display: block
     padding: 14px 20px
-    color: white
-    border-bottom: 1px solid $border1
-    background-color: $brand-theme
-
+    font-size: 20px
+    color: $gray2
 .manage-listing-nav
   .nav-sections
     .btn.bg-gray

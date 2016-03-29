@@ -1,11 +1,11 @@
 - left_steps = left_step_count_and_elements(@listing)
 - left_step_count = left_steps[0]
 .preview_link
-  .row.row-space-top-4.row-space-6
+  .row.row-space-top-1.row-space-1
     .col-lg-12.text-center
       p.text-light.row-space-2 現在プレビュー表示中です
       = link_to "ツアー編集に戻る", edit_listing_path(@listing), class: "btn btn-primary btn-large"
-      - if @listing.open.present? || !left_step_count.zero?
+      - if !left_step_count.zero?
         = link_to "この内容で公開", listing_publish_path(@listing), class: "btn btn-primary btn-large disabled"
       - else
         = link_to "この内容で公開", listing_publish_path(@listing), class: "btn btn-primary btn-large"

@@ -314,6 +314,7 @@ mailer:
   send_id_authentication_complete_notification_to_user:
     subject: 'Your ID has been confirmed.'
 left_steps:
+  listing: "listing"
   listing_image: "listing_image"
   listing_detail: "listing_detail"
   confection: "confection"
