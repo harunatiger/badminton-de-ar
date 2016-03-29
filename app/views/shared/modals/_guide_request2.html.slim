@@ -1,0 +1,15 @@
+#guide_request2.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+          | ガイド申請
+        form
+          .card-body
+            p
+              | ガイドへの応募ありがとうございました。
+            p
+              | 後日、Huber.運営より申請して頂いたメールアドレス宛にご連絡します。
+          .card-footer
+            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"
