@@ -1,0 +1,14 @@
+<% if @status == 'success' %>
+  targetForm = $('#guide_request').closest('form')
+  spinner = $('.spinner', targetForm)
+  spinner.spin(false);
+  $('.btn-frame > .btn', targetForm).removeClass('text-disappear')
+  $('#guide_request').hide();
+  $('#guide_request2').modal();
+<% else %>
+  targetForm = $('#guide_request').closest('form')
+  spinner = $('.spinner', targetForm)
+  spinner.spin(false);
+  $('.btn-frame > .btn', targetForm).removeClass('text-disappear')
+  alert('ガイド申請に失敗しました。');
+<% end %>
