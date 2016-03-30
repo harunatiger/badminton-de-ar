@@ -17,11 +17,12 @@
           iframe src="https://www.youtube.com/embed/fhwj6m2cgEY?rel=0&showinfo=0" frameborder="0" modestbranding=1 class="show--sp" allowfullscreen
           div[id="movie" class="hide--sp" style="background-image: url(#{asset_path('photo/for_movie_1440x560.jpg')})"]
           #play.play.hide--sp
-            i.fa.fa-play
+            .playbutton-wrapper
+              i.fa.fa-play
           h4.h3.text-contrast.text-wf What is TOMODACHI GUIDE?
           /= image_tag , id: 'movie'
-          
+
           /iframe src="https://www.youtube.com/embed/WEtiK86GSAA?showinfo=0" frameborder="0" id="movie"
-          
+
       /.col-sm-8.hide--sp
       /  .guest-overview-image
