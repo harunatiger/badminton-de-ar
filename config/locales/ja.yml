@@ -48,3 +48,5 @@ ja:
     help_guide_link: "ガイドのQ＆Aへ"
     help_other_link: "その他のQ＆Aへ"
     guide_title: "ガイドのQ&A"
+    return_help: "Q & Aへ戻る"
+    search_keyword: "「%{name}」の検索結果"

@@ -1,0 +1,67 @@
+.page-container.help-topic-main
+  .row
+    .col-lg-3.col-md-12.col-sm-12.help-topic-index
+      h2.h3
+        | Q & A
+      #help_search_container-sp
+        = form_tag search_help_topics_path, method: 'get', class: "search-form" do
+          = hidden_field_tag :help_type, help_type
+          = hidden_field_tag :locale, @locale
+          .search-help-topic-form-container
+            .form-icon
+              i.fa.fa-search
+            = text_field_tag :keyword, params[:keyword], placeholder: "Search"
+      #help-nav
+        .row-space-top-3
+          ul.text-left.help-nav-header
+            li.btn
+              - if @locale.to_s == 'ja'
+                = link_to I18n.t("help.return_help"), for_user_help_topics_path(:locale => 'ja')
+              - else
+                = link_to I18n.t("help.return_help"), for_user_help_topics_path(:locale => 'en')
+
+      #help-nav-sp
+        = link_to '#', class: 'return-top hide' do
+          i.fa.fa-angle-up
+        .row-space-top-2
+          ul.help-nav-header.help-return-link
+            li.btn
+              - if @locale.to_s == 'ja'
+                = link_to I18n.t("help.return_help"), for_user_help_topics_path(:locale => 'ja')
+              - else
+                = link_to I18n.t("help.return_help"), for_user_help_topics_path(:locale => 'en')
+
+    .col-lg-9.col-md-12.col-sm-12.help-topic-details
+      #help_search_container
+        = form_tag search_help_topics_path, method: 'get', class: "search-form" do
+          = hidden_field_tag :help_type, help_type
+          = hidden_field_tag :locale, @locale
+          .search-help-topic-form-container
+            .form-icon
+              i.fa.fa-search
+            = text_field_tag :keyword, params[:keyword], placeholder: "Search"
+      .help-topic-details
+        h3.help-result-title
+          = I18n.t("help.search_keyword",:name => keyword)
+        - if search_result.present?
+          - if help_type.to_s == 'user'
+            - search_result.each do |result|
+              - parent_id = HelpCategory.find(result.help_category_id).root
+              - if parent_id.id == 1
+                .category-block
+                  ul.help-topic-list
+                    li.topic-block
+                      .topic-title.strong
+                        = result.title
+                      .topic-content
+                        = hbr_noescape(result.body).html_safe
+          - else
+            - search_result.each do |result|
+              .category-block
+                ul.help-topic-list
+                  li.topic-block
+                    .topic-title.strong
+                      = result.title
+                    .topic-content
+                      = hbr_noescape(result.body).html_safe
+

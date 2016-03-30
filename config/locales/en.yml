@@ -81,4 +81,6 @@ en:
     help_guide_link: "Guide Q & A"
     help_other_link: "Other Q & A"
     guide_title: "Guide Q&A"
+    return_help: "Return to Q & A"
+    search_keyword: "Results for '%{name}'"
 

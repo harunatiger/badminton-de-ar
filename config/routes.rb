@@ -129,8 +129,10 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /ja|en/ do
     resources :help_topics do
-      get 'for_user', on: :collection
+      get 'for_user',  on: :collection
       get 'for_guide', on: :collection
+      get 'search', on: :collection, action: 'search'
+      get 'search_result', on: :collection, action: 'search_result'
     end
   end
 

@@ -1,8 +1,24 @@
 .page-container.help-topic-main
   .row
     .col-lg-3.col-md-12.col-sm-12.help-topic-index
+      #help_search_container-sp
+        = form_tag search_help_topics_path, method: 'get', class: "search-form" do
+          = hidden_field_tag :help_type, 'user'
+          = hidden_field_tag :locale, @locale
+          .search-help-topic-form-container
+            .form-icon
+              i.fa.fa-search
+            = text_field_tag :keyword, params[:keyword], placeholder: "Search"
       = render 'categories_for_user', categories: @help_categories_other
     .col-lg-9.col-md-12.col-sm-12.help-topic-details
+      #help_search_container
+        = form_tag search_help_topics_path, method: 'get', class: "search-form" do
+          = hidden_field_tag :help_type, 'user'
+          = hidden_field_tag :locale, @locale
+          .search-help-topic-form-container
+            .form-icon
+              i.fa.fa-search
+            = text_field_tag :keyword, params[:keyword], placeholder: "Search"
       #help_content
         - @help_categories_other.each do |category|
           .category-block

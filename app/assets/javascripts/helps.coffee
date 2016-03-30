@@ -1,6 +1,6 @@
 # help_topics
 $ ->
-  if $('body').hasClass('help_topics for_user') || $('body').hasClass('help_topics for_guide')
+  if $('body').hasClass('help_topics for_user') || $('body').hasClass('help_topics for_guide') || $('body').hasClass('help_topics search')
     getScrollTarget = (href) ->
       hrefSplit = href.split(/#/)
       target = $('#' + hrefSplit[1])
