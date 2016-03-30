@@ -610,4 +610,24 @@ module ApplicationHelper
     end
     return text
   end
+  
+  def pair_guide_profiles(host_id)
+    Profile.main_and_support_guides.where.not(id: host_id)
+  end
+  
+  def pair_user(reservation)
+    if reservation.pg_completion?
+      pair_user = current_user.id == reservation.pair_guide_id ? User.find(reservation.host_id) : User.find(reservation.pair_guide_id)
+    else
+      return false
+    end
+  end
+  
+  def guide_type_str(reservation)
+    current_user.id == reservation.pair_guide_id ? 'Main guide' : 'Supporting guide'
+  end
+  
+  def current_user_is_host?(reservation)
+    current_user.id == reservation.host_id
+  end
 end

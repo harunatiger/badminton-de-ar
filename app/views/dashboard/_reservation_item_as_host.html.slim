@@ -10,25 +10,22 @@
             .col-md-4.thread-author
               .row.row-table
                 .col-md-4.col-middle.thread-avatar
-                  .media-photo.media-avatar.media-avatar-double
-                    .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.guest_id)}')"]
-                    - if r.pg_completion?
-                      /.media-round.media-photo.media-avatar
-                      - if current_user.id == r.pair_guide_id
-                        .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.host_id)}')"]
-                      - else
-                        .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.pair_guide_id)}')"]
+                  .media-avatar
+                    = link_to profile_path(user_id_to_profile_id(r.guest_id)) do
+                      .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.guest_id)}')"]
                 .col-sm-8.col-middle.thread-name
+                  | Guest
                   .h5.strong.row-space-1
-                    = user_id_to_name(r.guest_id)
+                    = link_to profile_path(user_id_to_profile_id(r.guest_id)) do
+                      = user_id_to_firstname(r.guest_id)
                   - phone = user_id_to_phone_number(r.guest_id)
-                  - if phone.present? and !guest.soft_destroyed?
+                  - if phone.present? and !guest.soft_destroyed? and current_user_is_host?(r)
                     .balloon.text-muted.small1[title="＊Make sure that you know how to contact your guide before your tour."]
                       i.fa.fa-phone
                       '
                       = phone
             .col-md-5.thread-body
-              .row.row-table
+              /.row.row-table
                 .col-md-12.col-middle
                   .message-content-single.row-space-1
                     = link_to listing_path(r.listing_id) do
@@ -51,13 +48,13 @@
                     .state.state-normal
                       | Cancelled
                     br
-                  - if r.completed? and r.host_id == current_user.id
+                  - if r.completed? and current_user_is_host?(r)
                     - if guest.soft_destroyed?
                       = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red disabled", data: { toggle: "modal" }
                     - else
                       = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
                     = render partial: 'shared/modals/confirm_cancel_from_guide', locals: { r: r, count: i.to_s}
-                  - elsif r.completed? and r.host_id != current_user.id
+                  - elsif r.completed? and !current_user_is_host?(r)
                     - if guest.soft_destroyed?
                       = link_to "Cancel PairGuide", class: "btn btn-thread row-space-top-1 row-space-1 text-red disabled"
                     - else
@@ -66,7 +63,7 @@
                         = f.hidden_field :pair_guide_id, value: nil
                         = f.submit 'Cancel PairGuide', class: 'btn btn-thread row-space-top-1 row-space-1 text-red', id: "reservation_block-toggle", name: 'cancel_pair_guide_from_dashboard', data: {confirm: '本当にキャンセルしてよろしいですか？'}
                   
-                  - elsif r.review_for_guest_enabled? and r.host_id == current_user.id
+                  - elsif r.review_for_guest_enabled? and current_user_is_host?(r)
                     = link_to "Review", for_guest_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"
                     br
                   = link_to "#", class: "small2 btn-block about_cancel_from_guide_link" do
@@ -78,13 +75,12 @@
                     .row-space-top-1.small2.pairguide--no
                       | ペアガイド未確定
             .col-md-12.row-space-top-2
-              - if r.host_id == current_user.id
+              - if current_user_is_host?(r)
                 = render partial: 'shared/reservation_block', locals: { reservation: r, count: i.to_s }
               - else
                 = render partial: 'shared/pair_guide_block', locals: { reservation: r, count: i.to_s }
 
               = render partial: '/shared/modals/include_what', locals: { included_guests_cost: r.included_guests_cost, count: i.to_s }
-
         - if r.completed? and !r.pg_completion?
           .row
             .pairguide-warning.bg-warning.text-red
@@ -100,5 +96,23 @@
                     b #{(r.schedule.to_date - Time.zone.now.to_date).to_i} 
                     |  日
                   = link_to '仲間から探す', friends_list_reservation_path(r.id), class: 'btn btn-primary'
- 
-  = render partial: 'shared/modals/message_to_guest_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }
+        - elsif r.completed? and r.pg_completion?
+          - pair_user = pair_user(r)
+          .row
+            .pairguide-warning.bg-default
+              hr
+              .col-md-3
+                .h5.strong.row-space-1
+                  = guide_type_str(r)
+              .col-md-3
+                .h5.strong.row-space-1
+                  = link_to profile_path(user_id_to_profile_id(pair_user.id)) do
+                    = user_id_to_firstname(pair_user.id)
+              .col-md-6
+                .h5.strong.row-space-1
+                  - phone = user_id_to_phone_number(pair_user.id)
+                  - if phone.present? and !pair_user.soft_destroyed?
+                    .balloon.text-muted.small1[title="＊Make sure that you know how to contact your guide before your tour."]
+                      i.fa.fa-phone
+                      '
+                      = phone

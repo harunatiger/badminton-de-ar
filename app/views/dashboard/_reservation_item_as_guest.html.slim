@@ -1,5 +1,4 @@
 - @reservations.each_with_index do |r, i|
-  - listing = reservation_to_listing(r)
   - host = reservation_to_host(r)
   li.thread.reserve-thread
     /= link_to message_thread_path(r.host_id), class: "unread" do
@@ -10,13 +9,13 @@
             .col-md-4.thread-author
               .row.row-table
                 .col-md-4.col-middle.thread-avatar
-                  .media-photo.media-avatar.media-avatar-double
-                    .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.host_id)}')"]
-                    - if r.pg_completion?
-                      .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.pair_guide_id)}')"]
+                  .media-avatar
+                    = link_to profile_path(user_id_to_profile_id(host.id)) do
+                      .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.host_id)}')"]
                 .col-sm-8.col-middle.thread-name
                   .h5.strong.row-space-1
-                    = user_id_to_name(r.host_id)
+                    = link_to profile_path(user_id_to_profile_id(host.id)) do
+                      = user_id_to_firstname(r.host_id)
                   - phone = user_id_to_phone_number(r.host_id)
                   - if phone.present? and !host.soft_destroyed?
                     .balloon.text-muted.small1[title="＊Make sure that you know how to contact your guide before your tour."]
@@ -25,13 +24,28 @@
                       = phone
             .col-md-5.thread-body
               .row.row-table
-                .col-md-12.col-middle
-                  .message-content-single.row-space-1
-                    = link_to listing_path(r.listing_id) do
-                      = listing.title
-                  .thread-date
-                    | Meeting at
-                    = r.schedule.to_s
+                /pair guide added
+                - if r.pg_completion?
+                  .col-md-4.col-middle
+                    .media-avatar
+                      = link_to profile_path(user_id_to_profile_id(r.pair_guide_id)) do
+                        .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.pair_guide_id)}')"]
+                  .col-md-8.col-middle
+                    .h5.strong.row-space-1
+                      = link_to profile_path(user_id_to_profile_id(r.pair_guide_id)) do
+                        = user_id_to_firstname(r.pair_guide_id)
+                    = link_to 'Supporting guide', '#about_support_guide', data: { toggle: "modal" }
+                    
+                /not yet
+                - else
+                  .col-md-4.col-middle
+                    .media-avatar
+                      .size60.media-round[style="background-image: url('#{asset_path Settings.image.noimage2.url}')"]
+                  .col-md-8.col-middle
+                    = link_to 'Supporting guide', '#about_support_guide', data: { toggle: "modal" }
+                    = link_to "#pair_guide_list", class: "pair_guide_list-trigger small1", data: { toggle: "modal" } do
+                      i.fa.fa-exclamation-circle
+                      | Supporting guide will join on the day
             .col-md-3.thread-progress
               .row.row-table
                 .col-md-12.col-middle.text-center
@@ -67,5 +81,4 @@
             .col-md-12.row-space-top-2
               = render partial: 'shared/reservation_block', locals: { reservation: r , count: i.to_s}
               = render partial: '/shared/modals/include_what', locals: { included_guests_cost: r.included_guests_cost, count: i.to_s }
-
-  = render partial: 'shared/modals/message_to_host_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }
+  = render partial: '/shared/modals/pair_guide_list', locals: { host_id: host.id }

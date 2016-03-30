@@ -3,7 +3,11 @@
   .col-sm-12.col-md-10.col-md-push-1
     .collapse-box
       = link_to "#reservation_block" + count,  data: {toggle:"collapse"}, class: "reservation_collapse collapsed" do
-        | Tour Information
+        = link_to listing_path(listing.id) do
+          = listing.title
+        br
+        | Meeting at #{reservation.schedule.to_s}
+        | Information
       - id_name = 'reservation_block' + count
       div[id=id_name class='collapse']
         .collapse-inner
