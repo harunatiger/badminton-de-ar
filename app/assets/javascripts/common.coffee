@@ -487,7 +487,7 @@ $ ->
         return
 
   #IME disabled
-  $('.imeoff').bind 'keyup', ->
+  $(document).on 'keyup', '.imeoff', ->
     noSbcRegex = /[^\x00-\x7E]+/g
     target = $(this)
     if !target.val().match(noSbcRegex)
