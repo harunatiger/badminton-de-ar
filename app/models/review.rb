@@ -18,6 +18,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  type             :string           not null
+#  tour_image       :string           default("")
 #
 # Indexes
 #
@@ -47,6 +48,9 @@ class Review < ActiveRecord::Base
   validates :total, presence: true
   validates :type, presence: true
 
+  mount_uploader :tour_image, DefaultImageUploader
+  attr_accessor :image_blank_ok
+
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
 
@@ -62,7 +66,7 @@ class Review < ActiveRecord::Base
     if r_count == 1
       ave_total = review.total
     else
-      ave_total = (l.ave_total * (r_count - 1) + review.total) / r_count 
+      ave_total = (l.ave_total * (r_count - 1) + review.total) / r_count
     end
     l.ave_total = ave_total
     l.save
@@ -73,52 +77,52 @@ class Review < ActiveRecord::Base
     review_for_guest = ReviewForGuest.where(reservation_id: self.reservation_id).first
     host = User.find(self.host_id)
     guest = User.find(self.guest_id)
-    
+
     prof = Profile.find(host.profile.id)
     r_count = Review.my_reviewed_count(host.id)
     if r_count == 1
       ave_total = review_for_guide.total
     else
-      ave_total = (prof.ave_total * (r_count - 1) + review_for_guide.total) / r_count 
+      ave_total = (prof.ave_total * (r_count - 1) + review_for_guide.total) / r_count
     end
     prof.ave_total = ave_total
     prof.enable_strict_validation = false
     prof.save
-    
+
     prof = Profile.find(guest.profile.id)
     r_count = Review.my_reviewed_count(guest.id)
     if r_count == 1
       ave_total = review_for_guest.total
     else
-      ave_total = (prof.ave_total * (r_count - 1) + review_for_guest.total) / r_count 
+      ave_total = (prof.ave_total * (r_count - 1) + review_for_guest.total) / r_count
     end
     prof.ave_total = ave_total
     prof.enable_strict_validation = false
     prof.save
   end
-  
+
   def for_guide?
     self.type == 'ReviewForGuide'
   end
-  
+
   def for_guest?
     self.type == 'ReviewForGuest'
   end
-  
+
   def self.my_reviewed_count(user_id)
     reviewed_as_guide_count = ReviewForGuide.where(host_id: user_id).joins(:reservation).merge(Reservation.review_open?).count
     review_for_guest_count = ReviewForGuest.where(guest_id: user_id).joins(:reservation).merge(Reservation.review_open?).count
     reviewed_as_guide_count + review_for_guest_count
   end
-  
+
   def self.reviewed_as_guest(user_id)
     ReviewForGuest.where(guest_id: user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
   end
-  
+
   def self.reviewed_as_guide(user_id)
     ReviewForGuide.where(host_id: user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
   end
-  
+
   def self.this_listing(listing_id)
     ReviewForGuide.where(listing_id: listing_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
   end
