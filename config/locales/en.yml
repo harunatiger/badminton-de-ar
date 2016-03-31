@@ -56,6 +56,8 @@ en:
       subject: "Read %{name}'s review"
     reply_notification:
       subject: "ゲストがあなたの返信を待っています"
+    withdraw_notification_to_owner:
+      subject: 'ユーザが退会しました。'
   option_price_ja:
     space_rental: "スペースレンタル代"
     car_rental: "車両代"
