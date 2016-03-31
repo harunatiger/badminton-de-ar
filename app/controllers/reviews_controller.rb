@@ -8,11 +8,11 @@ class ReviewsController < ApplicationController
   def for_guest
     @review = ReviewForGuest.new
   end
-  
+
   def for_guide
     @review = ReviewForGuide.new
   end
-  
+
   def create_guest
     @review = Review.new(review_params)
     respond_to do |format|
@@ -34,14 +34,14 @@ class ReviewsController < ApplicationController
       end
     end
   end
-  
+
   def create_guide
     @review = Review.new(review_params)
     respond_to do |format|
       if @review.save
         @reservation.save_reviewed_at_now
         if @reservation.replied_at.present?
-          @reservation.save_review_opened_at_now 
+          @reservation.save_review_opened_at_now
           @review.calc_average
           notice = Settings.review.opened
           ReviewMailer.send_review_accept_notification(@review.host_id, @review.guest_id).deliver_now!
@@ -49,7 +49,7 @@ class ReviewsController < ApplicationController
         else
           notice = Settings.review.for_guide.save.success
         end
-        
+
         format.html { redirect_to root_path, notice: notice }
       else
         flash.now[:alert] = Settings.review.for_guide.save.failure
@@ -85,7 +85,7 @@ class ReviewsController < ApplicationController
         redirect_to root_path, alert: Settings.regulate_user.reservation_id.failure
       end
     end
-  
+
     def regulate_user_for_guest!
       reservation = Reservation.where(id: params[:reservation_id].to_i).first
       if reservation.present?
@@ -104,6 +104,6 @@ class ReviewsController < ApplicationController
     end
 
     def review_params
-      params.require(params[:review_for_guide].present? ? :review_for_guide : :review_for_guest).permit(:host_id, :guest_id, :listing_id, :reservation_id, :accuracy, :communication, :clearliness, :location, :check_in, :cost_performance, :total, :msg, :type)
+      params.require(params[:review_for_guide].present? ? :review_for_guide : :review_for_guest).permit(:host_id, :guest_id, :listing_id, :reservation_id, :accuracy, :communication, :clearliness, :location, :check_in, :cost_performance, :total, :msg, :type, :tour_image)
     end
 end

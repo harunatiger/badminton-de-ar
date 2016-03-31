@@ -36,3 +36,4 @@
 //= require pre_mail
 //= require users
 //= require helps
+//= require review
