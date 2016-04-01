@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   #http_basic_authenticate_with name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD'] unless Rails.env.development?
+  before_action :set_locale
+ 
+  def set_locale
+    I18n.locale = :en
+  end
   
   after_action  :store_location
   def store_location
