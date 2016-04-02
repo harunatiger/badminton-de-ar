@@ -389,6 +389,15 @@ $ ->
   #  $('.cancel-reservation-form').on 'submit', ->
   #    return confirm('この予約をキャンセルします。本当によろしいですか？')
 
+  # dashboard
+  if $('body').hasClass('dashboard')
+    $('a.about-support-guide-trigger').on 'click', ->
+      $('#about_support_guide').modal()
+      return false
+    $('a.pair_guide_list-trigger').on 'click', ->
+      $('#pair_guide_list').modal()
+      return false
+
   # registrations#new & registrations#create
   if $('body').hasClass('registrations new') || $('body').hasClass('registrations create')
 

@@ -1,84 +1,91 @@
+/* dashboard#reservation_item_as_guest
 - @reservations.each_with_index do |r, i|
   - host = reservation_to_host(r)
-  li.thread.reserve-thread
+  li.reservation-thread.guest-reservation-thread.row-space-4
     /= link_to message_thread_path(r.host_id), class: "unread" do
-    div.unread
-      .reserve-thread-container
-        .reserve-thread-inner
+    .reservation-thread-body
+      .row
+        .col-md-4
+          .user-container
+            .row
+              .col-md-4.text-center
+                = link_to profile_path(r.host_id), class: "media-round media-photo media-avatar" do
+                  .size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.host_id)}')"]
+              .col-sm-8
+                .h5.row-space-1.row-space-top-1
+                  = user_id_to_name(r.host_id)
+                - phone = user_id_to_phone_number(r.host_id)
+                - if phone.present? and !host.soft_destroyed?
+                  .balloon.text-muted.small1[title="＊Make sure that you know how to contact your guide before your tour."]
+                    i.fa.fa-phone
+                    '
+                    = phone
+
+        .col-md-4
+          - if r.pg_completion?
+            .user-container
+              .row
+                .col-md-4.text-center
+                  = link_to profile_path(r.pair_guide_id), class: "media-round media-photo media-avatar" do
+                    .size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.pair_guide_id)}')"]
+                .col-md-8
+                  .h5.row-space-1.row-space-top-1
+                    = user_id_to_name(r.pair_guide_id)
+                  = link_to "#", class: "about-support-guide-trigger small1" do
+                    | supporting guide 
+                    i.fa.fa-question-circle
+          - else
+            .user-container.user-container-empty
+              .row
+                .col-md-4.text-center
+                  = link_to "#", class: "media-round media-photo media-avatar" do
+                    /.size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.pair_guide_id)}')"]
+                    i.fa.fa-question
+                .col-md-8
+                  /.h5.text-muted.row-space-1.row-space-top-1
+                    | Unknown
+                  = link_to "#", class: "pair_guide_list-trigger small2" do
+                    | supporting guide will join on the day!
+                  div
+                    = link_to "#", class: "about-support-guide-trigger" do
+                      | supporting guide 
+                      i.fa.fa-question-circle
+        .col-md-4
           .row
-            .col-md-4.thread-author
-              .row.row-table
-                .col-md-4.col-middle.thread-avatar
-                  .media-avatar
-                    = link_to profile_path(user_id_to_profile_id(host.id)) do
-                      .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.host_id)}')"]
-                .col-sm-8.col-middle.thread-name
-                  .h5.strong.row-space-1
-                    = link_to profile_path(user_id_to_profile_id(host.id)) do
-                      = user_id_to_firstname(r.host_id)
-                  - phone = user_id_to_phone_number(r.host_id)
-                  - if phone.present? and !host.soft_destroyed?
-                    .balloon.text-muted.small1[title="＊Make sure that you know how to contact your guide before your tour."]
-                      i.fa.fa-phone
-                      '
-                      = phone
-            .col-md-5.thread-body
-              .row.row-table
-                /pair guide added
-                - if r.pg_completion?
-                  .col-md-4.col-middle
-                    .media-avatar
-                      = link_to profile_path(user_id_to_profile_id(r.pair_guide_id)) do
-                        .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.pair_guide_id)}')"]
-                  .col-md-8.col-middle
-                    .h5.strong.row-space-1
-                      = link_to profile_path(user_id_to_profile_id(r.pair_guide_id)) do
-                        = user_id_to_firstname(r.pair_guide_id)
-                    = link_to 'Supporting guide', '#about_support_guide', data: { toggle: "modal" }
-                    
-                /not yet
+            .col-md-12.text-center
+              - if r.accepted?
+                - if r.finished?
+                  .state.state-primary
+                    = Settings.reservation.progress.finished
                 - else
-                  .col-md-4.col-middle
-                    .media-avatar
-                      .size60.media-round[style="background-image: url('#{asset_path Settings.image.noimage2.url}')"]
-                  .col-md-8.col-middle
-                    = link_to 'Supporting guide', '#about_support_guide', data: { toggle: "modal" }
-                    = link_to "#pair_guide_list", class: "pair_guide_list-trigger small1", data: { toggle: "modal" } do
-                      i.fa.fa-exclamation-circle
-                      | Supporting guide will join on the day
-            .col-md-3.thread-progress
-              .row.row-table
-                .col-md-12.col-middle.text-center
-                  - if r.accepted?
-                    - if r.finished?
-                      .state.state-primary
-                        = Settings.reservation.progress.finished
-                    - else
-                      .state.state-primary
-                        = Settings.reservation.progress.accepted
-                    br
-                  - else
-                    .state.state-normal
-                      | Cancelled
-                    br
-                  - if r.completed?
-                    - if host.soft_destroyed?
-                      = link_to "Cancel", "#confirm_cancel1", class: "btn btn-thread row-space-top-1 row-space-1 text-red disabled", data: { toggle: "modal" }
-                    - else
-                      = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
-                    = render partial: 'shared/modals/confirm_cancel', locals: { r: r, count: i.to_s}
-                  - elsif r.review_for_guide_enabled?
-                    = link_to "Review", for_guide_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"
-                    br
-                  = link_to "#", class: "small2 about_cancel_link" do
-                    | Guest Refund Policy
-                  - if r.pg_completion?
-                    .row-space-top-1.small2.pairguide--yes
-                      | ペアガイド決定！
-                  - elsif r.completed?
-                    .row-space-top-1.small2.pairguide--no
-                      | ペアガイド未確定
-            .col-md-12.row-space-top-2
-              = render partial: 'shared/reservation_block', locals: { reservation: r , count: i.to_s}
-              = render partial: '/shared/modals/include_what', locals: { included_guests_cost: r.included_guests_cost, count: i.to_s }
-  = render partial: '/shared/modals/pair_guide_list', locals: { host_id: host.id }
+                  .state.state-primary
+                    = Settings.reservation.progress.accepted
+                br
+              - else
+                .state.state-normal
+                  | Cancelled
+                br
+              - if r.completed?
+                - if host.soft_destroyed?
+                  = link_to "Cancel", "#confirm_cancel1", class: "btn btn-thread row-space-top-1 row-space-1 text-red disabled", data: { toggle: "modal" }
+                - else
+                  = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
+                = render partial: 'shared/modals/confirm_cancel', locals: { r: r, count: i.to_s}
+              - elsif r.review_for_guide_enabled?
+                = link_to "Review", for_guide_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"
+                br
+              = link_to "#", class: "small2 about_cancel_link" do
+                | Guest Refund Policy
+              /- if r.pg_completion?
+                .row-space-top-1.small2.pairguide--yes
+                  | ペアガイド決定！
+              /- elsif r.completed?
+                .row-space-top-1.small2.pairguide--no
+                  | ペアガイド未確定
+
+    .collapse-body
+      = render partial: 'shared/reservation_block', locals: { reservation: r , count: i.to_s}
+
+
+    = render partial: '/shared/modals/include_what', locals: { included_guests_cost: r.included_guests_cost, count: i.to_s }
+    = render partial: 'shared/modals/message_to_host_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }

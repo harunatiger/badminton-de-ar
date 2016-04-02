@@ -15,9 +15,9 @@
               | No request
     - else
       .col-md-12
-        .card
-          ul.thread-list.list-layout
-            = render partial: 'reservation_item_as_guest', locals: { reservations: @reservations }
-            = render partial: 'shared/modals/about_support_guide'
+        ul.thread-list.list-layout
+          = render partial: 'reservation_item_as_guest', locals: { reservations: @reservations }
 
 = render partial: 'shared/modals/about_cancel'
+= render partial: 'shared/modals/about_support_guide'
+/= render partial: 'shared/modals/pair_guide_list', locals: { pair_guides: @profiles }
