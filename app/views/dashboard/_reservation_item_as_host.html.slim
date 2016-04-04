@@ -13,7 +13,8 @@
               .col-md-8.text-center--sp
                 .user-type.user-guest Guest
                 .h5.row-space-top-1.row-space-1
-                  = user_id_to_name(r.guest_id)
+                  = link_to profile_path(user_id_to_profile_id(r.guest_id)) do
+                    = user_id_to_firstname(r.guest_id)
                 - phone = user_id_to_phone_number(r.guest_id)
                 - if phone.present? and !guest.soft_destroyed?
                   .balloon.text-muted.small1[title="＊Make sure that you know how to contact your guide before your tour."]
@@ -76,14 +77,17 @@
               b #{(r.schedule.to_date - Time.zone.now.to_date).to_i} 
               |  日
             = link_to '仲間から探す', friends_list_reservation_path(r.id), class: 'btn btn-primary btn-thread'
-    - else
+    /- elsif r.completed? and r.pg_completion?
+    - elsif r.pg_completion?
+      - pair_user = pair_user(r)
       .pairguide-row
         .row
           .col-md-3.col-lg-2.row-space-1.text-center--sp
             .user-type.user-guide Pair guide
           .col-md-5.col-lg-3.row-space-1.text-center--sp
             .h5.text-truncate
-              = user_id_to_name(r.pair_guide_id)
+              = link_to profile_path(user_id_to_profile_id(pair_user.id)) do
+                = user_id_to_firstname(pair_user.id)
           .col-md-4.col-lg-4.text-center--sp
             i.fa.fa-phone
             '

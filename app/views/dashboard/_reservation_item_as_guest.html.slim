@@ -13,7 +13,8 @@
               .col-md-8.text-center--sp
                 .user-type.user-guest Guest
                 .h5.row-space-1.row-space-top-1
-                  = user_id_to_name(r.host_id)
+                  = link_to profile_path(user_id_to_profile_id(r.host_id)) do
+                    = user_id_to_firstname(r.host_id)
                 - phone = user_id_to_phone_number(r.host_id)
                 - if phone.present? and !host.soft_destroyed?
                   .balloon.text-muted.small1[title="＊Make sure that you know how to contact your guide before your tour."]
@@ -31,7 +32,8 @@
                 .col-md-8.text-center--sp
                   .user-type.user-guide Pair guide
                   .h5.row-space-1.row-space-top-1
-                    = user_id_to_name(r.pair_guide_id)
+                    = link_to profile_path(user_id_to_profile_id(r.pair_guide_id)) do
+                      = user_id_to_firstname(r.pair_guide_id)
                   = link_to "#", class: "about-support-guide-trigger small1" do
                     | supporting guide 
                     i.fa.fa-question-circle
