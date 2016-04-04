@@ -1220,12 +1220,21 @@ a.about_payment_link
     display: none
 
 .reservation-thread-body
-  padding: 20px 20px 1.25px
+  padding: 20px 15px 1.25px
 
 .user-container
+  position: relative
+  min-height: 100px
   padding: 12px
   border: 1px solid $border1
   border-radius: 3px
+  .h5.row-space-1
+    margin-bottom: 2px
+
+//.user-type
+  position: absolute
+  top: -8px
+  left: 8px
 
 .user-container-empty
   background-color: $bg1
@@ -1251,6 +1260,7 @@ a.about_payment_link
     display: block
     padding: 20px
     color: $brand-theme
+    cursor: pointer
     @media (max-width: 767px)
       height: 64px
     .tour-subject
@@ -1281,6 +1291,21 @@ a.about_payment_link
   .collapse-inner
     padding: 8px 20px
 
+.pairguide-row
+  padding: 15px 25px 8.75px
+  border-top: 1px solid $border1
+  border-bottom: 1px solid $border1
+  background-color: $bg1
+
+.pairguide-warning
+  padding: 15px
+  overflow: hidden
+
+/* .host-reservation-thread */
+.host-reservation-thread
+  .user-container
+    padding: 0
+    border: 0
 
 //.thread-list
   > li:first-child
@@ -1361,14 +1386,10 @@ a.about_payment_link
   color: $red1
   border: 1px solid $red1
 
-.pairguide-warning
-  padding: 20px
-  overflow: hidden
-
 .btn-thread
   min-width: 80px
   height: 28px
-  line-height: 28px
+  line-height: 26px
   padding: 0 10px
   font-weight: 400
   border-radius: 2px
