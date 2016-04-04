@@ -5,13 +5,13 @@
     /= link_to message_thread_path(r.host_id), class: "unread" do
     .reservation-thread-body
       .row
-        .col-md-4
+        .col-md-5.col-lg-4.row-space-2
           .user-container
             .row
               .col-md-4.text-center
                 = link_to profile_path(r.host_id), class: "media-round media-photo media-avatar" do
                   .size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.host_id)}')"]
-              .col-sm-8
+              .col-md-8.text-center--sp
                 .h5.row-space-1.row-space-top-1
                   = user_id_to_name(r.host_id)
                 - phone = user_id_to_phone_number(r.host_id)
@@ -21,14 +21,14 @@
                     '
                     = phone
 
-        .col-md-4
+        .col-md-5.col-lg-4.row-space-2
           - if r.pg_completion?
             .user-container
               .row
                 .col-md-4.text-center
                   = link_to profile_path(r.pair_guide_id), class: "media-round media-photo media-avatar" do
                     .size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.pair_guide_id)}')"]
-                .col-md-8
+                .col-md-8.text-center--sp
                   .h5.row-space-1.row-space-top-1
                     = user_id_to_name(r.pair_guide_id)
                   = link_to "#", class: "about-support-guide-trigger small1" do
@@ -41,7 +41,7 @@
                   = link_to "#", class: "media-round media-photo media-avatar" do
                     /.size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.pair_guide_id)}')"]
                     i.fa.fa-question
-                .col-md-8
+                .col-md-8.text-center--sp
                   /.h5.text-muted.row-space-1.row-space-top-1
                     | Unknown
                   = link_to "#", class: "pair_guide_list-trigger small2" do
@@ -50,7 +50,7 @@
                     = link_to "#", class: "about-support-guide-trigger" do
                       | supporting guide 
                       i.fa.fa-question-circle
-        .col-md-4
+        .col-md-2.col-lg-4.row-space-2
           .row
             .col-md-12.text-center
               - if r.accepted?

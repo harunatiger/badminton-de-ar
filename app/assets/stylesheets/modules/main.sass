@@ -1220,7 +1220,7 @@ a.about_payment_link
     display: none
 
 .reservation-thread-body
-  padding: 20px
+  padding: 20px 20px 1.25px
 
 .user-container
   padding: 12px
@@ -1251,9 +1251,14 @@ a.about_payment_link
     display: block
     padding: 20px
     color: $brand-theme
+    @media (max-width: 767px)
+      height: 64px
     .tour-subject
       position: relative
       padding-right: 44px
+      @media (max-width: 767px)
+        span
+          display: none
       &::after
         content: '\f077'
         display: block
@@ -1272,11 +1277,9 @@ a.about_payment_link
     max-width: 60%
     @media (max-width: 767px)
       max-width: 100%
-
-
-
-
-
+      right: 44px
+  .collapse-inner
+    padding: 8px 20px
 
 
 //.thread-list
