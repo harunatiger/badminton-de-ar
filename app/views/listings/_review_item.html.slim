@@ -1,10 +1,13 @@
 - reviews.each do |review|
+  - if review.tour_image.present?
+    .row
+      = image_tag(review.tour_image)
   .row
     = link_to profile_path(review.guest_id)
       .col-md-3.text-center.row-space-2
         .media-photo.media-round.media-avatar.text-center
           = link_to profile_path(review.guest_id) do
-            .size68[style="background-image: url('#{user_id_to_profile_image(review.guest_id)}')"]
+            .size68[style="background-image: url('#{asset_path user_id_to_profile_image(review.guest_id)}')"]
         .name
           .text-muted.link-reset.text-truncate
             = link_to profile_path(review.guest_id), class: "text-muted" do

@@ -10,6 +10,7 @@
       .col-lg-8.col-left
         = render partial: 'col_left', locals: { listing: @listing, reviews: @reviews, profile_keyword: @profile_keyword}
         = render partial: 'review_block', locals: { listing: @listing, reviews: @reviews, host_info: @host_info, host_image: @host_image }
+        = render partial: 'similar_listings'
 
       .col-lg-4.col-right
         = render partial: 'request_block', locals: { listing: @listing }

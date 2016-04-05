@@ -666,6 +666,8 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.integer  "guests_cost",                                    default: 0
     t.text     "included_guests_cost",                           default: ""
     t.integer  "cancel_by",                                      default: 0
+    t.integer  "pair_guide_id"
+    t.integer  "pair_guide_status",                              default: 0
     t.boolean  "bicycle_option",                                 default: false
     t.integer  "bicycle_rental",                                 default: 0
     t.boolean  "other_option",                                   default: false

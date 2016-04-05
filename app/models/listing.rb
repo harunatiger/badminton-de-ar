@@ -266,6 +266,13 @@ class Listing < ActiveRecord::Base
     ngevent_weeks = NgeventWeek.where(listing_id: self.id)
     ngevent_weeks.destroy_all if ngevent_weeks.present?
   end
+    
+  def similar_listings
+    area_ids = self.pickups.where(type: 'PickupArea').ids
+    listing_ids = ListingPickup.select(:listing_id).where(pickup_id: area_ids).map{|v| v.listing_id}
+    listings = Listing.where(id: listing_ids).opened.where.not(id: self.id)
+    listings.present? ? listings.order("RANDOM()").limit(3) : []
+  end
 
   def self.check_date(listings, search_params)
     listings_array = []
