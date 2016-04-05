@@ -3,7 +3,7 @@ ul.sidenav-list
     li
       = link_to "Tour list", listings_path, aria: {selected: "false"}, class: "sidenav-item row-space-2"
     li
-      - if current_user.listings.present?
+      - if current_user.main_guide?
         = link_to "Create a new tour", new_listing_path, aria: {selected: "false"}, class: "btn btn-block btn-primary"
     /li
       = link_to "参加希望者", dashboard_host_reservation_manager_path, aria: {selected: "true"}, class: "sidenav-item"
@@ -11,7 +11,7 @@ ul.sidenav-list
     li
       = link_to "Tour list", listings_path, aria: {selected: "true"}, class: "sidenav-item row-space-2"
     li
-      - if current_user.listings.present?
+      - if current_user.main_guide?
         = link_to "Create a new tour", new_listing_path, aria: {selected: "false"}, class: "btn btn-block btn-primary"
     /li
       = link_to "参加希望者", dashboard_host_reservation_manager_path, aria: {selected: "false"}, class: "sidenav-item"

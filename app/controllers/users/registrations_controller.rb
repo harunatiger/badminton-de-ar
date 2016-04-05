@@ -16,6 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     current_user.cancel_reservations
     current_user.update_user_for_close(params[:user][:reason])
     current_user.soft_destroy
+    Users::Mailer.withdraw_notification_to_owner(current_user).deliver_now!
     sign_out current_user
     respond_to do |format|
       flash[:notice] = Settings.user.destroy.success

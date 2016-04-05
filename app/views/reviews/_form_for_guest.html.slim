@@ -1,3 +1,4 @@
+- counterpart = user_id_to_user_obj(@reservation.host_id)
 = simple_form_for([@reservation, @review], url: create_guest_reservation_reviews_path(@reservation), method: :POST) do |f|
   .card-body
       = f.hidden_field :guest_id, value: @reservation.guest_id
@@ -20,9 +21,16 @@
         .col-12
           fieldset.rating
             = f.input_field :total, as: :radio_buttons, required: true, boolean_style: :inline, collection: [["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], label_method: :last, item_wrapper_tag: false
-      .row.row-space-5
+      .row.row-space-2
         .col-12
           = f.input_field :msg, required: true, rows: "7", placeholder: "例） 楽しいひとときを過ごせました。ありがとうございます。是非またお会いしましょう！"
-
+      .row.row-space-5
+        .col-12
+          = f.file_field :tour_image, as: :file, class: "row-space-1"
+          .tour-image-thumb.row-space-1.hide
+          span.text-red
+            | 是非、旅の想い出の写真を1枚投稿してください。レビューコメントと一緒にツアー紹介ページに公開されます。
+            = user_obj_to_name(counterpart)
+            | さんのツアーがより魅力的になります。
   .card-footer
     = f.submit "この内容で送信する", class: "btn btn-primary"

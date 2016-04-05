@@ -7,6 +7,7 @@ class CalendarController < ApplicationController
   end
 
   def common_ngdays
+    return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if !current_user.main_guide?
   end
 
   private
@@ -20,6 +21,6 @@ class CalendarController < ApplicationController
     end
 
     def regulate_user
-      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id or !current_user.main_guide?
     end
 end

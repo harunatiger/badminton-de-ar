@@ -18,6 +18,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  type             :string           not null
+#  tour_image       :string           default("")
 #
 # Indexes
 #
@@ -29,4 +30,7 @@
 
 class ReviewForGuide < Review
   validates :reservation_id, uniqueness: true
+
+  mount_uploader :tour_image, DefaultImageUploader
+  attr_accessor :image_blank_ok
 end

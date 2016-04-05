@@ -57,6 +57,8 @@ en:
       subject: "Read %{name}'s review"
     reply_notification:
       subject: "ゲストがあなたの返信を待っています"
+    withdraw_notification_to_owner:
+      subject: 'ユーザが退会しました。'
   option_price_ja:
     space_rental: "スペースレンタル代"
     car_option: "車両代"
@@ -82,6 +84,8 @@ en:
     help_guide_link: "Guide Q & A"
     help_other_link: "Other Q & A"
     guide_title: "Guide Q&A"
+    return_help: "Return to Q & A"
+    search_keyword: "Results for '%{name}'"
   listing_images:
     category:
       spa_and_relaxation: 'Spa and Relaxation'
@@ -99,5 +103,3 @@ en:
       entertainment: 'Entertainment'
       experiences: 'Experiences'
       night_life: 'Night Life'
-      
-

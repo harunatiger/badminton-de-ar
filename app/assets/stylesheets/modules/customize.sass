@@ -1010,6 +1010,15 @@ body.paper
     width: 100%
     height: 100%
   .play
+    width: 100%
+    height: 100%
+    cursor: pointer
+    z-index: 2
+  .play:hover > .playbutton-wrapper
+    background-color: $brand-theme
+  .play:hover > .playbutton-wrapper i.fa
+    color: white
+  .playbutton-wrapper
     position: relative
     top: 50%
     left: 50%
@@ -1124,6 +1133,15 @@ body.paper
     margin: 0 auto
     @media (min-width: 768px)
       width: 120px
+
+/* reviews image upload */
+.tour-image-thumb
+  width: 200px
+  img
+    width: 200px
+    border: 1px solid $border1
+    border-radius: 3px
+
 /* listings
   ================================================================================ */
 .listings.show
@@ -1919,7 +1937,6 @@ body.paper
       font-size: 18px
     &:hover
       color: $gray1
-
 .input-label
   strong
     margin-right: 5px
@@ -1952,7 +1969,6 @@ body.paper
     line-height: 1.5
     @media (max-width: 1099px)
       font-size: 14px
-
 .listing-manager-notice
   font-size: 16px
   .fa
@@ -2189,28 +2205,74 @@ body.paper
     width: 220px
   #help-nav-sp
     display: none
+  #help_search_container-sp
+    display: none
+  #help_search_container
+    display: block
+  .help-return-link
+    text-align: left
   @media (max-width: 1099px)
+    .return-top
+      position: fixed
+      background: $brand-theme
+      opacity: .6
+      right: 20px
+      z-index: 9999
+      width: 50px
+      height: 50px
+      border-radius: 50%
+      i.fa
+        position: absolute
+        top: -4px
+        left: 9px
+        font-size: 50px
+        color: white
     #help-nav
       display: none
     #help-nav-sp
       display: block
       width: 100%
-      .return-top
-        position: fixed
-        background: $brand-theme
-        opacity: .6
-        right: 20px
-        z-index: 9999
-        width: 50px
-        height: 50px
-        border-radius: 50%
-        i.fa
-          position: absolute
-          top: -4px
-          left: 9px
-          font-size: 50px
-          color: white
       .about-link
         margin: 0
         ul
           margin: 0
+    #help_search_container-sp
+      display: block
+    #help_search_container
+      display: none
+    .help-return-link
+      text-align: right
+  h3.help-result-title
+    margin: 20px 0
+  .search-help-topic-form-container
+    text-align: left
+    height: 66px
+    padding: 10px 0
+    position: relative
+    .form-icon
+      position: absolute
+      left: 52%
+      top: 18px
+      display: inline-block
+      max-width: 100%
+      margin-bottom: 5px
+      i
+        font-size: 20px
+        color: #aaa
+      @media (max-width: 767px)
+        left: 2%
+    #keyword
+      display: block
+      float: right
+      width: 50%
+      height: 36px
+      padding: 10px 16px
+      font-size: 18px
+      line-height: 1.3333333
+      padding-left: 43px
+      padding-right: 43px
+      border-radius: 23px
+      @media (max-width: 767px)
+        float: none
+        width: 100%
+        font-size: 16px
