@@ -13,7 +13,7 @@
         .h6.row-space-1 Note about meeting up
         .text-muted.overflow
           = hbr(listing_detail.place_memo).html_safe
-    - if listing_detail.condition.present?
+    /- if listing_detail.condition.present?
       .card-body
         .h6.row-space-1 Conditions of Participation
         .text-muted.overflow

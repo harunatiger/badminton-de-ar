@@ -7,7 +7,7 @@
     .text-center--md
       .h3.strong.row-space-1
         = @host_info.first_name
-      div
+      /div
         /= link_to "#reviews", class: "link-reset"
         .star-rating.star-rating-large.star-rating-fit
           = render partial: 'listings/stars', locals: { rate: @host_info.ave_total }
@@ -18,6 +18,11 @@
 .row.row-space-4
   .col-md-12
     .tag-list-wrapper
+      - image_categories_limited_six(@listing).each do |category|
+        .media-round.media-photo.media-avatar
+          .size60[style="background-image: url('#{asset_path category[:image]}')"]
+        = image_category_display_name(category[:title])
+    /.tag-list-wrapper
       ul
         - if category_food?(@host_info)
           li
@@ -73,7 +78,7 @@
             span ES
     .introduction-container
       /- if @host_info.self_introduction.present?
-      .expandable.row-space-2
+      /.expandable.row-space-2
         .expandable-trigger-more
           .expandable-content
             .expandable-inner
@@ -93,10 +98,16 @@
             - break
         - if moreline == true
           span ...
+      | Supporting guide will join on the day
+      .row
+        - @profiles.each_with_index do |guide, i|
+          - break if i == 10
+          .media-photo.media-round.media-avatar
+            .size90[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(guide.user_id)}')"]
       div
         = link_to "#", class: "pair_guide_list-trigger small1" do
-          i.fa.fa-exclamation-circle
-          | Supporting guide will join on the day
+          /i.fa.fa-exclamation-circle
+          | more
   /.col-lg-6.col-md-6.text-center
     - if profile_keyword.present?
       canvas#canvas height='200' width='300'
@@ -126,7 +137,30 @@
   hr
   h4
     i.fa.fa-diamond
+    |  Features of this Tour
+  .row-space-4
+    | Reason for Making this Tour
+    br
+    = hbr(@listing.interview1).html_safe
+  .row-space-4
+    | Tour Highlights
+    br
+    = hbr(@listing.interview2).html_safe
+  .row-space-4
+    | Recommended for…
+    br
+    = hbr(@listing.interview3).html_safe
+  hr
+  h4
+    i.fa.fa-diamond
     |  Any other information or instructions (eg. what to bring)
   .row-space-4
     = hbr(@listing.notes).html_safe
+  hr
+  h4
+    i.fa.fa-diamond
+    |  Conditions of Participation
+  .row-space-4
+    - if @listing.listing_detail.condition.present?
+      = hbr(@listing.listing_detail.condition).html_safe
   hr

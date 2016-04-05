@@ -230,7 +230,7 @@ class Listing < ActiveRecord::Base
   end
     
   def cover
-    self.listing_images.first.present? ? self.listing_images.first.image : ''
+    self.listing_images.order_asc.first.present? ? self.listing_images.order_asc.first.image : ''
   end
 
   def dup_all

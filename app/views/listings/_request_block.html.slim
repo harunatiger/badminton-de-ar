@@ -8,7 +8,7 @@
     .card.row-space-2
       .card-body
         .tour-price.row-space-1
-          h3.h4.strong.row-space-2 GUIDE PRICE
+          h3.h4.strong.row-space-2 Price
           #tour-basic-amount.h3.row-space-2
             | ¥
             b = listing_detail.basic_amount
@@ -18,14 +18,14 @@
           .tour-price-detail
             .row
               .col-xs-7
-                | Basic Price
+                | Guide Price
               .col-xs-5.text-right.strong
                 | ¥
                 = listing_detail.guide_price
             - if listing_detail.option_amount > 0
               .row
                 .col-xs-7
-                  | Optional Price
+                  | Costs included in this price
                 #tour-option-amount.col-xs-5.text-right.strong
                   | ¥
                   = listing_detail.option_amount
@@ -46,8 +46,7 @@
                   - car_rental_cost += listing_detail[option]
               .row.text-muted.small2
                 .col-xs-7
-                  |  -
-                  = I18n.t('option_price_en.' + 'car_rental')
+                  |  -#{I18n.t('option_price_en.' + 'car_rental')} fee
                 #tour-option-car.col-xs-5.text-right.strong
                   | ¥
                   = car_rental_cost
@@ -57,8 +56,7 @@
                 - if listing_detail[option] > 0
                   .row.text-muted.small2
                     .col-xs-7
-                      |  -
-                      = I18n.t('option_price_en.' + option)
+                      |  -#{I18n.t('option_price_en.' + option)} fee
                     #tour-option-bicycle.col-xs-5.text-right.strong
                       | ¥
                       = listing_detail[option] * min_num_of_people
@@ -67,8 +65,7 @@
                 - if listing_detail[option] > 0
                   .row.text-muted.small2
                     .col-xs-7
-                      |  -
-                      = I18n.t('option_price_en.' + option)
+                      |  -#{I18n.t('option_price_en.' + option)} fee
                     #tour-option-other.col-xs-5.text-right.strong
                       | ¥
                       = listing_detail[option]

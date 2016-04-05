@@ -614,4 +614,16 @@ module ApplicationHelper
   def image_category_display_name(category)
     I18n.t('listing_images.category.' + category)
   end
+  
+  def image_categories_limited_six(listing)
+    all_categories = []
+    result = []
+    listing.listing_images.each do |listing_image|
+      all_categories << listing_image.category_hash if listing_image.category_hash.present?
+    end
+    return [] if all_categories.blank?
+    all_categories.shuffle!
+    result = all_categories.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
+    result.present? ? result[0..5] : []
+  end
 end
