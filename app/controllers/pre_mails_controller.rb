@@ -25,14 +25,26 @@ class PreMailsController < ApplicationController
   # POST /pre_mails.json
   def create
     @pre_mail = PreMail.new(pre_mail_params)
-    @pre_mail.user_id = current_user.id if user_signed_in?
     respond_to do |format|
-      if @pre_mail.save
-        PreMailer.send_pre_mail(@pre_mail, user_signed_in? ? current_user : nil).deliver_now!
-        PreMailer.send_pre_mail_to_user(@pre_mail).deliver_now!
-        format.js { @status = 'success' }
+      if user_signed_in? and current_user.pre_mail.blank?
+        @pre_mail.email = current_user.email
+        if @pre_mail.save
+          PreMailer.send_pre_mail(@pre_mail, current_user).deliver_now!
+          PreMailer.send_pre_mail_to_user(@pre_mail).deliver_now!
+          format.html { redirect_to listings_path, notice: Settings.pre_mail.save.success }
+        else
+          format.html { redirect_to listings_path, notice: Settings.pre_mail.save.failure }
+        end
+      elsif !user_signed_in?
+        if @pre_mail.save
+          PreMailer.send_pre_mail(@pre_mail).deliver_now!
+          PreMailer.send_pre_mail_to_user(@pre_mail).deliver_now!
+          format.js { @status = 'success' }
+        else
+          format.js { @status = 'failuer' }
+        end
       else
-        format.js { @status = 'failuer' }
+        format.html { redirect_to root_path, notice: Settings.pre_mail.save.failure }
       end
     end
   end

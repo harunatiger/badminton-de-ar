@@ -9,3 +9,4 @@ $ ->
       spinner.spin('flower', 'white')
       $('.btn-frame > .btn', targetForm).addClass('text-disappear')
       return
+    
