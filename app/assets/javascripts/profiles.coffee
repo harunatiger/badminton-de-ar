@@ -120,18 +120,19 @@ $ ->
           $(this).find('span.favorited-count').text(count)
 
   #balloon for languages
-  $('.balloon').balloon(
-    css:
-      border: 'none',
-      padding: '8px',
-      fontSize: '13px',
-      fontWeight: 'bold',
-      lineHeight: '1.55',
-      backgroundColor: 'rgba(0, 0, 0, .75)',
-      borderRadius: '2px'
-      color: 'white'
-      boxShadow: 'none'
-  )
+  if $('html').hasClass('no-touch')
+    $('.balloon').balloon(
+      css:
+        border: 'none',
+        padding: '8px',
+        fontSize: '13px',
+        fontWeight: 'bold',
+        lineHeight: '1.55',
+        backgroundColor: 'rgba(0, 0, 0, .75)',
+        borderRadius: '2px'
+        color: 'white'
+        boxShadow: 'none'
+    )
 
   #tag cloud
   $(document).on 'click', '.tag_cloud', (event)->

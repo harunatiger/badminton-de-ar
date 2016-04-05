@@ -448,6 +448,8 @@ $ ->
         return
       if $('body').is('.profile_keywords.edit') and target == '#'
         return
+      if $('body').is('.listing_images.manage') and target == '#'
+        return
       if isChanged == true
         form_change_target = target
         $('#form_change_confirm').modal('show')
@@ -485,7 +487,7 @@ $ ->
         return
 
   #IME disabled
-  $('.imeoff').bind 'keyup', ->
+  $(document).on 'keyup', '.imeoff', ->
     noSbcRegex = /[^\x00-\x7E]+/g
     target = $(this)
     if !target.val().match(noSbcRegex)

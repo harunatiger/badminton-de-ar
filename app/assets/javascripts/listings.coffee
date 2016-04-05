@@ -484,6 +484,10 @@ $ ->
     $('.sp-slides').magnificPopup
       delegate: '.slider-popup'
       type: 'image'
+      image:
+        verticalFit: true
+        titleSrc: (item) ->
+          item.el.attr('title') + '<span class="category-img" style="background-image: url(' + item.el.attr('data-source') + ')"></span>'
       gallery:
         enabled: true
 

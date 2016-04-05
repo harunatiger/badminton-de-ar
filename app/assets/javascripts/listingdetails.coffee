@@ -5,7 +5,6 @@ $ ->
     overviewTop = $('#tour-overview').offset().top
     notesTop = $('#tour-notes').offset().top
     conditionTop = $('#tour-condition').offset().top
-
     titleHeight = $('#tour-title').outerHeight(true)
     overviewHeight = $('#tour-overview').outerHeight(true)
     notesHeight = $('#tour-notes').outerHeight(true)

@@ -205,7 +205,7 @@ class Listing < ActiveRecord::Base
       listing = Listing.find(self.id)
       listing_detail = ListingDetail.where(listing_id: self.id).first
       result << Settings.left_steps.listing if listing.title.blank? || listing.overview.blank?
-      result << Settings.left_steps.listing_image unless (self.cover_image.present? or self.listing_images.present? or self.cover_video.present?)
+      result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_video.present?)
       if listing_detail.present?
         result << Settings.left_steps.listing_detail if listing_detail.time_required == 0.0
       else
@@ -226,7 +226,11 @@ class Listing < ActiveRecord::Base
   end
 
   def unpublish_if_no_image
-    self.unpublish if self.listing_images.blank? and self.cover_image.blank? and self.cover_video.blank?
+    self.unpublish if self.listing_images.blank? and self.cover_video.blank?
+  end
+    
+  def cover
+    self.listing_images.first.present? ? self.listing_images.first.image : ''
   end
 
   def dup_all

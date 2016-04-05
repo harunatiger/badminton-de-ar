@@ -1,26 +1,28 @@
-- slider_images = listing_slider_url(listing, listing_images)
 - favorite_count = favorite_listings_count(listing.id)
+
+/- listing_images.each do |listing_image|
+  = debug listing_image.caption
+
 .listing
   #slider-wrapper.with-photos.with-modal
-    - if slider_images.length < 3
+    - if listing_images.length < 3
       #listing_slider-normal.slider-pro
         .sp-slides-container
           .sp-mask.sp-grab
             .sp-slides
-              - slider_images.each do |slider_image|
+              - listing_images.each do |slider_image|
                 .sp-slide
-                  = link_to "#{slider_image}", class:"slider-popup" do
-                    img.sp-image[src="#{slider_image}" data-src="#{slider_image}"]
-
+                  = link_to "#{slider_image.image.url}", class:"slider-popup", data: {source: "#{slider_image.category_image.present? ? asset_path(slider_image.category_image) : ''}"}, title: slider_image.caption do
+                    img.sp-image[src="#{slider_image.image.url}" data-src="#{slider_image.image.url}"]
     - else
       #listing_slider-carousel.slider-pro
         .sp-slides-container
           .sp-mask.sp-grab
             .sp-slides
-              - slider_images.each do |slider_image|
+              - listing_images.each do |slider_image|
                 .sp-slide
-                  = link_to "#{slider_image}", class:"slider-popup" do
-                    img.sp-image[src="#{slider_image}" data-src="#{slider_image}"]
+                  = link_to "#{slider_image.image.url}", class:"slider-popup", data: {source: "#{slider_image.category_image.present? ? asset_path(slider_image.category_image) : ''}"}, title: slider_image.caption do
+                    img.sp-image[src="#{slider_image.image.url}" data-src="#{slider_image.image.url}"]
 
   /#photos.with-photos.with-modal
     = link_to "#", class:"galon-trigger", title:"#{listing.cover_image}" do

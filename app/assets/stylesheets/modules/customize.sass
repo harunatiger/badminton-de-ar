@@ -772,6 +772,10 @@ body.paper
   @media (max-width: 767px)
     .modal-table-small .modal-cell
       display: table-cell
+
+.listing_image_selected
+  //opacity: 0.5
+
 /* Style Star Rating Widget
   ================================================================================ */
 
@@ -851,6 +855,21 @@ body.paper
 .mfp-arrow-left
   &:after, .mfp-a
     content: "\f104"
+
+.mfp-title
+  position: relative
+  //padding-left: 54px
+  .category-img
+    position: absolute
+    top: -60px
+    left: 12px
+    width: 44px
+    height: 44px
+    border-radius: 50%
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .25)
+    background-repeat: no-repeat
+    background-position: center top
+    background-size: cover
 
 /* video.js hack */
 .vjs-default-skin .vjs-big-play-button
@@ -1283,7 +1302,15 @@ body.paper
   position: relative
   display: inline-block
   > div
-    width: 200px
+    width: 180px
+    height: 120px
+    border: 1px solid $border1
+    border-radius: 3px
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: cover
+  .add_image
+    width: 180px
     height: 120px
     border: 1px solid $border1
     border-radius: 3px
@@ -1305,9 +1332,11 @@ body.paper
     border: 1px solid rgba(255, 255, 255, .5)
     border-radius: 6px
     z-index: 5
+    opacity: 0
 
 .listing-video-container
   position: relative
+  display: block
   .delete-image
     display: block
     position: absolute
@@ -1323,6 +1352,40 @@ body.paper
     border: 1px solid rgba(255, 255, 255, .5)
     border-radius: 6px
     z-index: 5
+    opacity: 0
+  &:hover
+    .delete-image
+      opacity: 1
+
+.regist-pics
+  .image-droppable
+    width: 100%
+  .card
+    height: 240px
+    .card-body
+      padding: 12px
+    .listing-image-container
+      display: block
+      div
+        width: 100%
+        margin: 0 auto
+        border: 0
+        border-radius: 0
+    .set_listing_image_link
+      display: block
+      overflow: hidden
+    .set_listing_image_link_text
+      display: block
+      /* Fallback for non-webkit
+      display: -webkit-box
+      height: 56px
+      /* Fallback for non-webkit
+      line-height: 1.4
+      -webkit-line-clamp: 3
+      -webkit-box-orient: vertical
+      overflow: hidden
+      text-overflow: ellipsis
+
 
 /* calendar (listings/calendar)
   ================================================================================ */
@@ -1874,7 +1937,6 @@ body.paper
       font-size: 18px
     &:hover
       color: $gray1
-
 .input-label
   strong
     margin-right: 5px
@@ -1907,7 +1969,6 @@ body.paper
     line-height: 1.5
     @media (max-width: 1099px)
       font-size: 14px
-
 .listing-manager-notice
   font-size: 16px
   .fa
