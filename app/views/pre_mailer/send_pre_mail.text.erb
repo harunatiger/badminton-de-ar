@@ -16,6 +16,14 @@
 
 <%= @pre_mail.email %>
 
+■都道府県
+
+<%= @user.present? ? @user.profile.prefecture : @pre_mail.prefecture.try('name') %>
+
+■市区町村
+
+<%= @user.present? ? @user.profile.municipality : @pre_mail.municipality %>
+
 ■プロフィールURL
 
 <%= @user.present? ? profile_url(@user.profile.id) : ''%>
