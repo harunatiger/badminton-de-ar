@@ -53,7 +53,8 @@ li.thread-list-item
                 div#preview-show
             - if !m.reservation_id.zero? and m.try('content') == Settings.reservation.msg.request
               /= render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
-
+        - if m.read.blank?
+          = 'dot'
         .time-container.text-muted
           small.time
             = m.try('created_at').strftime("%m/%d %H:%M") || ''
