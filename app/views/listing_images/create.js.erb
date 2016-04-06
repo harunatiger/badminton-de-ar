@@ -1,4 +1,6 @@
-<% if @status == "success" %>
+<% if @status == "count_over" %>
+  alert("写真の登録は最大50枚までです。")
+<% elsif @status == "success" %>
   var image = '';
   <% if @listing_image.image.thumb != '' %>
     image = '<%= @listing_image.image.thumb %>';

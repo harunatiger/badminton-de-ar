@@ -24,6 +24,7 @@ en:
         cover_image: 'cover photo'
       listing_image:
         image: 'photo'
+        caption: 'コメント'
       pre_mail:
         email: 'email'
         last_name: 'last_name'
@@ -85,4 +86,20 @@ en:
     guide_title: "Guide Q&A"
     return_help: "Return to Q & A"
     search_keyword: "Results for '%{name}'"
-
+  listing_images:
+    category:
+      spa_and_relaxation: 'Spa and Relaxation'
+      cultural_sites: 'Cultural Sites'
+      food_and_drink: 'Food and Drink'
+      shopping: 'Shopping'
+      outdoors: 'Outdoors'
+      sports: 'Sports'
+      gardens: 'Gardens'
+      tourist_hotspots: 'Tourist Hotspots'
+      art: 'Art'
+      manga_and_anime: 'Manga and Anime'
+      onsen: 'Onsen'
+      theme_parks: 'Theme Parks'
+      entertainment: 'Entertainment'
+      experiences: 'Experiences'
+      night_life: 'Night Life'

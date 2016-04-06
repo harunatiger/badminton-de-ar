@@ -76,6 +76,7 @@ listing_images:
     failure_video: "File size is too big. Please ensure file size is less than <%= ENV["UPLOAD_VIDEO_LIMIT_SIZE"]%>MB"
   delete:
     success: "Successfully deleted your photo/video"
+  max_count: 50
 listing_details:
   save:
     success: "Congratulations! You have successfully registered your tour"
@@ -216,6 +217,9 @@ image:
     caption: '画像が登録されていません。'
   noimage2:
     url: 'no-image-225x225.gif'
+    caption: ''
+  noimage3:
+    url: 'no-image-640x640.gif'
     caption: ''
 page:
   home: 'Home'

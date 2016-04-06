@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "blocker_id"
   end
 
   create_table "help_categories", force: :cascade do |t|
@@ -251,6 +252,7 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.text     "description", default: ""
+    t.string   "category",    default: ""
   end
 
   add_index "listing_images", ["listing_id"], name: "index_listing_images_on_listing_id", using: :btree
@@ -362,9 +364,11 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.boolean  "reply_from_host",   default: false
     t.boolean  "first_message",     default: true
     t.boolean  "noticemail_sended", default: false
+    t.integer  "reservation_id"
   end
 
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
+  add_index "message_threads", ["reservation_id"], name: "index_message_threads_on_reservation_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "message_thread_id",                  null: false
@@ -380,6 +384,7 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.string   "attached_file"
     t.string   "attached_extension"
     t.string   "attached_name"
+    t.boolean  "friends_request",    default: false
   end
 
   add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id", using: :btree
@@ -542,9 +547,9 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.string   "caption",     default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.string   "cover_image", default: ""
     t.integer  "order_num"
     t.boolean  "cover_flg",   default: false
+    t.string   "cover_image"
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree
@@ -671,6 +676,7 @@ ActiveRecord::Schema.define(version: 20160330193120) do
   add_index "reservations", ["guest_id"], name: "index_reservations_on_guest_id", using: :btree
   add_index "reservations", ["host_id"], name: "index_reservations_on_host_id", using: :btree
   add_index "reservations", ["listing_id"], name: "index_reservations_on_listing_id", using: :btree
+  add_index "reservations", ["pair_guide_id"], name: "index_reservations_on_pair_guide_id", using: :btree
 
   create_table "review_replies", force: :cascade do |t|
     t.integer  "review_id"
@@ -785,7 +791,6 @@ ActiveRecord::Schema.define(version: 20160330193120) do
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["id"], name: "index_users_on_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
@@ -823,6 +828,7 @@ ActiveRecord::Schema.define(version: 20160330193120) do
   add_foreign_key "listings", "users"
   add_foreign_key "message_thread_users", "message_threads"
   add_foreign_key "message_thread_users", "users"
+  add_foreign_key "message_threads", "reservations"
   add_foreign_key "message_threads", "users", column: "host_id"
   add_foreign_key "messages", "message_threads"
   add_foreign_key "messages", "users", column: "from_user_id"
@@ -847,6 +853,7 @@ ActiveRecord::Schema.define(version: 20160330193120) do
   add_foreign_key "reservations", "listings"
   add_foreign_key "reservations", "users", column: "guest_id"
   add_foreign_key "reservations", "users", column: "host_id"
+  add_foreign_key "reservations", "users", column: "pair_guide_id"
   add_foreign_key "review_replies", "reviews"
   add_foreign_key "reviews", "listings"
   add_foreign_key "reviews", "reservations"

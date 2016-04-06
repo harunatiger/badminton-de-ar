@@ -229,7 +229,7 @@ class ListingsController < ApplicationController
         :description, :recommend1, :recommend2, :recommend3,
         :interview1, :interview2, :interview3, :overview, :notes,
         :title, :capacity, :direction, :schedule, :listing_images,
-        :cover_image, :cover_image_caption, :cover_video, :cover_video_caption,
+        :cover_video, :cover_video_caption,
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
         language_ids: [], pickup_ids: [],
         listing_detail_attributes: [:id, :place, :place_longitude, :place_latitude, :place_memo, :condition, :stop_if_rain, :in_case_of_rain ]

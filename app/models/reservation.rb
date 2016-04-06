@@ -41,13 +41,20 @@
 #  guests_cost            :integer          default(0)
 #  included_guests_cost   :text             default("")
 #  cancel_by              :integer          default(0)
+#  pair_guide_id          :integer
+#  pair_guide_status      :integer          default(0)
+#  bicycle_option         :boolean          default(FALSE)
+#  bicycle_rental         :integer          default(0)
+#  other_option           :boolean          default(FALSE)
+#  other_cost             :integer          default(0)
 #
 # Indexes
 #
-#  index_reservations_on_campaign_id  (campaign_id)
-#  index_reservations_on_guest_id     (guest_id)
-#  index_reservations_on_host_id      (host_id)
-#  index_reservations_on_listing_id   (listing_id)
+#  index_reservations_on_campaign_id    (campaign_id)
+#  index_reservations_on_guest_id       (guest_id)
+#  index_reservations_on_host_id        (host_id)
+#  index_reservations_on_listing_id     (listing_id)
+#  index_reservations_on_pair_guide_id  (pair_guide_id)
 #
 
 class Reservation < ActiveRecord::Base

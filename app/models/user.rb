@@ -28,6 +28,7 @@
 #  soft_destroyed_at      :datetime
 #  email_before_closed    :string           default("")
 #  reason                 :text             default("")
+#  user_type              :integer          default(0)
 #
 # Indexes
 #

@@ -854,6 +854,33 @@ a.delete
   @media (max-width: 767px)
     margin-left: 0 !important
 
+.manage-listing-edit
+  position: absolute
+  top: 0
+  right: 0
+  @media (max-width: 767px)
+    display: none
+    position: fixed !important
+    top: 0 !important
+    left: 0
+    right: 0 !important
+    bottom: 0
+    width: 100%
+    padding: 5px 20px 25px
+    background-color: white
+    transition: opacity .25s
+    opacity: 0
+    overflow: auto
+    z-index: 11
+    //padding-bottom: 20px
+    //border-top: 1px solid $border1
+    //border-bottom: 1px solid $border1
+    &.show-off
+      opacity: 1
+  &.pinned
+    position: fixed
+    top: 40px
+
 .manage-listing-nav
   position: absolute
   top: 0
@@ -1401,8 +1428,9 @@ $lines-to-show: 2
   cursor: row-resize
   &:hover
     .listing-image-container
-      > div
-        opacity: 0.3
+      opacity: 0.7
+      .delete-image
+        opacity: 1
 .image-drag-active
   .listing-image-container
     > div
@@ -1411,6 +1439,102 @@ $lines-to-show: 2
   .listing-image-container
     > div
       opacity: 0.8
+
+.add-listing-images
+  .bootstrap-filestyle
+    width: 100%
+    margin: 0 auto
+    .btn
+      display: block
+      padding-top: 12px
+      padding-bottom: 12px
+      @media (max-width: 767px)
+        font-size: 14px
+  .add-listing-images-movie, .add-listing-images-image
+    @media (max-width: 767px)
+      padding: 0 4px
+  .add-listing-images-movie
+    .fa-cloud-upload
+      &::before
+        content: "\f1c8"
+        font-family: 'fontAwesome'
+        font-size: 20px
+  .add-listing-images-image
+    .fa-cloud-upload
+      &::before
+        content: "\f1c5"
+        font-family: 'fontAwesome'
+        font-size: 20px
+
+.category-container
+  position: relative
+  height: 32px
+  line-height: 32px
+  padding: 0 7px 0 50px
+  background-color: $bg1
+  .media-avatar, .fa-question
+    position: absolute
+    top: -16px
+    left: 5px
+  .fa-question
+    width: 44px
+    height: 44px
+    line-height: 40px
+    margin: 0
+    color: white
+    font-size: 30px
+    text-align: center
+    background-color: $border1
+
+.add-image-link
+  display: block
+  height: 240px
+  text-align: center
+  background-color: white
+  border: 1px solid $border1
+  &:hover
+    text-decoration: none
+    background-color: $bg1
+  .fa-image
+    display: block
+    color: $border1
+    font-size: 74px
+
+.category-modal
+  .modal-lg
+    .modal-content
+      .card-body
+        img
+          float: none
+          width: 100%
+          height: auto
+          border-radius: 50%
+
+.set_category_container
+  overflow: visible
+  
+.set_category_container_title
+  @media (max-width : 1000px)
+    height: 20px
+    font-size: 0.1em
+    
+.listing_image_selected
+  display: block
+  position: relative
+  .fa-check
+    display: block
+    position: absolute
+    top: -4px
+    right: -4px
+    width: 32px
+    height: 32px
+    line-height: 28px
+    color: white
+    font-size: 18px
+    text-align: center
+    background-color: $green1
+    border: 2px solid white
+    border-radius: 50%
 
 /* tag cloud */
 .css1
