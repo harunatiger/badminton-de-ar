@@ -154,7 +154,7 @@ class ProfilesController < ApplicationController
       params.require(:profile).permit(
         :id, :user_id, :first_name, :last_name, :birthday,
         :phone, :phone_verification, :country, :location, :self_introduction, :tag_list,
-        :school, :work, :timezone, :gender, :zipcode, :prefecture, :municipality, :other_address,
+        :school, :work, :timezone, :gender, :zipcode, :prefecture, :municipality, :other_address,:free_field, 
         :listing_count, :wishlist_count, :bookmark_count, :reviewed_count,
         :reservation_count,
         :ave_total, :ave_accuracy, :ave_communication, :ave_cleanliness, :ave_location,
