@@ -418,14 +418,17 @@ $ ->
       # $('#book_it_button').trigger('click')
       $('html, body').animate({ scrollTop: $('#js-tour-info').offset().top }, 'fast');
 
+  # preview edit bar
   if $('body').hasClass('listings preview')
     if $('.header--sp').css('display') == 'none'
       $(window).scroll ->
         scrollTop = $(window).scrollTop()
-        if scrollTop > 50
-          $('.preview_link').css('top', 0)
-        else
+        if scrollTop == 0
           $('.preview_link').css('top', 50)
+        else if scrollTop < 50
+          $('.preview_link').css('top', 50 - scrollTop)
+        else
+          $('.preview_link').css('top', 0)
 
   # listings#show
   if $('body').hasClass('listings show') || $('body').hasClass('listings preview')

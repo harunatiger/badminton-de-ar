@@ -1208,7 +1208,7 @@ body.paper
       .expandable-indicator
         display: none
 
-.listings.show
+.listings
   .listing
     position: relative
 
@@ -1329,83 +1329,21 @@ body.paper
   .listing-description
     word-break: break-word
 
-.listings.preview
-  .listing
-    position: relative
-  .favorite-container
-    z-index: 1
-    @media (max-width: 767px)
-      display: none
-  .favorite-container-sp
-    position: absolute
-    width: 100%
-    z-index: 1
-    top: 10px
-    text-align: right
-    right: 10px
-    @media (min-width: 768px)
-      display: none
-  /* title-section */
-  .title-section
-    position: relative
-    background: white
-    border-bottom: 1px solid $border1
-    z-index: 1
-    padding: 15px 0
-    #listing_name
-      color: $gray2
-      padding-bottom: 0
-      text-shadow: none
-      padding: 0
-    #listing_area
-      //padding-bottom: 26px
-      font-size: 16px
-      overflow: hidden
-      white-space: nowrap
-      text-overflow: ellipsis
-      //min-height: 50px
-      a
-        color: $brand-theme
-      .fa-map-marker
-        font-size: 20px
-        margin-left: 2px
-        margin-right: 5px
-        color: $lightgray2
-    @media (max-width: 1099px)
-      position: relative
-      background: white
-      #listing_name
-        color: $gray2
-        text-shadow: none
-        text-align: left
-        padding-left: 0
-      #listing_area
-        text-align: left
-        padding-left: 0
-        min-height: 0px
-        a
-          color: $brand-theme
-    @media (max-width: 767px)
-      #listing_name
-        line-height: 1.4
-        //font-size: 28px
-        text-align: center
-      #listing_area
-        text-align: center
-  .listing-description
-    word-break: break-word
-
 .preview_link
   position: fixed
   width: 100%
-  z-index: 2
-  background: rgba(0, 0, 0, 0.75)
   color: white
-  font-size: 18px
+  background: rgba(0, 0, 0, 0.75)
+  z-index: 2
   @media (min-width: 768px)
     top: 50px
   @media (max-width: 767px)
     bottom: 0
+    p.text-lead
+      margin-bottom: 5px
+      font-size: 14px
+    .btn
+      font-size: 13px
 
 #review-block-container--sp
   margin-top: -70px

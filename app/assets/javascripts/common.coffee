@@ -407,7 +407,7 @@ $ ->
       loginReady()
 
   #pair_guide_list-trigger
-  if $('body').hasClass('profiles show') || $('body').hasClass('listings show')
+  if $('body').hasClass('profiles show') || $('body').hasClass('listings show') || $('body').hasClass('listings preview')
     $('a.pair_guide_list-trigger').on 'click', ->
       $('#pair_guide_list').modal()
       return false
