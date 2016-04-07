@@ -20,17 +20,18 @@
               .row.row-condensed.row-space-top-2
                 .col-md-6
                   | お名前(姓)
-                  .row-space-3
+                  .row-space-2
                     = f.input_field :last_name, placeholder: "山田"
                 .col-md-6
                   | お名前(名)
-                  .row-space-3
+                  .row-space-2
                     = f.input_field :first_name, placeholder: "太郎"
-              .row.row-condensed.row-space-top-2
+              .row.row-condensed
                 .col-md-6
                   | 都道府県
                   .row-space-3
-                    = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name
+                    .select.select-block
+                      = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name
                 .col-md-6
                   | 市区町村
                   .row-space-3
