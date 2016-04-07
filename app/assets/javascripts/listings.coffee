@@ -2,28 +2,39 @@
 $ ->
 
   # listings#new
-  if $('body').hasClass('listing_details manage')
+  if $('body').hasClass('listing_details manage') || $('body').hasClass('listing_details update')
+    car1 = Number($('#listing_detail_car_rental').val())
+    car2 = Number($('#listing_detail_gas').val())
+    car3 = Number($('#listing_detail_highway').val())
+    car4 = Number($('#listing_detail_parking').val())
+    car_cost = car1 + car2 + car3 + car4
+    if car_cost == 0
+      $('#listing_detail_car_option').prop("checked",false)
 
+    numOfPeople = false
     # price imitation
     value_calc = ->
       space_check = 0
       car_check = 0
       fvMin = Number($('#listing_detail_min_num_of_people').val())
       fv = Number($('#listing_detail_max_num_of_people').val())
-      $('#num-of-people select option').remove()
-      i = fvMin
-      while i <= fv
-        $('#num-of-people select').append($('<option value="'+[i]+'">'+[i]+'</option>'));
-        i++
+      if numOfPeople == false
+        $('#num-of-people select option').remove()
+        i = fvMin
+        while i <= fv
+          $('#num-of-people select').append($('<option value="'+[i]+'">'+[i]+'</option>'));
+          i++
+      num_of_people = Number($('#sample_num_of_people option:selected').text())
       fv0 = Number($('#listing_detail_time_required').val())
       fv1 = Number($('#listing_detail_price').val())
       fv2 = Number($('#listing_detail_price_for_support').val())
-      fv3 = Number($('#listing_detail_price_for_both_guides').val())
-      fv4 = fv1 + fv2 + fv3
-      if $('#listing_detail_space_option').is(':checked')
-        fv5 = Number($('#listing_detail_space_rental').val())
-      else
-        fv5 = 0
+      #fv3 = Number($('#listing_detail_price_for_both_guides').val())
+      #fv4 = fv1 + fv2 + fv3
+      fv4 = fv1 + fv2
+      #if $('#listing_detail_space_option').is(':checked')
+      #  fv5 = Number($('#listing_detail_space_rental').val())
+      #else
+      #  fv5 = 0
       if $('#listing_detail_car_option').is(':checked')
         fv6 = Number($('#listing_detail_car_rental').val())
         fv7 = Number($('#listing_detail_gas').val())
@@ -34,7 +45,8 @@ $ ->
         fv7 = 0
         fv8 = 0
         fv9 = 0
-      fv10 = fv5 + fv6 + fv7 + fv8 + fv9
+      #fv10 = fv5 + fv6 + fv7 + fv8 + fv9
+      fv10 = fv6 + fv7 + fv8 + fv9
       fv11 = fv4 + fv10
       #fv12 = Math.ceil((fv11) * 0.145)
       #if fv11 <= 500
@@ -44,6 +56,16 @@ $ ->
       fv14 = fv11 + fv12
       fv15 = $('#listing_detail_included_guests_cost').val()
 
+      if $('#listing_detail_bicycle_option').is(':checked')
+        fv16 = Number($('#listing_detail_bicycle_rental').val()) * num_of_people
+      else
+        fv16 = 0
+
+      if $('#listing_detail_other_option').is(':checked')
+        fv17 = Number($('#listing_detail_other_cost').val())
+      else
+        fv17 = 0
+
       $('.max-num-of-people').text(fv)
       if fv0 == 24.5
         fv0 = '24h-)'
@@ -51,15 +73,17 @@ $ ->
         fv0 = fv0 + 'h)'
       $('.timelapse').text(fv0)
       $('.guide_price').text(fv4)
-      $('.value_discharge.space_rental').text(fv5)
-      $('.value_discharge.car_rental').text(fv6)
-      $('.value_discharge.gas').text(fv7)
-      $('.value_discharge.highway').text(fv8)
-      $('.value_discharge.parking').text(fv9)
-      $('.value_discharge.option_total').text(fv10)
+      #$('.value_discharge.space_rental').text(fv5)
+      $('.value_discharge.car_rental').text(fv6 + fv7 + fv8 + fv9)
+      #$('.value_discharge.gas').text(fv7)
+      #$('.value_discharge.highway').text(fv8)
+      #$('.value_discharge.parking').text(fv9)
+      $('.value_discharge.bicycle_rental').text(fv16)
+      $('.value_discharge.other_cost').text(fv17)
+      $('.value_discharge.option_total').text(fv10 + fv16 + fv17)
       $('.value_discharge.service_fee').text(fv12)
       $('.value_discharge.guests_cost').text(fv13)
-      $('.value_discharge.total_price').text(fv14)
+      $('.value_discharge.total_price').text(fv14 + fv16 + fv17)
 
       $('.value_discharge_option').each ->
         if $(this).text() == '0'
@@ -70,6 +94,18 @@ $ ->
       $('#include_what .card-body p').text(fv15)
 
     $('.value_fragile').on 'change', ->
+      value_calc()
+
+    $('#sample_num_of_people').on 'change', ->
+      numOfPeople = true
+      value_calc()
+
+    $('#listing_detail_min_num_of_people').on 'change', ->
+      numOfPeople = false
+      value_calc()
+
+    $('#listing_detail_max_num_of_people').on 'change', ->
+      numOfPeople = false
       value_calc()
 
     value_calc()
@@ -324,7 +360,7 @@ $ ->
   if $('body').hasClass('listings new') && $('#about-guide-tg').length
     $('#about-guide-tg').modal('show')
 
-  if $('body').hasClass('listings show') || $('body').hasClass('listing_details manage')
+  if $('body').hasClass('listings show') || $('body').hasClass('listing_details manage') || $('body').hasClass('listings preview')
 
     # price calc
     tourPriceSingleContainer = $('#tour-price-single')
@@ -364,8 +400,31 @@ $ ->
     $('#checkin').on 'changeDate', ->
       priceCulc()
 
+    $('#reservation_num_of_people').on 'change', ->
+      numOfPeople = Number($('#reservation_num_of_people option:selected').text())
+
+      basicPrice = Number($('#reservation_price').val()) + Number($('#reservation_price_for_support').val())
+      bycycleCost = Number($('#reservation_bicycle_rental').val()) * numOfPeople
+      carCost = Number($('#reservation_car_rental').val()) + Number($('#reservation_gas').val()) + Number($('#reservation_highway').val()) + Number($('#reservation_parking').val())
+      otherCost = Number($('#reservation_other_cost').val())
+      optionAmount = carCost + bycycleCost + otherCost
+      basicPrice = basicPrice + optionAmount
+      $('#tour-option-bicycle').text('¥' + bycycleCost)
+      $('#tour-option-amount').text('¥' + optionAmount)
+      $('#tour-basic-amount').text('¥' + basicPrice)
+
+
+  if $('body').hasClass('listings preview')
+    if $('.header--sp').css('display') == 'none'
+      $(window).scroll ->
+        scrollTop = $(window).scrollTop()
+        if scrollTop > 50
+          $('.preview_link').css('top', 0)
+        else
+          $('.preview_link').css('top', 50)
+
   # listings#show
-  if $('body').hasClass('listings show')
+  if $('body').hasClass('listings show') || $('body').hasClass('listings preview')
     disabled_dates = gon.ngdates
     disabled_weeks = gon.ngweeks
 
@@ -386,29 +445,49 @@ $ ->
 
     #slider
     $('#listing_slider-carousel').sliderPro
-      width: 600
-      arrows: true
-      buttons: false
-      slideDistance: 0
-      waitForLayers: true
+      width:'50%'
+      height:500
+      aspectRatio: 1.5
       visibleSize: '100%'
-      fadeArrows: false
-      autoplayDelay: 4000
+      forceSize: 'fullWidth'
+      arrows: true
+      fadeArrows:false
+      autoplayDelay:3000
       slideAnimationDuration: 1000
+      buttons:false
+      keyboard:false
+      slideDistance:1
+      breakpoints: {
+        767: {
+          width: '100%'
+          height:200
+        }
+      }
+      #waitForLayers: true
 
     $('#listing_slider-normal').sliderPro
-      width: '100%'
+      width:'100%'
+      height:427
       arrows: true
-      buttons: false
-      waitForLayers: true
-      fadeArrows: false
-      autoplayDelay: 4000
+      fadeArrows:false
+      autoplayDelay:3000
       slideAnimationDuration: 1000
+      buttons:false
+      breakpoints: {
+        767: {
+          width: '100%'
+          height:200
+        }
+      }
 
     # gallery
     $('.sp-slides').magnificPopup
       delegate: '.slider-popup'
       type: 'image'
+      image:
+        verticalFit: true
+        titleSrc: (item) ->
+          item.el.attr('title') + '<span class="category-img" style="background-image: url(' + item.el.attr('data-source') + ')"></span>'
       gallery:
         enabled: true
 
@@ -621,21 +700,59 @@ $ ->
         $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').hide()
         $('.manage-listing-nav, .remove-listing-btn, .close-layer--sp').removeClass('show-off')
       else
-        $('.manage-listing-detail, .close-layer--sp').hide()
-        $('.manage-listing-detail, .close-layer--sp').removeClass('show-off')
+        $('.manage-listing-nav, .close-layer--sp').hide()
+        $('.manage-listing-nav, .close-layer--sp').removeClass('show-off')
       return false
 
   # sp listing manager 2
   if $('.price--sp').length && $('.price--sp').css('display') == "block"
     $('.price--sp').on 'click', ->
       #$('body').addClass('no-scroll')
+      $('.manage-listing-help-panel').css('position', 'relative')
+      $('#tour-action-preview').css('position', 'relative')
+      $('.manage-listing-help-panel').css('top', '0')
+      $('#tour-action-preview').css('top', '0')
+      $('.manage-listing-help-panel').css('margin-top', '20px')
+      $('#tour-action-preview').css('margin-top', '20px')
+      $('.manage-listing-help-panel').css('width', 'auto')
+      $('#tour-action-preview').css('width', 'auto')
+
       $('.manage-listing-detail, .close-layer--sp').show()
       setTimeout (->
         $('.manage-listing-detail, .close-layer--sp').addClass('show-off')
       ), 100
       return false
+    # close layer
+    $('.close-layer--sp').on 'click', ->
+      if $('.manage-listing-detail').css('display') == "block"
+        $('.manage-listing-detail, .remove-listing-btn, .close-layer--sp').hide()
+        $('.manage-listing-detail, .remove-listing-btn, .close-layer--sp').removeClass('show-off')
+      else
+        $('.manage-listing-detail, .close-layer--sp').hide()
+        $('.manage-listing-detail, .close-layer--sp').removeClass('show-off')
+      return false
 
-
+  # sp listing manager 3
+  if $('.edit-help--sp').length && $('.edit-help--sp').css('display') == "block"
+    $('.edit-help--sp').on 'click', ->
+      $('.manage-listing-help-panel').css('position', 'relative')
+      $('.manage-listing-help-panel').css('top', '0')
+      $('.manage-listing-help-panel').css('margin-top', '20px')
+      $('.manage-listing-help-panel').css('width', 'auto')
+      $('.manage-listing-edit, .close-layer--sp').show()
+      setTimeout (->
+        $('.manage-listing-edit, .close-layer--sp').addClass('show-off')
+      ), 100
+      return false
+  # close layer
+    $('.close-layer--sp').on 'click', ->
+      if $('.manage-listing-edit').css('display') == "block"
+        $('.manage-listing-edit, .remove-listing-btn, .close-layer--sp').hide()
+        $('.manage-listing-edit, .remove-listing-btn, .close-layer--sp').removeClass('show-off')
+      else
+        $('.manage-listing-edit, .close-layer--sp').hide()
+        $('.manage-listing-edit, .close-layer--sp').removeClass('show-off')
+      return false
 
   ###
   if $('body').hasClass('listings show')

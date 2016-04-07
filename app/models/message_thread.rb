@@ -9,10 +9,12 @@
 #  reply_from_host   :boolean          default(FALSE)
 #  first_message     :boolean          default(TRUE)
 #  noticemail_sended :boolean          default(FALSE)
+#  reservation_id    :integer
 #
 # Indexes
 #
-#  index_message_threads_on_host_id  (host_id)
+#  index_message_threads_on_host_id         (host_id)
+#  index_message_threads_on_reservation_id  (reservation_id)
 #
 
 class MessageThread < ActiveRecord::Base

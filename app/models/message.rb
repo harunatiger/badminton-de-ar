@@ -16,6 +16,7 @@
 #  attached_file      :string
 #  attached_extension :string
 #  attached_name      :string
+#  friends_request    :boolean          default(FALSE)
 #
 # Indexes
 #

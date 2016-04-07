@@ -1,0 +1,132 @@
+- left_steps = left_step_count_and_elements(@listing)
+- left_step_count = left_steps[0]
+- left_step_array = left_steps[1]
+- listing_active = true
+- listing_image_active = true
+- listing_detail_active = true
+- left_step_array.each do |i|
+  - if i == 'listing'
+    - listing_active = false
+  - if i == 'listing_image'
+    - listing_image_active = false
+  - if i == 'listing_detail'
+    - listing_detail_active = false
+.manage-listing-nav-sp
+  .nav-sections
+    ul.list-unstyled.row
+      - if controller_name == "listings" && controller.action_name == "new"
+        - if listing_active.blank?
+          li.nav-item-sp.nav-active-sp.col-xs-2.col-offset-1
+            = link_to new_listing_path(@listing), class: "unregistered-item" do
+              | STEP1
+        - else
+          li.nav-item-sp.nav-active-sp.col-xs-2.col-offset-1
+            = link_to new_listing_path(@listing) do
+              | STEP1
+      - elsif controller_name == "listings" && controller.action_name == "edit"
+        - if @listing.id.present?
+          - if listing_active.blank?
+            li.nav-item-sp.nav-active-sp.col-xs-2.col-offset-1
+              = link_to edit_listing_path(@listing), class: "unregistered-item" do
+                | STEP1
+          - else
+            li.nav-item-sp.nav-active-sp.col-xs-2.col-offset-1
+              = link_to edit_listing_path(@listing) do
+                | STEP1
+        - else
+          - if listing_active.blank?
+            li.nav-item-sp.nav-active-sp.nav-active-sp.col-xs-2.col-offset-1
+              = link_to new_listing_path(@listing), class: "unregistered-item" do
+                | STEP1
+          - else
+            li.nav-item-sp.nav-active-sp.nav-active-sp.col-xs-2.col-offset-1
+              = link_to new_listing_path(@listing) do
+                | STEP1
+      - else
+        - if @listing.id.present?
+          - if listing_active.blank?
+            li.nav-item-sp.col-xs-2.col-offset-1
+              = link_to edit_listing_path(@listing), class: "unregistered-item" do
+                | STEP1
+          - else
+            li.nav-item-sp.col-xs-2.col-offset-1
+              = link_to edit_listing_path(@listing) do
+                | STEP1
+        - else
+          - if listing_active.blank?
+            li.nav-item-sp.nav-active-sp.col-xs-2.col-offset-1
+              = link_to new_listing_path(@listing), class: "unregistered-item" do
+                | STEP1
+          - else
+            li.nav-item-sp.nav-active-sp.col-xs-2.col-offset-1
+              = link_to new_listing_path(@listing) do
+                | STEP1
+      - if controller_name == "listing_images"
+        - if listing_image_active.blank?
+          li.nav-item-sp.nav-active-sp.col-xs-2
+            = link_to manage_listing_listing_images_path(@listing.id), class: "unregistered-item" do
+              | STEP2
+        - else
+          li.nav-item-sp.nav-active-sp.col-xs-2
+            = link_to manage_listing_listing_images_path(@listing.id) do
+              | STEP2
+      - else
+        - if @listing.id.present?
+          - if listing_image_active.blank?
+            li.nav-item-sp.col-xs-2
+              = link_to manage_listing_listing_images_path(@listing.id), class: "unregistered-item" do
+                | STEP2
+          - else
+            li.nav-item-sp.col-xs-2
+              = link_to manage_listing_listing_images_path(@listing.id) do
+                | STEP2
+        - else
+          li.nav-item-sp.col-xs-2
+              = link_to '#', class: "disable-item" do
+                | STEP2
+
+      - if controller_name == "listing_details"
+        - if listing_detail_active.blank?
+          li.nav-item-sp.nav-active-sp.col-xs-2
+            = link_to manage_listing_listing_details_path(@listing.id), class: "unregistered-item" do
+              | STEP3
+        - else
+          li.nav-item-sp.nav-active-sp.col-xs-2
+            = link_to manage_listing_listing_details_path(@listing.id) do
+              | STEP3
+      - else
+        - if @listing.id.present?
+          - if listing_detail_active.blank?
+            li.nav-item-sp.col-xs-2
+              = link_to manage_listing_listing_details_path(@listing.id), class: "unregistered-item" do
+                | STEP3
+          - else
+            li.nav-item-sp.col-xs-2
+              = link_to manage_listing_listing_details_path(@listing.id) do
+                | STEP3
+        - else
+          li.nav-item-sp.col-xs-2
+            = link_to '#' , class: "disable-item" do
+              | STEP3
+
+      - if controller_name == "calendar"
+        li.nav-item-sp.nav-active-sp.col-xs-2
+          = link_to listing_calendar_index_path(@listing) do
+            | STEP4
+      - else
+        - if @listing.id.present?
+          li.nav-item-sp.col-xs-2
+            = link_to listing_calendar_index_path(@listing) do
+              | STEP4
+        - else
+          li.nav-item-sp.col-xs-2
+            = link_to '#', class: "disable-item" do
+              | STEP4
+
+      li.nav-item-sp.col-xs-2
+        - if @listing.id.present?
+          = link_to listing_preview_path(@listing) do
+            | プレビュー
+        - else
+          = link_to '#', class: "disable-item" do
+            | プレビュー

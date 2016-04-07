@@ -1,12 +1,15 @@
 - left_steps = left_step_count_and_elements(@listing)
 - left_step_count = left_steps[0]
 - left_step_array = left_steps[1]
+- listing_active = true
 - listing_image_active = true
 - listing_detail_active = true
 /- confection_active = true
 /- tool_active = true
 /- dress_code_active = true
 - left_step_array.each do |i|
+  - if i == 'listing'
+    - listing_active = false
   - if i == 'listing_image'
     - listing_image_active = false
   - if i == 'listing_detail'
@@ -22,16 +25,31 @@
     .section-header.row-space-1
       | ツアー詳細
     ul.list-unstyled.row-space-4
-      - if controller_name == "listings"
+      - if controller_name == "listings" && controller.action_name == "new"
         li.nav-item.nav-active
-          = link_to new_or_edit_path(@listing) do
-            | 紹介文
-            i.fa.fa-check
+          = link_to new_listing_path(@listing) do
+            | ツアーの概要
+            - if listing_active.blank?
+              i.fa.fa-exclamation-circle
+            - else
+              i.fa.fa-check
       - else
-        li.nav-item
-          = link_to new_or_edit_path(@listing) do
-            | 紹介文
-            i.fa.fa-check
+        - if @listing.id.present?
+          li.nav-item
+            = link_to edit_listing_path(@listing) do
+              | ツアーの概要
+              - if listing_active.blank?
+                i.fa.fa-exclamation-circle
+              - else
+                i.fa.fa-check
+        - else
+          li.nav-item.nav-active
+            = link_to new_listing_path(@listing) do
+              | ツアーの概要
+              - if listing_active.blank?
+                i.fa.fa-exclamation-circle
+              - else
+                i.fa.fa-check
       - if controller_name == "listing_images"
         li.nav-item.nav-active
           = link_to manage_listing_listing_images_path(@listing.id) do
@@ -41,13 +59,19 @@
             - else
               i.fa.fa-check
       - else
-        li.nav-item
-          = link_to manage_listing_listing_images_path(@listing.id) do
-            | 紹介画像・紹介動画
-            - if listing_image_active.blank?
+        -if @listing.id.present?
+          li.nav-item
+            = link_to manage_listing_listing_images_path(@listing.id) do
+              | 紹介画像・紹介動画
+              - if listing_image_active.blank?
+                i.fa.fa-exclamation-circle
+              - else
+                i.fa.fa-check
+        - else
+          li.nav-item
+            = link_to '#', class: 'link-disabled' do
+              | 紹介画像・紹介動画
               i.fa.fa-exclamation-circle
-            - else
-              i.fa.fa-check
       - if controller_name == "listing_details"
         li.nav-item.nav-active
           = link_to manage_listing_listing_details_path(@listing.id) do
@@ -57,23 +81,43 @@
             - else
               i.fa.fa-check
       - else
-        li.nav-item
-          = link_to manage_listing_listing_details_path(@listing.id) do
-            | 料金・条件など
-            - if listing_detail_active.blank?
+        -if @listing.id.present?
+          li.nav-item
+            = link_to manage_listing_listing_details_path(@listing.id) do
+              | 料金・条件など
+              - if listing_detail_active.blank?
+                i.fa.fa-exclamation-circle
+              - else
+                i.fa.fa-check
+        - else
+          li.nav-item
+            = link_to '#', class: 'link-disabled' do
+              | 料金・条件など
               i.fa.fa-exclamation-circle
-            - else
-              i.fa.fa-check
       - if controller_name == "calendar"
         li.nav-item.nav-active
           = link_to listing_calendar_index_path(@listing) do
             | ＮＧ日の設定
             i.fa.fa-plus
       - else
-        li.nav-item
-          = link_to listing_calendar_index_path(@listing) do
-            | ＮＧ日の設定
-            i.fa.fa-plus
+        -if @listing.id.present?
+          li.nav-item
+            = link_to listing_calendar_index_path(@listing) do
+              | ＮＧ日の設定
+              i.fa.fa-plus
+        -else
+          li.nav-item
+            = link_to '#', class: 'link-disabled' do
+              | ＮＧ日の設定
+              i.fa.fa-plus
+
+      li.nav-item
+        -if @listing.id.present?
+          = link_to listing_preview_path(@listing) do
+            | プレビュー
+        -else
+          = link_to '#', class: 'link-disabled' do
+            | プレビュー
       /- if controller_name == "confections"
         li.nav-item.nav-active
           = link_to manage_listing_confections_path(@listing.id) do
@@ -143,7 +187,7 @@
           i.fa.fa-ban.fa-danger
           | 現在非公開です
 
-.remove-listing-btn.col-md-3.text-center
+/.remove-listing-btn.col-md-3.text-center
   = link_to listing_path(@listing), method: 'delete', class: "text-contrast strong", data: {confirm: 'Are you sure you want to delete this plan?'} do
     i.fa.fa-times
     |  このツアーを削除する

@@ -1,27 +1,97 @@
 # listing_details#manage
 $ ->
-  if $('body').hasClass('listing_details manage')
+  helpScrollEdit = ->
+    titleTop = $('#tour-title').offset().top
+    overviewTop = $('#tour-overview').offset().top
+    notesTop = $('#tour-notes').offset().top
+    conditionTop = $('#tour-condition').offset().top
+    titleHeight = $('#tour-title').outerHeight(true)
+    overviewHeight = $('#tour-overview').outerHeight(true)
+    notesHeight = $('#tour-notes').outerHeight(true)
+    conditionHeight = $('#tour-condition').outerHeight(true)
+    headerHeight = $('#header').outerHeight(true)
+    subnavHeight = $('.subnav').outerHeight(true)
+
+    titleHelp = $('.listing_help_block #tour-title-help')
+    overviewHelp = $('.listing_help_block #tour-overview-help')
+    notesHelp = $('.listing_help_block #tour-notes-help')
+    conditionHelp = $('.listing_help_block #tour-condition-help')
+
+    titleHelp.css('top', titleTop - headerHeight - subnavHeight - 50 + 'px')
+    overviewHelp.css('top', overviewTop - headerHeight - subnavHeight + 50 + 'px')
+    if $('#map-wrapper').hasClass('in')
+      notesHelp.css('top', notesTop - headerHeight - subnavHeight + 'px')
+      conditionHelp.css('top', conditionTop - headerHeight - subnavHeight + 'px')
+    else
+      notesHelp.css('top', (notesTop - headerHeight - subnavHeight) - 500 + 'px')
+      conditionHelp.css('top', (conditionTop - headerHeight - subnavHeight) - 500 + 'px')
+
+  helpScrollManage = ->
+    previewHelp = $('.request-block #tour-preview-help')
+    actionHelp = $('.request-block #tour-action-preview')
+    peopleHelp = $('.request-block #tour-people-help')
+    guidefeeHelp = $('.request-block #tour-guidefee-help')
+    optionfeeHelp = $('.request-block #tour-optionfee-help')
+
+    previewHeight = $('.request-block #tour-preview-help').outerHeight(true)
+    actionHeight = $('.request-block #tour-action-preview').outerHeight(true)
+    peopleHeight = $('.request-block #tour-people-help').outerHeight(true)
+    guidefeeHeight = $('.request-block #tour-guidefee-help').outerHeight(true)
+
+    previewHelp.css('top', '40px')
+    actionHelp.css('top', previewHeight + 40 + 'px')
+    peopleHelp.css('top', previewHeight + actionHeight + 120 + 'px')
+    guidefeeHelp.css('top', previewHeight + actionHeight + peopleHeight + 120 + 'px')
+    optionfeeHelp.css('top', previewHeight + actionHeight + peopleHeight + guidefeeHeight + 120 + 'px')
+
+  if $('body').hasClass('listings edit') ||  $('body').hasClass('listings new') || $('body').hasClass('listings create')
+    $elementReference = document.getElementById( "listing_notes" )
+    $placeholder = '例）山道を歩くので、スニーカーなど動きやすい靴や動きやすい格好でお越しください。' + "\n" + '例）肉料理が出るので、ベジタリアンの方はあらかじめご連絡ください。'
+    $elementReference.placeholder = $placeholder
+
+    $('.listing-manager-area-container').text('')
+    areas = []
+    $('[name="listing[pickup_ids][]"]:checked').each ->
+      areas.push $(this).parent().text()
+    if areas.length > 0
+      $('.listing-manager-area-container').text('')
+      $.each areas, (index, elem) ->
+        $('.listing-manager-area-container').append('<span class="listing-area-item">' + elem + '</span>')
+
+
     #---------------------------------------------------------------------
-    # open include_what
+    # open listing_area
     #---------------------------------------------------------------------
-    $('a.include_what_trigger_ja').on 'click', (e) ->
-      $('#include_what_ja').modal()
+    $('.listing-manager-area').on 'click', (e) ->
+      $('#listing_area').modal()
       e.preventDefault()
       e.stopPropagation()
       return false
+
+    $('.listing-manager-area-submit').on 'click', (e) ->
+      $('.listing-manager-area-container').text('')
+      areas = []
+      $('[name="listing[pickup_ids][]"]:checked').each ->
+        areas.push $(this).parent().text()
+      if areas.length > 0
+        $('.listing-manager-area-container').text('')
+        $.each areas, (index, elem) ->
+          $('.listing-manager-area-container').append('<span class="listing-area-item">' + elem + '</span>')
+      $('#listing_area').modal('hide')
+
     #---------------------------------------------------------------------
     # SearchBox Enterkey controll
     #---------------------------------------------------------------------
-    $('#listing_detail_place').keypress (e) ->
+    $('#listing_listing_detail_attributes_place').keypress (e) ->
       if (e.which == 13)
-        $('#listing_detail_place_memo').focus()
+        $('#listing_listing_detail_attributes_place_memo').focus()
         e.preventDefault()
     #---------------------------------------------------------------------
     # GoogleMap for Place
     #---------------------------------------------------------------------
     map = null
     marker = null
-    location = document.getElementById('listing_detail_place')
+    location = document.getElementById('listing_listing_detail_attributes_place')
     autocomplete = new (google.maps.places.Autocomplete)(location)
     geocoder = new (google.maps.Geocoder)
     show = true
@@ -30,8 +100,8 @@ $ ->
     #---------------------------------------------------------------------
     initialize = ->
       if location.value != null && location.value != ''
-        lat =  document.getElementById('listing_detail_place_latitude').value
-        lng =  document.getElementById('listing_detail_place_longitude').value
+        lat =  document.getElementById('listing_listing_detail_attributes_place_latitude').value
+        lng =  document.getElementById('listing_listing_detail_attributes_place_longitude').value
         if lat && lng
           latlng = new google.maps.LatLng(lat,lng)
           mapOptions =
@@ -45,6 +115,7 @@ $ ->
             anchorPoint: new google.maps.Point(0,-24)
             draggable: true)
           $('#map').parents('.row').slideDown()
+          $('#map').parents('.row').addClass('in')
           $('#map').css 'height', '300px'
           autocomplete.bindTo 'bounds', map
           show = true
@@ -53,10 +124,15 @@ $ ->
             return
         else
           $('#map').parents('.row').slideUp()
+          $('#map').parents('.row').removeClass('in')
           show = false
       else
         $('#map').parents('.row').slideUp()
+        $('#map').parents('.row').removeClass('in')
         show = false
+
+      helpScrollEdit()
+
       ###
       address = document.getElementById('listing_detail_place').value
       geocoder.geocode { 'address': address }, (results, status) ->
@@ -83,11 +159,12 @@ $ ->
           show = false
         return
       ###
-      $('#listing_detail_place').blur ->
+      $('#listing_listing_detail_attributes_place').blur ->
         if jQuery.trim($(this).val()) == ''
-          $('#listing_detail_place_latitude').val 0.0
-          $('#listing_detail_place_longitude').val 0.0
+          $('#listing_listing_detail_attributes_place_latitude').val 0.0
+          $('#listing_listing_detail_attributes_place_longitude').val 0.0
           $('#map').parents('.row').slideUp()
+          $('#map').parents('.row').removeClass('in')
           show = false
         return
       return
@@ -100,9 +177,9 @@ $ ->
       geocoder.geocode { 'latLng': latlng }, (results, status) ->
         if status == google.maps.GeocoderStatus.OK
           if results[1]
-            $('#listing_detail_place_latitude').val results[0].geometry.location.lat()
-            $('#listing_detail_place_longitude').val results[0].geometry.location.lng()
-            $('#listing_detail_place').val results[0].formatted_address
+            $('#listing_listing_detail_attributes_place_latitude').val results[0].geometry.location.lat()
+            $('#listing_listing_detail_attributes_place_longitude').val results[0].geometry.location.lng()
+            $('#listing_listing_detail_attributes__place').val results[0].formatted_address
         return
       return
     #---------------------------------------------------------------------
@@ -111,8 +188,8 @@ $ ->
     autocomplete.addListener 'place_changed', ->
       place = autocomplete.getPlace()
       if !place.geometry
-        $('#listing_detail_place_latitude').empty()
-        $('#listing_detail_place_longitude').empty()
+        $('#listing_listing_detail_attributes_place_latitude').empty()
+        $('#listing_listing_detail_attributes_place_longitude').empty()
         if show = true
           $('#map').parents('.row').slideUp()
           show = false
@@ -141,14 +218,30 @@ $ ->
           map: map
           position: place.geometry.location
           draggable: true)
-      $('#listing_detail_place_latitude').val place.geometry.location.lat()
-      $('#listing_detail_place_longitude').val place.geometry.location.lng()
-      $('#listing_detail_place').val place.name + ', ' +place.formatted_address
+      $('#listing_listing_detail_attributes_place_latitude').val place.geometry.location.lat()
+      $('#listing_listing_detail_attributes_place_longitude').val place.geometry.location.lng()
+      $('#listing_listing_detail_attributes_place').val place.name + ', ' +place.formatted_address
       google.maps.event.addListener marker, 'dragend', (e) ->
         geocodeLatLng e.latLng.lat(), e.latLng.lng()
         return
       return
     return
+
+
+  if $('body').hasClass('listing_details manage') || $('body').hasClass('listing_details update')
+
+    helpScrollManage()
+
+    #---------------------------------------------------------------------
+    # open include_what
+    #---------------------------------------------------------------------
+    $('a.include_what_trigger_ja').on 'click', (e) ->
+      $('#include_what_ja').modal()
+      e.preventDefault()
+      e.stopPropagation()
+      return false
+
+
 
   $('.calendar-description').on 'click', (e) ->
     if $(this).parents('.collapse-panel').hasClass('active')

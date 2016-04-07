@@ -58,14 +58,15 @@ Rails.application.routes.draw do
       get 'manage', on: :collection
       post 'upload_video_cover_image', on: :collection
       put 'change_order', on: :collection
-      delete 'destroy_cover_image', on: :collection
       delete 'destroy_video', on: :collection
+      post 'set_category', on: :member
     end
     resources :listing_details, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
     end
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
+    get 'preview'
     post 'copy', action: 'copy', as: 'copy'
     resources :ngevents, only: [:create] do
       get 'listing_ngdays', on: :collection
@@ -128,8 +129,10 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /ja|en/ do
     resources :help_topics do
-      get 'for_user', on: :collection
+      get 'for_user',  on: :collection
       get 'for_guide', on: :collection
+      get 'search', on: :collection, action: 'search'
+      get 'search_result', on: :collection, action: 'search_result'
     end
   end
 

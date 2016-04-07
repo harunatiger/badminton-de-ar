@@ -28,7 +28,7 @@
         .row.row-condensed.row-space-2
           label.text-right.col-3
             | Thumbnail image
-          .col-8.row-space-4
+          .col-8
             = simple_form_for([@profile, ProfileImage.new], html: { class: "form--sp", id: 'profile_thumb_image'}, remote: true) do |f|
               = f.hidden_field :user_id, value: current_user.id
               = f.hidden_field :profile_id, value: current_user.profile.id

@@ -2,11 +2,12 @@ class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :search]
   #before_action :check_listing_status, only: [:index, :search]
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite_listing]
-  before_action :set_listing_obj, only: [:publish, :unpublish, :copy]
-  before_action :set_listing_related_data, only: [:show, :edit]
+  before_action :set_listing_obj, only: [:publish, :unpublish, :copy, :preview]
+  before_action :set_listing_related_data, only: [:show, :edit, :preview]
   before_action :set_message_thread, only: [:show]
   before_action :regulate_user, except: [:new, :index, :create, :show, :search, :favorite_listing]
   before_action :deleted_or_open_check, only: [:show, :edit]
+  before_action :only_main_guide, only: [:new, :edit, :create, :update, :destroy, :publish, :unpublish, :copy]
   #before_action :set_favorite,  only: [:destroy]
 
   # GET /listings
@@ -41,14 +42,15 @@ class ListingsController < ApplicationController
 
   def new
     @listing = Listing.new
-    @categories = PickupCategory.all
-    @tags = PickupTag.all
+    @listing.build_listing_detail
+    #@categories = PickupCategory.all
+    #@tags = PickupTag.all
     @areas = PickupArea.all
   end
 
   def edit
-    @categories = PickupCategory.all
-    @tags = PickupTag.all
+    #@categories = PickupCategory.all
+    #@tags = PickupTag.all
     @areas = PickupArea.all
   end
 
@@ -56,13 +58,14 @@ class ListingsController < ApplicationController
   # POST /listings.json
   def create
     @listing = Listing.new(listing_params)
+    @listing.listing_detail.register_detail = false
     #if @listing.set_lon_lat
     respond_to do |format|
       if @listing.save
         format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
       else
-        @categories = PickupCategory.all
-        @tags = PickupTag.all
+        #@categories = PickupCategory.all
+        #@tags = PickupTag.all
         @areas = PickupArea.all
         flash.now[:alert] = Settings.listings.save.failure
         format.html { render :new}
@@ -79,6 +82,7 @@ class ListingsController < ApplicationController
   def update
     #@listing.location = listing_params['location']
     #if @listing.set_lon_lat
+    @listing.listing_detail.register_detail = false
     respond_to do |format|
       if @listing.update(listing_params)
           format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
@@ -118,7 +122,7 @@ class ListingsController < ApplicationController
     return redirect_to new_profile_path unless Profile.exists?(user_id: @listing.user_id)
     respond_to do |format|
       if @listing.publish
-        format.html { redirect_to listing_path(@listing), notice: Settings.listings.publish.success }
+        format.html { redirect_to listings_path(current_user), notice: Settings.listings.publish.success }
       else
         format.html { redirect_to edit_listing_path(@listing), notice: Settings.listings.publush.failure }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -161,6 +165,20 @@ class ListingsController < ApplicationController
     end
   end
 
+  def preview
+    @reviews = Review.this_listing(@listing.id).page(params[:page])
+    @all_reviewed_count = Review.my_reviewed_count(@listing.user_id)
+    @host_info = Profile.find_by(user_id: @listing.user_id)
+    @host_image = ProfileImage.find_by(user_id: @listing.user_id)
+    @profiles = Profile.guides.where.not(id: @host_info.id)
+    gon.ngdates = Ngevent.get_ngdates(@listing)
+    gon.ngweeks = NgeventWeek.get_ngweeks_from_listing(@listing).pluck(:dow)
+    gon.listing = @listing.listing_detail
+    @reservation = Reservation.new
+    @profile_keyword = ProfileKeyword.where(user_id: @listing.user_id, profile_id: Profile.where(user_id: @listing.user_id).pluck(:id).first).keyword_limit
+    gon.keywords = @profile_keyword
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
@@ -187,6 +205,10 @@ class ListingsController < ApplicationController
     def regulate_user
       return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id
     end
+  
+    def only_main_guide
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure unless current_user.main_guide?
+    end
 
     def deleted_or_open_check
       return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.listings.error.deleted_listing_id if @listing.soft_destroyed?
@@ -204,11 +226,14 @@ class ListingsController < ApplicationController
         :ave_total, :ave_accuracy, :ave_communication, :ave_cleanliness,
         :ave_location, :ave_check_in, :ave_cost_performance, :open,
         :zipcode, :location, :longitude, :latitude, :delivery_flg, :price,
-        :description, :recommend1, :recommend2, :recommend3, :overview, :notes,
+        :description, :recommend1, :recommend2, :recommend3,
+        :interview1, :interview2, :interview3, :overview, :notes,
         :title, :capacity, :direction, :schedule, :listing_images,
-        :cover_image, :cover_image_caption, :cover_video, :cover_video_caption,
+        :cover_video, :cover_video_caption,
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
-        language_ids: [], pickup_ids: [])
+        language_ids: [], pickup_ids: [],
+        listing_detail_attributes: [:id, :place, :place_longitude, :place_latitude, :place_memo, :condition, :stop_if_rain, :in_case_of_rain ]
+        )
     end
 
     def search_params

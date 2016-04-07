@@ -30,20 +30,20 @@ module ApplicationHelper
   end
 
   def listing_cover_image_url(listing_id)
-    ci = Listing.find(listing_id)
-    if ci.cover_image.blank?
+    listing = Listing.find(listing_id)
+    if listing.cover.blank?
       return Settings.image.noimage.url
     else
-      return ci.cover_image
+      return listing.cover
     end
   end
 
   def listing_cover_image_thumb_url(listing_id)
-    ci = Listing.find(listing_id)
-    if ci.cover_image.blank?
+    listing = Listing.find(listing_id)
+    if listing.cover.blank?
       return Settings.image.noimage.url
     else
-      return ci.cover_image.thumb
+      return listing.cover.thumb
     end
   end
 
@@ -56,13 +56,8 @@ module ApplicationHelper
     end
   end
 
-  def listing_slider_url(listing, listing_images)
+  def listing_slider_url(listing_images)
     slider_images = []
-    if listing.cover_image.present?
-      slide = listing.cover_image.url.blank? ? '' : listing.cover_image.url
-      slider_images << slide
-    end
-
     if listing_images.present?
       listing_images.each do |listing_image|
         slide = listing_image.image.url.blank? ? '' : listing_image.image.url
@@ -96,6 +91,15 @@ module ApplicationHelper
       return Settings.user.left
     else
       return "#{results[0].profile.first_name} #{results[0].profile.last_name}"
+    end
+  end
+
+  def user_id_to_firstname(user_id)
+    results = User.mine(user_id)
+    if results.size.zero?
+      return Settings.user.left
+    else
+      return "#{results[0].profile.first_name}"
     end
   end
 
@@ -536,6 +540,14 @@ module ApplicationHelper
     ['car_rental', 'gas', 'highway', 'parking']
   end
 
+  def bicycle_options
+    ['bicycle_rental']
+  end
+
+  def other_options
+    ['other_cost']
+  end
+
   def pickup_area_from_listing(listing)
     listing.pickups.where(type: 'PickupArea')
   end
@@ -597,5 +609,9 @@ module ApplicationHelper
       text.gsub!(url, sub_text)
     end
     return text
+  end
+  
+  def image_category_display_name(category)
+    I18n.t('listing_images.category.' + category)
   end
 end

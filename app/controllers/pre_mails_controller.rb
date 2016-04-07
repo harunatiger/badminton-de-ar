@@ -39,9 +39,9 @@ class PreMailsController < ApplicationController
         if @pre_mail.save
           PreMailer.send_pre_mail(@pre_mail).deliver_now!
           PreMailer.send_pre_mail_to_user(@pre_mail).deliver_now!
-          format.html { redirect_to root_path, notice: Settings.pre_mail.save.success }
+          format.js { @status = 'success' }
         else
-          format.html { redirect_to root_path, notice: Settings.pre_mail.save.failure }
+          format.js { @status = 'failuer' }
         end
       else
         format.html { redirect_to root_path, notice: Settings.pre_mail.save.failure }
@@ -81,6 +81,6 @@ class PreMailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pre_mail_params
-      params.require(:pre_mail).permit(:user_id, :email, :last_name, :first_name)
+      params.require(:pre_mail).permit(:user_id, :email, :last_name, :first_name, :prefecture_code, :municipality)
     end
 end

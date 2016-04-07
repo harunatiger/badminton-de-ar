@@ -41,13 +41,20 @@
 #  guests_cost            :integer          default(0)
 #  included_guests_cost   :text             default("")
 #  cancel_by              :integer          default(0)
+#  pair_guide_id          :integer
+#  pair_guide_status      :integer          default(0)
+#  bicycle_option         :boolean          default(FALSE)
+#  bicycle_rental         :integer          default(0)
+#  other_option           :boolean          default(FALSE)
+#  other_cost             :integer          default(0)
 #
 # Indexes
 #
-#  index_reservations_on_campaign_id  (campaign_id)
-#  index_reservations_on_guest_id     (guest_id)
-#  index_reservations_on_host_id      (host_id)
-#  index_reservations_on_listing_id   (listing_id)
+#  index_reservations_on_campaign_id    (campaign_id)
+#  index_reservations_on_guest_id       (guest_id)
+#  index_reservations_on_host_id        (host_id)
+#  index_reservations_on_listing_id     (listing_id)
+#  index_reservations_on_pair_guide_id  (pair_guide_id)
 #
 
 class Reservation < ActiveRecord::Base
@@ -202,20 +209,32 @@ class Reservation < ActiveRecord::Base
   end
 
   def basic_amount
-    total = self.price + self.price_for_support + self.price_for_both_guides
+    #total = self.price + self.price_for_support + self.price_for_both_guides
+    total = self.price + self.price_for_support
     total + option_amount
   end
 
   def option_amount
     total = 0
-    if self.space_option
-      self.space_options.each do |option|
+    #if self.space_option
+    #  self.space_options.each do |option|
+    #    total += self[option]
+    #  end
+    #end
+
+    if self.car_option
+      self.car_options.each do |option|
         total += self[option]
       end
     end
 
-    if self.car_option
-      self.car_options.each do |option|
+    if self.bicycle_option
+      bicycle_per = self.bicycle_rental
+      total += bicycle_per * self.num_of_people
+    end
+
+    if self.other_option
+      self.other_options.each do |option|
         total += self[option]
       end
     end
@@ -223,7 +242,8 @@ class Reservation < ActiveRecord::Base
   end
 
   def guide_price
-    self.price + self.price_for_support + self.price_for_both_guides
+    #self.price + self.price_for_support + self.price_for_both_guides
+    self.price + self.price_for_support
   end
 
   def service_fee
@@ -324,6 +344,14 @@ class Reservation < ActiveRecord::Base
 
   def car_options
     ['car_rental', 'gas', 'highway', 'parking']
+  end
+
+  def bicycle_options
+    ['bicycle_rental']
+  end
+
+  def other_options
+    ['other_cost']
   end
 
   def before_weeks?

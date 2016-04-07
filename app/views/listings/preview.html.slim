@@ -1,0 +1,16 @@
+- if user_signed_in? && @listing.user_id == current_user.id
+  = render partial: "preview_link"
+
+= render partial: "slideshow", locals: { listing_images: @listing_images, listing: @listing }
+#tour-content
+  .page-container
+    .row.row-space-top-4
+      .col-lg-8.col-left
+        = render partial: 'col_left', locals: { listing: @listing, reviews: @reviews, profile_keyword: @profile_keyword}
+        = render partial: 'review_block', locals: { listing: @listing, reviews: @reviews, host_info: @host_info, host_image: @host_image }
+      .col-lg-4.col-right
+        = render partial: 'request_block', locals: { listing: @listing }
+        = render partial: 'option_info', locals: { listing_detail: @listing.listing_detail }
+-if @listing.listing_detail.present?
+  = render partial: '/shared/modals/include_what', locals: { included_guests_cost: @listing.listing_detail.included_guests_cost }
+/= render partial: '/shared/modals/pair_guide_list'

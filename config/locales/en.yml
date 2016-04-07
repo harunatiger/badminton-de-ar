@@ -24,12 +24,14 @@ en:
         cover_image: 'cover photo'
       listing_image:
         image: 'photo'
+        caption: 'コメント'
       pre_mail:
         email: 'email'
         last_name: 'last_name'
         first_name: 'first_name'
       profile:
         phone: 'Phone number'
+        free_field: 'Introduction field'
       profile_bank:
         user_name: '口座名義'
         number: '口座番号'
@@ -56,21 +58,49 @@ en:
       subject: "Read %{name}'s review"
     reply_notification:
       subject: "ゲストがあなたの返信を待っています"
+    withdraw_notification_to_owner:
+      subject: 'ユーザが退会しました。'
   option_price_ja:
     space_rental: "スペースレンタル代"
-    car_rental: "車両代"
+    car_option: "車両代"
+    car_rental: "車両レンタル代"
     gas: "ガソリン代"
     highway: "高速代"
     parking: "パーキング代"
+    bicycle_option: "自転車代"
+    bicycle_rental: "自転車レンタル代"
+    other_cost: "その他"
   option_price_en:
     space_rental: "Rental Space"
+    car_option: "Car"
     car_rental: "Car"
     gas: "Gas"
     highway: "Expressway"
     parking: "Parking"
+    bicycle_option: "Bicycle"
+    bicycle_rental: "Bicycle"
+    other_cost: "Other"
   help:
     about_link: "About Huber."
     help_guide_link: "Guide Q & A"
     help_other_link: "Other Q & A"
     guide_title: "Guide Q&A"
-
+    return_help: "Return to Q & A"
+    search_keyword: "Results for '%{name}'"
+  listing_images:
+    category:
+      spa_and_relaxation: 'Spa and Relaxation'
+      cultural_sites: 'Cultural Sites'
+      food_and_drink: 'Food and Drink'
+      shopping: 'Shopping'
+      outdoors: 'Outdoors'
+      sports: 'Sports'
+      gardens: 'Gardens'
+      tourist_hotspots: 'Tourist Hotspots'
+      art: 'Art'
+      manga_and_anime: 'Manga and Anime'
+      onsen: 'Onsen'
+      theme_parks: 'Theme Parks'
+      entertainment: 'Entertainment'
+      experiences: 'Experiences'
+      night_life: 'Night Life'

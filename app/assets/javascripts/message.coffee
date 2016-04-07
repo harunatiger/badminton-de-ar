@@ -22,15 +22,21 @@ $ ->
         return false
       if $('#non_special_offer_form #reservation_time_required').val() == '0.0'
         return false
-      if $('#non_special_offer_form #reservation_space_option').prop('checked') == true
-        if $('#non_special_offer_form #reservation_space_rental').val() == '0'
-          return false
+      #if $('#non_special_offer_form #reservation_space_option').prop('checked') == true
+      #  if $('#non_special_offer_form #reservation_space_rental').val() == '0'
+      #    return false
       if $('#non_special_offer_form #reservation_car_option').prop('checked') == true
         rental = $('#non_special_offer_form #reservation_car_rental').val()
         gas = $('#non_special_offer_form #reservation_gas').val()
         highway = $('#non_special_offer_form #reservation_highway').val()
         parking = $('#non_special_offer_form #reservation_parking').val()
         if parseInt(rental) + parseInt(gas) + parseInt(highway) + parseInt(parking) == 0
+          return false
+      if $('#non_special_offer_form #reservation_bicycle_option').prop('checked') == true
+        if $('#non_special_offer_form #reservation_bicycle_rental').val() == '0'
+          return false
+      if $('#non_special_offer_form #reservation_other_option').prop('checked') == true
+        if $('#non_special_offer_form #reservation_other_cost').val() == '0'
           return false
       #if $('#non_special_offer_form #reservation_guests_cost').val() != '0'
       #  if $('#non_special_offer_form #reservation_included_guests_cost').val() == ''

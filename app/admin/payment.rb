@@ -53,7 +53,8 @@ ActiveAdmin.register_page "Payment" do
             host_bank_user_number = guide.profile.profile_bank.number if guide.profile.profile_bank.present?
 
             #fee caliculate
-            guide_amount = payment.reservation.price + payment.reservation.price_for_support + payment.reservation.price_for_both_guides + payment.reservation.option_amount
+            #guide_amount = payment.reservation.price + payment.reservation.price_for_support + payment.reservation.price_for_both_guides + payment.reservation.option_amount
+            guide_amount = payment.reservation.price + payment.reservation.price_for_support + payment.reservation.option_amount
             service_fee_guest = (guide_amount * 0.145).ceil
 
             #campaign code
@@ -137,7 +138,7 @@ ActiveAdmin.register_page "Payment" do
               #17 サポートメンバーの収入
               listing_price_for_support: payment.reservation.price_for_support,
               #18 2人にかかる費用
-              listing_price_for_both_guides: payment.reservation.price_for_both_guides,
+              #listing_price_for_both_guides: payment.reservation.price_for_both_guides,
               #19 オプション費用
               listing_option_amount: payment.reservation.option_amount,
               #20 ガイド料金

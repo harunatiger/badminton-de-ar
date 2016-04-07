@@ -295,10 +295,10 @@ $ ->
           return
         else
           if scrollTop >= stickyNavTop
-            $('.subnav, .manage-listing-nav, .manage-listing-detail').addClass 'pinned'
+            #$('.subnav, .manage-listing-nav, .manage-listing-detail').addClass 'pinned'
             $('.subnav-placeholder').removeClass 'hide'
           else
-            $('.subnav, .manage-listing-nav, .manage-listing-detail').removeClass 'pinned'
+            #$('.subnav, .manage-listing-nav, .manage-listing-detail').removeClass 'pinned'
             $('.subnav-placeholder').addClass 'hide'
           return
         return
@@ -448,6 +448,8 @@ $ ->
         return
       if $('body').is('.profile_keywords.edit') and target == '#'
         return
+      if $('body').is('.listing_images.manage') and target == '#'
+        return
       if isChanged == true
         form_change_target = target
         $('#form_change_confirm').modal('show')
@@ -465,6 +467,8 @@ $ ->
       isChanged = false
       return
     $('a').on 'click', ->
+      if $(this).hasClass("ignore_form_change")
+        return
       if $(this).attr('data-dismiss') == "modal"
         return
       else
@@ -483,7 +487,7 @@ $ ->
         return
 
   #IME disabled
-  $('.imeoff').bind 'keyup', ->
+  $(document).on 'keyup', '.imeoff', ->
     noSbcRegex = /[^\x00-\x7E]+/g
     target = $(this)
     if !target.val().match(noSbcRegex)

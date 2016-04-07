@@ -14,15 +14,13 @@
       - else
         li
           = link_to Settings.page.messages, message_threads_path
-      - if controller_name =="listings" || controller_name =="listing_images" || controller_name =="calendar"
+      - if controller_name =="listings" || controller_name =="listing_images" || controller_name =="calendar" || controller_name =="listing_details"
         li.active
-          /= link_to Settings.page.listings, current_user.listings.blank? ? new_listing_path : edit_listing_path(current_user.listings[0].id)
           = link_to Settings.page.listings, listings_path
       - else
         li
-          /= link_to Settings.page.listings, current_user.listings.blank? ? new_listing_path : edit_listing_path(current_user.listings[0].id)
           = link_to Settings.page.listings, listings_path
-      - if current_user.listings.present?
+      - if !current_user.guest?
         - if action_name =="host_reservation_manager"
           li.active
             = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path
@@ -43,13 +41,6 @@
       - else
         li
           = link_to Settings.page.favorites, favorite_listings_path
-      /- if controller_name =="wishlists"
-        /li.active
-          /= link_to Settings.page.wishlists, wishlists_path
-      /- else
-        /li
-          /= link_to Settings.page.wishlists, wishlists_path
-
       - if controller_name =="profiles" || action_name == "review" || controller_name == 'profile_images' || controller_name == 'profile_identities' || controller_name == 'profile_keywords' || controller_name == 'profile_banks'
         li.active
           = link_to Settings.page.profile, edit_profile_path(current_user.profile.id)
@@ -63,16 +54,5 @@
       - else
         li
           = link_to Settings.page.account, edit_user_registration_path(mode: "account")
-
-    /- if controller_name =="listings" || action_name =="host_reservation_manager"
-    /- if controller_name =="listings" && !current_user.listings.blank?
-      = link_to listing_path(listing.id), class: "subnav-item pull-right"
-        i.fa.fa-eye
-        span  Preview
-
-    /- if controller_name =="listing_images" && !current_user.listings.blank?
-      = link_to listing_path(listing.id), class: "subnav-item pull-right"
-        i.fa.fa-eye
-        span  Preview
 
 .subnav-placeholder.hide--sp.hide

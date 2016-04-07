@@ -4,12 +4,12 @@
       i.fa.fa-reorder
     .title--sp.text-center
       = link_to "", root_path, class: "header-logo"
-    - if controller_name == "listings" && action_name == "edit" || controller_name == "listing_images" && action_name == "manage" || controller_name == "listing_details" && action_name == "manage" || controller_name == "calendar" && action_name == "index"
-      = link_to "#", class: "info--sp" do
+    - if controller_name == "listings" && action_name == "edit" || controller_name == "listing_images" && action_name == "manage" || controller_name == "listing_details" && action_name == "manage" || controller_name == "calendar" && action_name == "index" || controller_name == "listing_details" && action_name == "update" || controller_name == "listing_details" && action_name == "new" || controller_name == "listings" && action_name == "update" || controller_name == "listings" && action_name == "new" || controller_name == "listings" && action_name == "create"
+      /= link_to "#", class: "info--sp" do
         i.fa.fa-info
       = link_to "#", class: "close-layer--sp" do
         i.fa.fa-times
-    - if controller_name == "listing_details" && action_name == "manage"
+    /- if controller_name == "listing_details" && action_name == "manage"
       = link_to "#", class: "price--sp" do
         i.fa.fa-yen
     /- unless controller_name == "welcome"
@@ -61,11 +61,12 @@
         = link_to "#", class: "" do
           |  Help
       li.list-your-thing.pull-left
-        -if user_signed_in? and current_user.listings.blank?
+        -if user_signed_in? and current_user.guest?
           = link_to Settings.page.listing_new, listings_path, class: "btn btn-become-a-guide"
         - elsif !user_signed_in?
           = link_to Settings.page.listing_new, "#guide_request", class: "guide_request btn btn-become-a-guide", data: { toggle: "modal" }
           = render partial: 'shared/modals/guide_request'
+          = render partial: 'shared/modals/guide_request2'
     - if user_signed_in?
       ul.nav.pull-right
         li.pull-left
@@ -90,7 +91,7 @@
             li
               /= link_to Settings.page.listings, current_user.listings.blank? ? new_listing_path : edit_listing_path(current_user.listings[0].id), rel: "nofollow"
               = link_to Settings.page.listings, listings_path, rel: "nofollow"
-            - if current_user.listings.present?
+            - if !current_user.guest?
               li
                 = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, rel: "nofollow"
             li

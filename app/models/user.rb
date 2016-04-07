@@ -28,6 +28,7 @@
 #  soft_destroyed_at      :datetime
 #  email_before_closed    :string           default("")
 #  reason                 :text             default("")
+#  user_type              :integer          default(0)
 #
 # Indexes
 #
@@ -74,6 +75,8 @@ class User < ActiveRecord::Base
   #validates :email, format: { with: VALID_EMAIL_REGEX }
   #validates :password, presence: true
   #validates :password, length: 6..32
+  
+  enum user_type: { guest: 0, main_guide: 1, support_guide: 2}
 
   scope :mine, -> user_id { where(id: user_id) }
   

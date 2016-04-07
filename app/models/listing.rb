@@ -35,6 +35,9 @@
 #  recommend2              :string           default("")
 #  recommend3              :string           default("")
 #  soft_destroyed_at       :datetime
+#  interview1              :string           default("")
+#  interview2              :string           default("")
+#  interview3              :string           default("")
 #
 # Indexes
 #
@@ -85,12 +88,15 @@ class Listing < ActiveRecord::Base
   mount_uploader :cover_video, ListingVideoUploader
   attr_accessor :image_blank_ok
 
+  accepts_nested_attributes_for :listing_detail
+
   validates :user_id, presence: true
   #validates :location, presence: true
   #validates :longitude, presence: true
   #validates :latitude, presence: true
   #validates :price, presence: true
   validates :title, presence: true
+  validates :overview, presence: true
   #validates :description, presence: true
   #validates :capacity, presence: true
   validates_each :cover_video do |record, attr, value|
@@ -110,7 +116,7 @@ class Listing < ActiveRecord::Base
   scope :available_num_of_guest?, -> num_of_guest { where("capacity >= ?", num_of_guest) }
   scope :available_price_min?, -> price_min { where("price >= ?", price_min) }
   scope :available_price_max?, -> price_max { where("price <= ?", price_max) }
-  
+
   def open_reviews_count
     self.reviews.where(type: 'ReviewForGuide').joins(:reservation).merge(Reservation.review_open?).count
   end
@@ -191,12 +197,21 @@ class Listing < ActiveRecord::Base
 
   def complete_steps
     result = []
-    #result << Settings.left_steps.listing_image unless ListingImage.exists?(listing_id: self.id
-    result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_image.present? or self.cover_video.present?)
-    result << Settings.left_steps.listing_detail unless ListingDetail.exists?(listing_id: self.id)
-    #result << Settings.left_steps.confection unless Confection.exists?(listing_id: self.id)
-    #result << Settings.left_steps.tool unless Tool.exists?(listing_id: self.id)
-    #result << Settings.left_steps.dress_code unless DressCode.exists?(listing_id: self.id)
+    if self.id.nil?
+      result << Settings.left_steps.listing
+      result << Settings.left_steps.listing_detail
+      result << Settings.left_steps.listing_image
+    else
+      listing = Listing.find(self.id)
+      listing_detail = ListingDetail.where(listing_id: self.id).first
+      result << Settings.left_steps.listing if listing.title.blank? || listing.overview.blank?
+      result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_video.present?)
+      if listing_detail.present?
+        result << Settings.left_steps.listing_detail if listing_detail.time_required == 0.0
+      else
+        result << Settings.left_steps.listing_detail
+      end
+    end
     result
   end
 
@@ -211,7 +226,11 @@ class Listing < ActiveRecord::Base
   end
 
   def unpublish_if_no_image
-    self.unpublish if self.listing_images.blank? and self.cover_image.blank? and self.cover_video.blank?
+    self.unpublish if self.listing_images.blank? and self.cover_video.blank?
+  end
+    
+  def cover
+    self.listing_images.order_asc.first.present? ? self.listing_images.order_asc.first.image : ''
   end
 
   def dup_all

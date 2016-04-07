@@ -1,22 +1,28 @@
-- slider_images = listing_slider_url(listing, listing_images)
 - favorite_count = favorite_listings_count(listing.id)
+
+/- listing_images.each do |listing_image|
+  = debug listing_image.caption
+
 .listing
   #slider-wrapper.with-photos.with-modal
-    - if slider_images.length < 3
+    - if listing_images.length < 3
       #listing_slider-normal.slider-pro
-        .sp-slides
-          - slider_images.each do |slider_image|
-            .sp-slide
-              = link_to "#{slider_image}", class:"slider-popup" do
-                img.sp-image[src="#{slider_image}" data-src="#{slider_image}"]
-
+        .sp-slides-container
+          .sp-mask.sp-grab
+            .sp-slides
+              - listing_images.each do |slider_image|
+                .sp-slide
+                  = link_to "#{slider_image.image.url}", class:"slider-popup", data: {source: "#{slider_image.category_image.present? ? asset_path(slider_image.category_image) : ''}"}, title: slider_image.caption do
+                    img.sp-image[src="#{slider_image.image.url}" data-src="#{slider_image.image.url}"]
     - else
       #listing_slider-carousel.slider-pro
-        .sp-slides
-          - slider_images.each do |slider_image|
-            .sp-slide
-              = link_to "#{slider_image}", class:"slider-popup" do
-                img.sp-image[src="#{slider_image}" data-src="#{slider_image}"]
+        .sp-slides-container
+          .sp-mask.sp-grab
+            .sp-slides
+              - listing_images.each do |slider_image|
+                .sp-slide
+                  = link_to "#{slider_image.image.url}", class:"slider-popup", data: {source: "#{slider_image.category_image.present? ? asset_path(slider_image.category_image) : ''}"}, title: slider_image.caption do
+                    img.sp-image[src="#{slider_image.image.url}" data-src="#{slider_image.image.url}"]
 
   /#photos.with-photos.with-modal
     = link_to "#", class:"galon-trigger", title:"#{listing.cover_image}" do
@@ -38,7 +44,7 @@
   .title-section
     .page-container
       .row
-        .col-lg-12
+        .col-lg-11.col-md-11
           h1#listing_name.overflow.text-center--md
             = @listing.title
           #listing_area.overflow.text-center--md
@@ -47,7 +53,27 @@
               - pickup_area_from_listing(listing).each do |area|
                 => link_to pickup_path( area.id ) do
                   = area.short_name
-  .favorite-wrapper
+        .col-lg-1.col-md-1.favorite-wrapper
+          - if user_signed_in?
+            = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
+              - if current_user.favorite_listing?(listing)
+                i.fa.fa-heart.favorited
+                i.fa.fa-heart.unfavorite.hide
+                i.fa.fa-heart-o.outline.hide.fav-balloon
+              - else
+                i.fa.fa-heart.favorited.hide
+                i.fa.fa-heart.unfavorite
+                i.fa.fa-heart-o.outline.fav-balloon
+              span.favorited-count
+                = favorite_count
+          - else
+            = link_to new_profile_path, class: "favorite-btn" do
+              i.fa.fa-heart.unfavorite
+              i.fa.fa-heart-o.outline.fav-balloon
+              span.favorited-count
+                = favorite_count
+
+  .favorite-wrapper-sp
     .page-container
       - if user_signed_in?
         = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do

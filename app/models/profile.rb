@@ -65,7 +65,7 @@ class Profile < ActiveRecord::Base
   validates :user_id, presence: true
   validates :user_id, uniqueness: true
   validate :last_name_presence, if: :enable_strict_validation, on: :update
-  validates :first_name, :country, :phone, presence: true, if: :enable_strict_validation, on: :update
+  validates :first_name, :country, :phone, :free_field, presence: true, if: :enable_strict_validation, on: :update
   VALID_PHONE_REGEX = /\A[-+0-9]+\z/
   validates :phone, format: { with: VALID_PHONE_REGEX, if: :enable_strict_validation, on: :update }
 
@@ -95,6 +95,12 @@ class Profile < ActiveRecord::Base
 
   def self.guides
     user_ids = Listing.where(open: true).pluck(:user_id).uniq
+    users = User.where(id: user_ids)
+    Profile.where(user_id: users.ids)
+  end
+  
+  def self.main_and_support_guides
+    user_ids = User.main_guide + User.support_guide
     users = User.where(id: user_ids)
     Profile.where(user_id: users.ids)
   end

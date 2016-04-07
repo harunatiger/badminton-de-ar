@@ -1870,6 +1870,10 @@ select
   width: 36px
   height: 36px
 
+.size44
+  width: 44px
+  height: 44px
+
 .size50
   width: 50px
   height: 50px
@@ -2403,9 +2407,70 @@ select
     font-size: 16px
     &:hover, &:focus
       text-decoration: none
+  a.link-disabled
+    color: $lightgray1
 .nav-active
   font-weight: 700
   background-color: $bg1
+
+.manage-listing-nav-sp
+  display: none
+  @media (max-width: 767px)
+    display: block !important
+    .nav-sections
+      padding: 15px 0
+.listing-help-sp-wrapper
+  display: none
+  @media (max-width: 767px)
+    display: block
+    position: fixed
+    top: 7px
+    right: 6px
+    width: 32px
+    height: 32px
+    line-height: 30px
+    text-align: center
+    background-color: $brand-theme
+    border-radius: 50%
+    z-index: 2
+.edit-help--sp
+  display: none
+  @media (max-width: 767px)
+    display: block !important
+.price--sp
+  display: none
+  @media (max-width: 767px)
+    display: block !important
+.nav-item-sp
+  display: table
+  padding-right: 8px !important
+  padding-left: 8px !important
+  @media (max-width: 767px)
+    padding-right: 2px !important
+    padding-left: 2px !important
+  a
+    border: solid 1px $brand-theme
+    text-align: center
+    width: 100%
+    height: 50px
+    color: $brand-theme
+    display: table-cell
+    vertical-align: middle
+    padding: 2px
+    &:hover
+      text-decoration: none
+  a.disable-item
+    border: solid 1px $lightgray1
+    color: $lightgray1
+.nav-active-sp
+  a
+    border: solid 1px $brand-theme
+    font-weight: 700
+    background-color: $brand-theme
+    color: white
+.nav-item-sp .unregistered-item
+  border: solid 1px $gray1
+  color: $gray1
 
 /* footer */
 footer

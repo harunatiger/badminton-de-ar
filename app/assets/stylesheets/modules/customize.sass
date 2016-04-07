@@ -772,6 +772,10 @@ body.paper
   @media (max-width: 767px)
     .modal-table-small .modal-cell
       display: table-cell
+
+.listing_image_selected
+  //opacity: 0.5
+
 /* Style Star Rating Widget
   ================================================================================ */
 
@@ -851,6 +855,21 @@ body.paper
 .mfp-arrow-left
   &:after, .mfp-a
     content: "\f104"
+
+.mfp-title
+  position: relative
+  //padding-left: 54px
+  .category-img
+    position: absolute
+    top: -60px
+    left: 12px
+    width: 44px
+    height: 44px
+    border-radius: 50%
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .25)
+    background-repeat: no-repeat
+    background-position: center top
+    background-size: cover
 
 /* video.js hack */
 .vjs-default-skin .vjs-big-play-button
@@ -991,6 +1010,15 @@ body.paper
     width: 100%
     height: 100%
   .play
+    width: 100%
+    height: 100%
+    cursor: pointer
+    z-index: 2
+  .play:hover > .playbutton-wrapper
+    background-color: $brand-theme
+  .play:hover > .playbutton-wrapper i.fa
+    color: white
+  .playbutton-wrapper
     position: relative
     top: 50%
     left: 50%
@@ -1094,41 +1122,63 @@ body.paper
       @media (max-width: 767px)
         margin-bottom: 5px
 
+/* reviews section(profile and listing) */
+.reviews_section
+  .avatar-wrapper
+    @media (min-width: 768px)
+      width: 120px
+.review-content
+  .name
+    font-size: 16px
+    margin: 0 auto
+    @media (min-width: 768px)
+      width: 120px
+
+/* reviews image upload */
+.tour-image-thumb
+  width: 200px
+  img
+    width: 200px
+    border: 1px solid $border1
+    border-radius: 3px
+
 /* listings
   ================================================================================ */
 .listings.show
   .listing
     position: relative
-    #slider-wrapper
-      height: auto
     .favorite-wrapper
+      z-index: 1
+      @media (max-width: 767px)
+        display: none
+    .favorite-wrapper-sp
       position: absolute
-      bottom: 52px
-      text-align: right
       width: 100%
       z-index: 1
-      @media (max-width: 1099px)
-        top: 10px
-        bottom: auto
-        text-align: right
-        padding-right: 10px
+      top: 10px
+      text-align: right
+      right: 10px
+      @media (min-width: 768px)
+        display: none
     /* title-section */
     .title-section
       position: relative
       background: white
       border-bottom: 1px solid $border1
       z-index: 1
+      padding: 15px 0
       #listing_name
         color: $gray2
         padding-bottom: 0
         text-shadow: none
+        padding: 0
       #listing_area
-        padding-bottom: 26px
+        //padding-bottom: 26px
         font-size: 18px
         overflow: hidden
         white-space: nowrap
         text-overflow: ellipsis
-        min-height: 50px
+        //min-height: 50px
         a
           color: $brand-theme
         .fa-map-marker
@@ -1138,7 +1188,7 @@ body.paper
           color: $lightgray2
       @media (max-width: 1099px)
         position: relative
-        background: none
+        background: white
         #listing_name
           color: $gray2
           text-shadow: none
@@ -1164,6 +1214,85 @@ body.paper
       //  #listing_area
       //    line-height: 1.3
       //    font-size: 16px
+  .listing-description
+    word-break: break-word
+.listings.preview
+  .listing
+    position: relative
+    .favorite-wrapper
+      z-index: 1
+      @media (max-width: 767px)
+        display: none
+    .favorite-wrapper-sp
+      position: absolute
+      width: 100%
+      z-index: 1
+      top: 10px
+      text-align: right
+      right: 10px
+      @media (min-width: 768px)
+        display: none
+    /* title-section */
+    .title-section
+      position: relative
+      background: white
+      border-bottom: 1px solid $border1
+      z-index: 1
+      padding: 15px 0
+      #listing_name
+        color: $gray2
+        padding-bottom: 0
+        text-shadow: none
+        padding: 0
+      #listing_area
+        //padding-bottom: 26px
+        font-size: 18px
+        overflow: hidden
+        white-space: nowrap
+        text-overflow: ellipsis
+        //min-height: 50px
+        a
+          color: $brand-theme
+        .fa-map-marker
+          font-size: 20px
+          margin-left: 2px
+          margin-right: 5px
+          color: $lightgray2
+      @media (max-width: 1099px)
+        position: relative
+        background: white
+        #listing_name
+          color: $gray2
+          text-shadow: none
+          text-align: left
+          padding-left: 0
+        #listing_area
+          text-align: left
+          padding-left: 0
+          min-height: 0px
+          a
+            color: $brand-theme
+      @media (max-width: 767px)
+        #listing_name
+          line-height: 1.6
+          font-size: 28px
+          text-align: center
+        #listing_area
+          text-align: center
+  .listing-description
+    word-break: break-word
+.preview_link
+  position: fixed
+  width: 100%
+  z-index: 2
+  background: rgba(0, 0, 0, 0.75)
+  color: white
+  font-size: 18px
+  @media (min-width: 768px)
+    top: 50px
+  @media (max-width: 767px)
+    bottom: 0
+
 
 /* listings_images
   ================================================================================ */
@@ -1173,7 +1302,15 @@ body.paper
   position: relative
   display: inline-block
   > div
-    width: 200px
+    width: 180px
+    height: 120px
+    border: 1px solid $border1
+    border-radius: 3px
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: cover
+  .add_image
+    width: 180px
     height: 120px
     border: 1px solid $border1
     border-radius: 3px
@@ -1195,9 +1332,11 @@ body.paper
     border: 1px solid rgba(255, 255, 255, .5)
     border-radius: 6px
     z-index: 5
+    opacity: 0
 
 .listing-video-container
   position: relative
+  display: block
   .delete-image
     display: block
     position: absolute
@@ -1213,6 +1352,40 @@ body.paper
     border: 1px solid rgba(255, 255, 255, .5)
     border-radius: 6px
     z-index: 5
+    opacity: 0
+  &:hover
+    .delete-image
+      opacity: 1
+
+.regist-pics
+  .image-droppable
+    width: 100%
+  .card
+    height: 240px
+    .card-body
+      padding: 12px
+    .listing-image-container
+      display: block
+      div
+        width: 100%
+        margin: 0 auto
+        border: 0
+        border-radius: 0
+    .set_listing_image_link
+      display: block
+      overflow: hidden
+    .set_listing_image_link_text
+      display: block
+      /* Fallback for non-webkit
+      display: -webkit-box
+      height: 56px
+      /* Fallback for non-webkit
+      line-height: 1.4
+      -webkit-line-clamp: 3
+      -webkit-box-orient: vertical
+      overflow: hidden
+      text-overflow: ellipsis
+
 
 /* calendar (listings/calendar)
   ================================================================================ */
@@ -1744,7 +1917,115 @@ body.paper
 
 /* listings#edit
   ================================================================================ */
-
+.listings.index
+  .listing-criteria-header
+    margin-top: 20px
+  .index-remove-listing-btn
+    display: block
+    width: 25px
+    height: 25px
+    border: solid 1px
+    border-radius: 25px
+    padding: 2px
+    text-align: center
+    color: $lightgray1
+    position: absolute
+    top: 5px
+    right: 5px
+    z-index: 2
+    .fa
+      font-size: 18px
+    &:hover
+      color: $gray1
+.input-label
+  strong
+    margin-right: 5px
+  input[type="text"]
+    display: inline-block
+    width: 80%
+.stop_if_rain label
+  font-size: 16px
+.select_max_num_of_people
+  margin-left: 20px
+.border-block
+  border: 1px solid $brand-theme
+  padding: 5px 15px
+  background: white
+  display: inline-block
+  color: $brand-theme
+.no-border
+  border: none
+.fee-container
+  padding: 15px
+  background: white
+  margin-bottom: 15px
+  border: solid 1px $border1
+.manage-listing-content
+  .collapse-panel:hover,
+  .collapse-panel.active
+    background: $bg1
+  label.checkbox,
+  .h5
+    line-height: 1.5
+    @media (max-width: 1099px)
+      font-size: 14px
+.listing-manager-notice
+  font-size: 16px
+  .fa
+    margin-right: 5px
+.listing-manager-area
+  margin-left: 30px
+.listing-manager-area-container
+  min-height: 50px
+  padding: 5px 15px
+  background-color: white
+  border: 1px dashed $lightgray2
+  border-radius: 4px
+.listing-area-item
+  padding: 8px
+  display: inline-block
+.listing_help_block,
+.request-block
+  padding-top: 20px
+.manage-listing-help-panel
+  border: solid 1px $border1
+  position: absolute
+  width: 92%
+  .listing-help-icon-container
+    width: 50px
+    height: 5px
+    position: relative
+    top: -15px
+    left: -15px
+.listing-help-icon
+  display: inline-block
+  width: 40px
+  height: 40px
+  background-image: image-url('illust/idea.png')
+  background-position: center center
+  background-repeat: no-repeat
+  background-size: 40px auto
+.listing-help-sp-wrapper
+  .listing-help-icon
+    display: inline-block
+    width: 32px
+    height: 32px
+    background-image: image-url('illust/idea.png')
+    background-position: center center
+    background-repeat: no-repeat
+    background-size: 25px auto
+#tour-action-preview
+  padding: 20px
+  position: absolute
+  border: solid 1px $border1
+  width: 92%
+.listing-help-sp-header
+  display: none
+  @media (max-width: 767px)
+    display: block
+    padding: 14px 20px
+    font-size: 20px
+    color: $gray2
 .manage-listing-nav
   .nav-sections
     .btn.bg-gray
@@ -1924,30 +2205,74 @@ body.paper
     width: 220px
   #help-nav-sp
     display: none
+  #help_search_container-sp
+    display: none
+  #help_search_container
+    display: block
+  .help-return-link
+    text-align: left
   @media (max-width: 1099px)
+    .return-top
+      position: fixed
+      background: $brand-theme
+      opacity: .6
+      right: 20px
+      z-index: 9999
+      width: 50px
+      height: 50px
+      border-radius: 50%
+      i.fa
+        position: absolute
+        top: -4px
+        left: 9px
+        font-size: 50px
+        color: white
     #help-nav
       display: none
     #help-nav-sp
       display: block
       width: 100%
-      .return-top
-        position: fixed
-        background: $brand-theme
-        opacity: .6
-        right: 20px
-        z-index: 9999
-        width: 50px
-        height: 50px
-        border-radius: 50%
-        i.fa
-          position: absolute
-          top: -4px
-          left: 9px
-          font-size: 50px
-          color: white
       .about-link
         margin: 0
         ul
           margin: 0
-
-
+    #help_search_container-sp
+      display: block
+    #help_search_container
+      display: none
+    .help-return-link
+      text-align: right
+  h3.help-result-title
+    margin: 20px 0
+  .search-help-topic-form-container
+    text-align: left
+    height: 66px
+    padding: 10px 0
+    position: relative
+    .form-icon
+      position: absolute
+      left: 52%
+      top: 18px
+      display: inline-block
+      max-width: 100%
+      margin-bottom: 5px
+      i
+        font-size: 20px
+        color: #aaa
+      @media (max-width: 767px)
+        left: 2%
+    #keyword
+      display: block
+      float: right
+      width: 50%
+      height: 36px
+      padding: 10px 16px
+      font-size: 18px
+      line-height: 1.3333333
+      padding-left: 43px
+      padding-right: 43px
+      border-radius: 23px
+      @media (max-width: 767px)
+        float: none
+        width: 100%
+        font-size: 16px

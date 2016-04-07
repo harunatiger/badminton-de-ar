@@ -1,5 +1,5 @@
 / modal about_cancel
-= simple_form_for(PreMail.new) do |f|
+= simple_form_for(PreMail.new, remote: true) do |f|
   #guide_request.modal[role="dialog" aria-hidden="true"]
     .modal-table
       .modal-cell
@@ -10,9 +10,7 @@
           form
             .card-body
               h5
-                | 現在はベータ版のため、ガイド登録は招待制となっております。
-              p
-                | 2016年春には正式にサービスインする予定です。
+                | ガイド登録は招待制となっております。
               p
                 | ガイドになりたい方には準備が整い次第ご連絡しますので、お手数ですが下記フォームからメールアドレスをご登録ください。
               .row-space-top-3
@@ -28,6 +26,17 @@
                   | お名前(名)
                   .row-space-3
                     = f.input_field :first_name, placeholder: "太郎"
+              .row.row-condensed.row-space-top-2
+                .col-md-6
+                  | 都道府県
+                  .row-space-3
+                    = f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name
+                .col-md-6
+                  | 市区町村
+                  .row-space-3
+                    = f.input_field :municipality, placeholder: "渋谷区"
             .card-footer
-              = f.submit '登録する', class: 'btn btn-primary'
+              .btn-frame
+                = f.submit '登録する', class: 'btn btn-primary'
+                .spinner
               = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

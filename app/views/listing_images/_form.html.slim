@@ -1,74 +1,19 @@
-.form--sp
-  #hidden-form-id
-  = hidden_field_tag  :listing_id, @listing.id
-  - if @listing.cover_video.present?
-    .row.row-space-5.row-space-top-5.row-table
-      .col-xs-4.text-right.col-middle
-        .h4.text-light
-          | 現在のツアー紹介動画
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11.regist-pics
-            .listing-video-container
-              = video_player src: { mp4: @listing.cover_video.encoded, webm: @listing.cover_video.encoded }, controls: true, width: "100%", height: "315", id: "tour_movie"
-              = link_to destroy_video_listing_listing_images_path(@listing.id), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
-                i.fa.fa-trash
-  - else
-    .row.row-space-8.row-space-top-5.row-table
-      .col-xs-4.text-right.col-middle
-        .h4.text-light
-          | ツアーの紹介動画
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11.regist-pics
-            = simple_form_for(@listing, url: upload_video_cover_image_listing_listing_images_url(@listing), html: { id: 'upload_video'}, method: 'POST', remote: true) do |f|
-              = f.file_field :cover_video, as: :file, class: "row-space-1"
-              span.text-red
-                | 旅の臨場感を伝えるために動画をアップしましょう
-                br
-                | ※容量制限25MBまで
+.row
+  .col-lg-10.col-lg-offset-1
+    #hidden-form-id
+    = hidden_field_tag  :listing_id, @listing.id
+    .row.row-condensed.row-space-5.add-listing-images
+      .col-xs-6.add-listing-images-movie
+        = simple_form_for(@listing, url: upload_video_cover_image_listing_listing_images_url(@listing), html: { id: 'upload_video'}, method: 'POST', remote: true) do |f|
+          = f.file_field :cover_video, as: :file, class: ""
+      .col-xs-6.add-listing-images-image
+        = simple_form_for([@listing, ListingImage.new(listing_id: @listing.id)], html: { id: 'upload_image'}, remote: true) do |f|
+          = f.hidden_field :listing_id, value: @listing.id
+          = f.file_field :image, as: :file, id: 'listing_image_new'
 
-  -if @listing.cover_image.present?
-    .row.row-space-4.row-space-top-4.row-table
-      .col-xs-4.text-right.col-middle
-        .h4.text-light
-          |  現在のカバー画像
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11.regist-pics
-            .listing-image-container
-              div[style="background-image: url(#{@listing.cover_image.thumb})"]
-              = link_to destroy_cover_image_listing_listing_images_path(@listing.id), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
-                i.fa.fa-trash
-  - else
-    .row.row-space-8.row-space-top-4.row-table
-      .col-xs-4.text-right.col-middle
-        .h4.text-light
-          | カバー画像
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11.regist-pics
-            = simple_form_for(@listing, url: upload_video_cover_image_listing_listing_images_url(@listing), html: { id: 'upload_cover_image'}, method: 'POST', remote: true) do |f|
-              = f.file_field :cover_image, as: :file
-              span.text-blue 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
-  hr.row-space-4
-  p.text-center.row-space-6
-    | ツアー写真は10枚まで登録できます。
-    br
-    | ツアーのイメージ画像は簡単に入れ替えられます。写真を選択して入れ替えたい位置の写真の上にドロップしてください。
-  - if @listing_images.count < 10
-    .row.row-space-8.row-table
-      .col-xs-4.text-right.col-middle
-        .h4.text-light
-          | ツアーのイメージ画像
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11.regist-pics
-            = simple_form_for([@listing, ListingImage.new(listing_id: @listing.id)], html: { id: 'upload_image'}, remote: true) do |f|
-              = f.hidden_field :listing_id, value: @listing.id
-              = f.file_field :image, as: :file, id: 'listing_image_new'
-  = render partial: 'images_list', locals: { listing_images: @listing_images}
-  hr
-  .row.row-space-top-6
-    .col-xs-9.col-offset-3.text-reset-center
-      = link_to "保存して次へ", manage_listing_listing_details_path(@listing), class: "btn btn-primary btn-large"
+  .col-md-12
+    = render partial: 'images_list', locals: { cover_video: @listing.cover_video, listing_images: @listing_images}
+    hr
+    .row.row-space-top-6
+      .col-xs-9.col-offset-3.text-reset-center
+        = link_to "次のステップへ", manage_listing_listing_details_path(@listing), class: "btn btn-primary btn-large"

@@ -19,6 +19,7 @@
 //= require plugins
 //= require video-js
 //= require lib/bootstrap-tagsinput
+//= require bootstrap-filestyle
 //= require Chart
 //= require moment
 //= require lib/jquery.sliderPro
@@ -36,3 +37,4 @@
 //= require pre_mail
 //= require users
 //= require helps
+//= require review

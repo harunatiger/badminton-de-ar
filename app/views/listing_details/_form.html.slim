@@ -5,34 +5,39 @@
     = f.input_field :longitude, as: :string, placeholder: "経度"
     = f.input_field :latitude, as: :string, placeholder: "緯度"
 
-  .row-space-top-4
-    h3.text-center.row-space-2 所要時間と参加人数
-    p.text-center.row-space-6
-      | 予定している所要時間や料金、ツアーに参加できる人数の上限、下限の制限条件などを設定してください。
-      br
-      | あまり人数を多くすると、ゲストの満足度低下に繋がるので注意が必要です。
-  .row.row-space-5.row-space-top-5.row-table
-    .col-lg-4.text-right.col-middle
-      .h4.text-light
-        | 所要時間
-    .col-lg-8.fieldset.col-middle
+  .row.row-space-2.row-space-top-5
+    .col-lg-12.text-left.listing-manager-intaview
+      .h4.row-space-2.border-block.text-light
+        | ツアーの条件
+  .row.row-space-5.row-space-top-2.row-table
+    .col-lg-5.text-left.col-middle
+      .h4.text-light.required-container
+        | ツアーの所要時間（目安）
+        i.fa.fa-asterisk.balloon[title="required"]
+    .col-lg-7.fieldset.col-middle
       .row
         .col-xs-11
           .select.select-opt.opt-double
             /= f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}, {}, {class: "value_fragile"}
             = f.select :time_required, set_time_required , {}, {class: "value_fragile"}
             span 時間
-  .row.row-space-5.row-space-top-5.row-table
-    .col-lg-4.text-right.col-middle
-      .h4.text-light
-        | 最小催行人数
-    .col-lg-8.fieldset.col-middle
+
+  .row.row-space-8.row-space-top-5.row-table
+    .col-lg-5.text-left.col-middle
+      .h4.text-light.required-container
+        | ツアーの参加者
+        i.fa.fa-asterisk.balloon[title="required"]
+    .col-lg-7.fieldset.col-middle
       .row
         .col-xs-11
           .select.select-opt
-            = f.select :min_num_of_people, [*(1..20)], {}, {class: "value_fragile"}
-            span 人
-  .row.row-space-5.row-space-top-5.row-table
+            = f.select :min_num_of_people, [*(1..20)], {}, {class: ""}
+            span 人から
+          .select.select-opt.select_max_num_of_people
+            = f.select :max_num_of_people, [*(1..20)], {}, {class: ""}
+            span 人まで
+
+  /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
         | 最大催行人数
@@ -42,8 +47,169 @@
           .select.select-opt
             = f.select :max_num_of_people, [*(1..20)], {}, {class: "value_fragile"}
             span 人
-  hr
-  .row-space-top-4
+  .row.row-space-2.row-space-top-8
+    .col-lg-12.text-left
+      .h4.row-space-2.border-block.text-light
+        | 料金
+      p.text-left
+        | ツアーの料金は、ペアで行うガイドの料金と、ツアーにかかる経費（自分たちの食事や交通費など）の合計額になります。
+        br
+        | ガイド料金は０円から設定できます。国際交流を楽しみたい人や初心者の方は、低い金額での登録がおすすめです。
+
+  .fee-container
+    .row.row-space-top-2
+      .col-lg-12.text-left.col-middle
+        .h4.text-light.required-container
+          | ガイド料金
+          i.fa.fa-asterisk.balloon[title="required"]
+    hr
+    .row.row-space-5.row-table
+      .col-lg-5.text-left.col-middle
+        .h4.text-light
+          | あなたの収入
+      .col-lg-7.fieldset.col-middle
+        .row
+          .col-xs-11
+            .input-opt
+              = f.input_field :price, class: "value_fragile", type: 'number', pattern: '[0-9]*'
+              span 円
+    .row.row-space-5.row-space-top-2.row-table
+      .col-lg-5.text-left.col-middle
+        .h4.text-light
+          | サポートメンバーの収入
+      .col-lg-7.fieldset.col-middle
+        .row
+          .col-xs-11
+            .input-opt
+              = f.input_field :price_for_support, class: "value_fragile", type: 'number', pattern: '[0-9]*'
+              span 円
+
+  .fee-container
+    .row.row-space-top-2
+      .col-lg-12.text-left.col-middle
+        .h4.text-light
+          | ツアーにかかる経費
+        p.text-center.row-space-2
+        | ガイドするために、自分たちに必要な経費を、下記から選んで入力してください。
+    hr
+    .row.row-space-5.row-table
+      .col-lg-12.fieldset.row-space-2
+        .collapse-panel.no-border
+          .collapse-heading.h5
+            = f.input_field :car_option, inline_label: "車両レンタルあり", class: "car_option-check price_option-check"
+          .collapse#car_options-container
+            .collapse-body
+              - car_options.each do |option|
+                .row.row-table
+                  .col-lg-4.text-right.col-middle
+                    .h5.text-light
+                      = I18n.t('option_price_ja.' + option)
+                  .col-lg-6.fieldset.col-middle
+                    .input-opt
+                      = f.input_field option, class: "value_fragile " + option, type: 'number', pattern: '[0-9]*'
+                      span 円
+                - if option == 'car_rental'
+                  .row
+                    .col-lg-12
+                      p.small1.text-right.text-muted ※車両代がかからない場合は０円と記入してください。
+      .col-lg-12.fieldset.row-space-2
+        .collapse-panel.no-border
+          .collapse-heading.h5
+            = f.input_field :bicycle_option, inline_label: "自転車レンタルあり", class: "bicycle_option-check price_option-check"
+          .collapse#car_options-container
+            .collapse-body
+              - bicycle_options.each do |option|
+                .row.row-table
+                  .col-lg-4.text-right.col-middle
+                    .h5.text-light
+                      = I18n.t('option_price_ja.' + option)
+                  .col-lg-6.fieldset.col-middle
+                    .input-opt
+                      = f.input_field option, class: "value_fragile " + option, type: 'number', pattern: '[0-9]*'
+                      span 円
+                .row
+                  .col-lg-12
+                    p.small1.text-right.text-muted ※レンタサイクル１台あたりの価格を記入してください。
+
+      .col-lg-12.fieldset
+        .collapse-panel.no-border
+          .collapse-heading.h5
+            = f.input_field :other_option, inline_label: "その他（交通費、飲食代、入館料、体験料、人件費など）", class: "other_option-check price_option-check"
+          .collapse#space_options-container
+            .collapse-body
+              - other_options.each do |option|
+                .row.row-table
+                  .col-lg-4.text-right.col-middle
+                    .h5.text-light
+                      /= I18n.t('option_price_ja.' + option)
+                  .col-lg-6.fieldset.col-middle
+                    .input-opt
+                      = f.input_field option, class: "value_fragile " + option, type: 'number', pattern: '[0-9]*'
+                      span 円
+
+  .row.row-space-2.row-space-top-8
+    .col-lg-12.text-left
+      .h4.border-block.text-light
+        | ゲストが当日負担する費用
+      p.text-center
+      span.text-red Huber.では、食事や交通費、体験費など、個別に発生する費用についてはゲストが当日自己負担します。
+      br
+      | あなたのツアーを体験する際、ゲスト１名あたりいくら必要になるかを伝えてあげましょう。
+  .row.row-space-5.row-space-top-2.row-table
+    .col-lg-5.text-left.col-middle
+      .h4.text-light
+        | ゲストの費用（概算）
+    .col-lg-7.fieldset.col-middle
+      .row
+        .col-xs-11
+          .select.select-opt.opt-double
+            = f.select :guests_cost, [*(0..200)].map{|i| (i * 500)}, {}, {class: "value_fragile"}
+  .row.row-space-8.row-space-top-5.row-table
+    .col-lg-5.text-left.col-middle
+      .h4.text-light
+        | 上記費用の内訳
+      span.text-red.small.strong
+        i.fa.fa-exclamation-circle
+        | 入力は英語で行ってください。
+    .col-lg-7.fieldset.col-middle
+      .row
+        .col-xs-11
+          = f.input_field :included_guests_cost,:class => 'value_fragile imeoff', placeholder: "例）交通費 / 飲食費 / 入場料 / 料理体験の食材購入費など", rows: "6"
+  .row.row-space-2.row-space-top-8
+    .col-lg-12.text-left
+      .h4.row-space-2.border-block.text-light
+        | 返金ポリシー
+    .col-lg-12.disabled-text
+      = f.input_field :refund_policy, disabled: true, rows: "15",
+      value: "14日前まで：支払金額の１００％をゲストに返金\r\n5月15日15時スタートのコンテンツの場合、5月1日の23時59分までのキャンセル\r\n\r\n14日～３日前まで：支払金額の５０％をゲストに返金\r\n5月15日15時スタートのコンテンツの場合、5月2日00時00分～5月12日23時59分までのキャンセル\r\n\r\n３日未満：支払金額の０％をゲストに返金\r\n5月15日15時スタートのコンテンツの場合、5月13日00時00分以降のキャンセル"
+  .row
+    .col-xs-9.col-offset-3.text-reset-center
+      = f.button :submit, "保存して次のステップへ", class: "btn-primary btn-large", id: 'listing-manager-listing-submit'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /.row-space-top-4
     h3.text-center.row-space-2 ガイド料金と自分たちの費用
     p.text-center.row-space-6
       | あなたと、あなたのサポートをしてくれるメンバーの収入にあたる部分です。
@@ -51,7 +217,7 @@
       | 設定の目安として、ビギナーの方は時給1,500円程度を設定するのをお勧めします。
       br
       | また２人に必要になる費用も記入しましょう。
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
         | あなたの収入
@@ -61,7 +227,7 @@
           .input-opt
             = f.input_field :price, class: "value_fragile", type: 'number', pattern: '[0-9]*'
             span 円
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
         | サポートメンバーの収入
@@ -71,7 +237,7 @@
           .input-opt
             = f.input_field :price_for_support, class: "value_fragile", type: 'number', pattern: '[0-9]*'
             span 円
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
         | ２人にかかる経費
@@ -81,14 +247,14 @@
           .input-opt
             = f.input_field :price_for_both_guides, class: "value_fragile ", type: 'number', pattern: '[0-9]*'
             span 円
-  hr
-  .row-space-top-4
+  /hr
+  /.row-space-top-4
     h3.text-center.row-space-2 オプション費用
     p.text-center.row-space-6
       | ゲストが人数によって割り勘できる固定費があれば、記入してください。
       br
       | レンタカー代や会場レンタル代など、全体で変わらない費用はここに記入ください。
-  .row.row-space-5.row-space-top-5
+  /.row.row-space-5.row-space-top-5
     .col-lg-12.fieldset
       .collapse-panel
         .collapse-heading
@@ -108,7 +274,7 @@
               | 例えば、古民家を借りて一緒に料理をしたり、会場を借りてワークショップを企画したり。
               br
               | そのようなスペースを借りる費用などはここに記入ください。
-  .row.row-space-5.row-space-top-5
+  /.row.row-space-5.row-space-top-5
     .col-lg-12.fieldset
       .collapse-panel
         .collapse-heading
@@ -130,14 +296,14 @@
               | その時に発生するレンタカー代やガソリン代などはここに記入ください。
               br
               | また、車両代などが不要な場合は０円と記入してください。
-  hr
-  .row-space-top-4
+  /hr
+  /.row-space-top-4
     h3.text-center.row-space-2 ゲストが自己負担する費用
     p.text-center.row-space-6
       span.text-red Huber.では、食事や交通費など、個別に発生する費用についてはゲストが自己負担します。
       br
       | あなたのツアーを体験する際、ゲスト１名あたりいくら必要になるかを伝えてあげましょう。
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
         | ゲストの費用（概算）
@@ -146,7 +312,7 @@
         .col-xs-11
           .select.select-opt.opt-double
             = f.select :guests_cost, [*(0..200)].map{|i| (i * 500)}, {}, {class: "value_fragile"}
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
         | 上記費用の内訳
@@ -154,12 +320,12 @@
       .row
         .col-xs-11
           = f.input_field :included_guests_cost,:class => 'value_fragile imeoff', placeholder: "例）交通費 / 飲食費 / 入場料 / 料理体験の食材購入費など", rows: "6"
-  hr
-  .row-space-top-4
+  /hr
+  /.row-space-top-4
     h3.text-center.row-space-2 集合場所・その他の条件
     p.text-center.row-space-6
       | 集合場所を設定してください。スムーズに出会えるように駅近辺のお店などを待合わせ場所にしましょう。
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
         | 集合場所
@@ -169,13 +335,13 @@
           = f.hidden_field :place_longitude
           = f.hidden_field :place_latitude
           = f.input_field :place,:class => 'imeoff', placeholder: "Googleマップから検索できます"
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
     .col-lg-8.fieldset.col-middle
       .row
         .col-md-11
           #map
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
         | 集合場所のメモ
@@ -204,7 +370,7 @@
          p.row-space-top-1.text-red
             i.fa.fa-exclamation-circle
             |  ex. 186-3 Yamanouchi Kamakurashi Kanagawa
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
         | 参加条件
@@ -212,7 +378,7 @@
       .row
         .col-xs-11
           = f.input_field :condition,:class => 'imeoff', placeholder: "例) 女子旅なので女子オンリー"
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
         | 雨天の場合の注意事項
@@ -221,7 +387,7 @@
         .col-xs-11
           = f.input_field :stop_if_rain, inline_label: '雨天の場合は中止する'
           = f.input_field :in_case_of_rain,:class => 'imeoff', placeholder: "例) 雨天決行！"
-  .row.row-space-5.row-space-top-5.row-table
+  /.row.row-space-5.row-space-top-5.row-table
     .col-lg-4.text-right.col-middle
       .h4.text-light
         | 返金ポリシー
@@ -230,6 +396,6 @@
         .col-xs-11.disabled-text
           = f.input_field :refund_policy, disabled: true, rows: "15",
           value: "14日前まで：支払金額の１００％をゲストに返金\r\n5月15日15時スタートのコンテンツの場合、5月1日の23時59分までのキャンセル\r\n\r\n14日～３日前まで：支払金額の５０％をゲストに返金\r\n5月15日15時スタートのコンテンツの場合、5月2日00時00分～5月12日23時59分までのキャンセル\r\n\r\n３日未満：支払金額の０％をゲストに返金\r\n5月15日15時スタートのコンテンツの場合、5月13日00時00分以降のキャンセル"
-  .row
+  /.row
     .col-xs-9.col-offset-3.text-reset-center
       = f.button :submit, "保存して次へ", class: "btn-primary btn-large", id: 'listing-manager-listing-submit'

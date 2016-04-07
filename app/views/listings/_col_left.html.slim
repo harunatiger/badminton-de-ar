@@ -101,11 +101,11 @@
     - if profile_keyword.present?
       canvas#canvas height='200' width='300'
 #listing-description.listing-description
-  hr
-  h4.row-space-4
+  /hr
+  /h4.row-space-4
     i.fa.fa-diamond
     |  Best features of My Tour
-  ol
+  /ol
     - if @listing.recommend1.present?
       li.strong.row-space-2.overflow
         = @listing.recommend1
@@ -115,9 +115,9 @@
     - if @listing.recommend3.present?
       li.strong.row-space-2.overflow
         = @listing.recommend3
-  .detail-section.row-space-4
+  /.detail-section.row-space-4
     = hbr(@listing.description).html_safe
-  hr
+  /hr
   h4
     i.fa.fa-diamond
     |  Overview

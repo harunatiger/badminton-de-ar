@@ -116,6 +116,14 @@
             .col-7.row-space-4
               = f.input_field :other_address
               .small1.text-muted.row-space-top-1 This information is not open to the public.
+          .row.row-condensed.row-space-2
+            label.text-right.col-3
+              | Briefly introduce yourself, and talk about the reason you decided to join Huber.
+              i.fa.fa-lock.balloon.fa-green[title="Private"]
+            .col-7.row-space-4
+              .required-container   
+                = f.input_field :free_field, as: :text, cols: "30", rows: "20", placeholder: "Eg. Hello. My name is Suzuki, and I'm 20 years old. I joined Huber. because I want to show people around Kamakura, where I live. I'm looking forward to meeting you!"
+                i.fa.fa-asterisk.balloon[title="required"]
             /.col-7.row-space-4
               = f.input_field :location, placeholder: "Ex.) Enter your zip code to find your address automatically"
           /.row.row-condensed.row-space-4
