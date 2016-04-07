@@ -68,7 +68,7 @@ body.slideout
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.75))
   z-index: 1
   #listing_name, #pickup_name
-    line-height: 1.6
+    line-height: 1.4
     padding: 26px 0 16px
     margin: 0
     color: white
@@ -146,6 +146,29 @@ label.error
           height: 32px
           line-height: 32px
           font-size: 14px
+  &.tag-list-wrapper-bordered
+    ul
+      margin: 0
+    li
+      height: 40px
+      line-height: 38px
+      padding: 0 10px 0 6px
+      border: 1px solid $border1
+      border-radius: 3px
+      .media-avatar
+        float: left
+        border: 0
+        margin: 5px 8px 0 0
+      @media (max-width: 1099px)
+        height: 34px
+        line-height: 32px
+        padding: 0 6px 0 4px
+        font-size: 12px
+        .media-avatar
+          margin: 4px 4px 0 0
+        .size28
+          width: 24px
+          height: 24px
 
 /* lang-list-wrapper */
 .lang-list-wrapper
@@ -177,6 +200,18 @@ label.error
       li
         float: none
         display: inline-block
+
+/* pair-guide-list-container
+.pair-guide-list-container
+  .pair_guide_list-trigger
+    width: 64px
+    height: 64px
+    line-height: 60px
+    color: white
+    &:hover
+      text-decoration: none
+      background-color: $brand-theme-hover
+
 
 /* card
   ================================================================================ */
@@ -896,10 +931,14 @@ body.paper
       background-position: center center
       background-repeat: no-repeat
   .card-body
-    height: 122px
+    height: 160px
     padding: 18px
   h5
     line-height: 1.4
+  .listing-area
+    a
+      //display: inline-block
+      //padding-right: 5px
 .tour-list-cover
   div
     height: 210px
@@ -1144,143 +1183,218 @@ body.paper
 
 /* listings
   ================================================================================ */
+
+.fixed-btn-container
+  position: fixed
+  bottom: 40px
+  left: 0
+  right: 0
+  padding: 10px 20px
+  z-index: 999
+  .btn-fixed-bottom
+    display: block
+    width: 100%
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25)
+
+#tour-option-info
+  .expandable
+    .expandable-content
+      height: 4em
+      text-align: left
+  @media (min-width: 768px)
+    .expandable
+      .expandable-content
+        height: auto
+      .expandable-indicator
+        display: none
+
 .listings.show
   .listing
     position: relative
-    .favorite-wrapper
-      z-index: 1
-      @media (max-width: 767px)
-        display: none
-    .favorite-wrapper-sp
-      position: absolute
-      width: 100%
-      z-index: 1
-      top: 10px
-      text-align: right
-      right: 10px
-      @media (min-width: 768px)
-        display: none
-    /* title-section */
-    .title-section
+
+  /* title-section */
+  .title-section
+    position: relative
+    background: white
+    border-bottom: 1px solid $border1
+    z-index: 1
+    padding: 15px 0
+    .page-container
+      position: relative
+    #listing_name
+      padding: 0
+      color: $gray2
+      font-size: 20px
+      text-shadow: none
+    #listing_area
+      font-size: 15px
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      a
+        color: $brand-theme
+      .fa-map-marker
+        font-size: 20px
+        margin-left: 2px
+        margin-right: 5px
+        color: $lightgray2
+    @media (max-width: 1099px)
       position: relative
       background: white
-      border-bottom: 1px solid $border1
-      z-index: 1
-      padding: 15px 0
       #listing_name
         color: $gray2
-        padding-bottom: 0
         text-shadow: none
-        padding: 0
+        padding-left: 0
       #listing_area
-        //padding-bottom: 26px
-        font-size: 18px
-        overflow: hidden
-        white-space: nowrap
-        text-overflow: ellipsis
-        //min-height: 50px
+        padding-left: 0
+        min-height: 0px
         a
           color: $brand-theme
-        .fa-map-marker
-          font-size: 20px
-          margin-left: 2px
-          margin-right: 5px
-          color: $lightgray2
+    @media (max-width: 767px)
+      #listing_name
+        line-height: 1.4
+        font-size: 18px
+        font-weight: 400
+      #listing_area
+        white-space: normal
+  .favorite-container, .title-container
+    .va-container
+      min-height: 100px
+  .title-container
+    @media (max-width: 767px)
+      padding-right: 0
+  .favorite-container
+    @media (max-width: 767px)
+      padding-left: 0
+  .category-list-container
+    @media (max-width: 767px)
+      clear: both
+  .guide-info-container
+    position: absolute
+    top: -80px
+    left: 12.5px
+    @media (max-width: 767px)
+      position: relative
+      top: auto
+      left: auto
+      margin-top: 25px
+      &::before
+        content: ''
+        display: block
+        position: absolute
+        top: -12.5px
+        left: 12.5px
+        right: 12.5px
+        height: 1px
+        border-top: 1px solid $border3
+      .guide-info-inner
+        display: inline-block
+        max-width: 50%
+        height: 90px
+        margin-left: 5px
+        .h4
+          margin-left: 5px
+    .lang-list-wrapper
+      float: none
+      text-align: center
+      li
+        float: none
+        display: inline-block
+        span
+          min-width: 54px
+          height: 26px
+          line-height: 24px
       @media (max-width: 1099px)
-        position: relative
-        background: white
-        #listing_name
-          color: $gray2
-          text-shadow: none
-          text-align: left
-          padding-left: 0
-        #listing_area
-          text-align: left
-          padding-left: 0
-          min-height: 0px
-          a
-            color: $brand-theme
-      @media (max-width: 767px)
-        #listing_name
-          line-height: 1.6
-          font-size: 28px
-          text-align: center
-        #listing_area
-          text-align: center
-      //@media (max-width: 630px)
-      //  #listing_name
-      //    line-height: 1.4
-      //    font-size: 20px
-      //  #listing_area
-      //    line-height: 1.3
-      //    font-size: 16px
+        li
+          span
+            min-width: 32px
+            height: 22px
+            line-height: 20px
+            padding: 0 4px
+            font-size: 12px
+
+  /* favorite-wrapper
+  .favorite-container
+    z-index: 1
+  .favorite-container-sp
+    position: absolute
+    width: 100%
+    z-index: 1
+    top: 10px
+    text-align: right
+    right: 10px
+    @media (min-width: 768px)
+      display: none
+
   .listing-description
     word-break: break-word
+
 .listings.preview
   .listing
     position: relative
-    .favorite-wrapper
-      z-index: 1
-      @media (max-width: 767px)
-        display: none
-    .favorite-wrapper-sp
-      position: absolute
-      width: 100%
-      z-index: 1
-      top: 10px
-      text-align: right
-      right: 10px
-      @media (min-width: 768px)
-        display: none
-    /* title-section */
-    .title-section
+  .favorite-container
+    z-index: 1
+    @media (max-width: 767px)
+      display: none
+  .favorite-container-sp
+    position: absolute
+    width: 100%
+    z-index: 1
+    top: 10px
+    text-align: right
+    right: 10px
+    @media (min-width: 768px)
+      display: none
+  /* title-section */
+  .title-section
+    position: relative
+    background: white
+    border-bottom: 1px solid $border1
+    z-index: 1
+    padding: 15px 0
+    #listing_name
+      color: $gray2
+      padding-bottom: 0
+      text-shadow: none
+      padding: 0
+    #listing_area
+      //padding-bottom: 26px
+      font-size: 16px
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      //min-height: 50px
+      a
+        color: $brand-theme
+      .fa-map-marker
+        font-size: 20px
+        margin-left: 2px
+        margin-right: 5px
+        color: $lightgray2
+    @media (max-width: 1099px)
       position: relative
       background: white
-      border-bottom: 1px solid $border1
-      z-index: 1
-      padding: 15px 0
       #listing_name
         color: $gray2
-        padding-bottom: 0
         text-shadow: none
-        padding: 0
+        text-align: left
+        padding-left: 0
       #listing_area
-        //padding-bottom: 26px
-        font-size: 18px
-        overflow: hidden
-        white-space: nowrap
-        text-overflow: ellipsis
-        //min-height: 50px
+        text-align: left
+        padding-left: 0
+        min-height: 0px
         a
           color: $brand-theme
-        .fa-map-marker
-          font-size: 20px
-          margin-left: 2px
-          margin-right: 5px
-          color: $lightgray2
-      @media (max-width: 1099px)
-        position: relative
-        background: white
-        #listing_name
-          color: $gray2
-          text-shadow: none
-          text-align: left
-          padding-left: 0
-        #listing_area
-          text-align: left
-          padding-left: 0
-          min-height: 0px
-          a
-            color: $brand-theme
-      @media (max-width: 767px)
-        #listing_name
-          line-height: 1.6
-          font-size: 28px
-          text-align: center
-        #listing_area
-          text-align: center
+    @media (max-width: 767px)
+      #listing_name
+        line-height: 1.4
+        //font-size: 28px
+        text-align: center
+      #listing_area
+        text-align: center
   .listing-description
     word-break: break-word
+
 .preview_link
   position: fixed
   width: 100%
@@ -1293,6 +1407,15 @@ body.paper
   @media (max-width: 767px)
     bottom: 0
 
+#review-block-container--sp
+  margin-top: -70px
+
+#review-block
+  .media-cover-img
+    div
+      height: 160px
+      border-radius: 4px
+      background-position: center top
 
 /* listings_images
   ================================================================================ */

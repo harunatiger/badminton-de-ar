@@ -1,8 +1,10 @@
 - reviews.each do |review|
-  - if review.tour_image.present?
-    .row
-      = image_tag(review.tour_image)
   .row
+    - if review.tour_image.present?
+      .col-md-12.row-space-4
+        .media-cover-img
+          div[style="background-image: url('#{asset_path review.tour_image}')"]
+        /= image_tag(review.tour_image)
     = link_to profile_path(review.guest_id)
       .col-md-3.text-center.row-space-2
         .media-photo.media-round.media-avatar.text-center
@@ -14,11 +16,16 @@
               = user_id_to_firstname(review.guest_id)
     .col-md-9
       .row-space-2
-        .review-text.expandable.expandable-trigger-more.expanded
-          .expandable-content
-            p
-              = review.msg
-            .expandable-indicator.expandable-indicator-light
+        .expandable
+          .expandable-trigger-more
+            .expandable-content
+              .expandable-inner
+                p
+                  = simple_format(h(review.msg))
+                .expandable-indicator
+          = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
+            | read more
+
   .row.row-space-2
       .col-md-9.col-md-push-3
         hr

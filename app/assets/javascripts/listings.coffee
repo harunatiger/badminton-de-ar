@@ -397,6 +397,7 @@ $ ->
 
     $('#num-of-people select').on 'change', ->
       priceCulc()
+
     $('#checkin').on 'changeDate', ->
       priceCulc()
 
@@ -413,6 +414,9 @@ $ ->
       $('#tour-option-amount').text('¥' + optionAmount)
       $('#tour-basic-amount').text('¥' + basicPrice)
 
+    $('#request--sp').on 'click', ->
+      # $('#book_it_button').trigger('click')
+      $('html, body').animate({ scrollTop: $('#js-tour-info').offset().top }, 'fast');
 
   if $('body').hasClass('listings preview')
     if $('.header--sp').css('display') == 'none'
@@ -529,16 +533,22 @@ $ ->
     # media query js width 1099px
     mediaQueryWidth1 = ->
       listingDescription = $('#listing-description')
-      tourAction = $('#tour-action')
-      tourOptionInfo = $('#tour-option-info')
+      tourMovie = $('#tour-movie')
+      tourMovieContainer = $('#tour-movie-container')
+      reviewBlock = $('#review-block')
+      reviewBlockContainer = $('#review-block-container')
+      reviewBlockContainerSp = $('#review-block-container--sp')
+
       if($('.col-left').css('float') == "left")
         # evacuate fullscreen movie
-        if(!$('#tour_movie').hasClass('vjs-fullscreen'))
-          tourAction.insertBefore(tourOptionInfo)
+        if(!tourMovie.hasClass('vjs-fullscreen'))
+          tourMovie.appendTo(tourMovieContainer)
+          reviewBlock.appendTo(reviewBlockContainer)
       else
         # evacuate fullscreen movie
-        if(!$('#tour_movie').hasClass('vjs-fullscreen'))
-          tourAction.insertBefore(listingDescription)
+        if(!tourMovie.hasClass('vjs-fullscreen'))
+          tourMovie.insertBefore(listingDescription)
+          reviewBlock.appendTo(reviewBlockContainerSp)
 
     mediaQueryWidth1()
 

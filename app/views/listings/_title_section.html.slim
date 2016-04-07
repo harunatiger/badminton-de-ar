@@ -1,0 +1,124 @@
+/* listings#title_section
+- favorite_count = favorite_listings_count(listing.id)
+
+.title-section
+  .page-container
+    .row
+
+      .col-sm-10.col-md-8.col-md-offset-3.row-space-1.title-container
+        .va-container.va-container-wh
+          .va-middle
+            h1#listing_name.overflow
+              = @listing.title
+            #listing_area.overflow.row-space-top-1
+              - if pickup_area_from_listing(listing).present?
+                i.fa.fa-map-marker
+                - pickup_area_from_listing(listing).each do |area|
+                  => link_to pickup_path( area.id ) do
+                    = area.short_name
+
+      .col-sm-2.col-md-1.text-center.favorite-container
+        .va-container.va-container-wh
+          .va-middle
+            - if user_signed_in?
+              = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
+                - if current_user.favorite_listing?(listing)
+                  i.fa.fa-heart.favorited
+                  i.fa.fa-heart.unfavorite.hide
+                  i.fa.fa-heart-o.outline.hide.fav-balloon
+                - else
+                  i.fa.fa-heart.favorited.hide
+                  i.fa.fa-heart.unfavorite
+                  i.fa.fa-heart-o.outline.fav-balloon
+                span.favorited-count
+                  = favorite_count
+            - else
+              = link_to new_profile_path, class: "favorite-btn" do
+                i.fa.fa-heart.unfavorite
+                i.fa.fa-heart-o.outline.fav-balloon
+                span.favorited-count
+                  = favorite_count
+      .col-md-12.category-list-container
+        hr
+        .tag-list-wrapper.tag-list-wrapper-bordered
+          ul.clearfix
+            - image_categories_limited_six(@listing).each do |category|
+              li
+                .media-round.media-photo.media-avatar
+                  .size28[style="background-image: url('#{asset_path category[:image]}')"]
+                span
+                  = image_category_display_name(category[:title])
+
+      .col-md-3.guide-info-container.text-center
+        = link_to profile_path(@host_info.id), class: 'media-photo media-round media-avatar' do
+          .size90[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
+        .guide-info-inner
+          .va-container-wh--sp
+            .va-middle--sp
+              .text-left--md
+                .h4.strong.text-truncate.row-space-1
+                  = @host_info.first_name
+                / div
+                  = link_to "#reviews", class: "link-reset"
+                  .star-rating.star-rating-large.star-rating-fit
+                    = render partial: 'listings/stars', locals: { rate: @host_info.ave_total }
+                  | (
+                  span[itemprop="reviewCount"]
+                    = @all_reviewed_count
+                  | )
+              .lang-list-wrapper
+                ul
+                  - if language_ja?(@host_info)
+                    li.balloon(title="Japanese")
+                      span JA
+                  - if language_en?(@host_info)
+                    li.balloon(title="English")
+                      span EN
+                  - if language_zh?(@host_info)
+                    li.balloon(title="Chinese")
+                      span ZH
+                  - if language_de?(@host_info)
+                    li.balloon(title="German")
+                      span DE
+                  - if language_fr?(@host_info)
+                    li.balloon(title="French")
+                      span FR
+                  - if language_es?(@host_info)
+                    li.balloon(title="Spanish")
+                      span ES
+    /.page-container
+    /hr
+    /.row.row-space-2
+    hr.row-space-top-2
+    .row.row-space-4
+      .col-md-12
+        .pair-guide-list-container
+          h5 Supporting guide will join on the day!
+          - @profiles.each_with_index do |guide, i|
+            - break if i == 10
+            .media-photo.media-round.media-avatar
+              .size60[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(guide.user_id)}')"]
+          = link_to "#", class: "pair_guide_list-trigger media-photo media-round text-center" do
+            b more
+
+/* favorite-container-sp
+/.favorite-container-sp
+  .page-container
+    - if user_signed_in?
+      = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
+        - if current_user.favorite_listing?(listing)
+          i.fa.fa-heart.favorited
+          i.fa.fa-heart.unfavorite.hide
+          i.fa.fa-heart-o.outline.hide.fav-balloon
+        - else
+          i.fa.fa-heart.favorited.hide
+          i.fa.fa-heart.unfavorite
+          i.fa.fa-heart-o.outline.fav-balloon
+        span.favorited-count
+          = favorite_count
+    - else
+      = link_to new_profile_path, class: "favorite-btn" do
+        i.fa.fa-heart.unfavorite
+        i.fa.fa-heart-o.outline.fav-balloon
+        span.favorited-count
+          = favorite_count

@@ -1,117 +1,5 @@
-/ listings/col_left
-.row.row-table.row-reset.row-space-1
-  .col-md-3.col-middle.text-center.col-reset
-    = link_to profile_path(@host_info.id), class: 'media-photo media-round media-avatar' do
-      .size90[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
-  .col-md-12.col-middle.col-reset
-    .text-center--md
-      .h3.strong.row-space-1
-        = @host_info.first_name
-      /div
-        /= link_to "#reviews", class: "link-reset"
-        .star-rating.star-rating-large.star-rating-fit
-          = render partial: 'listings/stars', locals: { rate: @host_info.ave_total }
-        | (
-        span[itemprop="reviewCount"]
-          = @all_reviewed_count
-        | )
-.row.row-space-4
-  .col-md-12
-    .tag-list-wrapper
-      - image_categories_limited_six(@listing).each do |category|
-        .media-round.media-photo.media-avatar
-          .size60[style="background-image: url('#{asset_path category[:image]}')"]
-        = image_category_display_name(category[:title])
-    /.tag-list-wrapper
-      ul
-        - if category_food?(@host_info)
-          li
-            = link_to 'javascript:void(0)', title: 'Food', data:{toggle: 'tooltip'} do
-              i.fa.fa-cutlery
-        -if category_alcohol?(@host_info)
-          li
-            = link_to 'javascript:void(0)', title: 'Alcohol', data:{toggle: 'tooltip'} do
-              i.fa.fa-glass
-        -if category_car?(@host_info)
-          li
-            = link_to 'javascript:void(0)', title: 'Car', data:{toggle: 'tooltip'} do
-              i.fa.fa-car
-        -if category_cruising?(@host_info)
-          li
-            = link_to 'javascript:void(0)', title: 'Travel/Ship', data:{toggle: 'tooltip'} do
-              i.fa.fa-ship
-        -if category_shopping?(@host_info)
-          li
-            = link_to 'javascript:void(0)', title: 'Shopping', data:{toggle: 'tooltip'} do
-              i.fa.fa-shopping-cart
-        -if category_accommodation?(@host_info)
-          li
-            = link_to 'javascript:void(0)', title: 'Accommodation', data:{toggle: 'tooltip'} do
-              i.fa.fa-bed
-        -if category_business?(@host_info)
-          li
-            = link_to 'javascript:void(0)', title: 'Business', data:{toggle: 'tooltip'} do
-              i.fa.fa-suitcase
-        -if category_sport?(@host_info)
-          li
-            = link_to 'javascript:void(0)', title: 'Sports', data:{toggle: 'tooltip'} do
-              i.fa.fa-futbol-o
-    .lang-list-wrapper
-      ul
-        - if language_ja?(@host_info)
-          li.balloon(title="Japanese")
-            span JA
-        - if language_en?(@host_info)
-          li.balloon(title="English")
-            span EN
-        - if language_zh?(@host_info)
-          li.balloon(title="Chinese")
-            span ZH
-        - if language_de?(@host_info)
-          li.balloon(title="German")
-            span DE
-        - if language_fr?(@host_info)
-          li.balloon(title="French")
-            span FR
-        - if language_es?(@host_info)
-          li.balloon(title="Spanish")
-            span ES
-    .introduction-container
-      /- if @host_info.self_introduction.present?
-      /.expandable.row-space-2
-        .expandable-trigger-more
-          .expandable-content
-            .expandable-inner
-              = simple_format(h(@host_info.try('self_introduction') || ''))
-              .expandable-indicator
-        = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
-          | read more
-
-      /- introduction = simple_format(@host_info.try('self_introduction') || '').each_line
-      /- if introduction.present?
-        - moreline = false
-        - introduction.each.with_index(1) do | line, index |
-          - if index <= 3
-            = line.html_safe
-          - elsif index >= 4
-            - moreline = true
-            - break
-        - if moreline == true
-          span ...
-      | Supporting guide will join on the day
-      .row
-        - @profiles.each_with_index do |guide, i|
-          - break if i == 10
-          .media-photo.media-round.media-avatar
-            .size90[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(guide.user_id)}')"]
-      div
-        = link_to "#", class: "pair_guide_list-trigger small1" do
-          /i.fa.fa-exclamation-circle
-          | more
-  /.col-lg-6.col-md-6.text-center
-    - if profile_keyword.present?
-      canvas#canvas height='200' width='300'
-#listing-description.listing-description
+/ listings#col_left
+#listing-description.listing-description.row-space-top-4.row-space-6
   /hr
   /h4.row-space-4
     i.fa.fa-diamond
@@ -135,21 +23,22 @@
   .row-space-4
     = hbr(@listing.overview).html_safe
   hr
-  h4
+  h4.row-space-4
     i.fa.fa-diamond
     |  Features of this Tour
-  .row-space-4
-    | Reason for Making this Tour
-    br
-    = hbr(@listing.interview1).html_safe
-  .row-space-4
-    | Tour Highlights
-    br
-    = hbr(@listing.interview2).html_safe
-  .row-space-4
-    | Recommended for…
-    br
-    = hbr(@listing.interview3).html_safe
+  ul.list-normal
+    li.row-space-4
+      .text-muted.row-space-1
+        b Reason for Making this Tour
+      = hbr(@listing.interview1).html_safe
+    li.row-space-4
+      .text-muted.row-space-1
+        b Tour Highlights
+      = hbr(@listing.interview2).html_safe
+    li.row-space-4
+      .text-muted.row-space-1
+        b Recommended for…
+      = hbr(@listing.interview3).html_safe
   hr
   h4
     i.fa.fa-diamond

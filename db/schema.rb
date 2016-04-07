@@ -364,6 +364,7 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.boolean  "reply_from_host",   default: false
     t.boolean  "first_message",     default: true
     t.boolean  "noticemail_sended", default: false
+    t.string   "type"
     t.integer  "reservation_id"
   end
 
@@ -547,9 +548,9 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.string   "caption",     default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "cover_image", default: ""
     t.integer  "order_num"
     t.boolean  "cover_flg",   default: false
-    t.string   "cover_image"
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree

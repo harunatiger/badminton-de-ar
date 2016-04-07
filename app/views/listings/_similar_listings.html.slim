@@ -1,7 +1,8 @@
 - similar_listings = @listing.similar_listings
 -if similar_listings.present?
-  | Similar tours
-  .row
-    -similar_listings.each do |listing|
-      .col-md-6.row-space-4
-        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
+  .row-space-8.row-space-top-6
+    h4 Similar tours
+    .row
+      -similar_listings.each do |listing|
+        .col-md-6.col-lg-4.row-space-4
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}

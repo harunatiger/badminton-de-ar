@@ -24,16 +24,24 @@
           | This is a cancellation plan for bad weather. There are some instances where a guide will choose to cancel a tour due to bad weather. If you’re not sure of the weather forecast for the day of your tour, make sure to check with your guide. The guide fee will be reimbursed should your tour be cancelled due to bad weather. 
     .card-body
       .h6.row-space-1 Refund Policy
-      .text-muted.overflow
-        /= listing_detail.refund_policy
-        | ① 100% refund for cancellation up to 14 days prior to the tour date
-        | (ex. For a guide starting on 5/15 at 15:00, until 5/1 at 23:59)
-        br
-        | ② 50% refund for cancellation 14 to 3 days before guide date
-        | (ex. For a guide starting on 5/15 at 15:00, between 5/2 at 00:00 to 5/12 at 23:59)
-        br
-        | ③ No refund for cancellation less than 3 days prior to the tour date
-        | ex. For a guide starting on 5/10 at 15:00, after 5/9 at 15:00
+      .expandable.text-muted.overflow
+        .expandable-trigger-more
+          .expandable-content
+            .expandable-inner
+              p
+                | ① 100% refund for cancellation up to 14 days prior to the tour date
+                | (ex. For a guide starting on 5/15 at 15:00, until 5/1 at 23:59)
+              p
+                | ② 50% refund for cancellation 14 to 3 days before guide date
+                | (ex. For a guide starting on 5/15 at 15:00, between 5/2 at 00:00 to 5/12 at 23:59)
+              p
+                | ③ No refund for cancellation less than 3 days prior to the tour date
+                | ex. For a guide starting on 5/10 at 15:00, after 5/9 at 15:00
+              .expandable-indicator.expandable-indicator-light
+
+        = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
+          | read more
+
     - if listing_detail.in_case_of_rain.present?
       .card-body
         .h6.row-space-1 In the case of rainy weather
