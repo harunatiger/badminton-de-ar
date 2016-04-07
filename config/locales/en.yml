@@ -57,13 +57,21 @@ en:
     reply_notification:
       subject: "ゲストがあなたの返信を待っています"
     send_request_notification:
-      subject: "仲間申請が届きました。"
+      subject: "ガイド仲間申請が届きました。"
     send_update_notification:
-      subject: "仲間申請が%{status}されました。"
+      subject: "ガイド仲間申請が%{status}されました。"
     selected_notification:
-      subject: "ペアガイドの相談が届きました。"
+      subject: "サポートガイドの相談が届きました。"
     send_update_pair_guide_notification:
-      subject: "ペアガイドが%{status}されました。"
+      subject:
+        offer: "サポートガイドのリクエストが届きました。"
+        accepted: "ペアガイドが成立しました。"
+        canceled: "ペアガイドは成立しませんでした。"
+      body:
+        offer: "%{user_name} さんからサポートガイドのリクエストが届きました。"
+        accepted: "%{user_name} さんとのペアガイドが成立しました。"
+        canceled: "%{user_name} さんとのペアガイドは成立しませんでした。"
+    #  subject: "ペアガイドが%{status}されました。"
   option_price_ja:
     space_rental: "スペースレンタル代"
     car_rental: "車両代"

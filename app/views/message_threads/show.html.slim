@@ -6,7 +6,7 @@
   h1.h2.text-center.row-space-5
     - if @message_thread.pair_guide_thread?
       = link_to @listing.title, listing_path(@listing), target: '_blank'
-      = " のペアガイド募集"
+      = " のサポートガイド募集"
     - else
       = "Conversation with #{user_id_to_name(@counterpart.id)}"
   .row

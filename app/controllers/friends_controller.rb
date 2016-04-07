@@ -47,7 +47,7 @@ class FriendsController < ApplicationController
     message = Message.send_firends_message(@guide.id, current_user.id, Settings.friend.msg.rejected, params[:message_thread_id])
     if message
       current_user.decline_request(@guide)
-      FriendMailer.send_update_notification(current_user, @guide, message.message_thread_id, Settings.friend.status.rejected).deliver_now!
+      #FriendMailer.send_update_notification(current_user, @guide, message.message_thread_id, Settings.friend.status.rejected).deliver_now!
       redirect_to message_thread_path(message.message_thread_id), notice: Settings.friend.msg.rejected
     else
       redirect_to message_thread_path(params[:message_thread_id]), alert: Settings.friend.save.failure

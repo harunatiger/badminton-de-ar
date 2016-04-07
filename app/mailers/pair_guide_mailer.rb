@@ -18,9 +18,18 @@ class PairGuideMailer < ApplicationMailer
     @to_user = to_user
     @message_thread_id = message_thread_id
     @status = status
+    subject = ''
+    if status == Settings.reservation.pair_guide_status.offer
+      subject = I18n.t('mailer.send_update_pair_guide_notification.subject.offer')
+    elsif status == Settings.reservation.pair_guide_status.accepted
+      subject = I18n.t('mailer.send_update_pair_guide_notification.subject.accepted')
+    elsif status == Settings.reservation.pair_guide_status.canceled
+      subject = I18n.t('mailer.send_update_pair_guide_notification.subject.canceled')
+    end
+    
     mail(
       to:      to_user.email,
-      subject: I18n.t('mailer.send_update_pair_guide_notification.subject', status: status)
+      subject: subject
     ) do |format|
       format.text
     end

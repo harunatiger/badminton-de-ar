@@ -630,4 +630,16 @@ module ApplicationHelper
   def current_user_is_host?(reservation)
     current_user.id == reservation.host_id
   end
+  
+  def send_update_pair_guide_notification_body(status, from_user)
+    body = ""
+    if status == Settings.reservation.pair_guide_status.offer
+      body = I18n.t('mailer.send_update_pair_guide_notification.body.offer', user_name: user_obj_to_name(from_user))
+    elsif status == Settings.reservation.pair_guide_status.accepted
+      body = I18n.t('mailer.send_update_pair_guide_notification.body.accepted', user_name: user_obj_to_name(from_user))
+    elsif status == Settings.reservation.pair_guide_status.canceled
+      body = I18n.t('mailer.send_update_pair_guide_notification.body.canceled', user_name: user_obj_to_name(from_user))
+    end
+    body
+  end
 end
