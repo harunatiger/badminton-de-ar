@@ -1,28 +1,29 @@
 li.thread-list-item
   - if m.try('content') == Settings.reservation.msg.accepted || m.try('content') == Settings.reservation.msg.canceled
-    .row.row-condensed.row-space-1
-      .col-sm-10.col-md-push-1
+    .row.row-condensed.row-space-4
+      .col-xs-12.col-md-10.col-md-push-1
         .card.accepted-box
-          .card-body.row
-            - if m.try('content') == Settings.reservation.msg.accepted
-              .col-md-8.text-green.strong
-                | Congratulations! You have a booking!
-                br
-                | Please check Your Booking!
-              .col-md-4.row-space-top-2.text-center
-                = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, class: "btn btn-primary"
-            - elsif m.try('content') == Settings.reservation.msg.canceled
-              - reservation = reservation_id_to_reservation_obj(m.reservation_id)
-              - if reservation.guide?
-                col-md-12.text-pink.strong
-                  | Sorry, Your request(Booking your tour) has been cancelled.
-              - else
-                .col-md-12.text-pink.strong
-                  | Sorry, Your request(Booking your tour) has been cancelled.
+          .card-body
+            .row
+              - if m.try('content') == Settings.reservation.msg.accepted
+                .col-md-8.text-green.text-center--sp.strong.row-space-top-1.row-space-1
+                  | Congratulations! You have a booking!
                   br
-                  | Let’s try again!
+                  | Please check Your Booking!
+                .col-md-4.text-center.row-space-top-1
+                  = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, class: "btn btn-primary"
+              - elsif m.try('content') == Settings.reservation.msg.canceled
+                - reservation = reservation_id_to_reservation_obj(m.reservation_id)
+                - if reservation.guide?
+                  col-md-12.text-pink.strong
+                    | Sorry, Your request(Booking your tour) has been cancelled.
+                - else
+                  .col-md-12.text-pink.strong
+                    | Sorry, Your request(Booking your tour) has been cancelled.
+                    br
+                    | Let’s try again!
   .row.row-condensed
-    .col-sm-10.col-md-push-1
+    .col-xs-9.col-xs-offset-1.col-md-10
       .row-space-4
         .card.card-quote.card-quote-flush.card-quote-right.round
           .card-body
@@ -59,6 +60,6 @@ li.thread-list-item
         .time-container.text-muted.text-right
           small.time
             = m.try('created_at').strftime("%m/%d %H:%M") || ''
-    .col-sm-2.col-md-1.col-md-push-1.text-center
+    .col-xs-2.col-md-1.text-center
       = link_to profile_path(counterpart.profile.id), class: "media-photo media-round media-avatar"
         .size36[style="background-image: url('#{asset_path their_profile_image}')"]

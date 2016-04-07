@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330193120) do
+ActiveRecord::Schema.define(version: 20160406130214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -364,6 +364,7 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.boolean  "reply_from_host",   default: false
     t.boolean  "first_message",     default: true
     t.boolean  "noticemail_sended", default: false
+    t.string   "type"
     t.integer  "reservation_id"
   end
 
@@ -492,11 +493,13 @@ ActiveRecord::Schema.define(version: 20160330193120) do
 
   create_table "pre_mails", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "email",      default: ""
-    t.string   "first_name", default: ""
-    t.string   "last_name",  default: ""
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "email",           default: ""
+    t.string   "first_name",      default: ""
+    t.string   "last_name",       default: ""
+    t.integer  "prefecture_code"
+    t.string   "municipality"
   end
 
   add_index "pre_mails", ["user_id"], name: "index_pre_mails_on_user_id", using: :btree
@@ -547,9 +550,9 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.string   "caption",     default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "cover_image", default: ""
     t.integer  "order_num"
     t.boolean  "cover_flg",   default: false
-    t.string   "cover_image"
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree
@@ -623,6 +626,7 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.string   "municipality",         default: ""
     t.string   "other_address",        default: ""
     t.datetime "soft_destroyed_at"
+    t.text     "free_field",           default: ""
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
@@ -666,6 +670,8 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.integer  "guests_cost",                                    default: 0
     t.text     "included_guests_cost",                           default: ""
     t.integer  "cancel_by",                                      default: 0
+    t.integer  "pair_guide_id"
+    t.integer  "pair_guide_status",                              default: 0
     t.boolean  "bicycle_option",                                 default: false
     t.integer  "bicycle_rental",                                 default: 0
     t.boolean  "other_option",                                   default: false

@@ -1,21 +1,22 @@
 li.thread-list-item
   - if m.try('content') == Settings.reservation.msg.accepted
-    .row.row-condensed.row-space-1
-      .col-sm-10.col-md-push-1
+    .row.row-condensed.row-space-4
+      .col-sm-12.col-md-10.col-md-push-1
         .card.accepted-box
-          .card-body.row
-            .col-md-8.text-green.strong
-              | Congratulations! You have a booking!
-              br
-              | Please check Your Trips!
-            .col-md-4.row-space-top-2.text-center
-              = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path, class: "btn btn-primary"
+          .card-body
+            .row
+              .col-md-8.text-green.text-center--sp.strong.row-space-top-1.row-space-1
+                | Congratulations! You have a booking!
+                br
+                | Please check Your Trips!
+              .col-md-4.text-center.row-space-top-1
+                = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path, class: "btn btn-primary"
   .row.row-condensed
-    .col-sm-2.col-md-1.text-center
+    .col-xs-2.col-md-1.text-center
       /a.media-photo.media-round href="#"
       = link_to '#', class: 'media-photo media-round media-avatar'
         .size36[style="background-image: url('#{asset_path my_profile_image}')"]
-    .col-sm-10
+    .col-xs-9.col-md-10
       .row-space-4
         .card.card-quote.card-quote-flush.round
           .card-body
@@ -36,11 +37,11 @@ li.thread-list-item
                       | Cancellation fee ¥#{reservation.cancellation_fee}
                 - elsif m.try('content').end_with?(Settings.reservation.msg.contact)
                   span.text-pink.strong
-                    =m.try('content')
+                    = m.try('content')
                 - elsif m.try('content') == Settings.reservation.msg.reserve
                   span.text-pink.strong
                     /= message_to_listing(m).try('title')
-                    |I sent you reservation request
+                    | I sent you reservation request
                 - else
                   = text_url_to_link(hbr(m.try('content'))).html_safe
             - if m.attached_file.present?
@@ -53,10 +54,14 @@ li.thread-list-item
                 div#preview-show
             - if !m.reservation_id.zero? and m.try('content') == Settings.reservation.msg.request
               /= render partial: 'listing_block', locals: { m: m, guest_id: @guest_id }
-
         .time-container.text-muted
           small.time
             = m.try('created_at').strftime("%m/%d %H:%M") || ''
             - if m.read.present?
-              span<
+              ' 
               = Settings.message.read.string
+    - if m.read.blank?
+      .col-xs-1.unread-icon
+        i.fa.fa-circle.fa-circle-pulse
+        /= 'dot'
+ 
