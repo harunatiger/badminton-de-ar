@@ -8,7 +8,7 @@
           label.text-right.col-3
             | Current cover photo
           .regist-pics
-            .listing-image-container
+            .profile-cover-image-container
               div[style="background-image: url(#{profile_cover_image_thumb})"]
               = link_to profile_profile_image_path(@profile.id, @cover_image), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
                 i.fa.fa-trash

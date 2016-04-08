@@ -153,6 +153,8 @@ class ListingDetail < ActiveRecord::Base
     end
 
     self.guests_cost = 0 if self.guests_cost.blank?
+    self.bicycle_rental = 0 if self.bicycle_rental.blank?
+    self.other_cost = 0 if self.other_cost.blank?
     self
   end
 
