@@ -85,6 +85,7 @@
           = link_to favorite_user_path(favorite_user_set(profile.user_id, current_user.id)), method: 'DELETE', class: 'favorite-btn-large btn btn-large btn-block' do
             i.fa.fa-times
             | Delete from favorites
-    .card-footer
-      .text-center
-        = paginate(favorite_users)
+    - if favorite_listings.num_pages > 1
+      .card-footer
+        .text-center
+          = paginate(favorite_users)
