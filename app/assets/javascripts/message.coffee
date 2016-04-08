@@ -267,7 +267,7 @@ $ ->
     $(document).on 'ajax:success',  (event) ->
       $target = $(event.target)
       count = $target.children('#count').val()
-      element = $('ul.thread-list li.thread').eq(count)
+      element = $('ul.thread-list li.reservation-thread').eq(count)
       console.log element
       element.find('.thread-progress .state').removeClass('state-primary')
       element.find('.thread-progress .state').addClass('state-normal')
@@ -282,7 +282,7 @@ $ ->
     $(document).on 'ajax:success',  (event) ->
       $target = $(event.target)
       count = $target.children('#count').val()
-      element = $('ul.thread-list li.thread').eq(count)
+      element = $('ul.thread-list li.reservation-thread').eq(count)
       console.log element
       element.find('.thread-progress .state').removeClass('state-primary')
       element.find('.thread-progress .state').addClass('state-normal')
