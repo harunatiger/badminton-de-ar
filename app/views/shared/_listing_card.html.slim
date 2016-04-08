@@ -33,10 +33,10 @@
         | review(#{listing.open_reviews_count})
       - if pickup_area_from_listing(listing).present?
         .listing-area.row-space-1.text-center.text-truncate
+          i.fa.fa-map-marker
+          ' 
           - pickup_area_from_listing(listing).each do |area|
-            => link_to pickup_path( area.id ) do
-              i.fa.fa-map-marker
-              ' 
+            = link_to pickup_path( area.id ) do
               = area.short_name
               ' 
       .text-center
