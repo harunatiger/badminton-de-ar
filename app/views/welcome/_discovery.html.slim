@@ -6,6 +6,8 @@
           | Find trips for you
         h3.h4.row-space-top-2.text-wf
           | TOMODACHI GUIDE are waiting with unique plans for you
+      .section-intro.text-center.row-space-8.row-space-top-6
+        = link_to 'features', features_path
       .discovery-tiles
         .row
           - if @pickups.present? && @pickups.instance_of?(Array)

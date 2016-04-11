@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :features
+
   get 'static_pages/cancel_policy_en'
   get 'static_pages/service_agreement_en'
   get 'static_pages/specific_commercial_transactions_en'
