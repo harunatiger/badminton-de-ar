@@ -24,7 +24,7 @@
                       = link_to message_thread_path(mt), class: "h5 col-sm-9 col-md-8 col-middle thread-name" do
                         -if mt.guide_thread? or mt.pair_guide_thread?
                           span.user-type.user-guide
-                            | Pair Guide
+                            | Supporting Guide
                         -elsif mt.host_id == current_user.id
                           span.user-type.user-guest
                             | Guest

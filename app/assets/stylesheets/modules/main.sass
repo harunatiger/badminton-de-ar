@@ -1229,6 +1229,19 @@ a.about_payment_link
   border-radius: 3px
   .h5.row-space-1
     margin-bottom: 2px
+  a.send-message
+    position: absolute
+    top: 0
+    right: 0
+    width: 32px
+    height: 32px
+    line-height: 32px
+    color: white
+    text-align: center
+    background-color: $brand-theme
+    border-radius: 0 4px
+    &:hover
+      background-color: $brand-theme-hover
 
 .user-container-empty
   background-color: $bg1
@@ -1296,7 +1309,7 @@ a.about_payment_link
   overflow: hidden
 
 /* .host-reservation-thread */
-.host-reservation-thread
+//.host-reservation-thread
   .user-container
     padding: 0
     border: 0
@@ -1359,8 +1372,11 @@ a.about_payment_link
         background: white
     &:hover
       background-color: $bg4
-.thread-body .row, .thread-progress .row
+.thread-body .row
   height: 60px
+
+.thread-progress .row
+  min-height: 60px
 
 .thread.reserve-thread
   > div
