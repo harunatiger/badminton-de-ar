@@ -415,8 +415,10 @@ $ ->
       $('#tour-basic-amount').text('¥' + basicPrice)
 
     $('#request--sp').on 'click', ->
-      # $('#book_it_button').trigger('click')
-      $('html, body').animate({ scrollTop: $('#js-tour-info').offset().top }, 'fast');
+      $('#tour-action').show()
+
+    $('.modal-close-request-booking').on 'click', ->
+      $('#tour-action').hide()
 
   # preview edit bar
   if $('body').hasClass('listings preview')
@@ -494,7 +496,25 @@ $ ->
       image:
         verticalFit: true
         titleSrc: (item) ->
-          item.el.attr('title') + '<span class="category-img" style="background-image: url(' + item.el.attr('data-source') + ')"></span>'
+          if item.el.attr('data-source') != '' || item.el.attr('title') != ''
+            item.el.attr('title') + '<span class="category-img" style="background-image: url(' + item.el.attr('data-source') + ')"></span>'
+          else
+            item.el.attr('title')
+      gallery:
+        enabled: true
+      callbacks:
+        markupParse: (template, values, item) ->
+          if values.title == ''
+            template.removeClass('separate-temprate')
+          else
+            template.addClass('separate-temprate')
+
+    # review gallery
+    $('.review-content').magnificPopup
+      delegate: '.review-pic'
+      type: 'image'
+      image:
+        verticalFit: true
       gallery:
         enabled: true
 

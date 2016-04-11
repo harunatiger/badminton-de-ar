@@ -204,9 +204,9 @@ label.error
 /* pair-guide-list-container
 .pair-guide-list-container
   .pair_guide_list-trigger
-    width: 64px
-    height: 64px
-    line-height: 60px
+    width: 54px
+    height: 54px
+    line-height: 50px
     color: white
     &:hover
       text-decoration: none
@@ -891,12 +891,38 @@ body.paper
   &:after, .mfp-a
     content: "\f104"
 
+.separate-temprate
+  .mfp-img
+    padding: 40px 0 120px
+  .mfp-bottom-bar
+    margin-top: -120px
+    height: 80px
+    background-color: white
+  .mfp-counter
+    top: auto
+    bottom: -20px
+
 .mfp-title
   position: relative
+  padding: 12px 0 0 66px
+  color: $gray2
+  overflow: hidden
+
+  display: block
+  display: -webkit-box
+  //max-width: 400px
+  height: 66px
+  //margin: 0 auto
+  line-height: 1.4
+  -webkit-line-clamp: 3
+  -webkit-box-orient: vertical
+  overflow: hidden
+  text-overflow: ellipsis
+
   //padding-left: 54px
   .category-img
     position: absolute
-    top: -60px
+    top: 18px
     left: 12px
     width: 44px
     height: 44px
@@ -1200,7 +1226,7 @@ body.paper
     .expandable-content
       height: 4em
       text-align: left
-  @media (min-width: 768px)
+  //@media (min-width: 768px)
     .expandable
       .expandable-content
         height: auto
@@ -1222,16 +1248,20 @@ body.paper
       position: relative
     #listing_name
       padding: 0
+      margin-bottom: 10px
       color: $gray2
-      font-size: 20px
+      font-size: 24px
       text-shadow: none
     #listing_area
+      margin-bottom: 10px
       font-size: 15px
-      overflow: hidden
-      white-space: nowrap
-      text-overflow: ellipsis
+      word-break: break-all
+      //overflow: hidden
+      //white-space: nowrap
+      //text-overflow: ellipsis
       a
         color: $brand-theme
+        margin-right: 5px
       .fa-map-marker
         font-size: 20px
         margin-left: 2px
@@ -1252,8 +1282,7 @@ body.paper
     @media (max-width: 767px)
       #listing_name
         line-height: 1.4
-        font-size: 18px
-        font-weight: 400
+        font-size: 22px
       #listing_area
         white-space: normal
   .favorite-container, .title-container
@@ -1277,7 +1306,7 @@ body.paper
       top: auto
       left: auto
       margin-top: 25px
-      &::before
+      //&::before
         content: ''
         display: block
         position: absolute
@@ -1289,7 +1318,7 @@ body.paper
       .guide-info-inner
         display: inline-block
         max-width: 50%
-        height: 90px
+        height: 120px
         margin-left: 5px
         .h4
           margin-left: 5px
@@ -1299,8 +1328,9 @@ body.paper
       li
         float: none
         display: inline-block
+        margin: 3px
         span
-          min-width: 54px
+          min-width: 44px
           height: 26px
           line-height: 24px
       @media (max-width: 1099px)
@@ -1349,7 +1379,7 @@ body.paper
 
 #review-block
   .media-cover-img
-    div
+    div, > a
       height: 160px
       border-radius: 4px
       background-position: center top

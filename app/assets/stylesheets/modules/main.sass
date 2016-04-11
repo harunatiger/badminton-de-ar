@@ -975,6 +975,20 @@ a.delete
 /* tour-action
 #tour-action
   padding-top: 12.5px
+  @media (max-width: 767px)
+    display: none
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    padding: 0
+    margin: 0
+    background-color: white
+    overflow-y: scroll
+    z-index: 2001
+    .card
+      margin-bottom: 0
 
 .actions
   .tag

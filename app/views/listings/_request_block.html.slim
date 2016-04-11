@@ -1,112 +1,197 @@
 / listings/request_block
 #tour-action
-  - if @listing.cover_video?
-    #tour-movie-container
-      #tour-movie.movie-container.row-space-2
-        = video_player src: { mp4: listing.cover_video.encoded, webm: listing.cover_video.encoded }, controls: true, width: "100%", height: "315", id:  "tour_movie"
-  - listing_detail = listing.listing_detail if listing.listing_detail.present?
-  - if listing_detail.present?
-    .card.row-space-2
-      #js-tour-info.card-body
-        .tour-price.row-space-1
-          h3.h4.strong.row-space-2 Price
-          #tour-basic-amount.h3.row-space-2
-            | ¥
-            b = listing_detail.basic_amount
-            small.time
-              | /group(MAX #{listing_detail.max_num_of_people}people・
-              = format_time_required(listing_detail.time_required.to_s.gsub(/.0/, ''))+')'
-          .tour-price-detail
-            .row
-              .col-xs-7
-                | Guide Price
-              .col-xs-5.text-right.strong
-                | ¥
-                = listing_detail.guide_price
-            - if listing_detail.option_amount > 0
+  .tour-action-scroller
+    - if @listing.cover_video?
+      #tour-movie-container
+        #tour-movie.movie-container.row-space-2
+          = video_player src: { mp4: listing.cover_video.encoded, webm: listing.cover_video.encoded }, controls: true, width: "100%", height: "315", id:  "tour_movie"
+    - listing_detail = listing.listing_detail if listing.listing_detail.present?
+    - if listing_detail.present?
+      .card.row-space-2
+        .card-header
+          = link_to "", "#", class: "modal-close modal-close-request-booking", data: {dismiss: "modal"}
+          | Request Booking
+        #js-tour-info.card-body
+          .tour-price.row-space-1
+            h3.h4.strong.row-space-2 Price
+            #tour-basic-amount.h3.row-space-2
+              | ¥
+              b = listing_detail.basic_amount
+              small.time
+                | /group(MAX #{listing_detail.max_num_of_people}people・
+                = format_time_required(listing_detail.time_required.to_s.gsub(/.0/, ''))+')'
+            .tour-price-detail
               .row
                 .col-xs-7
-                  | Costs included in this price
-                #tour-option-amount.col-xs-5.text-right.strong
+                  | Guide Price
+                .col-xs-5.text-right.strong
                   | ¥
-                  = listing_detail.option_amount
-            /- if listing_detail.space_option
-              - space_options.each do |option|
-                - if listing_detail[option] > 0
-                  .row.text-muted.small2
-                    .col-xs-7
-                      |  -
-                      = I18n.t('option_price_en.' + option)
-                    .col-xs-5.text-right.strong
-                      | ¥
-                      = listing_detail[option]
-            - if listing_detail.car_option
-              - car_rental_cost = 0
-              - car_options.each do |option|
-                - if listing_detail[option] > 0
-                  - car_rental_cost += listing_detail[option]
-              .row.text-muted.small2
+                  = listing_detail.guide_price
+              - if listing_detail.option_amount > 0
+                .row
+                  .col-xs-7
+                    | Costs included in this price
+                  #tour-option-amount.col-xs-5.text-right.strong
+                    | ¥
+                    = listing_detail.option_amount
+              /- if listing_detail.space_option
+                - space_options.each do |option|
+                  - if listing_detail[option] > 0
+                    .row.text-muted.small2
+                      .col-xs-7
+                        |  -
+                        = I18n.t('option_price_en.' + option)
+                      .col-xs-5.text-right.strong
+                        | ¥
+                        = listing_detail[option]
+              - if listing_detail.car_option
+                - car_rental_cost = 0
+                - car_options.each do |option|
+                  - if listing_detail[option] > 0
+                    - car_rental_cost += listing_detail[option]
+                .row.text-muted.small2
+                  .col-xs-7
+                    |  -#{I18n.t('option_price_en.' + 'car_rental')} fee
+                  #tour-option-car.col-xs-5.text-right.strong
+                    | ¥
+                    = car_rental_cost
+              - if listing_detail.bicycle_option
+                - min_num_of_people = listing_detail.min_num_of_people
+                - bicycle_options.each do |option|
+                  - if listing_detail[option] > 0
+                    .row.text-muted.small2
+                      .col-xs-7
+                        |  -#{I18n.t('option_price_en.' + option)} fee
+                      #tour-option-bicycle.col-xs-5.text-right.strong
+                        | ¥
+                        = listing_detail[option] * min_num_of_people
+              - if listing_detail.other_option
+                - other_options.each do |option|
+                  - if listing_detail[option] > 0
+                    .row.text-muted.small2
+                      .col-xs-7
+                        |  -#{I18n.t('option_price_en.' + option)} fee
+                      #tour-option-other.col-xs-5.text-right.strong
+                        | ¥
+                        = listing_detail[option]
+
+              /.row
                 .col-xs-7
-                  |  -#{I18n.t('option_price_en.' + 'car_rental')} fee
-                #tour-option-car.col-xs-5.text-right.strong
+                  | Service Commission
+                .col-xs-5.text-right.strong
                   | ¥
-                  = car_rental_cost
-            - if listing_detail.bicycle_option
-              - min_num_of_people = listing_detail.min_num_of_people
-              - bicycle_options.each do |option|
-                - if listing_detail[option] > 0
-                  .row.text-muted.small2
-                    .col-xs-7
-                      |  -#{I18n.t('option_price_en.' + option)} fee
-                    #tour-option-bicycle.col-xs-5.text-right.strong
-                      | ¥
-                      = listing_detail[option] * min_num_of_people
-            - if listing_detail.other_option
-              - other_options.each do |option|
-                - if listing_detail[option] > 0
-                  .row.text-muted.small2
-                    .col-xs-7
-                      |  -#{I18n.t('option_price_en.' + option)} fee
-                    #tour-option-other.col-xs-5.text-right.strong
-                      | ¥
-                      = listing_detail[option]
+                  = listing.listing_detail.service_fee
 
-            /.row
-              .col-xs-7
-                | Service Commission
-              .col-xs-5.text-right.strong
-                | ¥
-                = listing.listing_detail.service_fee
+          = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
+            - user_id = 0
+            - user_id = current_user.id if user_signed_in?
+            = f.hidden_field :host_id, value: @listing.user_id
+            = f.hidden_field :guest_id, value: user_id
+            = f.hidden_field :listing_id, value: @listing.id
+            = f.hidden_field :progress, value: 'under_construction'
+            = f.hidden_field :schedule_hour, value: 00
+            = f.hidden_field :schedule_minute, value: 00
+            = f.hidden_field :price, value: listing.listing_detail.price
+            = f.hidden_field :price_for_support, value: listing.listing_detail.price_for_support
+            = f.hidden_field :price_for_both_guides, value: listing.listing_detail.price_for_both_guides
+            /= f.hidden_field :space_option, value: listing.listing_detail.space_option
+            = f.hidden_field :car_option, value: listing.listing_detail.car_option
+            = f.hidden_field :bicycle_option, value: listing.listing_detail.bicycle_option
+            = f.hidden_field :other_option, value: listing.listing_detail.other_option
+            = f.hidden_field :guests_cost, value: listing.listing_detail.guests_cost
+            = f.hidden_field :included_guests_cost, value: listing.listing_detail.included_guests_cost
+            = f.hidden_field :time_required, value: listing.listing_detail.time_required
+            = f.hidden_field :place, value: listing.listing_detail.place
+            = f.hidden_field :place_memo, value: listing.listing_detail.place_memo
+            /- space_options.each do |option|
+              = f.hidden_field option, value: listing.listing_detail[option]
+            - car_options.each do |option|
+              = f.hidden_field option, value: listing.listing_detail[option]
+            - bicycle_options.each do |option|
+              = f.hidden_field option, value: listing.listing_detail[option]
+            - other_options.each do |option|
+              = f.hidden_field option, value: listing.listing_detail[option]
+            .row.row-space-2
+              .col-md-8
+                label[for="checkin"]
+                  |  Date
+                input#checkin.checkin.datepicker[name="reservation[schedule_date]" placeholder="MM/DD/YYYY" type="text"]
+              .col-md-4
+                label[for="reservation_num_of_people"]
+                  |  People
+                .select.select-block#num-of-people
+                  = f.input_field :num_of_people, as: :select, collection: listing_detail.min_num_of_people..listing_detail.max_num_of_people, default: [1]
+            .row-space-2
+              - if user_signed_in?
+                - if current_user.id == @listing.user_id or @active_reservation
+                  - if @active_reservation
+                    .balloon(title="Under a conversation")
+                      = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
+                  - else
+                    = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
+                - elsif not profile_self_introduction_exists?
+                  = link_to 'Request Booking', profile_link, class: 'btn btn-large btn-block btn-primary'
+                - else
+                  = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary"
+              - else
+                button.btn.btn-large.btn-block.btn-primary
+                  | Request Booking
+            .row-space-1
+              - if user_signed_in?
+                - if current_user.id == @listing.user_id
+                  = button_tag type: 'submit', id: 'book_it_button', class: "btn btn-large btn-block disabled" do
+                    i.fa.fa-comments-o
+                    | Send a message
+                - elsif not profile_self_introduction_exists?
+                  = link_to profile_link, class: 'btn btn-large btn-block' do
+                    i.fa.fa-comments-o
+                    | Send a message
+                - else
+                  -if @message_thread
+                    = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block' do
+                      i.fa.fa-comments-o
+                      | Send a message
+                    end
+                  - else
+                    = link_to message_threads_path(message_thread: {host_id: @listing.user_id}), method: 'POST', class: 'btn btn-large btn-block' do
+                      i.fa.fa-comments-o
+                      | Send a message
+              - else
+                = button_tag type: 'submit', class: "btn btn-large btn-block disabled" do
+                  i.fa.fa-comments-o
+                  | Send a message
 
-        = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
-          - user_id = 0
-          - user_id = current_user.id if user_signed_in?
-          = f.hidden_field :host_id, value: @listing.user_id
-          = f.hidden_field :guest_id, value: user_id
-          = f.hidden_field :listing_id, value: @listing.id
-          = f.hidden_field :progress, value: 'under_construction'
-          = f.hidden_field :schedule_hour, value: 00
-          = f.hidden_field :schedule_minute, value: 00
-          = f.hidden_field :price, value: listing.listing_detail.price
-          = f.hidden_field :price_for_support, value: listing.listing_detail.price_for_support
-          = f.hidden_field :price_for_both_guides, value: listing.listing_detail.price_for_both_guides
-          /= f.hidden_field :space_option, value: listing.listing_detail.space_option
-          = f.hidden_field :car_option, value: listing.listing_detail.car_option
-          = f.hidden_field :bicycle_option, value: listing.listing_detail.bicycle_option
-          = f.hidden_field :other_option, value: listing.listing_detail.other_option
-          = f.hidden_field :guests_cost, value: listing.listing_detail.guests_cost
-          = f.hidden_field :included_guests_cost, value: listing.listing_detail.included_guests_cost
-          = f.hidden_field :time_required, value: listing.listing_detail.time_required
-          = f.hidden_field :place, value: listing.listing_detail.place
-          = f.hidden_field :place_memo, value: listing.listing_detail.place_memo
-          /- space_options.each do |option|
-            = f.hidden_field option, value: listing.listing_detail[option]
-          - car_options.each do |option|
-            = f.hidden_field option, value: listing.listing_detail[option]
-          - bicycle_options.each do |option|
-            = f.hidden_field option, value: listing.listing_detail[option]
-          - other_options.each do |option|
-            = f.hidden_field option, value: listing.listing_detail[option]
+          .tour-price-others.row-space-top-2
+            .row
+              .col-md-12.row-space-top-2.small1.text-red
+                | 【Attention】
+                br
+                | Approximate costs not included in guide price
+              .col-md-7
+                small ¥
+                b #{listing_detail.guests_cost}
+                |  /per person
+              .col-md-5
+                = link_to "#", class: "include_what_trigger small1" do
+                  | ＊Invoice
+    - else
+      .card.row-space-2
+        #js-tour-info.card-body
+          .tour-price.row-space-1
+            h3.h4.strong.row-space-2 GUIDE PRICE
+            #tour-basic-amount.h3.row-space-2
+              | ¥
+              b 0
+              small.time
+                | /group(MAX 1people・0h)
+            .tour-price-detail
+              .row
+                .col-xs-7
+                  | Basic Price
+                .col-xs-5.text-right.strong
+                  | ¥
+                  = 0
+
           .row.row-space-2
             .col-md-8
               label[for="checkin"]
@@ -116,106 +201,25 @@
               label[for="reservation_num_of_people"]
                 |  People
               .select.select-block#num-of-people
-                = f.input_field :num_of_people, as: :select, collection: listing_detail.min_num_of_people..listing_detail.max_num_of_people, default: [1]
+                = select_tag "num-of-people", options_for_select((0..1).step(1))
           .row-space-2
-            - if user_signed_in?
-              - if current_user.id == @listing.user_id or @active_reservation
-                - if @active_reservation
-                  .balloon(title="Under a conversation")
-                    = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
-                - else
-                  = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
-              - elsif not profile_self_introduction_exists?
-                = link_to 'Request Booking', profile_link, class: 'btn btn-large btn-block btn-primary'
-              - else
-                = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary"
-            - else
-              button.btn.btn-large.btn-block.btn-primary
+            button.btn.btn-large.btn-block.btn-primary.disabled
                 | Request Booking
           .row-space-1
-            - if user_signed_in?
-              - if current_user.id == @listing.user_id
-                = button_tag type: 'submit', id: 'book_it_button', class: "btn btn-large btn-block disabled" do
-                  i.fa.fa-comments-o
-                  | Send a message
-              - elsif not profile_self_introduction_exists?
-                = link_to profile_link, class: 'btn btn-large btn-block' do
-                  i.fa.fa-comments-o
-                  | Send a message
-              - else
-                -if @message_thread
-                  = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block' do
-                    i.fa.fa-comments-o
-                    | Send a message
-                  end
-                - else
-                  = link_to message_threads_path(message_thread: {host_id: @listing.user_id}), method: 'POST', class: 'btn btn-large btn-block' do
-                    i.fa.fa-comments-o
-                    | Send a message
-            - else
               = button_tag type: 'submit', class: "btn btn-large btn-block disabled" do
                 i.fa.fa-comments-o
                 | Send a message
 
-        .tour-price-others.row-space-top-2
-          .row
-            .col-md-12.row-space-top-2.small1.text-red
-              | 【Attention】
-              br
-              | Approximate costs not included in guide price
-            .col-md-7
-              small ¥
-              b #{listing_detail.guests_cost}
-              |  /per person
-            .col-md-5
-              = link_to "#", class: "include_what_trigger small1" do
-                | ＊Invoice
-  - else
-    .card.row-space-2
-      #js-tour-info.card-body
-        .tour-price.row-space-1
-          h3.h4.strong.row-space-2 GUIDE PRICE
-          #tour-basic-amount.h3.row-space-2
-            | ¥
-            b 0
-            small.time
-              | /group(MAX 1people・0h)
-          .tour-price-detail
+          .tour-price-others.row-space-top-2
             .row
-              .col-xs-7
-                | Basic Price
-              .col-xs-5.text-right.strong
-                | ¥
-                = 0
-
-        .row.row-space-2
-          .col-md-8
-            label[for="checkin"]
-              |  Date
-            input#checkin.checkin.datepicker[name="reservation[schedule_date]" placeholder="MM/DD/YYYY" type="text"]
-          .col-md-4
-            label[for="reservation_num_of_people"]
-              |  People
-            .select.select-block#num-of-people
-              = select_tag "num-of-people", options_for_select((0..1).step(1))
-        .row-space-2
-          button.btn.btn-large.btn-block.btn-primary.disabled
-              | Request Booking
-        .row-space-1
-            = button_tag type: 'submit', class: "btn btn-large btn-block disabled" do
-              i.fa.fa-comments-o
-              | Send a message
-
-        .tour-price-others.row-space-top-2
-          .row
-            .col-md-12.row-space-top-2.small1.text-red
-              | 【Attention】
-              br
-              | Approximate costs not included in guide price
-            .col-md-7
-              small ¥
-              b 0
-              |  /per person
-            .col-md-5
-              = link_to "#", class: "include_what_trigger small1" do
-                | ＊Invoice
+              .col-md-12.row-space-top-2.small1.text-red
+                | 【Attention】
+                br
+                | Approximate costs not included in guide price
+              .col-md-7
+                small ¥
+                b 0
+                |  /per person
+              .col-md-5
+                = link_to "#", class: "include_what_trigger small1" do
+                  | ＊Invoice

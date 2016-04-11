@@ -3,8 +3,9 @@
     - if review.tour_image.present?
       .col-md-12.row-space-4
         .media-cover-img
-          div[style="background-image: url('#{asset_path review.tour_image}')"]
-        /= image_tag(review.tour_image)
+          = link_to "", "#{asset_path review.tour_image}", class: "review-pic", style: "background-image: url('#{asset_path review.tour_image}')"
+          /.review-pic[style="background-image: url('#{asset_path review.tour_image}')"]
+          /= image_tag(review.tour_image, class: "review-pic hide")
     = link_to profile_path(review.guest_id)
       .col-md-3.text-center.row-space-2
         .media-photo.media-round.media-avatar.text-center
@@ -25,7 +26,8 @@
                 .expandable-indicator
           = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
             | read more
-
   .row.row-space-2
       .col-md-9.col-md-push-3
-        hr
+        .small1.text-right.text-muted
+          = review.try('created_at').strftime("%m/%d %H:%M") || ''
+        hr.row-space-top-1

@@ -23,33 +23,34 @@
   .row-space-4
     = hbr(@listing.overview).html_safe
   hr
-  h4.row-space-4
-    i.fa.fa-diamond
-    |  Features of this Tour
-  ul.list-normal
-    li.row-space-4
-      .text-muted.row-space-1
-        b Reason for Making this Tour
-      = hbr(@listing.interview1).html_safe
-    li.row-space-4
-      .text-muted.row-space-1
-        b Tour Highlights
-      = hbr(@listing.interview2).html_safe
-    li.row-space-4
-      .text-muted.row-space-1
-        b Recommended for…
-      = hbr(@listing.interview3).html_safe
-  hr
+  - if @listing.interview1.present?
+    h4.row-space-4
+      i.fa.fa-diamond
+      |  Features of this Tour
+    ul.list-normal
+      li.row-space-4
+        .text-muted.row-space-1
+          b Reason for Making this Tour
+        = hbr(@listing.interview1).html_safe
+      li.row-space-4
+        .text-muted.row-space-1
+          b Tour Highlights
+        = hbr(@listing.interview2).html_safe
+      li.row-space-4
+        .text-muted.row-space-1
+          b Recommended for…
+        = hbr(@listing.interview3).html_safe
+    hr
   h4
     i.fa.fa-diamond
     |  Any other information or instructions (eg. what to bring)
   .row-space-4
     = hbr(@listing.notes).html_safe
   hr
-  h4
-    i.fa.fa-diamond
-    |  Conditions of Participation
-  .row-space-4
-    - if @listing.listing_detail.condition.present?
+  - if @listing.listing_detail.condition.present?
+    h4
+      i.fa.fa-diamond
+      |  Conditions of Participation
+    .row-space-4
       = hbr(@listing.listing_detail.condition).html_safe
-  hr
+    hr
