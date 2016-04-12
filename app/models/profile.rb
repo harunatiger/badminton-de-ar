@@ -95,7 +95,7 @@ class Profile < ActiveRecord::Base
 
   def self.guides
     user_ids = Listing.where(open: true).pluck(:user_id).uniq
-    users = User.where(id: user_ids)
+    users = User.where(id: user_ids).without_soft_destroyed
     Profile.where(user_id: users.ids)
   end
   
