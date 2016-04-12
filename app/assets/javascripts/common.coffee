@@ -498,6 +498,31 @@ $ ->
     ), 1
     return
 
+  if $('body').hasClass('features')
+    #slider
+    $('#features-slider').sliderPro
+      width:'50%'
+      height: 500
+      aspectRatio: 1.5
+      visibleSize: '100%'
+      forceSize: 'fullWidth'
+      arrows: true
+      fadeArrows: false
+      autoplayDelay: 3000
+      slideAnimationDuration: 1000
+      buttons: false
+      keyboard: false
+      slideDistance: 1
+      breakpoints:
+        767:
+          width: '100%'
+          height:200
+
+
+
+
+
+
   ###
     # circle map
     cityCircle = undefined
