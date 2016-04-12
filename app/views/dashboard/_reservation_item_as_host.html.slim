@@ -6,8 +6,9 @@
       .row
         .col-md-5.col-lg-4.row-space-3
           .user-container
-            = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: r.guest_id}), method: 'POST', class: "send-message balloon", title: "Send a message" do
-              i.fa.fa-send
+            - if current_user_is_host?(r)
+              = link_to message_thread_path(r.message_thread_id), class: "send-message balloon", title: "Send a message" do
+                i.fa.fa-send
             .row
               .col-md-4.text-center
                 = link_to profile_path(r.host_id), class: "media-round media-photo media-avatar" do
@@ -37,13 +38,13 @@
             .state.state-normal
               | Cancelled
             br
-          - if r.completed? and r.host_id == current_user.id
+          - if r.completed? and current_user_is_host?(r)
             - if guest.soft_destroyed?
               = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red disabled", data: { toggle: "modal" }
             - else
               = link_to "Cancel", "#confirm_cancel1", class: "confirm_cancel_from_guide_link btn btn-thread row-space-top-1 row-space-1 text-red", data: { toggle: "modal" }
             = render partial: 'shared/modals/confirm_cancel_from_guide', locals: { r: r, count: i.to_s}
-          - elsif r.completed? and r.host_id != current_user.id
+          - elsif r.completed? and !current_user_is_host?(r)
             - if guest.soft_destroyed?
               = link_to "Cancel PairGuide", class: "btn btn-thread row-space-top-1 row-space-1 text-red disabled"
             - else
@@ -52,7 +53,7 @@
                 = f.hidden_field :pair_guide_id, value: nil
                 = f.submit 'Cancel PairGuide', class: 'btn btn-thread row-space-top-1 row-space-1 text-red', id: "reservation_block-toggle", name: 'cancel_pair_guide_from_dashboard', data: {confirm: '本当にキャンセルしてよろしいですか？'}
           
-          - elsif r.review_for_guest_enabled? and r.host_id == current_user.id
+          - elsif r.review_for_guest_enabled? and current_user_is_host?(r)
             = link_to "Review", for_guest_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"
             br
           = link_to "#", class: "small2 btn-block about_cancel_from_guide_link" do
@@ -101,7 +102,7 @@
                 .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.pair_guide_id)}')"]
 
     .collapse-body
-      - if r.host_id == current_user.id
+      - if current_user_is_host?(r)
         = render partial: 'shared/reservation_block', locals: { reservation: r, count: i.to_s }
       - else
         = render partial: 'shared/pair_guide_block', locals: { reservation: r, count: i.to_s }

@@ -10,17 +10,16 @@
             = user_id_to_name(counterpart.id)
         - if @message_thread.pair_guide_thread?
           span.user-type.user-guide
-            - if @reservation.host_id == current_user.id
-              | Guide
-            - else
-              /small
-              | Planner
-        - elsif @message_thread.guide_thread? or @host_id == counterpart.id
+            small= guide_type_str(pair_guide_thread_to_reservation(@message_thread))
+        - elsif @message_thread.guide_thread?
           span.user-type.user-guide
             | Guide
-        - else
+        - elsif @message_thread.host_id == current_user.id
           span.user-type.user-guest
             | Guest
+        - else
+          span.user-type.user-guide
+            | Guide
         - if profile_identity_authorized?(counterpart.id)
           span.reliable-sign
             i.fa.fa-check-square-o

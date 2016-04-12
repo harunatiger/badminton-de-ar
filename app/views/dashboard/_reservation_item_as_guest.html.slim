@@ -6,7 +6,7 @@
       .row
         .col-md-5.col-lg-4.row-space-3
           .user-container
-            = link_to message_threads_path(message_thread: {host_id: r.host_id}), method: 'POST', class: "send-message balloon", title: "Send a message" do
+            = link_to message_thread_path(r.message_thread_id), class: "send-message balloon", title: "Send a message" do
               i.fa.fa-send
             .row
               .col-md-4.text-center
@@ -94,3 +94,4 @@
 
     = render partial: '/shared/modals/include_what', locals: { included_guests_cost: r.included_guests_cost, count: i.to_s }
     = render partial: 'shared/modals/message_to_host_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }
+  = render partial: '/shared/modals/pair_guide_list', locals: { host_id: host.id }

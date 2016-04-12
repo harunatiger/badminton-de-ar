@@ -642,4 +642,8 @@ module ApplicationHelper
     end
     body
   end
+  
+  def pair_guide_thread_to_reservation(mt)
+    Reservation.find(mt.reservation_id)
+  end
 end
