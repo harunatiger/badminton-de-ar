@@ -518,10 +518,16 @@ $ ->
           width: '100%'
           height:200
 
-
-
-
-
+    # features highlits gallery
+    $('.highlight-gallery').each ->
+      $(this).magnificPopup
+        delegate: 'a'
+        type: 'image'
+        image:
+          verticalFit: true
+        gallery:
+          enabled: true
+      return
 
   ###
     # circle map

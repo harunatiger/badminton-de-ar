@@ -1549,5 +1549,55 @@ $lines-to-show: 2
 
 /* features */
 #features-header, #features-belt
-  padding: 20px 0
+  padding: 30px 0
   background-color: white
+
+#features-highlight
+  overflow: hidden
+
+.highlight-container
+  position: relative
+  background-position: center center
+  background-repeat: no-repeat
+  background-size: cover
+  &:before
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background-color: black
+    opacity: .5
+    z-index: 0
+
+.highlight-gallery
+  a
+    display: block
+    height: 280px
+    background-repeat: no-repeat
+    background-position: center center
+    background-size: cover
+    @media (max-width : 1099px)
+      height: 200px
+    @media (max-width : 767px)
+      width: 200px
+      margin: 0 auto
+
+.highlight-anchor
+  a
+    .fa
+      width: 32px
+      height: 32px
+      line-height: 32px
+      margin: 0 0 0 10px
+      font-size: 26px
+      background-color: $brand-theme
+      border-radius: 50%
+    &:hover
+      .fa
+        color: white
+        background-color: $brand-theme-hover
+
+#features-tour-list
+  clear: both

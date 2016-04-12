@@ -20,138 +20,412 @@
   #features-belt.text-center
     h2.h3.text-brand
       b 鎌倉を語るにはかかせない見どころをご紹介します。
+  #features-highlight
+    .highlight-container[style="background-image: url(#{asset_path 'sample/features_sample001.jpg'})"]
+      .page-container
+        .row.row-space-top-8.row-space-8
+          .col-md-12.text-contrast
+            h3.text-center.row-space-4
+              b 鎌倉ってどんなところ？
+            .highlight-text.row-space-4
+              p
+                | 東京は侍の政権の最後の街、鎌倉は侍の政権の最初の街。日本で「鎌倉時代」と呼ばれる西暦12世紀に、初期の侍たちがこの地を首都に選んだ理由、それは周囲を山で囲まれ天然の要塞として、守備に強い地形であったから。800年を経た今も鎌倉は海と山に囲まれ、その時代から残る建造物や脈々と受け継がれてきた伝統と文化がここにはある。東京から１時間の範囲では、最も見どころの多い街のひとつと言える。
+              p
+                | では、なぜ東京近郊で鎌倉だけがそのような文化と自然を保ってこられたのだろうか？まず、アメリカ西部の開拓時代のような世界を思い描いてほしい。鎌倉時代初期、まだ粗野な侍たちの間には抗争や凄惨な戦いが絶えなかった。そして戦いで死んだ者たちの魂を静めるために多くの寺が建立された。その後800年間、それらの寺々が鎌倉の多くの土地を保全してきたことにより、現在も豊かな自然が残っているのである。文化においては、鎌倉彫りと呼ばれる工芸品が特徴的だ。鎌倉時代の僧侶たちは戦争になれば兵士にもなった。そんな彼らが仏像を彫る傍で生活用品を作ったのが始まりだと言われている。荒削りでワイルドな印象の鎌倉彫は、美しくそして実際にタフな日用品である。
+              p
+                | そんな自然と文化の残る鎌倉なので、現在はクリエイティブな仕事をする者や職人が多く住んでいる。めまぐるしく変化する都会の流行とは距離を置き、ライフスタイルを重視した人が集まっている。そして良い波の入るサーフィンのメッカでもある。そんな人々のコミュニティを支える、センスの良いカフェやバー、レストランも多い。さしずめ日本のポートランドと言ったところだろうか。
+              p
+                | このように鎌倉という街には、歴史と自然と新旧の文化が融合し濃縮されている。東京に来たのであればぜひ訪れるべきエリアだ。（少なくともディズニーランドよりはずっと意味があるだろう。）
+            .highlight-gallery
+              .row.row-space-6
+                .col-md-4
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample001.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample001.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample002.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample002.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
+            .highlight-anchor.text-center
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
+                | 関連するツアーはこちらから
+                i.fa.fa-angle-down
+    .highlight-container[style="background-image: url(#{asset_path 'sample/features_sample002.jpg'})"]
+      .page-container
+        .row.row-space-top-8.row-space-8
+          .col-md-12.text-contrast
+            h3.text-center.row-space-4
+              b 鎌倉大仏
+            .highlight-text.row-space-4
+              p
+                | 建立から750年、侍の街鎌倉を13mの高さから見つめてきた。15世紀までは建物の中にいたが、津波でそれが流された後は現在のように野ざらしで、海の方角を見つめている。そしてこの大仏は日本では奈良の大仏に次いで大きい大仏である。奈良の大仏は屋内にいるため、ものすごく見上げたアングルでしか見れないが、鎌倉大仏は全貌を見ることができる。つまり写真にいっしょに写ることができる日本で一番大きい大仏だ。そして大仏のある長谷エリアでは、超ステレオタイプなお土産屋も楽しめるし、旅行者には知られていない日本的で素敵なカフェやレストランが、まるで忍者のように隠れている。
+            .highlight-gallery
+              .row.row-space-6
+                .col-md-4
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample001.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample001.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample002.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample002.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
+            .highlight-anchor.text-center
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
+                | 関連するツアーはこちらから
+                i.fa.fa-angle-down
+    .highlight-container[style="background-image: url(#{asset_path 'sample/features_sample003.jpg'})"]
+      .page-container
+        .row.row-space-top-8.row-space-8
+          .col-md-12.text-contrast
+            h3.text-center.row-space-4
+              b 円覚寺・建長寺
+            .highlight-text.row-space-4
+              p
+                | 鎌倉を代表する大きな寺院であるこのふたつは、歩いて10分の距離にある。古いものでは700年を超える木造の建造物群は、塗装をせず木が持つ自然の美しさと強さを活かしており、侍の美意識を体現している。浅草の浅草寺などのように庶民が好きな、派手で賑やかな雰囲気と対照的である。しかもここでは現在も多くの若い僧侶が修行に励んでおり、時間によっては念仏の大合唱に出くわすこともある。逆に静けさの中で座禅体験もできる。
+            .highlight-gallery
+              .row.row-space-6
+                .col-md-4
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample001.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample001.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample002.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample002.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
+            .highlight-anchor.text-center
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
+                | 関連するツアーはこちらから
+                i.fa.fa-angle-down
+    .highlight-container[style="background-image: url(#{asset_path 'sample/features_sample001.jpg'})"]
+      .page-container
+        .row.row-space-top-8.row-space-8
+          .col-md-12.text-contrast
+            h3.text-center.row-space-4
+              b 銭洗弁天
+            .highlight-text.row-space-4
+              p
+                | 岩山を切り開いた谷のようになっている独特の坂道の途中、洞窟のような入り口をくぐるとその先にこの神社はある。岩の間から湧き出る水でお金を洗い清め、そのお金を使うと、また多くのお金が戻ってくるという信仰がある。びしょ濡れのお金を出しても「銭洗に行ったんだね！」と、鎌倉ではみな喜んで受け取ってくれるはず。（いやがられる時もあるので注意）
+              p
+                | 5min → 佐助稲荷
+              p
+                | 神秘の世界への入り口かのような200mの赤い鳥居をくぐって到着する小さな神社、佐助稲荷。この神社の裏から山を登り大仏までのハイキングコースを行く秘密の道もある。
+            .highlight-gallery
+              .row.row-space-6
+                .col-md-4
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample001.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample001.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample002.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample002.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
+            .highlight-anchor.text-center
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
+                | 関連するツアーはこちらから
+                i.fa.fa-angle-down
+    .highlight-container[style="background-image: url(#{asset_path 'sample/features_sample002.jpg'})"]
+      .page-container
+        .row.row-space-top-8.row-space-8
+          .col-md-12.text-contrast
+            h3.text-center.row-space-4
+              b 天園ハイキングコース
+            .highlight-text.row-space-4
+              p
+                | 北鎌倉の建長寺から瑞泉寺まで、山の尾根伝いに30分～45分ハイキングできるルート。日本人でも鎌倉に詳しい者しか知らないので、混雑とは無縁。途中で分かれる小道も多く「おお！ここに出られるんだ！」という驚きに満ちている。そして鎌倉にはこのコース以外にも山道を通るハイキングコースがたくさんある。それらをよく知るガイドといっしょであれば、ほぼすべての観光スポットにハイキングで行ける。人混みを避けてお寺を巡り山の頂から海を眺めるといった、素敵な体験がきっとあなたを待っている。
+            .highlight-gallery
+              .row.row-space-6
+                .col-md-4
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample001.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample001.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample002.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample002.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
+            .highlight-anchor.text-center
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
+                | 関連するツアーはこちらから
+                i.fa.fa-angle-down
+    .highlight-container[style="background-image: url(#{asset_path 'sample/features_sample003.jpg'})"]
+      .page-container
+        .row.row-space-top-8.row-space-8
+          .col-md-12.text-contrast
+            h3.text-center.row-space-4
+              b 浄妙寺でお茶
+            .highlight-text.row-space-4
+              p
+                | 「お茶」とは単にティータイムのことではない。自然を小さな空間に表現した日本ならではの庭を見ながら、一杯ずつ手作業で作られたお茶をいただくことで、心を鎮め自分と向き合う日本の伝統的なヒーリングである。山に囲まれた浄妙寺では、野鳥の声とともに悠久の時と日本の風流を感じることができる。ガイドといっしょであれば、お茶におけるひとつひとつの動作や、庭のデザインの意味などの理解を深め、さらに楽しめることだろう。
+              p
+                | 10min → 報国寺
+              p
+                | 浄妙寺歩いて10分のところにある報国寺では竹を見ながらお茶を楽しむことができる。お茶のハシゴも良いかもしれない。
+            .highlight-gallery
+              .row.row-space-6
+                .col-md-4
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample001.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample001.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample002.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample002.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
+            .highlight-anchor.text-center
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
+                | 関連するツアーはこちらから
+                i.fa.fa-angle-down
+    .highlight-container[style="background-image: url(#{asset_path 'sample/features_sample001.jpg'})"]
+      .page-container
+        .row.row-space-top-8.row-space-8
+          .col-md-12.text-contrast
+            h3.text-center.row-space-4
+              b 鎌倉の食
+            .highlight-text.row-space-4
+              p
+                | 鎌倉は海があるので新鮮なシーフードがある。そして「鎌倉野菜」は東京の多くの一流レストランでもその名をメニューに書くほどブランドとして高く評価されている。鎌倉にはそんな食材を求めて多くの料理研究家が住んでいる。彼らとの日本料理を作る体験を通して、健康的で美味しい日本料理の秘密を知ることができるかもしれない。食べること専門で食に興味があるのなら、ローカルに人気の居酒屋やレストランでがオススメだ。ガイドと共にあなたの知識欲と食欲を満たしてはどうだろう？
+            .highlight-gallery
+              .row.row-space-6
+                .col-md-4
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample001.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample001.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample002.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample002.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
+            .highlight-anchor.text-center
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
+                | 関連するツアーはこちらから
+                i.fa.fa-angle-down
+    .highlight-container[style="background-image: url(#{asset_path 'sample/features_sample002.jpg'})"]
+      .page-container
+        .row.row-space-top-8.row-space-8
+          .col-md-12.text-contrast
+            h3.text-center.row-space-4
+              b 鎌倉の海
+            .highlight-text.row-space-4
+              p
+                | 鎌倉駅から歩いで15分、タクシーやバスなら５～６分で海に出ることができる。夏には海の家という日本独特の酒場がビーチに立ち並び、花火大会など様々なイベントも行われる。干潮の時には蟹や小魚を捕まえられる岩場もある。いくつかのビーチが近くにあり、静かなバーがあるビーチや夕日が美しいビーチなど、あなた好みのビーチがきっとある。
+            .highlight-gallery
+              .row.row-space-6
+                .col-md-4
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample001.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample001.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample002.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample002.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
+            .highlight-anchor.text-center
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
+                | 関連するツアーはこちらから
+                i.fa.fa-angle-down
+    .highlight-container[style="background-image: url(#{asset_path 'sample/features_sample003.jpg'})"]
+      .page-container
+        .row.row-space-top-8.row-space-8
+          .col-md-12.text-contrast
+            h3.text-center.row-space-4
+              b たからの庭
+            .highlight-text.row-space-4
+              p
+                | 山あいにひっそりと作られた山小屋で陶芸の体験を楽しむことができる。ここでは、その季節の植物で押し花のように器に模様をつけることで、鎌倉の自然を閉じ込めたあなただけの思い出の器を作れる。円覚寺や建長寺から近く、ガイドといっしょにハイキングコースを行けば実は銭洗弁天にも近い。日本の自然を愛する人にはぜひお勧めしたい体験である。
+            .highlight-gallery
+              .row.row-space-6
+                .col-md-4
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample001.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample001.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample002.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample002.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
+            .highlight-anchor.text-center
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
+                | 関連するツアーはこちらから
+                i.fa.fa-angle-down
+    .highlight-container[style="background-image: url(#{asset_path 'sample/features_sample001.jpg'})"]
+      .page-container
+        .row.row-space-top-8.row-space-8
+          .col-md-12.text-contrast
+            h3.text-center.row-space-4
+              b 江ノ島
+            .highlight-text.row-space-4
+              p
+                | 鎌倉から電車で25分、道がすいていれば車で15分のところにこの小さな島はある。今では橋でつながっているが、昔は干潮時に歩いて渡る島だった。この島自体が漁師などの崇拝の対象だったので、古くからのお土産屋の並ぶ迷路のような小道を登ってゆくと山の頂に神社がある。迷路のような坂道を歩いた後、海を見渡しながら飲む地元のビールは格別である。
+              p
+                | 江ノ島電鉄（江ノ電）
+              p
+                | 鎌倉から江ノ島に伸びるこのエノデンと呼ばれるローカル電車に乗ってまず驚くのは狭い民家の間をギリギリですり抜けて走ることだろう。そんなスリルを味わった後は、んびりと海沿いをの江ノ島まで走る。途中下車して鎌倉大仏や長谷の町、七里ガ浜ビーチに立ち寄るのも良い旅になるだろう。
+            .highlight-gallery
+              .row.row-space-6
+                .col-md-4
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample001.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample001.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample002.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample002.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
+            .highlight-anchor.text-center
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
+                | 関連するツアーはこちらから
+                i.fa.fa-angle-down
+    .highlight-container[style="background-image: url(#{asset_path 'sample/features_sample002.jpg'})"]
+      .page-container
+        .row.row-space-top-8.row-space-8
+          .col-md-12.text-contrast
+            h3.text-center.row-space-4
+              b 熊沢酒造
+            .highlight-text.row-space-4
+              p
+                | 鎌倉から車で30分のところにある134年の歴史を持つ酒蔵。そこで作られた酒とビールにあう素晴らしい日本食のレストランとイタリアンのレストランがあり、酒と食を心ゆくまで楽しむことができる。日本酒を造る様子を見学することもでき、丁寧に作られた美味しいパンを翌日のために手に入れて帰るのも良いかもしれない。
+            .highlight-gallery
+              .row.row-space-6
+                .col-md-4
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample001.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample001.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample002.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample002.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
+            .highlight-anchor.text-center
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
+                | 関連するツアーはこちらから
+                i.fa.fa-angle-down
 
+#features-tour-list
+  .page-container.row-space-top-6
+    h3.text-center.strong
+      | 東京から１時間で行ける日本文化の集積地
+      | のおすすめツアー
+    .row.row-space-top-4.row-space-8
+      .col-md-4.row-space-4
+        .card.tour-listing
+          .card-image
+            = link_to "#", class: "media-photo media-photo-block media-cover" do
+              .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
+            .card-overlay-bottom-left.flush-left.card-overlay-label
+              .h3
+                | ¥&nbsp;
+                | 3000
+            = link_to "#", method: 'DELETE' , class: "favorite-btn" do
+              i.fa.fa-heart.favorited
+          .card-body
+            .media
+              = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
+              = link_to "#", class: "text-normal" do
+                h5.row-space-1.overflow
+                  | This tour's title!
+              .row-space-1.listing-area
+                = link_to "#" do
+                  | Katsushikaku
+              .row-space-1.text-muted
+                | 13.5hours · Review 99
+        .additional-comment.row-space-top-4.text-lead
+          | このツアーでは、
+          br
+          | ・大仏
+          br
+          | ・銭洗弁天
+          br
+          | が楽しめます。
+      .col-md-4.row-space-4
+        .card.tour-listing
+          .card-image
+            = link_to "#", class: "media-photo media-photo-block media-cover" do
+              .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
+            .card-overlay-bottom-left.flush-left.card-overlay-label
+              .h3
+                | ¥&nbsp;
+                | 3000
+            = link_to "#", method: 'DELETE' , class: "favorite-btn" do
+              i.fa.fa-heart.favorited
+          .card-body
+            .media
+              = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
+              = link_to "#", class: "text-normal" do
+                h5.row-space-1.overflow
+                  | This tour's title!
+              .row-space-1.listing-area
+                = link_to "#" do
+                  | Katsushikaku
+              .row-space-1.text-muted
+                | 13.5hours · Review 99
+        .additional-comment.row-space-top-4.text-lead
+          | このツアーでは、
+          br
+          | ・大仏
+          br
+          | ・銭洗弁天
+          br
+          | が楽しめます。
+      .col-md-4.row-space-4
+        .card.tour-listing
+          .card-image
+            = link_to "#", class: "media-photo media-photo-block media-cover" do
+              .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
+            .card-overlay-bottom-left.flush-left.card-overlay-label
+              .h3
+                | ¥&nbsp;
+                | 3000
+            = link_to "#", method: 'DELETE' , class: "favorite-btn" do
+              i.fa.fa-heart.favorited
+          .card-body
+            .media
+              = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
+              = link_to "#", class: "text-normal" do
+                h5.row-space-1.overflow
+                  | This tour's title!
+              .row-space-1.listing-area
+                = link_to "#" do
+                  | Katsushikaku
+              .row-space-1.text-muted
+                | 13.5hours · Review 99
+        .additional-comment.row-space-top-4.text-lead
+          | このツアーでは、
+          br
+          | ・大仏
+          br
+          | ・銭洗弁天
+          br
+          | が楽しめます。
 
-
-b
-  | 特集タイトル
-p
-  | 東京から１時間で行ける日本文化の集積地
-hr
-b
-  | 見どころ1タイトル
-p
-  | 鎌倉ってどんなところ？
-br
-b
-  | 見どころ1テキスト
-p
-  | 東京は侍の政権の最後の街、鎌倉は侍の政権の最初の街。日本で「鎌倉時代」と呼ばれる西暦12世紀に、初期の侍たちがこの地を首都に選んだ理由、それは周囲を山で囲まれ天然の要塞として、守備に強い地形であったから。800年を経た今も鎌倉は海と山に囲まれ、その時代から残る建造物や脈々と受け継がれてきた伝統と文化がここにはある。東京から１時間の範囲では、最も見どころの多い街のひとつと言える。
-p
-  | では、なぜ東京近郊で鎌倉だけがそのような文化と自然を保ってこられたのだろうか？まず、アメリカ西部の開拓時代のような世界を思い描いてほしい。鎌倉時代初期、まだ粗野な侍たちの間には抗争や凄惨な戦いが絶えなかった。そして戦いで死んだ者たちの魂を静めるために多くの寺が建立された。その後800年間、それらの寺々が鎌倉の多くの土地を保全してきたことにより、現在も豊かな自然が残っているのである。文化においては、鎌倉彫りと呼ばれる工芸品が特徴的だ。鎌倉時代の僧侶たちは戦争になれば兵士にもなった。そんな彼らが仏像を彫る傍で生活用品を作ったのが始まりだと言われている。荒削りでワイルドな印象の鎌倉彫は、美しくそして実際にタフな日用品である。
-p
-  | そんな自然と文化の残る鎌倉なので、現在はクリエイティブな仕事をする者や職人が多く住んでいる。めまぐるしく変化する都会の流行とは距離を置き、ライフスタイルを重視した人が集まっている。そして良い波の入るサーフィンのメッカでもある。そんな人々のコミュニティを支える、センスの良いカフェやバー、レストランも多い。さしずめ日本のポートランドと言ったところだろうか。
-p
-  | このように鎌倉という街には、歴史と自然と新旧の文化が融合し濃縮されている。東京に来たのであればぜひ訪れるべきエリアだ。（少なくともディズニーランドよりはずっと意味があるだろう。）
-hr
-b
-  | 見どころ2タイトル
-p
-  | 鎌倉大仏
-br
-b
-  | 見どころ2テキスト
-p
-  | 建立から750年、侍の街鎌倉を13mの高さから見つめてきた。15世紀までは建物の中にいたが、津波でそれが流された後は現在のように野ざらしで、海の方角を見つめている。そしてこの大仏は日本では奈良の大仏に次いで大きい大仏である。奈良の大仏は屋内にいるため、ものすごく見上げたアングルでしか見れないが、鎌倉大仏は全貌を見ることができる。つまり写真にいっしょに写ることができる日本で一番大きい大仏だ。そして大仏のある長谷エリアでは、超ステレオタイプなお土産屋も楽しめるし、旅行者には知られていない日本的で素敵なカフェやレストランが、まるで忍者のように隠れている。
-hr
-b
-  | 見どころ3タイトル
-p
-  | 円覚寺・建長寺
-br
-b
-  | 見どころ3テキスト
-p
-  | 鎌倉を代表する大きな寺院であるこのふたつは、歩いて10分の距離にある。古いものでは700年を超える木造の建造物群は、塗装をせず木が持つ自然の美しさと強さを活かしており、侍の美意識を体現している。浅草の浅草寺などのように庶民が好きな、派手で賑やかな雰囲気と対照的である。しかもここでは現在も多くの若い僧侶が修行に励んでおり、時間によっては念仏の大合唱に出くわすこともある。逆に静けさの中で座禅体験もできる。
-hr
-b
-  | 見どころ4タイトル
-p
-  | 銭洗弁天
-br
-b
-  | 見どころ4テキスト
-p
-  | 岩山を切り開いた谷のようになっている独特の坂道の途中、洞窟のような入り口をくぐるとその先にこの神社はある。岩の間から湧き出る水でお金を洗い清め、そのお金を使うと、また多くのお金が戻ってくるという信仰がある。びしょ濡れのお金を出しても「銭洗に行ったんだね！」と、鎌倉ではみな喜んで受け取ってくれるはず。（いやがられる時もあるので注意）
-p
-  | 5min → 佐助稲荷
-p
-  | 神秘の世界への入り口かのような200mの赤い鳥居をくぐって到着する小さな神社、佐助稲荷。この神社の裏から山を登り大仏までのハイキングコースを行く秘密の道もある。
-hr
-b
-  | 見どころ5タイトル
-p
-  | 天園ハイキングコース
-br
-b
-  | 見どころ5テキスト
-p
-  | 北鎌倉の建長寺から瑞泉寺まで、山の尾根伝いに30分～45分ハイキングできるルート。日本人でも鎌倉に詳しい者しか知らないので、混雑とは無縁。途中で分かれる小道も多く「おお！ここに出られるんだ！」という驚きに満ちている。そして鎌倉にはこのコース以外にも山道を通るハイキングコースがたくさんある。それらをよく知るガイドといっしょであれば、ほぼすべての観光スポットにハイキングで行ける。人混みを避けてお寺を巡り山の頂から海を眺めるといった、素敵な体験がきっとあなたを待っている。
-hr
-b
-  | 見どころ6タイトル
-p
-  | 浄妙寺でお茶
-br
-b
-  | 見どころ6テキスト
-p
-  | 「お茶」とは単にティータイムのことではない。自然を小さな空間に表現した日本ならではの庭を見ながら、一杯ずつ手作業で作られたお茶をいただくことで、心を鎮め自分と向き合う日本の伝統的なヒーリングである。山に囲まれた浄妙寺では、野鳥の声とともに悠久の時と日本の風流を感じることができる。ガイドといっしょであれば、お茶におけるひとつひとつの動作や、庭のデザインの意味などの理解を深め、さらに楽しめることだろう。
-p
-  | 10min → 報国寺
-p
-  | 浄妙寺歩いて10分のところにある報国寺では竹を見ながらお茶を楽しむことができる。お茶のハシゴも良いかもしれない。
-hr
-b
-  | 見どころ7タイトル
-p
-  | 鎌倉の食
-br
-b
-  | 見どころ7テキスト
-p
-  | 鎌倉は海があるので新鮮なシーフードがある。そして「鎌倉野菜」は東京の多くの一流レストランでもその名をメニューに書くほどブランドとして高く評価されている。鎌倉にはそんな食材を求めて多くの料理研究家が住んでいる。彼らとの日本料理を作る体験を通して、健康的で美味しい日本料理の秘密を知ることができるかもしれない。食べること専門で食に興味があるのなら、ローカルに人気の居酒屋やレストランでがオススメだ。ガイドと共にあなたの知識欲と食欲を満たしてはどうだろう？
-hr
-b
-  | 見どころ8タイトル
-p
-  | 鎌倉の海
-br
-b
-  | 見どころ8テキスト
-p
-  | 鎌倉駅から歩いで15分、タクシーやバスなら５～６分で海に出ることができる。夏には海の家という日本独特の酒場がビーチに立ち並び、花火大会など様々なイベントも行われる。干潮の時には蟹や小魚を捕まえられる岩場もある。いくつかのビーチが近くにあり、静かなバーがあるビーチや夕日が美しいビーチなど、あなた好みのビーチがきっとある。
-hr
-b
-  | 見どころ9タイトル
-p
-  | たからの庭
-br
-b
-  | 見どころ9テキスト
-p
-  | 山あいにひっそりと作られた山小屋で陶芸の体験を楽しむことができる。ここでは、その季節の植物で押し花のように器に模様をつけることで、鎌倉の自然を閉じ込めたあなただけの思い出の器を作れる。円覚寺や建長寺から近く、ガイドといっしょにハイキングコースを行けば実は銭洗弁天にも近い。日本の自然を愛する人にはぜひお勧めしたい体験である。
-hr
-b
-  | 見どころ10タイトル
-p
-  | 江ノ島
-br
-b
-  | 見どころ10テキスト
-p
-  | 鎌倉から電車で25分、道がすいていれば車で15分のところにこの小さな島はある。今では橋でつながっているが、昔は干潮時に歩いて渡る島だった。この島自体が漁師などの崇拝の対象だったので、古くからのお土産屋の並ぶ迷路のような小道を登ってゆくと山の頂に神社がある。迷路のような坂道を歩いた後、海を見渡しながら飲む地元のビールは格別である。
-p
-  | 江ノ島電鉄（江ノ電）
-p
-  | 鎌倉から江ノ島に伸びるこのエノデンと呼ばれるローカル電車に乗ってまず驚くのは狭い民家の間をギリギリですり抜けて走ることだろう。そんなスリルを味わった後は、んびりと海沿いをの江ノ島まで走る。途中下車して鎌倉大仏や長谷の町、七里ガ浜ビーチに立ち寄るのも良い旅になるだろう。
-hr
-b
-  | 見どころ11タイトル
-p
-  | 熊沢酒造
-br
-b
-  | 見どころ11テキスト
-p
-  | 鎌倉から車で30分のところにある134年の歴史を持つ酒蔵。そこで作られた酒とビールにあう素晴らしい日本食のレストランとイタリアンのレストランがあり、酒と食を心ゆくまで楽しむことができる。日本酒を造る様子を見学することもでき、丁寧に作られた美味しいパンを翌日のために手に入れて帰るのも良いかもしれない。
+#features-guide-list
+  .page-container
+    h4.h3.text-center.strong
+      | このツアーを案内できるガイド
+    .row.row-space-top-4.row-space-8
+      .col-md-12.row-space-4
+        ul.list-inline.text-center
+          li
+            .media-photo.media-round.media-avatar
+              .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
+          li
+            .media-photo.media-round.media-avatar
+              .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
+          li
+            .media-photo.media-round.media-avatar
+              .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
+          li
+            .media-photo.media-round.media-avatar
+              .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
+          li
+            .media-photo.media-round.media-avatar
+              .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
+          li
+            .media-photo.media-round.media-avatar
+              .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
