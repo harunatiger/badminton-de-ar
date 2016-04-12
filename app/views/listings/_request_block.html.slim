@@ -8,7 +8,7 @@
     - listing_detail = listing.listing_detail if listing.listing_detail.present?
     - if listing_detail.present?
       .card.row-space-2
-        .card-header
+        .card-header.show--sp
           = link_to "", "#", class: "modal-close modal-close-request-booking", data: {dismiss: "modal"}
           | Request Booking
         #js-tour-info.card-body
