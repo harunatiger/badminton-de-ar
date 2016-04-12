@@ -624,7 +624,7 @@ module ApplicationHelper
   end
   
   def guide_type_str(reservation)
-    current_user.id == reservation.pair_guide_id ? 'Main guide' : 'Supporting guide'
+    current_user.id != reservation.host_id ? 'Main guide' : 'Supporting guide'
   end
   
   def current_user_is_host?(reservation)
