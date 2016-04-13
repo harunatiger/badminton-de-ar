@@ -25,6 +25,9 @@ footer
             = link_to "Privacy policy", static_pages_privacy_policy_en_path
           li
             = link_to Settings.page.help , for_user_help_topics_path
+          - if user_signed_in? and current_user.guest? and current_user.pre_mail.blank?
+            li
+              = link_to Settings.page.listing_new, "#guide_request", class: "guide_request", data: { toggle: "modal" }
 
     /.row
       .col-sm-3.col-sm-offset-2.hide--sp

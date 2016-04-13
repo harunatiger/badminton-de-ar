@@ -82,7 +82,7 @@
         -if @message_thread
           = link_to 'Send a message', message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary'
         -else
-          = link_to 'Send a message', message_threads_path(message_thread: {host_id: @profile.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary'
+          = link_to 'Send a message', message_threads_path(message_thread: {type: 'GuestThread', host_id: @profile.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary'
     - else
       = link_to 'Send a message', profile_link, class: "btn btn-large btn-block btn-primary"
 

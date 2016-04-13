@@ -65,9 +65,11 @@ class Profile < ActiveRecord::Base
   validates :user_id, presence: true
   validates :user_id, uniqueness: true
   validate :last_name_presence, if: :enable_strict_validation, on: :update
-  validates :first_name, :country, :phone, :free_field, presence: true, if: :enable_strict_validation, on: :update
+  validates :first_name, :country, :phone, presence: true, if: :enable_strict_validation, on: :update
   VALID_PHONE_REGEX = /\A[-+0-9]+\z/
   validates :phone, format: { with: VALID_PHONE_REGEX, if: :enable_strict_validation, on: :update }
+  
+  scope :contains?, -> name { where('last_name like ? or first_name like ?', '%' + name + '%', '%' + name + '%') }
 
   def last_name_presence
     if self.last_name.empty?
@@ -100,7 +102,7 @@ class Profile < ActiveRecord::Base
   end
   
   def self.main_and_support_guides
-    user_ids = User.main_guide + User.support_guide
+    user_ids = User.main_guide.without_soft_destroyed + User.support_guide.without_soft_destroyed
     users = User.where(id: user_ids)
     Profile.where(user_id: users.ids)
   end
@@ -173,5 +175,4 @@ class Profile < ActiveRecord::Base
   def thumb_image
     self.thumb_images.first
   end
-
 end

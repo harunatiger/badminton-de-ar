@@ -38,3 +38,4 @@
 //= require users
 //= require helps
 //= require review
+//= require friends

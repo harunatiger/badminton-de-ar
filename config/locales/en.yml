@@ -60,6 +60,22 @@ en:
       subject: "ゲストがあなたの返信を待っています"
     withdraw_notification_to_owner:
       subject: 'ユーザが退会しました。'
+    send_request_notification:
+      subject: "ガイド仲間申請が届きました。"
+    send_update_notification:
+      subject: "ガイド仲間申請が%{status}されました。"
+    selected_notification:
+      subject: "サポートガイドの相談が届きました。"
+    send_update_pair_guide_notification:
+      subject:
+        offer: "サポートガイドのリクエストが届きました。"
+        accepted: "ペアガイドが成立しました。"
+        canceled: "ペアガイドは成立しませんでした。"
+      body:
+        offer: "%{user_name} さんからサポートガイドのリクエストが届きました。"
+        accepted: "%{user_name} さんとのペアガイドが成立しました。"
+        canceled: "%{user_name} さんとのペアガイドは成立しませんでした。"
+    #  subject: "ペアガイドが%{status}されました。"
   option_price_ja:
     space_rental: "スペースレンタル代"
     car_option: "車両代"

@@ -13,9 +13,13 @@
             p.text-lead
               | No request found
     - else
-      .col-md-12
+      /.col-md-12
         .card
           ul.thread-list.list-layout
-            = render partial: 'reservation_item_as_host', locals: { reservations: @reservations }
+      .col-md-12
+        ul.thread-list.list-layout
+          = render partial: 'reservation_item_as_host', locals: { reservations: @reservations }
 
 = render partial: 'shared/modals/about_cancel_from_guide'
+= render partial: 'shared/modals/about_support_guide'
+/= render partial: 'shared/modals/pair_guide_list', locals: { pair_guides: @profiles }
