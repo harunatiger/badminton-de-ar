@@ -36,6 +36,7 @@
 #  municipality         :string           default("")
 #  other_address        :string           default("")
 #  soft_destroyed_at    :datetime
+#  free_field           :text             default("")
 #
 # Indexes
 #
