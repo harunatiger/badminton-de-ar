@@ -8,7 +8,7 @@
           .user-container
             - if current_user_is_host?(r) and r.message_thread_id.present?
               = link_to message_thread_path(r.message_thread_id), class: "send-message balloon", title: "Send a message" do
-                i.fa.fa-send
+                i.fa.fa-envelope
             .row
               .col-md-4.text-center
                 = link_to profile_path(r.guest_id), class: "media-round media-photo media-avatar" do
