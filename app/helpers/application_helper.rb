@@ -455,6 +455,16 @@ module ApplicationHelper
       end
     end
   end
+  
+  def out_put_error_for_modal(target)
+    if target.errors.present?
+      content_tag(:div, class: 'text-red') do
+        target.errors.full_messages.each do |msg|
+          concat content_tag(:div, msg)
+        end
+      end
+    end
+  end
 
   def hbr(target)
     target = html_escape(target)

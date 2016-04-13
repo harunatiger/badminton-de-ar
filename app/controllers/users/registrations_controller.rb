@@ -5,6 +5,25 @@ class Users::RegistrationsController < Devise::RegistrationsController
     profile = Profile.create(user_id: resource.id)
     #ProfileImage.create(user_id: resource.id, profile_id: profile.id, image: '', caption: '')
   end
+  
+  def create_email
+    auth = OmniAuth::AuthHash.new(session["omniauth.auth"])
+    auth.info.email = params[:user]['email']
+    @user = User.find_for_facebook_oauth(auth, current_user, true)
+    if @user.persisted?
+      session["omniauth.auth"] = nil
+      @status = 'success'
+    else
+      @status = 'failure'
+    end
+  end
+  
+  def clear_auth_session
+    if request.xhr?
+      session["omniauth.auth"] = nil
+      return render text: 'success'
+    end
+  end
 
   def build_resource(hash=nil)
     hash[:uid] = User.create_unique_string
