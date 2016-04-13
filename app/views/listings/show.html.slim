@@ -20,4 +20,4 @@
 /= render partial: '/shared/modals/about_price'
 /= render partial: '/shared/modals/include_price', locals: { listing_detail: @listing.listing_detail }
 = render partial: '/shared/modals/message_to_host', locals: { listing: @listing } if user_signed_in?
-= render partial: '/shared/modals/pair_guide_list'
+= render partial: '/shared/modals/pair_guide_list', locals: { host_id: @listing.user_id }

@@ -1,0 +1,14 @@
+#message_to_pair_guide.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        = form_tag(send_request_friend_path(profile.user_id), method: :post) do
+          .card-header
+            strong
+              | #{profile.try('first_name')} #{profile.try('last_name')}
+            | さんへ仲間申請のメッセージを送りましょう。
+          .card-body
+            = text_area :send_request, :message, rows: 6, placeholder: "先日のコミュニティでお話した者です。一緒にガイドできる機会を楽しみにしています。ガイド仲間申請しますのでよろしければ承認してください。よろしくお願いします。"
+            .card-footer
+              = submit_tag "送信する", class: "btn btn-primary"
+              = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

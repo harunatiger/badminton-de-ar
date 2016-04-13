@@ -42,6 +42,33 @@ li.thread-list-item
                   span.text-pink.strong
                     /= message_to_listing(m).try('title')
                     | I sent you reservation request
+                - elsif m.friends_request
+                  span.text-blue.strong
+                    = Settings.friend.msg.request
+                  - unless m.try('content') == 'no_message'
+                    hr
+                    = m.try('content')
+                - elsif m.try('content') == Settings.friend.msg.accept
+                  span.text-pink.strong
+                    = Settings.friend.msg.accept
+                - elsif m.try('content') == Settings.friend.msg.rejected
+                  span.text-pink.strong
+                    = Settings.friend.msg.rejected
+                - elsif m.try('content') == Settings.reservation.msg.send_message
+                  span.text-pink.strong
+                    = m.try('content')
+                - elsif m.try('content') == Settings.reservation.msg.pair_guide_offer
+                  span.text-blue.strong
+                    = m.try('content')
+                - elsif m.try('content') == Settings.reservation.msg.pair_guide_cancel
+                  span.text-pink.strong
+                    = m.try('content')
+                - elsif m.try('content') == Settings.reservation.msg.pair_guide_accept
+                  span.text-pink.strong
+                    = m.try('content')
+                - elsif m.try('content') == Settings.reservation.msg.cancel_pair_guide_from_dashboard
+                  span.text-pink.strong
+                    = m.try('content')
                 - else
                   = text_url_to_link(hbr(m.try('content'))).html_safe
             - if m.attached_file.present?

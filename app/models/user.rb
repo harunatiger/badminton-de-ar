@@ -44,7 +44,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :timeoutable
   include Payments
-  soft_deletable 
+  soft_deletable
+  has_friendship
   devise :database_authenticatable, :registerable, :lockable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
 
@@ -250,5 +251,44 @@ class User < ActiveRecord::Base
   
   def comming_reservations_as_guide
     Reservation.all.as_host(self.id).accepts.not_finished
+  end
+  
+  def friends_profiles
+    users = self.friends
+    Profile.where(user_id: users.ids)
+  end
+  
+  def requested_friends_profiles
+    users = self.requested_friends
+    Profile.where(user_id: users.ids)
+  end
+  
+  def pending_friends_profiles
+    users = self.pending_friends
+    Profile.where(user_id: users.ids)
+  end
+  
+  def not_friends_profiles
+    ids = []
+    ids << self.profile.id
+    ids << self.friends_profiles.ids if self.friends_profiles.present?
+    Profile.main_and_support_guides.where.not(id: ids)
+  end
+  
+  def friend_pending?(user_id)
+    self.pending_friends.where(id: user_id).present?
+  end
+  
+  def friend_requested?(user_id)
+    self.requested_friends.where(id: user_id).present?
+  end
+  
+  def search_friends(search_params)
+    users = self.friends.joins(:profile).merge(Profile.contains?(search_params[:keyword]))
+    Profile.where(user_id: users.ids)
+  end
+  
+  def search_not_friends(search_params)
+    self.not_friends_profiles.contains?(search_params[:keyword])
   end
 end

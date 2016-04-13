@@ -8,13 +8,12 @@ class MessageThreadsController < ApplicationController
   # GET /message_threads
   # GET /message_threads.json
   def index
-    message_thread_ids = MessageThreadUser.mine(current_user.id).pluck(:message_thread_id)
+    message_threads_ids = MessageThreadUser.mine(current_user.id).pluck(:message_thread_id)
     @message_threads = []
-    message_thread_ids.each do |mt_id|
+    message_threads_ids.each do |mt_id|
       message_thread = MessageThread.find(mt_id)
       @message_threads << message_thread.set_reservation_progress if message_thread.messages.present?
     end
-    # @message_threads.sort_by! { |mt| mt.updated_at }
     @message_threads.sort_by! &:updated_at
     @message_threads.reverse!
   end
@@ -23,17 +22,20 @@ class MessageThreadsController < ApplicationController
   # GET /message_threads/1.json
   def show
     Message.make_all_read(@message_thread.id, current_user.id)
-    counterpart_user_id = MessageThreadUser.counterpart_user(@message_thread.id, current_user.id)
     @message = Message.new
-    @counterpart = User.find(counterpart_user_id)
+    @counterpart = @message_thread.counterpart_user(current_user.id)
     flash.now[:alert] = Settings.profile.deleted_profile_id if @counterpart.soft_destroyed?
-    @listings = User.find(@host_id).listings.opened.without_soft_destroyed
-    if @reservation.try('id').nil?
-      gon.watch.ngdates = Ngevent.fix_common_ngdays(current_user.id)
-      gon.watch.ngweeks = NgeventWeek.fix_common_ngweeks(current_user.id).pluck(:dow)
-    else
-      gon.watch.ngdates = Ngevent.get_ngdates_except_request(@reservation, @reservation.try('listing_id'))
-      gon.watch.ngweeks = NgeventWeek.get_ngweeks_from_reservation(@reservation).pluck(:dow)
+    if @message_thread.guest_thread?
+      @listings = User.find(@host_id).listings.opened.without_soft_destroyed
+      if @reservation.try('id').nil?
+        gon.watch.ngdates = Ngevent.fix_common_ngdays(current_user.id)
+        gon.watch.ngweeks = NgeventWeek.fix_common_ngweeks(current_user.id).pluck(:dow)
+      else
+        gon.watch.ngdates = Ngevent.get_ngdates_except_request(@reservation, @reservation.try('listing_id'))
+        gon.watch.ngweeks = NgeventWeek.get_ngweeks_from_reservation(@reservation).pluck(:dow)
+      end
+    elsif @message_thread.pair_guide_thread?
+      @listing = Listing.find(@reservation.listing_id)
     end
   end
 
@@ -45,7 +47,7 @@ class MessageThreadsController < ApplicationController
     @message_thread.message_thread_users.build(user_id: @message_thread.host_id)
     respond_to do |format|
       if @message_thread.save
-        format.html { redirect_to @message_thread}
+        format.html { redirect_to message_thread_path(@message_thread.id)}
         format.json { render :show, status: :created, location: @message_thread }
       else
         format.html { render :new }
@@ -89,10 +91,9 @@ class MessageThreadsController < ApplicationController
     end
 
     def set_reservation
-      counterpart_user_id = MessageThreadUser.counterpart_user(@message_thread.id, @message_thread.host_id)
-      @guest_id = counterpart_user_id
-      @host_id = @message_thread.host_id
-      @reservation = Reservation.for_message_thread(@guest_id, @host_id)
+      @guest_id = @message_thread.counterpart_user(@message_thread.host_id).id
+      @host_id = @message_thread.pair_guide_thread? ? @message_thread.reservation.host_id : @message_thread.host_id
+      @reservation = @message_thread.pair_guide_thread? ? @message_thread.reservation : Reservation.for_message_thread(@guest_id, @host_id)
       @reservation.message_thread_id = @message_thread.id
     end
 
@@ -102,6 +103,6 @@ class MessageThreadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_thread_params
-      params.require(:message_thread).permit(:id, :host_id)
+      params.require(:message_thread).permit(:id, :host_id, :type)
     end
 end

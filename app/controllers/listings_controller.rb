@@ -29,7 +29,7 @@ class ListingsController < ApplicationController
     @all_reviewed_count = Review.my_reviewed_count(@listing.user_id)
     @host_info = Profile.find_by(user_id: @listing.user_id)
     @host_image = ProfileImage.find_by(user_id: @listing.user_id)
-    @profiles = Profile.guides.where.not(id: @host_info.id)
+    #@profiles = Profile.main_and_support_guides.where.not(id: @host_info.id)
     @message = Message.new
     #@wishlists = Wishlist.mine(current_user).order_by_created_at_desc
     gon.ngdates = Ngevent.get_ngdates(@listing)
@@ -196,8 +196,8 @@ class ListingsController < ApplicationController
 
     def set_message_thread
       if current_user
-        if res = MessageThread.exists_thread?(@listing.user_id, current_user.id)
-          @message_thread = MessageThread.find(res)
+        if res = GuestThread.exists_thread?(@listing.user_id, current_user.id)
+          @message_thread = GuestThread.find(res)
         end
       end
     end
