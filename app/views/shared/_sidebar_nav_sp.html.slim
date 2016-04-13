@@ -16,9 +16,7 @@
               = unread_messages
               | ）
           li
-            -if current_user.guest?
-              = link_to Settings.page.listing_new, listings_path, class: "link-reset menu-item", rel: "nofollow"
-            -else
+            -if current_user.main_guide?
               = link_to Settings.page.listings, listings_path, class: "link-reset menu-item", rel: "nofollow"
               /- if controller_name == "listings" && action_name == "edit" || controller_name == "listing_images" && action_name == "manage" || controller_name == "listing_details" && action_name == "manage" || controller_name == "calendar" && action_name == "index"
                 ul.list-in-list
@@ -42,6 +40,9 @@
             = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path, class: "link-reset menu-item", rel: "nofollow"
           li
             = link_to Settings.page.favorites, favorite_listings_path, rel: "nofollow", class: "link-reset menu-item"
+          - if !current_user.guest?
+            li
+              = link_to Settings.page.friends, friends_path, rel: "nofollow", class: "link-reset menu-item"
           /li
             /= link_to Settings.page.wishlists, wishlists_path, class: "link-reset menu-item", rel: "nofollow"
           li

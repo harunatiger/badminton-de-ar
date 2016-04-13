@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
   end
 
   def host_reservation_manager
-    @reservations = Reservation.as_host(current_user).for_dashboard.order_by_created_at_desc
+    @reservations = Reservation.as_host_and_pair_guide(current_user).for_dashboard.order_by_created_at_desc
     @reservations.each do |reservation|		
       message = Message.where(reservation_id: reservation.id).first		
       reservation.message_thread_id = message.message_thread_id if message.present?

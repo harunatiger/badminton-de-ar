@@ -85,12 +85,12 @@ class Message < ActiveRecord::Base
   # use when create reservation
   def self.send_request_message(reservation)
     if reservation.message_thread_id
-      mt_obj = MessageThread.find(reservation.message_thread_id)
+      mt_obj = GuestThread.find(reservation.message_thread_id)
     else
-      if id = MessageThread.exists_thread?(reservation.host_id, reservation.guest_id)
-        mt_obj = MessageThread.find(id)
+      if id = GuestThread.exists_thread?(reservation.host_id, reservation.guest_id)
+        mt_obj = GuestThread.find(id)
       else
-        mt_obj = MessageThread.create_thread(reservation.host_id, reservation.guest_id)
+        mt_obj = GuestThread.create_thread(reservation.host_id, reservation.guest_id)
       end
     end
     
@@ -105,8 +105,40 @@ class Message < ActiveRecord::Base
     )
   end
   
+  # use when send pair guide request
+  def self.send_firends_message(to_user_id, from_user_id, content, message_thread_id, msg=nil)
+    unless message_thread_id.present?
+      if mt = GuideThread.exists_thread_for_pair_request?(to_user_id, from_user_id)
+        mt_obj = mt
+      else
+        mt_obj = GuideThread.create_thread(to_user_id, from_user_id)
+      end
+    else
+      mt_obj = GuideThread.find(message_thread_id)
+    end
+    
+    if msg.present?
+      Message.create(
+        message_thread_id: mt_obj.id,
+        content: msg,
+        read: false,
+        from_user_id: from_user_id,
+        to_user_id: to_user_id,
+        friends_request: true
+      )
+    else
+      Message.create(
+        message_thread_id: mt_obj.id,
+        content: content,
+        read: false,
+        from_user_id: from_user_id,
+        to_user_id: to_user_id
+      )
+    end
+  end
+  
   def self.send_reservation_message_to_host(reservation, content, reply_from_host=nil)
-    mt_obj = MessageThread.find(reservation.message_thread_id)
+    mt_obj = GuestThread.find(reservation.message_thread_id)
     mt_obj.update(reply_from_host: reply_from_host, first_message: false) if reply_from_host.present?
     Message.create(
       message_thread_id: mt_obj.id,
@@ -120,7 +152,7 @@ class Message < ActiveRecord::Base
   end
   
   def self.send_reservation_message_to_guest(reservation, content)
-    mt_obj = MessageThread.find(reservation.message_thread_id)
+    mt_obj = GuestThread.find(reservation.message_thread_id)
     mt_obj.update(reply_from_host: true, first_message: false)
     Message.create(
       message_thread_id: mt_obj.id,
@@ -130,6 +162,30 @@ class Message < ActiveRecord::Base
       to_user_id: reservation.guest_id,
       listing_id: reservation.try(:listing_id) || 0,
       reservation_id: reservation.id
+    )
+  end
+  
+  def self.send_message_to_selected_guides(reservation, to_user_id)
+    unless mt_obj = PairGuideThread.existed_pair_guide_thread(reservation.id, to_user_id)
+      mt_obj = PairGuideThread.create_thread(to_user_id, reservation.host_id, reservation.id)
+    end
+    Message.create(
+      message_thread_id: mt_obj.id,
+      content: Settings.reservation.msg.send_message,
+      read: false,
+      from_user_id: reservation.host_id,
+      to_user_id: to_user_id
+    )
+  end
+  
+  def self.send_pair_guide_message(message_thread_id, content, from_user_id, to_user_id)
+    mt_obj = PairGuideThread.find(message_thread_id)
+    Message.create(
+      message_thread_id: mt_obj.id,
+      content: content,
+      read: false,
+      from_user_id: from_user_id,
+      to_user_id: to_user_id
     )
   end
 
@@ -142,6 +198,8 @@ class Message < ActiveRecord::Base
       Settings.reservation.msg.canceled_en
     elsif self.try('content') == Settings.reservation.msg.reserve
       Settings.reservation.msg.reserve_en
+    elsif self.friends_request
+      Settings.friend.msg.request
     else
       self.try('content')
     end

@@ -1,9 +1,8 @@
-/ modal about_cancel
-= simple_form_for(PreMail.new, remote: true) do |f|
-  #guide_request.modal[role="dialog" aria-hidden="true"]
-    .modal-table
-      .modal-cell
-        .modal-content
+#guide_request.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        = simple_form_for(PreMail.new, remote: true) do |f|
           .card-header
             = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
             | ガイド申請

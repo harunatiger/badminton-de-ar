@@ -63,6 +63,7 @@ class Reservation < ActiveRecord::Base
 
   belongs_to :user, class_name: 'User', foreign_key: 'host_id'
   belongs_to :user, class_name: 'User', foreign_key: 'guest_id'
+  belongs_to :user, class_name: 'User', foreign_key: 'pair_guide_id'
   belongs_to :listing
   belongs_to :campaign
   has_one :review
@@ -72,6 +73,7 @@ class Reservation < ActiveRecord::Base
   #Progress 4&5 are not used. Should delete records of progress 4 some day.
   enum progress: { requested: 0, canceled: 1, under_construction: 2, accepted: 3, rejected: 4, listing_closed: 5, canceled_after_accepted: 6}
   enum cancel_by: { default: 0, guide: 1, guest_before_weeks: 2, guest_before_days: 3, guest_less_than_days: 4}
+  enum pair_guide_status: { pg_default: 0, pg_under_construction: 1, pg_offering: 2, pg_completion: 3}
 
   attr_accessor :message_thread_id
   attr_accessor :campaign_code
@@ -88,6 +90,7 @@ class Reservation < ActiveRecord::Base
 
   scope :as_guest, -> user_id { where(guest_id: user_id) }
   scope :as_host, -> user_id { where(host_id: user_id) }
+  scope :as_host_and_pair_guide, -> user_id { where('(pair_guide_id = ? and pair_guide_status = ?) or host_id = ?', user_id, 3, user_id) }
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :new_requests, -> user_id { where(host_id: user_id, progress: 'requested') }
   scope :accepts, -> { where(progress: 3) }
@@ -150,6 +153,12 @@ class Reservation < ActiveRecord::Base
     return Settings.mailer.update_reservation.body.under_construction if self.under_construction?
     return Settings.mailer.update_reservation.body.accepted if self.accepted?
     return Settings.mailer.update_reservation.body.rejected if self.rejected?
+  end
+  
+  def pair_guide_status_string
+    return Settings.reservation.pair_guide_status.pg_under_construction if self.pg_under_construction?
+    return Settings.reservation.pair_guide_status.pg_offering if self.pg_offering?
+    return Settings.reservation.pair_guide_status.pg_completion if self.pg_completion?
   end
 
   def save_review_landed_at_now

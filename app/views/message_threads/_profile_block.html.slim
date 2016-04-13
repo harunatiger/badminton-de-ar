@@ -3,17 +3,23 @@
     .mini-profile.va-container.media
       .va-top.pull-left
         = link_to profile_path(counterpart.profile.id), class: "media-photo media-avatar" do
-          .size100[style="background-image: url('#{asset_path their_profile_image}')"]
+          .size100[style="background-image: url('#{asset_path profile_to_image_thumb(counterpart.profile)}')"]
       .va-middle.msg-pic
         .h5.row-space-1
           = link_to profile_path(counterpart.profile.id), class: 'text-normal' do
             = user_id_to_name(counterpart.id)
-        - if @host_id == counterpart.id
+        - if @message_thread.pair_guide_thread?
+          span.user-type.user-guide
+            small= guide_type_str(pair_guide_thread_to_reservation(@message_thread))
+        - elsif @message_thread.guide_thread?
           span.user-type.user-guide
             | Guide
-        - else
+        - elsif @message_thread.host_id == current_user.id
           span.user-type.user-guest
             | Guest
+        - else
+          span.user-type.user-guide
+            | Guide
         - if profile_identity_authorized?(counterpart.id)
           span.reliable-sign
             i.fa.fa-check-square-o

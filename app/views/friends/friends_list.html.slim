@@ -1,0 +1,27 @@
+= render partial: 'shared/subnav'
+.row-space-top-4
+  h3.text-center.row-space-2 仲間から探す
+  p.text-center.row-space-6
+    | プラン : #{link_to @reservation.listing.try('title'), listing_path(@reservation.listing.id)}
+    - if pickup_area_from_listing(@reservation.listing).present?
+      br
+      | エリア : 
+      - pickup_area_from_listing(@reservation.listing).each do |area|
+        => link_to pickup_path( area.id ) do
+          = area.short_name
+.page-container.row-space-top-4.row-space-8
+  .row
+    .col-md-12
+      .card.row-space-4
+        .card-header
+          = form_tag(search_friends_friends_path, method: :get, remote: true, id: 'friends_search') do
+            .row.row-condensed
+              label.col-md-2.col-lg-1.col-lg-offset-2.text-right.hide--sp
+                | 名前
+              .col-md-8.col-lg-6.fieldset
+                = text_field 'search', 'keyword', placeholder: "名前から検索"
+        = render partial: 'friends_list', locals: { friends: @friends }
+  .text-center
+    = form_tag(send_message_to_selected_guides_reservation_path(@reservation.id), method: :post) do
+      = submit_tag '選択したガイドに相談する', class: "btn btn-primary btn-large"
+  
