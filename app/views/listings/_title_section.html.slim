@@ -87,7 +87,7 @@
             .pair-guide-list-container
               p
                 b Supporting guide will join on the day!
-              - @profiles.each_with_index do |guide, i|
+              - pair_guide_profiles(@listing.user_id).each_with_index do |guide, i|
                 - break if i == 4
                 .media-photo.media-round.media-avatar
                   .size50[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(guide.user_id)}')"]

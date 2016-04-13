@@ -35,4 +35,4 @@
 
 - if @listing.listing_detail.present?
   = render partial: '/shared/modals/include_what', locals: { included_guests_cost: @listing.listing_detail.included_guests_cost }
-= render partial: '/shared/modals/pair_guide_list'
+= render partial: '/shared/modals/pair_guide_list', locals: { host_id: @listing.user_id }
