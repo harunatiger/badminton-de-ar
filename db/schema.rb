@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330193120) do
+ActiveRecord::Schema.define(version: 20160406130214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -493,11 +493,13 @@ ActiveRecord::Schema.define(version: 20160330193120) do
 
   create_table "pre_mails", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "email",      default: ""
-    t.string   "first_name", default: ""
-    t.string   "last_name",  default: ""
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "email",           default: ""
+    t.string   "first_name",      default: ""
+    t.string   "last_name",       default: ""
+    t.integer  "prefecture_code"
+    t.string   "municipality"
   end
 
   add_index "pre_mails", ["user_id"], name: "index_pre_mails_on_user_id", using: :btree
@@ -624,6 +626,7 @@ ActiveRecord::Schema.define(version: 20160330193120) do
     t.string   "municipality",         default: ""
     t.string   "other_address",        default: ""
     t.datetime "soft_destroyed_at"
+    t.text     "free_field",           default: ""
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree

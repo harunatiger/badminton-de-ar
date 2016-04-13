@@ -1,0 +1,10 @@
+.row.row-condensed.row-space-4
+  .col-sm-12.col-md-10.col-md-push-1
+    .collapse-box
+      .row-space-top-3.row-space-2.text-center.text-pink
+        strong
+          | ガイド仲間申請依頼が来ています。承認しますか？
+      .text-right.row-space-4.text-center
+        = link_to '承認する', accept_friend_path(@counterpart.id, message_thread_id: @message_thread.id), method: :post, class: 'btn btn-primary'
+        ' 
+        = link_to '拒否する', reject_friend_path(@counterpart.id, message_thread_id: @message_thread.id), method: :post, class: 'btn'

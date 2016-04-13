@@ -1128,9 +1128,10 @@ a.cancel_form
   @media (max-width: 767px)
     margin: 12.5px 0 0
 
+/* .collapse-box
 .collapse-box
-  background-color: #E3F8FF
-  border: 1px solid #A4DFF3
+  background-color: $lightblue1
+  border: 1px solid $lightblue2
   border-radius: 4px
   .reservation_collapse
     display: block
@@ -1248,10 +1249,121 @@ a.about_payment_link
   font-size: 12px
   text-decoration: underline
 
+/* reservation-thread
+.reservation-thread
+  background-color: white
+  border: 1px solid $border1
+  border-radius: 3px
+
+/* .card-body-tour-info
+.card-body-tour-info
+  &::before
+    display: none
+
+.reservation-thread-body
+  padding: 20px 15px 1.25px
+
+.user-container
+  position: relative
+  padding: 12px
+  border: 1px solid $border1
+  border-radius: 3px
+  .h5.row-space-1
+    margin-bottom: 2px
+  a.send-message
+    position: absolute
+    top: 0
+    right: 0
+    width: 32px
+    height: 32px
+    line-height: 32px
+    color: white
+    text-align: center
+    background-color: $brand-theme
+    border-radius: 0 4px
+    z-index: 1
+    &:hover
+      background-color: $brand-theme-hover
+
+.user-container-empty
+  background-color: $bg1
+  border-style: dashed
+  .media-avatar
+    border: 1px dashed $border1
+    background-color: transparent
+    .fa-question
+      width: 60px
+      height: 60px
+      line-height: 60px
+      text-align: center
+      color: $border1
+      font-size: 36px
+      background-color: $bg1
+      border-radius: 50%
+
+.collapse-body
+  background-color: $lightblue1
+  .reservation-collapse-toggle-container
+    position: relative
+  .reservation-collapse-toggle
+    display: block
+    padding: 20px
+    color: $brand-theme
+    cursor: pointer
+    @media (max-width: 767px)
+      height: 64px
+    .tour-subject
+      position: relative
+      padding-right: 44px
+      @media (max-width: 767px)
+        span
+          display: none
+      &::after
+        content: '\f077'
+        display: block
+        position: absolute
+        top: 0
+        right: 15px
+        font-family: 'FontAwesome'
+    &.collapsed
+      .tour-subject
+        &::after
+          content: '\f078'
+  .resrvation-tour-info
+    position: absolute
+    top: 10px
+    left: 15px
+    max-width: 60%
+    @media (max-width: 767px)
+      max-width: 100%
+      right: 44px
+  .collapse-inner
+    padding: 8px 20px
+
+.pairguide-row
+  padding: 15px 25px 8.75px
+  border-top: 1px solid $border1
+  border-bottom: 1px solid $border1
+  background-color: $bg1
+
+.pairguide-warning
+  padding: 15px
+  overflow: hidden
+
+/* .host-reservation-thread */
+//.host-reservation-thread
+  .user-container
+    padding: 0
+    border: 0
+
+.guest-reservation-thread
+  .user-container
+    min-height: 100px
+
 .thread-list
   > li:first-child
     > a, > div
-      border: 0
+      border-top: 0
 
 .thread
   > a, > div
@@ -1276,6 +1388,7 @@ a.about_payment_link
   .thread-author
     .thread-name
       font-weight: 400
+
 .thread .row
   margin-left: 0
   margin-right: 0
@@ -1283,8 +1396,10 @@ a.about_payment_link
     color: $gray1
     text-decoration: none
     outline: none
+
 .thread .thread-avatar
   z-index: 2
+
 .unread
   > a, > div
     color: $gray2
@@ -1299,19 +1414,38 @@ a.about_payment_link
         background: white
     &:hover
       background-color: $bg4
-.thread-body .row, .thread-progress .row
+.thread-body .row
   height: 60px
+
+.thread-progress .row
+  min-height: 60px
 
 .thread.reserve-thread
   > div
-    padding: 20px 20px 0px
-    &:hover
-      background-color: inherit
+    padding: 0
+    .reserve-thread-container
+    .reserve-thread-inner
+      padding: 20px 0 0
+      @media (max-width: 767px)
+        padding: 20px
+
+.pairguide--yes, .pairguide--no
+  display: inline-block
+  height: 26px
+  line-height: 24px
+  padding: 0 8px
+  color: $green1
+  border: 1px solid $green1
+  border-radius: 13px
+
+.pairguide--no
+  color: $red1
+  border: 1px solid $red1
 
 .btn-thread
   min-width: 80px
   height: 28px
-  line-height: 28px
+  line-height: 26px
   padding: 0 10px
   font-weight: 400
   border-radius: 2px

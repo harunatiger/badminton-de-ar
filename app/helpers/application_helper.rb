@@ -208,7 +208,7 @@ module ApplicationHelper
 
   def profile_to_image_thumb(profile)
     if profile.thumb_image.present? and profile.thumb_image.image.present?
-      profile.thumb_image.image
+      profile.thumb_image.image.url
     else
       Settings.image.noimage2.url
     end
@@ -294,16 +294,7 @@ module ApplicationHelper
   end
 
   def new_messages_came(user_id)
-    MessageThread.unread(user_id).count
-  end
-
-  def counterpart_user_id(message_thread_id)
-    MessageThreadUser.counterpart_user(message_thread_id, current_user.id)
-  end
-
-  def counterpart_user_obj(message_thread_id)
-    user_id = MessageThreadUser.counterpart_user(message_thread_id, current_user.id)
-    User.find(user_id)
+    GuestThread.unread(user_id).count
   end
 
   def latest_message(message_thread_id)
@@ -601,6 +592,18 @@ module ApplicationHelper
   def has_reservation_as_guide
     current_user.comming_reservations_as_guide.present?
   end
+  
+  def users_to_guide_thread(to_user_id, from_user_id)
+    if mt = GuideThread.exists_thread_for_pair_request?(to_user_id, from_user_id)
+      mt
+    else
+      GuideThread.create_thread(to_user_id, from_user_id)
+    end
+  end
+  
+  def disp_friends_request_block?(mt, counterpart_id)
+    mt.guide_thread? and current_user.friend_requested?(counterpart_id)
+  end
 
   def text_url_to_link(text)
     URI.extract(text, ['http','https']).uniq.each do |url|
@@ -625,5 +628,41 @@ module ApplicationHelper
     all_categories.shuffle!
     result = all_categories.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
     result.present? ? result[0..5] : []
+  end
+  
+  def pair_guide_profiles(host_id)
+    Profile.main_and_support_guides.where.not(id: host_id)
+  end
+  
+  def pair_user(reservation)
+    if reservation.pg_completion?
+      pair_user = current_user.id == reservation.pair_guide_id ? User.find(reservation.host_id) : User.find(reservation.pair_guide_id)
+    else
+      return false
+    end
+  end
+  
+  def guide_type_str(reservation)
+    current_user.id != reservation.host_id ? 'Main guide' : 'Supporting guide'
+  end
+  
+  def current_user_is_host?(reservation)
+    current_user.id == reservation.host_id
+  end
+  
+  def send_update_pair_guide_notification_body(status, from_user)
+    body = ""
+    if status == Settings.reservation.pair_guide_status.offer
+      body = I18n.t('mailer.send_update_pair_guide_notification.body.offer', user_name: user_obj_to_name(from_user))
+    elsif status == Settings.reservation.pair_guide_status.accepted
+      body = I18n.t('mailer.send_update_pair_guide_notification.body.accepted', user_name: user_obj_to_name(from_user))
+    elsif status == Settings.reservation.pair_guide_status.canceled
+      body = I18n.t('mailer.send_update_pair_guide_notification.body.canceled', user_name: user_obj_to_name(from_user))
+    end
+    body
+  end
+  
+  def pair_guide_thread_to_reservation(mt)
+    Reservation.find(mt.reservation_id)
   end
 end

@@ -2,13 +2,15 @@
 #
 # Table name: pre_mails
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  email      :string           default("")
-#  first_name :string           default("")
-#  last_name  :string           default("")
+#  id              :integer          not null, primary key
+#  user_id         :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  email           :string           default("")
+#  first_name      :string           default("")
+#  last_name       :string           default("")
+#  prefecture_code :integer
+#  municipality    :string
 #
 # Indexes
 #
@@ -16,6 +18,9 @@
 #
 
 class PreMail < ActiveRecord::Base
+  include JpPrefecture
+  jp_prefecture :prefecture_code
+  
   belongs_to :user
   
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

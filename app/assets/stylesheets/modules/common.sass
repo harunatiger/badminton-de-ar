@@ -715,6 +715,25 @@ select
     color: white
     background-color: rgba(249, 47, 68, 0.9)
 
+a.alert-warning
+  display: block
+  position: relative
+  line-height: 20px
+  padding: 10px 15px
+  border: 1px solid #F1CD82
+  border-radius: 4px
+  span
+    padding-right: 32px
+  i.fa
+    position: absolute
+    top: 50%
+    right: 10px
+    margin-top: -7px
+  &:hover
+    color: #8a6d3b
+    text-decoration: none
+    background-color: rgb(249, 238, 145)
+
 .is-simpleHeader
   .alert
     @media (min-width: 768px)
@@ -1427,6 +1446,10 @@ select
   h2, .h2
     font-size: 22px
 
+.col-hide--sp
+  @media (min-width: 767px)
+    display: none
+
 /* page-container */
 .page-container
   width: auto
@@ -1490,6 +1513,12 @@ select
     background-repeat: no-repeat
     background-position: center top
     background-size: cover
+
+.media-avatar-double
+  background-color: white
+  overflow: visible
+  > div:last-child
+    margin-bottom: -60px
 
 .media-cover, .media-cover-dark:after
   position: absolute

@@ -1,7 +1,7 @@
 namespace :noreply_notification do
   desc 'send mail for noreply notification'
   task send: :environment do
-    MessageThread.noreply_push_mail.each do |mt|
+    GuestThread.noreply_push_mail.each do |mt|
       m = mt.messages.last
       if m.present?
         if mt.host_id.to_i == m.to_user_id.to_i
