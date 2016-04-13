@@ -6,7 +6,7 @@
       .row
         .col-md-5.col-lg-4.row-space-3
           .user-container
-            - if current_user_is_host?(r)
+            - if current_user_is_host?(r) and r.message_thread_id.present?
               = link_to message_thread_path(r.message_thread_id), class: "send-message balloon", title: "Send a message" do
                 i.fa.fa-send
             .row
