@@ -2551,3 +2551,22 @@ footer
   text-align: center
   font-size: 14px
   font-weight: 700
+
+
+@media (max-width: 767px)
+  .datepicker-dropdown
+    position: fixed !important
+    top: 50% !important
+    left: 50% !important
+    margin: -131px 0 0 -113px !important
+    &:after, &:before
+      display: none
+  .datepicker-backdrop
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background-color: black
+    opacity: .3
+    z-index: 2009

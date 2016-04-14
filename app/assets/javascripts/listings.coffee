@@ -529,18 +529,37 @@ $ ->
 
 
     # bootstrap datepicker
-    $('.datepicker').datepicker
-      autoclose: true,
-      startDate: '+1d',
-      language: 'en',
-      default: 'yyyy.mm.dd',
-      beforeShowDay: (date) ->
-        formattedDate = moment(date).format('YYYY.MM.DD')
-        if $.inArray(formattedDate.toString(), disabled_dates) != -1
-          return { enabled: false }
-        if $.inArray(date.getDay(), disabled_weeks) != -1
-          return { enabled: false }
-        return
+    $('.datepicker')
+      .datepicker
+        autoclose: true,
+        startDate: '+1d',
+        language: 'en',
+        default: 'yyyy.mm.dd',
+        beforeShowDay: (date) ->
+          formattedDate = moment(date).format('YYYY.MM.DD')
+          if $.inArray(formattedDate.toString(), disabled_dates) != -1
+            return { enabled: false }
+          if $.inArray(date.getDay(), disabled_weeks) != -1
+            return { enabled: false }
+          return
+      .on 'show', (e) ->
+        backdrop = '<div class="datepicker-backdrop"></div>'
+        if !$('.datepicker-backdrop').length
+          $('.datepicker-dropdown').before(backdrop)
+      .on 'hide', (e) ->
+        setTimeout (->
+          $('.datepicker-backdrop').remove()
+        ), 200
+        return false
+
+    # for touch devices
+    if $('html').hasClass('touch')
+      $('.datepicker').attr('readonly', 'readonly')
+      $('.datepicker').on 'touchstart', (e) ->
+        $(this).datepicker('show')
+        e.preventDefault()
+      $('.js-checkin-label').on 'touchstart', (e) ->
+        e.preventDefault()
 
     # book_it_button action
     $('#book_it_button').on 'click', ->
