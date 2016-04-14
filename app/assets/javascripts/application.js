@@ -39,3 +39,4 @@
 //= require helps
 //= require review
 //= require friends
+//= require chamo
