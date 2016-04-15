@@ -39,7 +39,7 @@ class HelpTopic < ActiveRecord::Base
   end
   
   def set_id
-    last_record = HelpTopic.find_by_sql("select id from help_categories order by id desc limit 1").first
+    last_record = HelpTopic.find_by_sql("select id from help_topics order by id desc limit 1").first
     self.id = last_record.id + 1 if self.id.blank?
   end
 end
