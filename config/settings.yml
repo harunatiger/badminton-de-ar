@@ -23,7 +23,7 @@ profile_identities:
     success: "Profile updated successfully"
 profile_banks:
   save:
-    success: "Profile updated successfully"
+    success: "Account updated successfully"
     failure: "Please fill in all sections"
   number_length: 7
 profile_keywords:
