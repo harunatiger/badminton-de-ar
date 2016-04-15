@@ -22,10 +22,16 @@ class HelpCategory < ActiveRecord::Base
   acts_as_nested_set
 
   has_many :help_topics
+  
+  before_save :set_id
 
   default_scope -> { order(lft: :asc) }
 
   def name
     send "name_#{I18n.locale}"
+  end
+  
+  def set_id
+    self.id = HelpCategory.last.id + 1 if self.id.blank?
   end
 end
