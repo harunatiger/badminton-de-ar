@@ -1,4 +1,4 @@
-- favorite_count = favorite_listings_count(listing.id)
+/* listings#slideshow
 
 /- listing_images.each do |listing_image|
   = debug listing_image.caption
@@ -41,55 +41,3 @@
         - count += 1
     /.cover-img-container
       | <div class="cover-img" style="background-image:url(#{@listing.try('cover_image') || ''})">
-  .title-section
-    .page-container
-      .row
-        .col-lg-11.col-md-11
-          h1#listing_name.overflow.text-center--md
-            = @listing.title
-          #listing_area.overflow.text-center--md
-            - if pickup_area_from_listing(listing).present?
-              i.fa.fa-map-marker
-              - pickup_area_from_listing(listing).each do |area|
-                => link_to pickup_path( area.id ) do
-                  = area.short_name
-        .col-lg-1.col-md-1.favorite-wrapper
-          - if user_signed_in?
-            = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
-              - if current_user.favorite_listing?(listing)
-                i.fa.fa-heart.favorited
-                i.fa.fa-heart.unfavorite.hide
-                i.fa.fa-heart-o.outline.hide.fav-balloon
-              - else
-                i.fa.fa-heart.favorited.hide
-                i.fa.fa-heart.unfavorite
-                i.fa.fa-heart-o.outline.fav-balloon
-              span.favorited-count
-                = favorite_count
-          - else
-            = link_to new_profile_path, class: "favorite-btn" do
-              i.fa.fa-heart.unfavorite
-              i.fa.fa-heart-o.outline.fav-balloon
-              span.favorited-count
-                = favorite_count
-
-  .favorite-wrapper-sp
-    .page-container
-      - if user_signed_in?
-        = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
-          - if current_user.favorite_listing?(listing)
-            i.fa.fa-heart.favorited
-            i.fa.fa-heart.unfavorite.hide
-            i.fa.fa-heart-o.outline.hide.fav-balloon
-          - else
-            i.fa.fa-heart.favorited.hide
-            i.fa.fa-heart.unfavorite
-            i.fa.fa-heart-o.outline.fav-balloon
-          span.favorited-count
-            = favorite_count
-      - else
-        = link_to new_profile_path, class: "favorite-btn" do
-          i.fa.fa-heart.unfavorite
-          i.fa.fa-heart-o.outline.fav-balloon
-          span.favorited-count
-            = favorite_count

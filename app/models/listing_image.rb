@@ -47,6 +47,17 @@ class ListingImage < ActiveRecord::Base
     result.present? ? result[:image] : ''
   end
   
+  def category_hash
+    result = ''
+    ListingImage.image_categories.each do |category|
+      if self.category == category[:title]
+        result = category 
+        break
+      end
+    end
+    result.present? ? result : ''
+  end
+  
   def self.distance(new_category, old_category)
     new_coutn = 0
     old_count = 0

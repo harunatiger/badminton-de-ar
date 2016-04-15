@@ -1,21 +1,33 @@
 - reviews.each do |review|
   .row
+    - if review.tour_image.present?
+      .col-md-12.row-space-4
+        .media-cover-img
+          = link_to "", "#{asset_path review.tour_image}", class: "review-pic", style: "background-image: url('#{asset_path review.tour_image}')"
+          /.review-pic[style="background-image: url('#{asset_path review.tour_image}')"]
+          /= image_tag(review.tour_image, class: "review-pic hide")
     = link_to profile_path(review.guest_id)
       .col-md-3.text-center.row-space-2
         .media-photo.media-round.media-avatar.text-center
           = link_to profile_path(review.guest_id) do
-            .size68[style="background-image: url('#{user_id_to_profile_image(review.guest_id)}')"]
+            .size68[style="background-image: url('#{asset_path user_id_to_profile_image(review.guest_id)}')"]
         .name
           .text-muted.link-reset.text-truncate
             = link_to profile_path(review.guest_id), class: "text-muted" do
               = user_id_to_firstname(review.guest_id)
     .col-md-9
       .row-space-2
-        .review-text.expandable.expandable-trigger-more.expanded
-          .expandable-content
-            p
-              = review.msg
-            .expandable-indicator.expandable-indicator-light
+        .expandable
+          .expandable-trigger-more
+            .expandable-content
+              .expandable-inner
+                p
+                  = simple_format(h(review.msg))
+                .expandable-indicator
+          = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
+            | read more
   .row.row-space-2
       .col-md-9.col-md-push-3
-        hr
+        .small1.text-right.text-muted
+          = review.try('created_at').strftime("%m/%d %H:%M") || ''
+        hr.row-space-top-1
