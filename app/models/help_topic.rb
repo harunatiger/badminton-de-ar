@@ -34,7 +34,7 @@ class HelpTopic < ActiveRecord::Base
 
   def self.search(keyword)
     if keyword
-      where("(title_#{I18n.locale}" + ' LIKE ?) OR ' + "(body_#{I18n.locale}" + ' LIKE ? )',"%#{keyword}%", "%#{keyword}%").order(:help_category_id)
+      where("(title_#{I18n.locale}" + ' ILIKE ?) OR ' + "(body_#{I18n.locale}" + ' ILIKE ? )',"%#{keyword}%", "%#{keyword}%").order(:help_category_id)
     end
   end
   
