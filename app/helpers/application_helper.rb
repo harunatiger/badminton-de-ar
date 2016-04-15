@@ -28,6 +28,34 @@ module ApplicationHelper
       "#{page_words}"
     end
   end
+  
+  def og_description
+    if controller_name == 'listings' and action_name == 'show'
+      "#{@listing.title}！Make Friend, Start Trip!"
+    elsif controller_name == 'profiles' and action_name == 'show'
+      "#{@profile.try('first_name')}'s self-Introduction！Make Friend, Start Trip!"
+    else
+      'Huber.世界中で友達を作ろう！旅する準備はできていますか？'
+    end
+  end
+  
+  def og_image
+    if controller_name == 'listings' and action_name == 'show'
+      if Rails.env.development?
+        @listing.listing_images.present? and @listing.listing_images.first.image.present? ? "#{request.host + @listing.listing_images.first.image.url}" : "http://huber-japan.com/assets/og.png"
+      else
+        @listing.listing_images.present? and @listing.listing_images.first.image.present? ? @listing.listing_images.first.image.url : "http://huber-japan.com/assets/og.png"
+      end
+    elsif controller_name == 'profiles' and action_name == 'show'
+      if Rails.env.development?
+        @profile.thumb_images.present? ? "#{request.host + @profile.thumb_images.first.image.url}" : "http://huber-japan.com/assets/og.png"
+      else
+        @profile.thumb_images.present? ? @profile.thumb_images.first.image.url : "http://huber-japan.com/assets/og.png"
+      end
+    else
+      "http://huber-japan.com/assets/og.png"
+    end
+  end
 
   def listing_cover_image_url(listing_id)
     listing = Listing.find(listing_id)
