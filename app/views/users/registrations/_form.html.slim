@@ -1,13 +1,6 @@
   - mail = (params[:target].blank? and resource.errors[:current_password].blank? and resource.errors[:password].blank? and resource.errors[:password_confirmation].blank?)
   .row
-    .col-lg-3
-      ul.sidenav-list
-        li
-          = link_to 'E-mail address', edit_user_registration_path(mode: "account"), class: "sidenav-item", aria: { selected: mail }
-        li
-          = link_to 'Password', edit_user_registration_path(mode: "account", target: "pass"), class: "sidenav-item", aria: { selected: !mail }
-        li
-          = link_to 'Delete your account (退会)', users_withdraw_path, class: "sidenav-item"
+    = render partial: 'shared/account_sidenav', locals: {mail: mail}
     .col-lg-9
       .card.row-space-4
         - if mail
