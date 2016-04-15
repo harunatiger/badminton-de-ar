@@ -507,6 +507,37 @@ $ ->
     ), 1
     return
 
+  if $('body').hasClass('features')
+    #slider
+    $('#features-slider').sliderPro
+      width:'50%'
+      height: 500
+      aspectRatio: 1.5
+      visibleSize: '100%'
+      forceSize: 'fullWidth'
+      arrows: true
+      fadeArrows: false
+      autoplayDelay: 3000
+      slideAnimationDuration: 1000
+      buttons: false
+      keyboard: false
+      slideDistance: 1
+      breakpoints:
+        767:
+          width: '100%'
+          height:200
+
+    # features highlits gallery
+    $('.highlight-gallery').each ->
+      $(this).magnificPopup
+        delegate: 'a'
+        type: 'image'
+        image:
+          verticalFit: true
+        gallery:
+          enabled: true
+      return
+
   ###
     # circle map
     cityCircle = undefined
