@@ -3,14 +3,7 @@
 = out_put_error(resource) if resource.present?
 .page-container.row-space-top-4.row-space-4
   .row
-    .col-lg-3
-      ul.sidenav-list
-        li
-          = link_to 'E-mail address', edit_user_registration_path(mode: "account"), class: "sidenav-item"
-        li
-          = link_to 'Password', edit_user_registration_path(mode: "account", target: "pass"), class: "sidenav-item"
-        li
-          = link_to 'Delete your account (退会)', users_withdraw_path, class: "sidenav-item", aria: { selected: true }
+    = render partial: 'shared/account_sidenav'
     .col-lg-9
       .card.row-space-4
         #change_your_password

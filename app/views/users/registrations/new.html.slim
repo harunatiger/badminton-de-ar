@@ -56,3 +56,4 @@
           p.small1
             | Don't have an acount? 
             = link_to "Login", new_user_session_path, class: ''
+= render partial: 'shared/modals/create_email' if session["omniauth.auth"].present?

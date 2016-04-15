@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
 
   scope :mine, -> user_id { where(id: user_id) }
   
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil, create_email=false)
     unless user = User.where(provider: auth.provider, uid: auth.uid).first
       user = User.new(
         provider: auth.provider,
@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
         password: Devise.friendly_token[0,20]
       )
     end
-    user.skip_confirmation!
+    user.skip_confirmation! if !create_email and !user.unconfirmed?
     user.save
 
     unless Profile.exists?(user_id: user.id)
@@ -290,5 +290,9 @@ class User < ActiveRecord::Base
   
   def search_not_friends(search_params)
     self.not_friends_profiles.contains?(search_params[:keyword])
+  end
+  
+  def unconfirmed?
+    self.confirmation_sent_at.present? and self.confirmed_at.blank?
   end
 end

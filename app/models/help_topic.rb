@@ -19,6 +19,7 @@
 
 class HelpTopic < ActiveRecord::Base
   belongs_to :help_category
+  before_save :set_id
 
   scope :select_topics, -> help_category_id { where(help_category_id: help_category_id) }
   scope :order_num, -> { order('order_num') }
@@ -33,7 +34,12 @@ class HelpTopic < ActiveRecord::Base
 
   def self.search(keyword)
     if keyword
-      where("(title_#{I18n.locale}" + ' LIKE ?) OR ' + "(body_#{I18n.locale}" + ' LIKE ? )',"%#{keyword}%", "%#{keyword}%").order(:help_category_id)
+      where("(title_#{I18n.locale}" + ' ILIKE ?) OR ' + "(body_#{I18n.locale}" + ' ILIKE ? )',"%#{keyword}%", "%#{keyword}%").order(:help_category_id)
     end
+  end
+  
+  def set_id
+    last_record = HelpTopic.find_by_sql("select id from help_topics order by id desc limit 1").first
+    self.id = last_record.id + 1 if self.id.blank?
   end
 end
