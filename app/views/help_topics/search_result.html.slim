@@ -52,16 +52,16 @@
                   ul.help-topic-list
                     li.topic-block
                       .topic-title.strong
-                        = result.title
+                        = highlight(result.title, keyword)
                       .topic-content
-                        = hbr_noescape(result.body).html_safe
+                        = highlight(hbr_noescape(result.body).html_safe, keyword)
           - else
             - search_result.each do |result|
               .category-block
                 ul.help-topic-list
                   li.topic-block
                     .topic-title.strong
-                      = result.title
+                      = highlight(result.title, keyword)
                     .topic-content
-                      = hbr_noescape(result.body).html_safe
+                      = highlight(hbr_noescape(result.body).html_safe, keyword)
 
