@@ -15,6 +15,8 @@
                 - pickup_area_from_listing(listing).each do |area|
                   = link_to pickup_path( area.id ) do
                     = area.short_name
+            - if @listing.listing_detail.present?
+              | #{@listing.listing_detail.time_required}h
           .col-sm-2.col-md-1.text-center.favorite-container
             .va-container.va-container-wh
               .va-middle
