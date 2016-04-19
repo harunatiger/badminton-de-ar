@@ -7,14 +7,19 @@
       .col-md-7.col-md-offset-5.row-space-1.title-container
         .row
           .col-sm-10.col-md-11
-            h1#listing_name.overflow
+            h1#listing_name.row-space-2.overflow
               = @listing.title
-            #listing_area
+            #listing_area.row-space-2
               - if pickup_area_from_listing(listing).present?
                 i.fa.fa-map-marker
                 - pickup_area_from_listing(listing).each do |area|
                   = link_to pickup_path( area.id ) do
                     = area.short_name
+            #listing_time.text-lead.row-space-2
+              - if @listing.listing_detail.present?
+                i.fa.fa-clock-o
+                ' 
+                span.text-brand #{@listing.listing_detail.time_required}h
           .col-sm-2.col-md-1.text-center.favorite-container
             .va-container.va-container-wh
               .va-middle
