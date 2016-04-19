@@ -543,6 +543,7 @@ $ ->
             return { enabled: false }
           return
       .on 'show', (e) ->
+        $('#checkin').blur()
         backdrop = '<div class="datepicker-backdrop"></div>'
         if !$('.datepicker-backdrop').length
           $('.datepicker-dropdown').before(backdrop)
