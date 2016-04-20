@@ -397,6 +397,7 @@ $ ->
 
     $('#num-of-people select').on 'change', ->
       priceCulc()
+
     $('#checkin').on 'changeDate', ->
       priceCulc()
 
@@ -413,15 +414,23 @@ $ ->
       $('#tour-option-amount').text('¥' + optionAmount)
       $('#tour-basic-amount').text('¥' + basicPrice)
 
+    $('#request--sp').on 'click', ->
+      $('#tour-action').show()
 
+    $('.modal-close-request-booking').on 'click', ->
+      $('#tour-action').hide()
+
+  # preview edit bar
   if $('body').hasClass('listings preview')
     if $('.header--sp').css('display') == 'none'
       $(window).scroll ->
         scrollTop = $(window).scrollTop()
-        if scrollTop > 50
-          $('.preview_link').css('top', 0)
-        else
+        if scrollTop == 0
           $('.preview_link').css('top', 50)
+        else if scrollTop < 50
+          $('.preview_link').css('top', 50 - scrollTop)
+        else
+          $('.preview_link').css('top', 0)
 
   # listings#show
   if $('body').hasClass('listings show') || $('body').hasClass('listings preview')
@@ -487,7 +496,25 @@ $ ->
       image:
         verticalFit: true
         titleSrc: (item) ->
-          item.el.attr('title') + '<span class="category-img" style="background-image: url(' + item.el.attr('data-source') + ')"></span>'
+          if item.el.attr('data-source') != '' || item.el.attr('title') != ''
+            item.el.attr('title') + '<span class="category-img" style="background-image: url(' + item.el.attr('data-source') + ')"></span>'
+          else
+            item.el.attr('title')
+      gallery:
+        enabled: true
+      callbacks:
+        markupParse: (template, values, item) ->
+          if values.title == ''
+            template.removeClass('separate-temprate')
+          else
+            template.addClass('separate-temprate')
+
+    # review gallery
+    $('.review-content').magnificPopup
+      delegate: '.review-pic'
+      type: 'image'
+      image:
+        verticalFit: true
       gallery:
         enabled: true
 
@@ -502,18 +529,38 @@ $ ->
 
 
     # bootstrap datepicker
-    $('.datepicker').datepicker
-      autoclose: true,
-      startDate: '+1d',
-      language: 'en',
-      default: 'yyyy.mm.dd',
-      beforeShowDay: (date) ->
-        formattedDate = moment(date).format('YYYY.MM.DD')
-        if $.inArray(formattedDate.toString(), disabled_dates) != -1
-          return { enabled: false }
-        if $.inArray(date.getDay(), disabled_weeks) != -1
-          return { enabled: false }
-        return
+    $('.datepicker')
+      .datepicker
+        autoclose: true,
+        startDate: '+1d',
+        language: 'en',
+        default: 'yyyy.mm.dd',
+        beforeShowDay: (date) ->
+          formattedDate = moment(date).format('YYYY.MM.DD')
+          if $.inArray(formattedDate.toString(), disabled_dates) != -1
+            return { enabled: false }
+          if $.inArray(date.getDay(), disabled_weeks) != -1
+            return { enabled: false }
+          return
+      .on 'show', (e) ->
+        $('#checkin').blur()
+        backdrop = '<div class="datepicker-backdrop"></div>'
+        if !$('.datepicker-backdrop').length
+          $('.datepicker-dropdown').before(backdrop)
+      .on 'hide', (e) ->
+        setTimeout (->
+          $('.datepicker-backdrop').remove()
+        ), 200
+        return false
+
+    # for touch devices
+    if $('html').hasClass('touch')
+      $('.datepicker').attr('readonly', 'readonly')
+      $('.datepicker').on 'touchstart', (e) ->
+        $(this).datepicker('show')
+        e.preventDefault()
+      $('.js-checkin-label').on 'touchstart', (e) ->
+        e.preventDefault()
 
     # book_it_button action
     $('#book_it_button').on 'click', ->
@@ -529,16 +576,22 @@ $ ->
     # media query js width 1099px
     mediaQueryWidth1 = ->
       listingDescription = $('#listing-description')
-      tourAction = $('#tour-action')
-      tourOptionInfo = $('#tour-option-info')
+      tourMovie = $('#tour-movie')
+      tourMovieContainer = $('#tour-movie-container')
+      reviewBlock = $('#review-block')
+      reviewBlockContainer = $('#review-block-container')
+      reviewBlockContainerSp = $('#review-block-container--sp')
+
       if($('.col-left').css('float') == "left")
         # evacuate fullscreen movie
-        if(!$('#tour_movie').hasClass('vjs-fullscreen'))
-          tourAction.insertBefore(tourOptionInfo)
+        if(!tourMovie.hasClass('vjs-fullscreen'))
+          tourMovie.appendTo(tourMovieContainer)
+          reviewBlock.appendTo(reviewBlockContainer)
       else
         # evacuate fullscreen movie
-        if(!$('#tour_movie').hasClass('vjs-fullscreen'))
-          tourAction.insertBefore(listingDescription)
+        if(!tourMovie.hasClass('vjs-fullscreen'))
+          tourMovie.insertBefore(listingDescription)
+          reviewBlock.appendTo(reviewBlockContainerSp)
 
     mediaQueryWidth1()
 

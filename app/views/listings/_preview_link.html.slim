@@ -1,11 +1,15 @@
 - left_steps = left_step_count_and_elements(@listing)
 - left_step_count = left_steps[0]
 .preview_link
-  .row.row-space-top-1.row-space-1
+  .row.row-space-top-2.row-space-2
     .col-lg-12.text-center
-      p.text-light.row-space-2 現在プレビュー表示中です
-      = link_to "ツアー編集に戻る", edit_listing_path(@listing), class: "btn btn-primary btn-large"
+      p.text-lead.text-light.row-space-2
+        | 現在
+        b プレビュー表示中
+        | です
+      = link_to "ツアー編集に戻る", edit_listing_path(@listing), class: "btn"
+      ' 
       - if !left_step_count.zero?
-        = link_to "この内容で公開", listing_publish_path(@listing), class: "btn btn-primary btn-large disabled"
+        = link_to "この内容で公開", listing_publish_path(@listing), class: "btn btn-primary disabled"
       - else
-        = link_to "この内容で公開", listing_publish_path(@listing), class: "btn btn-primary btn-large"
+        = link_to "この内容で公開", listing_publish_path(@listing), class: "btn btn-primary"

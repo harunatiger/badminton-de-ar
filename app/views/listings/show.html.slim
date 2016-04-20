@@ -1,8 +1,8 @@
 - if user_signed_in? && @listing.user_id == current_user.id
   = render partial: "edit_link"
 
-/= render partial: "subnav"
 = render partial: "slideshow", locals: { listing_images: @listing_images, listing: @listing }
+= render partial: "title_section", locals: { listing_images: @listing_images, listing: @listing }
 
 #tour-content
   .page-container
@@ -10,10 +10,28 @@
       .col-lg-8.col-left
         = render partial: 'col_left', locals: { listing: @listing, reviews: @reviews, profile_keyword: @profile_keyword}
         = render partial: 'review_block', locals: { listing: @listing, reviews: @reviews, host_info: @host_info, host_image: @host_image }
-
       .col-lg-4.col-right
         = render partial: 'request_block', locals: { listing: @listing }
         = render partial: 'option_info', locals: { listing_detail: @listing.listing_detail }
+
+.page-container.show--sp
+  .row
+    #review-block-container--sp.col-md-12
+
+- if @listing.similar_listings.present?
+  .card
+    .page-container
+      .row.row-space-top-4
+        .col-md-12
+          = render partial: 'similar_listings'
+
+.fixed-btn-container.show--sp
+  - if user_signed_in?
+    button#request--sp.btn.btn-large.btn-fixed-bottom.btn-primary
+      | Request Booking
+  - else
+    = link_to user_session_path, class: 'btn btn-large btn-fixed-bottom btn-primary' do
+      | Request Booking
 
 = render partial: '/shared/modals/share_email'
 = render partial: '/shared/modals/include_what', locals: { included_guests_cost: @listing.listing_detail.included_guests_cost }
