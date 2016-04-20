@@ -7,7 +7,7 @@ class CreateAnnouncements < ActiveRecord::Migration
       t.date :posting_end_at, index: true, null: false
       t.string :banner_image_pc, default: ''
       t.string :banner_image_sp, default: ''
-      t.string :banner_space, default: ''
+      t.string :banner_space, array: true
       t.date :publish_date
       t.text :overview, default: ''
       t.string :external_url, default: ''

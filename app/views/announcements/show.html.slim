@@ -1,1 +1,8 @@
-=@announcement.detail_html.html_safe
+| title:
+=@announcement.title
+br
+| publish_date:
+=@announcement.publish_date
+
+.announcement_html
+  =@announcement.detail_html.html_safe

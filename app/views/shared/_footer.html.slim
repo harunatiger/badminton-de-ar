@@ -17,6 +17,9 @@ footer
             = link_to "About Huber.", static_pages_about_path
           li
             = link_to "Terms of service", static_pages_service_agreement_en_path
+          - if display_news?
+            li
+              = link_to 'News', announcements_path
           /li
             = link_to "Cancellation policy", static_pages_cancel_policy_en_path
           li

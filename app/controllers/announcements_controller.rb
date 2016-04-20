@@ -4,12 +4,13 @@ class AnnouncementsController < ApplicationController
   # GET /announcements
   # GET /announcements.json
   def index
-    @announcements = Announcement.all
+    @announcements = Announcement.display.page(params[:page]).per(Settings.announcement.page_count)
   end
 
   # GET /announcements/1
   # GET /announcements/1.json
   def show
+    return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @announcement.blank?
   end
 
   # GET /announcements/new
