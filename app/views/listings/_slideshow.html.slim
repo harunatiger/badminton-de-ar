@@ -1,4 +1,5 @@
 /* listings#slideshow
+- favorite_count = favorite_listings_count(listing.id)
 
 /- listing_images.each do |listing_image|
   = debug listing_image.caption
@@ -41,3 +42,26 @@
         - count += 1
     /.cover-img-container
       | <div class="cover-img" style="background-image:url(#{@listing.try('cover_image') || ''})">
+
+
+  /* favorite-container-sp
+  .favorite-container-sp
+    .page-container
+      - if user_signed_in?
+        = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
+          - if current_user.favorite_listing?(listing)
+            i.fa.fa-heart.favorited
+            i.fa.fa-heart.unfavorite.hide
+            i.fa.fa-heart-o.outline.hide.fav-balloon
+          - else
+            i.fa.fa-heart.favorited.hide
+            i.fa.fa-heart.unfavorite
+            i.fa.fa-heart-o.outline.fav-balloon
+          span.favorited-count
+            = favorite_count
+      - else
+        = link_to new_profile_path, class: "favorite-btn" do
+          i.fa.fa-heart.unfavorite
+          i.fa.fa-heart-o.outline.fav-balloon
+          span.favorited-count
+            = favorite_count
