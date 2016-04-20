@@ -1,5 +1,10 @@
 = render partial: "coverimage", locals: { pickup_cover_image: @pickup.try('cover_image'), pickup_title: @pickup.long_name }
 /= debug @listings
+- if @announcement.present?
+  = link_to announcement_path(@announcement.page_url) do
+    = image_tag(@announcement.banner_image_pc, class: 'hide--sp')
+    = image_tag(@announcement.banner_image_sp, class: 'show--sp')
+    = @announcement.title
 .discovery-tiles.row-space-8.row-space-top-8
   .page-container.row-space-6
     .row
