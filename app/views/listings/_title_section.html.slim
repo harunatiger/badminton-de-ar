@@ -6,7 +6,7 @@
     .row
       .col-md-7.col-md-offset-5.row-space-1.title-container
         .row
-          .col-sm-10.col-md-11
+          .col-sm-12.col-md-11.text-center--md
             h1#listing_name.row-space-2.overflow
               = @listing.title
             #listing_area.row-space-2
@@ -20,7 +20,7 @@
                 i.fa.fa-clock-o
                 ' 
                 span.text-brand #{@listing.listing_detail.time_required}h
-          .col-sm-2.col-md-1.text-center.favorite-container
+          .col-md-1.text-center.favorite-container
             .va-container.va-container-wh
               .va-middle
                 - if user_signed_in?
@@ -98,25 +98,3 @@
                   .size50[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(guide.user_id)}')"]
               = link_to "#", class: "pair_guide_list-trigger media-photo media-round text-center" do
                 b more
-
-/* favorite-container-sp
-/.favorite-container-sp
-  .page-container
-    - if user_signed_in?
-      = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
-        - if current_user.favorite_listing?(listing)
-          i.fa.fa-heart.favorited
-          i.fa.fa-heart.unfavorite.hide
-          i.fa.fa-heart-o.outline.hide.fav-balloon
-        - else
-          i.fa.fa-heart.favorited.hide
-          i.fa.fa-heart.unfavorite
-          i.fa.fa-heart-o.outline.fav-balloon
-        span.favorited-count
-          = favorite_count
-    - else
-      = link_to new_profile_path, class: "favorite-btn" do
-        i.fa.fa-heart.unfavorite
-        i.fa.fa-heart-o.outline.fav-balloon
-        span.favorited-count
-          = favorite_count
