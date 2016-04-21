@@ -966,9 +966,12 @@ body.paper
       //display: inline-block
       //padding-right: 5px
 .additional-comment
+  height: 164px
   padding: 12px
   border: 1px dashed $brand-theme
   border-radius: 4px
+  @media (max-width: 767px)
+    height: auto
 .tour-list-cover
   div
     height: 210px
@@ -980,6 +983,18 @@ body.paper
   color: $border1
   .fa
     font-size: 100px
+
+#features-tour-list
+  .card-profile-picture-offset
+    padding: 0
+    margin-left: 0
+  a.text-normal
+    h5
+      font-size: 15px
+  .size28
+    width: 24px
+    height: 24px
+
 
 /* welcome
   ================================================================================ */

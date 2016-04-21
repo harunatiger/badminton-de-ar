@@ -508,6 +508,31 @@ $ ->
     return
 
   if $('body').hasClass('features')
+
+    $('.to-tour-list').on 'click', ->
+      $('html, body').animate { scrollTop: $('#features-tour-list').offset().top }, 'fast'
+      return false
+
+    $('a.highlight-anchor').on 'click', ->
+      if location.pathname.replace(/^\//, '') == @pathname.replace(/^\//, '') and location.hostname == @hostname
+        target = $(@hash)
+        target = if target.length then target else $('[name=' + @hash.slice(1) + ']')
+        if target.length
+          $('html, body').animate { scrollTop: target.offset().top }, 'fast'
+          return false
+      return
+
+    ###
+    $('a[href*="#"]:not([href="#"])').click ->
+      if location.pathname.replace(/^\//, '') == @pathname.replace(/^\//, '') and location.hostname == @hostname
+        target = $(@hash)
+        target = if target.length then target else $('[name=' + @hash.slice(1) + ']')
+        if target.length
+          $('html, body').animate { scrollTop: target.offset().top }, 1000
+          return false
+      return
+    ###
+
     #slider
     $('#features-slider').sliderPro
       width:'50%'

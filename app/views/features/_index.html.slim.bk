@@ -30,392 +30,440 @@
           .sp-slide
             = image_tag 'feature_photo/11-IMG_1065.jpg', class: "sp-image"
   #features-belt.text-center
-    .page-container
-      .row.row-space-top-8.row-space-8
-        .col-md-12.text-readable
-          h2.text-brand.row-space-4
-            b What is Kamakura like ?
-          .row-space-4
-            p.row-space-4
-              | Tokyo was the last place that samurai held political power, and Kamakura was the first. The reason that Kamakura was chosen by the first samurai to be the capital during the time known as the "Kamakura period,” in the 12th century, was because it was a natural fortress surrounded by mountains, and had a strong capability for defense. Even 800 years later, Kamakura is still surrounded by mountains and ocean, and the buildings from that time, along with traditions and culture, continue on today. Only an hour’s travel away from Tokyo, it is a town with one of the most places to see. 
-            p.row-space-4
-              | But why is Kamakura the only town in the Tokyo area that has maintained such a level of tradition and natural beauty? First, imagine a world like the time of the discovery of America. At the beginning of the Kamakura period, there were still unending feuds and brutal wars among unrefined samurai. Many temples were built to calm the souls of those who had died in war. Over the next 800 years, these temples preserved the land of Kamakura, and as such, nature is still abundant here. As for culture, the art of kamakura-bori is a specialty of the region. When there was a war, monks also became soldiers. It is said that, rather than simply engraving Buddhist images, this art form began as they made everyday items. Kamakura-bori, with its wild and unrefined style, is not only a beautiful style of carving, but also featured on many practical everyday items. 
-            p.row-space-4
-              | Because of Kamakura’s nature and culture, nowadays many people who work in creative fields live in Kamakura. It is situated some distance away from the fast-moving trends of the city, and many people who focus on lifestyle come to Kamakura. It is also a hotspot for surfers. There are many stylish cafes, bars, and restaurants that support this kind of community.  If you had to compare it to another city, it would be Portland. 
-            p.row-space-4
-              | In the town of Kamakura, history, nature, and traditions old and new are blended together. It’s a place everyone should visit if they come to Tokyo. (At the very least, it’s more meaningful than a visit to Tokyo Disneyland!) 
+    h2.h3.text-brand
+      b What is Kamakura like ?
+    .text-brand.row-space-4
+      p
+        | Tokyo was the last place that samurai held political power, and Kamakura was the first. The reason that Kamakura was chosen by the first samurai to be the capital during the time known as the "Kamakura period,” in the 12th century, was because it was a natural fortress surrounded by mountains, and had a strong capability for defense. Even 800 years later, Kamakura is still surrounded by mountains and ocean, and the buildings from that time, along with traditions and culture, continue on today. Only an hour’s travel away from Tokyo, it is a town with one of the most places to see. 
+      p
+        | But why is Kamakura the only town in the Tokyo area that has maintained such a level of tradition and natural beauty? First, imagine a world like the time of the discovery of America. At the beginning of the Kamakura period, there were still unending feuds and brutal wars among unrefined samurai. Many temples were built to calm the souls of those who had died in war. Over the next 800 years, these temples preserved the land of Kamakura, and as such, nature is still abundant here. As for culture, the art of kamakura-bori is a specialty of the region. When there was a war, monks also became soldiers. It is said that, rather than simply engraving Buddhist images, this art form began as they made everyday items. Kamakura-bori, with its wild and unrefined style, is not only a beautiful style of carving, but also featured on many practical everyday items. 
+      p
+        | Because of Kamakura’s nature and culture, nowadays many people who work in creative fields live in Kamakura. It is situated some distance away from the fast-moving trends of the city, and many people who focus on lifestyle come to Kamakura. It is also a hotspot for surfers. There are many stylish cafes, bars, and restaurants that support this kind of community.  If you had to compare it to another city, it would be Portland. 
+      p
+        | In the town of Kamakura, history, nature, and traditions old and new are blended together. It’s a place everyone should visit if they come to Tokyo. (At the very least, it’s more meaningful than a visit to Tokyo Disneyland!) 
   #features-highlight
-    #highlight1.highlight-container[style="background-image: url(#{asset_path 'feature_photo/1.background.jpg'})"]
+    /.highlight-container[style="background-image: url(#{asset_path 'sample/features_sample001.jpg'})"]
+      .page-container
+        .row.row-space-top-8.row-space-8
+          .col-md-12.text-contrast
+            h3.text-center.row-space-4
+              b What is Kamakura like ?
+            .highlight-text.row-space-4
+              p
+                | Tokyo was the last place that samurai held political power, and Kamakura was the first. The reason that Kamakura was chosen by the first samurai to be the capital during the time known as the "Kamakura period,” in the 12th century, was because it was a natural fortress surrounded by mountains, and had a strong capability for defense. Even 800 years later, Kamakura is still surrounded by mountains and ocean, and the buildings from that time, along with traditions and culture, continue on today. Only an hour’s travel away from Tokyo, it is a town with one of the most places to see. 
+              p
+                | But why is Kamakura the only town in the Tokyo area that has maintained such a level of tradition and natural beauty? First, imagine a world like the time of the discovery of America. At the beginning of the Kamakura period, there were still unending feuds and brutal wars among unrefined samurai. Many temples were built to calm the souls of those who had died in war. Over the next 800 years, these temples preserved the land of Kamakura, and as such, nature is still abundant here. As for culture, the art of kamakura-bori is a specialty of the region. When there was a war, monks also became soldiers. It is said that, rather than simply engraving Buddhist images, this art form began as they made everyday items. Kamakura-bori, with its wild and unrefined style, is not only a beautiful style of carving, but also featured on many practical everyday items. 
+              p
+                | Because of Kamakura’s nature and culture, nowadays many people who work in creative fields live in Kamakura. It is situated some distance away from the fast-moving trends of the city, and many people who focus on lifestyle come to Kamakura. It is also a hotspot for surfers. There are many stylish cafes, bars, and restaurants that support this kind of community.  If you had to compare it to another city, it would be Portland. 
+              p
+                | In the town of Kamakura, history, nature, and traditions old and new are blended together. It’s a place everyone should visit if they come to Tokyo. (At the very least, it’s more meaningful than a visit to Tokyo Disneyland!) 
+            .highlight-gallery
+              .row.row-space-6
+                .col-md-4
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample001.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample001.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample002.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample002.jpg'})"
+                .col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
+            .highlight-anchor.text-center
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
+                | 関連するツアーはこちらから
+                i.fa.fa-angle-down
+    .highlight-container[style="background-image: url(#{asset_path 'feature_photo/1.background.jpg'})"]
       .page-container
         .row.row-space-top-8.row-space-8
           .col-md-12.text-contrast
             h3.text-center.row-space-4
               b Kamakura Highlight 1 Great Buddha of Kamakura
             .highlight-text.row-space-4
-              p.text-readable
+              p
                 | Built 750 years ago, the Great Buddha watches over Kamakura from a height of 13 m. Until the 15th century it was housed inside a building, but after the building was washed away in a tsunami, it stood outside as it does now, gazing over at the ocean. The Great Buddha in Kamakura is the second biggest in Japan, after the one in Nara. As the Great Buddha in Nara is housed inside a building, visitors can only look up at it from below, but the Great Buddha in Kamakura can be seen in detail from every angle. This also means that this is the biggest Great Buddha in Japan that you can take a picture with. You can find many stereotypical souvenirs in Hase, the town where the Buddha is, as well as outstanding Japanese restaurants and cafes hidden away like ninjas, unknown to travellers. 
             .highlight-gallery
               .row.row-space-6
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/1-1.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/1-1.jpg'})"
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/1-2.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/1-2.jpg'})"
+                /.col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
             .highlight-anchor.text-center
-              = link_to "#features-tour-list", class: "to-tour-list h5 text-contrast" do
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
                 | 関連するツアーはこちらから
                 i.fa.fa-angle-down
-    #highlight2.highlight-container[style="background-image: url(#{asset_path 'feature_photo/2.background.jpg'})"]
+    .highlight-container[style="background-image: url(#{asset_path 'feature_photo/2.background.jpg'})"]
       .page-container
         .row.row-space-top-8.row-space-8
           .col-md-12.text-contrast
             h3.text-center.row-space-4
               b Kamakura Highlight 2 Enkaku-ji Temple & Kencho-ji Temple
             .highlight-text.row-space-4
-              p.text-readable
+              p
                 | These two huge temples capture the essence of Kamakura, and are about a ten-minute walk from each other. Among the oldest are a group of wooden buildings built over 700 years ago, and they embody the samurai sense of beauty with the strength and natural beauty of unlacquered wood. These temples stand in stark contrast to the extravagant and lively atmosphere of other popular temples like Senso-ji Temple in Asakusa. Here, you can even still see many young monks devoting themselves to religion, and depending on the time, may even get a chance to witness a temple choir in prayer. You can even have the experience of Zen meditation in the midst of this peaceful atmosphere. 
             .highlight-gallery
               .row.row-space-6
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/2-1.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/2-1.jpg'})"
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/2-2.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/2-2.jpg'})"
+                /.col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
             .highlight-anchor.text-center
-              = link_to "#features-tour-list", class: "to-tour-list h5 text-contrast" do
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
                 | 関連するツアーはこちらから
                 i.fa.fa-angle-down
-    #highlight3.highlight-container[style="background-image: url(#{asset_path 'feature_photo/3.background.jpg'})"]
+    .highlight-container[style="background-image: url(#{asset_path 'feature_photo/3.background.jpg'})"]
       .page-container
         .row.row-space-top-8.row-space-8
           .col-md-12.text-contrast
             h3.text-center.row-space-4
               b Kamakura Highlight 3 Zeniarai Benten Shrine
             .highlight-text.row-space-4
-              p.text-readable
+              p
                 | You walk up a sloping path like a valley cut between mountains and pass through an entrance that looks like the mouth of a cave to get to this shrine. It is said that if you wash money in the water that springs from the rocks, more money will come to you after you spend it. Even if you bring your drenched money out later to spend it, most people from Kamakura will realize you went to Zeniarai Benten Shrine, and happily accept it. (Though, some people may be annoyed, so be careful!) 
-              p.text-readable
+              p
                 | 5 minutes walk → Sasuke Inari Shrine
-              p.text-readable
+              p
                 | Like the entrance to some mysterious world, pass through 200 m of bright red tori to arrive at Sasuke Inari Shrine. From behind this shine, there is a hidden hiking route that leads to the Great Buddha.  
             .highlight-gallery
               .row.row-space-6
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/3-1.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/3-1.jpg'})"
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/3-2.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/3-2.jpg'})"
+                /.col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
             .highlight-anchor.text-center
-              = link_to "#features-tour-list", class: "to-tour-list h5 text-contrast" do
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
                 | 関連するツアーはこちらから
                 i.fa.fa-angle-down
-    #highlight4.highlight-container[style="background-image: url(#{asset_path 'feature_photo/4.background.jpg'})"]
+    .highlight-container[style="background-image: url(#{asset_path 'feature_photo/4.background.jpg'})"]
       .page-container
         .row.row-space-top-8.row-space-8
           .col-md-12.text-contrast
             h3.text-center.row-space-4
               b Kamakura Highlight 4 Ten-en Hiking Course
             .highlight-text.row-space-4
-              p.text-readable
+              p
                 | This is a hiking route from Kencho-ji Temple in Kita-Kamakura to Zuisen-ji Temple which takes about 30—45 minutes across the ridges of the mountain. This is a route that only those very familiar to Kamakura know of, so it’s never crowded, and is full of surprises as you realize how far the narrow paths have taken you. There are many mountain hiking trails like this one in Kamakura, so if you have a guide that knows them, you can hike to almost any spot in Kamakura. Whether it’s a wander from temple to temple away from the busy crowds, or a trail with stunning views of the ocean, amazing experiences are waiting to be had. 
             .highlight-gallery
               .row.row-space-6
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/4-1.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/4-1.jpg'})"
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/4-2.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/4-2.jpg'})"
+                /.col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
             .highlight-anchor.text-center
-              = link_to "#features-tour-list", class: "to-tour-list h5 text-contrast" do
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
                 | 関連するツアーはこちらから
                 i.fa.fa-angle-down
-    #highlight5.highlight-container[style="background-image: url(#{asset_path 'feature_photo/5.background.jpg'})"]
+    .highlight-container[style="background-image: url(#{asset_path 'feature_photo/5.background.jpg'})"]
       .page-container
         .row.row-space-top-8.row-space-8
           .col-md-12.text-contrast
             h3.text-center.row-space-4
               b Kamakura Highlight 5 Tea at Jyomo-ji Temple
             .highlight-text.row-space-4
-              p.text-readable
+              p
                 | Tea isn’t just for teatime. Looking out over a quintessentially Japanese garden perfectly capturing a glimpse of nature and taking a sip of hand-prepared Japanese tea is a traditional Japanese type of spiritual healing, relaxing the soul and allowing for introspection. At Jomyo-ji, a temple surrounded by mountains, you can feel as if you are in a timeless moment in a Japanese idyll, back by peaceful birdsong. You can enjoy this experience even more with your own guide, as they teach you the movements of the tea ceremony one by one, and help you to deepen your understanding of the garden’s design. 
-              p.text-readable
+              p
                 | 10 minutes to Hokoku-ji Temple
-              p.text-readable
+              p
                 | A ten-minute walk away from Jomyo-ji Temple is Hokoku-ji Temple, where you can enjoy traditional Japanese tea while looking out over a bamboo forest. Why not dedicate a day to fully experiencing several different tea ceremonies? 
             .highlight-gallery
               .row.row-space-6
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/5-1.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/5-1.jpg'})"
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/5-2.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/5-2.jpg'})"
+                /.col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
             .highlight-anchor.text-center
-              = link_to "#features-tour-list", class: "to-tour-list h5 text-contrast" do
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
                 | 関連するツアーはこちらから
                 i.fa.fa-angle-down
-    #highlight6.highlight-container[style="background-image: url(#{asset_path 'feature_photo/6.background.jpg'})"]
+    .highlight-container[style="background-image: url(#{asset_path 'feature_photo/6.background.jpg'})"]
       .page-container
         .row.row-space-top-8.row-space-8
           .col-md-12.text-contrast
             h3.text-center.row-space-4
               b Kamakura Highlight 6 Food in Kamakura
             .highlight-text.row-space-4
-              p.text-readable
+              p
                 | Kamakura is situated by the ocean, so there is a wealth of fresh seafood. Kamakura vegetables are also rated highly, even being proudly named on menus of many high-class restaurants in Tokyo. Many culinary researchers live in Kamakura to learn about these ingredients. By having a cooking experience with these types of people, you can learn the secrets behind delicious and healthy Japanese dishes. For those who just want to eat, we recommend izakaya and restaurants that are popular with locals. Satisfy both your intellectual and physical hunger by travelling with your guide!
             .highlight-gallery
               .row.row-space-6
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/6-1.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/6-1.jpg'})"
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/6-2.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/6-2.jpg'})"
+                /.col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
             .highlight-anchor.text-center
-              = link_to "#features-tour-list", class: "to-tour-list h5 text-contrast" do
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
                 | 関連するツアーはこちらから
                 i.fa.fa-angle-down
-    #highlight7.highlight-container[style="background-image: url(#{asset_path 'feature_photo/7.background.jpg'})"]
+    .highlight-container[style="background-image: url(#{asset_path 'feature_photo/7.background.jpg'})"]
       .page-container
         .row.row-space-top-8.row-space-8
           .col-md-12.text-contrast
             h3.text-center.row-space-4
               b Kamakura Highlight 7 Kamakura and the Ocean
             .highlight-text.row-space-4
-              p.text-readable
+              p
                 | The ocean is just a 15-minute walk or 5-minute drive away. In the summer there are many events such as fireworks, with Japanese bars and restaurants in beach houses lining up along the shore. During low tide, you can find rock pools with crabs and small fish. Kamakura has many beaches to offer, from beaches with relaxed bars to beaches with the perfect sunset, and you are sure to find the beach perfect for you.
             .highlight-gallery
               .row.row-space-6
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/7-1.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/7-1.jpg'})"
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/7-2.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/7-2.jpg'})"
+                /.col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
             .highlight-anchor.text-center
-              = link_to "#features-tour-list", class: "to-tour-list h5 text-contrast" do
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
                 | 関連するツアーはこちらから
                 i.fa.fa-angle-down
-    #highlight8.highlight-container[style="background-image: url(#{asset_path 'feature_photo/8.background.jpg'})"]
+    .highlight-container[style="background-image: url(#{asset_path 'feature_photo/8.background.jpg'})"]
       .page-container
         .row.row-space-top-8.row-space-8
           .col-md-12.text-contrast
             h3.text-center.row-space-4
               b Kamakura Highlight 8 Takara no Niwa
             .highlight-text.row-space-4
-              p.text-readable
+              p
                 | You can have a pottery experience in this mountain hut tucked away snugly in the mountains. Here, you can create a memory that captures a piece of Kamakura’s nature just for you, such as a plate decorated with the imprint of pressed seasonal flowers. It is situated close to Enkaku-ji Temple and Kencho-ji Temple, and is also walking distance from Zeniarai Benten Shrine if you take the hiking trail with your guide. This experience is perfect for those who love the natural beauty of Japan.
             .highlight-gallery
               .row.row-space-6
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/8-1.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/8-1.jpg'})"
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/8-2.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/8-2.jpg'})"
+                /.col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
             .highlight-anchor.text-center
-              = link_to "#features-tour-list", class: "to-tour-list h5 text-contrast" do
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
                 | 関連するツアーはこちらから
                 i.fa.fa-angle-down
-    #highlight9.highlight-container[style="background-image: url(#{asset_path 'feature_photo/9.background.jpg'})"]
+    .highlight-container[style="background-image: url(#{asset_path 'feature_photo/9.background.jpg'})"]
       .page-container
         .row.row-space-top-8.row-space-8
           .col-md-12.text-contrast
             h3.text-center.row-space-4
               b Kamakura Highlight 9 Enoshima
             .highlight-text.row-space-4
-              p.text-readable
+              p
                 | This small island is 25 minutes away from Kamakura by train, or 15 minutes by car with no traffic. Nowadays it is connected to the mainland by a bridge, but some time ago people could walk across during low tide. The island itself was a place for worshippers such as fishermen to visit, so if you make your way through the winding roads lined with souvenir shops, you can find a temple on the top of the island. After walking up the winding slopes to the top, you can look over the island and drink a local beer for a great experience. 
-              p.text-readable
+              p
                 | Enoshima Electric Railway (Enoden)
-              p.text-readable
+              p
                 | If you take the local train from Kamakura to Enoshima, the “Enoden,” you may first be surprised by how close the train passes between people’s houses. After a taste of this thrilling experience, you can leisurely make your way along the shore to Enoshima.  And on your way back, you can stop at the Great Buddha in Hase or the beach in Shichirigahama to make the most of your trip.
             .highlight-gallery
               .row.row-space-6
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/9-1.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/9-1.jpg'})"
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/9-2.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/9-2.jpg'})"
+                /.col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
             .highlight-anchor.text-center
-              = link_to "#features-tour-list", class: "to-tour-list h5 text-contrast" do
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
                 | 関連するツアーはこちらから
                 i.fa.fa-angle-down
-    #highlight10.highlight-container[style="background-image: url(#{asset_path 'feature_photo/10.background.jpg'})"]
+    .highlight-container[style="background-image: url(#{asset_path 'feature_photo/10.background.jpg'})"]
       .page-container
         .row.row-space-top-8.row-space-8
           .col-md-12.text-contrast
             h3.text-center.row-space-4
               b Kamakura Highlight 10 Kumazawa Brewery
             .highlight-text.row-space-4
-              p.text-readable
+              p
                 | A 30-minute drive away from Kamakura is a sake brewery with a rich 134 years of history. There are also excellent Japanese and Italian restaurants with food to match the sake and beer produced here, so you can satisfy your soul with expert partnerships of food and alcohol. You can also learn about how they produce sake, and get to take some lovingly prepared bread home for the next day. 
             .highlight-gallery
               .row.row-space-6
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/10-1.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/10-1.jpg'})"
-                .col-xs-6
+                .col-md-6
                   .media-cover-img
                     = link_to "", "#{asset_path 'feature_photo/10-2.jpg'}", style: "background-image: url(#{asset_path 'feature_photo/10-2.jpg'})"
+                /.col-md-4.hide--sp
+                  .media-cover-img
+                    = link_to "", "#{asset_path 'sample/features_sample003.jpg'}", style: "background-image: url(#{asset_path 'sample/features_sample003.jpg'})"
             .highlight-anchor.text-center
-              = link_to "#features-tour-list", class: "to-tour-list h5 text-contrast" do
+              = link_to "#features-tour-list", class: "h5 text-contrast" do
                 | 関連するツアーはこちらから
                 i.fa.fa-angle-down
 
 - listings = feature_listings
 #features-tour-list
-  .page-container
-    .row-space-top-8
-      h3.text-center.strong
-        | A town bursting with Japanese sights, only an hour from Tokyo
-        | のおすすめツアー
-      .row.row-space-top-8.row-space-8
-        .col-md-6.col-lg-3.row-space-4
-          - if listings[0].present?
-            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
-          - else
-            .card.tour-listing
-              .card-image
-                = link_to "#", class: "media-photo media-photo-block media-cover" do
-                  .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
-                .card-overlay-bottom-left.flush-left.card-overlay-label
-                  .h3
-                    | ¥&nbsp;
-                    | 3000
-                = link_to "#", method: 'DELETE' , class: "favorite-btn" do
-                  i.fa.fa-heart.favorited
-              .card-body
-                .media
-                  = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-                    div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
-                  = link_to "#", class: "text-normal" do
-                    h5.row-space-1.overflow
-                      | This tour's title!
-                  .row-space-1.listing-area
-                    = link_to "#" do
-                      | Katsushikaku
-                  .row-space-1.text-muted
-                    | 13.5hours · Review 99
-          .additional-comment.row-space-top-2
-            h5.small1.row-space-1
-              | In this tour you can enjoy
-            ul.list-normal.small1
-              li.row-space-1
-                = link_to "2 Enkaku-ji Temple & Kencho-ji Temple", "#highlight2", class: "highlight-anchor"
-              li.row-space-1
-                = link_to "4 Ten-en Hiking Course", "#highlight4", class: "highlight-anchor"
-              li.row-space-1
-                = link_to "7 Kamakura and the Ocean", "#highlight7", class: "highlight-anchor"
-              li.row-space-1
-                = link_to "8 Takara no Niwa", "#highlight8", class: "highlight-anchor"
-        .col-md-6.col-lg-3.row-space-4
-          - if listings[1].present?
-            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
-          - else
-            .card.tour-listing
-              .card-image
-                = link_to "#", class: "media-photo media-photo-block media-cover" do
-                  .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
-                .card-overlay-bottom-left.flush-left.card-overlay-label
-                  .h3
-                    | ¥&nbsp;
-                    | 3000
-                = link_to "#", method: 'DELETE' , class: "favorite-btn" do
-                  i.fa.fa-heart.favorited
-              .card-body
-                .media
-                  = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-                    div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
-                  = link_to "#", class: "text-normal" do
-                    h5.row-space-1.overflow
-                      | This tour's title!
-                  .row-space-1.listing-area
-                    = link_to "#" do
-                      | Katsushikaku
-                  .row-space-1.text-muted
-                    | 13.5hours · Review 99
-          .additional-comment.row-space-top-2
-            h5.small1.row-space-1
-              | In this tour you can enjoy
-            ul.list-normal.small1
-              li.row-space-1
-                = link_to "9 Enoshima", "#highlight9", class: "highlight-anchor"
-              li.row-space-1
-                = link_to "10 Kumazawa Brewery", "#highlight10", class: "highlight-anchor"
-        .col-md-6.col-lg-3.row-space-4
-          - if listings[2].present?
-            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
-          - else
-            .card.tour-listing
-              .card-image
-                = link_to "#", class: "media-photo media-photo-block media-cover" do
-                  .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
-                .card-overlay-bottom-left.flush-left.card-overlay-label
-                  .h3
-                    | ¥&nbsp;
-                    | 3000
-                = link_to "#", method: 'DELETE' , class: "favorite-btn" do
-                  i.fa.fa-heart.favorited
-              .card-body
-                .media
-                  = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-                    div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
-                  = link_to "#", class: "text-normal" do
-                    h5.row-space-1.overflow
-                      | This tour's title!
-                  .row-space-1.listing-area
-                    = link_to "#" do
-                      | Katsushikaku
-                  .row-space-1.text-muted
-                    | 13.5hours · Review 99
-          .additional-comment.row-space-top-2
-            h5.small1.row-space-1
-              | In this tour you can enjoy
-            ul.list-normal.small1
-              li.row-space-1
-                = link_to "5 Tea at Jyomo-ji Temple", "#highlight5", class: "highlight-anchor"
-              li.row-space-1
-                = link_to "6 Food in Kamakura", "#highlight6", class: "highlight-anchor"
-        .col-md-6.col-lg-3.row-space-4
-          - if listings[3].present?
-            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[3]), listing: listings[3]}
-          - else
-            .card.tour-listing
-              .card-image
-                = link_to "#", class: "media-photo media-photo-block media-cover" do
-                  .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
-                .card-overlay-bottom-left.flush-left.card-overlay-label
-                  .h3
-                    | ¥&nbsp;
-                    | 3000
-                = link_to "#", method: 'DELETE' , class: "favorite-btn" do
-                  i.fa.fa-heart.favorited
-              .card-body
-                .media
-                  = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-                    div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
-                  = link_to "#", class: "text-normal" do
-                    h5.row-space-1.overflow
-                      | This tour's title!
-                  .row-space-1.listing-area
-                    = link_to "#" do
-                      | Katsushikaku
-                  .row-space-1.text-muted
-                    | 13.5hours · Review 99
-          .additional-comment.row-space-top-2
-            h5.small1.row-space-1
-              | In this tour you can enjoy
-            ul.list-normal.small1
-              li.row-space-1
-                = link_to "1 Great Buddha of Kamakura", "#highlight1", class: "highlight-anchor"
-              li.row-space-1
-                = link_to "3 Zeniarai Benten Shrine", "#highlight3", class: "highlight-anchor"
+  .page-container.row-space-top-6
+    h3.text-center.strong
+      | A town bursting with Japanese sights, only an hour from Tokyo
+      | のおすすめツアー
+    .row.row-space-top-4.row-space-8
+      .col-md-4.row-space-4
+        - if listings[0].present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+        - else
+          .card.tour-listing
+            .card-image
+              = link_to "#", class: "media-photo media-photo-block media-cover" do
+                .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
+              .card-overlay-bottom-left.flush-left.card-overlay-label
+                .h3
+                  | ¥&nbsp;
+                  | 3000
+              = link_to "#", method: 'DELETE' , class: "favorite-btn" do
+                i.fa.fa-heart.favorited
+            .card-body
+              .media
+                = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                  div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
+                = link_to "#", class: "text-normal" do
+                  h5.row-space-1.overflow
+                    | This tour's title!
+                .row-space-1.listing-area
+                  = link_to "#" do
+                    | Katsushikaku
+                .row-space-1.text-muted
+                  | 13.5hours · Review 99
+        .additional-comment.row-space-top-4.text-lead
+          | In this tour you can enjoy
+          br
+          | ・2 Enkaku-ji Temple & Kencho-ji Temple
+          br
+          | ・4 Ten-en Hiking Course
+          br
+          | ・7 Kamakura and the Ocean
+          br
+          | ・8 Takara no Niwa
+      .col-md-4.row-space-4
+        - if listings[1].present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+        - else
+          .card.tour-listing
+            .card-image
+              = link_to "#", class: "media-photo media-photo-block media-cover" do
+                .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
+              .card-overlay-bottom-left.flush-left.card-overlay-label
+                .h3
+                  | ¥&nbsp;
+                  | 3000
+              = link_to "#", method: 'DELETE' , class: "favorite-btn" do
+                i.fa.fa-heart.favorited
+            .card-body
+              .media
+                = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                  div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
+                = link_to "#", class: "text-normal" do
+                  h5.row-space-1.overflow
+                    | This tour's title!
+                .row-space-1.listing-area
+                  = link_to "#" do
+                    | Katsushikaku
+                .row-space-1.text-muted
+                  | 13.5hours · Review 99
+        .additional-comment.row-space-top-4.text-lead
+          | In this tour you can enjoy
+          br
+          | ・9 Enoshima
+          br
+          | ・10 Kumazawa Brewery
+      .col-md-4.row-space-4
+        - if listings[2].present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+        - else
+          .card.tour-listing
+            .card-image
+              = link_to "#", class: "media-photo media-photo-block media-cover" do
+                .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
+              .card-overlay-bottom-left.flush-left.card-overlay-label
+                .h3
+                  | ¥&nbsp;
+                  | 3000
+              = link_to "#", method: 'DELETE' , class: "favorite-btn" do
+                i.fa.fa-heart.favorited
+            .card-body
+              .media
+                = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                  div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
+                = link_to "#", class: "text-normal" do
+                  h5.row-space-1.overflow
+                    | This tour's title!
+                .row-space-1.listing-area
+                  = link_to "#" do
+                    | Katsushikaku
+                .row-space-1.text-muted
+                  | 13.5hours · Review 99
+        .additional-comment.row-space-top-4.text-lead
+          | In this tour you can enjoy
+          br
+          | ・5 Tea at Jyomo-ji Temple
+          br
+          | ・6 Food in Kamakura
+      .col-md-4.row-space-4
+        - if listings[3].present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[3]), listing: listings[3]}
+        - else
+          .card.tour-listing
+            .card-image
+              = link_to "#", class: "media-photo media-photo-block media-cover" do
+                .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
+              .card-overlay-bottom-left.flush-left.card-overlay-label
+                .h3
+                  | ¥&nbsp;
+                  | 3000
+              = link_to "#", method: 'DELETE' , class: "favorite-btn" do
+                i.fa.fa-heart.favorited
+            .card-body
+              .media
+                = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                  div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
+                = link_to "#", class: "text-normal" do
+                  h5.row-space-1.overflow
+                    | This tour's title!
+                .row-space-1.listing-area
+                  = link_to "#" do
+                    | Katsushikaku
+                .row-space-1.text-muted
+                  | 13.5hours · Review 99
+        .additional-comment.row-space-top-4.text-lead
+          | In this tour you can enjoy
+          br
+          | ・1 Great Buddha of Kamakura
+          br
+          | ・3 Zeniarai Benten Shrine
 - profiles = feature_guides_profile
 #features-guide-list
   .page-container

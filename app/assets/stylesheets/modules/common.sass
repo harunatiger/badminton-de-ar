@@ -581,6 +581,12 @@ select
   font-size: 17px
   line-height: 1.68
 
+.text-readable
+  font-size: 20px
+  line-height: 1.68
+  @media (max-width: 767px)
+    font-size: 16px
+
 .text-blog
   line-height: 1.6
   font-size: 15px
@@ -592,6 +598,9 @@ select
 
 .text-brand
   color: $brand-theme
+
+.text-brand-dark
+  color: $brand-theme-dark
 
 .text-light-gray, .fa-light-gray
   color: $lightgray1
