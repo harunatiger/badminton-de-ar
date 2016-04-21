@@ -172,6 +172,7 @@
                 b #{listing_detail.guests_cost}
                 |  /per person
               .col-md-5
+                = render partial: '/shared/modals/include_what', locals: { included_guests_cost: @listing.listing_detail.included_guests_cost }
                 = link_to "#", class: "include_what_trigger small1" do
                   | ＊Invoice
     - else
@@ -221,5 +222,6 @@
                 b 0
                 |  /per person
               .col-md-5
+                = render partial: '/shared/modals/include_what', locals: { included_guests_cost: @listing.listing_detail.included_guests_cost }
                 = link_to "#", class: "include_what_trigger small1" do
                   | ＊Invoice
