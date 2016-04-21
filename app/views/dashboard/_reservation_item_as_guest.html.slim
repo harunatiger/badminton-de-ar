@@ -11,7 +11,7 @@
                 i.fa.fa-envelope
             .row
               .col-md-4.text-center
-                = link_to profile_path(r.host_id), class: "media-round media-photo media-avatar" do
+                = link_to profile_path(user_id_to_profile_id(r.host_id)), class: "media-round media-photo media-avatar" do
                   .size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.host_id)}')"]
               .col-md-8.text-center--sp
                 .user-type.user-guide Main Guide
@@ -30,7 +30,7 @@
             .user-container
               .row
                 .col-md-4.text-center
-                  = link_to profile_path(r.pair_guide_id), class: "media-round media-photo media-avatar" do
+                  = link_to profile_path(user_id_to_profile_id(r.pair_guide_id)), class: "media-round media-photo media-avatar" do
                     .size60[style="background-image: url('#{asset_path user_id_to_profile_image(r.pair_guide_id)}')"]
                 .col-md-8.text-center--sp
                   .user-type.user-guide Supporting guide
