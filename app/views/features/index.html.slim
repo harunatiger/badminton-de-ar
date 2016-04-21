@@ -325,6 +325,7 @@
                 | 関連するツアーはこちらから
                 i.fa.fa-angle-down
 
+- listings = feature_listings
 #features-tour-list
   .page-container.row-space-top-6
     h3.text-center.strong
@@ -332,99 +333,138 @@
       | のおすすめツアー
     .row.row-space-top-4.row-space-8
       .col-md-4.row-space-4
-        .card.tour-listing
-          .card-image
-            = link_to "#", class: "media-photo media-photo-block media-cover" do
-              .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
-            .card-overlay-bottom-left.flush-left.card-overlay-label
-              .h3
-                | ¥&nbsp;
-                | 3000
-            = link_to "#", method: 'DELETE' , class: "favorite-btn" do
-              i.fa.fa-heart.favorited
-          .card-body
-            .media
-              = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-                div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
-              = link_to "#", class: "text-normal" do
-                h5.row-space-1.overflow
-                  | This tour's title!
-              .row-space-1.listing-area
-                = link_to "#" do
-                  | Katsushikaku
-              .row-space-1.text-muted
-                | 13.5hours · Review 99
+        - if listings[0].present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+        - else
+          .card.tour-listing
+            .card-image
+              = link_to "#", class: "media-photo media-photo-block media-cover" do
+                .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
+              .card-overlay-bottom-left.flush-left.card-overlay-label
+                .h3
+                  | ¥&nbsp;
+                  | 3000
+              = link_to "#", method: 'DELETE' , class: "favorite-btn" do
+                i.fa.fa-heart.favorited
+            .card-body
+              .media
+                = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                  div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
+                = link_to "#", class: "text-normal" do
+                  h5.row-space-1.overflow
+                    | This tour's title!
+                .row-space-1.listing-area
+                  = link_to "#" do
+                    | Katsushikaku
+                .row-space-1.text-muted
+                  | 13.5hours · Review 99
         .additional-comment.row-space-top-4.text-lead
           | In this tour you can enjoy
           br
-          | ・大仏
+          | ・2 Enkaku-ji Temple & Kencho-ji Temple
           br
-          | ・銭洗弁天
+          | ・4 Ten-en Hiking Course
           br
-          | が楽しめます。
+          | ・7 Kamakura and the Ocean
+          br
+          | ・8 Takara no Niwa
       .col-md-4.row-space-4
-        .card.tour-listing
-          .card-image
-            = link_to "#", class: "media-photo media-photo-block media-cover" do
-              .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
-            .card-overlay-bottom-left.flush-left.card-overlay-label
-              .h3
-                | ¥&nbsp;
-                | 3000
-            = link_to "#", method: 'DELETE' , class: "favorite-btn" do
-              i.fa.fa-heart.favorited
-          .card-body
-            .media
-              = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-                div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
-              = link_to "#", class: "text-normal" do
-                h5.row-space-1.overflow
-                  | This tour's title!
-              .row-space-1.listing-area
-                = link_to "#" do
-                  | Katsushikaku
-              .row-space-1.text-muted
-                | 13.5hours · Review 99
+        - if listings[1].present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+        - else
+          .card.tour-listing
+            .card-image
+              = link_to "#", class: "media-photo media-photo-block media-cover" do
+                .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
+              .card-overlay-bottom-left.flush-left.card-overlay-label
+                .h3
+                  | ¥&nbsp;
+                  | 3000
+              = link_to "#", method: 'DELETE' , class: "favorite-btn" do
+                i.fa.fa-heart.favorited
+            .card-body
+              .media
+                = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                  div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
+                = link_to "#", class: "text-normal" do
+                  h5.row-space-1.overflow
+                    | This tour's title!
+                .row-space-1.listing-area
+                  = link_to "#" do
+                    | Katsushikaku
+                .row-space-1.text-muted
+                  | 13.5hours · Review 99
         .additional-comment.row-space-top-4.text-lead
-          | このツアーでは、
+          | In this tour you can enjoy
           br
-          | ・大仏
+          | ・9 Enoshima
           br
-          | ・銭洗弁天
-          br
-          | が楽しめます。
+          | ・10 Kumazawa Brewery
       .col-md-4.row-space-4
-        .card.tour-listing
-          .card-image
-            = link_to "#", class: "media-photo media-photo-block media-cover" do
-              .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
-            .card-overlay-bottom-left.flush-left.card-overlay-label
-              .h3
-                | ¥&nbsp;
-                | 3000
-            = link_to "#", method: 'DELETE' , class: "favorite-btn" do
-              i.fa.fa-heart.favorited
-          .card-body
-            .media
-              = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-                div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
-              = link_to "#", class: "text-normal" do
-                h5.row-space-1.overflow
-                  | This tour's title!
-              .row-space-1.listing-area
-                = link_to "#" do
-                  | Katsushikaku
-              .row-space-1.text-muted
-                | 13.5hours · Review 99
+        - if listings[2].present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+        - else
+          .card.tour-listing
+            .card-image
+              = link_to "#", class: "media-photo media-photo-block media-cover" do
+                .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
+              .card-overlay-bottom-left.flush-left.card-overlay-label
+                .h3
+                  | ¥&nbsp;
+                  | 3000
+              = link_to "#", method: 'DELETE' , class: "favorite-btn" do
+                i.fa.fa-heart.favorited
+            .card-body
+              .media
+                = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                  div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
+                = link_to "#", class: "text-normal" do
+                  h5.row-space-1.overflow
+                    | This tour's title!
+                .row-space-1.listing-area
+                  = link_to "#" do
+                    | Katsushikaku
+                .row-space-1.text-muted
+                  | 13.5hours · Review 99
         .additional-comment.row-space-top-4.text-lead
-          | このツアーでは、
+          | In this tour you can enjoy
           br
-          | ・大仏
+          | ・5 Tea at Jyomo-ji Temple
           br
-          | ・銭洗弁天
+          | ・6 Food in Kamakura
+      .col-md-4.row-space-4
+        - if listings[3].present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[3]), listing: listings[3]}
+        - else
+          .card.tour-listing
+            .card-image
+              = link_to "#", class: "media-photo media-photo-block media-cover" do
+                .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
+              .card-overlay-bottom-left.flush-left.card-overlay-label
+                .h3
+                  | ¥&nbsp;
+                  | 3000
+              = link_to "#", method: 'DELETE' , class: "favorite-btn" do
+                i.fa.fa-heart.favorited
+            .card-body
+              .media
+                = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+                  div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
+                = link_to "#", class: "text-normal" do
+                  h5.row-space-1.overflow
+                    | This tour's title!
+                .row-space-1.listing-area
+                  = link_to "#" do
+                    | Katsushikaku
+                .row-space-1.text-muted
+                  | 13.5hours · Review 99
+        .additional-comment.row-space-top-4.text-lead
+          | In this tour you can enjoy
           br
-          | が楽しめます。
-
+          | ・1 Great Buddha of Kamakura
+          br
+          | ・3 Zeniarai Benten Shrine
+- profiles = feature_guides_profile
 #features-guide-list
   .page-container
     h4.h3.text-center.strong
@@ -434,19 +474,43 @@
         ul.list-inline.text-center
           li
             .media-photo.media-round.media-avatar
-              .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
+              - if profiles[0].present?
+                = link_to profile_path(profiles[0]) do
+                  .size90[style="background-image: url(#{asset_path profile_to_image_thumb(profiles[0])})"]
+              - else
+                .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
           li
             .media-photo.media-round.media-avatar
-              .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
+              - if profiles[1].present?
+                = link_to profile_path(profiles[1]) do
+                  .size90[style="background-image: url(#{asset_path profile_to_image_thumb(profiles[1])})"]
+              - else
+                .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
           li
             .media-photo.media-round.media-avatar
-              .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
+              - if profiles[2].present?
+                = link_to profile_path(profiles[2]) do
+                  .size90[style="background-image: url(#{asset_path profile_to_image_thumb(profiles[2])})"]
+              - else
+                .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
           li
             .media-photo.media-round.media-avatar
-              .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
+              - if profiles[3].present?
+                = link_to profile_path(profiles[3]) do
+                  .size90[style="background-image: url(#{asset_path profile_to_image_thumb(profiles[3])})"]
+              - else
+                .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
           li
             .media-photo.media-round.media-avatar
-              .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
+              - if profiles[4].present?
+                = link_to profile_path(profiles[4]) do
+                  .size90[style="background-image: url(#{asset_path profile_to_image_thumb(profiles[4])})"]
+              - else
+                .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
           li
             .media-photo.media-round.media-avatar
-              .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]
+              - if profiles[5].present?
+                = link_to profile_path(profiles[5]) do
+                  .size90[style="background-image: url(#{asset_path profile_to_image_thumb(profiles[5])})"]
+              - else
+                .size90[style="background-image: url(#{asset_path 'sample/person1.jpg'})"]

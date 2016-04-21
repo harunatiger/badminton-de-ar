@@ -703,4 +703,22 @@ module ApplicationHelper
   def pair_guide_thread_to_reservation(mt)
     Reservation.find(mt.reservation_id)
   end
+  
+  def feature_guides_profile
+    if Rails.env.production?
+      ids = [20,25,39,59,109,116]
+    else
+      ids = Profile.without_soft_destroyed.ids.sample(6)
+    end
+    Profile.find(ids)
+  end
+  
+  def feature_listings
+    if Rails.env.production?
+      ids = [149,145,292,288]
+    else
+      ids = Listing.opened.without_soft_destroyed.ids.sample(4)
+    end
+    Listing.find(ids)
+  end
 end
