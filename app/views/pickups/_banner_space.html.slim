@@ -1,0 +1,4 @@
+= link_to announcement_path(announcement.page_url) do
+  = image_tag(announcement.banner_image_pc, class: 'hide--sp')
+  = image_tag(announcement.banner_image_sp, class: 'show--sp')
+  = announcement.title
