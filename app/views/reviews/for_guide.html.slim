@@ -13,10 +13,9 @@
               = user_obj_to_name(counterpart)
             .row.row-condensed
               .col-md-3.hide--sp
-                = image_tag(listing_cover_image_url(@reservation.listing_id), class: "img-responsive")
+                = link_to image_tag(listing_cover_image_url(@reservation.listing_id), class: "img-responsive"), listing_path(reservation_to_listing(@reservation))
               .col-md-9
-                p
-                  = listing_name(@reservation.listing_id)
+                = link_to listing_name(@reservation.listing_id), listing_path(reservation_to_listing(@reservation))
             
     .col-lg-8.col-md-12
       .row-space-4

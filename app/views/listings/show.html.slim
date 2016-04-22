@@ -34,7 +34,6 @@
       | Request Booking
 
 = render partial: '/shared/modals/share_email'
-= render partial: '/shared/modals/include_what', locals: { included_guests_cost: @listing.listing_detail.included_guests_cost }
 /= render partial: '/shared/modals/about_price'
 /= render partial: '/shared/modals/include_price', locals: { listing_detail: @listing.listing_detail }
 = render partial: '/shared/modals/message_to_host', locals: { listing: @listing } if user_signed_in?

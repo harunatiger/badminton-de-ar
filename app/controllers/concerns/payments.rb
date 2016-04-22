@@ -67,21 +67,11 @@ module Payments
   end
 
   def express_purchase_options(payment)
-    if Rails.env.production?
-      {
-        :ip => request.remote_ip,
-        :token => payment.token,
-        :currency => 'JPY',
-        :payer_id => payment.payer_id,
-        :items => item_params(payment.reservation)
-      }
-    else
-      {
-        :ip => request.remote_ip,
-        :token => payment.token,
-        :currency => 'JPY',
-        :payer_id => payment.payer_id
-      }
-    end
+    {
+      :ip => request.remote_ip,
+      :token => payment.token,
+      :currency => 'JPY',
+      :payer_id => payment.payer_id
+    }
   end
 end

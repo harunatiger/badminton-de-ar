@@ -8,12 +8,12 @@
           | TOMODACHI GUIDE are waiting with unique plans for you
       .row.text-center.row-space-4.row-space-top-6
         .col-md-12
-          .discovery-card[style="background-image: url(#{asset_path 'sample/features_sample003.jpg'})"]
+          .discovery-card.feature-banner[style="background-image: url(#{asset_path 'feature/banner.png'})"]
             = link_to features_path, class: "" do
               .va-container.va-container-v.va-container-h
                 .va-middle.text-center.text-contrast
-                  .h2.strong.overflow
-                    | 東京から１時間で行ける日本文化の集積地
+                  /.h2.strong.overflow
+                    | A town bursting with Japanese sights, only an hour from Tokyo
       .discovery-tiles
         .row
           - if @pickups.present? && @pickups.instance_of?(Array)

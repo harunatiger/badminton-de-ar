@@ -23,14 +23,16 @@
             = f.input_field :total, as: :radio_buttons, required: true, boolean_style: :inline, collection: [["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], label_method: :last, item_wrapper_tag: false
       .row.row-space-2
         .col-12
-          = f.input_field :msg, required: true, rows: "7", placeholder: "例） 楽しいひとときを過ごせました。ありがとうございます。是非またお会いしましょう！"
+          span.text-red
+            i.fa.fa-exclamation-circle
+            | 入力は全て英語で行ってください
+          = f.input_field :msg, required: true, rows: "7", placeholder: "Eg. I had a great time, thank you so much! I hope we can meet again. "
       .row.row-space-5
         .col-12
           = f.file_field :tour_image, as: :file, class: "row-space-1"
           .tour-image-thumb.row-space-1.hide
-          span.text-red
-            | 是非、旅の想い出の写真を1枚投稿してください。レビューコメントと一緒にツアー紹介ページに公開されます。
-            = user_obj_to_name(counterpart)
-            | さんのツアーがより魅力的になります。
+          | 是非、旅の思い出の写真を1枚投稿してください。レビューコメントと一緒に
+          = user_obj_to_name(counterpart)
+          | さんのプロフィールページに公開されます。
   .card-footer
     = f.submit "この内容で送信する", class: "btn btn-primary"
