@@ -2248,6 +2248,9 @@ a.alert-warning
         > a.btn-become-a-guide
           border-color: white
           border-width: 2px
+  &.announcement
+    .common-header
+      top: 56px
 
 .alert-sign
   position: relative
@@ -2527,11 +2530,18 @@ footer
     border-top: 1px solid rgba(255, 255, 255, 0.2)
 
 .footerContent-container
-  max-width: 960px
+  max-width: 1045px
   margin: 0 auto
-  padding: 0 15px
+  padding: 0 25px
   a
     color: white
+  @media (max-width: 767px)
+    ul
+      text-align: center
+      li
+        display: inline-block
+        margin-left: 10px
+        margin-right: 10px
 
 .sns-container
   a

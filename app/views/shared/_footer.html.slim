@@ -11,27 +11,29 @@ footer
             = link_to "特商法", static_pages_specific_commercial_transactions_jp_path
           li
             = link_to "プライバシーポリシー", static_pages_privacy_policy_jp_path
-      .col-sm-12.row-space-4
-        ul.list-layout.list-inline.list-inline-spaced.text-center
-          li
+      .col-md-5.row-space-4 
+        ul.list-unstyled.text-lead
+          li.row-space-2
             = link_to "About Huber.", static_pages_about_path
-          li
+          li.row-space-2
             = link_to "Terms of service", static_pages_service_agreement_en_path
           - if display_news?
-            li
+            li.row-space-2
               = link_to 'News', announcements_path
+          li.row-space-2
+            = link_to Settings.page.help , for_user_help_topics_path
           /li
             = link_to "Cancellation policy", static_pages_cancel_policy_en_path
-          li
+          li.row-space-2
             = link_to "Special Commercial Code", static_pages_specific_commercial_transactions_en_path
-          li
+          li.row-space-2
             = link_to "Privacy policy", static_pages_privacy_policy_en_path
-          li
-            = link_to Settings.page.help , for_user_help_topics_path
           - if user_signed_in? and current_user.guest? and current_user.pre_mail.blank?
-            li
+            li.row-space-2
               = link_to Settings.page.listing_new, "#guide_request", class: "guide_request", data: { toggle: "modal" }
-
+      .col-md-7.row-space-6.text-center
+        .fb-page-container
+          .fb-page[data-href="https://www.facebook.com/HuberInc-1579765458969603/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-width="500" data-height="300"]
     /.row
       .col-sm-3.col-sm-offset-2.hide--sp
         h5
@@ -111,3 +113,12 @@ footer
       = link_to '© Huber.', 'http://huber.co.jp/', target: '_blank'
     /#copyright.row-space-top-2.text-center.copy-single
       | © Huber.
+#fb-root
+javascript:
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=197428196987151";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));

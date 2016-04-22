@@ -1,26 +1,26 @@
-table
-  thead
-    tr
-      th
-      th
-      th
-
-  tbody
-    - @announcements.each do |announcement|
-      | title:
-      = announcement.title
-      br
-      | publish_date:
-      = announcement.publish_date
-      br
-      | overview:
-      = announcement.overview
-      br
-      | image:
-      = image_tag(announcement.banner_image_pc, class: 'hide--sp')
-      = image_tag(announcement.banner_image_sp, class: 'show--sp')
-      br
-      = link_to 'Read more', announcement_path(announcement.page_url)
-      br
-.text-center
-  = paginate @announcements
+.page-container
+  .row.row-space-top-8.row-space-8
+    .col-md-12
+      h2.text-center.row-space-6
+        | NEWS
+      ul.list-unstyled.news-list
+        - @announcements.each do |announcement|
+          li.row-space-4
+            .card
+              .card-header
+                h4.pull-left
+                  = announcement.title
+                .pull-right
+                  = announcement.publish_date
+              .card-body
+                .photo.row-space-2
+                  .bg-pc.hide--sp[style="background-image: url(#{asset_path announcement.banner_image_pc});"]
+                  .bg-sp.show--sp[style="background-image: url(#{asset_path announcement.banner_image_sp});"]
+                p
+                  = announcement.overview
+                = link_to announcement_path(announcement.page_url), class: "pull-right" do
+                  | Read more
+                  ' 
+                  i.fa.fa-chevron-right
+      .text-center
+        = paginate @announcements

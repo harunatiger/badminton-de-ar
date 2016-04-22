@@ -1,7 +1,8 @@
 - provide(:title, "Huber.")
 - provide(:description, "Huber. | Let's Travel with TOMODACHI GUIDE!!")
 - if @announcement.present?
-  = link_to @announcement.title, announcement_path(@announcement.page_url)
+  .announcement_belt.text-center
+    = link_to @announcement.title, announcement_path(@announcement.page_url)
 .hero-wrapper
   #hero
     /ul#slideshow.list-unstyled

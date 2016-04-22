@@ -9,8 +9,8 @@
 #  reply_from_host   :boolean          default(FALSE)
 #  first_message     :boolean          default(TRUE)
 #  noticemail_sended :boolean          default(FALSE)
+#  type              :string
 #  reservation_id    :integer
-#  type              :string(255)
 #
 # Indexes
 #

@@ -581,16 +581,22 @@ $ ->
       reviewBlock = $('#review-block')
       reviewBlockContainer = $('#review-block-container')
       reviewBlockContainerSp = $('#review-block-container--sp')
+      announcementBanner = $('#announcement-banner')
+      announcementContainer = $('#announcement-banner-container')
+      announcementContainerSp = $('#announcement-banner-container--sp')
+
 
       if($('.col-left').css('float') == "left")
         # evacuate fullscreen movie
         if(!tourMovie.hasClass('vjs-fullscreen'))
           tourMovie.appendTo(tourMovieContainer)
+          announcementBanner.appendTo(announcementContainer)
           reviewBlock.appendTo(reviewBlockContainer)
       else
         # evacuate fullscreen movie
         if(!tourMovie.hasClass('vjs-fullscreen'))
           tourMovie.insertBefore(listingDescription)
+          announcementBanner.appendTo(announcementContainerSp)
           reviewBlock.appendTo(reviewBlockContainerSp)
 
     mediaQueryWidth1()

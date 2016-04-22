@@ -54,3 +54,5 @@
     .row-space-4
       = hbr(@listing.listing_detail.condition).html_safe
     hr
+  - if @announcement.present?
+    #announcement-banner-container--sp
