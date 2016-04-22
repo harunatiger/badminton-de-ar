@@ -707,18 +707,24 @@ module ApplicationHelper
   def feature_guides_profile
     if Rails.env.production?
       ids = [20,25,39,59,109,116]
+      profiles = Profile.find(ids)
+      ordered_profiles = ids.collect {|id| profiles.detect {|x| x.id == id.to_i}}
+      return ordered_profiles
     else
       ids = Profile.without_soft_destroyed.ids.sample(6)
+      return Profile.find(ids)
     end
-    Profile.find(ids)
   end
   
   def feature_listings
     if Rails.env.production?
       ids = [149,145,292,288]
+      listings = Listing.find(ids)
+      ordered_listings = ids.collect {|id| listings.detect {|x| x.id == id.to_i}}
+      return ordered_listings
     else
       ids = Listing.opened.without_soft_destroyed.ids.sample(4)
+      return Listing.find(ids)
     end
-    Listing.find(ids)
   end
 end
