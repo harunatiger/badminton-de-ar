@@ -31,6 +31,9 @@ Rails.application.routes.draw do
     member do
       get 'self_introduction',    action: 'self_introduction'
     end
+    collection do
+      delete 'delete_category',    action: 'delete_category'
+    end
     member do
       post :favorite_user
     end

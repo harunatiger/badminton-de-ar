@@ -727,4 +727,58 @@ module ApplicationHelper
       return Listing.find(ids)
     end
   end
+  
+  def profile_category_to_image(profile_category)
+    result = ''
+    ListingImage.image_categories.each do |category|
+      if category[:title] == profile_category_to_name(profile_category)
+        result = category 
+        break
+      end
+    end
+    result.present? ? result[:image] : ''
+  end
+  
+  def profile_category_to_name(profile_category)
+    Category.find(profile_category.category_id).name
+  end
+  
+  def category_name_to_id(category_name)
+    Category.where(name: category_name).first.id
+  end
+  
+  def category_name_to_placeholder(category_name)
+    category_id = category_name_to_id(category_name)
+    if category_id == 1
+      'Eg. Massage, yoga, etc'
+    elsif category_id == 2
+      'Eg. Temples, Japanese gardens,Kamakura-bori, etc.'
+    elsif category_id == 3
+      'Eg. Sake, soba noodles, cooking, etc.'
+    elsif category_id == 4
+      'Eg. Harajuku, fashion, household appliances, etc.'
+    elsif category_id == 5
+      'Eg. Cycling, hiking, BBQ, etc.'
+    elsif category_id == 6
+      'Eg. Baseball games, football, etc.'
+    elsif category_id == 7
+      'Eg. Botan-en, gardening, etc.'
+    elsif category_id == 8
+      'Eg. Daibutsu, Tokyo Tower, Yanaka Ginza Shopping Street, etc.'
+    elsif category_id == 9
+      'Eg. Oil paintings, Ueno Royal Museum, Picasso, etc.'
+    elsif category_id == 10
+      'Eg. Dragonball-Z, Akihabara, etc.'
+    elsif category_id == 11
+      'Eg. Open-air onsen, Hakone, etc.'
+    elsif category_id == 12
+      'Eg. Disneyland, planetarium, zoos, etc.'
+    elsif category_id == 13
+      'Eg. The Beatles, movies, karaoke, etc.'
+    elsif category_id == 14
+      'Eg. Pottery, rafting, etc.'
+    elsif category_id == 15
+      'Eg. Bars, clubs, night views, etc.'
+    end
+  end
 end

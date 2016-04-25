@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
   #before_action :set_pair_guide, only: [:show]
   before_action :set_message_thread, only: [:show]
   before_action :get_progress, only: [:edit, :self_introduction, :new]
-  before_action :regulate_user, except: [:new, :index, :create, :show, :favorite_user]
+  before_action :regulate_user, except: [:new, :index, :create, :show, :favorite_user, :delete_category]
   before_action :deleted_check, only: [:show, :edit]
 
   # GET /profiles
@@ -118,6 +118,15 @@ class ProfilesController < ApplicationController
     html = render_to_string partial: '/profiles/show/user_card', locals: { profile: @profile, reviewed_count: reviewed_count + reviewed_as_guest_count }
     render json: { status: status, html: html , post: post}
   end
+  
+  def delete_category
+    if request.xhr?
+      profile_categories = ProfileCategory.where(profile_id: current_user.profile.id)
+      result = false
+      result = profile_categories.where(category_id: params[:category_id]).destroy_all if profile_categories.present?
+      return render text: result
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -158,6 +167,6 @@ class ProfilesController < ApplicationController
         :listing_count, :wishlist_count, :bookmark_count, :reviewed_count,
         :reservation_count,
         :ave_total, :ave_accuracy, :ave_communication, :ave_cleanliness, :ave_location,
-        :ave_check_in, :ave_cost_performance, :created_at, :updated_at, category_ids: [],language_ids: [])
+        :ave_check_in, :ave_cost_performance, :created_at, :updated_at, category_ids: [],language_ids: [], profile_categories_attributes: [:id, :category_id, :tag_list])
     end
 end
