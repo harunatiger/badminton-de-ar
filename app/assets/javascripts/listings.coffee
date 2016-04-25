@@ -11,7 +11,7 @@ $ ->
     if car_cost == 0
       $('#listing_detail_car_option').prop("checked",false)
 
-    numOfPeople = false
+    numOfPeople = $('#num-of-people select option')
     # price imitation
     value_calc = ->
       space_check = 0
@@ -92,6 +92,8 @@ $ ->
           $(this).parent().parent().removeClass('hide')
 
       $('#include_what .card-body p').text(fv15)
+      $('#max_num_of_people_label').text(fv)
+      $('#price-per-person').text('¥' + Math.round((fv14 + fv16 + fv17) / num_of_people) + '/人')
 
     $('.value_fragile').on 'change', ->
       value_calc()
@@ -412,7 +414,8 @@ $ ->
       basicPrice = basicPrice + optionAmount
       $('#tour-option-bicycle').text('¥' + bycycleCost)
       $('#tour-option-amount').text('¥' + optionAmount)
-      $('#tour-basic-amount').text('¥' + basicPrice)
+      $('#tour-basic-amount').text('¥' + basicPrice + '/Group')
+      $('#price-per-person').text('¥' + Math.round(basicPrice / numOfPeople) + '/person')
 
     $('#request--sp').on 'click', ->
       $('#tour-action').show()

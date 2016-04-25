@@ -1,4 +1,5 @@
 / listing_details/request_block
+- default_num_of_people = @listing_detail.max_num_of_people > 1 ? 2 : 1
 .request-block.text-muted
   h3.listing-help-sp-header.text-center
     | 登録のヒント
@@ -15,13 +16,14 @@
       .h3.row-space-2
         | ¥
         b.value_discharge.total_price = @listing_detail.basic_amount
-        small
+        /small
           |  / グループ(MAX
           span.max-num-of-people
             = @listing_detail.max_num_of_people
           | 人・
           span.timelapse
             = format_time_required(@listing_detail.time_required.to_s.gsub(/.0/, ''))+')'
+        |  / グループ
       .tour-price-detail
         .row
           .col-xs-7
@@ -81,15 +83,21 @@
             .value_discharge.service_fee
               = @listing_detail.service_fee
       .row.row-space-2
-        .col-md-8
+        .col-md-12
           label[for="checkin"]
             |  参加する日付
           input#checkin.checkin.datepicker[name="reservation[schedule_date]" placeholder="MM/DD/YYYY" type="text"]
-        .col-md-4
+        .col-md-12
           label[for="reservation_num_of_people"]
             |  人数
+            | (最大
+            span#max_num_of_people_label
+              = @listing_detail.max_num_of_people
+            | 人)
+            strong.pull-right#price-per-person
+              | ¥#{(@listing_detail.display_amount / default_num_of_people).round(0)}/人
           .select.select-block#num-of-people
-            = select 'sample', 'num_of_people', @listing_detail.min_num_of_people..@listing_detail.max_num_of_people, default: [1]
+            = select 'sample', 'num_of_people', @listing_detail.min_num_of_people..@listing_detail.max_num_of_people, :selected => default_num_of_people
       .row-space-2
         = link_to '予約をリクエスト', '#', class: 'btn btn-large btn-block btn-primary disabled'
       .row-space-1

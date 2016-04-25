@@ -1,5 +1,6 @@
 /* listings#slideshow
 - favorite_count = favorite_listings_count(listing.id)
+- price = @listing.listing_detail.present? ? @listing.listing_detail.display_amount : 0
 
 /- listing_images.each do |listing_image|
   = debug listing_image.caption

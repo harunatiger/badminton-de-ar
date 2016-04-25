@@ -91,6 +91,20 @@ class ListingDetail < ActiveRecord::Base
     end
     hash
   end
+    
+  def display_amount
+    total = self.basic_amount
+    if self.max_num_of_people > 1
+      if self.bicycle_option
+        total += self.bicycle_rental
+      end
+    end
+    total
+  end
+    
+  def bicycle_option_for_a_person
+    self.bicycle_option ? self.bicycle_rental : 0
+  end
 
   def basic_amount
     #total = self.price + self.price_for_support + self.price_for_both_guides
