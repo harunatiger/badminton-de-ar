@@ -6,4 +6,4 @@
         .bg-sp.show--sp[style="background-image: url(#{asset_path announcement.banner_image_sp});"]
         .content.va-container.va-container-wh
           .va-middle.h3.text-contrast
-            b = announcement.title
+            b = announcement.title.html_safe

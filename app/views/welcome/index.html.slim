@@ -2,7 +2,7 @@
 - provide(:description, "Huber. | Let's Travel with TOMODACHI GUIDE!!")
 - if @announcement.present?
   .announcement_belt.text-center
-    = link_to @announcement.title, announcement_path(@announcement.page_url)
+    = link_to @announcement.title.html_safe, announcement_path(@announcement.page_url)
 .hero-wrapper
   #hero
     /ul#slideshow.list-unstyled

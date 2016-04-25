@@ -9,7 +9,7 @@
             .card
               .card-header
                 h4.pull-left
-                  = announcement.title
+                  = announcement.title.html_safe
                 .pull-right
                   = announcement.publish_date
               .card-body
