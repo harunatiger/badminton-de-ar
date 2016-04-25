@@ -25,7 +25,8 @@
                 .sp-slide
                   = link_to "#{slider_image.image.url}", class:"slider-popup", data: {source: "#{slider_image.category_image.present? ? asset_path(slider_image.category_image) : ''}"}, title: slider_image.caption do
                     img.sp-image[src="#{slider_image.image.url}" data-src="#{slider_image.image.url}"]
-
+  .card-overlay-bottom-left.flush-left.card-overlay-label.show--sp
+    .h3 ¥#{price}/Group
   /#photos.with-photos.with-modal
     = link_to "#", class:"galon-trigger", title:"#{listing.cover_image}" do
       .cover-img-container
