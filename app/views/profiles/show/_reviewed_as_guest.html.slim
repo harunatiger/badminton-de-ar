@@ -12,6 +12,10 @@
             .reviews
               - reviewed_as_guest.each do |r|
                 .row.text-center-sm.row-space-4
+                  - if r.tour_image.present?
+                    .col-md-12.row-space-4
+                      .media-cover-img
+                        = image_tag(r.tour_image)
                   .col-md-2.col-sm-12.row-space-2
                     .avatar-wrapper.text-center
                       = link_to profile_path(user_id_to_profile_id(r.host_id)), class: "text-muted" do

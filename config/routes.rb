@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     end
     resources :profile_banks
     resources :profile_identities, only: [:new, :edit, :create, :update, :destroy]
-    resources :profile_keywords
+    #resources :profile_keywords
     member do
       get 'self_introduction',    action: 'self_introduction'
     end
