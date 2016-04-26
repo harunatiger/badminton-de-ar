@@ -143,34 +143,34 @@
             .row-space-1
               - if user_signed_in?
                 - if current_user.id == @listing.user_id
-                  .media-photo.media-round.media-avatar
-                    .size50[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
-                  = button_tag type: 'submit', id: 'book_it_button', class: "btn btn-large btn-block disabled" do
+                  = button_tag type: 'submit', id: 'book_it_button', class: "btn btn-large btn-block disabled btn-relative" do
+                    .media-photo.media-round.media-avatar
+                      .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
                     i.fa.fa-comments-o
                     | Talk to me
                 - elsif not profile_self_introduction_exists?
-                  .media-photo.media-round.media-avatar
-                    .size50[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
-                  = link_to profile_link, class: 'btn btn-large btn-block' do
+                  = link_to profile_link, class: 'btn btn-large btn-block btn-relative' do
+                    .media-photo.media-round.media-avatar
+                      .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
                     i.fa.fa-comments-o
                     | Talk to me
                 - else
                   -if @message_thread
-                    .media-photo.media-round.media-avatar
-                      .size50[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
-                    = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block' do
+                    = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-relative' do
+                      .media-photo.media-round.media-avatar
+                        .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
                       i.fa.fa-comments-o
                       | Talk to me
                   - else
-                    .media-photo.media-round.media-avatar
-                      .size50[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
-                    = link_to message_threads_path(message_thread: {host_id: @listing.user_id}), method: 'POST', class: 'btn btn-large btn-block' do
+                    = link_to message_threads_path(message_thread: {host_id: @listing.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-relative' do
+                      .media-photo.media-round.media-avatar
+                        .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
                       i.fa.fa-comments-o
                       | Talk to me
               - else
-                .media-photo.media-round.media-avatar
-                  .size50[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
-                = button_tag type: 'submit', class: "btn btn-large btn-block disabled" do
+                = button_tag type: 'submit', class: "btn btn-large btn-block disabled btn-relative" do
+                  .media-photo.media-round.media-avatar
+                    .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
                   i.fa.fa-comments-o
                   | Talk to me
 
@@ -220,9 +220,9 @@
             button.btn.btn-large.btn-block.btn-primary.disabled
                 | Request Booking
           .row-space-1
-              .media-photo.media-round.media-avatar
-                .size50[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
-              = button_tag type: 'submit', class: "btn btn-large btn-block disabled" do
+              = button_tag type: 'submit', class: "btn btn-large btn-block disabled btn-relative" do
+                .media-photo.media-round.media-avatar
+                  .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
                 i.fa.fa-comments-o
                 | Talk to me
 
