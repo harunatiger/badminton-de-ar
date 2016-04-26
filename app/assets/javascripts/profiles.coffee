@@ -325,6 +325,10 @@ $ ->
         $(this).val(placeholder)
       return
 
+    $('.simple_form').on 'submit', ->
+      if $('.self_introduction-textarea').val() == placeholder
+        $('.self_introduction-textarea').val('')
+
     # sticky sp nav
     if $('.col-lg-3').css('float') != 'left'
       stickyNav = ->
