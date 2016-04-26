@@ -1687,6 +1687,47 @@ $lines-to-show: 2
     border: 2px solid white
     border-radius: 50%
 
+.profile-category-container
+  .select_category_link
+    display: block
+    overflow: visible
+  .listing_image_selected
+    img.media-round
+      border: 5px solid $green1
+    .fa-check
+      top: -3px
+      right: -3px
+      line-height: 32px
+      border: 0
+
+.profile-category-keyword-container
+  > div
+    position: relative
+    min-height: 62px
+    padding: 20px 10px 10px 70px
+    margin-top: 12.5px
+    border-top: 1px dashed $border3
+    &:first-child
+      border-top: 0
+      margin-top: 0
+    > img
+      position: absolute
+      top: 10px
+      left: 0
+      width: 50px
+      height: 50px
+      border-radius: 50%
+    @media (max-width: 767px)
+      min-height: 42px
+      padding: 14px 0 0 40px
+      > img
+        top: 14px
+        left: 0
+        width: 32px
+        height: 32px
+      .bootstrap-tagsinput
+        overflow: hidden
+
 /* tag cloud */
 .css1
   font-size: 1.0em

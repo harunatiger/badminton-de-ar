@@ -2,48 +2,56 @@
       = f.error_notification
       = f.hidden_field :user_id, value: current_user.id
       .card.row-space-4
-        .card-header Please write your self-introduction, favorite things, and languages you can use; these will be shown on your public profile.
+        .card-header Please write your self-introduction, favorite things, and languages you can use. these will be shown on your public profile.
         .card-body
-          .row.row-condensed.row-space-4
-            | Choose three categories that appeal to you the most. 
-            br
+          p.text-lead
+            | Choose 
+            b three categories 
+            | that appeal to you the most. 
+          .profile-category-container.row.row-space-2
             - ListingImage.image_categories.each do |category|
               = hidden_field_tag  :category, category[:title]
-              .col-sm-3.col-md-2.row-space-2
-                .set_category_container.media-round.media-photo.media-avatar
-                  - if @profile.category_selected?(category[:title])
-                    = link_to "#", class: "select_category_link listing_image_selected", category_id: category_name_to_id(category[:title]) do
-                      = image_tag category[:image]
-                      i.fa.fa-check
-                  - else
-                    = link_to "#", class: "select_category_link", category_id: category_name_to_id(category[:title]), placehodler_str: category_name_to_placeholder(category[:title]) do
-                      = image_tag category[:image]
+              .col-lg-15.col-md-3.col-xs-4.row-space-3
+                - if @profile.category_selected?(category[:title])
+                  = link_to "#", class: "select_category_link listing_image_selected media-round media-photo", category_id: category_name_to_id(category[:title]) do
+                    = image_tag category[:image], class: "img-responsive media-round"
+                    i.fa.fa-check
+                - else
+                  = link_to "#", class: "select_category_link media-round media-photo", category_id: category_name_to_id(category[:title]), placehodler_str: category_name_to_placeholder(category[:title]) do
+                    = image_tag category[:image], class: "img-responsive media-round"
                 .text-center.set_category_container_title
-                  small=image_category_display_name(category[:title])
-          - @profile.profile_categories.order_by_created_at_asc.each do |profile_category|      
-            div[class='#{profile_category.category_id}']
-              = f.fields_for :profile_categories, profile_category do |pc|
-                = image_tag profile_category_to_image(profile_category)
-                = pc.input_field :tag_list, value: profile_category.tag_list.join(','), 'data-role' => 'tagsinput', class: 'form-control imeoff', placeholder: category_name_to_placeholder(profile_category_to_name(profile_category))
-          span.input_categories_space_end
+                  small
+                    b = image_category_display_name(category[:title])
+          p.text-help-block.row-space-4
+            | For each of your chosen categories, 
+            b write some examples of things or places 
+            | that you like to let your guests know more about your personality. 
+          .profile-category-keyword-container
+            - @profile.profile_categories.order_by_created_at_asc.each do |profile_category|      
+              div[class='#{profile_category.category_id}']
+                = f.fields_for :profile_categories, profile_category do |pc|
+                  = image_tag profile_category_to_image(profile_category)
+                  = pc.input_field :tag_list, value: profile_category.tag_list.join(','), 'data-role' => 'tagsinput', class: 'form-control imeoff', placeholder: category_name_to_placeholder(profile_category_to_name(profile_category))
+            span.input_categories_space_end
           hr.row-space-4
-          .row.row-condensed.row-space-4
-            label.text-right.col-3[for="user_self_introduction"]
+          .row.row-condensed.row-space-4.row-table
+            label.text-right.col-3.col-middle[for="user_self_introduction"]
               | Languages
-            .col-xs-8.fieldset
+            .col-xs-9.fieldset.col-middle
               = collection_check_boxes(:profile, :language_ids, Language.all, :id, :name) do |l|
                 = l.label { l.check_box + l.text }
           hr.row-space-4
-          .row.row-condensed.row-space-4
-            label.text-right.col-3[for="user_self_introduction"]
+          .row.row-condensed.row-space-4.row-table
+            label.text-right.col-3.col-middle[for="user_self_introduction"]
               - if @progress.present?
                 - if @progress.include?('self_introduction')
                   /.inputrate.inputrate-red +#{@progress['rate']}%
                   .ic-illust.reliability-up[title="Gain a person's confidence" data-toggle="tooltip"]
               | Introduction
-            .col-8.self_introduction_wrapper
-              | Expressing your personality is the first step in becoming a TOMODACHI GUIDE. 
-              br
-              |Write your self-introduction freely, using the following as an example. 
-              = f.input_field :self_introduction, as: :text, cols: "30", rows: "20", placeholder: "Eg.) Hello, my name is Suzuki. I’m a university student, and I live in a town called Kamakura, about an hour away from Tokyo. Kamakura is famous for the “Daibutsu,” or “Great Buddha,” but I think the real appeal is the traditional Japanese food full of natural goodness, such as fresh vegetables and fish.  I like eating, and I am good at cooking.  One day, I’d like to make my own restaurant abroad to spread the appeal of Japanese food, so I’m studying hard at learning English.I’d love to introduce you to some amazing restaurants that aren’t listed in guidebooks.Feel free to message me any time about Japanese food! Let’s be friends!"
+            .col-9.self_introduction_wrapper.col-middle
+              p
+                | Expressing your personality is the first step in becoming a TOMODACHI GUIDE. 
+                br
+                | Write your self-introduction freely, using the following as an example. 
+              = f.input_field :self_introduction, as: :text, cols: "30", class: "self_introduction-textarea", rows: "20", placeholder: ""
       = f.button :submit, "Save", class: "btn btn-primary btn-large row-space-4", name: 'page_self_introduction'

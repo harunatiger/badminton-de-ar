@@ -42,6 +42,13 @@ h6, .h6
   @media (max-width: 767px)
     display: none
 
+.text-help-block
+  //color:
+  padding: 20px
+  background-color: $lightblue1
+  border: 1px dashed $lightblue2
+  border-radius: 4px
+
 /* slideout */
 body.slideout
   position: fixed
@@ -112,6 +119,43 @@ label.error
       padding: 10px 14px
       &:hover
         color: white
+
+.tag-list-post
+  ul
+    margin: 0
+    padding: 0
+    list-style: none
+    li
+      display: inline-block
+      margin-right: 20px
+      padding: 0
+      .tag
+        display: block
+        position: relative
+        height: 30px
+        line-height: 30px
+        padding: 0 12px
+        background-color: $bg1
+        border-radius: 4px
+        border: 1px solid $border1
+        text-decoration: none
+        &::before, &::after
+          content: ''
+          position: absolute
+          width: 0
+          height: 0
+        &::before
+          top: 6px
+          left: -10px
+          border-color: transparent $border1 transparent transparent
+          border-style: solid
+          border-width: 8px 10px 8px 0
+        &::after
+          top: 8px
+          left: -9px
+          border-color: transparent $bg1 transparent transparent
+          border-style: solid
+          border-width: 6px 9px 6px 0
 
 /* tag-list-wrapper */
 .tag-list-wrapper
@@ -1766,6 +1810,13 @@ body.paper
         max-height: 320px
         > img
           position: relative
+
+.profile-category-container
+  clear: both
+  padding-top: 12.5px
+
+.profile-category-inner
+
 .profile-card-wrapper
   float: right
 
@@ -1841,6 +1892,13 @@ body.paper
     p
       color: $gray2
       font-size: 13px
+
+//.self_introduction-textarea::-webkit-input-placeholder
+  color: #333
+
+//.self_introduction-textarea::-webkit-input-placeholder::after
+  //display: block
+  //content: "Second line \A Third line\A You get the picture...\A 5"
 
 .ic-illust
   display: inline-block
