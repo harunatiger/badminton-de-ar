@@ -23,6 +23,7 @@
                 .h3
                   | ¥&nbsp;
                   = listing.listing_detail.basic_amount if listing.listing_detail.present?
+                  | /Group
               = link_to favorite_listing_path(favorite_listing_set(listing, current_user)), method: 'DELETE' , class: "favorite-btn" do
                 i.fa.fa-heart.favorited
             .card-body
@@ -32,18 +33,23 @@
                 = link_to listing_path(listing), class: "text-normal" do
                   h5.row-space-1.overflow
                     = truncate(listing.title, length: 40)
-                .text-center.row-space-1
+                .text-center
                   .star-rating
                     = render partial: 'shared/stars', locals: { rate: listing.ave_total }
                   | review(#{listing.open_reviews_count})
 
                 - if pickup_area_from_listing(listing).present?
-                  .listing-area.row-space-1.text-center.text-truncate
+                  .listing-area.text-center.text-truncate
                     i.fa.fa-map-marker
                     ' 
                     - pickup_area_from_listing(listing).each do |area|
                       = link_to pickup_path( area.id ) do
                         = area.short_name
+                - if listing.listing_detail.present?
+                  .listing-area.text-center.text-truncate
+                    i.fa.fa-clock-o
+                    ' 
+                    span.text-brand #{listing.listing_detail.time_required}h
                 .text-center
                   - image_categories_limited_six(listing).each do |category|
                     .media-round.media-photo.media-avatar

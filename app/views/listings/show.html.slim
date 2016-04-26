@@ -28,10 +28,10 @@
 .fixed-btn-container.show--sp
   - if user_signed_in?
     button#request--sp.btn.btn-large.btn-fixed-bottom.btn-primary
-      | Request Booking
+      | More
   - else
     = link_to user_session_path, class: 'btn btn-large btn-fixed-bottom btn-primary' do
-      | Request Booking
+      | More
 
 = render partial: '/shared/modals/share_email'
 /= render partial: '/shared/modals/about_price'
