@@ -329,6 +329,7 @@ $ ->
       if $('.self_introduction-textarea').val() == placeholder
         $('.self_introduction-textarea').val('')
 
+  if $('.sidenav-list-profile').length
     # sticky sp nav
     if $('.col-lg-3').css('float') != 'left'
       stickyNav = ->
