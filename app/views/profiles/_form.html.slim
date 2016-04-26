@@ -3,8 +3,8 @@
       = f.hidden_field :user_id, value: current_user.id
       - @profile.enable_strict_validation = true
       - if !@profile.valid?
-        span.text-red
-          i.fa.fa-exclamation-circle
+        .row-space-1.text-red
+          i.fa.fa-exclamation-circle.fa-exclamation-circle-alert
           | You cannot exchange messages with guides until you enter the required information.
       .card.row-space-4
         .card-header

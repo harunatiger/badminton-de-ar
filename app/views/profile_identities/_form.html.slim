@@ -3,8 +3,8 @@
   = f.hidden_field :user_id, value: current_user.id
   = f.hidden_field :profile_id, value: current_user.profile.id
   - if !profile_identity_authorized?(current_user.id)
-    span.text-red
-      i.fa.fa-exclamation-circle
+    .row-space-1.text-red
+      i.fa.fa-exclamation-circle.fa-exclamation-circle-alert
       | You cannot make a tour booking until your ID is confirmed.
   .card.row-space-4
     .card-header "Please upload a scan of your drivers license, student ID or passport photo page."
