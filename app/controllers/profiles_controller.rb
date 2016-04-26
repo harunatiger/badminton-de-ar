@@ -18,8 +18,8 @@ class ProfilesController < ApplicationController
   def show
     @listings = Listing.mine(@profile.user_id).opened.without_soft_destroyed.includes(:listing_detail).order_by_updated_at_desc
     gon.listings = ListingDetail.where(listing_id: @listings.map{|l| l.id}).where.not('place_longitude = 0 and place_latitude = 0')
-    @reviewed = Review.reviewed_as_guide(@profile.user_id).order_by_created_at_desc
-    @reviewed_as_guest = Review.reviewed_as_guest(@profile.user_id).order_by_created_at_desc
+    @reviewed = Review.reviewed_as_guide(@profile.user_id).order_by_created_at_desc.limit(10)
+    @reviewed_as_guest = Review.reviewed_as_guest(@profile.user_id).order_by_created_at_desc.limit(10)
     @profile_keyword = ProfileKeyword.where(user_id: @profile.user_id, profile_id: @profile.id).keyword_limit
     gon.keywords = @profile_keyword
   end

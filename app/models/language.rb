@@ -13,4 +13,9 @@ class Language < ActiveRecord::Base
   has_many :listings, :through => :listing_languages, dependent: :destroy
   has_many :profile_languages, dependent: :destroy
   has_many :profiles, :through => :profile_languages, dependent: :destroy
+  
+  def self.ordered
+    order_array = ['English','Chinese','German','French','Spanish','Japanese']
+    ordered_language = order_array.collect {|language_name| self.all.detect {|x| x.name == language_name}}
+  end
 end

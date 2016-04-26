@@ -23,33 +23,10 @@ div
           .area.text-truncate
             = profile.location
       .capability
-        -if category_food?(profile)
-          span[title="Food" data-toggle="tooltip"]
-            i.fa.fa-cutlery
-        -if category_alcohol?(profile)
-          span[title="Alcohol" data-toggle="tooltip"]
-            i.fa.fa-glass
-        -if category_car?(profile)
-          span[title="Car" data-toggle="tooltip"]
-            i.fa.fa-car
-        -if category_cruising?(profile)
-          span[title="Travel/Ship" data-toggle="tooltip"]
-            i.fa.fa-ship
-        -if category_shopping?(profile)
-          span[title="Shopping" data-toggle="tooltip"]
-            i.fa.fa-shopping-cart
-        -if category_accommodation?(profile)
-          span[title="Accommodation" data-toggle="tooltip"]
-            i.fa.fa-bed
-        -if category_business?(profile)
-          span[title="Business" data-toggle="tooltip"]
-            i.fa.fa-area-chart
-        -if category_sport?(profile)
-          span[title="Sports" data-toggle="tooltip"]
-            i.fa.fa-soccer-ball-o
+        - profile.profile_categories.order_by_created_at_asc.each do |profile_category|
+          .media-round.media-photo.media-avatar
+            .size28[style="background-image: url('#{asset_path profile_category_to_image(profile_category)}')"]
       .language
-        - if language_ja?(profile)
-          span.balloon(title="Japanese") JA
         - if language_en?(profile)
           span.balloon(title="English") EN
         - if language_zh?(profile)
@@ -60,3 +37,5 @@ div
           span.balloon(title="French") FR
         - if language_es?(profile)
           span.balloon(title="Spanish") ES
+        - if language_ja?(profile)
+          span.balloon(title="Japanese") JA

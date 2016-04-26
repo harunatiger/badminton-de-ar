@@ -21,9 +21,6 @@ hr.row-space-4
 - if !profile.user.guest?
   .lang-list-wrapper
     ul
-      - if language_ja?(profile)
-        li.balloon(title="Japanese")
-          span JA
       - if language_en?(profile)
         li.balloon(title="English")
           span EN
@@ -39,6 +36,9 @@ hr.row-space-4
       - if language_es?(profile)
         li.balloon(title="Spanish")
           span ES
+      - if language_ja?(profile)
+        li.balloon(title="Japanese")
+          span JA
 - unless profile.user.guest?
   .profile-category-container
     hr.row-space-top-4.row-space-4

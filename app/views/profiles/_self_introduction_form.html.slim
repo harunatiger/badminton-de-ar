@@ -38,7 +38,7 @@
             label.text-right.col-3.col-middle[for="user_self_introduction"]
               | Languages
             .col-xs-9.fieldset.col-middle
-              = collection_check_boxes(:profile, :language_ids, Language.all, :id, :name) do |l|
+              = collection_check_boxes(:profile, :language_ids, Language.ordered, :id, :name) do |l|
                 = l.label { l.check_box + l.text }
           hr.row-space-4
           .row.row-condensed.row-space-4.row-table

@@ -273,41 +273,42 @@ $ ->
         ih = (calcHeight - 320) / 2
         $(this).css("top", "-"+ih+"px")
 
-  $(document).on 'click', '.select_category_link', (event) ->
-    selected = $("input[name*='[tag_list]']")
-    array_index = selected.length + 1
-    category_index = $('.select_category_link').index(this)
-    category_id = $('.select_category_link').eq(category_index).attr("category_id")
+  if $('body').hasClass('profiles self_introduction')
+    $(document).on 'click', '.select_category_link', (event) ->
+      selected = $("input[name*='[tag_list]']")
+      array_index = selected.length + 1
+      category_index = $('.select_category_link').index(this)
+      category_id = $('.select_category_link').eq(category_index).attr("category_id")
 
-    if $('.select_category_link').eq(category_index).hasClass('listing_image_selected')
-      user_id = $('#profile_user_id').val()
+      if $('.select_category_link').eq(category_index).hasClass('listing_image_selected')
+        user_id = $('#profile_user_id').val()
 
-      if confirm('Are you sure you want to delete this category?')
-        $.ajax
-          type: 'DELETE'
-          url: '/profiles/delete_category'
-          data: {category_id: category_id, user_id: user_id}
-          success: (data) ->
-            $('.select_category_link').eq(category_index).children("i").remove()
-            $('.select_category_link').eq(category_index).removeClass 'listing_image_selected'
-            $("[class='" + category_id + "']").empty()
-            return false
-          error: ->
-            return false
-    else if selected.length == 3
-        alert 'You can register a maximum of 3 categories.'
-    else
-      $('.select_category_link').eq(category_index).append("<i class='fa fa-check'></i>")
-      $('.select_category_link').eq(category_index).addClass 'listing_image_selected'
+        if confirm('Are you sure you want to delete this category?')
+          $.ajax
+            type: 'DELETE'
+            url: '/profiles/delete_category'
+            data: {category_id: category_id, user_id: user_id}
+            success: (data) ->
+              $('.select_category_link').eq(category_index).children("i").remove()
+              $('.select_category_link').eq(category_index).removeClass 'listing_image_selected'
+              $("[class='" + category_id + "']").remove()
+              return false
+            error: ->
+              return false
+      else if selected.length == 3
+          alert 'You can register a maximum of 3 categories.'
+      else
+        $('.select_category_link').eq(category_index).append("<i class='fa fa-check'></i>")
+        $('.select_category_link').eq(category_index).addClass 'listing_image_selected'
 
-      img_src = $('.select_category_link').eq(category_index).children("img").attr("src")
-      tag_list_id = 'tag_list_' + category_id
-      placeholder = $('.select_category_link').eq(category_index).attr("placehodler_str")
+        img_src = $('.select_category_link').eq(category_index).children("img").attr("src")
+        tag_list_id = 'tag_list_' + category_id
+        placeholder = $('.select_category_link').eq(category_index).attr("placehodler_str")
 
-      $("<div class='" + category_id + "'><img src=" + img_src + " /><input type='hidden' value='" + category_id + "' name='profile[profile_categories_attributes][" + array_index + "][category_id]'/><input value='' data-role='tagsinput' class='string optional form-control' placeholder='" + placeholder + "' type='text' name='profile[profile_categories_attributes][" + array_index + "][tag_list]' id='" + tag_list_id + "'/></div>").insertBefore(".input_categories_space_end")
+        $("<div class='" + category_id + "'><img src=" + img_src + " /><input type='hidden' value='" + category_id + "' name='profile[profile_categories_attributes][" + array_index + "][category_id]'/><input value='' data-role='tagsinput' class='string optional form-control' placeholder='" + placeholder + "' type='text' name='profile[profile_categories_attributes][" + array_index + "][tag_list]' id='" + tag_list_id + "'/></div>").insertBefore(".input_categories_space_end")
 
-      $("#" + tag_list_id).tagsinput('refresh')
-    return false
+        $("#" + tag_list_id).tagsinput('refresh')
+      return false
 
   # self_introduction
   if $('body').hasClass('profiles self_introduction')
@@ -315,7 +316,7 @@ $ ->
     # placeholder attr
     placeholder = 'Eg.) Hello, my name is Suzuki.\nI’m a university student, and I live in a town called Kamakura, about an hour away from Tokyo.\nKamakura is famous for the “Daibutsu,” or “Great Buddha,” but I think the real appeal is the traditional Japanese food full of natural goodness, such as fresh vegetables and fish.  I like eating, and I am good at cooking.  One day, I’d like to make my own restaurant abroad to spread the appeal of Japanese food, so I’m studying hard at learning English.\nI’d love to introduce you to some amazing restaurants that aren’t listed in guidebooks.Feel free to message me any time about Japanese food! Let’s be friends!'
     if $('.self_introduction-textarea').val() == ''
-      $(this).val(placeholder)
+      $('.self_introduction-textarea').val(placeholder)
     $('.self_introduction-textarea').focus ->
       if $(this).val() == placeholder
         $(this).val('')
