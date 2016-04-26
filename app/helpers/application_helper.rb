@@ -781,4 +781,9 @@ module ApplicationHelper
       'Eg. Bars, clubs, night views, etc.'
     end
   end
+  
+  def exist_profile_blank?
+    current_user.profile.enable_strict_validation = true
+    !current_user.profile.valid? or !profile_identity_authorized?(current_user.id)
+  end
 end

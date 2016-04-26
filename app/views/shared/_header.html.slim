@@ -29,6 +29,9 @@
             .nav-profile.clearfix
               .user-item.pull-left
                 = link_to profile_path(current_user.profile.id), class: "link-reset user-profile-link" do
+                  - if exist_profile_blank?
+                    span.text-red
+                      i.fa.fa-exclamation-circle
                   .media-photo.media-round.user-profile-image.media-avatar
                     /= image_tag profile_to_image_thumb(current_user.profile), class: 'size28'
                     .size28[style="background-image: url('#{asset_path profile_to_image_thumb(current_user.profile)}')"]
@@ -71,6 +74,9 @@
             span.qa
               = Settings.page.help
         li.user-item.user-nav-toggle.pull-left
+          - if exist_profile_blank?
+            span.text-red
+              i.fa.fa-exclamation-circle
           = link_to profile_path(current_user.profile.id), class: "" do
             .media-photo.media-round.user-profile-image.media-avatar
               /= image_tag(profile_to_image_thumb(current_user.profile), class: 'size28')
@@ -100,6 +106,9 @@
             /li
               /= link_to Settings.page.wishlists, wishlists_path, rel: "nofollow"
             li
+              - if exist_profile_blank?
+                span.text-red
+                  i.fa.fa-exclamation-circle
               = link_to Settings.page.profile, edit_profile_path(current_user.profile.id), rel: "nofollow"
             li
               = link_to Settings.page.account, edit_user_registration_path, rel: "nofollow"

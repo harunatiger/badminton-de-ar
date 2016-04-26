@@ -1,6 +1,11 @@
     = simple_form_for(@profile, html: { class: "form--sp" }) do |f|
       = f.error_notification
       = f.hidden_field :user_id, value: current_user.id
+      - @profile.enable_strict_validation = true
+      - if !@profile.valid?
+        span.text-red
+          i.fa.fa-exclamation-circle
+          | You cannot exchange messages with guides until you enter the required information.
       .card.row-space-4
         .card-header
           | Enter your basic information.

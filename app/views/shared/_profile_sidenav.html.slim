@@ -1,9 +1,16 @@
 ul.sidenav-list
+  - current_user.profile.enable_strict_validation = true
   - if controller_name == 'profiles' and action_name != 'self_introduction'
     li
+      - if !current_user.profile.valid?
+        span.text-red
+          i.fa.fa-exclamation-circle
       = link_to "General information", edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "true"}
   - else
     li
+      - if !current_user.profile.valid?
+        span.text-red
+          i.fa.fa-exclamation-circle
       = link_to "General information", edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"}
   - if !current_user.guest?
     - if controller_name == 'profiles' and action_name == 'self_introduction'
@@ -27,9 +34,15 @@ ul.sidenav-list
       = link_to "Profile picture", manage_profile_profile_images_path(@profile), class: "sidenav-item", aria: {selected: "false"}
   - if controller_name == 'profile_identities'
     li
+      - if !profile_identity_authorized?(current_user.id)
+        span.text-red
+          i.fa.fa-exclamation-circle
       = link_to "ID information", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"}
   - else
     li
+      - if !profile_identity_authorized?(current_user.id)
+        span.text-red
+          i.fa.fa-exclamation-circle
       = link_to "ID information", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"}
   /- if !current_user.guest?
     - if controller_name == 'profile_banks'
