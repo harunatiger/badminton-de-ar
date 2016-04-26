@@ -46,7 +46,7 @@
               .col-md-3.text-left.text-muted.strong
                 | Tour:
               .col-md-8.strong
-                = @reservation.listing.try('title')
+                = link_to @reservation.listing.title, listing_path(@reservation.listing), target: '_blank' if @reservation.listing.present?
             .row.row-condensed.row-space-1
               .col-md-3.text-left.text-muted.strong
                 | Date:
