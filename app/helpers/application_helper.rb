@@ -786,4 +786,8 @@ module ApplicationHelper
     current_user.profile.enable_strict_validation = true
     !current_user.profile.valid? or !profile_identity_authorized?(current_user.id)
   end
+  
+  def display_news?
+    Announcement.display.present?
+  end
 end

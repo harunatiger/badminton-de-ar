@@ -49,18 +49,34 @@ h6, .h6
   border: 1px dashed $lightblue2
   border-radius: 4px
 
-/* slideout */
-body.slideout
-  position: fixed
-  height: 100%
+.announcement_belt
+  position: absolute
+  top: 0
   width: 100%
-  overflow: hidden
-  .common-header .header--sp .nav--sp
-    visibility: visible
-    .nav-content--sp
-      left: 0
-    .nav-mask--sp
-      opacity: 0.6
+  height: 36px
+  line-height: 36px
+  background-color: $brand-theme
+  a
+    color: white
+    font-size: 16px
+    &:hover
+      text-decoration: underline
+
+/* slideout */
+body
+  &.slideout
+    position: fixed
+    height: 100%
+    width: 100%
+    overflow: hidden
+    .common-header .header--sp .nav--sp
+      visibility: visible
+      .nav-content--sp
+        left: 0
+      .nav-mask--sp
+        opacity: 0.6
+  &.announcement
+    padding-top: 36px
 
 /* imeoff */
 .imeoff
@@ -2519,3 +2535,76 @@ body.paper
         float: none
         width: 100%
         font-size: 16px
+
+.bg-pc, .bg-sp
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  width: 100%
+  background-position: center center
+  background-repeat: no-repeat
+  background-size: cover
+  z-index: 0
+
+/* news-banner
+.news-banner
+  display: block
+  position: relative
+  height: 120px
+  text-decoration: none
+  border-radius: 4px
+  overflow: hidden
+  @media (max-width: 767px)
+    height: 80px
+  .content
+    position: relative
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .25)
+    background-color: rgba(0, 0, 0, .15)
+    transition: background-color .2s
+    z-index: 1
+  &:hover
+    .content
+      background-color: rgba(0, 0, 0, .25)
+
+.fb-page-container
+  width: 100%
+  overflow: hidden
+
+/* announcement
+ ================================================== */
+
+/* .news-list
+.news-list
+  .card-header
+    line-height: 20px
+    background-color: $lightblue1
+    overflow: hidden
+    h4
+      margin-bottom: 0
+  .card-body
+    overflow: hidden
+  .photo
+    float: left
+    position: relative
+    width: 320px
+    height: 120px
+    margin-right: 20px
+  @media (max-width: 767px)
+    .photo
+      width: 100%
+      margin: 0 0 12.5px
+
+.news-title
+  padding: 20px
+  background-color: $lightblue1
+  border-bottom: 1px solid $border1
+  overflow: hidden
+
+//.announcement-hero
+  position: relative
+  height: 320px
+  @media (max-width: 767px)
+    height: 220px
+  .cover-bg-container

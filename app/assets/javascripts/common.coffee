@@ -335,6 +335,9 @@ $ ->
   # welcome#index
   if $('body').hasClass('welcome index')
 
+    if $('.announcement_belt').length
+      $('body').addClass('announcement')
+
     # ellipsis guide_list comment
     $setElm = $('.introducing > span')
     cutFigure = '50'

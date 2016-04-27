@@ -7,6 +7,8 @@ oauth:
     scope: "public_profile,email,user_friends"
     info_fields: "name, first_name, last_name, email"
     image_size: 'large'
+announcement:
+  page_count: 5
 profile:
   save:
     success: "Profile updated successfully"

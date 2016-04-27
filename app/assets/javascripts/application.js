@@ -23,6 +23,7 @@
 //= require Chart
 //= require moment
 //= require lib/jquery.sliderPro
+//= require ckeditor/init
 
 //= require common
 //= require message

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :features
+  mount Ckeditor::Engine => '/ckeditor'
 
   get 'static_pages/cancel_policy_en'
   get 'static_pages/service_agreement_en'
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
   rescue Exception => e
     puts "ActiveAdmin: #{e.class}: #{e}"
   end
+  
+  resources :announcements, param: :page_url, only: [:show, :index]
 
   resources :profiles do
     resources :profile_images, only: [:show, :create, :update, :destroy] do
