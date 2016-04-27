@@ -20,19 +20,27 @@ class ListingImagesController < ApplicationController
 
   def create
     count = ListingImage.where(listing_id: @listing.id).size
-    respond_to do |format|
-      format.js { @status = 'count_over' } if count > Settings.listing_images.max_count
-      begin
-        ActiveRecord::Base.transaction do
-          create_listing_image_params[:image].each do |image|
-            count += 1
-            @listing.listing_images << ListingImage.new(image: image, order_num: count)
-          end
-          format.js { @status = 'success' }
-        end
-      rescue ActiveRecord::Rollback
-        format.js { @status = 'failure' }
+    if count > Settings.listing_images.max_count
+      respond_to do |format|
+        format.js { @status = 'count_over' }
       end
+    end
+    
+    ActiveRecord::Base.transaction do
+      listing_images = []
+      create_listing_image_params[:image].each do |image|
+        count += 1
+        @listing_image = ListingImage.new(listing_id: @listing.id, image: image, order_num: count)
+        @listing_image.save!
+      end
+    end
+    respond_to do |format|
+      format.js { @status = 'success' }
+    end
+    
+    rescue => e
+    respond_to do |format|
+      format.js { @status = 'failure' }
     end
   end
 
