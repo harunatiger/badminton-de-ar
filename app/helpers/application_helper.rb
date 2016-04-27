@@ -287,7 +287,7 @@ module ApplicationHelper
 
   def profile_self_introduction_exists?
     if current_user.present? and current_user.profile.present?
-      current_user.profile.self_introduction.present?
+      current_user.profile.free_field.present?
     else
       false
     end
@@ -387,7 +387,7 @@ module ApplicationHelper
 
   def profile_link
     if current_user
-      self_introduction_profile_path(current_user.profile.id, send_message: 'yes')
+      edit_profile_path(current_user.profile.id, send_message: 'yes')
     else
       new_user_session_path
     end

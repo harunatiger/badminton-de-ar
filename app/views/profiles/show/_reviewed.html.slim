@@ -1,3 +1,4 @@
+#reviewed_as_guide
   .page-container.row-space-top-6.row-space-8
     .row
       .col-lg-8
@@ -53,3 +54,6 @@
                 .row.row-space-2.line-separation
                   .col-10.col-offset-2
                     hr
+              - if reviewed_count > reviewed.count
+                .row.text-center
+                  = link_to 'Read more reviews', '#', class: 'btn btn-default read_reviews_link', current_count: reviewed.count, reviewed_as: 'guide'

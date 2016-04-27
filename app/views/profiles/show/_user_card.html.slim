@@ -66,25 +66,47 @@
     .profile-area.row-space-2
       = profile.location
     .profile-rating.row-space-2
-      span.badge-pill-count
-        | Review
-        span.h5
-          = reviewed_count
       .star-rating
         = render partial: 'shared/stars', locals: { rate: @profile.ave_total }
+      span.badge-pill-count.small1
+        | review
+        |(
+        b
+          = reviewed_count
+        |)
 
     - if user_signed_in?
       - if current_user.id == @profile.user_id
-        = link_to 'Send a message', profile_link, class: "btn btn-large btn-block btn-primary disabled"
+        = link_to profile_link, class: "btn btn-large btn-block btn-primary disabled btn-relative" do
+          .media-photo.media-round.media-avatar
+            .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
+          i.fa.fa-comments-o
+          | Talk to me
       - elsif not profile_self_introduction_exists?
-        = link_to 'Send a message', profile_link, class: 'btn btn-large btn-block btn-primary'
+        = link_to profile_link, class: 'btn btn-large btn-block btn-primary btn-relative' do
+          .media-photo.media-round.media-avatar
+            .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
+          i.fa.fa-comments-o
+          | Talk to me
       - else
         -if @message_thread
-          = link_to 'Send a message', message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary'
+          = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary btn-relative' do
+            .media-photo.media-round.media-avatar
+              .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
+            i.fa.fa-comments-o
+            | Talk to me
         -else
-          = link_to 'Send a message', message_threads_path(message_thread: {type: 'GuestThread', host_id: @profile.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary'
+          = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: @profile.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary btn-relative' do
+            .media-photo.media-round.media-avatar
+              .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
+            i.fa.fa-comments-o
+            | Talk to me
     - else
-      = link_to 'Send a message', profile_link, class: "btn btn-large btn-block btn-primary"
+      = link_to profile_link, class: "btn btn-large btn-block btn-primary btn-relative" do
+        .media-photo.media-round.media-avatar
+          .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
+        i.fa.fa-comments-o
+        | Talk to me
 
     /.profile-add.row-space-top-1.row-space-1
       = link_to "#", class: "pair_guide_list-trigger small2" do

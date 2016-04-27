@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     #resources :profile_keywords
     member do
       get 'self_introduction',    action: 'self_introduction'
+      get 'read_more_reviews',    action: 'read_more_reviews'
     end
     collection do
       delete 'delete_category',    action: 'delete_category'

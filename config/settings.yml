@@ -13,6 +13,7 @@ profile:
     failure: "電話番号を正しく登録してください"
   send_message: 'Complete your profile in order to contact TOMODACHI GUIDE'
   deleted_profile_id: "This account has been canceled"
+  review_display_count: 10
 profile_images:
   save:
     success: "Profile updated successfully"
