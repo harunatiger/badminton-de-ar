@@ -135,129 +135,175 @@ $ ->
     )
 
   #tag cloud
-  $(document).on 'click', '.tag_cloud', (event)->
-    event.preventDefault()
-    $('#profile_tag_list').tagsinput('add', $(this).text())
+  #$(document).on 'click', '.tag_cloud', (event)->
+  #  event.preventDefault()
+  #  $('#profile_tag_list').tagsinput('add', $(this).text())
+
+  #$(document).on 'keydown', '.bootstrap-tagsinput input', (event) ->
+  #  if event.keyCode == 13
+  #    event.preventDefault()
+  #    $('.bootstrap-tagsinput input').blur()
+  #    $('.bootstrap-tagsinput input').focus()
+
+  #Draw RadarChart
+  #if $('body').hasClass('profiles show')
+  #  array_keywords = gon.keywords
+  #  if array_keywords.length != 0
+  #    keywords = []
+  #    rates = []
+
+  #    $.each array_keywords, (index, data) ->
+  #      keywords.push data.keyword
+  #      rates.push data.level
+  #      return
+
+  #    $('#canvas').Radarchart(keywords, rates)
+
+  #if $('body').hasClass('profile_keywords new') || $('body').hasClass('profile_keywords edit') || $('body').hasClass('profile_keywords update') || $('body').hasClass('profile_keywords create')
+  #  elemTarget = ''
+  #  keywords = []
+  #  rates = []
+
+  #  setKeyword = ->
+  #    keywords = new Array()
+  #    rates = new Array()
+
+  #    keyword1 = $("input[name='profile_keyword_collection[profile_keywords_attributes][0][keyword]']").val();
+  #    keyword2 = $("input[name='profile_keyword_collection[profile_keywords_attributes][1][keyword]']").val();
+  #    keyword3 = $("input[name='profile_keyword_collection[profile_keywords_attributes][2][keyword]']").val();
+  #    keyword4 = $("input[name='profile_keyword_collection[profile_keywords_attributes][3][keyword]']").val();
+  #    keyword5 = $("input[name='profile_keyword_collection[profile_keywords_attributes][4][keyword]']").val();
+
+  #    rate1 = $("[name='profile_keyword_collection[profile_keywords_attributes][0][level]']").val();
+  #    rate2 = $("[name='profile_keyword_collection[profile_keywords_attributes][1][level]']").val();
+  #    rate3 = $("[name='profile_keyword_collection[profile_keywords_attributes][2][level]']").val();
+  #    rate4 = $("[name='profile_keyword_collection[profile_keywords_attributes][3][level]']").val();
+  #    rate5 = $("[name='profile_keyword_collection[profile_keywords_attributes][4][level]']").val();
+
+  #    keywords.push keyword1, keyword2, keyword3, keyword4, keyword5
+  #    rates.push rate1, rate2, rate3, rate4, rate5
+
+  #  addKeyword = (target) ->
+  #    keywords = target.val().split(',')
+  #    lastindex = keywords.length - 1
+  #    if keywords.length > 1
+  #      $.each keywords, (index, keyword) ->
+  #        if index == lastindex
+  #          target.tagsinput('add', keyword)
+  #        else
+  #          target.tagsinput('remove', keyword)
+
+
+  #  setKeyword()
+  #  $('#canvas').Radarchart(keywords, rates)
+
+  #  $('.select-level').on 'change', ->
+  #    setKeyword()
+  #    $('#canvas').Radarchart(keywords, rates)
+  #    return
+
+  #  $('.text-keyword').on 'change', ->
+  #    setKeyword()
+  #    $('#canvas').Radarchart(keywords, rates)
+  #    return
+
+  #  $('.tag_cloud').on 'click', (event)->
+  #    event.preventDefault()
+  #    if elemTarget == ''
+  #      $('#tagcloud_target_confirm').modal()
+  #    else
+  #      tag = elemTarget.val()
+  #      elemTarget.tagsinput('remove', tag)
+  #      elemTarget.tagsinput('add', $(this).text())
+  #      elemTarget = ''
+
+  #  $('.text-keyword-wrapper').on 'click', (event)->
+  #    switch $('.text-keyword-wrapper').index($(this))
+  #      when 0
+  #        elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_0_keyword')
+  #      when 1
+  #        elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_1_keyword')
+  #      when 2
+  #        elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_2_keyword')
+  #      when 3
+  #        elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_3_keyword')
+  #      when 4
+  #        elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_4_keyword')
+  #      else
+  #        elemTarget = ''
+  #        break
+  #    return
+
+    #$('#profile_keyword_collection_profile_keywords_attributes_0_keyword').on 'change', (event) ->
+    #  addKeyword($(this))
+    #  event.preventDefault()
+
+    #$('#profile_keyword_collection_profile_keywords_attributes_1_keyword').on 'change', (event) ->
+    #  addKeyword($(this))
+    #  event.preventDefault()
+
+    #$('#profile_keyword_collection_profile_keywords_attributes_2_keyword').on 'change', (event) ->
+    #  addKeyword($(this))
+    #  event.preventDefault()
+
+    #$('#profile_keyword_collection_profile_keywords_attributes_3_keyword').on 'change', (event) ->
+    #  addKeyword($(this))
+    #  event.preventDefault()
+
+    #$('#profile_keyword_collection_profile_keywords_attributes_4_keyword').on 'change', (event) ->
+    #  addKeyword($(this))
+    #  event.preventDefault()
+    
+  # reviews
+  if $('body').hasClass('profiles show')
+    # read more reviews as guide
+    $(document).on 'click', '.read_reviews_link', (event) ->
+      id = $('#profile_id').val()
+      current_count = $(this).attr('current_count')
+      reviewed_as = $(this).attr('reviewed_as')
+      $.ajax
+        type: 'GET'
+        url: '/profiles/' + id + '/read_more_reviews'
+        data: {id: id, current_count: current_count, reviewed_as: reviewed_as}
+        success: (data) ->
+          if reviewed_as == 'guide'
+            $('#reviewed_as_guide').html(data)
+          else
+            $('#reviewed_as_guest').html(data)
+          test()
+          return false
+        error: ->
+          return false
+      return false
+
+  # content expand (same with common.......)
+  test = ->
+    if $('.expandable').length
+      $('.expandable').each ->
+        exContent = $('.expandable-content', this).height()
+        exInner =  $('.expandable-inner', this).height()
+        if exContent >= exInner
+          $(this).addClass('expanded')
+        if exInner <= 65
+          $('.expandable-indicator', this).hide()
+          $('.expandable-trigger-more-text', this).hide()
+
+      $('.expandable-trigger-more').on 'click', ->
+        tempP = $(this)
+        tempWrap = tempP.parents('.expandable')
+        if !tempWrap.hasClass('expanded')
+          tempHeight = $('div.expandable-inner', tempWrap).height() + 12.5
+          $('div.expandable-content', tempWrap).height(tempHeight)
+          tempWrap.addClass('expanded')
+          if tempP.is('a')
+            return false
+        return
 
   $(document).on 'keydown', '.bootstrap-tagsinput input', (event) ->
     if event.keyCode == 13
       event.preventDefault()
       $('.bootstrap-tagsinput input').blur()
-      $('.bootstrap-tagsinput input').focus()
-
-  #Draw RadarChart
-  if $('body').hasClass('profiles show')
-    array_keywords = gon.keywords
-    if array_keywords.length != 0
-      keywords = []
-      rates = []
-
-      $.each array_keywords, (index, data) ->
-        keywords.push data.keyword
-        rates.push data.level
-        return
-
-      $('#canvas').Radarchart(keywords, rates)
-
-  if $('body').hasClass('profile_keywords new') || $('body').hasClass('profile_keywords edit') || $('body').hasClass('profile_keywords update') || $('body').hasClass('profile_keywords create')
-    elemTarget = ''
-    keywords = []
-    rates = []
-
-    setKeyword = ->
-      keywords = new Array()
-      rates = new Array()
-
-      keyword1 = $("input[name='profile_keyword_collection[profile_keywords_attributes][0][keyword]']").val();
-      keyword2 = $("input[name='profile_keyword_collection[profile_keywords_attributes][1][keyword]']").val();
-      keyword3 = $("input[name='profile_keyword_collection[profile_keywords_attributes][2][keyword]']").val();
-      keyword4 = $("input[name='profile_keyword_collection[profile_keywords_attributes][3][keyword]']").val();
-      keyword5 = $("input[name='profile_keyword_collection[profile_keywords_attributes][4][keyword]']").val();
-
-      rate1 = $("[name='profile_keyword_collection[profile_keywords_attributes][0][level]']").val();
-      rate2 = $("[name='profile_keyword_collection[profile_keywords_attributes][1][level]']").val();
-      rate3 = $("[name='profile_keyword_collection[profile_keywords_attributes][2][level]']").val();
-      rate4 = $("[name='profile_keyword_collection[profile_keywords_attributes][3][level]']").val();
-      rate5 = $("[name='profile_keyword_collection[profile_keywords_attributes][4][level]']").val();
-
-      keywords.push keyword1, keyword2, keyword3, keyword4, keyword5
-      rates.push rate1, rate2, rate3, rate4, rate5
-
-    addKeyword = (target) ->
-      keywords = target.val().split(',')
-      lastindex = keywords.length - 1
-      if keywords.length > 1
-        $.each keywords, (index, keyword) ->
-          if index == lastindex
-            target.tagsinput('add', keyword)
-          else
-            target.tagsinput('remove', keyword)
-
-
-    setKeyword()
-    $('#canvas').Radarchart(keywords, rates)
-
-    $('.select-level').on 'change', ->
-      setKeyword()
-      $('#canvas').Radarchart(keywords, rates)
-      return
-
-    $('.text-keyword').on 'change', ->
-      setKeyword()
-      $('#canvas').Radarchart(keywords, rates)
-      return
-
-    $('.tag_cloud').on 'click', (event)->
-      event.preventDefault()
-      if elemTarget == ''
-        $('#tagcloud_target_confirm').modal()
-      else
-        tag = elemTarget.val()
-        elemTarget.tagsinput('remove', tag)
-        elemTarget.tagsinput('add', $(this).text())
-        elemTarget = ''
-
-    $('.text-keyword-wrapper').on 'click', (event)->
-      switch $('.text-keyword-wrapper').index($(this))
-        when 0
-          elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_0_keyword')
-        when 1
-          elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_1_keyword')
-        when 2
-          elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_2_keyword')
-        when 3
-          elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_3_keyword')
-        when 4
-          elemTarget = $('#profile_keyword_collection_profile_keywords_attributes_4_keyword')
-        else
-          elemTarget = ''
-          break
-      return
-
-    $('#profile_keyword_collection_profile_keywords_attributes_0_keyword').on 'change', (event) ->
-      addKeyword($(this))
-      event.preventDefault()
-
-    $('#profile_keyword_collection_profile_keywords_attributes_1_keyword').on 'change', (event) ->
-      addKeyword($(this))
-      event.preventDefault()
-
-    $('#profile_keyword_collection_profile_keywords_attributes_2_keyword').on 'change', (event) ->
-      addKeyword($(this))
-      event.preventDefault()
-
-    $('#profile_keyword_collection_profile_keywords_attributes_3_keyword').on 'change', (event) ->
-      addKeyword($(this))
-      event.preventDefault()
-
-    $('#profile_keyword_collection_profile_keywords_attributes_4_keyword').on 'change', (event) ->
-      addKeyword($(this))
-      event.preventDefault()
-
-    $(document).on 'keydown', '.bootstrap-tagsinput input', (event) ->
-      if event.keyCode == 13
-        event.preventDefault()
-        $('.bootstrap-tagsinput input').blur()
+      $(this).focus()
 
   $('.profile-face .item img').each (index) ->
     baseWidth = 273
@@ -271,3 +317,90 @@ $ ->
       if calcHeight > 320
         ih = (calcHeight - 320) / 2
         $(this).css("top", "-"+ih+"px")
+
+  if $('body').hasClass('profiles self_introduction')
+    $(document).on 'click', '.select_category_link', (event) ->
+      selected = $("input[name*='[tag_list]']")
+      array_index = selected.length + 1
+      category_index = $('.select_category_link').index(this)
+      category_id = $('.select_category_link').eq(category_index).attr("category_id")
+
+      if $('.select_category_link').eq(category_index).hasClass('listing_image_selected')
+        user_id = $('#profile_user_id').val()
+
+        if confirm('Are you sure you want to delete this category?')
+          $.ajax
+            type: 'DELETE'
+            url: '/profiles/delete_category'
+            data: {category_id: category_id, user_id: user_id}
+            success: (data) ->
+              $('.select_category_link').eq(category_index).children("i").remove()
+              $('.select_category_link').eq(category_index).removeClass 'listing_image_selected'
+              $("[class='" + category_id + "']").remove()
+              return false
+            error: ->
+              return false
+      else if selected.length == 3
+          alert 'You can register a maximum of 3 categories.'
+      else
+        $('.select_category_link').eq(category_index).append("<i class='fa fa-check'></i>")
+        $('.select_category_link').eq(category_index).addClass 'listing_image_selected'
+
+        img_src = $('.select_category_link').eq(category_index).children("img").attr("src")
+        tag_list_id = 'tag_list_' + category_id
+        placeholder = $('.select_category_link').eq(category_index).attr("placehodler_str")
+
+        $("<div class='" + category_id + "'><img src=" + img_src + " /><input type='hidden' value='" + category_id + "' name='profile[profile_categories_attributes][" + array_index + "][category_id]'/><input value='' data-role='tagsinput' class='string optional form-control' placeholder='" + placeholder + "' type='text' name='profile[profile_categories_attributes][" + array_index + "][tag_list]' id='" + tag_list_id + "'/></div>").insertBefore(".input_categories_space_end")
+
+        $("#" + tag_list_id).tagsinput('refresh')
+      return false
+
+  # self_introduction
+  if $('body').hasClass('profiles self_introduction')
+
+    # placeholder attr
+    placeholder = 'Eg.) Hello, my name is Suzuki.\nI’m a university student, and I live in a town called Kamakura, about an hour away from Tokyo.\nKamakura is famous for the “Daibutsu,” or “Great Buddha,” but I think the real appeal is the traditional Japanese food full of natural goodness, such as fresh vegetables and fish.  I like eating, and I am good at cooking.  One day, I’d like to make my own restaurant abroad to spread the appeal of Japanese food, so I’m studying hard at learning English.\nI’d love to introduce you to some amazing restaurants that aren’t listed in guidebooks.Feel free to message me any time about Japanese food! Let’s be friends!'
+    if $('.self_introduction-textarea').val() == ''
+      $('.self_introduction-textarea').val(placeholder)
+    $('.self_introduction-textarea').focus ->
+      if $(this).val() == placeholder
+        $(this).val('')
+      return
+    $('.self_introduction-textarea').blur ->
+      if $(this).val() == ''
+        $(this).val(placeholder)
+      return
+
+    $('.simple_form').on 'submit', ->
+      if $('.self_introduction-textarea').val() == placeholder
+        $('.self_introduction-textarea').val('')
+
+  if $('.sidenav-list-profile').length
+    # sticky sp nav
+    if $('.col-lg-3').css('float') != 'left'
+      stickyNav = ->
+        scrollTop = $(window).scrollTop()
+
+        if scrollTop >= 47
+          $('.sidenav-list-profile').addClass('fixed')
+          $('.sidenav-list-profile-dummy').show()
+        else
+          $('.sidenav-list-profile').removeClass('fixed')
+          $('.sidenav-list-profile-dummy').hide()
+        return
+
+      stickyNav()
+
+      $(window).scroll ->
+        stickyNav()
+        return
+
+      timer = false
+      $(window).resize ->
+        if timer != false
+          clearTimeout timer
+        timer = setTimeout((->
+          stickyNav()
+          return
+        ), 200)
+        return

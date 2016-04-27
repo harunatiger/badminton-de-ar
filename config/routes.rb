@@ -27,9 +27,13 @@ Rails.application.routes.draw do
     end
     resources :profile_banks
     resources :profile_identities, only: [:new, :edit, :create, :update, :destroy]
-    resources :profile_keywords
+    #resources :profile_keywords
     member do
       get 'self_introduction',    action: 'self_introduction'
+      get 'read_more_reviews',    action: 'read_more_reviews'
+    end
+    collection do
+      delete 'delete_category',    action: 'delete_category'
     end
     member do
       post :favorite_user

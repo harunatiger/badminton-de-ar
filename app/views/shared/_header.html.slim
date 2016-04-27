@@ -32,6 +32,8 @@
                   .media-photo.media-round.user-profile-image.media-avatar
                     /= image_tag profile_to_image_thumb(current_user.profile), class: 'size28'
                     .size28[style="background-image: url('#{asset_path profile_to_image_thumb(current_user.profile)}')"]
+                    - if exist_profile_blank?
+                      i.fa.fa-exclamation-circle.fa-red
                   - if current_user.profile.first_name.present?
                     = current_user.profile.first_name
                   - else
@@ -75,6 +77,8 @@
             .media-photo.media-round.user-profile-image.media-avatar
               /= image_tag(profile_to_image_thumb(current_user.profile), class: 'size28')
               .size28[style="background-image: url('#{asset_path profile_to_image_thumb(current_user.profile)}')"]
+            - if exist_profile_blank?
+              i.fa.fa-exclamation.fa-exclamation-alert
             span.name
               - if current_user.profile.first_name.present?
                 = current_user.profile.first_name
@@ -100,7 +104,10 @@
             /li
               /= link_to Settings.page.wishlists, wishlists_path, rel: "nofollow"
             li
-              = link_to Settings.page.profile, edit_profile_path(current_user.profile.id), rel: "nofollow"
+              = link_to edit_profile_path(current_user.profile.id), rel: "nofollow" do
+                - if exist_profile_blank?
+                  i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+                = Settings.page.profile
             li
               = link_to Settings.page.account, edit_user_registration_path, rel: "nofollow"
             li
