@@ -7,12 +7,15 @@ oauth:
     scope: "public_profile,email,user_friends"
     info_fields: "name, first_name, last_name, email"
     image_size: 'large'
+announcement:
+  page_count: 5
 profile:
   save:
     success: "Profile updated successfully"
     failure: "電話番号を正しく登録してください"
   send_message: 'Complete your profile in order to contact TOMODACHI GUIDE'
   deleted_profile_id: "This account has been canceled"
+  review_display_count: 10
 profile_images:
   save:
     success: "Profile updated successfully"

@@ -1,0 +1,9 @@
+.page-container
+  .row.row-space-top-8
+    .col-md-12.text-center
+      = link_to announcement_path(announcement.page_url), class: "news-banner" do
+        .bg-pc.hide--sp[style="background-image: url(#{asset_path announcement.banner_image_pc});"]
+        .bg-sp.show--sp[style="background-image: url(#{asset_path announcement.banner_image_sp});"]
+        .content.va-container.va-container-wh
+          .va-middle.h3.text-contrast
+            b = announcement.title.html_safe

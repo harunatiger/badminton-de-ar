@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406130214) do
+ActiveRecord::Schema.define(version: 20160419065236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,26 @@ ActiveRecord::Schema.define(version: 20160406130214) do
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "announcements", force: :cascade do |t|
+    t.string   "title",            default: ""
+    t.string   "page_url",         default: "", null: false
+    t.date     "posting_start_at",              null: false
+    t.date     "posting_end_at",                null: false
+    t.string   "banner_image_pc",  default: ""
+    t.string   "banner_image_sp",  default: ""
+    t.string   "banner_space",                               array: true
+    t.date     "publish_date"
+    t.text     "overview",         default: ""
+    t.string   "external_url",     default: ""
+    t.text     "detail_html",      default: ""
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "announcements", ["posting_end_at"], name: "index_announcements_on_posting_end_at", using: :btree
+  add_index "announcements", ["posting_start_at"], name: "index_announcements_on_posting_start_at", using: :btree
+  add_index "announcements", ["title"], name: "index_announcements_on_title", using: :btree
 
   create_table "auths", force: :cascade do |t|
     t.integer  "user_id"
@@ -89,6 +109,22 @@ ActiveRecord::Schema.define(version: 20160406130214) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
   create_table "confections", force: :cascade do |t|
     t.integer  "listing_id"

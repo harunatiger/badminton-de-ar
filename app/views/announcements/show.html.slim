@@ -1,0 +1,23 @@
+/.announcement
+  .announcement-hero
+    .cover-bg-container
+      .bg-pc.hide--sp[style="background-image: url(#{asset_path @announcement.banner_image_pc});"]
+      .bg-sp.show--sp[style="background-image: url(#{asset_path @announcement.banner_image_sp});"]
+    .title-section
+      .page-container
+        .row
+          .col-lg-12
+            h1#pickup_name.text-contrast.text-center
+
+
+.news-title
+  h2.h4.pull-left
+    = @announcement.title.html_safe
+  .pull-right
+    = @announcement.publish_date
+
+.announcement_html
+  .page-container
+    .row
+      .col-md-12
+        = @announcement.detail_html.html_safe

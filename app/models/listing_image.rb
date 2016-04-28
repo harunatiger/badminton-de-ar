@@ -62,6 +62,7 @@ class ListingImage < ActiveRecord::Base
     new_coutn = 0
     old_count = 0
     ListingImage.image_categories.each_with_index do |category, i|
+      i += 1
       if new_category == category[:title]
         new_coutn = i
       end

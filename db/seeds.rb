@@ -1,14 +1,9 @@
 require 'csv'
 
-i = 1
+Category.destroy_all
+ActiveRecord::Base.connection.reset_pk_sequence!('categories')
 CSV.foreach('db/seeds_data/categories.csv') do |row|
-  category = Category.where(id: i).first
-  if category
-    category.update(name: row[0])
-  else
-    Category.create(name: row[0])
-  end
-  i += 1
+  Category.create(name: row[0])
 end
 
 i = 1

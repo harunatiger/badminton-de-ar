@@ -62,6 +62,7 @@ class Profile < ActiveRecord::Base
   enum gender: { female: 0, male: 1, others: 2, not_specified: 3 }
 
   attr_accessor :enable_strict_validation
+  accepts_nested_attributes_for :profile_categories, allow_destroy: true
 
   validates :user_id, presence: true
   validates :user_id, uniqueness: true
@@ -175,5 +176,16 @@ class Profile < ActiveRecord::Base
   
   def thumb_image
     self.thumb_images.first
+  end
+  
+  def category_selected?(category_name)
+    result = false
+    self.profile_categories.each do |profile_category|
+      if Category.find(profile_category.category_id).name == category_name
+        result = true
+        break
+      end
+    end
+    result
   end
 end

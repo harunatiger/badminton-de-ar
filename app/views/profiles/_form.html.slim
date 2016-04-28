@@ -1,6 +1,11 @@
     = simple_form_for(@profile, html: { class: "form--sp" }) do |f|
       = f.error_notification
       = f.hidden_field :user_id, value: current_user.id
+      - @profile.enable_strict_validation = true
+      - if !@profile.valid?
+        .row-space-1.text-red
+          i.fa.fa-exclamation-circle.fa-exclamation-circle-alert
+          | You cannot exchange messages with guides until you enter the required information.
       .card.row-space-4
         .card-header
           | Enter your basic information.
@@ -119,14 +124,14 @@
         .card-body
           .row.row-condensed.row-space-2
             label.col-md-10.col-md-offset-1
-              | Briefly introduce yourself, and talk about the reason you decided to join Huber.
+              | Talk about yourself and what you look forward to in your trip!
               .small1.text-muted.row-space-top-1
                 i.fa.fa-lock.balloon.fa-green[title="Private"]
                 ' 
                 | This information is not open to the public.
             .col-md-10.col-md-offset-1.row-space-4
               .required-container   
-                = f.input_field :free_field, as: :text, cols: "30", rows: "12", placeholder: "Eg. Hello. My name is Suzuki, and I'm 20 years old. I joined Huber. because I want to show people around Kamakura, where I live. I'm looking forward to meeting you!"
+                = f.input_field :free_field, as: :text, cols: "30", rows: "12", placeholder: "Eg. Hello. I'm John, 20 years old. I'm looking forward to having local experiences in Kamakura."
             /.col-7.row-space-4
               = f.input_field :location, placeholder: "Ex.) Enter your zip code to find your address automatically"
           /.row.row-condensed.row-space-4

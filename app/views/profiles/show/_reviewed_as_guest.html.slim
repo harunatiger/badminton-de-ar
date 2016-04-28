@@ -1,3 +1,4 @@
+#reviewed_as_guest
   .page-container.row-space-top-6.row-space-8
     .row
       .col-lg-8
@@ -12,6 +13,10 @@
             .reviews
               - reviewed_as_guest.each do |r|
                 .row.text-center-sm.row-space-4
+                  - if r.tour_image.present?
+                    .col-md-12.row-space-4
+                      .media-cover-img
+                        .review-img-cover[style="background-image: url(#{asset_path r.tour_image})"]
                   .col-md-2.col-sm-12.row-space-2
                     .avatar-wrapper.text-center
                       = link_to profile_path(user_id_to_profile_id(r.host_id)), class: "text-muted" do
@@ -22,7 +27,17 @@
                       /.text-muted.date.show-sm
                         = r.created_at.strftime("%y年%m月%d日")
                   .col-md-10.col-sm-12
-                    .comment-container.expandable.expandable-trigger-more.expanded
+                    .comment-container.expandable
+                      .expandable-trigger-more
+                        .expandable-content
+                          .expandable-inner
+                            p
+                              = simple_format(h(r.msg))
+                            .expandable-indicator.expandable-indicator-light
+                      = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
+                        | read more
+                  
+                    /.comment-container.expandable.expandable-trigger-more.expanded
                       .expandable-content
                         p
                           = r.msg
@@ -33,9 +48,12 @@
                       - reserv = reservation_id_to_reservation_obj(r.reservation_id)
                       - l = listing_id_to_listing_obj(r.listing_id)
                       /= reserv.schedule
-                    .listing-name.text-center--sp
+                    .listing-name.text-center--sp.row-space-top-2
                       = link_to listing_path(l.id)
                         = l.title
-            .row.row-space-2.line-separation
-              .col-10.col-offset-2
-                hr
+                .row.row-space-2.line-separation
+                  .col-10.col-offset-2
+                    hr
+              - if reviewed_as_guest_count > reviewed_as_guest.count
+                .row.text-center
+                  = link_to 'Read more reviews', '#', class: 'btn btn-default read_reviews_link', current_count: reviewed_as_guest.count, reviewed_as: 'guest'

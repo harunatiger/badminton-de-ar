@@ -1,39 +1,91 @@
-ul.sidenav-list
-  - if controller_name == 'profiles' and action_name != 'self_introduction'
-    li
-      = link_to "General information", edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "true"}
-  - else
-    li
-      = link_to "General information", edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"}
-  - if controller_name == 'profiles' and action_name == 'self_introduction'
-    li
-      = link_to "Introduction", self_introduction_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "true"}
-  - else
-    li
-      = link_to "Introduction", self_introduction_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"}
-  - if Listing.mine(current_user.id).without_soft_destroyed.order_by_updated_at_desc.present?
-    - if controller_name == 'profile_keywords'
+.sidenav-list-profile
+  ul.sidenav-list
+    - current_user.profile.enable_strict_validation = true
+    - if controller_name == 'profiles' and action_name != 'self_introduction'
       li
-        = link_to "My recipe for the perfect tour", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "true"}
+        = link_to edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "true"} do
+          - if !current_user.profile.valid?
+            i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+          span.hide--sp
+            | General information
+          span.show--sp
+            | General
     - else
       li
-        = link_to "My recipe for the perfect tour", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "false"}
-  - if controller_name == 'profile_images'
-    li
-      = link_to "Profile picture", manage_profile_profile_images_path(@profile), class: "sidenav-item", aria: {selected: "true"}
-  - else
-    li
-      = link_to "Profile picture", manage_profile_profile_images_path(@profile), class: "sidenav-item", aria: {selected: "false"}
-  - if controller_name == 'profile_identities'
-    li
-      = link_to "ID information", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"}
-  - else
-    li
-      = link_to "ID information", "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"}
-  /- if !current_user.guest?
-    - if controller_name == 'profile_banks'
+        = link_to edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"} do
+          - if !current_user.profile.valid?
+            i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+          span.hide--sp
+            | General information
+          span.show--sp
+            | General
+    - if !current_user.guest?
+      - if controller_name == 'profiles' and action_name == 'self_introduction'
+        li
+          = link_to self_introduction_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "true"} do
+            span.hide--sp
+              | Introduction
+            span.show--sp
+              | Intro
+      - else
+        li
+          = link_to self_introduction_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"} do
+            span.hide--sp
+              | Introduction
+            span.show--sp
+              | Intro
+    /- if Listing.mine(current_user.id).without_soft_destroyed.order_by_updated_at_desc.present?
+      - if controller_name == 'profile_keywords'
+        li
+          = link_to "My recipe for the perfect tour", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "true"}
+      - else
+        li
+          = link_to "My recipe for the perfect tour", "#{profile_keyword_link}", class: "sidenav-item", aria: {selected: "false"}
+    - if controller_name == 'profile_images'
       li
-        = link_to "Bank Details", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"}
+        = link_to manage_profile_profile_images_path(@profile), class: "sidenav-item", aria: {selected: "true"} do
+          span.hide--sp
+            | Profile picture
+          span.show--sp
+            | Pic
     - else
       li
-        = link_to "Bank Details", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "false"}
+        = link_to manage_profile_profile_images_path(@profile), class: "sidenav-item", aria: {selected: "false"} do
+          span.hide--sp
+            | Profile picture
+          span.show--sp
+            | Pic
+    - if controller_name == 'profile_identities'
+      li
+        = link_to "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"} do
+          - if !profile_identity_authorized?(current_user.id)
+            i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+          span.hide--sp
+            | ID information
+          span.show--sp
+            | ID
+    - else
+      li
+        = link_to "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"} do
+          - if !profile_identity_authorized?(current_user.id)
+            i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+          span.hide--sp
+            | ID information
+          span.show--sp
+            | ID
+    - if !current_user.guest?
+      - if controller_name == 'profile_banks'
+        li
+          = link_to "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"} do
+            span.hide--sp
+              | Bank Details
+            span.show--sp
+              | Bank
+      - else
+        li
+          = link_to "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "false"} do
+            span.hide--sp
+              | Bank Details
+            span.show--sp
+              | Bank
+.sidenav-list-profile-dummy
