@@ -136,7 +136,7 @@
                       = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
                   - else
                     = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
-                - elsif not profile_self_introduction_exists?
+                - elsif not profile_completed?
                   = link_to 'Request Booking', profile_link, class: 'btn btn-large btn-block btn-primary'
                 - else
                   = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary"
@@ -151,7 +151,7 @@
                       .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
                     i.fa.fa-comments-o
                     | Talk to me
-                - elsif not profile_self_introduction_exists?
+                - elsif not profile_completed?
                   = link_to profile_link, class: 'btn btn-large btn-block btn-relative' do
                     .media-photo.media-round.media-avatar
                       .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]

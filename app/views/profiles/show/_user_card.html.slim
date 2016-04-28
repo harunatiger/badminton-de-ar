@@ -82,7 +82,7 @@
             .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
           i.fa.fa-comments-o
           | Talk to me
-      - elsif not profile_self_introduction_exists?
+      - elsif not profile_completed?
         = link_to profile_link, class: 'btn btn-large btn-block btn-primary btn-relative' do
           .media-photo.media-round.media-avatar
             .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]

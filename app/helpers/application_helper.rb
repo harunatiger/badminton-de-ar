@@ -790,4 +790,9 @@ module ApplicationHelper
   def display_news?
     Announcement.display.present?
   end
+
+  def profile_completed?
+    current_user.profile.enable_strict_validation = true
+    current_user.profile.valid?
+  end
 end
