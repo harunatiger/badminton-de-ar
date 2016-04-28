@@ -786,4 +786,9 @@ module ApplicationHelper
     current_user.profile.enable_strict_validation = true
     !current_user.profile.valid? or !profile_identity_authorized?(current_user.id)
   end
+  
+  def profile_completed?
+    current_user.profile.enable_strict_validation = true
+    current_user.profile.valid?
+  end
 end
