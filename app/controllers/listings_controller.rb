@@ -38,6 +38,7 @@ class ListingsController < ApplicationController
     @reservation = Reservation.new
     @profile_keyword = ProfileKeyword.where(user_id: @listing.user_id, profile_id: Profile.where(user_id: @listing.user_id).pluck(:id).first).keyword_limit
     gon.keywords = @profile_keyword
+    @announcement = Announcement.display_at('listing').first
   end
 
   def new

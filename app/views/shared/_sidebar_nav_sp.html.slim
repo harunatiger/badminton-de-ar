@@ -46,6 +46,8 @@
           /li
             /= link_to Settings.page.wishlists, wishlists_path, class: "link-reset menu-item", rel: "nofollow"
           li
+            - if exist_profile_blank?
+              i.fa.fa-exclamation-circle.fa-exclamation-circle-alert.fa-red
             = link_to Settings.page.profile, edit_profile_path(current_user.profile.id), class: "link-reset menu-item", rel: "nofollow"
           li
             = link_to Settings.page.account, edit_user_registration_path, class: "link-reset menu-item", rel: "nofollow"

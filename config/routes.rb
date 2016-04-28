@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :features
+  mount Ckeditor::Engine => '/ckeditor'
 
   get 'static_pages/cancel_policy_en'
   get 'static_pages/service_agreement_en'
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
   rescue Exception => e
     puts "ActiveAdmin: #{e.class}: #{e}"
   end
+  
+  resources :announcements, param: :page_url, only: [:show, :index]
 
   resources :profiles do
     resources :profile_images, only: [:show, :create, :update, :destroy] do
@@ -27,9 +30,13 @@ Rails.application.routes.draw do
     end
     resources :profile_banks
     resources :profile_identities, only: [:new, :edit, :create, :update, :destroy]
-    resources :profile_keywords
+    #resources :profile_keywords
     member do
       get 'self_introduction',    action: 'self_introduction'
+      get 'read_more_reviews',    action: 'read_more_reviews'
+    end
+    collection do
+      delete 'delete_category',    action: 'delete_category'
     end
     member do
       post :favorite_user

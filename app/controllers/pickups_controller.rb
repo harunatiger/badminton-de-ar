@@ -12,6 +12,7 @@ class PickupsController < ApplicationController
   def show
     @listings = @pickup.listings.opened.includes(:listing_detail)
     @pickups = Pickup.where.not(id: @pickup.id)
+    @announcement = Announcement.display_at('pickup').first
   end
 
   # GET /pickups/new
