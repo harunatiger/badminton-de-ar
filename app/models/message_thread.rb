@@ -24,7 +24,6 @@ class MessageThread < ActiveRecord::Base
   has_many :users, through: :message_thread_users, dependent: :destroy
 
   attr_accessor :reservation_progress
-  self.inheritance_column = :_type_disabled
 
   scope :order_by_updated_at_desc, -> { order('updated_at') }
   scope :typed, -> type { where(type: type)}
