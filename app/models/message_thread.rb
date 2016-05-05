@@ -24,10 +24,11 @@ class MessageThread < ActiveRecord::Base
   has_many :users, through: :message_thread_users, dependent: :destroy
 
   attr_accessor :reservation_progress
-  
+  self.inheritance_column = :_type_disabled
+
   scope :order_by_updated_at_desc, -> { order('updated_at') }
   scope :typed, -> type { where(type: type)}
-  
+
   def counterpart_user(my_user_id)
     self.users.where.not(id: my_user_id).first
   end
@@ -65,7 +66,7 @@ class MessageThread < ActiveRecord::Base
     mt = MessageThread.create(type: self.model_name.name)
     mt.update(host_id: to_user_id) if mt.guest_thread?
     mt.update(reservation_id: reservation_id) if mt.pair_guide_thread?
-    
+
     MessageThreadUser.create(
       message_thread_id: mt.id,
       user_id: to_user_id
@@ -112,24 +113,24 @@ class MessageThread < ActiveRecord::Base
       return self.host_id != from_user_id
     end
   end
-  
+
   def guest_thread?
     self.type == 'GuestThread'
   end
-  
+
   def guide_thread?
     self.type == 'GuideThread'
   end
-  
+
   def pair_guide_thread?
     self.type == 'PairGuideThread'
   end
-  
+
   def origin_from_user_id
     message = Message.message_thread(self.id).order('created_at asc').first
     message.present? ? message.from_user_id : false
   end
-  
+
   def origin_to_user_id
     message = Message.message_thread(self.id).order('created_at asc').first
     message.present? ? message.to_user_id : false
