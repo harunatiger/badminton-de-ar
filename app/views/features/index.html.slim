@@ -275,7 +275,7 @@
       h3.text-center.strong
         | A town bursting with Japanese sights, only an hour from Tokyo
       .row.row-space-top-8.row-space-8
-        .col-md-6.col-lg-3.row-space-4
+        .col-md-6.col-lg-4.row-space-4
           - if listings[0].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
           - else
@@ -313,7 +313,7 @@
                 = link_to "7 Kamakura and the Ocean", "#highlight7", class: "highlight-anchor"
               li.row-space-1
                 = link_to "8 Takara no Niwa", "#highlight8", class: "highlight-anchor"
-        .col-md-6.col-lg-3.row-space-4
+        .col-md-6.col-lg-4.row-space-4
           - if listings[1].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
           - else
@@ -347,7 +347,7 @@
                 = link_to "9 Enoshima", "#highlight9", class: "highlight-anchor"
               li.row-space-1
                 = link_to "10 Kumazawa Brewery", "#highlight10", class: "highlight-anchor"
-        .col-md-6.col-lg-3.row-space-4
+        .col-md-6.col-lg-4.row-space-4
           - if listings[2].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
           - else
@@ -381,7 +381,7 @@
                 = link_to "5 Tea at Jomyo-ji Temple", "#highlight5", class: "highlight-anchor"
               li.row-space-1
                 = link_to "6 Food in Kamakura", "#highlight6", class: "highlight-anchor"
-        .col-md-6.col-lg-3.row-space-4
+        /.col-md-6.col-lg-3.row-space-4
           - if listings[3].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[3]), listing: listings[3]}
           - else
