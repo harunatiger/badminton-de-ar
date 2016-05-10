@@ -50,6 +50,7 @@ class ListingsController < ApplicationController
   end
 
   def edit
+    @listing.build_listing_detail if @listing.listing_detail.blank?
     #@categories = PickupCategory.all
     #@tags = PickupTag.all
     @areas = PickupArea.all
@@ -81,9 +82,6 @@ class ListingsController < ApplicationController
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
   def update
-    #@listing.location = listing_params['location']
-    #if @listing.set_lon_lat
-    @listing.listing_detail.register_detail = false
     respond_to do |format|
       if @listing.update(listing_params)
           format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
