@@ -82,13 +82,8 @@ class ListingsController < ApplicationController
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
   def update
-    #@listing.location = listing_params['location']
-    #if @listing.set_lon_lat
-    para = listing_params
-    para[:listing_detail_attributes]['register_detail'] = false
-    #@listing.listing_detail.register_detail = false
     respond_to do |format|
-      if @listing.update(para)
+      if @listing.update(listing_params)
           format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
       else
         @categories = PickupCategory.all
