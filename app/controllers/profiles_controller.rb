@@ -45,6 +45,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+    @profile.profile_countries.build if @profile.profile_countries.blank?
     flash.now[:notice] = Settings.profile.send_message if params[:send_message] == 'yes'
   end
 
@@ -188,6 +189,6 @@ class ProfilesController < ApplicationController
         :listing_count, :wishlist_count, :bookmark_count, :reviewed_count,
         :reservation_count,
         :ave_total, :ave_accuracy, :ave_communication, :ave_cleanliness, :ave_location,
-        :ave_check_in, :ave_cost_performance, :created_at, :updated_at, category_ids: [],language_ids: [], profile_categories_attributes: [:id, :category_id, :tag_list => []])
+        :ave_check_in, :ave_cost_performance, :created_at, :updated_at, category_ids: [],language_ids: [], profile_categories_attributes: [:id, :category_id, :tag_list => []], profile_countries_attributes: [:id, :country, :_destroy])
     end
 end

@@ -41,3 +41,4 @@
 //= require review
 //= require friends
 //= require chamo
+//= require jquery_nested_form

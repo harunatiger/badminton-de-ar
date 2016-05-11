@@ -456,6 +456,8 @@ $ ->
         return
       if $('body').is('.profiles.self_introduction') and target == '#'
         return
+      if $('body').is('.profiles.edit') and target == "javascript:void(0)"
+        return
       if $('body').is('.profile_keywords.new') and target == '#'
         return
       if $('body').is('.profile_keywords.edit') and target == '#'
