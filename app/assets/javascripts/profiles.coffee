@@ -320,9 +320,10 @@ $ ->
 
   if $('body').hasClass('profiles self_introduction')
     # select category
+    array_index = 2
     $(document).on 'click', '.select_category_link', (event) ->
       selected = $(".selected_category")
-      array_index = selected.length
+      #array_index = selected.length
       category_index = $('.select_category_link').index(this)
       category_id = $('.select_category_link').eq(category_index).attr("category_id")
       category_name = $('.set_category_container_title').eq(category_index).text()
@@ -344,21 +345,13 @@ $ ->
       else if selected.length == 3
           alert 'You can register a maximum of 3 categories.'
       else
+        array_index += 1
         $('.select_category_link').eq(category_index).append("<i class='fa fa-check'></i>")
         $('.select_category_link').eq(category_index).addClass 'listing_image_selected'
 
         img_src = $('.select_category_link').eq(category_index).children("img").attr("src")
         tag_list_id = 'tag_list_' + category_id
         placeholder = $('.select_category_link').eq(category_index).attr("placehodler_str")
-        
-        #set array name
-        input_existed = $("[name='profile[profile_categories_attributes][" + array_index + "][tag_list][]']")
-        if input_existed.length
-          hidden_existed = $("[name='profile[profile_categories_attributes][" + array_index + "][category_id]']")
-          input_name = "profile[profile_categories_attributes][" + (array_index - 1).toString() + "][tag_list][]"
-          hidden_name = "profile[profile_categories_attributes][" + (array_index - 1).toString() + "][category_id]"
-          input_existed.attr("name",input_name)
-          hidden_existed.attr("name",hidden_name)
         
         $("<div class='selected_category' category_id=" + category_id + "><img src=" + img_src + " /><input type='hidden' value='" + category_id + "' name='profile[profile_categories_attributes][" + array_index + "][category_id]'/><small>" + category_name + "</small><a class='add_tag_link' href='#'><i class='fa fa-plus-circle'></i></a><input value='' class='string optional form-control imeoff' placeholder='" + placeholder + "' type='text' name='profile[profile_categories_attributes][" + array_index + "][tag_list][]' id='" + tag_list_id + "'/><a class='delete_tag_link' href='#'><i class='fa fa-times'></i></a><span class='tags_input_end'></span></div>").insertBefore(".input_categories_space_end")
       return false
