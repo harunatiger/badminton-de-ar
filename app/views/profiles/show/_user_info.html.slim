@@ -39,6 +39,14 @@ hr.row-space-4
       - if language_ja?(profile)
         li.balloon(title="Japanese")
           span JA
+- if profile.profile_countries.present?
+  br
+  hr.row-space-top-4.row-space-4
+  h4.row-space-4
+    | Countries visited
+  .row-space-4
+    - profile.profile_countries.each do |profile_country|
+      = profile_country.country_name
 - unless profile.user.guest?
   .profile-category-container
     hr.row-space-top-4.row-space-4

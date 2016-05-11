@@ -13,7 +13,7 @@
               = hidden_field_tag  :category, category[:title]
               .col-lg-15.col-md-3.col-xs-4.row-space-3
                 - if @profile.category_selected?(category[:title])
-                  = link_to "#", class: "select_category_link listing_image_selected media-round media-photo", category_id: category_name_to_id(category[:title]) do
+                  = link_to "#", class: "select_category_link listing_image_selected media-round media-photo", category_id: category_name_to_id(category[:title]), placehodler_str: category_name_to_placeholder(category[:title])  do
                     = image_tag category[:image], class: "img-responsive media-round"
                     i.fa.fa-check
                 - else
@@ -27,11 +27,23 @@
             b write some examples of things or places 
             | that you like to let your guests know more about your personality. 
           .profile-category-keyword-container
-            - @profile.profile_categories.order_by_created_at_asc.each do |profile_category|      
-              div[class='#{profile_category.category_id}']
+            - @profile.profile_categories.order_by_created_at_asc.each_with_index do |profile_category, i|
+              div[class='selected_category' category_id='#{profile_category.category_id}']
                 = f.fields_for :profile_categories, profile_category do |pc|
+                  = pc.hidden_field :category_id, value: profile_category.category_id
                   = image_tag profile_category_to_image(profile_category)
-                  = pc.input_field :tag_list, value: profile_category.tag_list.join(','), 'data-role' => 'tagsinput', class: 'form-control imeoff', placeholder: category_name_to_placeholder(profile_category_to_name(profile_category))
+                  small=image_category_display_name(profile_category_to_name(profile_category))
+                  =link_to '#', class: 'add_tag_link'
+                    i.fa.fa-plus-circle
+                  - name = 'profile[profile_categories_attributes][' + i.to_s + '][tag_list][]'
+                  - profile_category.tag_list_sort_by_created_at.each do |tag|
+                    = pc.input_field :tag_list, value: tag, class: 'form-control imeoff', placeholder: category_name_to_placeholder(profile_category_to_name(profile_category)), name: name
+                    =link_to '#', class: 'delete_tag_link'
+                      i.fa.fa-times
+                  = pc.input_field :tag_list, value: '', class: 'form-control imeoff', placeholder: category_name_to_placeholder(profile_category_to_name(profile_category)), name: name
+                  =link_to '#', class: 'delete_tag_link'
+                    i.fa.fa-times
+                  span.tags_input_end
             span.input_categories_space_end
           hr.row-space-4
           .row.row-condensed.row-space-4.row-table
