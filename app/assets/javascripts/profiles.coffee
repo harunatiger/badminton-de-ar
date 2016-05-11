@@ -437,13 +437,3 @@ $ ->
           return
         ), 200)
         return
-
-  if $('body').hasClass('profiles edit') or $('body').hasClass('profiles new')
-    $(document).on 'click', '.add_country_link', (event) ->
-      alert $('.country_select_tag').count
-      $.ajax
-        type: 'GET'
-        url: '/profiles/add_country_select'
-        success: (data) ->
-          $('#additional_country').before(data)
-      return false
