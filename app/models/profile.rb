@@ -188,4 +188,16 @@ class Profile < ActiveRecord::Base
     end
     result
   end
+  
+  def self.set_up_update_params(profile_params)
+    profile_params[:location] = profile_params[:municipality] + ' ' + profile_params[:prefecture] if profile_params[:municipality]
+    if profile_params[:profile_categories_attributes].present?
+      profile_params[:profile_categories_attributes].each_with_index do |profile_category, i|
+        if profile_category[1]['tag_list'].blank?
+          profile_params[:profile_categories_attributes][profile_category[0]]['tag_list'] = ''
+        end
+      end
+    end
+    profile_params
+  end
 end

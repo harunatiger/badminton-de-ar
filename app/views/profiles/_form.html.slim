@@ -18,14 +18,14 @@
               | Family Name
             .col-8
               .required-container
-                = f.input_field :last_name
+                = f.input_field :last_name, class: 'imeoff'
                 i.fa.fa-asterisk.balloon[title="required"]
           .row.row-condensed.row-space-4
             label.text-right.col-3
               | First Name
             .col-8
               .required-container
-                = f.input_field :first_name
+                = f.input_field :first_name, class: 'imeoff'
                 i.fa.fa-asterisk.balloon[title="required"]
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_gender"]
@@ -108,30 +108,30 @@
             label.text-right.col-3
               | Prefecture
             .col-7
-              = f.input_field :prefecture, placeholder: "Enter your zip code to find your address automatically"
+              = f.input_field :prefecture, placeholder: "Enter your zip code to find your address automatically", class: 'imeoff'
           .row.row-condensed.row-space-1
             label.text-right.col-3
               | City
             .col-7
-              = f.input_field :municipality, placeholder: "Enter your zip code to find your address automatically"
+              = f.input_field :municipality, placeholder: "Enter your zip code to find your address automatically", class: 'imeoff'
           .row.row-condensed.row-space-2
             label.text-right.col-3
               | Address
               i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-7.row-space-4
-              = f.input_field :other_address
+              = f.input_field :other_address, class: 'imeoff'
               .small1.text-muted.row-space-top-1 This information is not open to the public.
         .card-body
           .row.row-condensed.row-space-2
             label.col-md-10.col-md-offset-1
               | Talk about yourself and what you look forward to in your trip!
-              .small1.text-muted.row-space-top-1
+              /.small1.text-muted.row-space-top-1
                 i.fa.fa-lock.balloon.fa-green[title="Private"]
                 ' 
                 | This information is not open to the public.
             .col-md-10.col-md-offset-1.row-space-4
               .required-container   
-                = f.input_field :free_field, as: :text, cols: "30", rows: "12", placeholder: "Eg. Hello. I'm John, 20 years old. I'm looking forward to having local experiences in Kamakura."
+                = f.input_field :free_field, as: :text, cols: "30", rows: "12", placeholder: "Eg. Hello. I'm John, 20 years old. I'm looking forward to having local experiences in Kamakura.", class: 'imeoff'
             /.col-7.row-space-4
               = f.input_field :location, placeholder: "Ex.) Enter your zip code to find your address automatically"
           /.row.row-condensed.row-space-4
