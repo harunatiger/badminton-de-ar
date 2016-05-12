@@ -75,7 +75,7 @@ class Profile < ActiveRecord::Base
   VALID_PHONE_REGEX = /\A[-+0-9]+\z/
   validates :phone, format: { with: VALID_PHONE_REGEX, if: :enable_strict_validation, on: :update }
   
-  scope :contains?, -> name { where('last_name like ? or first_name like ?', '%' + name + '%', '%' + name + '%') }
+  scope :contains?, -> name { where('last_name ILIKE ? or first_name ILIKE ?', '%' + name + '%', '%' + name + '%') }
 
   def last_name_presence
     if self.last_name.empty?
