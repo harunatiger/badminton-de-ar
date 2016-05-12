@@ -2154,6 +2154,19 @@ a.alert-warning
         color: white
         font-size: 22px
         vertical-align: middle
+    .info--sp, .price--sp, .alert-sign--sp
+      position: absolute
+      top: 7px
+      width: 32px
+      height: 32px
+      line-height: 30px
+      text-align: center
+      background-color: $brand-theme
+      border-radius: 50%
+      .fa
+        color: white
+        font-size: 22px
+        vertical-align: middle
     .info--sp
       right: 6px
       @media (max-width: 767px)
@@ -2172,6 +2185,13 @@ a.alert-warning
       z-index: 22
       &.show-off
         opacity: 1
+      .fa
+        color: $brand-theme
+    .alert-sign--sp
+      right: 6px
+      line-height: 24px
+      background-color: white
+      transition: opacity .25s
       .fa
         color: $brand-theme
     .action--sp
