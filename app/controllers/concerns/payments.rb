@@ -22,13 +22,17 @@ module Payments
         amount: reservation.paypal_sub_total},
         {name: 'Service commission',
         amount: reservation.paypal_handling_cost},
+        {name: 'Travel insurance',
+        amount: reservation.paypal_travel_insurance},
         {name: 'Discount',
           amount: reservation.paypal_campaign_discount}]
     else
       [{name: reservation.listing.title,
         amount: reservation.paypal_sub_total},
         {name: 'Service commission',
-        amount: reservation.paypal_handling_cost}]
+        amount: reservation.paypal_handling_cost},
+        {name: 'Travel insurance',
+        amount: reservation.paypal_travel_insurance}]
     end
   end
 

@@ -72,6 +72,13 @@
             .col-md-8
               | ¥&nbsp;
               = @reservation.handling_cost
+          .row.row-condensed.row-space-2.row-space-top-3
+            .col-md-4.text-muted.strong.text-right.text-left--sp
+              = link_to 'Travel insurance:', "#travel_insurance", class: "travel_insurance", data: { toggle: "modal" }
+            .col-md-8
+              | ¥&nbsp;
+              = @reservation.insurance_fee
+              | (#{@reservation.insurance_people_str})
           - if @reservation.campaign.present?
             .row.row-condensed.row-space-2.row-space-top-3
               .col-md-4.text-muted.strong.text-right.text-left--sp
@@ -93,3 +100,4 @@
               - else
                 = f.submit "Complete payment", name: 'purchase', class: "btn btn-primary"
               = f.submit "Cancel payment", name: 'cancel_payment', class: "btn"
+= render partial: '/shared/modals/travel_insurance'
