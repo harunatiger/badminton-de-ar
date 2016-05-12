@@ -567,6 +567,36 @@ $ ->
         gallery:
           enabled: true
       return
+    
+  #ga setting
+  if $('body').hasClass('profiles show')
+    $(document).on 'click', $(".profile_message"), (event) ->
+      _gaq.push [
+        '_trackEvent'
+        'reservation'
+        'profile page'
+        'Talk to me'
+      ]
+      return
+
+  if $('body').hasClass('listings show')
+    $(document).on 'click', $(".listing_request"), (event) ->
+      _gaq.push [
+        '_trackEvent'
+        'reservation'
+        'listing page'
+        'Request Booking'
+      ]
+      return
+
+    $(document).on 'click', $(".listing_message"), (event) ->
+      _gaq.push [
+        '_trackEvent'
+        'reservation'
+        'listing page'
+        'Talk to me'
+      ]
+      return
 
   ###
     # circle map

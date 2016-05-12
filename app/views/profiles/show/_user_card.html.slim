@@ -77,32 +77,32 @@
 
     - if user_signed_in?
       - if current_user.id == @profile.user_id
-        = link_to profile_link, class: "btn btn-large btn-block btn-primary disabled btn-relative" do
+        = link_to profile_link, class: "btn btn-large btn-block btn-primary disabled btn-relative profile_message" do
           .media-photo.media-round.media-avatar
             .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
           i.fa.fa-comments-o
           | Talk to me
       - elsif not profile_completed?
-        = link_to profile_link, class: 'btn btn-large btn-block btn-primary btn-relative' do
+        = link_to profile_link, class: 'btn btn-large btn-block btn-primary btn-relative profile_message' do
           .media-photo.media-round.media-avatar
             .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
           i.fa.fa-comments-o
           | Talk to me
       - else
         -if @message_thread
-          = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary btn-relative' do
+          = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary btn-relative profile_message' do
             .media-photo.media-round.media-avatar
               .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
             i.fa.fa-comments-o
             | Talk to me
         -else
-          = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: @profile.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary btn-relative' do
+          = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: @profile.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary btn-relative profile_message' do
             .media-photo.media-round.media-avatar
               .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
             i.fa.fa-comments-o
             | Talk to me
     - else
-      = link_to profile_link, class: "btn btn-large btn-block btn-primary btn-relative" do
+      = link_to profile_link, class: "btn btn-large btn-block btn-primary btn-relative profile_message" do
         .media-photo.media-round.media-avatar
           .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
         i.fa.fa-comments-o
