@@ -37,6 +37,9 @@ en:
         number: '口座番号'
       profile_identity:
         image: 'ID picture'
+      review:
+        msg: 'Message'
+        total: 'Rating'
   mailer:
     new_message:
       subject:

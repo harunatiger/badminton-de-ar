@@ -29,7 +29,7 @@ class ReviewsController < ApplicationController
         end
         format.html { redirect_to root_path, notice: notice }
       else
-        flash.now[:alert] = Settings.review.for_guest.save.failure
+        #flash.now[:alert] = Settings.review.for_guest.save.failure
         format.html { render 'for_guest'}
       end
     end
@@ -52,7 +52,7 @@ class ReviewsController < ApplicationController
 
         format.html { redirect_to root_path, notice: notice }
       else
-        flash.now[:alert] = Settings.review.for_guide.save.failure
+        #flash.now[:alert] = Settings.review.for_guide.save.failure
         format.html { render 'for_guide'}
       end
     end
