@@ -71,7 +71,7 @@
         = link_to "#", class: "" do
           |  Help
       li.list-your-thing.pull-left
-        - if !user_signed_in?
+        - if !user_signed_in? or current_user.guest?
           = link_to Settings.page.listing_new, "#guide_request", class: "guide_request btn btn-become-a-guide", data: { toggle: "modal" }
     - if user_signed_in?
       ul.nav.pull-right
