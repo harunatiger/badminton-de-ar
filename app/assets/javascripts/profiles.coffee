@@ -353,7 +353,7 @@ $ ->
         tag_list_id = 'tag_list_' + category_id
         placeholder = $('.select_category_link').eq(category_index).attr("placehodler_str")
 
-        $("<div class='selected_category' category_id=" + category_id + "><img src=" + img_src + " /><input type='hidden' value='" + category_id + "' name='profile[profile_categories_attributes][" + array_index + "][category_id]'/><small>" + category_name + "</small><a class='add_tag_link' href='#'><i class='fa fa-plus-circle'></i></a><input value='' class='string optional form-control imeoff' placeholder='" + placeholder + "' type='text' name='profile[profile_categories_attributes][" + array_index + "][tag_list][]' id='" + tag_list_id + "'/><a class='delete_tag_link' href='#'><i class='fa fa-times ccccc'></i></a><span class='tags_input_end'></span></div>").insertBefore(".input_categories_space_end")
+        $("<div class='selected_category' category_id=" + category_id + "><img src=" + img_src + " /><input type='hidden' value='" + category_id + "' name='profile[profile_categories_attributes][" + array_index + "][category_id]'/><div class='h5 row-space-2'>" + category_name + "</div><div class='row-space-2'><div class='example-tag row-space-2'><input value='' class='string optional form-control imeoff' placeholder='" + placeholder + "' type='text' name='profile[profile_categories_attributes][" + array_index + "][tag_list][]' id='" + tag_list_id + "'/><a class='delete_tag_link' title='Remove example' href='#'><i class='fa fa-times fa-red balloon' title='Remove example'></i></a></div><span class='tags_input_end'></span></div><a class='add_tag_link' href='#'><i class='fa fa-plus'></i> add example</a></div>").insertBefore(".input_categories_space_end")
       return false
 
     # delete tag
