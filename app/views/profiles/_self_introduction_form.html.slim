@@ -28,24 +28,34 @@
             | that you like to let your guests know more about your personality. 
           .profile-category-keyword-container
             - @profile.profile_categories.order_by_created_at_asc.each_with_index do |profile_category, i|
-              div[class='selected_category' category_id='#{profile_category.category_id}']
+              .selected_category[category_id='#{profile_category.category_id}']
                 = f.fields_for :profile_categories, profile_category do |pc|
                   = pc.hidden_field :category_id, value: profile_category.category_id
                   = image_tag profile_category_to_image(profile_category)
-                  small=image_category_display_name(profile_category_to_name(profile_category))
-                  =link_to '#', class: 'add_tag_link'
-                    i.fa.fa-plus-circle
-                  - name = 'profile[profile_categories_attributes][' + i.to_s + '][tag_list][]'
-                  - profile_category.tag_list_sort_by_created_at.each do |tag|
-                    = pc.input_field :tag_list, value: tag, class: 'form-control imeoff', placeholder: category_name_to_placeholder(profile_category_to_name(profile_category)), name: name
-                    =link_to '#', class: 'delete_tag_link'
-                      i.fa.fa-times
-                  = pc.input_field :tag_list, value: '', class: 'form-control imeoff', placeholder: category_name_to_placeholder(profile_category_to_name(profile_category)), name: name
-                  =link_to '#', class: 'delete_tag_link'
-                    i.fa.fa-times
-                  span.tags_input_end
+                  .h5.row-space-2
+                    = image_category_display_name(profile_category_to_name(profile_category))
+                  .row-space-2
+                    - name = 'profile[profile_categories_attributes][' + i.to_s + '][tag_list][]'
+                    - profile_category.tag_list_sort_by_created_at.each do |tag|
+                      .example-tag.row-space-2
+                        = pc.input_field :tag_list, value: tag, class: 'form-control imeoff', placeholder: category_name_to_placeholder(profile_category_to_name(profile_category)), name: name
+                        = link_to '#', class: 'delete_tag_link'
+                          i.fa.fa-times.fa-red.balloon[title= "Remove example"]
+                    .example-tag.row-space-2
+                      = pc.input_field :tag_list, value: '', class: 'form-control imeoff', placeholder: category_name_to_placeholder(profile_category_to_name(profile_category)), name: name
+                      = link_to '#', class: 'delete_tag_link', title: "Remove example"
+                        i.fa.fa-times.fa-red.balloon[title= "Remove example"]
+                    span.tags_input_end
+                  = link_to '#', class: 'add_tag_link'
+                    i.fa.fa-plus
+                    ' 
+                    | add example
+                    
+                  
             span.input_categories_space_end
+            
           hr.row-space-4
+          
           .row.row-condensed.row-space-4.row-table
             label.text-right.col-3.col-middle[for="user_self_introduction"]
               | Languages

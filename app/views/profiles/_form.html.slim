@@ -134,14 +134,18 @@
                 = f.input_field :free_field, as: :text, cols: "30", rows: "12", placeholder: "Eg. Hello. I'm John, 20 years old. I'm looking forward to having local experiences in Kamakura.", class: 'imeoff'
         .card-body
           .row.row-condensed.row-space-4
-            label.text-right.col-3
+            label.text-right.col-md-3
               | Countries visited
-            .col-7.row-space-4
+            .col-md-9.row-space-4.countries-visited
               - @profile.profile_countries.each do |profile_country|
                 = f.simple_fields_for :profile_countries, profile_country do |pc|
-                  = pc.country_select :country, locale: 'en', priority_countries: ['JP'],iso_codes: true, format: :with_alpha2, include_blank: true
+                  .select.row-space-1
+                    = pc.country_select :country, locale: 'en', priority_countries: ['JP'],iso_codes: true, format: :with_alpha2, include_blank: true
                   = pc.link_to_remove do
-                    i.fa.fa-times
-              = f.link_to_add :profile_countries do
-                i.fa.fa-plus-circle
+                    span.remove-country.balloon[title="Remove Country"]
+                      i.fa.fa-times.fa-red
+              = f.link_to_add :profile_countries, class: "row-space-top-1" do
+                i.fa.fa-plus
+                ' 
+                | add country
       = f.button :submit, "Save", class: "btn btn-primary btn-large row-space-4"
