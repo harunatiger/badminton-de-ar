@@ -353,7 +353,7 @@ $ ->
         tag_list_id = 'tag_list_' + category_id
         placeholder = $('.select_category_link').eq(category_index).attr("placehodler_str")
 
-        $("<div class='selected_category' category_id=" + category_id + "><img src=" + img_src + " /><input type='hidden' value='" + category_id + "' name='profile[profile_categories_attributes][" + array_index + "][category_id]'/><div class='h5 row-space-2'>" + category_name + "</div><div class='row-space-2'><div class='example-tag row-space-2'><input value='' class='string optional form-control imeoff' placeholder='" + placeholder + "' type='text' name='profile[profile_categories_attributes][" + array_index + "][tag_list][]' id='" + tag_list_id + "'/><a class='delete_tag_link' title='Remove example' href='#'><i class='fa fa-times fa-red balloon' title='Remove example'></i></a></div><span class='tags_input_end'></span></div><a class='add_tag_link' href='#'><i class='fa fa-plus'></i> add example</a></div>").insertBefore(".input_categories_space_end")
+        $("<div class='selected_category' category_id=" + category_id + " index=" + array_index + "><img src=" + img_src + " /><input type='hidden' value='" + category_id + "' name='profile[profile_categories_attributes][" + array_index + "][category_id]'/><div class='h5 row-space-2'>" + category_name + "</div><div class='row-space-2'><div class='example-tag row-space-2'><input value='' class='string optional form-control imeoff' placeholder='" + placeholder + "' type='text' name='profile[profile_categories_attributes][" + array_index + "][tag_list][]' id='" + tag_list_id + "'/><a class='delete_tag_link' title='Remove example' href='#'><i class='fa fa-times fa-red balloon' title='Remove example'></i></a></div><span class='tags_input_end'></span></div><a class='add_tag_link' href='#'><i class='fa fa-plus'></i> add example</a></div>").insertBefore(".input_categories_space_end")
       return false
 
     # delete tag
@@ -369,8 +369,9 @@ $ ->
       category_id = $(this).parent().attr("category_id")
       category = $("[class^='select_category_link'][category_id=" + category_id + "]")
       placeholder = category.attr("placehodler_str")
-
-      $("<div class='example-tag row-space-2'><input value='' class='string optional form-control imeoff' name='profile[profile_categories_attributes][" + category_index + "][tag_list][]' placeholder='" + placeholder + "' type='text' id='profile_profile_categories_attributes_0_tag_list' /><a class='delete_tag_link' href='#'><i class='fa fa-times fa-red balloon' title='Remove example'></i></a></div>").insertBefore(tag_end)
+      array_index = $('.selected_category').eq(category_index).attr('index')
+      
+      $("<div class='example-tag row-space-2'><input value='' class='string optional form-control imeoff' name='profile[profile_categories_attributes][" + array_index + "][tag_list][]' placeholder='" + placeholder + "' type='text' id='profile_profile_categories_attributes_0_tag_list' /><a class='delete_tag_link' href='#'><i class='fa fa-times fa-red balloon' title='Remove example'></i></a></div>").insertBefore(tag_end)
       return false
 
     # 50 character limit for tag

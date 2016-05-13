@@ -28,7 +28,7 @@
             | that you like to let your guests know more about your personality. 
           .profile-category-keyword-container
             - @profile.profile_categories.order_by_created_at_asc.each_with_index do |profile_category, i|
-              .selected_category[category_id='#{profile_category.category_id}']
+              .selected_category[category_id='#{profile_category.category_id}' index=i]
                 = f.fields_for :profile_categories, profile_category do |pc|
                   = pc.hidden_field :category_id, value: profile_category.category_id
                   = image_tag profile_category_to_image(profile_category)
