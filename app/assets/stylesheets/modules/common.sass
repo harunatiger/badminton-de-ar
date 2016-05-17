@@ -1465,6 +1465,33 @@ a.alert-warning
   @media (min-width: 767px)
     display: none
 
+/* 5 column layout
+.col-xs-15, .col-sm-15, .col-md-15, .col-lg-15
+  position: relative
+  min-height: 1px
+  padding-right: 12.5px
+  padding-left: 12.5px
+
+.col-xs-15
+  width: 20%
+  float: left
+
+@media (min-width: 768px)
+  .col-sm-15
+    width: 20%
+    float: left
+
+@media (min-width: 992px)
+  .col-md-15
+    width: 20%
+    float: left
+
+@media (min-width: 1200px)
+  .col-lg-15
+    width: 20%
+    float: left
+
+
 /* page-container */
 .page-container
   width: auto
@@ -1583,6 +1610,25 @@ a.alert-warning
     background-repeat: no-repeat
     background-position: center top
     background-size: cover
+
+.fa-exclamation-alert
+  display: block
+  position: absolute
+  top: -5px
+  left: 18px
+  width: 18px
+  height: 18px
+  line-height: 18px
+  color: white
+  font-size: 14px
+  text-align: center
+  background-color: $red1
+  border-radius: 50%
+
+.fa-exclamation-circle-alert
+  margin: 0 5px 3px 0
+  font-size: 18px
+  vertical-align: middle
 
 /* section */
 .section-header
@@ -2108,6 +2154,19 @@ a.alert-warning
         color: white
         font-size: 22px
         vertical-align: middle
+    .info--sp, .price--sp, .alert-sign--sp
+      position: absolute
+      top: 7px
+      width: 32px
+      height: 32px
+      line-height: 30px
+      text-align: center
+      background-color: $brand-theme
+      border-radius: 50%
+      .fa
+        color: white
+        font-size: 22px
+        vertical-align: middle
     .info--sp
       right: 6px
       @media (max-width: 767px)
@@ -2126,6 +2185,13 @@ a.alert-warning
       z-index: 22
       &.show-off
         opacity: 1
+      .fa
+        color: $brand-theme
+    .alert-sign--sp
+      right: 6px
+      line-height: 24px
+      background-color: white
+      transition: opacity .25s
       .fa
         color: $brand-theme
     .action--sp
@@ -2263,6 +2329,9 @@ a.alert-warning
         > a.btn-become-a-guide
           border-color: white
           border-width: 2px
+  &.announcement
+    .common-header
+      top: 56px
 
 .alert-sign
   position: relative
@@ -2531,6 +2600,46 @@ a.alert-warning
   border: solid 1px $gray1
   color: $gray1
 
+/* sidenav-list-profile
+.sidenav-list-profile
+  @media (max-width: 767px)
+    margin: -25px -15px 12.5px
+    padding: 10px 15px
+    background-color: $bg1
+    border-bottom: 1px solid $border1
+    &.fixed
+      position: fixed
+      top: 0
+      left: 0
+      right: 0
+      margin: 0
+      z-index: 10
+    ul
+      display: table
+      width: 100%
+      padding: 0
+      li
+        float: none
+        display: table-cell
+        width: 20%
+        padding: 0 3px
+        margin: 0
+        a
+          display: block
+          color: $brand-theme
+          font-size: 12px
+          text-align: center
+          background-color: white
+          border: 1px solid $brand-theme
+          &[aria-selected="true"]
+            color: white
+            background-color: $brand-theme
+
+.sidenav-list-profile-dummy
+  display: none
+  height: 27px
+  margin-bottom: 12.5px
+
 /* footer */
 footer
   padding: 50px 0
@@ -2542,11 +2651,18 @@ footer
     border-top: 1px solid rgba(255, 255, 255, 0.2)
 
 .footerContent-container
-  max-width: 960px
+  max-width: 1045px
   margin: 0 auto
-  padding: 0 15px
+  padding: 0 25px
   a
     color: white
+  @media (max-width: 767px)
+    ul
+      text-align: center
+      li
+        display: inline-block
+        margin-left: 10px
+        margin-right: 10px
 
 .sns-container
   a

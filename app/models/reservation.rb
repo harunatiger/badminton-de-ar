@@ -206,12 +206,12 @@ class Reservation < ActiveRecord::Base
 
   def amount
     #result = basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.145).ceil
-    result = (basic_amount * 1.145).ceil
+    result = (basic_amount * 1.145).ceil + self.insurance_fee
   end
 
   def amount_for_campaign
     #result = basic_amount < 2000 ? (basic_amount + 500).ceil : (basic_amount * 1.145).ceil
-    result = (basic_amount * 1.145).ceil
+    result = self.amount
     result = result - self.campaign.discount if self.campaign.present?
     result = 0 if result < 0
     result
@@ -261,7 +261,7 @@ class Reservation < ActiveRecord::Base
   end
 
   def paypal_amount
-    result = self.basic_amount + handling_cost
+    result = self.basic_amount + handling_cost + self.insurance_fee
     result = result - self.campaign.discount if self.campaign.present?
     return result * 100
   end
@@ -278,6 +278,10 @@ class Reservation < ActiveRecord::Base
   def paypal_handling_cost
     #basic_amount < 2000 ? 50000 : (basic_amount * 0.145).ceil * 100
     (basic_amount * 0.145).ceil * 100
+  end
+  
+  def paypal_travel_insurance
+    self.insurance_fee * 100
   end
 
   def paypal_campaign_discount
@@ -344,6 +348,14 @@ class Reservation < ActiveRecord::Base
     end
 
     self.guests_cost = 0 if self.guests_cost.blank?
+    
+    if !self.accepted? and !self.canceled_after_accepted?
+      if self.basic_amount > 0
+        self.insurance_fee = self.num_of_people * Settings.reservation.insurance_fee
+      else
+        self.insurance_fee = 0
+      end
+    end
     self
   end
 
@@ -438,5 +450,11 @@ class Reservation < ActiveRecord::Base
     else
       self.new(progress: '')
     end
+  end
+  
+  def insurance_people_str
+    people = 'peoples'
+    people = 'people' if self.num_of_people == 1
+    self.num_of_people.to_s + people
   end
 end

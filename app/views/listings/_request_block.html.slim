@@ -5,6 +5,9 @@
       #tour-movie-container
         #tour-movie.movie-container.row-space-2
           = video_player src: { mp4: listing.cover_video.encoded, webm: listing.cover_video.encoded }, controls: true, width: "100%", height: "315", id:  "tour_movie"
+      - if @announcement.present?
+        #announcement-banner-container
+          = render partial: 'banner_space', locals: { announcement: @announcement}
     - listing_detail = listing.listing_detail if listing.listing_detail.present?
     - if listing_detail.present?
       - default_num_of_people = listing_detail.max_num_of_people > 1 ? 2 : 1
@@ -130,45 +133,45 @@
                 - if current_user.id == @listing.user_id or @active_reservation
                   - if @active_reservation
                     .balloon(title="Under a conversation")
-                      = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
+                      = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled listing_request"
                   - else
-                    = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled"
-                - elsif not profile_self_introduction_exists?
-                  = link_to 'Request Booking', profile_link, class: 'btn btn-large btn-block btn-primary'
+                    = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled listing_request"
+                - elsif not profile_completed?
+                  = link_to 'Request Booking', profile_link, class: 'btn btn-large btn-block btn-primary listing_request'
                 - else
-                  = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary"
+                  = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary listing_request"
               - else
-                button.btn.btn-large.btn-block.btn-primary
+                button.btn.btn-large.btn-block.btn-primary(class='listing_request')
                   | Request Booking
             .row-space-1
               - if user_signed_in?
                 - if current_user.id == @listing.user_id
-                  = button_tag type: 'submit', id: 'book_it_button', class: "btn btn-large btn-block disabled btn-relative" do
+                  = button_tag type: 'submit', id: 'book_it_button', class: "btn btn-large btn-block disabled btn-relative listing_message" do
                     .media-photo.media-round.media-avatar
                       .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
                     i.fa.fa-comments-o
                     | Talk to me
-                - elsif not profile_self_introduction_exists?
-                  = link_to profile_link, class: 'btn btn-large btn-block btn-relative' do
+                - elsif not profile_completed?
+                  = link_to profile_link, class: 'btn btn-large btn-block btn-relative listing_message' do
                     .media-photo.media-round.media-avatar
                       .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
                     i.fa.fa-comments-o
                     | Talk to me
                 - else
                   -if @message_thread
-                    = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-relative' do
+                    = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-relative listing_message' do
                       .media-photo.media-round.media-avatar
                         .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
                       i.fa.fa-comments-o
                       | Talk to me
                   - else
-                    = link_to message_threads_path(message_thread: {host_id: @listing.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-relative' do
+                    = link_to message_threads_path(message_thread: {host_id: @listing.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-relative listing_message' do
                       .media-photo.media-round.media-avatar
                         .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
                       i.fa.fa-comments-o
                       | Talk to me
               - else
-                = button_tag type: 'submit', class: "btn btn-large btn-block disabled btn-relative" do
+                = button_tag type: 'submit', class: "btn btn-large btn-block disabled btn-relative listing_message" do
                   .media-photo.media-round.media-avatar
                     .size28[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@listing.user_id)}')"]
                   i.fa.fa-comments-o

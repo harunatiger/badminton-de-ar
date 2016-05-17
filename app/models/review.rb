@@ -53,6 +53,8 @@ class Review < ActiveRecord::Base
 
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
+  
+  before_validation :set_total
 
   def calc_average
     self.calc_ave_of_listing
@@ -60,16 +62,19 @@ class Review < ActiveRecord::Base
   end
 
   def calc_ave_of_listing
-    l = Listing.find(self.listing_id)
-    r_count = ReviewForGuide.where(listing_id: self.listing_id).joins(:reservation).merge(Reservation.review_open?).count
     review = ReviewForGuide.where(reservation_id: self.reservation_id).first
-    if r_count == 1
-      ave_total = review.total
-    else
-      ave_total = (l.ave_total * (r_count - 1) + review.total) / r_count
+    if review.present?
+      l = Listing.find(self.listing_id)
+      r_count = ReviewForGuide.where(listing_id: self.listing_id).joins(:reservation).merge(Reservation.review_open?).count
+    
+      if r_count == 1
+        ave_total = review.total
+      else
+        ave_total = (l.ave_total * (r_count - 1) + review.total) / r_count
+      end
+      l.ave_total = ave_total
+      l.save
     end
-    l.ave_total = ave_total
-    l.save
   end
 
   def calc_ave_of_profile
@@ -78,27 +83,100 @@ class Review < ActiveRecord::Base
     host = User.find(self.host_id)
     guest = User.find(self.guest_id)
 
-    prof = Profile.find(host.profile.id)
-    r_count = Review.my_reviewed_count(host.id)
-    if r_count == 1
-      ave_total = review_for_guide.total
-    else
-      ave_total = (prof.ave_total * (r_count - 1) + review_for_guide.total) / r_count
+    if review_for_guide.present?
+      prof = Profile.find(host.profile.id)
+      r_count = Review.my_reviewed_count(host.id)
+      if r_count == 1
+        ave_total = review_for_guide.total
+      else
+        ave_total = (prof.ave_total * (r_count - 1) + review_for_guide.total) / r_count
+      end
+      prof.ave_total = ave_total
+      prof.enable_strict_validation = false
+      prof.save
     end
-    prof.ave_total = ave_total
-    prof.enable_strict_validation = false
-    prof.save
 
-    prof = Profile.find(guest.profile.id)
-    r_count = Review.my_reviewed_count(guest.id)
-    if r_count == 1
-      ave_total = review_for_guest.total
-    else
-      ave_total = (prof.ave_total * (r_count - 1) + review_for_guest.total) / r_count
+    if review_for_guest.present?
+      prof = Profile.find(guest.profile.id)
+      r_count = Review.my_reviewed_count(guest.id)
+      if r_count == 1
+        ave_total = review_for_guest.total
+      else
+        ave_total = (prof.ave_total * (r_count - 1) + review_for_guest.total) / r_count
+      end
+      prof.ave_total = ave_total
+      prof.enable_strict_validation = false
+      prof.save
     end
-    prof.ave_total = ave_total
-    prof.enable_strict_validation = false
-    prof.save
+  end
+  
+  def re_calc_average
+    self.re_calc_ave_of_listing
+    self.re_calc_ave_of_profile
+  end
+  
+  def re_calc_ave_of_listing
+    review = ReviewForGuide.where(reservation_id: self.reservation_id).first
+    if review.present?
+      l = Listing.find(self.listing_id)
+      listing_reviews = ReviewForGuide.where(listing_id: self.listing_id).joins(:reservation).merge(Reservation.review_open?)
+      r_count = listing_reviews.count
+    
+      if r_count == 1
+        ave_total = review.total
+      else
+        ave_total = 0
+        listing_reviews.each do |review|
+          ave_total += review.total
+        end
+        ave_total = ave_total.quo(r_count)
+      end
+      l.ave_total = ave_total
+      l.save
+    end
+  end
+
+  def re_calc_ave_of_profile
+    review_for_guide = ReviewForGuide.where(reservation_id: self.reservation_id).first
+    review_for_guest = ReviewForGuest.where(reservation_id: self.reservation_id).first
+    host = User.find(self.host_id)
+    guest = User.find(self.guest_id)
+
+    if review_for_guide.present?
+      prof = Profile.find(host.profile.id)
+      reviews = Review.mine(self.host_id)
+      r_count = reviews.count
+      if r_count == 1
+        ave_total = review_for_guide.total
+      else
+        ave_total = 0
+        reviews.each do |review|
+          ave_total += review.total
+        end
+        ave_total = ave_total.quo(r_count)
+      end
+      prof.ave_total = ave_total
+      prof.enable_strict_validation = false
+      prof.save
+    end
+
+    if review_for_guest.present?
+      prof = Profile.find(guest.profile.id)
+      reviews = Review.mine(self.guest_id)
+      r_count = reviews.count
+      if r_count == 1
+        ave_total = review_for_guest.total
+      else
+        ave_total = 0
+        reviews.each do |review|
+          ave_total += review.total
+        end
+        ave_total = ave_total.quo(r_count)
+      end
+      prof.ave_total = ave_total
+      prof.enable_strict_validation = false
+      prof.save
+    end
   end
 
   def for_guide?
@@ -107,6 +185,10 @@ class Review < ActiveRecord::Base
 
   def for_guest?
     self.type == 'ReviewForGuest'
+  end
+  
+  def self.mine(user_id)
+    self.reviewed_as_guest(user_id) + self.reviewed_as_guide(user_id)
   end
 
   def self.my_reviewed_count(user_id)
@@ -125,5 +207,9 @@ class Review < ActiveRecord::Base
 
   def self.this_listing(listing_id)
     ReviewForGuide.where(listing_id: listing_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
+  end
+  
+  def set_total
+    self.total = nil if self.total == 0
   end
 end

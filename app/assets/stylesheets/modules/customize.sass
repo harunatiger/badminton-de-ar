@@ -42,18 +42,41 @@ h6, .h6
   @media (max-width: 767px)
     display: none
 
-/* slideout */
-body.slideout
-  position: fixed
-  height: 100%
+.text-help-block
+  //color:
+  padding: 20px
+  background-color: $lightblue1
+  border: 1px dashed $lightblue2
+  border-radius: 4px
+
+.announcement_belt
+  position: absolute
+  top: 0
   width: 100%
-  overflow: hidden
-  .common-header .header--sp .nav--sp
-    visibility: visible
-    .nav-content--sp
-      left: 0
-    .nav-mask--sp
-      opacity: 0.6
+  height: 36px
+  line-height: 36px
+  background-color: $brand-theme
+  a
+    color: white
+    font-size: 16px
+    &:hover
+      text-decoration: underline
+
+/* slideout */
+body
+  &.slideout
+    position: fixed
+    height: 100%
+    width: 100%
+    overflow: hidden
+    .common-header .header--sp .nav--sp
+      visibility: visible
+      .nav-content--sp
+        left: 0
+      .nav-mask--sp
+        opacity: 0.6
+  &.announcement
+    padding-top: 36px
 
 /* imeoff */
 .imeoff
@@ -112,6 +135,43 @@ label.error
       padding: 10px 14px
       &:hover
         color: white
+
+.tag-list-post
+  ul
+    margin: 0
+    padding: 0
+    list-style: none
+    li
+      display: inline-block
+      margin-right: 20px
+      padding: 0
+      .tag
+        display: block
+        position: relative
+        height: 30px
+        line-height: 30px
+        padding: 0 12px
+        background-color: $bg1
+        border-radius: 4px
+        border: 1px solid $border1
+        text-decoration: none
+        &::before, &::after
+          content: ''
+          position: absolute
+          width: 0
+          height: 0
+        &::before
+          top: 6px
+          left: -10px
+          border-color: transparent $border1 transparent transparent
+          border-style: solid
+          border-width: 8px 10px 8px 0
+        &::after
+          top: 8px
+          left: -9px
+          border-color: transparent $bg1 transparent transparent
+          border-style: solid
+          border-width: 6px 9px 6px 0
 
 /* tag-list-wrapper */
 .tag-list-wrapper
@@ -200,6 +260,21 @@ label.error
       li
         float: none
         display: inline-block
+
+.country-tag
+  float: left
+  margin: 5px
+  height: 30px
+  line-height: 28px
+  padding: 0 12px
+  color: $gray1
+  font-size: 14px
+  font-weight: 700
+  text-align: center
+  background-color: white
+  border: 1px solid $border1
+  border-radius: 2px
+
 
 /* pair-guide-list-container
 .pair-guide-list-container
@@ -984,7 +1059,7 @@ body.paper
   .fa
     font-size: 100px
 
-#features-tour-list
+//#features-tour-list
   .card-profile-picture-offset
     padding: 0
     margin-left: 0
@@ -1248,6 +1323,12 @@ body.paper
     margin: 0 auto
     @media (min-width: 768px)
       width: 120px
+
+.review-img-cover
+  height: 240px
+  border-radius: 4px
+  @media (max-width: 767px)
+    height: 140px
 
 /* reviews image upload */
 .tour-image-thumb
@@ -1766,6 +1847,13 @@ body.paper
         max-height: 320px
         > img
           position: relative
+
+.profile-category-container
+  clear: both
+  padding-top: 12.5px
+
+.profile-category-inner
+
 .profile-card-wrapper
   float: right
 
@@ -1841,6 +1929,13 @@ body.paper
     p
       color: $gray2
       font-size: 13px
+
+//.self_introduction-textarea::-webkit-input-placeholder
+  color: #333
+
+//.self_introduction-textarea::-webkit-input-placeholder::after
+  //display: block
+  //content: "Second line \A Third line\A You get the picture...\A 5"
 
 .ic-illust
   display: inline-block
@@ -2455,3 +2550,105 @@ body.paper
         float: none
         width: 100%
         font-size: 16px
+
+.bg-pc, .bg-sp
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  width: 100%
+  background-position: center center
+  background-repeat: no-repeat
+  background-size: cover
+  z-index: 0
+
+/* news-banner
+.news-banner
+  display: block
+  position: relative
+  height: 120px
+  text-decoration: none
+  border-radius: 4px
+  overflow: hidden
+  @media (max-width: 767px)
+    height: 80px
+  .content
+    position: relative
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .25)
+    background-color: rgba(0, 0, 0, .15)
+    transition: background-color .2s
+    z-index: 1
+  &:hover
+    .content
+      background-color: rgba(0, 0, 0, .25)
+
+.fb-page-container
+  width: 100%
+  overflow: hidden
+
+/* announcement
+ ================================================== */
+
+/* .news-list
+.news-list
+  .card-header
+    line-height: 20px
+    background-color: $lightblue1
+    overflow: hidden
+    h4
+      margin-bottom: 0
+  .card-body
+    overflow: hidden
+  .photo
+    float: left
+    position: relative
+    width: 320px
+    height: 120px
+    margin-right: 20px
+  @media (max-width: 767px)
+    .photo
+      width: 100%
+      margin: 0 0 12.5px
+
+.news-title
+  padding: 20px
+  background-color: $lightblue1
+  border-bottom: 1px solid $border1
+  overflow: hidden
+
+//.announcement-hero
+  position: relative
+  height: 320px
+  @media (max-width: 767px)
+    height: 220px
+  .cover-bg-container
+
+
+.countries-visited
+  a.remove_nested_fields
+    &:hover
+      color:  $red1
+      text-decoration: none
+    .remove-country
+      display: inline-block
+      margin: 0 0 9px 5px
+      vertical-align: middle
+      font-size: 20px
+  .add_nested_fields
+    display: inline-block
+
+.profile-category-keyword-container
+  .selected_category
+    .add_tag_link
+      display: block
+
+.example-tag
+  position: relative
+  padding: 0 32px 0 0
+  .fa
+    position: absolute
+    top: 5px
+    right: 3px
+    font-size: 20px
+    vertical-align: middle

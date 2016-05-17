@@ -57,6 +57,7 @@ gem 'quiet_assets', '1.1.0'
 # IMAGE/MOVIE FILE UPLOADER
 gem 'carrierwave', '0.10.0'
 gem 'rmagick', '2.13.4'
+gem 'mini_magick', '4.5.1'
 gem 'fog', '1.28.0'
 
 # Pagenation
@@ -151,6 +152,12 @@ gem 'bootstrap-filestyle-rails', '1.1.2'
 gem 'jp_prefecture', '0.8.1'
 
 gem 'has_friendship', '0.1.2'
+
+# wysiwyg editor for news
+gem 'ckeditor', '4.1.2'
+
+# nested_form
+gem 'nested_form', '0.3.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -2,9 +2,9 @@ h4.row-space-4
   | Self-Introduction
 .row-space-4
   p
-    = simple_format(profile.try('self_introduction') || '')
+    = simple_format(profile.try('free_field') || '')
 hr.row-space-4
-- if profile_keyword.present?
+/- if profile_keyword.present?
   h4.row-space-4.hide--sp
     | My recipe for the perfect tour
   .row-space-4
@@ -12,57 +12,61 @@ hr.row-space-4
       .chart-container
         canvas#canvas height='300' width='360'
   hr.row-space-4.hide--sp
-.tag-list-wrapper
-  ul
-    - if category_food?(profile)
-      li
-        = link_to 'javascript:void(0)', title: 'Food', data:{toggle: 'tooltip'} do
-          i.fa.fa-cutlery
-    -if category_alcohol?(profile)
-      li
-        = link_to 'javascript:void(0)', title: 'Alcohol', data:{toggle: 'tooltip'} do
-          i.fa.fa-glass
-    -if category_car?(profile)
-      li
-        = link_to 'javascript:void(0)', title: 'Car', data:{toggle: 'tooltip'} do
-          i.fa.fa-car
-    -if category_cruising?(profile)
-      li
-        = link_to 'javascript:void(0)', title: 'Travel/Ship', data:{toggle: 'tooltip'} do
-          i.fa.fa-ship
-    -if category_shopping?(profile)
-      li
-        = link_to 'javascript:void(0)', title: 'Shopping', data:{toggle: 'tooltip'} do
-          i.fa.fa-shopping-cart
-    -if category_accommodation?(profile)
-      li
-        = link_to 'javascript:void(0)', title: 'Accommodation', data:{toggle: 'tooltip'} do
-          i.fa.fa-bed
-    -if category_business?(profile)
-      li
-        = link_to 'javascript:void(0)', title: 'Business', data:{toggle: 'tooltip'} do
-          i.fa.fa-suitcase
-    -if category_sport?(profile)
-      li
-        = link_to 'javascript:void(0)', title: 'Sports', data:{toggle: 'tooltip'} do
-          i.fa.fa-futbol-o
-    .lang-list-wrapper
-      ul
-        - if language_ja?(profile)
-          li.balloon(title="Japanese")
-            span JA
-        - if language_en?(profile)
-          li.balloon(title="English")
-            span EN
-        - if language_zh?(profile)
-          li.balloon(title="Chinese")
-            span ZH
-        - if language_de?(profile)
-          li.balloon(title="German")
-            span DE
-        - if language_fr?(profile)
-          li.balloon(title="French")
-            span FR
-        - if language_es?(profile)
-          li.balloon(title="Spanish")
-            span ES
+- if !profile.user.guest? and profile.self_introduction.present?
+  h4.row-space-4
+    | Guid-Introduction
+  .row-space-4
+    p
+      = simple_format(profile.try('self_introduction') || '')
+- if !profile.user.guest?
+  .lang-list-wrapper.row-space-4
+    ul
+      - if language_en?(profile)
+        li.balloon(title="English")
+          span EN
+      - if language_zh?(profile)
+        li.balloon(title="Chinese")
+          span ZH
+      - if language_de?(profile)
+        li.balloon(title="German")
+          span DE
+      - if language_fr?(profile)
+        li.balloon(title="French")
+          span FR
+      - if language_es?(profile)
+        li.balloon(title="Spanish")
+          span ES
+      - if language_ja?(profile)
+        li.balloon(title="Japanese")
+          span JA
+- if profile.profile_countries.present?
+  .profile-countries
+    hr.row-space-top-4.row-space-4
+    h4.row-space-4
+      | Countries visited
+    .row-space-4
+      - profile.profile_countries.each do |profile_country|
+        span.country-tag
+          = profile_country.country_name
+- unless profile.user.guest?
+  .profile-category-container
+    hr.row-space-top-4.row-space-4
+    h4.row-space-4
+      | Likes and hobbies
+    .row-space-4
+      - profile.profile_categories.order_by_created_at_asc.each do |profile_category|
+        .profile-category-inner
+          .row.row-table.row-space-3
+            .col-md-3.col-xs-6.text-center.col-middle
+              .media-photo.media-round.media-avatar
+                .size90[style="background-image: url('#{asset_path profile_category_to_image(profile_category)}')"]
+              .small1
+                = image_category_display_name(profile_category_to_name(profile_category))
+            .col-md-9.col-xs-6.col-middle
+              - if profile_category.tag_list.present?
+                .tag-list-post
+                  ul
+                    - profile_category.tag_list.each do |tag|
+                      li.row-space-1
+                        .tag
+                          = tag

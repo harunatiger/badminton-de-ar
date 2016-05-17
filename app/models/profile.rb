@@ -48,6 +48,8 @@ class Profile < ActiveRecord::Base
   soft_deletable
   soft_deletable dependent_associations: [:user]
   
+  before_save :setting_countries
+  
   belongs_to :user
   has_one :profile_video, dependent: :destroy
   has_one :profile_identity, dependent: :destroy
@@ -58,10 +60,13 @@ class Profile < ActiveRecord::Base
   has_many :categories, :through => :profile_categories, dependent: :destroy
   has_many :profile_languages, dependent: :destroy
   has_many :languages, :through => :profile_languages, dependent: :destroy
+  has_many :profile_countries, dependent: :destroy
 
   enum gender: { female: 0, male: 1, others: 2, not_specified: 3 }
 
   attr_accessor :enable_strict_validation
+  accepts_nested_attributes_for :profile_categories, allow_destroy: true
+  accepts_nested_attributes_for :profile_countries, allow_destroy: true
 
   validates :user_id, presence: true
   validates :user_id, uniqueness: true
@@ -70,7 +75,7 @@ class Profile < ActiveRecord::Base
   VALID_PHONE_REGEX = /\A[-+0-9]+\z/
   validates :phone, format: { with: VALID_PHONE_REGEX, if: :enable_strict_validation, on: :update }
   
-  scope :contains?, -> name { where('last_name like ? or first_name like ?', '%' + name + '%', '%' + name + '%') }
+  scope :contains?, -> name { where('last_name ILIKE ? or first_name ILIKE ?', '%' + name + '%', '%' + name + '%') }
 
   def last_name_presence
     if self.last_name.empty?
@@ -175,5 +180,34 @@ class Profile < ActiveRecord::Base
   
   def thumb_image
     self.thumb_images.first
+  end
+  
+  def category_selected?(category_name)
+    result = false
+    self.profile_categories.each do |profile_category|
+      if Category.find(profile_category.category_id).name == category_name
+        result = true
+        break
+      end
+    end
+    result
+  end
+  
+  def self.set_up_update_params(profile_params)
+    profile_params[:location] = profile_params[:municipality] + ' ' + profile_params[:prefecture] if profile_params[:municipality]
+    if profile_params[:profile_categories_attributes].present?
+      profile_params[:profile_categories_attributes].each_with_index do |profile_category, i|
+        if profile_category[1]['tag_list'].blank?
+          profile_params[:profile_categories_attributes][profile_category[0]]['tag_list'] = ''
+        end
+      end
+    end
+    profile_params
+  end
+  
+  def setting_countries
+    self.profile_countries.each do |profile_country|
+      self.profile_countries.delete(profile_country) if profile_country.country.blank?
+    end
   end
 end

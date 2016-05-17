@@ -7,12 +7,15 @@ oauth:
     scope: "public_profile,email,user_friends"
     info_fields: "name, first_name, last_name, email"
     image_size: 'large'
+announcement:
+  page_count: 5
 profile:
   save:
     success: "Profile updated successfully"
     failure: "電話番号を正しく登録してください"
   send_message: 'Complete your profile in order to contact TOMODACHI GUIDE'
   deleted_profile_id: "This account has been canceled"
+  review_display_count: 10
 profile_images:
   save:
     success: "Profile updated successfully"
@@ -167,6 +170,7 @@ reservation:
   reason:
     withdraw_as_guide: 'ガイド退会'
     withdraw_as_guest: 'ゲスト退会'
+  insurance_fee: 300
 payment:
   refunds:
     policy: '8日以上前のキャンセル  ：エスクロー分の全額返金、1日〜7日前のキャンセル：エスクロー分の50％返金、24時間以内のキャンセル：返金なし'
