@@ -381,7 +381,7 @@
                 = link_to "5 Tea at Jomyo-ji Temple", "#highlight5", class: "highlight-anchor"
               li.row-space-1
                 = link_to "6 Food in Kamakura", "#highlight6", class: "highlight-anchor"
-        /.col-md-6.col-lg-3.row-space-4
+        .col-md-6.col-lg-4.row-space-4
           - if listings[3].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[3]), listing: listings[3]}
           - else
