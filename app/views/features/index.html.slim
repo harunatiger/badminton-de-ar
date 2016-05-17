@@ -385,7 +385,7 @@
           - if listings[3].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[3]), listing: listings[3]}
           - else
-            .card.tour-listing
+            /.card.tour-listing
               .card-image
                 = link_to "#", class: "media-photo media-photo-block media-cover" do
                   .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
