@@ -46,7 +46,7 @@ $ ->
 
   if $('body').hasClass('listings edit') ||  $('body').hasClass('listings new') || $('body').hasClass('listings create')
     $elementReference = document.getElementById( "listing_notes" )
-    $placeholder = '例）山道を歩くので、スニーカーなど動きやすい靴や動きやすい格好でお越しください。' + "\n" + '例）肉料理が出るので、ベジタリアンの方はあらかじめご連絡ください。'
+    $placeholder = 'We will walk on mountain paths, so dress comfortably.' + "\n" + 'There is meat included as part of the standard tour, so please let me know if there are any vegetarians in your group.'
     $elementReference.placeholder = $placeholder
 
     $('.listing-manager-area-container').text('')
