@@ -120,6 +120,13 @@
                 = @reservation.service_fee
             .row.row-condensed.row-space-1
               .col-md-3.text-left.text-muted.strong
+                = link_to 'Travel insurance:', "#travel_insurance", class: "travel_insurance", data: { toggle: "modal" }
+              .col-md-8.strong
+                |¥
+                = @reservation.insurance_fee
+                | (#{@reservation.insurance_people_str})
+            .row.row-condensed.row-space-1
+              .col-md-3.text-left.text-muted.strong
                 | Not included:
               .col-md-8.strong
                 |¥

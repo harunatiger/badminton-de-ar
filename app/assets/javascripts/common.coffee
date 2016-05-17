@@ -456,6 +456,8 @@ $ ->
         return
       if $('body').is('.profiles.self_introduction') and target == '#'
         return
+      if $('body').is('.profiles.edit') and target == "javascript:void(0)"
+        return
       if $('body').is('.profile_keywords.new') and target == '#'
         return
       if $('body').is('.profile_keywords.edit') and target == '#'
@@ -564,6 +566,36 @@ $ ->
           verticalFit: true
         gallery:
           enabled: true
+      return
+    
+  #ga setting
+  if $('body').hasClass('profiles show')
+    $(document).on 'click', $(".profile_message"), (event) ->
+      _gaq.push [
+        '_trackEvent'
+        'reservation'
+        'profile page'
+        'Talk to me'
+      ]
+      return
+
+  if $('body').hasClass('listings show')
+    $(document).on 'click', $(".listing_request"), (event) ->
+      _gaq.push [
+        '_trackEvent'
+        'reservation'
+        'listing page'
+        'Request Booking'
+      ]
+      return
+
+    $(document).on 'click', $(".listing_message"), (event) ->
+      _gaq.push [
+        '_trackEvent'
+        'reservation'
+        'listing page'
+        'Talk to me'
+      ]
       return
 
   ###

@@ -20,6 +20,14 @@
     /- else
       .title--sp.text-center
         = link_to "", root_path, class: "header-logo"
+    - elsif user_signed_in?
+      = link_to message_threads_path, rel: "nofollow", class: "alert-sign alert-sign--sp" do
+        i.fa.fa-envelope-o
+          span.hidden
+            = Settings.page.messages
+        - unless unread_messages == 0
+          i.alert-count
+            = unread_messages
     .action--sp
     nav.nav--sp
       .nav-mask--sp
@@ -63,7 +71,7 @@
         = link_to "#", class: "" do
           |  Help
       li.list-your-thing.pull-left
-        - if !user_signed_in?
+        - if !user_signed_in? or current_user.guest?
           = link_to Settings.page.listing_new, "#guide_request", class: "guide_request btn btn-become-a-guide", data: { toggle: "modal" }
     - if user_signed_in?
       ul.nav.pull-right

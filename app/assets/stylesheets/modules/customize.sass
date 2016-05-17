@@ -261,6 +261,21 @@ label.error
         float: none
         display: inline-block
 
+.country-tag
+  float: left
+  margin: 5px
+  height: 30px
+  line-height: 28px
+  padding: 0 12px
+  color: $gray1
+  font-size: 14px
+  font-weight: 700
+  text-align: center
+  background-color: white
+  border: 1px solid $border1
+  border-radius: 2px
+
+
 /* pair-guide-list-container
 .pair-guide-list-container
   .pair_guide_list-trigger
@@ -1044,7 +1059,7 @@ body.paper
   .fa
     font-size: 100px
 
-#features-tour-list
+//#features-tour-list
   .card-profile-picture-offset
     padding: 0
     margin-left: 0
@@ -2608,3 +2623,32 @@ body.paper
   @media (max-width: 767px)
     height: 220px
   .cover-bg-container
+
+
+.countries-visited
+  a.remove_nested_fields
+    &:hover
+      color:  $red1
+      text-decoration: none
+    .remove-country
+      display: inline-block
+      margin: 0 0 9px 5px
+      vertical-align: middle
+      font-size: 20px
+  .add_nested_fields
+    display: inline-block
+
+.profile-category-keyword-container
+  .selected_category
+    .add_tag_link
+      display: block
+
+.example-tag
+  position: relative
+  padding: 0 32px 0 0
+  .fa
+    position: absolute
+    top: 5px
+    right: 3px
+    font-size: 20px
+    vertical-align: middle

@@ -19,7 +19,7 @@ hr.row-space-4
     p
       = simple_format(profile.try('self_introduction') || '')
 - if !profile.user.guest?
-  .lang-list-wrapper
+  .lang-list-wrapper.row-space-4
     ul
       - if language_en?(profile)
         li.balloon(title="English")
@@ -39,6 +39,15 @@ hr.row-space-4
       - if language_ja?(profile)
         li.balloon(title="Japanese")
           span JA
+- if profile.profile_countries.present?
+  .profile-countries
+    hr.row-space-top-4.row-space-4
+    h4.row-space-4
+      | Countries visited
+    .row-space-4
+      - profile.profile_countries.each do |profile_country|
+        span.country-tag
+          = profile_country.country_name
 - unless profile.user.guest?
   .profile-category-container
     hr.row-space-top-4.row-space-4

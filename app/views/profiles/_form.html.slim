@@ -1,5 +1,5 @@
-    = simple_form_for(@profile, html: { class: "form--sp" }) do |f|
-      = f.error_notification
+    = simple_nested_form_for(@profile, html: { class: "form--sp" }) do |f|
+      /= f.error_notification
       = f.hidden_field :user_id, value: current_user.id
       - @profile.enable_strict_validation = true
       - if !@profile.valid?
@@ -18,14 +18,14 @@
               | Family Name
             .col-8
               .required-container
-                = f.input_field :last_name
+                = f.input_field :last_name, class: 'imeoff'
                 i.fa.fa-asterisk.balloon[title="required"]
           .row.row-condensed.row-space-4
             label.text-right.col-3
               | First Name
             .col-8
               .required-container
-                = f.input_field :first_name
+                = f.input_field :first_name, class: 'imeoff'
                 i.fa.fa-asterisk.balloon[title="required"]
           .row.row-condensed.row-space-4
             label.text-right.col-3[for="user_gender"]
@@ -108,67 +108,44 @@
             label.text-right.col-3
               | Prefecture
             .col-7
-              = f.input_field :prefecture, placeholder: "Enter your zip code to find your address automatically"
+              = f.input_field :prefecture, placeholder: "Enter your zip code to find your address automatically", class: 'imeoff'
           .row.row-condensed.row-space-1
             label.text-right.col-3
               | City
             .col-7
-              = f.input_field :municipality, placeholder: "Enter your zip code to find your address automatically"
+              = f.input_field :municipality, placeholder: "Enter your zip code to find your address automatically", class: 'imeoff'
           .row.row-condensed.row-space-2
             label.text-right.col-3
               | Address
               i.fa.fa-lock.balloon.fa-green[title="Private"]
             .col-7.row-space-4
-              = f.input_field :other_address
+              = f.input_field :other_address, class: 'imeoff'
               .small1.text-muted.row-space-top-1 This information is not open to the public.
         .card-body
           .row.row-condensed.row-space-2
             label.col-md-10.col-md-offset-1
               | Talk about yourself and what you look forward to in your trip!
-              .small1.text-muted.row-space-top-1
+              /.small1.text-muted.row-space-top-1
                 i.fa.fa-lock.balloon.fa-green[title="Private"]
                 ' 
                 | This information is not open to the public.
             .col-md-10.col-md-offset-1.row-space-4
               .required-container   
-                = f.input_field :free_field, as: :text, cols: "30", rows: "12", placeholder: "Eg. Hello. I'm John, 20 years old. I'm looking forward to having local experiences in Kamakura."
-            /.col-7.row-space-4
-              = f.input_field :location, placeholder: "Ex.) Enter your zip code to find your address automatically"
-          /.row.row-condensed.row-space-4
-            label.text-right.col-3[for="user_self_introduction"]
-              | 好きなカテゴリ
-            .col-xs-8.fieldset
-              = collection_check_boxes(:profile, :category_ids, Category.all, :id, :name) do |b|
-                = b.label { b.check_box + b.text }
-          /.row.row-condensed.row-space-4
-            label.text-right.col-3[for="user_self_introduction"]
-              | 対応可能言語
-            .col-xs-8.fieldset
-              = collection_check_boxes(:profile, :language_ids, Language.all, :id, :name) do |l|
-                = l.label { l.check_box + l.text }
-          /.row.row-condensed.row-space-4
-            label.text-right.col-3[for="user_self_introduction"]
-              - if @progress.present?
-                - if @progress.include?('self_introduction')
-                  .inputrate.inputrate-red +#{@progress['rate']}%
-              | 自己紹介
-            .col-8.self_introduction_wrapper
-              = f.input_field :self_introduction, as: :text, cols: "30", rows: "20", placeholder: "例）ようこそ 私の名前は風馬太郎です。私はあなたと同じ旅を楽しみ、人生を楽しんでいます。出身は北海道。1年前から東京で仕事をしています。あらゆるジャンルの飲食を紹介することが出来ます。あなたが望むならご飯もご一緒できます。観光ガイドブックにのることはない、私がオススメするランチ・ディナーを紹介することも出来ます。それはきっと、あなたにとって記憶に残る素晴らしい体験になるはず。あなたをお待ちしております。風馬太郎"
-              .text-special.row-space-top-2.row-space-4
-                p 自己紹介を充実させることであなたの人柄、ガイドの内容など詳しく知ってもらいましょう。
-                p Huberは旅行者と友達ガイドが楽しく旅を楽しむための出会いを提供するサービスです。
-                p
-                  | すなわちHuberの基本は人間関係です。
-                  br
-                  | まずは自分を知ってもらう努力をしましょう。
-                p
-                  | 自分は旅行者もしくはガイドとしてどうでしょう?
-                  br
-                  | 旅のスタイル（こだわり、流儀）、自分のHuberでの活動スタイルを教えてください。
-                p
-                  | 好きな場所やアクティビティはなんですか?
-                  br
-                  | これなしでは生きていけないものを3つ挙げるとしたら?
-                  br
-                  | お気に入りの旅先、本、映画、番組、音楽、食べ物は?
+                = f.input_field :free_field, as: :text, cols: "30", rows: "12", placeholder: "Eg. Hello. I'm John, 20 years old. I'm looking forward to having local experiences in Kamakura.", class: 'imeoff'
+        .card-body
+          .row.row-condensed.row-space-4
+            label.text-right.col-md-3
+              | Countries visited
+            .col-md-9.row-space-4.countries-visited
+              - @profile.profile_countries.each do |profile_country|
+                = f.simple_fields_for :profile_countries, profile_country do |pc|
+                  .select.row-space-1
+                    = pc.country_select :country, locale: 'en', priority_countries: ['JP'],iso_codes: true, format: :with_alpha2, include_blank: true
+                  = pc.link_to_remove do
+                    span.remove-country.balloon[title="Remove Country"]
+                      i.fa.fa-times.fa-red
+              = f.link_to_add :profile_countries, class: "row-space-top-1" do
+                i.fa.fa-plus
+                ' 
+                | add country
       = f.button :submit, "Save", class: "btn btn-primary btn-large row-space-4"

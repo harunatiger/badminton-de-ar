@@ -1,0 +1,33 @@
+#travel_insurance.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          a.modal-close[href="#" data-dismiss="modal"]
+          | Travel insurance
+        form
+          .card-body
+            h5.text-red
+              | ¥300/person
+            h5
+              | [ Travel insurance warranty information ]
+            p
+              |  Death/Residual disability：  ¥1,700,000
+              br
+              |  Hospitalization (per day)：  ¥4,000
+              br
+              |  Liability：  ¥100,000,000
+              br
+              |  Baggage damage (3,000yen deductible)：  ¥50,000
+            h5
+              |[ 旅行損害保険 ]
+            p
+              | 死亡・後遺障害：170万円
+              br
+              | 入院日額：4000円
+              br
+              | 賠償責任：1億円
+              br
+              | 携行品損害（免責金額 3,000円）：50000円
+          .card-footer
+            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

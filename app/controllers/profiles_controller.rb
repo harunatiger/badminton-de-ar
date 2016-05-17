@@ -45,6 +45,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+    @profile.profile_countries.build if @profile.profile_countries.blank?
     flash.now[:notice] = Settings.profile.send_message if params[:send_message] == 'yes'
   end
 
@@ -75,12 +76,9 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
+    para = Profile.set_up_update_params(profile_params)
+    para[:enable_strict_validation] = true if params[:page_self_introduction].blank?
     respond_to do |format|
-      para = profile_params
-      if para[:municipality]
-        para[:location] = para[:municipality] + ' ' + para[:prefecture]
-      end
-      para[:enable_strict_validation] = true if params[:page_self_introduction].blank?
       if @profile.update(para)
         Profile.set_percentage(@profile.user_id)
         format.html { redirect_to params[:page_self_introduction].present? ? self_introduction_profile_path(@profile) : edit_profile_path(@profile), notice: Settings.profile.save.success }
@@ -191,6 +189,6 @@ class ProfilesController < ApplicationController
         :listing_count, :wishlist_count, :bookmark_count, :reviewed_count,
         :reservation_count,
         :ave_total, :ave_accuracy, :ave_communication, :ave_cleanliness, :ave_location,
-        :ave_check_in, :ave_cost_performance, :created_at, :updated_at, category_ids: [],language_ids: [], profile_categories_attributes: [:id, :category_id, :tag_list])
+        :ave_check_in, :ave_cost_performance, :created_at, :updated_at, category_ids: [],language_ids: [], profile_categories_attributes: [:id, :category_id, :tag_list => []], profile_countries_attributes: [:id, :country, :_destroy])
     end
 end

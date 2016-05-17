@@ -373,6 +373,7 @@ GEM
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     nenv (0.2.0)
+    nested_form (0.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -699,6 +700,7 @@ DEPENDENCIES
   meta-tags (= 2.0.0)
   mini_magick (= 4.5.1)
   momentjs-rails (~> 2.9)!
+  nested_form (= 0.3.2)
   newrelic_rpm (= 3.11.1.284)
   omniauth (= 1.2.2)
   omniauth-facebook (= 2.0.1)

@@ -253,7 +253,7 @@ $ ->
     #$('#profile_keyword_collection_profile_keywords_attributes_4_keyword').on 'change', (event) ->
     #  addKeyword($(this))
     #  event.preventDefault()
-    
+
   # reviews
   if $('body').hasClass('profiles show')
     # read more reviews as guide
@@ -319,30 +319,33 @@ $ ->
         $(this).css("top", "-"+ih+"px")
 
   if $('body').hasClass('profiles self_introduction')
+    # select category
+    array_index = 2
     $(document).on 'click', '.select_category_link', (event) ->
-      selected = $("input[name*='[tag_list]']")
-      array_index = selected.length + 1
+      selected = $(".selected_category")
+      #array_index = selected.length
       category_index = $('.select_category_link').index(this)
       category_id = $('.select_category_link').eq(category_index).attr("category_id")
+      category_name = $('.set_category_container_title').eq(category_index).text()
 
       if $('.select_category_link').eq(category_index).hasClass('listing_image_selected')
         user_id = $('#profile_user_id').val()
 
-        if confirm('Are you sure you want to delete this category?')
-          $.ajax
-            type: 'DELETE'
-            url: '/profiles/delete_category'
-            data: {category_id: category_id, user_id: user_id}
-            success: (data) ->
-              $('.select_category_link').eq(category_index).children("i").remove()
-              $('.select_category_link').eq(category_index).removeClass 'listing_image_selected'
-              $("[class='" + category_id + "']").remove()
-              return false
-            error: ->
-              return false
+        $.ajax
+          type: 'DELETE'
+          url: '/profiles/delete_category'
+          data: {category_id: category_id, user_id: user_id}
+          success: (data) ->
+            $('.select_category_link').eq(category_index).children("i").remove()
+            $('.select_category_link').eq(category_index).removeClass 'listing_image_selected'
+            $("[class='selected_category'][category_id=" + category_id + "]").remove()
+            return false
+          error: ->
+            return false
       else if selected.length == 3
           alert 'You can register a maximum of 3 categories.'
       else
+        array_index += 1
         $('.select_category_link').eq(category_index).append("<i class='fa fa-check'></i>")
         $('.select_category_link').eq(category_index).addClass 'listing_image_selected'
 
@@ -350,10 +353,34 @@ $ ->
         tag_list_id = 'tag_list_' + category_id
         placeholder = $('.select_category_link').eq(category_index).attr("placehodler_str")
 
-        $("<div class='" + category_id + "'><img src=" + img_src + " /><input type='hidden' value='" + category_id + "' name='profile[profile_categories_attributes][" + array_index + "][category_id]'/><input value='' data-role='tagsinput' class='string optional form-control' placeholder='" + placeholder + "' type='text' name='profile[profile_categories_attributes][" + array_index + "][tag_list]' id='" + tag_list_id + "'/></div>").insertBefore(".input_categories_space_end")
-
-        $("#" + tag_list_id).tagsinput('refresh')
+        $("<div class='selected_category' category_id=" + category_id + " index=" + array_index + "><img src=" + img_src + " /><input type='hidden' value='" + category_id + "' name='profile[profile_categories_attributes][" + array_index + "][category_id]'/><div class='h5 row-space-2'>" + category_name + "</div><div class='row-space-2'><div class='example-tag row-space-2'><input value='' class='string optional form-control imeoff' placeholder='" + placeholder + "' type='text' name='profile[profile_categories_attributes][" + array_index + "][tag_list][]' id='" + tag_list_id + "'/><a class='delete_tag_link' title='Remove example' href='#'><i class='fa fa-times fa-red balloon' title='Remove example'></i></a></div><span class='tags_input_end'></span></div><a class='add_tag_link' href='#'><i class='fa fa-plus'></i> add example</a></div>").insertBefore(".input_categories_space_end")
       return false
+
+    # delete tag
+    $(document).on 'click', '.delete_tag_link', (event) ->
+      $(this).prev().remove()
+      $(this).remove()
+      return false
+
+    # add tag
+    $(document).on 'click', '.add_tag_link', (event) ->
+      category_index = $('.add_tag_link').index(this)
+      tag_end = $(".tags_input_end").eq(category_index)
+      category_id = $(this).parent().attr("category_id")
+      category = $("[class^='select_category_link'][category_id=" + category_id + "]")
+      placeholder = category.attr("placehodler_str")
+      array_index = $('.selected_category').eq(category_index).attr('index')
+      
+      $("<div class='example-tag row-space-2'><input value='' class='string optional form-control imeoff' name='profile[profile_categories_attributes][" + array_index + "][tag_list][]' placeholder='" + placeholder + "' type='text' id='profile_profile_categories_attributes_0_tag_list' /><a class='delete_tag_link' href='#'><i class='fa fa-times fa-red balloon' title='Remove example'></i></a></div>").insertBefore(tag_end)
+      return false
+
+    # 50 character limit for tag
+    $(document).on 'keyup', $("input[name^='tag_list']"), (event) ->
+      str = $(":focus").val()
+      if str.length > 50
+        $(":focus").val(str.substr(0, 50))
+        alert '50 character limit'
+      return
 
   # self_introduction
   if $('body').hasClass('profiles self_introduction')

@@ -20,4 +20,8 @@ class ProfileCategory < ActiveRecord::Base
   belongs_to :category
   
   scope :order_by_created_at_asc, -> { order('created_at asc') }
+  
+  def tag_list_sort_by_created_at
+    self.tags.order('created_at asc')
+  end
 end

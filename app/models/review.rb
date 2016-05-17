@@ -53,6 +53,8 @@ class Review < ActiveRecord::Base
 
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
+  
+  before_validation :set_total
 
   def calc_average
     self.calc_ave_of_listing
@@ -205,5 +207,9 @@ class Review < ActiveRecord::Base
 
   def self.this_listing(listing_id)
     ReviewForGuide.where(listing_id: listing_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
+  end
+  
+  def set_total
+    self.total = nil if self.total == 0
   end
 end
