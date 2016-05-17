@@ -349,7 +349,13 @@ class Reservation < ActiveRecord::Base
 
     self.guests_cost = 0 if self.guests_cost.blank?
     
-    self.insurance_fee = self.num_of_people * Settings.reservation.insurance_fee if !self.accepted? and !self.canceled_after_accepted?
+    if !self.accepted? and !self.canceled_after_accepted?
+      if self.basic_amount > 0
+        self.insurance_fee = self.num_of_people * Settings.reservation.insurance_fee
+      else
+        self.insurance_fee = 0
+      end
+    end
     self
   end
 
