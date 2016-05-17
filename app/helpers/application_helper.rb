@@ -739,6 +739,17 @@ module ApplicationHelper
     result.present? ? result[:image] : ''
   end
   
+  def profile_category_to_image_thumb(profile_category)
+    result = ''
+    ListingImage.image_categories.each do |category|
+      if category[:title] == profile_category_to_name(profile_category)
+        result = category 
+        break
+      end
+    end
+    result.present? ? result[:image].gsub('01', '02') : ''
+  end
+  
   def profile_category_to_name(profile_category)
     Category.find(profile_category.category_id).name
   end
