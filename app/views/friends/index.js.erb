@@ -1,6 +1,3 @@
 <% if defined? @friends %>
   $('#friends_list').html($("<%=j render partial: 'friends_list', locals: { friends: @friends } %>").hide().fadeIn('slow'));
 <% end %>
-<% if defined? @not_friends %>
-  $('#not_friends_list').html($("<%=j render partial: 'not_friends_list', locals: { not_friends: @not_friends } %>").hide().fadeIn('slow'));
-<% end %>

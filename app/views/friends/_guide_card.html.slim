@@ -25,7 +25,7 @@ div
       .capability
         - profile.profile_categories.order_by_created_at_asc.each do |profile_category|
           .media-round.media-photo.media-avatar
-            .size28[style="background-image: url('#{asset_path profile_category_to_image(profile_category)}')"]
+            .size28[style="background-image: url('#{asset_path profile_category_to_image_thumb(profile_category)}')"]
       .language
         - if language_en?(profile)
           span.balloon(title="English") EN
