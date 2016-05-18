@@ -50,7 +50,7 @@ class ProfilesController < ApplicationController
   end
 
   def self_introduction
-    @tags = ActsAsTaggableOn::Tag.most_used
+    #@tags = ActsAsTaggableOn::Tag.most_used
   end
 
   # POST /profiles

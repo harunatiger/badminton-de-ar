@@ -1,4 +1,14 @@
 ActiveAdmin.register User do
+  before_update do |user|
+    @user_type_was = user.user_type_was
+  end
+  
+  after_update do |user|
+    if @user_type_was != user.user_type and user.support_guide?
+      PairGuideMailer.become_support_guide_notification(user).deliver_now!
+    end
+  end
+  
   permit_params :id,
                 :email,
                 :encrypted_password,
