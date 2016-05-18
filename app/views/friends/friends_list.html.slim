@@ -16,10 +16,12 @@
         .card-header
           = form_tag(search_friends_friends_path, method: :get, remote: true, id: 'friends_search') do
             .row.row-condensed
-              label.col-md-2.col-lg-1.col-lg-offset-2.text-right.hide--sp
+              /label.col-md-2.col-lg-1.col-lg-offset-2.text-right.hide--sp
                 | 名前
               .col-md-8.col-lg-6.fieldset
                 = text_field 'search', 'keyword', placeholder: "名前から検索"
+              .col-xs-4.col-md-4.fieldset
+                = submit_tag '検索', class: "btn btn-primary btn-large btn-block row-space-top-1 row-space-1", name: 'friends_search'
         = render partial: 'friends_list', locals: { friends: @friends }
   .text-center
     = form_tag(send_message_to_selected_guides_reservation_path(@reservation.id), method: :post) do

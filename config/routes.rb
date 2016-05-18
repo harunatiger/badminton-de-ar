@@ -108,6 +108,7 @@ Rails.application.routes.draw do
       post 'reject'
     end
     collection do
+      get 'list_search'
       get 'search'
       get 'search_friends'
       post 'set_selected_guides'
