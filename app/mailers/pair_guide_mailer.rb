@@ -42,7 +42,7 @@ class PairGuideMailer < ApplicationMailer
       to:      user.email,
       subject: I18n.t('mailer.become_support_guide_notification.subject')
     ) do |format|
-      format.text
+      format.html
     end
   end
 end
