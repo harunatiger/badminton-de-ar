@@ -12,12 +12,12 @@
     - if listing_detail.present?
       - default_num_of_people = listing_detail.max_num_of_people > 1 ? 2 : 1
       .card.row-space-2
+        .card-body
+          = render partial: 'talk_to_me', locals: { listing: @listing, message_thread: @message_thread }
+      .card.row-space-2
         .card-header.show--sp
           = link_to "", "#", class: "modal-close modal-close-request-booking", data: {dismiss: "modal"}
           | Request Booking
-        .row-space-1
-          = render partial: 'talk_to_me', locals: { listing: @listing, message_thread: @message_thread }
-
         #js-tour-info.card-body
           .tour-price.row-space-1
             h3.h4.strong.row-space-2 Price
