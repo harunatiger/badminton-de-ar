@@ -375,12 +375,13 @@ $ ->
       return false
 
     # 50 character limit for tag
-    $(document).on 'keyup', $("input[name^='tag_list']"), (event) ->
-      str = $(":focus").val()
-      if str.length > 50
-        $(":focus").val(str.substr(0, 50))
-        alert '50 character limit'
-      return
+    $(document).on 'keyup', (event) ->
+      if $(":focus").attr('name').indexOf('tag_list') != -1
+        str = $(":focus").val()
+        if str.length > 50
+          $(":focus").val(str.substr(0, 50))
+          alert '50 character limit'
+        return
 
   # self_introduction
   if $('body').hasClass('profiles self_introduction')
