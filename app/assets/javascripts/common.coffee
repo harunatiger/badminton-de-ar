@@ -247,7 +247,7 @@ $ ->
       $('.panel-close-fix').hide()
 
   # subnav
-  if $('.subnav').length
+  if $('.subnav').length && !$('body').hasClass('friends')
     # subnav get active-class
     # pageName = $('body').get(0).className.split(" ")[0];
     # $('.' + pageName, '.subnav').addClass('active')
@@ -567,7 +567,7 @@ $ ->
         gallery:
           enabled: true
       return
-    
+
   #ga setting
   if $('body').hasClass('profiles show')
     $(document).on 'click', $(".profile_message"), (event) ->

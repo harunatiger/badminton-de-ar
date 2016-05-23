@@ -1,4 +1,4 @@
-/ listings#edit
+= render partial: 'shared/error_message', locals: { target: @listing} if @listing.present?
 .manage-listings
   /= render partial: 'shared/manage_listing_header', locals: { listing: @listing }
   = render partial: 'shared/subnav', locals: { listing: @listing }

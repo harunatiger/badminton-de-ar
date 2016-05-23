@@ -22,9 +22,12 @@
                   - else
                     = link_to '候補にする', '#', class: "btn btn-default btn-large btn-block row-space-top-1 row-space-1 select_friend_link", id: 'select_friend_link'
           - else
-            p
-              | Huber.のTOMODACHI GUIDEは2人1組のペアで行います。ガイド仲間がいないとツアーができません。
-            p
-              | 「ガイド仲間を探す」から、ガイド仲間を見つけてください。
+            .col-md-12.row-space-top-4.row-space-4
+              p.text-lead
+                | Huber.のTOMODACHI GUIDEは2人1組のペアで行います。ガイド仲間がいないとツアーができません。
+              p.text-lead
+                | 
+                = link_to "「ガイド仲間を探す」", list_search_friends_path
+                | から、ガイド仲間を見つけてください。
   .text-center
     = paginate friends, remote: true, params: { friends_page: true}
