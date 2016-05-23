@@ -81,6 +81,8 @@ en:
     #  subject: "ペアガイドが%{status}されました。"
     become_support_guide_notification:
       subject: 'サポートガイドができるようになりました。'
+    become_main_guide_notification:
+      subject: 'メインガイドにランクアップしました。'
   option_price_ja:
     space_rental: "スペースレンタル代"
     car_option: "車両代"
