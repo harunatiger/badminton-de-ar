@@ -20,7 +20,37 @@
       .required-container
         = f.input_field :title, :class => 'imeoff', placeholder: "Eg. Kamakura vegetable food-fest for girls! "
         i.fa.fa-asterisk.balloon[title="required"]
-
+  
+  hr
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left.listing-manager-intaview
+      .h4.row-space-2.border-block.text-light
+        | ツアーのこだわりインタビュー
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h5.row-space-2.text-light
+        | このツアーの一番の見どころは何ですか？
+    .col-12
+      .required-container
+        = f.input_field :interview2,:class => 'imeoff'
+        i.fa.fa-asterisk.balloon[title="required"]
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h5.row-space-2.text-light
+        | このツアーを作ったきっかけは何ですか？
+    .col-12
+      .required-container
+        = f.input_field :interview1,:class => 'imeoff'
+        i.fa.fa-asterisk.balloon[title="required"]
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h5.row-space-2.text-light
+        | どんな人にオススメですか？
+    .col-12
+      .required-container
+        = f.input_field :interview3,:class => 'imeoff'
+        i.fa.fa-asterisk.balloon[title="required"]
+  hr
   #tour-overview.row.row-space-5.row-space-top-5
     .col-lg-12.text-left
       .h4.row-space-2.text-light
@@ -108,30 +138,6 @@
     .row.row-space-5.row-space-top-5
       .col-lg-12.text-left.stop_if_rain
         = ff.input_field :stop_if_rain, inline_label: '雨天の場合は中止する'
-
-  hr
-  .row.row-space-5.row-space-top-5
-    .col-lg-12.text-left.listing-manager-intaview
-      .h4.row-space-2.border-block.text-light
-        | ツアーのこだわりインタビュー
-  .row.row-space-5.row-space-top-5
-    .col-lg-12.text-left
-      .h5.row-space-2.text-light
-        | このツアーを作ったきっかけは何ですか？
-    .col-12
-        = f.input_field :interview1,:class => 'imeoff'
-  .row.row-space-5.row-space-top-5
-    .col-lg-12.text-left
-      .h5.row-space-2.text-light
-        | このツアーの一番の見どころは何ですか？
-    .col-12
-        = f.input_field :interview2,:class => 'imeoff'
-  .row.row-space-5.row-space-top-5
-    .col-lg-12.text-left
-      .h5.row-space-2.text-light
-        | どんな人にオススメですか？
-    .col-12
-        = f.input_field :interview3,:class => 'imeoff'
   hr
   .row.row-space-top-6
     .col-xs-9.col-offset-3.text-reset-center

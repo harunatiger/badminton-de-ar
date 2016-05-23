@@ -6,6 +6,7 @@
       .col-xs-6.add-listing-images-movie
         = simple_form_for(@listing, url: upload_video_cover_image_listing_listing_images_url(@listing), html: { id: 'upload_video'}, method: 'POST', remote: true) do |f|
           = f.file_field :cover_video, as: :file, class: ""
+          = f.hidden_field :not_valid_ok, value: true
       .col-xs-6.add-listing-images-image
         = simple_form_for([@listing, ListingImage.new(listing_id: @listing.id)], html: { id: 'upload_image'}, remote: true) do |f|
           = f.hidden_field :listing_id, value: @listing.id

@@ -87,6 +87,7 @@ class Listing < ActiveRecord::Base
   mount_uploader :cover_image, DefaultImageUploader
   mount_uploader :cover_video, ListingVideoUploader
   attr_accessor :image_blank_ok
+  attr_accessor :not_valid_ok
 
   accepts_nested_attributes_for :listing_detail
 
@@ -97,6 +98,7 @@ class Listing < ActiveRecord::Base
   #validates :price, presence: true
   validates :title, presence: true
   validates :overview, presence: true
+  validates :interview1, :interview2, :interview3, presence: true, unless: :not_valid_ok
   #validates :description, presence: true
   #validates :capacity, presence: true
   validates_each :cover_video do |record, attr, value|
@@ -204,7 +206,7 @@ class Listing < ActiveRecord::Base
     else
       listing = Listing.find(self.id)
       listing_detail = ListingDetail.where(listing_id: self.id).first
-      result << Settings.left_steps.listing if listing.title.blank? || listing.overview.blank?
+      result << Settings.left_steps.listing unless listing.valid?
       result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_video.present?)
       if listing_detail.present?
         result << Settings.left_steps.listing_detail if listing_detail.time_required == 0.0
@@ -222,6 +224,7 @@ class Listing < ActiveRecord::Base
 
   def unpublish
     self.open = false
+    self.not_valid_ok = true
     self.save
   end
 
@@ -247,12 +250,14 @@ class Listing < ActiveRecord::Base
     listing_copied.pickup_ids = self.pickups.ids
     listing_copied.open = false
     listing_copied.title = self.title + ' 2'
+    listing_copied.not_valid_ok = true
     listing_copied.save ? listing_copied : false
   end
 
   def delete_children
     self.remove_cover_video!
     self.open = false
+    self.not_valid_ok = true
     self.save
     favorite_listings = FavoriteListing.where(listing_id: self.id)
     favorite_listings.destroy_all if favorite_listings.present?
