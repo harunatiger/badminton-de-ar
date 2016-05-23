@@ -45,7 +45,7 @@
           p
             | You can discuss anything, including the place, price, and timing.
 - else
-  = button_tag type: 'submit', class: "btn btn-primary btn-large btn-block disabled btn-relative listing_message" do
+  = link_to profile_link, class: "btn btn-large btn-block btn-primary btn-relative profile_message" do
     i.fa.fa-comments-o
     | Talk to me
   .row.row-condensed.row-space-top-2.hide--sp
