@@ -570,7 +570,7 @@ $ ->
 
   #ga setting
   if $('body').hasClass('profiles show')
-    $(document).on 'click', $(".profile_message"), (event) ->
+    $('.profile_message').on 'click', ->
       if typeof _gaq != 'undefined'
         _gaq.push [
           '_trackEvent'
@@ -579,10 +579,9 @@ $ ->
           'Talk to me'
         ]
       return
-    return
 
   if $('body').hasClass('listings show')
-    $(document).on 'click', $(".listing_request"), (event) ->
+    $('.listing_request').on 'click', ->
       if typeof _gaq != 'undefined'
         _gaq.push [
           '_trackEvent'
@@ -591,9 +590,8 @@ $ ->
           'Request Booking'
         ]
       return
-    return
-
-    $(document).on 'click', $(".listing_message"), (event) ->
+    
+    $('.listing_message').on 'click', ->
       if typeof _gaq != 'undefined'
         _gaq.push [
           '_trackEvent'
@@ -602,7 +600,6 @@ $ ->
           'Talk to me'
         ]
       return
-    return
 
   ###
     # circle map
