@@ -12,6 +12,8 @@
 #  updated_at        :datetime         not null
 #  cover_image_small :string           default("")
 #  long_name         :string           default("")
+#  icon              :string           default("")
+#  icon_small        :string           default("")
 #
 # Indexes
 #
@@ -27,6 +29,8 @@ class Pickup < ActiveRecord::Base
   validates :order_number, uniqueness: true, :allow_nil => true
   mount_uploader :cover_image, PickupImageUploader
   mount_uploader :cover_image_small, PickupImageUploader
+  mount_uploader :icon, PickupImageUploader
+  mount_uploader :icon_small, PickupImageUploader
 
   def self.pickup_obj_by_order_number(order_number)
     self.where(order_number: order_number).where.not(selected_listing: nil).first
