@@ -1742,10 +1742,130 @@ $lines-to-show: 2
 .css4
   font-size: 1.6em
 
-/* features */
-#features-header, #features-belt
-  padding: 30px 0
+/* features
+  ================================================================================ */
+
+.img-bg
+  position: relative
+  background-repeat: no-repeat
+  background-position: center center
+  background-size: cover
+.img-bg-content
+  position: relative
+  z-index: 1
+.img-bg-overlay
+  &:after
+    content: ''
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    background: #000
+    transition: opacity .2s ease-in-out
+    opacity: .5
+    z-index: 0
+
+#features
   background-color: white
+
+.features-header
+  .img-bg
+    background-image: image-url('feature/bg_header.jpg')
+  .va-container
+    height: 755px
+
+.features-header-inner
+  display: inline-block
+  height: 384px
+  padding: 110px 0 0 426px
+  background-image: image-url('feature/circle_header.png')
+  background-repeat: no-repeat
+  background-position: left center
+  background-size: 392px auto
+  h1
+    img
+      width: 100%
+      max-width: 686px
+  h2
+    line-height: 41px
+
+.features-tile-list
+
+.features-tile
+  float: left
+  width: 33.33%
+  .img-bg
+    display: block
+    .img-bg-content
+      height: 250px
+    &:hover
+      color: white
+  .img-bg-overlay
+    &:after
+      opacity: .2
+    &:hover
+      color: white
+      &:after
+        opacity: .05
+  &#tile01
+    .img-bg
+      background-image: image-url('feature/bg_section001.jpg')
+  &#tile02
+    .img-bg
+      background-image: image-url('feature/bg_section002.jpg')
+  &#tile03
+    .img-bg
+      background-image: image-url('feature/bg_section003.jpg')
+  &#tile04
+    .img-bg
+      background-image: image-url('feature/bg_section004.jpg')
+  &#tile05
+    .img-bg
+      background-image: image-url('feature/bg_section005.jpg')
+  &#tile06
+    .img-bg
+      background-image: image-url('feature/bg_section006.jpg')
+  &#tile07
+    .img-bg
+      background-image: image-url('feature/bg_section007.jpg')
+  &#tile08
+    .img-bg
+      background-image: image-url('feature/bg_section008.jpg')
+  &#tile09
+    .img-bg
+      background-image: image-url('feature/bg_section009.jpg')
+
+.tile-title
+  position: absolute
+  left: 35px
+  bottom: 35px
+  text-shadow: 0 2px 4px rgba(0, 0, 0, .36)
+  .num
+    line-height: 60px
+    font-size: 60px
+  .text
+    font-size: 24px
+
+.tile-arrow
+  position: absolute
+  right: 30px
+  bottom: 40px
+  width: 20px
+  height: 20px
+  line-height: 18px
+  font-size: 17px
+  text-align: center
+  border: 1px solid white
+  border-radius: 50%
+
+
+
+
+
+
+
+
 
 #features-highlight
   overflow: hidden
