@@ -69,7 +69,6 @@ class ListingsController < ApplicationController
         #@categories = PickupCategory.all
         #@tags = PickupTag.all
         @areas = PickupArea.all
-        flash.now[:alert] = Settings.listings.save.failure
         format.html { render :new}
         format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
@@ -89,7 +88,6 @@ class ListingsController < ApplicationController
         @categories = PickupCategory.all
         @tags = PickupTag.all
         @areas = PickupArea.all
-        flash.now[:alert] = Settings.listings.save.failure
         format.html { render :edit}
       end
     end

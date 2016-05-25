@@ -22,7 +22,7 @@
               - else
                 = link_to '#', class: 'set_listing_image_link', listing_image_id: listing_image.id do
                   .media-avatar
-                    = image_tag listing_image.category_image, class: 'media-round size44'
+                    = image_tag listing_image.category_image_thumb, class: 'media-round size44'
                   = image_category_display_name(listing_image.category)
                   /= debug listing_image
             .card-body

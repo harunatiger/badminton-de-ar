@@ -33,7 +33,7 @@ class ListingImage < ActiveRecord::Base
   
   def self.image_categories
     path = 'image_category/'
-    [ { title: 'spa_and_relaxation', image: path + 'spa_and_relaxation.png'}, { title: 'cultural_sites', image: path + 'cultual_sites.png'}, {title: 'food_and_drink', image: path + 'food_and_drink.png'}, {title: 'shopping', image: path + 'shopping.png'}, { title: 'outdoors', image: path + 'outdoors.png'}, { title: 'sports', image: path + 'sports.png'},{ title: 'gardens', image: path + 'gardens.png'},{ title: 'tourist_hotspots', image: path + 'tourist_hotspots.png'},{ title: 'art', image: path + 'art.png'},{ title: 'manga_and_anime', image: path + 'manga_and_anime.png'},{ title: 'onsen', image: path + 'onsen.png'},{ title: 'theme_parks',image: path + 'Theme_parks.png'},{ title: 'entertainment',image: path + 'entertainment.png'},{ title: 'experiences',image: path + 'experiences.png'}, { title: 'night_life', image: path + 'night_life.png'}]
+    [ { title: 'spa_and_relaxation', image: path + 'spa_icon_01.png'}, { title: 'cultural_sites', image: path + 'culturalsites_icon_01.png'}, {title: 'food_and_drink', image: path + 'food_icon_01.png'}, {title: 'shopping', image: path + 'shopping_icon_01.png'}, { title: 'outdoors', image: path + 'outdoor_icon_01.png'}, { title: 'sports', image: path + 'sports_icon_01.png'},{ title: 'gardens', image: path + 'garden_icon_01.png'},{ title: 'tourist_hotspots', image: path + 'hotspots_icon_01.png'},{ title: 'art', image: path + 'art_icon_01.png'},{ title: 'manga_and_anime', image: path + 'anime_icon_01.png'},{ title: 'onsen', image: path + 'onsen_icon_01.png'},{ title: 'theme_parks',image: path + 'themepark_icon_01.png'},{ title: 'entertainment',image: path + 'entertainment_icon_01.png'},{ title: 'experiences',image: path + 'experience_icon_01.png'}, { title: 'night_life', image: path + 'nightlife_icon_01.png'}]
   end
   
   def category_image
@@ -47,11 +47,23 @@ class ListingImage < ActiveRecord::Base
     result.present? ? result[:image] : ''
   end
   
+  def category_image_thumb
+    result = ''
+    ListingImage.image_categories.each do |category|
+      if self.category == category[:title]
+        result = category 
+        break
+      end
+    end
+    result.present? ? result[:image].gsub('01', '02') : ''
+  end
+  
   def category_hash
     result = ''
     ListingImage.image_categories.each do |category|
       if self.category == category[:title]
         result = category 
+        result[:image] = result[:image].gsub('01', '02')
         break
       end
     end

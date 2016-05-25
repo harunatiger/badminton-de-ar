@@ -22,6 +22,9 @@ en:
       listing:
         cover_video: 'video'
         cover_image: 'cover photo'
+        interview1: 'Interview2'
+        interview2: 'Interview1'
+        interview3: 'Interview3'
       listing_image:
         image: 'photo'
         caption: 'コメント'
@@ -79,6 +82,10 @@ en:
         accepted: "%{user_name} さんとのペアガイドが成立しました。"
         canceled: "%{user_name} さんとのペアガイドは成立しませんでした。"
     #  subject: "ペアガイドが%{status}されました。"
+    become_support_guide_notification:
+      subject: 'サポートガイドができるようになりました。'
+    become_main_guide_notification:
+      subject: 'メインガイドにランクアップしました。'
   option_price_ja:
     space_rental: "スペースレンタル代"
     car_option: "車両代"

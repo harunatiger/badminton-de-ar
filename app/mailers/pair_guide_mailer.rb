@@ -34,4 +34,25 @@ class PairGuideMailer < ApplicationMailer
       format.text
     end
   end
+  
+  def become_support_guide_notification(user)
+    @user = user
+    @profile = user.profile
+    mail(
+      to:      user.email,
+      subject: I18n.t('mailer.become_support_guide_notification.subject')
+    ) do |format|
+      format.html
+    end
+  end
+  
+  def become_main_guide_notification(user)
+    @user = user
+    mail(
+      to:      user.email,
+      subject: I18n.t('mailer.become_main_guide_notification.subject')
+    ) do |format|
+      format.html
+    end
+  end
 end

@@ -73,7 +73,7 @@
             | ID information
           span.show--sp
             | ID
-    - if !current_user.guest?
+    /- if !current_user.guest?
       - if controller_name == 'profile_banks'
         li
           = link_to "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "true"} do

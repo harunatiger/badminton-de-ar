@@ -1,0 +1,57 @@
+- if user_signed_in?
+  - if current_user.id == listing.user_id
+    = button_tag type: 'submit', id: 'book_it_button', class: "btn btn-primary btn-large btn-block disabled btn-relative listing_message" do
+      i.fa.fa-comments-o
+      | Talk to me
+    .row.row-condensed.row-space-top-2.hide--sp
+      .col-3.text-center
+        .media-photo.media-round.media-avatar
+          .size60[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
+      .col-9
+        p
+          | You can discuss anything, including the place, price, and timing.
+  - elsif not profile_completed?
+    = link_to profile_link, class: 'btn btn-primary btn-large btn-block btn-relative listing_message' do
+      i.fa.fa-comments-o
+      | Talk to me
+    .row.row-condensed.row-space-top-2.hide--sp
+      .col-3.text-center
+        .media-photo.media-round.media-avatar
+          .size60[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
+      .col-9
+        p
+          | You can discuss anything, including the place, price, and timing.
+  - else
+    -if message_thread
+      = link_to message_thread_path(message_thread), class: 'btn btn-primary btn-large btn-block btn-relative listing_message' do
+        i.fa.fa-comments-o
+        | Talk to me
+      .row.row-condensed.row-space-top-2.hide--sp
+        .col-3.text-center
+          .media-photo.media-round.media-avatar
+            .size60[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
+        .col-9
+          p
+            | You can discuss anything, including the place, price, and timing.
+    - else
+      = link_to message_threads_path(message_thread: {host_id: listing.user_id}), method: 'POST', class: 'btn btn-primary btn-large btn-block btn-relative listing_message' do
+        i.fa.fa-comments-o
+        | Talk to me
+      .row.row-condensed.row-space-top-2.hide--sp
+        .col-3.text-center
+          .media-photo.media-round.media-avatar
+            .size60[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
+        .col-9
+          p
+            | You can discuss anything, including the place, price, and timing.
+- else
+  = link_to profile_link, class: "btn btn-large btn-block btn-primary btn-relative listing_message" do
+    i.fa.fa-comments-o
+    | Talk to me
+  .row.row-condensed.row-space-top-2.hide--sp
+    .col-3.text-center
+      .media-photo.media-round.media-avatar
+        .size60[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
+    .col-9
+      p
+        | You can discuss anything, including the place, price, and timing.

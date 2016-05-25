@@ -28,10 +28,11 @@
           = render partial: 'similar_listings'
 
 .fixed-btn-container.show--sp
-  - if user_signed_in?
+  = render partial: 'talk_to_me', locals: { listing: @listing, message_thread: @message_thread }
+  /- if user_signed_in?
     button#request--sp.btn.btn-large.btn-fixed-bottom.btn-primary
       | More
-  - else
+  /- else
     = link_to user_session_path, class: 'btn btn-large btn-fixed-bottom btn-primary' do
       | More
 

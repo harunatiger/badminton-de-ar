@@ -121,7 +121,7 @@ class ListingImagesController < ApplicationController
     end
   
     def listing_params
-      params.require(:listing).permit(:cover_video)
+      params.require(:listing).permit(:cover_video, :not_valid_ok)
     end
   
     def regulate_user

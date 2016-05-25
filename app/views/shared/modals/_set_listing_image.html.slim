@@ -26,7 +26,7 @@
                   p.row-space-1.small1.text-red
                     i.fa.fa-exclamation-triangle
                     |  入力は英語・半角100文字以内で行ってください。
-                  = f.text_area :caption, rows: 4, placeholder: "例）長谷寺の大仏です。大きさにびっくりすると思いますよ！", class: 'imeoff'
+                  = f.text_area :caption, rows: 4, placeholder: "Eg. The Great Buddha at Hasedera Temple. You'll be amazed at how huge it is!", class: 'imeoff'
             .card-footer
               = f.submit "設定する", class: "btn btn-primary"
               = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn btn-default"

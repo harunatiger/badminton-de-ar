@@ -18,9 +18,39 @@
         |  ツアーのタイトル
     .col-lg-12
       .required-container
-        = f.input_field :title, :class => 'imeoff', placeholder: "例) 鎌倉野菜を食べ尽くす女子会ツアー"
+        = f.input_field :title, :class => 'imeoff', placeholder: "Eg. Kamakura vegetable food-fest for girls! "
         i.fa.fa-asterisk.balloon[title="required"]
-
+  
+  hr
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left.listing-manager-intaview
+      .h4.row-space-2.border-block.text-light
+        | ツアーのこだわりインタビュー
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h5.row-space-2.text-light
+        | このツアーの一番の見どころは何ですか？
+    .col-12
+      .required-container
+        = f.input_field :interview2,:class => 'imeoff'
+        i.fa.fa-asterisk.balloon[title="required"]
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h5.row-space-2.text-light
+        | このツアーを作ったきっかけは何ですか？
+    .col-12
+      .required-container
+        = f.input_field :interview1,:class => 'imeoff'
+        i.fa.fa-asterisk.balloon[title="required"]
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h5.row-space-2.text-light
+        | どんな人にオススメですか？
+    .col-12
+      .required-container
+        = f.input_field :interview3,:class => 'imeoff'
+        i.fa.fa-asterisk.balloon[title="required"]
+  hr
   #tour-overview.row.row-space-5.row-space-top-5
     .col-lg-12.text-left
       .h4.row-space-2.text-light
@@ -89,7 +119,7 @@
         .h4.row-space-2.text-light
           | 集合場所の説明
       .col-lg-12
-        = ff.input_field :place_memo,:class => 'imeoff', placeholder: "例）駅の南口に薬局があります。その前に集合してください。"
+        = ff.input_field :place_memo,:class => 'imeoff', placeholder: "Eg. We will meet at the pharmacy next to the South Exit of the station. "
 
   #tour-notes.row.row-space-5.row-space-top-5
     .col-lg-12.text-left
@@ -104,34 +134,10 @@
         .h4.row-space-2.text-light
           | 参加条件
       .col-12
-        = ff.input_field :condition,:class => 'imeoff', placeholder: "例) 女子会なので男性の方はご遠慮ください。"
+        = ff.input_field :condition,:class => 'imeoff', placeholder: "Eg. This tour is only for girls. "
     .row.row-space-5.row-space-top-5
       .col-lg-12.text-left.stop_if_rain
         = ff.input_field :stop_if_rain, inline_label: '雨天の場合は中止する'
-
-  hr
-  .row.row-space-5.row-space-top-5
-    .col-lg-12.text-left.listing-manager-intaview
-      .h4.row-space-2.border-block.text-light
-        | ツアーのこだわりインタビュー
-  .row.row-space-5.row-space-top-5
-    .col-lg-12.text-left
-      .h5.row-space-2.text-light
-        | このツアーを作ったきっかけは何ですか？
-    .col-12
-        = f.input_field :interview1,:class => 'imeoff'
-  .row.row-space-5.row-space-top-5
-    .col-lg-12.text-left
-      .h5.row-space-2.text-light
-        | このツアーの一番の見どころは何ですか？
-    .col-12
-        = f.input_field :interview2,:class => 'imeoff'
-  .row.row-space-5.row-space-top-5
-    .col-lg-12.text-left
-      .h5.row-space-2.text-light
-        | どんな人にオススメですか？
-    .col-12
-        = f.input_field :interview3,:class => 'imeoff'
   hr
   .row.row-space-top-6
     .col-xs-9.col-offset-3.text-reset-center

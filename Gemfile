@@ -156,6 +156,9 @@ gem 'has_friendship', '0.1.2'
 # wysiwyg editor for news
 gem 'ckeditor', '4.1.2'
 
+# google tag manager
+gem 'google-tag-manager-rails'
+
 # nested_form
 gem 'nested_form', '0.3.2'
 

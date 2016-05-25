@@ -1,0 +1,21 @@
+= render partial: 'shared/subnav'
+.guide-friend-title.page-container.row-space-top-8.text-center
+  h3 ガイド仲間を探す
+  = link_to 'ガイド仲間一覧に戻る', friends_path, class: "btn btn-primary btn-radius"
+.page-container.row-space-top-4.row-space-8
+  .row
+    .col-md-12
+      .card.row-space-4
+        .card-header
+          = form_tag(search_friends_path, method: :get, remote: true, id: 'friends_search') do
+            .row.row-condensed
+              /label.col-md-1.text-right.hide--sp
+                | 名前
+              .col-xs-8.col-md-6.fieldset
+                = text_field 'search', 'keyword', placeholder: "名前で検索"
+              .col-xs-4.col-md-2.fieldset
+                = submit_tag '検索', class: "btn btn-primary btn-block btn-friend-search", friends_page: false
+                /.select.select-block
+                  = select 'search', 'friends_or_not', [["仲間", 'friends'], ["その他", 'not_friends']]
+        /= render partial: 'friends_list', locals: { friends: @friends }
+        = render partial: 'not_friends_list', locals: { not_friends: @not_friends }

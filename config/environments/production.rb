@@ -112,7 +112,8 @@ Rails.application.configure do
     :enable_starttls_auto => true
   }
 
-  GA.tracker = "UA-54768854-8"
+  GA.tracker = ENV['GA_TRACKER']
+  GoogleTagManager.gtm_id = ENV['GOOGLE_TAMANAGER']
 
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :production
