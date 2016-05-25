@@ -1,4 +1,5 @@
 /* features#index */
+- listings = feature_listings
 #features
   .features-header
     .img-bg.img-bg-overlay
@@ -17,201 +18,317 @@
     .page-container
       .row.row-space-top-8.row-space-8
         .col-md-12.text-readable.row-space-top-8.text-center
-          h2.text-brand.row-space-8
-            b What is Kamakura like ?
+          h2.text-brand.text-black.row-space-8 
+            | What is Kamakura like ?
           p.row-space-8
             | Tokyo was the last place that samurai held political power, and Kamakura was the first. The reason that Kamakura was chosen by the first samurai to be the capital during the time known as the "Kamakura period,” in the 12th century, was because it was a natural fortress surrounded by mountains, and had a strong capability for defense. Even 800 years later, Kamakura is still surrounded by mountains and ocean, and the buildings from that time, along with traditions and culture, continue on today. Only an hour’s travel away from Tokyo, it is a town with one of the most places to see.
 
-  .features-tile-list
+  .features-tile-list.clearfix
     #tile01.features-tile
-      = link_to "#", class: "img-bg img-bg-overlay text-contrast" do
+      = link_to "#features-section01", class: "img-bg img-bg-overlay text-contrast features-tile-link" do
         .img-bg-content
           .tile-title
             .num.text-black 01.
             .text.text-light Great Buddha of Kamakura
           i.fa.fa-angle-down.tile-arrow.show--sp
-      .tile-container--sp.collapse
-        .content--sp
-        .listing--sp
+      #features-section01--sp.tile-container--sp.collapse.text-center
+        .js-fore-text--sp
+        .js-section-photo01--sp
+        .js-main-text--sp
+        .js-section-photo02--sp
+        .js-tourlist--sp
+        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
+          span
     #tile02.features-tile
-      = link_to "#", class: "img-bg img-bg-overlay text-contrast" do
+      = link_to "#features-section02", class: "img-bg img-bg-overlay text-contrast features-tile-link" do
         .img-bg-content
           .tile-title
             .num.text-black 02.
             .text.text-light Tea at Jomyo-ji Temple
           i.fa.fa-angle-down.tile-arrow.show--sp
-      .tile-container--sp.collapse
-        .content--sp
-        .listing--sp
+      #features-section02--sp.tile-container--sp.collapse.text-center
+        .js-fore-text--sp
+        .js-section-photo01--sp
+        .js-main-text--sp
+        .js-section-photo02--sp 
+        .js-tourlist--sp
+        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
+          span
     #tile03.features-tile
-      = link_to "#", class: "img-bg img-bg-overlay text-contrast" do
+      = link_to "#features-section03", class: "img-bg img-bg-overlay text-contrast features-tile-link" do
         .img-bg-content
           .tile-title
             .num.text-black 03.
             .text.text-light Zeniarai Benten Shrine
           i.fa.fa-angle-down.tile-arrow.show--sp
-      .tile-container--sp.collapse
-        .content--sp
-        .listing--sp
+      #features-section03--sp.tile-container--sp.collapse.text-center
+        .js-fore-text--sp
+        .js-section-photo01--sp
+        .js-main-text--sp
+        .js-section-photo02--sp
+        .js-tourlist--sp
+        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
+          span
     #tile04.features-tile
-      = link_to "#", class: "img-bg img-bg-overlay text-contrast" do
+      = link_to "#features-section04", class: "img-bg img-bg-overlay text-contrast features-tile-link" do
         .img-bg-content
           .tile-title
             .num.text-black 04.
             .text.text-light Ten-en Hiking Course
           i.fa.fa-angle-down.tile-arrow.show--sp
-      .tile-container--sp.collapse
-        .content--sp
-        .listing--sp
+      #features-section04--sp.tile-container--sp.collapse.text-center
+        .js-fore-text--sp
+        .js-section-photo01--sp
+        .js-main-text--sp
+        .js-section-photo02--sp
+        .js-tourlist--sp
+        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
+          span
     #tile05.features-tile
-      = link_to "#", class: "img-bg img-bg-overlay text-contrast" do
+      = link_to "#features-section05", class: "img-bg img-bg-overlay text-contrast features-tile-link" do
         .img-bg-content
           .tile-title
             .num.text-black 05.
             .text.text-light Food in Kamakura
           i.fa.fa-angle-down.tile-arrow.show--sp
-      .tile-container--sp.collapse
-        .content--sp
-        .listing--sp
+      #features-section05--sp.tile-container--sp.collapse.text-center
+        .js-fore-text--sp
+        .js-section-photo01--sp
+        .js-main-text--sp
+        .js-section-photo02--sp
+        .js-tourlist--sp
+        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
+          span
     #tile06.features-tile
-      = link_to "#", class: "img-bg img-bg-overlay text-contrast" do
+      = link_to "#features-section06", class: "img-bg img-bg-overlay text-contrast features-tile-link" do
         .img-bg-content
           .tile-title
             .num.text-black 06.
             .text.text-light Enkaku-ji & Kencho-ji Temple
           i.fa.fa-angle-down.tile-arrow.show--sp
-      .tile-container--sp.collapse
-        .content--sp
-        .listing--sp
+      #features-section06--sp.tile-container--sp.collapse.text-center
+        .js-fore-text--sp
+        .js-section-photo01--sp
+        .js-main-text--sp
+        .js-section-photo02--sp
+        .js-tourlist--sp
+        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
+          span
     #tile07.features-tile
-      = link_to "#", class: "img-bg img-bg-overlay text-contrast" do
+      = link_to "#features-section07", class: "img-bg img-bg-overlay text-contrast features-tile-link" do
         .img-bg-content
           .tile-title
             .num.text-black 07.
             .text.text-light Kumazawa Brewery
           i.fa.fa-angle-down.tile-arrow.show--sp
-      .tile-container--sp.collapse
-        .content--sp
-        .listing--sp
+      #features-section07--sp.tile-container--sp.collapse.text-center
+        .js-fore-text--sp
+        .js-section-photo01--sp
+        .js-main-text--sp
+        .js-section-photo02--sp
+        .js-tourlist--sp
+        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
+          span
     #tile08.features-tile
-      = link_to "#", class: "img-bg img-bg-overlay text-contrast" do
+      = link_to "#features-section08", class: "img-bg img-bg-overlay text-contrast features-tile-link" do
         .img-bg-content
           .tile-title
             .num.text-black 08.
             .text.text-light Kamakura and the Ocean
           i.fa.fa-angle-down.tile-arrow.show--sp
-      .tile-container--sp.collapse
-        .content--sp
-        .listing--sp
+      #features-section08--sp.tile-container--sp.collapse.text-center
+        .js-fore-text--sp
+        .js-section-photo01--sp
+        .js-main-text--sp
+        .js-section-photo02--sp
+        .js-tourlist--sp
+        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
+          span
     #tile09.features-tile
-      = link_to "#", class: "img-bg img-bg-overlay text-contrast" do
+      = link_to "#features-section09", class: "img-bg img-bg-overlay text-contrast features-tile-link" do
         .img-bg-content
           .tile-title
             .num.text-black 09.
             .text.text-light Enoshima
           i.fa.fa-angle-down.tile-arrow.show--sp
-      .tile-container--sp.collapse
-        .content--sp
-        .listing--sp
-
-   #features-section01
+      #features-section09--sp.tile-container--sp.collapse.text-center
+        .js-fore-text--sp
+        .js-section-photo01--sp
+        .js-main-text--sp
+        .js-section-photo02--sp
+        .js-tourlist--sp
+        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
+          span
+ 
+  #features-section01.features-section
     .img-bg.img-bg-overlay
       .img-bg-content
         .va-container.va-container-wh
           .va-middle.text-center
+            .section-title.text-left.text-contrast
+              .num.text-black 01.
+              .text.text-light Great Buddha of Kamakura
+
+    .section-content.page-container.text-center.row-space-6
+      .js-fore-text--pc
+        .fore-text.row-space-top-8
+          | The Great Buddha in Kamakura is the second biggest in Japan, after the one in Nara. As the Great Buddha in Nara is housed inside a building, visitors can only look up at it from below, but the Great Buddha in Kamakura can be seen in detail from every angle.
+      #section-content01.collapse
+        .js-main-text--pc
+          .main-text.row-space-8
+            | This also means that this is the biggest Great Buddha in Japan that you can take a picture with. You can find many stereotypical souvenirs in Hase, the town where the Buddha is, as well as outstanding Japanese restaurants and cafes hidden away like ninjas, unknown to travellers. Built 750 years ago, the Great Buddha watches over Kamakura from a height of 13 m. Until the 15th century it was housed inside a building, but after the building was washed away in a tsunami, it stood outside as it does now, gazing over at the ocean.
+        .feature-photo-container.row.row-space-4
+          .col-md-6.hide--sp
+            .js-section-photo01--pc
+              = link_to "#{asset_path 'feature/photo_section001-01.jpg'}", class: "section-photo01" do
+                = image_tag "feature/photo_section001-01.jpg", class: "img-responsive"
+          .col-md-6
+            .js-section-photo02--pc
+              = link_to "#{asset_path 'feature/photo_section001-02.jpg'}", class: "section-photo02" do
+                = image_tag "feature/photo_section001-02.jpg", class: "img-responsive"
+        = link_to "#section-content01", class: "btn-close-circle btn-feature-readmore-close row-space-top-8" do
+          span
+      = link_to "#section-content01", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
+        | Read more
+    .js-tourlist-pc
+      .features-tourlist.page-container
+        .row.row-space-top-8.row-space-4
+          .col-md-12
+            h3.text-black
+              span 01. Recommended Tours
+        .row.row-space-8
+          .col-md-6.col-lg-4.row-space-4
+            - if listings[0].present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+            - else
+              .card.tour-listing
+
+          .col-md-6.col-lg-4.row-space-4
+            - if listings[1].present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+            - else
+              .card.tour-listing
+
+          .col-md-6.col-lg-4.row-space-4
+            - if listings[9878].present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+            - else
+              .tour-listing-empty.text-black.text-brand.text-center
+                | Coming Soon...
 
 
+  #features-section02.features-section
+    .img-bg.img-bg-overlay
+      .img-bg-content
+        .va-container.va-container-wh
+          .va-middle.text-center
+            .section-title.text-left.text-contrast
+              .num.text-black 02.
+              .text.text-light Tea at Jomyo-ji Temple
+
+    .section-content.page-container.text-center.row-space-6
+      .js-fore-text--pc
+        .fore-text.row-space-top-8
+          | Tea isn’t just for teatime. Looking out over a quintessentially Japanese garden perfectly capturing a glimpse of nature and taking a sip of hand-prepared Japanese tea is a traditional Japanese type of spiritual healing, relaxing the soul and allowing for introspection.
+      #section-content02.collapse 
+        .js-main-text--pc
+          .main-text.row-space-8
+            | At Jomyo-ji, a temple surrounded by mountains, you can feel as if you are in a timeless moment in a Japanese idyll, back by peaceful birdsong. You can enjoy this experience even more with your own guide, as they teach you the movements of the tea ceremony one by one, and help you to deepen your understanding of the garden’s design.
+            p.text-black.row-space-top-4.row-space-4 10 minutes to Hokoku-ji Temple
+            | A ten-minute walk away from Jomyo-ji Temple is Hokoku-ji Temple, where you can enjoy traditional Japanese tea while looking out over a bamboo forest. Why not dedicate a day to fully experiencing several different tea ceremonies?
+        .feature-photo-container.row.row-space-4
+          .col-md-6.hide--sp
+            .js-section-photo01--pc
+              = link_to "#{asset_path 'feature/photo_section002-01.jpg'}", class: "section-photo01" do
+                = image_tag "feature/photo_section002-01.jpg", class: "img-responsive"
+          .col-md-6
+            .js-section-photo02--pc
+              = link_to "#{asset_path 'feature/photo_section002-02.jpg'}", class: "section-photo02" do
+                = image_tag "feature/photo_section002-02.jpg", class: "img-responsive"
+        = link_to "#section-content02", class: "btn-close-circle btn-feature-readmore-close row-space-top-8" do
+          span
+      = link_to "#section-content02", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
+        | Read more
+    .js-tourlist-pc
+      .features-tourlist.page-container
+        .row.row-space-top-8.row-space-4
+          .col-md-12
+            h3.text-black
+              span 02. Recommended Tours
+        .row.row-space-8
+          .col-md-6.col-lg-4.row-space-4
+            - if listings[0].present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+            - else
+              .card.tour-listing
+
+          .col-md-6.col-lg-4.row-space-4
+            - if listings[1].present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+            - else
+              .card.tour-listing
+
+          .col-md-6.col-lg-4.row-space-4
+            - if listings[2].present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+            - else
+              .card.tour-listing
 
 
+  #features-section03.features-section
+    .img-bg.img-bg-overlay
+      .img-bg-content
+        .va-container.va-container-wh
+          .va-middle.text-center
+            .section-title.text-left.text-contrast
+              .num.text-black 03.
+              .text.text-light Zeniarai Benten Shrine
 
+    .section-content.page-container.text-center.row-space-6
+      .js-fore-text--pc
+        .fore-text.row-space-top-8
+          | You walk up a sloping path like a valley cut between mountains and pass through an entrance that looks like the mouth of a cave to get to this shrine. It is said that if you wash money in the water that springs from the rocks, more money will come to you after you spend it.
+      #section-content03.collapse
+        .js-main-text--pc
+          .main-text.row-space-8
+            | Even if you bring your drenched money out later to spend it, most people from Kamakura will realize you went to Zeniarai Benten Shrine, and happily accept it. (Though, some people may be annoyed, so be careful!)
+            p.text-black.row-space-top-4.row-space-4 5 minutes walk → Sasuke Inari Shrine
+            | Like the entrance to some mysterious world, pass through 200 m of bright red tori to arrive at Sasuke Inari Shrine. From behind this shine, there is a hidden hiking route that leads to the Great Buddha.
+        .feature-photo-container.row.row-space-4
+          .col-md-6.hide--sp
+            .js-section-photo01--pc
+              = link_to "#{asset_path 'feature/photo_section003-01.jpg'}", class: "section-photo01" do
+                = image_tag "feature/photo_section003-01.jpg", class: "img-responsive"
+          .col-md-6
+            .js-section-photo02--pc
+              = link_to "#{asset_path 'feature/photo_section003-02.jpg'}", class: "section-photo02" do
+                = image_tag "feature/photo_section003-02.jpg", class: "img-responsive"
+        = link_to "#section-content03", class: "btn-close-circle btn-feature-readmore-close row-space-top-8" do
+          span
+      = link_to "#section-content03", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
+        | Read more
+    .js-tourlist-pc
+      .features-tourlist.page-container
+        .row.row-space-top-8.row-space-4
+          .col-md-12
+            h3.text-black
+              span 03. Recommended Tours
+        .row.row-space-8
+          .col-md-6.col-lg-4.row-space-4
+            - if listings[0].present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+            - else
+              .card.tour-listing
 
+          .col-md-6.col-lg-4.row-space-4
+            - if listings[1].present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+            - else
+              .card.tour-listing
 
-
-
-
-
-
-  - listings = feature_listings
-  #features-tour-list
-    .page-container
-      .row.row-space-top-8.row-space-8
-        .col-md-6.col-lg-4.row-space-4
-          - if listings[0].present?
-            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
-          - else
-            .card.tour-listing
-              .card-image
-                = link_to "#", class: "media-photo media-photo-block media-cover" do
-                  .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
-                .card-overlay-bottom-left.flush-left.card-overlay-label
-                  .h3
-                    | ¥&nbsp;
-                    | 3000
-                = link_to "#", method: 'DELETE' , class: "favorite-btn" do
-                  i.fa.fa-heart.favorited
-              .card-body
-                .media
-                  = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-                    div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
-                  = link_to "#", class: "text-normal" do
-                    h5.row-space-1.overflow
-                      | This tour's title!
-                  .row-space-1.listing-area
-                    = link_to "#" do
-                      | Katsushikaku
-                  .row-space-1.text-muted
-                    | 13.5hours · Review 99
-
-        .col-md-6.col-lg-4.row-space-4
-          - if listings[1].present?
-            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
-          - else
-            .card.tour-listing
-              .card-image
-                = link_to "#", class: "media-photo media-photo-block media-cover" do
-                  .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
-                .card-overlay-bottom-left.flush-left.card-overlay-label
-                  .h3
-                    | ¥&nbsp;
-                    | 3000
-                = link_to "#", method: 'DELETE' , class: "favorite-btn" do
-                  i.fa.fa-heart.favorited
-              .card-body
-                .media
-                  = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-                    div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
-                  = link_to "#", class: "text-normal" do
-                    h5.row-space-1.overflow
-                      | This tour's title!
-                  .row-space-1.listing-area
-                    = link_to "#" do
-                      | Katsushikaku
-                  .row-space-1.text-muted
-                    | 13.5hours · Review 99
-
-        .col-md-6.col-lg-4.row-space-4
-          - if listings[2].present?
-            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
-          - else
-            .card.tour-listing
-              .card-image
-                = link_to "#", class: "media-photo media-photo-block media-cover" do
-                  .tour-cover[style="background-image:url(#{asset_path 'sample/features_sample001.jpg'})"]
-                .card-overlay-bottom-left.flush-left.card-overlay-label
-                  .h3
-                    | ¥&nbsp;
-                    | 3000
-                = link_to "#", method: 'DELETE' , class: "favorite-btn" do
-                  i.fa.fa-heart.favorited
-              .card-body
-                .media
-                  = link_to "#", class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
-                    div[style="background-image: url('#{asset_path 'sample/person1.jpg'}')" title="wassap?"]
-                  = link_to "#", class: "text-normal" do
-                    h5.row-space-1.overflow
-                      | This tour's title!
-                  .row-space-1.listing-area
-                    = link_to "#" do
-                      | Katsushikaku
-                  .row-space-1.text-muted
-                    | 13.5hours · Review 99
+          .col-md-6.col-lg-4.row-space-4
+            - if listings[2].present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+            - else
+              .card.tour-listing
+                | coming soon...

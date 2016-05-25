@@ -1774,14 +1774,18 @@ $lines-to-show: 2
     background-image: image-url('feature/bg_header.jpg')
   .va-container
     height: 755px
+    @media (max-width: 1099px)
+      height: 655px
+    @media (max-width: 767px)
+      height: 249px
 
 .features-header-inner
   display: inline-block
   height: 384px
-  padding: 110px 0 0 426px
+  padding: 110px 20px 0 430px
   background-image: image-url('feature/circle_header.png')
   background-repeat: no-repeat
-  background-position: left center
+  background-position: 10px center
   background-size: 392px auto
   h1
     img
@@ -1789,6 +1793,37 @@ $lines-to-show: 2
       max-width: 686px
   h2
     line-height: 41px
+  @media (max-width: 1099px)
+    height: 304px
+    padding: 70px 20px 0 304px
+    background-size: 280px auto
+    h1
+      img
+        max-width: 486px
+    h2
+      font-size: 24px
+      line-height: 36px
+  @media (max-width: 767px)
+    height: auto
+    background: none
+    padding: 0
+    text-align: center
+    h1
+      img
+        width: 80%
+    h2
+      margin: 15px 0 0
+      font-size: 15px
+      line-height: 20px
+
+.features-intro
+  @media (max-width: 767px)
+    .row
+      margin-top: 0
+      margin-bottom: 0
+    h2
+      margin-bottom: 30px
+      font-size: 18px
 
 .features-tile-list
 
@@ -1835,6 +1870,12 @@ $lines-to-show: 2
   &#tile09
     .img-bg
       background-image: image-url('feature/bg_section009.jpg')
+  @media (max-width: 767px)
+    float: none
+    width: 100%
+    .img-bg
+      .img-bg-content
+        height: 168px
 
 .tile-title
   position: absolute
@@ -1846,11 +1887,19 @@ $lines-to-show: 2
     font-size: 60px
   .text
     font-size: 24px
+  @media (max-width: 767px)
+    left: 20px
+    bottom: 20px
+    .num
+      line-height: 45px
+      font-size: 45px
+    .text
+      font-size: 17px
 
 .tile-arrow
   position: absolute
-  right: 30px
-  bottom: 40px
+  right: 20px
+  bottom: 25px
   width: 20px
   height: 20px
   line-height: 18px
@@ -1859,71 +1908,171 @@ $lines-to-show: 2
   border: 1px solid white
   border-radius: 50%
 
+.tile-container--sp
+  padding: 0 20px 20px
+  .js-tourlist--sp
+    .page-container
+      padding: 0
+  .btn-close-circle
+    margin: -30px 0 35px
+    width: 44px
+    height: 44px
+    padding-top: 20px
+    span
+      width: 28px
+      height: 3px
+
+.features-section
+  .va-container
+    height: 566px
+    @media (max-width: 1099px)
+      height: 466px
+  @media (max-width: 767px)
+    display: none
+
+.section-title
+  display: inline-block
+  text-shadow: 0 2px 4px rgba(0, 0, 0, .5)
+  .num
+    line-height: 100px
+    font-size: 100px
+  .text
+    font-size: 60px
+  @media (max-width: 1099px)
+    .num
+      line-height: 80px
+      font-size: 80px
+    .text
+      font-size: 44px
+
+.section-content
+
+.fore-text, .main-text
+  line-height: 39px
+  font-size: 20px
+  @media (max-width: 767px)
+    line-height: 28px
+    margin: 20px 0
+    font-size: 14px
+
+#features-section01
+  .img-bg
+    background-image: image-url('feature/bg_section001.jpg')
+
+#features-section02
+  .img-bg
+    background-image: image-url('feature/bg_section002.jpg')
+
+#features-section03
+  .img-bg
+    background-image: image-url('feature/bg_section003.jpg')
+
+#features-section04
+  .img-bg
+    background-image: image-url('feature/bg_section004.jpg')
+
+#features-section05
+  .img-bg
+    background-image: image-url('feature/bg_section005.jpg')
+
+#features-section06
+  .img-bg
+    background-image: image-url('feature/bg_section006.jpg')
+
+#features-section07
+  .img-bg
+    background-image: image-url('feature/bg_section007.jpg')
+
+#features-section08
+  .img-bg
+    background-image: image-url('feature/bg_section008.jpg')
+
+#features-section09
+  .img-bg
+    background-image: image-url('feature/bg_section009.jpg')
+
+.features-tourlist
+  h3.text-black
+    line-height: 39px
+    font-size: 38px
+    text-align: center
+    &:before
+      content: ''
+      position: absolute
+      top: 20px
+      left: 0
+      right: 0
+      width: 100%
+      height: 1px
+      background-color:  $gray1
+      z-index: 0
+    span
+      position: relative
+      display: inline-block
+      padding: 0 10px
+      background-color: white
+      z-index: 1
+    @media (max-width: 767px)
+      margin-bottom: 0
+      font-size: 15px
+
+.tour-listing-empty
+  height: 358px
+  line-height: 358px
+  font-size: 32px
+  background-color: $bg5
 
 
+//old-features
+  #features-highlight
+    overflow: hidden
 
-
-
-
-
-
-#features-highlight
-  overflow: hidden
-
-.highlight-container
-  position: relative
-  background-position: center center
-  background-repeat: no-repeat
-  background-size: cover
-  &:before
-    content: ''
-    position: absolute
-    top: 0
-    left: 0
-    right: 0
-    bottom: 0
-    background-color: black
-    opacity: .5
-    z-index: 0
-
-.highlight-gallery
-  a
-    display: block
-    height: 280px
-    background-repeat: no-repeat
+  .highlight-container
+    position: relative
     background-position: center center
+    background-repeat: no-repeat
     background-size: cover
-    @media (max-width : 1099px)
-      height: 220px
-    @media (max-width : 767px)
-      width: 220px
-      margin: 0 auto
-    @media (max-width : 680px)
-      width: 180px
-      height: 180px
-    @media (max-width : 420px)
-      width: 120px
-      height: 120px
+    &:before
+      content: ''
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      background-color: black
+      opacity: .5
+      z-index: 0
 
-.highlight-anchor
-  a
-    .fa
-      width: 32px
-      height: 32px
-      line-height: 32px
-      margin: 0 0 0 10px
-      font-size: 26px
-      background-color: $brand-theme
-      border-radius: 50%
-    &:hover
+  .highlight-gallery
+    a
+      display: block
+      height: 280px
+      background-repeat: no-repeat
+      background-position: center center
+      background-size: cover
+      @media (max-width : 1099px)
+        height: 220px
+      @media (max-width : 767px)
+        width: 220px
+        margin: 0 auto
+      @media (max-width : 680px)
+        width: 180px
+        height: 180px
+      @media (max-width : 420px)
+        width: 120px
+        height: 120px
+
+  .highlight-anchor
+    a
       .fa
-        color: white
-        background-color: $brand-theme-hover
-
-#features-tour-list
-  clear: both
-
-.announcement_html
-  img
-    width: 100%
-    height: auto
+        width: 32px
+        height: 32px
+        line-height: 32px
+        margin: 0 0 0 10px
+        font-size: 26px
+        background-color: $brand-theme
+        border-radius: 50%
+      &:hover
+        .fa
+          color: white
+          background-color: $brand-theme-hover
