@@ -571,32 +571,38 @@ $ ->
   #ga setting
   if $('body').hasClass('profiles show')
     $(document).on 'click', $(".profile_message"), (event) ->
-      _gaq.push [
-        '_trackEvent'
-        'reservation'
-        'profile page'
-        'Talk to me'
-      ]
+      if typeof _gaq != 'undefined'
+        _gaq.push [
+          '_trackEvent'
+          'reservation'
+          'profile page'
+          'Talk to me'
+        ]
       return
+    return
 
   if $('body').hasClass('listings show')
     $(document).on 'click', $(".listing_request"), (event) ->
-      _gaq.push [
-        '_trackEvent'
-        'reservation'
-        'listing page'
-        'Request Booking'
-      ]
+      if typeof _gaq != 'undefined'
+        _gaq.push [
+          '_trackEvent'
+          'reservation'
+          'listing page'
+          'Request Booking'
+        ]
       return
+    return
 
     $(document).on 'click', $(".listing_message"), (event) ->
-      _gaq.push [
-        '_trackEvent'
-        'reservation'
-        'listing page'
-        'Talk to me'
-      ]
+      if typeof _gaq != 'undefined'
+        _gaq.push [
+          '_trackEvent'
+          'reservation'
+          'listing page'
+          'Talk to me'
+        ]
       return
+    return
 
   ###
     # circle map
