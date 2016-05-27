@@ -12,6 +12,8 @@
 #  updated_at        :datetime         not null
 #  cover_image_small :string           default("")
 #  long_name         :string           default("")
+#  icon              :string           default("")
+#  icon_small        :string           default("")
 #
 # Indexes
 #
@@ -22,4 +24,6 @@
 class PickupArea < Pickup
   mount_uploader :cover_image, PickupImageUploader
   mount_uploader :cover_image_small, PickupImageUploader
+  mount_uploader :icon, PickupImageUploader
+  mount_uploader :icon_small, PickupImageUploader
 end

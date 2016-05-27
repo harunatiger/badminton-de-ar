@@ -66,7 +66,7 @@
             .row-space-top-1.small2.pairguide--no
               | ペアガイド未確定
 
-    - if r.completed? and !r.pg_completion?
+    - if !r.pg_completion?
       .pairguide-warning.bg-warning
         .row
           .col-md-8.row-space-1.text-center--sp
@@ -80,8 +80,7 @@
               b #{(r.schedule.to_date - Time.zone.now.to_date).to_i} 
               |  日
             = link_to '仲間から探す', friends_list_reservation_path(r.id), class: 'btn btn-primary btn-thread'
-    /- elsif r.completed? and r.pg_completion?
-    - elsif r.pg_completion?
+    - else
       - pair_user = pair_user(r)
       .pairguide-row
         .row

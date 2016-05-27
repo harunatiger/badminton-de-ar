@@ -570,32 +570,35 @@ $ ->
 
   #ga setting
   if $('body').hasClass('profiles show')
-    $(document).on 'click', $(".profile_message"), (event) ->
-      _gaq.push [
-        '_trackEvent'
-        'reservation'
-        'profile page'
-        'Talk to me'
-      ]
+    $('.profile_message').on 'click', ->
+      if typeof _gaq != 'undefined'
+        _gaq.push [
+          '_trackEvent'
+          'reservation'
+          'profile page'
+          'Talk to me'
+        ]
       return
 
   if $('body').hasClass('listings show')
-    $(document).on 'click', $(".listing_request"), (event) ->
-      _gaq.push [
-        '_trackEvent'
-        'reservation'
-        'listing page'
-        'Request Booking'
-      ]
+    $('.listing_request').on 'click', ->
+      if typeof _gaq != 'undefined'
+        _gaq.push [
+          '_trackEvent'
+          'reservation'
+          'listing page'
+          'Request Booking'
+        ]
       return
-
-    $(document).on 'click', $(".listing_message"), (event) ->
-      _gaq.push [
-        '_trackEvent'
-        'reservation'
-        'listing page'
-        'Talk to me'
-      ]
+    
+    $('.listing_message').on 'click', ->
+      if typeof _gaq != 'undefined'
+        _gaq.push [
+          '_trackEvent'
+          'reservation'
+          'listing page'
+          'Talk to me'
+        ]
       return
 
   ###
