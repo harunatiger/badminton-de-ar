@@ -150,3 +150,30 @@ $ ->
       $(href).collapse('hide')
       $(this).parent().next().show()
       return false
+    
+    $('.btn-feature-readmore').on 'click', ->
+      content_name = $(this).attr('content_name')
+      $.ajax(
+        type: 'GET'
+        url: '/features/contents'
+        data: {
+          content_name: content_name,
+          device: 'pc'
+        }
+      ).done (data) ->
+        $('#' + content_name).html(data)
+      return false
+    
+    $('.features-tile-link').on 'click', ->
+      content_name = $(this).attr('content_name')
+      $.ajax(
+        type: 'GET'
+        url: '/features/contents'
+        data: {
+          content_name: content_name,
+          device: 'sp'
+        }
+      ).done (data) ->
+        $('#' + content_name).html(data)
+      return false
+      
