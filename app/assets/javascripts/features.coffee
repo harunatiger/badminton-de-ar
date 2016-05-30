@@ -128,7 +128,7 @@ $ ->
       featureResponsive()
     ), 100
 
-    $('.img-bg').lazyload(
+    $('.img-bg, .tour-cover').lazyload(
       effect : "fadeIn"
     )
 
