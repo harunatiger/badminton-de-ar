@@ -31,7 +31,7 @@
             .num.text-black 01.
             .text.text-light Great Buddha of Kamakura
           i.fa.fa-angle-down.tile-arrow.show--sp
-      #section-content01--sp.tile-container--sp.collapse.text-center
+      #section-content01--sp.tile-container--sp.collapse.text-center.show--sp
         = render partial: 'features/sp/content01'
     #tile02.features-tile
       = link_to "#features-section02", class: "img-bg img-bg-overlay text-contrast features-tile-link", data: {original: "#{asset_path 'feature/bg_section002.jpg'}"} do
@@ -40,9 +40,8 @@
             .num.text-black 02.
             .text.text-light Tea at Jomyo-ji Temple
           i.fa.fa-angle-down.tile-arrow.show--sp
-      #features-section02--sp.tile-container--sp.collapse.text-center
-        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
-          span
+      #section-content02--sp.tile-container--sp.collapse.text-center.show--sp
+        = render partial: 'features/sp/content02'
     #tile03.features-tile
       = link_to "#features-section03", class: "img-bg img-bg-overlay text-contrast features-tile-link", data: {original: "#{asset_path 'feature/bg_section003.jpg'}"} do
         .img-bg-content
@@ -50,9 +49,8 @@
             .num.text-black 03.
             .text.text-light Zeniarai Benten Shrine
           i.fa.fa-angle-down.tile-arrow.show--sp
-      #features-section03--sp.tile-container--sp.collapse.text-center
-        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
-          span
+      #section-content03--sp.tile-container--sp.collapse.text-center.show--sp
+        = render partial: 'features/sp/content03'
     #tile04.features-tile
       = link_to "#features-section04", class: "img-bg img-bg-overlay text-contrast features-tile-link", data: {original: "#{asset_path 'feature/bg_section004.jpg'}"} do
         .img-bg-content
@@ -60,9 +58,8 @@
             .num.text-black 04.
             .text.text-light Ten-en Hiking Course
           i.fa.fa-angle-down.tile-arrow.show--sp
-      #features-section04--sp.tile-container--sp.collapse.text-center
-        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
-          span
+      #section-content04--sp.tile-container--sp.collapse.text-center.show--sp
+        = render partial: 'features/sp/content04'
     #tile05.features-tile
       = link_to "#features-section05", class: "img-bg img-bg-overlay text-contrast features-tile-link", data: {original: "#{asset_path 'feature/bg_section005.jpg'}"} do
         .img-bg-content
@@ -70,9 +67,8 @@
             .num.text-black 05.
             .text.text-light Food in Kamakura
           i.fa.fa-angle-down.tile-arrow.show--sp
-      #features-section05--sp.tile-container--sp.collapse.text-center
-        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
-          span
+      #section-content05--sp.tile-container--sp.collapse.text-center.show--sp
+        = render partial: 'features/sp/content05'
     #tile06.features-tile
       = link_to "#features-section06", class: "img-bg img-bg-overlay text-contrast features-tile-link", data: {original: "#{asset_path 'feature/bg_section006.jpg'}"} do
         .img-bg-content
@@ -80,9 +76,8 @@
             .num.text-black 06.
             .text.text-light Enkaku-ji & Kencho-ji Temple
           i.fa.fa-angle-down.tile-arrow.show--sp
-      #features-section06--sp.tile-container--sp.collapse.text-center
-        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
-          span
+      #section-content06--sp.tile-container--sp.collapse.text-center.show--sp
+        = render partial: 'features/sp/content06'
     #tile07.features-tile
       = link_to "#features-section07", class: "img-bg img-bg-overlay text-contrast features-tile-link", data: {original: "#{asset_path 'feature/bg_section007.jpg'}"} do
         .img-bg-content
@@ -90,9 +85,8 @@
             .num.text-black 07.
             .text.text-light Kumazawa Brewery
           i.fa.fa-angle-down.tile-arrow.show--sp
-      #features-section07--sp.tile-container--sp.collapse.text-center
-        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
-          span
+      #section-content07--sp.tile-container--sp.collapse.text-center.show--sp
+        = render partial: 'features/sp/content07'
     #tile08.features-tile
       = link_to "#features-section08", class: "img-bg img-bg-overlay text-contrast features-tile-link", data: {original: "#{asset_path 'feature/bg_section008.jpg'}"} do
         .img-bg-content
@@ -100,9 +94,8 @@
             .num.text-black 08.
             .text.text-light Kamakura and the Ocean
           i.fa.fa-angle-down.tile-arrow.show--sp
-      #features-section08--sp.tile-container--sp.collapse.text-center
-        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
-          span
+      #section-content08--sp.tile-container--sp.collapse.text-center.show--sp
+        = render partial: 'features/sp/content08'
     #tile09.features-tile
       = link_to "#features-section09", class: "img-bg img-bg-overlay text-contrast features-tile-link", data: {original: "#{asset_path 'feature/bg_section009.jpg'}"} do
         .img-bg-content
@@ -110,11 +103,10 @@
             .num.text-black 09.
             .text.text-light Enoshima
           i.fa.fa-angle-down.tile-arrow.show--sp
-      #features-section09--sp.tile-container--sp.collapse.text-center
-        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
-          span
+      #section-content09--sp.tile-container--sp.collapse.text-center.show--sp
+        = render partial: 'features/sp/content09'
  
-  #features-section01.features-section
+  #features-section01.features-section.hide--sp
     .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section001.jpg'}"]
       .img-bg-content
         .va-container.va-container-wh
@@ -155,7 +147,7 @@
             .tour-listing-empty.text-black.text-brand.text-center
               | Coming Soon...
 
-  #features-section02.features-section
+  #features-section02.features-section.hide--sp
     .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section002.jpg'}"]
       .img-bg-content
         .va-container.va-container-wh
@@ -195,7 +187,7 @@
           - else
             .card.tour-listing
 
-  #features-section03.features-section
+  #features-section03.features-section.hide--sp
     .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section003.jpg'}"]
       .img-bg-content
         .va-container.va-container-wh
@@ -237,7 +229,7 @@
               | coming soon...
 
 
-  #features-section04.features-section
+  #features-section04.features-section.hide--sp
     .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section004.jpg'}"]
       .img-bg-content
         .va-container.va-container-wh
@@ -278,7 +270,7 @@
             .card.tour-listing
               | coming soon...
 
-  #features-section05.features-section
+  #features-section05.features-section.hide--sp
     .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section005.jpg'}"]
       .img-bg-content
         .va-container.va-container-wh
@@ -319,7 +311,7 @@
             .card.tour-listing
               | coming soon...
 
-  #features-section06.features-section
+  #features-section06.features-section.hide--sp
     .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section006.jpg'}"]
       .img-bg-content
         .va-container.va-container-wh
@@ -360,7 +352,7 @@
             .card.tour-listing
               | coming soon...
 
-  #features-section07.features-section
+  #features-section07.features-section.hide--sp
     .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section007.jpg'}"]
       .img-bg-content
         .va-container.va-container-wh
@@ -401,7 +393,7 @@
             .card.tour-listing
               | coming soon...
 
-  #features-section08.features-section
+  #features-section08.features-section.hide--sp
     .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section008.jpg'}"]
       .img-bg-content
         .va-container.va-container-wh
@@ -442,7 +434,7 @@
             .card.tour-listing
               | coming soon...
 
-  #features-section09.features-section
+  #features-section09.features-section.hide--sp
     .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section009.jpg'}"]
       .img-bg-content
         .va-container.va-container-wh
