@@ -31,9 +31,8 @@
             .num.text-black 01.
             .text.text-light Great Buddha of Kamakura
           i.fa.fa-angle-down.tile-arrow.show--sp
-      #features-section01--sp.tile-container--sp.collapse.text-center
-        = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
-          span
+      #section-content01--sp.tile-container--sp.collapse.text-center
+        = render partial: 'features/sp/content01'
     #tile02.features-tile
       = link_to "#features-section02", class: "img-bg img-bg-overlay text-contrast features-tile-link", data: {original: "#{asset_path 'feature/bg_section002.jpg'}"} do
         .img-bg-content
@@ -127,7 +126,8 @@
     .section-content.page-container.text-center.row-space-6
       .fore-text.row-space-top-8
         | The Great Buddha in Kamakura is the second biggest in Japan, after the one in Nara. As the Great Buddha in Nara is housed inside a building, visitors can only look up at it from below, but the Great Buddha in Kamakura can be seen in detail from every angle.
-      = render partial: 'features/pc/content01'
+      #section-content01--pc.collapse
+        = render partial: 'features/pc/content01'
       = link_to "#section-content01", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
         | Read more
     .features-tourlist.page-container
@@ -167,7 +167,8 @@
     .section-content.page-container.text-center.row-space-6
       .fore-text.row-space-top-8
         | Tea isn’t just for teatime. Looking out over a quintessentially Japanese garden perfectly capturing a glimpse of nature and taking a sip of hand-prepared Japanese tea is a traditional Japanese type of spiritual healing, relaxing the soul and allowing for introspection.
-      = render partial: 'features/pc/content02'
+      #section-content02--pc.collapse
+        = render partial: 'features/pc/content02'
       = link_to "#section-content02", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
         | Read more
     .features-tourlist.page-container
@@ -206,7 +207,8 @@
     .section-content.page-container.text-center.row-space-6
       .fore-text.row-space-top-8
         | You walk up a sloping path like a valley cut between mountains and pass through an entrance that looks like the mouth of a cave to get to this shrine. It is said that if you wash money in the water that springs from the rocks, more money will come to you after you spend it.
-      = render partial: 'features/pc/content03'
+      #section-content03--pc.collapse
+        = render partial: 'features/pc/content03'
       = link_to "#section-content03", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
         | Read more
     .features-tourlist.page-container
@@ -247,7 +249,8 @@
     .section-content.page-container.text-center.row-space-6
       .fore-text.row-space-top-8
         | This is a hiking route from Kencho-ji Temple in Kita-Kamakura to Zuisen-ji Temple which takes about 30-45 minutes across the ridges of the mountain. This is a route that only those very familiar to Kamakura know of, so it’s never crowded, and is full of surprises as you realize how far the narrow paths have taken you.
-      = render partial: 'features/pc/content04'
+      #section-content04--pc.collapse
+        = render partial: 'features/pc/content04'
       = link_to "#section-content04", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
         | Read more
     .features-tourlist.page-container
@@ -287,7 +290,8 @@
     .section-content.page-container.text-center.row-space-6
       .fore-text.row-space-top-8
         | Kamakura is situated by the ocean, so there is a wealth of fresh seafood. Kamakura vegetables are also rated highly, even being proudly named on menus of many high-class restaurants in Tokyo.
-      = render partial: 'features/pc/content05'
+      #section-content05--pc.collapse
+        = render partial: 'features/pc/content05'
       = link_to "#section-content05", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
         | Read more
     .features-tourlist.page-container
@@ -327,7 +331,8 @@
     .section-content.page-container.text-center.row-space-6
       .fore-text.row-space-top-8
         | These two huge temples capture the essence of Kamakura, and are about a ten-minute walk from each other. Among the oldest are a group of wooden buildings built over 700 years ago, and they embody the samurai sense of beauty with the strength and natural beauty of unlacquered wood. 
-      = render partial: 'features/pc/content06'
+      #section-content06--pc.collapse
+        = render partial: 'features/pc/content06'
       = link_to "#section-content06", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
         | Read more
     .features-tourlist.page-container
@@ -367,7 +372,8 @@
     .section-content.page-container.text-center.row-space-6
       .fore-text.row-space-top-8
         | A 30-minute drive away from Kamakura is a sake brewery with a rich 134 years of history. There are also excellent Japanese and Italian restaurants with food to match the sake and beer produced here.
-      = render partial: 'features/pc/content07'
+      #section-content07--pc.collapse
+        = render partial: 'features/pc/content07'
       = link_to "#section-content07", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
         | Read more
     .features-tourlist.page-container
@@ -395,7 +401,6 @@
             .card.tour-listing
               | coming soon...
 
-
   #features-section08.features-section
     .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section008.jpg'}"]
       .img-bg-content
@@ -408,7 +413,8 @@
     .section-content.page-container.text-center.row-space-6
       .fore-text.row-space-top-8
         | The ocean is just a 15-minute walk or 5-minute drive away. In the summer there are many events such as fireworks, with Japanese bars and restaurants in beach houses lining up along the shore.
-      = render partial: 'features/pc/content08'
+      #section-content08--pc.collapse
+        = render partial: 'features/pc/content08'
       = link_to "#section-content08", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
         | Read more
     .features-tourlist.page-container
@@ -448,7 +454,8 @@
     .section-content.page-container.text-center.row-space-6
       .fore-text.row-space-top-8
         | This small island is 25 minutes away from Kamakura by train, or 15 minutes by car with no traffic. Nowadays it is connected to the mainland by a bridge, but some time ago people could walk across during low tide. The island itself was a place for worshippers such as fishermen to visit.
-      = render partial: 'features/pc/content09'
+      #section-content09--pc.collapse
+        = render partial: 'features/pc/content09'
       = link_to "#section-content09", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
         | Read more
     .features-tourlist.page-container
