@@ -1,17 +1,36 @@
-#section-content03.collapse
-  .js-main-text--pc
-    .main-text.row-space-8
-      | Even if you bring your drenched money out later to spend it, most people from Kamakura will realize you went to Zeniarai Benten Shrine, and happily accept it. (Though, some people may be annoyed, so be careful!)
-      p.text-black.row-space-top-4.row-space-4 5 minutes walk → Sasuke Inari Shrine
-      | Like the entrance to some mysterious world, pass through 200 m of bright red tori to arrive at Sasuke Inari Shrine. From behind this shine, there is a hidden hiking route that leads to the Great Buddha.
-  .feature-photo-container.row.row-space-4
-    .col-md-6.hide--sp
-      .js-section-photo01--pc
-        = link_to "#{asset_path 'feature/photo_section003-01.jpg'}", class: "section-photo01" do
-          = image_tag "feature/photo_section003-01.jpg", class: "img-responsive"
-    .col-md-6
-      .js-section-photo02--pc
-        = link_to "#{asset_path 'feature/photo_section003-02.jpg'}", class: "section-photo02" do
-          = image_tag "feature/photo_section003-02.jpg", class: "img-responsive"
-  = link_to "#section-content03", class: "btn-close-circle btn-feature-readmore-close row-space-top-8" do
-    span
+// #section-content03--sp
+- listings = feature_listings
+.fore-text.row-space-top-8
+  | You walk up a sloping path like a valley cut between mountains and pass through an entrance that looks like the mouth of a cave to get to this shrine. It is said that if you wash money in the water that springs from the rocks, more money will come to you after you spend it.
+= image_tag "feature/photo_section003-01.jpg", class: "img-responsive"
+.main-text.row-space-8
+  | Even if you bring your drenched money out later to spend it, most people from Kamakura will realize you went to Zeniarai Benten Shrine, and happily accept it. (Though, some people may be annoyed, so be careful!)
+  p.text-black.row-space-top-4.row-space-4 5 minutes walk → Sasuke Inari Shrine
+  | Like the entrance to some mysterious world, pass through 200 m of bright red tori to arrive at Sasuke Inari Shrine. From behind this shine, there is a hidden hiking route that leads to the Great Buddha.
+= image_tag "feature/photo_section003-02.jpg", class: "img-responsive"
+.features-tourlist.page-container
+  .row.row-space-top-8.row-space-4
+    .col-md-12
+      h3.text-black
+        span 03. Recommended Tours
+  .row.row-space-8
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[0].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+      - else
+        .card.tour-listing
+
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[1].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+      - else
+        .card.tour-listing
+
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[9878].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+          | Coming Soon...
+= link_to "#section-content03--sp", class: "btn-close-circle btn-feature-readmore-close--sp row-space-top-4 row-space-4" do
+  span
