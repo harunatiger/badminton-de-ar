@@ -2,6 +2,7 @@
 
 # responsive js ==================================================
 featureResponsive = ->
+
   # if window size under 768px(mobile)
   if $('.features-tile').css('float') != 'left'
 
@@ -19,6 +20,7 @@ featureResponsive = ->
       return false
 
     # component move
+    ###
     $('.fore-text').each ->
       foreid = $(this).parents('.features-section').attr('id')
       foreid = foreid.replace('features-section', '')
@@ -44,19 +46,12 @@ featureResponsive = ->
       listid = listid.replace('features-section', '')
       $(this).appendTo('#features-section' + listid + '--sp .js-tourlist--sp')
       return
+    ###
 
   # if window size over 768px(pc)
   else
     # readmore
-    ###
-    $(document).on 'click', '.btn-feature-readmore', (event) ->
-      contentId = $(this).attr('href')
-      contentId = contentId.replace('#section-content', '')
-      containerId = $('.js-section-content' + contentId)
-      containerId.html('= render partial: "features/content/content' + contentId + '"')
-      return false
-
-    $(document).on 'click', 'a.btn-feature-readmore', ->
+    $('a.btn-feature-readmore').on 'click', ->
       $.ajax(
         type: 'GET'
         url: '/features/content/content01'
@@ -70,6 +65,28 @@ featureResponsive = ->
         else
           return false
       return false
+
+    # smooth-scroll
+    $('.features-tile-link').on 'click', ->
+      if location.pathname.replace(/^\//, '') == @pathname.replace(/^\//, '') and location.hostname == @hostname
+        target = $(@hash)
+        target = if target.length then target else $('[name=' + @hash.slice(1) + ']')
+        if target.length
+          $('html, body').animate { scrollTop: target.offset().top }, 'fast'
+          return false
+      return
+
+    # features photo gallery
+    $('.feature-photo-container').each ->
+      $(this).magnificPopup
+        delegate: 'a'
+        type: 'image'
+        image:
+          verticalFit: true
+        gallery:
+          enabled: true
+      return
+
     ###
     $('.fore-text').each ->
       foreidpc = $(this).parents('.features-section').attr('id')
@@ -96,27 +113,7 @@ featureResponsive = ->
       listidpc = listidpc.replace('features-section', '')
       $(this).appendTo('#features-section' + listidpc + ' .js-tourlist--pc')
       return
-
-    $('.features-tile-link').on 'click', ->
-      if location.pathname.replace(/^\//, '') == @pathname.replace(/^\//, '') and location.hostname == @hostname
-        target = $(@hash)
-        target = if target.length then target else $('[name=' + @hash.slice(1) + ']')
-        if target.length
-          $('html, body').animate { scrollTop: target.offset().top }, 'fast'
-          return false
-      return
-
-    # features photo gallery
-    $('.feature-photo-container').each ->
-      $(this).magnificPopup
-        delegate: 'a'
-        type: 'image'
-        image:
-          verticalFit: true
-        gallery:
-          enabled: true
-      return
-
+    ###
 
 # onload
 $ ->
@@ -128,9 +125,8 @@ $ ->
       featureResponsive()
     ), 100
 
-    $('.img-bg, .tour-cover').lazyload(
-      effect : "fadeIn"
-    )
+    $('.img-bg, .tour-cover').lazyload
+      effect: 'fadeIn'
 
     # window resize
     timer = false

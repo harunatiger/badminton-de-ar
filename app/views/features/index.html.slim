@@ -32,11 +32,6 @@
             .text.text-light Great Buddha of Kamakura
           i.fa.fa-angle-down.tile-arrow.show--sp
       #features-section01--sp.tile-container--sp.collapse.text-center
-        .js-fore-text--sp
-        .js-section-photo01--sp
-        .js-main-text--sp
-        .js-section-photo02--sp
-        .js-tourlist--sp
         = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
           span
     #tile02.features-tile
@@ -47,11 +42,6 @@
             .text.text-light Tea at Jomyo-ji Temple
           i.fa.fa-angle-down.tile-arrow.show--sp
       #features-section02--sp.tile-container--sp.collapse.text-center
-        .js-fore-text--sp
-        .js-section-photo01--sp
-        .js-main-text--sp
-        .js-section-photo02--sp 
-        .js-tourlist--sp
         = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
           span
     #tile03.features-tile
@@ -62,11 +52,6 @@
             .text.text-light Zeniarai Benten Shrine
           i.fa.fa-angle-down.tile-arrow.show--sp
       #features-section03--sp.tile-container--sp.collapse.text-center
-        .js-fore-text--sp
-        .js-section-photo01--sp
-        .js-main-text--sp
-        .js-section-photo02--sp
-        .js-tourlist--sp
         = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
           span
     #tile04.features-tile
@@ -77,11 +62,6 @@
             .text.text-light Ten-en Hiking Course
           i.fa.fa-angle-down.tile-arrow.show--sp
       #features-section04--sp.tile-container--sp.collapse.text-center
-        .js-fore-text--sp
-        .js-section-photo01--sp
-        .js-main-text--sp
-        .js-section-photo02--sp
-        .js-tourlist--sp
         = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
           span
     #tile05.features-tile
@@ -92,11 +72,6 @@
             .text.text-light Food in Kamakura
           i.fa.fa-angle-down.tile-arrow.show--sp
       #features-section05--sp.tile-container--sp.collapse.text-center
-        .js-fore-text--sp
-        .js-section-photo01--sp
-        .js-main-text--sp
-        .js-section-photo02--sp
-        .js-tourlist--sp
         = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
           span
     #tile06.features-tile
@@ -107,11 +82,6 @@
             .text.text-light Enkaku-ji & Kencho-ji Temple
           i.fa.fa-angle-down.tile-arrow.show--sp
       #features-section06--sp.tile-container--sp.collapse.text-center
-        .js-fore-text--sp
-        .js-section-photo01--sp
-        .js-main-text--sp
-        .js-section-photo02--sp
-        .js-tourlist--sp
         = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
           span
     #tile07.features-tile
@@ -122,11 +92,6 @@
             .text.text-light Kumazawa Brewery
           i.fa.fa-angle-down.tile-arrow.show--sp
       #features-section07--sp.tile-container--sp.collapse.text-center
-        .js-fore-text--sp
-        .js-section-photo01--sp
-        .js-main-text--sp
-        .js-section-photo02--sp
-        .js-tourlist--sp
         = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
           span
     #tile08.features-tile
@@ -137,11 +102,6 @@
             .text.text-light Kamakura and the Ocean
           i.fa.fa-angle-down.tile-arrow.show--sp
       #features-section08--sp.tile-container--sp.collapse.text-center
-        .js-fore-text--sp
-        .js-section-photo01--sp
-        .js-main-text--sp
-        .js-section-photo02--sp
-        .js-tourlist--sp
         = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
           span
     #tile09.features-tile
@@ -152,11 +112,6 @@
             .text.text-light Enoshima
           i.fa.fa-angle-down.tile-arrow.show--sp
       #features-section09--sp.tile-container--sp.collapse.text-center
-        .js-fore-text--sp
-        .js-section-photo01--sp
-        .js-main-text--sp
-        .js-section-photo02--sp
-        .js-tourlist--sp
         = link_to "#", class: "btn-close-circle btn-feature-readmore-close--sp" do
           span
  
@@ -170,42 +125,38 @@
               .text.text-light Great Buddha of Kamakura
 
     .section-content.page-container.text-center.row-space-6
-      .js-fore-text--pc
-        .fore-text.row-space-top-8
-          | The Great Buddha in Kamakura is the second biggest in Japan, after the one in Nara. As the Great Buddha in Nara is housed inside a building, visitors can only look up at it from below, but the Great Buddha in Kamakura can be seen in detail from every angle.
-      .js-section-content01
-        = render partial: 'features/pc/content01'
+      .fore-text.row-space-top-8
+        | The Great Buddha in Kamakura is the second biggest in Japan, after the one in Nara. As the Great Buddha in Nara is housed inside a building, visitors can only look up at it from below, but the Great Buddha in Kamakura can be seen in detail from every angle.
+      = render partial: 'features/pc/content01'
       = link_to "#section-content01", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
         | Read more
-    .js-tourlist-pc
-      .features-tourlist.page-container
-        .row.row-space-top-8.row-space-4
-          .col-md-12
-            h3.text-black
-              span 01. Recommended Tours
-        .row.row-space-8
-          .col-md-6.col-lg-4.row-space-4
-            - if listings[0].present?
-              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
-            - else
-              .card.tour-listing
+    .features-tourlist.page-container
+      .row.row-space-top-8.row-space-4
+        .col-md-12
+          h3.text-black
+            span 01. Recommended Tours
+      .row.row-space-8
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[0].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+          - else
+            .card.tour-listing
 
-          .col-md-6.col-lg-4.row-space-4
-            - if listings[1].present?
-              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
-            - else
-              .card.tour-listing
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[1].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+          - else
+            .card.tour-listing
 
-          .col-md-6.col-lg-4.row-space-4
-            - if listings[9878].present?
-              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
-            - else
-              .tour-listing-empty.text-black.text-brand.text-center
-                | Coming Soon...
-
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[9878].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+          - else
+            .tour-listing-empty.text-black.text-brand.text-center
+              | Coming Soon...
 
   #features-section02.features-section
-    .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section001.jpg'}"]
+    .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section002.jpg'}"]
       .img-bg-content
         .va-container.va-container-wh
           .va-middle.text-center
@@ -214,41 +165,37 @@
               .text.text-light Tea at Jomyo-ji Temple
 
     .section-content.page-container.text-center.row-space-6
-      .js-fore-text--pc
-        .fore-text.row-space-top-8
-          | Tea isn’t just for teatime. Looking out over a quintessentially Japanese garden perfectly capturing a glimpse of nature and taking a sip of hand-prepared Japanese tea is a traditional Japanese type of spiritual healing, relaxing the soul and allowing for introspection.
-      .js-section-content02
-        = render partial: 'features/pc/content02'
+      .fore-text.row-space-top-8
+        | Tea isn’t just for teatime. Looking out over a quintessentially Japanese garden perfectly capturing a glimpse of nature and taking a sip of hand-prepared Japanese tea is a traditional Japanese type of spiritual healing, relaxing the soul and allowing for introspection.
+      = render partial: 'features/pc/content02'
       = link_to "#section-content02", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
         | Read more
-    .js-tourlist-pc
-      .features-tourlist.page-container
-        .row.row-space-top-8.row-space-4
-          .col-md-12
-            h3.text-black
-              span 02. Recommended Tours
-        .row.row-space-8
-          .col-md-6.col-lg-4.row-space-4
-            - if listings[0].present?
-              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
-            - else
-              .card.tour-listing
+    .features-tourlist.page-container
+      .row.row-space-top-8.row-space-4
+        .col-md-12
+          h3.text-black
+            span 02. Recommended Tours
+      .row.row-space-8
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[0].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+          - else
+            .card.tour-listing
 
-          .col-md-6.col-lg-4.row-space-4
-            - if listings[1].present?
-              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
-            - else
-              .card.tour-listing
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[1].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+          - else
+            .card.tour-listing
 
-          .col-md-6.col-lg-4.row-space-4
-            - if listings[2].present?
-              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
-            - else
-              .card.tour-listing
-
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[2].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+          - else
+            .card.tour-listing
 
   #features-section03.features-section
-    .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section001.jpg'}"]
+    .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section003.jpg'}"]
       .img-bg-content
         .va-container.va-container-wh
           .va-middle.text-center
@@ -257,35 +204,274 @@
               .text.text-light Zeniarai Benten Shrine
 
     .section-content.page-container.text-center.row-space-6
-      .js-fore-text--pc
-        .fore-text.row-space-top-8
-          | You walk up a sloping path like a valley cut between mountains and pass through an entrance that looks like the mouth of a cave to get to this shrine. It is said that if you wash money in the water that springs from the rocks, more money will come to you after you spend it.
-      .js-section-content03
-        = render partial: 'features/pc/content03'
+      .fore-text.row-space-top-8
+        | You walk up a sloping path like a valley cut between mountains and pass through an entrance that looks like the mouth of a cave to get to this shrine. It is said that if you wash money in the water that springs from the rocks, more money will come to you after you spend it.
+      = render partial: 'features/pc/content03'
       = link_to "#section-content03", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
         | Read more
-    .js-tourlist-pc
-      .features-tourlist.page-container
-        .row.row-space-top-8.row-space-4
-          .col-md-12
-            h3.text-black
-              span 03. Recommended Tours
-        .row.row-space-8
-          .col-md-6.col-lg-4.row-space-4
-            - if listings[0].present?
-              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
-            - else
-              .card.tour-listing
+    .features-tourlist.page-container
+      .row.row-space-top-8.row-space-4
+        .col-md-12
+          h3.text-black
+            span 03. Recommended Tours
+      .row.row-space-8
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[0].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+          - else
+            .card.tour-listing
 
-          .col-md-6.col-lg-4.row-space-4
-            - if listings[1].present?
-              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
-            - else
-              .card.tour-listing
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[1].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+          - else
+            .card.tour-listing
 
-          .col-md-6.col-lg-4.row-space-4
-            - if listings[2].present?
-              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
-            - else
-              .card.tour-listing
-                | coming soon...
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[2].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+          - else
+            .card.tour-listing
+              | coming soon...
+
+
+  #features-section04.features-section
+    .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section004.jpg'}"]
+      .img-bg-content
+        .va-container.va-container-wh
+          .va-middle.text-center
+            .section-title.text-left.text-contrast
+              .num.text-black 04.
+              .text.text-light Ten-en Hiking Course
+
+    .section-content.page-container.text-center.row-space-6
+      .fore-text.row-space-top-8
+        | This is a hiking route from Kencho-ji Temple in Kita-Kamakura to Zuisen-ji Temple which takes about 30-45 minutes across the ridges of the mountain. This is a route that only those very familiar to Kamakura know of, so it’s never crowded, and is full of surprises as you realize how far the narrow paths have taken you.
+      = render partial: 'features/pc/content04'
+      = link_to "#section-content04", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
+        | Read more
+    .features-tourlist.page-container
+      .row.row-space-top-8.row-space-4
+        .col-md-12
+          h3.text-black
+            span 04. Ten-en Hiking Course
+      .row.row-space-8
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[0].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+          - else
+            .card.tour-listing
+
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[1].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+          - else
+            .card.tour-listing
+
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[2].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+          - else
+            .card.tour-listing
+              | coming soon...
+
+  #features-section05.features-section
+    .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section005.jpg'}"]
+      .img-bg-content
+        .va-container.va-container-wh
+          .va-middle.text-center
+            .section-title.text-left.text-contrast
+              .num.text-black 05.
+              .text.text-light Food in Kamakura
+
+    .section-content.page-container.text-center.row-space-6
+      .fore-text.row-space-top-8
+        | Kamakura is situated by the ocean, so there is a wealth of fresh seafood. Kamakura vegetables are also rated highly, even being proudly named on menus of many high-class restaurants in Tokyo.
+      = render partial: 'features/pc/content05'
+      = link_to "#section-content05", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
+        | Read more
+    .features-tourlist.page-container
+      .row.row-space-top-8.row-space-4
+        .col-md-12
+          h3.text-black
+            span 05. Food in Kamakura
+      .row.row-space-8
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[0].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+          - else
+            .card.tour-listing
+
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[1].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+          - else
+            .card.tour-listing
+
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[2].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+          - else
+            .card.tour-listing
+              | coming soon...
+
+  #features-section06.features-section
+    .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section006.jpg'}"]
+      .img-bg-content
+        .va-container.va-container-wh
+          .va-middle.text-center
+            .section-title.text-left.text-contrast
+              .num.text-black 06.
+              .text.text-light Enkaku-ji & Kencho-ji Temple
+
+    .section-content.page-container.text-center.row-space-6
+      .fore-text.row-space-top-8
+        | These two huge temples capture the essence of Kamakura, and are about a ten-minute walk from each other. Among the oldest are a group of wooden buildings built over 700 years ago, and they embody the samurai sense of beauty with the strength and natural beauty of unlacquered wood. 
+      = render partial: 'features/pc/content06'
+      = link_to "#section-content06", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
+        | Read more
+    .features-tourlist.page-container
+      .row.row-space-top-8.row-space-4
+        .col-md-12
+          h3.text-black
+            span 06. Enkaku-ji & Kencho-ji Temple
+      .row.row-space-8
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[0].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+          - else
+            .card.tour-listing
+
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[1].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+          - else
+            .card.tour-listing
+
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[2].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+          - else
+            .card.tour-listing
+              | coming soon...
+
+  #features-section07.features-section
+    .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section007.jpg'}"]
+      .img-bg-content
+        .va-container.va-container-wh
+          .va-middle.text-center
+            .section-title.text-left.text-contrast
+              .num.text-black 07.
+              .text.text-light Kumazawa Brewery
+
+    .section-content.page-container.text-center.row-space-6
+      .fore-text.row-space-top-8
+        | A 30-minute drive away from Kamakura is a sake brewery with a rich 134 years of history. There are also excellent Japanese and Italian restaurants with food to match the sake and beer produced here.
+      = render partial: 'features/pc/content07'
+      = link_to "#section-content07", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
+        | Read more
+    .features-tourlist.page-container
+      .row.row-space-top-8.row-space-4
+        .col-md-12
+          h3.text-black
+            span 07. Kumazawa Brewery
+      .row.row-space-8
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[0].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+          - else
+            .card.tour-listing
+
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[1].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+          - else
+            .card.tour-listing
+
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[2].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+          - else
+            .card.tour-listing
+              | coming soon...
+
+
+  #features-section08.features-section
+    .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section008.jpg'}"]
+      .img-bg-content
+        .va-container.va-container-wh
+          .va-middle.text-center
+            .section-title.text-left.text-contrast
+              .num.text-black 08.
+              .text.text-light Kamakura and the Ocean
+
+    .section-content.page-container.text-center.row-space-6
+      .fore-text.row-space-top-8
+        | The ocean is just a 15-minute walk or 5-minute drive away. In the summer there are many events such as fireworks, with Japanese bars and restaurants in beach houses lining up along the shore.
+      = render partial: 'features/pc/content08'
+      = link_to "#section-content08", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
+        | Read more
+    .features-tourlist.page-container
+      .row.row-space-top-8.row-space-4
+        .col-md-12
+          h3.text-black
+            span 08. Kamakura and the Ocean
+      .row.row-space-8
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[0].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+          - else
+            .card.tour-listing
+
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[1].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+          - else
+            .card.tour-listing
+
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[2].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+          - else
+            .card.tour-listing
+              | coming soon...
+
+  #features-section09.features-section
+    .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section009.jpg'}"]
+      .img-bg-content
+        .va-container.va-container-wh
+          .va-middle.text-center
+            .section-title.text-left.text-contrast
+              .num.text-black 09.
+              .text.text-light Enoshima
+
+    .section-content.page-container.text-center.row-space-6
+      .fore-text.row-space-top-8
+        | This small island is 25 minutes away from Kamakura by train, or 15 minutes by car with no traffic. Nowadays it is connected to the mainland by a bridge, but some time ago people could walk across during low tide. The island itself was a place for worshippers such as fishermen to visit.
+      = render partial: 'features/pc/content09'
+      = link_to "#section-content09", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8" do
+        | Read more
+    .features-tourlist.page-container
+      .row.row-space-top-8.row-space-4
+        .col-md-12
+          h3.text-black
+            span 09. Enoshima
+      .row.row-space-8
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[0].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
+          - else
+            .card.tour-listing
+
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[1].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
+          - else
+            .card.tour-listing
+
+        .col-md-6.col-lg-4.row-space-4
+          - if listings[2].present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+          - else
+            .card.tour-listing
+              | coming soon...
