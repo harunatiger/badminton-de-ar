@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512152530) do
+ActiveRecord::Schema.define(version: 20160525133859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -394,14 +394,14 @@ ActiveRecord::Schema.define(version: 20160512152530) do
   add_index "message_thread_users", ["user_id"], name: "index_message_thread_users_on_user_id", using: :btree
 
   create_table "message_threads", force: :cascade do |t|
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "host_id"
-    t.boolean  "reply_from_host",               default: false
-    t.boolean  "first_message",                 default: true
-    t.boolean  "noticemail_sended",             default: false
+    t.boolean  "reply_from_host",   default: false
+    t.boolean  "first_message",     default: true
+    t.boolean  "noticemail_sended", default: false
+    t.string   "type"
     t.integer  "reservation_id"
-    t.string   "type",              limit: 255
   end
 
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
@@ -522,6 +522,8 @@ ActiveRecord::Schema.define(version: 20160512152530) do
     t.datetime "updated_at",                     null: false
     t.string   "cover_image_small", default: ""
     t.string   "long_name",         default: ""
+    t.string   "icon",              default: ""
+    t.string   "icon_small",        default: ""
   end
 
   add_index "pickups", ["short_name"], name: "index_pickups_on_short_name", using: :btree
@@ -598,9 +600,9 @@ ActiveRecord::Schema.define(version: 20160512152530) do
     t.string   "caption",     default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "cover_image", default: ""
     t.integer  "order_num"
     t.boolean  "cover_flg",   default: false
-    t.string   "cover_image"
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree
