@@ -33,7 +33,7 @@ footer
               = link_to Settings.page.listing_new, "#guide_request", class: "guide_request", data: { toggle: "modal" }
       .col-md-7.row-space-6.text-center
         .fb-page-container
-          .fb-page[data-href="https://www.facebook.com/HuberInc-1579765458969603/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-width="500" data-height="300"]
+          #fb-widget.fb-page[data-href="https://www.facebook.com/HuberInc-1579765458969603/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-width="500" data-height="300"]
     /.row
       .col-sm-3.col-sm-offset-2.hide--sp
         h5
@@ -113,8 +113,8 @@ footer
       = link_to '© Huber.', 'http://huber.co.jp/', target: '_blank'
     /#copyright.row-space-top-2.text-center.copy-single
       | © Huber.
-#fb-root
-javascript:
+/#fb-root
+/javascript:
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
