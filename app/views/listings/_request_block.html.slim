@@ -144,7 +144,7 @@
                 - else
                   = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary listing_request"
               - else
-                button.btn.btn-large.btn-block.btn-primary(class='listing_request')
+                = link_to '#sign_in_form', class: 'btn btn-large btn-block btn-primary listing_request', data: { toggle: "modal" } do
                   | Request Booking
           .tour-price-others.row-space-top-2
             .row

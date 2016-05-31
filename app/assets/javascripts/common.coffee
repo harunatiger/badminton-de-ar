@@ -402,7 +402,7 @@ $ ->
       return false
 
   # registrations#new & registrations#create
-  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create')
+  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show')
 
     loginReady = ->
       $('.sns-buttons').addClass('hide')
@@ -410,7 +410,7 @@ $ ->
       $('.social-links').removeClass('hide')
       $('#to-signup-form').addClass('hide')
       $('.policy-wrapper').addClass('hide')
-      return
+      return false
 
     if $('.alert-error > div').length
       loginReady()
@@ -570,32 +570,60 @@ $ ->
 
   #ga setting
   if $('body').hasClass('profiles show')
-    $(document).on 'click', $(".profile_message"), (event) ->
-      _gaq.push [
-        '_trackEvent'
-        'reservation'
-        'profile page'
-        'Talk to me'
-      ]
+    $('.profile_message').on 'click', ->
+      if typeof _gaq != 'undefined'
+        _gaq.push [
+          '_trackEvent'
+          'reservation'
+          'profile page'
+          'Talk to me'
+        ]
+    return
+
+    $('.sign_up_form').on 'click', ->
+      $('#sign_in_form').modal('hide')
+      return
+    
+    $('.sign_in_form').on 'click', ->
+      $('.sns-buttons-sign-in').addClass('show')
+      $('#sign_up_form').modal('hide')
       return
 
   if $('body').hasClass('listings show')
-    $(document).on 'click', $(".listing_request"), (event) ->
-      _gaq.push [
-        '_trackEvent'
-        'reservation'
-        'listing page'
-        'Request Booking'
-      ]
+    $('#new_user').submit ->
+      targetForm = $(this).closest('form')
+      spinner = $('.spinner', targetForm)
+      spinner.spin('flower', 'white')
+      $('.btn-frame > .btn', targetForm).addClass('text-disappear')
+      return
+    
+    $('.listing_request').on 'click', ->
+      if typeof _gaq != 'undefined'
+        _gaq.push [
+          '_trackEvent'
+          'reservation'
+          'listing page'
+          'Request Booking'
+        ]
+      return
+    
+    $('.listing_message').on 'click', ->
+      if typeof _gaq != 'undefined'
+        _gaq.push [
+          '_trackEvent'
+          'reservation'
+          'listing page'
+          'Talk to me'
+        ]
       return
 
-    $(document).on 'click', $(".listing_message"), (event) ->
-      _gaq.push [
-        '_trackEvent'
-        'reservation'
-        'listing page'
-        'Talk to me'
-      ]
+    $('.sign_up_form').on 'click', ->
+      $('#sign_in_form').modal('hide')
+      return
+    
+    $('.sign_in_form').on 'click', ->
+      $('.sns-buttons-sign-in').addClass('show')
+      $('#sign_up_form').modal('hide')
       return
 
   ###

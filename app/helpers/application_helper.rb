@@ -485,10 +485,10 @@ module ApplicationHelper
   end
   
   def out_put_error_for_modal(target)
-    if target.errors.present?
+    if target.present? and target.errors.present?
       content_tag(:div, class: 'text-red') do
         target.errors.full_messages.each do |msg|
-          concat content_tag(:div, msg)
+          concat content_tag(:div, '・' + msg)
         end
       end
     end
