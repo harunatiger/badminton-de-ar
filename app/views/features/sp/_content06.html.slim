@@ -1,0 +1,35 @@
+// #section-content06--sp
+- listings = feature_listings
+.page-container
+  .fore-text.row-space-top-8
+    | These two huge temples capture the essence of Kamakura, and are about a ten-minute walk from each other. Among the oldest are a group of wooden buildings built over 700 years ago, and they embody the samurai sense of beauty with the strength and natural beauty of unlacquered wood. 
+  = image_tag "feature/photo_section006-01.jpg", class: "img-responsive"
+  .main-text.row-space-8
+    | These temples stand in stark contrast to the extravagant and lively atmosphere of other popular temples like Senso-ji Temple in Asakusa. Here, you can even still see many young monks devoting themselves to religion, and depending on the time, may even get a chance to witness a temple choir in prayer. You can even have the experience of Zen meditation in the midst of this peaceful atmosphere.
+  = image_tag "feature/photo_section006-02.jpg", class: "img-responsive"
+.features-tourlist.page-container
+  .row.row-space-top-8.row-space-4
+    .col-md-12
+      h3.text-black
+        span 06. Recommended Tours
+  .row.row-space-8
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[149].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[149]), listing: listings[149]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[321].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[321]), listing: listings[321]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[324].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[324]), listing: listings[324]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+= link_to "#content06_sp", class: "btn-close-circle btn-feature-readmore-close--sp row-space-top-4 row-space-4" do
+  span
