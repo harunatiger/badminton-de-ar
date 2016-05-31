@@ -1,11 +1,12 @@
 // #section-content01--sp
 - listings = feature_listings
-.fore-text.row-space-top-8
-  | The Great Buddha in Kamakura is the second biggest in Japan, after the one in Nara. As the Great Buddha in Nara is housed inside a building, visitors can only look up at it from below, but the Great Buddha in Kamakura can be seen in detail from every angle.
-= image_tag "feature/photo_section001-01.jpg", class: "img-responsive"
-.main-text.row-space-8
-  | This also means that this is the biggest Great Buddha in Japan that you can take a picture with. You can find many stereotypical souvenirs in Hase, the town where the Buddha is, as well as outstanding Japanese restaurants and cafes hidden away like ninjas, unknown to travellers. Built 750 years ago, the Great Buddha watches over Kamakura from a height of 13 m. Until the 15th century it was housed inside a building, but after the building was washed away in a tsunami, it stood outside as it does now, gazing over at the ocean.
-= image_tag "feature/photo_section001-02.jpg", class: "img-responsive"
+.page-container
+  .fore-text.row-space-top-8
+    | The Great Buddha in Kamakura is the second biggest in Japan, after the one in Nara. As the Great Buddha in Nara is housed inside a building, visitors can only look up at it from below, but the Great Buddha in Kamakura can be seen in detail from every angle.
+  = image_tag "feature/photo_section001-01.jpg", class: "img-responsive"
+  .main-text.row-space-8
+    | This also means that this is the biggest Great Buddha in Japan that you can take a picture with. You can find many stereotypical souvenirs in Hase, the town where the Buddha is, as well as outstanding Japanese restaurants and cafes hidden away like ninjas, unknown to travellers. Built 750 years ago, the Great Buddha watches over Kamakura from a height of 13 m. Until the 15th century it was housed inside a building, but after the building was washed away in a tsunami, it stood outside as it does now, gazing over at the ocean.
+  = image_tag "feature/photo_section001-02.jpg", class: "img-responsive"
 .features-tourlist.page-container
   .row.row-space-top-8.row-space-4
     .col-md-12
@@ -13,22 +14,22 @@
         span 01. Recommended Tours
   .row.row-space-8
     .col-md-6.col-lg-4.row-space-4
-      - if listings[0].present?
-        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
-      - else
-        .card.tour-listing
-
-    .col-md-6.col-lg-4.row-space-4
-      - if listings[1].present?
-        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
-      - else
-        .card.tour-listing
-
-    .col-md-6.col-lg-4.row-space-4
-      - if listings[9878].present?
-        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+      - if listings[158].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[158]), listing: listings[158]}
       - else
         .tour-listing-empty.text-black.text-brand.text-center
-          | Coming Soon...
-= link_to "#section-content01--sp", class: "btn-close-circle btn-feature-readmore-close--sp row-space-top-4 row-space-4" do
+
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[321].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[321]), listing: listings[321]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[312].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[312]), listing: listings[312]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+= link_to "#content01_sp", class: "btn-close-circle btn-feature-readmore-close--sp row-space-top-4 row-space-4" do
   span

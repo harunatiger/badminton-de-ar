@@ -1,11 +1,12 @@
 // #section-content04--sp
 - listings = feature_listings
-.fore-text.row-space-top-8
-  | This is a hiking route from Kencho-ji Temple in Kita-Kamakura to Zuisen-ji Temple which takes about 30-45 minutes across the ridges of the mountain. This is a route that only those very familiar to Kamakura know of, so it’s never crowded, and is full of surprises as you realize how far the narrow paths have taken you.
-= image_tag "feature/photo_section004-01.jpg", class: "img-responsive"
-.main-text.row-space-8
-  | There are many mountain hiking trails like this one in Kamakura, so if you have a guide that knows them, you can hike to almost any spot in Kamakura. Whether it’s a wander from temple to temple away from the busy crowds, or a trail with stunning views of the ocean, amazing experiences are waiting to be had.
-= image_tag "feature/photo_section004-02.jpg", class: "img-responsive"
+.page-container
+  .fore-text.row-space-top-8
+    | This is a hiking route from Kencho-ji Temple in Kita-Kamakura to Zuisen-ji Temple which takes about 30-45 minutes across the ridges of the mountain. This is a route that only those very familiar to Kamakura know of, so it’s never crowded, and is full of surprises as you realize how far the narrow paths have taken you.
+  = image_tag "feature/photo_section004-01.jpg", class: "img-responsive"
+  .main-text.row-space-8
+    | There are many mountain hiking trails like this one in Kamakura, so if you have a guide that knows them, you can hike to almost any spot in Kamakura. Whether it’s a wander from temple to temple away from the busy crowds, or a trail with stunning views of the ocean, amazing experiences are waiting to be had.
+  = image_tag "feature/photo_section004-02.jpg", class: "img-responsive"
 .features-tourlist.page-container
   .row.row-space-top-8.row-space-4
     .col-md-12
@@ -13,22 +14,22 @@
         span 04. Recommended Tours
   .row.row-space-8
     .col-md-6.col-lg-4.row-space-4
-      - if listings[0].present?
-        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[0]), listing: listings[0]}
-      - else
-        .card.tour-listing
-
-    .col-md-6.col-lg-4.row-space-4
-      - if listings[1].present?
-        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[1]), listing: listings[1]}
-      - else
-        .card.tour-listing
-
-    .col-md-6.col-lg-4.row-space-4
-      - if listings[9878].present?
-        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[2]), listing: listings[2]}
+      - if listings[312].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[312]), listing: listings[312]}
       - else
         .tour-listing-empty.text-black.text-brand.text-center
-          | Coming Soon...
-= link_to "#section-content04--sp", class: "btn-close-circle btn-feature-readmore-close--sp row-space-top-4 row-space-4" do
+
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[198].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[198]), listing: listings[198]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[308].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[308]), listing: listings[308]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+= link_to "#content04_sp", class: "btn-close-circle btn-feature-readmore-close--sp row-space-top-4 row-space-4" do
   span
