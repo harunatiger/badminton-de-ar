@@ -1,9 +1,24 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  before_filter :configure_permitted_parameters
 
   def create
-    super
-    profile = Profile.create(user_id: resource.id)
-    #ProfileImage.create(user_id: resource.id, profile_id: profile.id, image: '', caption: '')
+    if request.xhr?
+      Devise::Models::Confirmable.module_eval do
+        def active_for_authentication?
+          super
+        end
+      end
+      session[:to_user_id] = params[:to_user_id]
+      super
+    else
+      Devise::Models::Confirmable.module_eval do
+        def active_for_authentication?
+          super && (!confirmation_required? || confirmed? || confirmation_period_valid?)
+        end
+      end
+      super
+      profile = Profile.create(user_id: resource.id)
+    end
   end
   
   def create_email
@@ -54,5 +69,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       resource.update_with_password(params)
     end
+  end
+  
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up).push(profile_attributes: [:first_name, :xhr])
   end
 end

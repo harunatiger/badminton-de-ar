@@ -82,7 +82,7 @@
             .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
           i.fa.fa-comments-o
           | Talk to me
-      - elsif not profile_completed?
+      /- elsif not profile_completed?
         = link_to profile_link, class: 'btn btn-large btn-block btn-primary btn-relative profile_message' do
           .media-photo.media-round.media-avatar
             .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
@@ -102,7 +102,7 @@
             i.fa.fa-comments-o
             | Talk to me
     - else
-      = link_to profile_link, class: "btn btn-large btn-block btn-primary btn-relative profile_message" do
+      = link_to '#sign_in_form', class: "btn btn-large btn-block btn-primary btn-relative profile_message", data: { toggle: "modal" } do
         .media-photo.media-round.media-avatar
           .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
         i.fa.fa-comments-o

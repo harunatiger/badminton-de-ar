@@ -1,0 +1,63 @@
+- to_user_id = @listing.present? ? @listing.user_id : @profile.user_id
+#sign_up_form.modal[role="dialog" aria-hidden="true"]
+  .page-container.page-container-auth.row-space-top-6.row-space-8
+    .row
+      .pop
+        .card
+          .card-body
+            .sns-buttons
+              - User.omniauth_providers.each do |provider|
+                = link_to users_omniauth_session_path(to_user_id: to_user_id), method: :POST, class: 'btn btn-fb btn-large btn-block' do
+                  i.fa.fa-facebook
+                  | Sign in with Facebook account
+            .text-center.social-links.hide
+              - User.omniauth_providers.each do |provider|
+                = link_to "Sign in with Facebook account", omniauth_authorize_path(:user, provider)
+            .textInclude-separator
+              h6.text
+                | or
+              hr
+            .text-center
+              = link_to "#", id: "to-signup-form", class: 'btn btn-primary btn-large btn-block' do
+                i.fa.fa-envelope-o
+                | Sign in with your email address
+            = simple_form_for(User.new, as: :user, url: user_registration_path(to_user_id: to_user_id), remote: true) do |f|
+              .signup-form.hide
+                = f.error_notification
+                .control-group.row-space-1
+                  = f.input_field :email, class: "decorative-input", placeholder: "E-mail address", required: true, type: "email"
+                .control-group.row-space-1
+                  = f.input_field :password, class: "decorative-input", placeholder: "Password", required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable)
+                .control-group.row-space-1
+                  = f.input_field :password_confirmation, class: "decorative-input", placeholder: "Confirm password", required: true
+                .control-group.row-space-1
+                  = f.fields_for :profile, Profile.new do |p|
+                    = p.hidden_field :xhr, value: true
+                    = p.input_field :first_name, class: "decorative-input", placeholder: "First name", required: true, class: 'imeoff'
+                = render partial: 'shared/modals/error_message', locals: {target: @user}
+                .row-space-2.row-space-top-2
+                  small
+                    | By register with Huber, you agree to 
+                    = link_to "our terms of service", static_pages_service_agreement_en_path
+                    | , 
+                    = link_to "privacy policy", static_pages_privacy_policy_en_path
+                    /| , 
+                    /= link_to "refund policy", "#"
+                    | , 
+                    = link_to "and special commercial code.", static_pages_specific_commercial_transactions_en_path
+                .form-actions
+                  = f.button :submit, "Register", class: "btn btn-primary btn-large btn-block"
+            .policy-wrapper.row-space-top-2
+              small
+                | By register with Huber, you agree to 
+                = link_to "our terms of service", static_pages_service_agreement_en_path
+                | , 
+                = link_to "privacy policy", static_pages_privacy_policy_en_path
+                /| , 
+                /= link_to "refund policy", "#"
+                | , 
+                = link_to "and special commercial code.", static_pages_specific_commercial_transactions_en_path
+          .card-body
+            p.small1
+              | Don't have an acount? 
+              = link_to "Login", '#sign_in_form', class: 'sign_in_form', data: { toggle: "modal" }

@@ -68,15 +68,22 @@ class Profile < ActiveRecord::Base
   accepts_nested_attributes_for :profile_categories, allow_destroy: true
   accepts_nested_attributes_for :profile_countries, allow_destroy: true
 
-  validates :user_id, presence: true
+  validates :user_id, presence: true, unless: :exist_xhr?
   validates :user_id, uniqueness: true
   validate :last_name_presence, if: :enable_strict_validation, on: :update
   validates :first_name, :country, :phone, presence: true, if: :enable_strict_validation, on: :update
   VALID_PHONE_REGEX = /\A[-+0-9]+\z/
   validates :phone, format: { with: VALID_PHONE_REGEX, if: :enable_strict_validation, on: :update }
+  validates :first_name, presence: true, if: :xhr
+  
+  attr_accessor :xhr
   
   scope :contains?, -> name { where('last_name ILIKE ? or first_name ILIKE ?', '%' + name + '%', '%' + name + '%') }
 
+  def exist_xhr?
+    self.xhr.present?
+  end
+  
   def last_name_presence
     if self.last_name.empty?
       errors[:base] << "Family Name can't be blank"

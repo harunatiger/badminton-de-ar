@@ -1,6 +1,6 @@
 #listings.coffee
 $ ->
-
+  
   # listings#new
   if $('body').hasClass('listing_details manage') || $('body').hasClass('listing_details update')
     car1 = Number($('#listing_detail_car_rental').val())
