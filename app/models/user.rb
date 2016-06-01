@@ -68,7 +68,8 @@ class User < ActiveRecord::Base
   has_many :favorite_listing, dependent: :destroy
   has_many :favorite_users_of_from_user, class_name: 'FavoriteUser', foreign_key: 'from_user_id', dependent: :destroy
   has_many :favorite_users_of_to_user, class_name: 'FavoriteUser', foreign_key: 'to_user_id', dependent: :destroy
-
+  
+  accepts_nested_attributes_for :profile
   #validates :email, presence: true
   #validates :email, uniqueness: true
   #VALID_EMAIL_REGREX = [a-zA-Z0-9_!#$%&*+=?^`{}~|'\-\/\.]+@[a-zA-Z0-9_!#$%&*+=?^`{}~|'\-\/]+(\.[a-zA-Z0-9_!#$%&*+=?^`{}~|'\-\/]+)+

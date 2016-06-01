@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require lib/jquery.balloon
+//= require lib/jquery.flicker.min
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery-ui/droppable
@@ -24,6 +25,8 @@
 //= require moment
 //= require lib/jquery.sliderPro
 //= require ckeditor/init
+//= require lib/jquery.lazyload.min
+
 
 //= require common
 //= require message
@@ -33,6 +36,7 @@
 //= require profiles
 //= require profile_images
 //= require listingimage
+//= require features
 //= require chart
 //= require youtube
 //= require pre_mail

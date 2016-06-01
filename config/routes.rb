@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
-  resources :features
+  resources :features, only: [:index] do
+    collection do
+      get 'contents'
+    end
+  end
+  
   mount Ckeditor::Engine => '/ckeditor'
 
   get 'static_pages/cancel_policy_en'
@@ -178,6 +183,7 @@ Rails.application.routes.draw do
     get 'users/withdraw' => 'users/registrations#withdraw'
     get 'users/clear_auth_session' => 'users/registrations#clear_auth_session'
     post 'users/create_email' => 'users/registrations#create_email'
+    post 'users/before_omniauth' => 'users/registrations#before_omniauth'
   end
 
   get "weekly_payment_report" => 'admin/payment#payment_weekly_report'

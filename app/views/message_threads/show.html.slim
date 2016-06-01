@@ -11,12 +11,14 @@
       = "Conversation with #{user_id_to_name(@counterpart.id)}"
   .row
     .col-lg-8
-      - unless profile_identity_authorized?(current_user.id)
+      - if exist_profile_blank?
         .row.row-condensed.row-space-4
           .col-sm-12.col-md-10.col-md-push-1
-            = link_to profile_identity_link, class: "alert-warning" do
+            = link_to profile_blank_link, class: "alert-warning", id: 'flash' do
               span
-                | We need to do a virtual ID check in order to approve the tour
+                | We need to do a Photo ID and General information check in order to approve
+                br
+                | the tour.
                 i.fa.fa-chevron-right
       - if @message_thread.guest_thread?
         = render partial: 'reservation_block'

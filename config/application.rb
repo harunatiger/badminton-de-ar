@@ -50,5 +50,9 @@ module AirbnbClone
       g.controller_specs false
       g.view_specs false
     end
+    
+    config.to_prepare do
+      DeviseController.respond_to :html, :json, :js
+    end
 	end
 end

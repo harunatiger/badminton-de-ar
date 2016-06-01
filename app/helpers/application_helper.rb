@@ -357,6 +357,11 @@ module ApplicationHelper
       new_profile_profile_identity_path(current_user.profile.id)
     end
   end
+  
+  def profile_blank_link
+    return edit_profile_path(current_user.profile.id) unless profile_completed?
+    profile_identity_link
+  end
 
   def profile_bank_link
     profile_bank = ProfileBank.where(user_id: current_user.id, profile_id: current_user.profile.id).first
@@ -485,10 +490,10 @@ module ApplicationHelper
   end
   
   def out_put_error_for_modal(target)
-    if target.errors.present?
+    if target.present? and target.errors.present?
       content_tag(:div, class: 'text-red') do
         target.errors.full_messages.each do |msg|
-          concat content_tag(:div, msg)
+          concat content_tag(:div, '・' + msg)
         end
       end
     end
@@ -716,16 +721,8 @@ module ApplicationHelper
     end
   end
   
-  def feature_listings
-    if Rails.env.production?
-      ids = [149,145,292,288]
-      listings = Listing.find(ids)
-      ordered_listings = ids.collect {|id| listings.detect {|x| x.id == id.to_i}}
-      return ordered_listings
-    else
-      ids = Listing.opened.without_soft_destroyed.ids.sample(4)
-      return Listing.find(ids)
-    end
+  def feature_listing(id)
+    listing = Listing.where(id: id).first
   end
   
   def profile_category_to_image(profile_category)

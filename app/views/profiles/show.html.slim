@@ -1,3 +1,4 @@
+.client
 #photos.with-photo
   .cover-img-container
     .cover-img[style="background-image:url(#{asset_path(user_id_to_profile_cover_image(@profile.user_id))})"]
@@ -31,5 +32,6 @@
           | Meeting place for your tour
         .locations
           #tour-map
-
+- unless user_signed_in?
+  = render partial: 'shared/modals/sign_up_form'
 /= render partial: '/shared/modals/pair_guide_list'

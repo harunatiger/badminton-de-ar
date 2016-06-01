@@ -338,6 +338,8 @@ select
         select
           padding-top: 8px
           padding-bottom: 8px
+  .client
+    content: 'mobile'
 
 .overflow
   word-break: break-word
@@ -419,6 +421,32 @@ select
   .fa
     width: 26px
     font-size: 18px
+
+.btn.btn-lg-ds
+  position: relative
+  display: inline-block
+  width: 270px
+  height: 80px
+  padding: 27px 10px
+  font-size: 18px
+  border-radius: 0
+
+.btn-close-circle
+  display: inline-block
+  width: 60px
+  height: 60px
+  padding-top: 28px
+  text-align: center
+  border-radius: 50%
+  background-color: $brand-theme
+  span
+    display: block
+    width: 36px
+    height: 4px
+    margin: 0 auto
+    background-color: white
+  &:hover
+    background-color: $brand-theme-hover
 
 .btn-mw120
   min-width: 120px
@@ -569,8 +597,14 @@ select
 .text-normal, a.text-normal, a.text-normal:hover, a.text-normal:focus
   color: inherit
 
+.text-primary
+  color: $brand-theme
+
 .text-light
   font-weight: 100
+
+.text-black
+  font-weight: 900
 
 .text-jumbo
   font-size: 46px
@@ -747,7 +781,7 @@ a.alert-warning
   &:hover
     color: #8a6d3b
     text-decoration: none
-    background-color: rgb(249, 238, 145)
+    background-color: rgb(249, 238, 145) !important
 
 .is-simpleHeader
   .alert
