@@ -1,5 +1,4 @@
 // #section-content06--sp
-- listings = feature_listings
 .page-container
   .fore-text.row-space-top-8
     | These two huge temples capture the essence of Kamakura, and are about a ten-minute walk from each other. Among the oldest are a group of wooden buildings built over 700 years ago, and they embody the samurai sense of beauty with the strength and natural beauty of unlacquered wood. 
@@ -13,19 +12,26 @@
       h3.text-black
         span 06. Recommended Tours
   .row.row-space-8
-    .col-md-6.col-lg-4.row-space-4
+    - feature_listing_ids = [149, 321, 324]
+    - feature_listing_ids.each do |id|
+      .col-md-6.col-lg-4.row-space-4
+        - if feature_listing(id).present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+        - else
+          .tour-listing-empty.text-black.text-brand.text-center
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[149].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[149]), listing: listings[149]}
       - else
         .tour-listing-empty.text-black.text-brand.text-center
 
-    .col-md-6.col-lg-4.row-space-4
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[321].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[321]), listing: listings[321]}
       - else
         .tour-listing-empty.text-black.text-brand.text-center
 
-    .col-md-6.col-lg-4.row-space-4
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[324].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[324]), listing: listings[324]}
       - else

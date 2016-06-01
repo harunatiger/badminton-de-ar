@@ -1,5 +1,4 @@
 // #section-content03--sp
-- listings = feature_listings
 .page-container
   .fore-text.row-space-top-8
     | You walk up a sloping path like a valley cut between mountains and pass through an entrance that looks like the mouth of a cave to get to this shrine. It is said that if you wash money in the water that springs from the rocks, more money will come to you after you spend it.
@@ -15,19 +14,26 @@
       h3.text-black
         span 03. Recommended Tours
   .row.row-space-8
-    .col-md-6.col-lg-4.row-space-4
+    - feature_listing_ids = [31, 321, 306]
+    - feature_listing_ids.each do |id|
+      .col-md-6.col-lg-4.row-space-4
+        - if feature_listing(id).present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+        - else
+          .tour-listing-empty.text-black.text-brand.text-center
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[31].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[31]), listing: listings[31]}
       - else
         .tour-listing-empty.text-black.text-brand.text-center
 
-    .col-md-6.col-lg-4.row-space-4
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[321].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[321]), listing: listings[321]}
       - else
         .tour-listing-empty.text-black.text-brand.text-center
 
-    .col-md-6.col-lg-4.row-space-4
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[306].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[306]), listing: listings[306]}
       - else

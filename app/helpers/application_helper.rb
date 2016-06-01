@@ -721,16 +721,8 @@ module ApplicationHelper
     end
   end
   
-  def feature_listings
-    if Rails.env.production?
-      ids = [149,145,292,288]
-      listings = Listing.find(ids)
-      ordered_listings = ids.collect {|id| listings.detect {|x| x.id == id.to_i}}
-      return ordered_listings
-    else
-      ids = Listing.opened.without_soft_destroyed.ids.sample(4)
-      return Listing.find(ids)
-    end
+  def feature_listing(id)
+    listing = Listing.where(id: id).first
   end
   
   def profile_category_to_image(profile_category)

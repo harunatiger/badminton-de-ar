@@ -1,5 +1,4 @@
 // #section-content09--sp
-- listings = feature_listings
 .page-container
   .fore-text.row-space-top-8
     | This small island is 25 minutes away from Kamakura by train, or 15 minutes by car with no traffic. Nowadays it is connected to the mainland by a bridge, but some time ago people could walk across during low tide. The island itself was a place for worshippers such as fishermen to visit.
@@ -15,19 +14,26 @@
       h3.text-black
         span 09. Recommended Tours
   .row.row-space-8
-    .col-md-6.col-lg-4.row-space-4
+    - feature_listing_ids = [315, 95, 67]
+    - feature_listing_ids.each do |id|
+      .col-md-6.col-lg-4.row-space-4
+        - if feature_listing(id).present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+        - else
+          .tour-listing-empty.text-black.text-brand.text-center
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[315].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[315]), listing: listings[315]}
       - else
         .tour-listing-empty.text-black.text-brand.text-center
 
-    .col-md-6.col-lg-4.row-space-4
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[95].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[95]), listing: listings[95]}
       - else
         .tour-listing-empty.text-black.text-brand.text-center
 
-    .col-md-6.col-lg-4.row-space-4
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[67].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[67]), listing: listings[67]}
       - else
