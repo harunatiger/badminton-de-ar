@@ -1,5 +1,4 @@
 // #section-content05--sp
-- listings = feature_listings
 .page-container
   .fore-text.row-space-top-8
     | Kamakura is situated by the ocean, so there is a wealth of fresh seafood. Kamakura vegetables are also rated highly, even being proudly named on menus of many high-class restaurants in Tokyo.
@@ -13,19 +12,26 @@
       h3.text-black
         span 05. Recommended Tours
   .row.row-space-8
-    .col-md-6.col-lg-4.row-space-4
+    - feature_listing_ids = [141, 282, 292]
+    - feature_listing_ids.each do |id|
+      .col-md-6.col-lg-4.row-space-4
+        - if feature_listing(id).present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+        - else
+          .tour-listing-empty.text-black.text-brand.text-center
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[312].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[312]), listing: listings[312]}
       - else
         .tour-listing-empty.text-black.text-brand.text-center
 
-    .col-md-6.col-lg-4.row-space-4
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[282].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[282]), listing: listings[282]}
       - else
         .tour-listing-empty.text-black.text-brand.text-center
 
-    .col-md-6.col-lg-4.row-space-4
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[292].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[292]), listing: listings[292]}
       - else

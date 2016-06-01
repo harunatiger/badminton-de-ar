@@ -1,5 +1,4 @@
 // #section-content07--sp
-- listings = feature_listings
 .page-container
   .fore-text.row-space-top-8
     | A 30-minute drive away from Kamakura is a sake brewery with a rich 134 years of history. There are also excellent Japanese and Italian restaurants with food to match the sake and beer produced here.
@@ -13,7 +12,14 @@
       h3.text-black
         span 07. Recommended Tours
   .row.row-space-8
-    .col-md-6.col-lg-4.row-space-4
+    - feature_listing_ids = [145]
+    - feature_listing_ids.each do |id|
+      .col-md-6.col-lg-4.row-space-4
+        - if feature_listing(id).present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+        - else
+          .tour-listing-empty.text-black.text-brand.text-center
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[145].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[145]), listing: listings[145]}
       - else

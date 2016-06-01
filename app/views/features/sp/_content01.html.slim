@@ -1,5 +1,4 @@
 // #section-content01--sp
-- listings = feature_listings
 .page-container
   .fore-text.row-space-top-8
     | The Great Buddha in Kamakura is the second biggest in Japan, after the one in Nara. As the Great Buddha in Nara is housed inside a building, visitors can only look up at it from below, but the Great Buddha in Kamakura can be seen in detail from every angle.
@@ -13,19 +12,21 @@
       h3.text-black
         span 01. Recommended Tours
   .row.row-space-8
-    .col-md-6.col-lg-4.row-space-4
-      - if listings[158].present?
-        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[158]), listing: listings[158]}
-      - else
-        .tour-listing-empty.text-black.text-brand.text-center
+    - feature_listing_ids = [158, 321, 312]
+    - feature_listing_ids.each do |id|
+      .col-md-6.col-lg-4.row-space-4
+        - if feature_listing(id).present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+        - else
+          .tour-listing-empty.text-black.text-brand.text-center
 
-    .col-md-6.col-lg-4.row-space-4
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[321].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[321]), listing: listings[321]}
       - else
         .tour-listing-empty.text-black.text-brand.text-center
 
-    .col-md-6.col-lg-4.row-space-4
+    /.col-md-6.col-lg-4.row-space-4
       - if listings[312].present?
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[312]), listing: listings[312]}
       - else

@@ -1,5 +1,4 @@
 /* features#index */
-- listings = feature_listings
 #features
   .features-header
     .img-bg.img-bg-overlay
@@ -120,21 +119,23 @@
           h3.text-black.center-lined
             span 01. Recommended Tours
       .row.row-space-8
-        .col-md-6.col-lg-4.row-space-4
-          - if listings[158].present?
-            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[158]), listing: listings[158]}
+        - feature_listing_ids = [158, 321, 312]
+        - feature_listing_ids.each do |id|
+          .col-md-6.col-lg-4.row-space-4
+            - if feature_listing(id).present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+            - else
+              .tour-listing-empty.text-black.text-brand.text-center
+
+        /.col-md-6.col-lg-4.row-space-4
+          - if feature_listing(321).present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(321)), listing: feature_listing(321)}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
-          - if listings[321].present?
-            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[321]), listing: listings[321]}
-          - else
-            .tour-listing-empty.text-black.text-brand.text-center
-
-        .col-md-6.col-lg-4.row-space-4
-          - if listings[312].present?
-            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[312]), listing: listings[312]}
+        /.col-md-6.col-lg-4.row-space-4
+          - if feature_listing(312).present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(312)), listing: feature_listing(312)}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
@@ -159,19 +160,21 @@
           h3.text-black.center-lined
             span 02. Recommended Tours
       .row.row-space-8
-        .col-md-6.col-lg-4.row-space-4
-          - if listings[265].present?
-            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[265]), listing: listings[265]}
-          - else
-            .tour-listing-empty.text-black.text-brand.text-center
+        - feature_listing_ids = [265, 149, 96]
+        - feature_listing_ids.each do |id|
+          .col-md-6.col-lg-4.row-space-4
+            - if feature_listing(id).present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+            - else
+              .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
-          - if listings[149].present?
+        /.col-md-6.col-lg-4.row-space-4
+          - if feature_listing(149).present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[149]), listing: listings[149]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[96].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[96]), listing: listings[96]}
           - else
@@ -198,19 +201,21 @@
           h3.text-black.center-lined
             span 03. Recommended Tours
       .row.row-space-8
-        .col-md-6.col-lg-4.row-space-4
-          - if listings[31].present?
-            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[31]), listing: listings[31]}
-          - else
-            .tour-listing-empty.text-black.text-brand.text-center
+        - feature_listing_ids = [31, 321, 306]
+        - feature_listing_ids.each do |id|
+          .col-md-6.col-lg-4.row-space-4
+            - if feature_listing(id).present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+            - else
+              .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[321].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[321]), listing: listings[321]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[306].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[306]), listing: listings[306]}
           - else
@@ -237,19 +242,26 @@
           h3.text-black.center-lined
             span 04. Ten-en Hiking Course
       .row.row-space-8
-        .col-md-6.col-lg-4.row-space-4
+        - feature_listing_ids = [312, 198, 308]
+        - feature_listing_ids.each do |id|
+          .col-md-6.col-lg-4.row-space-4
+            - if feature_listing(id).present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+            - else
+              .tour-listing-empty.text-black.text-brand.text-center
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[312].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[312]), listing: listings[312]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[198].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[198]), listing: listings[198]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[308].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[308]), listing: listings[308]}
           - else
@@ -276,19 +288,26 @@
           h3.text-black.center-lined
             span 05. Food in Kamakura
       .row.row-space-8
-        .col-md-6.col-lg-4.row-space-4
+        - feature_listing_ids = [141, 282, 292]
+        - feature_listing_ids.each do |id|
+          .col-md-6.col-lg-4.row-space-4
+            - if feature_listing(id).present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+            - else
+              .tour-listing-empty.text-black.text-brand.text-center
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[141].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[141]), listing: listings[141]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[282].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[282]), listing: listings[282]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[292].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[292]), listing: listings[292]}
           - else
@@ -315,19 +334,26 @@
           h3.text-black.center-lined
             span 06. Enkaku-ji & Kencho-ji Temple
       .row.row-space-8
-        .col-md-6.col-lg-4.row-space-4
+        - feature_listing_ids = [149, 321, 324]
+        - feature_listing_ids.each do |id|
+          .col-md-6.col-lg-4.row-space-4
+            - if feature_listing(id).present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+            - else
+              .tour-listing-empty.text-black.text-brand.text-center
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[149].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[149]), listing: listings[149]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[321].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[321]), listing: listings[321]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[324].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[324]), listing: listings[324]}
           - else
@@ -354,7 +380,14 @@
           h3.text-black.center-lined
             span 07. Kumazawa Brewery
       .row.row-space-8
-        .col-md-6.col-lg-4.row-space-4
+        - feature_listing_ids = [145]
+        - feature_listing_ids.each do |id|
+          .col-md-6.col-lg-4.row-space-4
+            - if feature_listing(id).present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+            - else
+              .tour-listing-empty.text-black.text-brand.text-center
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[145].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[145]), listing: listings[145]}
           - else
@@ -393,19 +426,26 @@
           h3.text-black.center-lined
             span 08. Kamakura and the Ocean
       .row.row-space-8
-        .col-md-6.col-lg-4.row-space-4
+        - feature_listing_ids = [31, 158, 320]
+        - feature_listing_ids.each do |id|
+          .col-md-6.col-lg-4.row-space-4
+            - if feature_listing(id).present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+            - else
+              .tour-listing-empty.text-black.text-brand.text-center
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[31].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[31]), listing: listings[31]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[158].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[158]), listing: listings[158]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[320].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[320]), listing: listings[320]}
           - else
@@ -432,19 +472,26 @@
           h3.text-black.center-lined
             span 09. Enoshima
       .row.row-space-8
-        .col-md-6.col-lg-4.row-space-4
+        - feature_listing_ids = [315, 95, 67]
+        - feature_listing_ids.each do |id|
+          .col-md-6.col-lg-4.row-space-4
+            - if feature_listing(id).present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+            - else
+              .tour-listing-empty.text-black.text-brand.text-center
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[315].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[315]), listing: listings[315]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[95].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[95]), listing: listings[95]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
 
-        .col-md-6.col-lg-4.row-space-4
+        /.col-md-6.col-lg-4.row-space-4
           - if listings[67].present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[67]), listing: listings[67]}
           - else
