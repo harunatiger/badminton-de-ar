@@ -458,4 +458,19 @@ class Reservation < ActiveRecord::Base
     people = 'people' if self.num_of_people == 1
     self.num_of_people.to_s + people
   end
+  
+  def host_profile_id
+    profile = Profile.where(user_id: self.host_id).first
+    profile.id if profile.present?
+  end
+  
+  def guest_profile_id
+    profile = Profile.where(user_id: self.guest_id).first
+    profile.id if profile.present?
+  end
+  
+  def pair_guide_profile_id
+    profile = Profile.where(user_id: self.pair_guide_id).first
+    profile.id if profile.present?
+  end
 end
