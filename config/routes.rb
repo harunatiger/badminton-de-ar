@@ -178,7 +178,7 @@ Rails.application.routes.draw do
     get 'users/withdraw' => 'users/registrations#withdraw'
     get 'users/clear_auth_session' => 'users/registrations#clear_auth_session'
     post 'users/create_email' => 'users/registrations#create_email'
-    post 'users/omniauth_session' => 'users/sessions#omniauth_session'
+    post 'users/before_omniauth' => 'users/registrations#before_omniauth'
   end
 
   get "weekly_payment_report" => 'admin/payment#payment_weekly_report'

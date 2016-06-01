@@ -357,6 +357,11 @@ module ApplicationHelper
       new_profile_profile_identity_path(current_user.profile.id)
     end
   end
+  
+  def profile_blank_link
+    return edit_profile_path(current_user.profile.id) unless profile_completed?
+    profile_identity_link
+  end
 
   def profile_bank_link
     profile_bank = ProfileBank.where(user_id: current_user.id, profile_id: current_user.profile.id).first

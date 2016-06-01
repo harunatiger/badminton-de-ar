@@ -402,7 +402,7 @@ $ ->
       return false
 
   # registrations#new & registrations#create
-  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show')
+  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show')
 
     loginReady = ->
       $('.sns-buttons').addClass('hide')
