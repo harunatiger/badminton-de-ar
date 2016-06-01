@@ -10,8 +10,18 @@ ActiveAdmin.register Reservation do
     column :id do |reservation|
       link_to reservation.id, admin_reservation_path(reservation)
     end
-    column :host_id
-    column :guest_id
+    column :host_id do |reservation|
+      profile = Profile.where(user_id: reservation.host_id).first
+      profile.id if profile.present?
+    end
+    column :guest_id do |reservation|
+      profile = Profile.where(user_id: reservation.guest_id).first
+      profile.id if profile.present?
+    end
+    column :pair_guide_id do |reservation|
+      profile = Profile.where(user_id: reservation.pair_guide_id).first
+      profile.id if profile.present?
+    end
     column :listing_id do |reservation|
       if reservation.listing_id.present?
         link_to Listing.find(reservation.listing_id).title, admin_listing_path(reservation.listing_id)
