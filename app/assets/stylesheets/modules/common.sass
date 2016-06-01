@@ -422,6 +422,32 @@ select
     width: 26px
     font-size: 18px
 
+.btn.btn-lg-ds
+  position: relative
+  display: inline-block
+  width: 270px
+  height: 80px
+  padding: 27px 10px
+  font-size: 18px
+  border-radius: 0
+
+.btn-close-circle
+  display: inline-block
+  width: 60px
+  height: 60px
+  padding-top: 28px
+  text-align: center
+  border-radius: 50%
+  background-color: $brand-theme
+  span
+    display: block
+    width: 36px
+    height: 4px
+    margin: 0 auto
+    background-color: white
+  &:hover
+    background-color: $brand-theme-hover
+
 .btn-mw120
   min-width: 120px
 
@@ -571,8 +597,14 @@ select
 .text-normal, a.text-normal, a.text-normal:hover, a.text-normal:focus
   color: inherit
 
+.text-primary
+  color: $brand-theme
+
 .text-light
   font-weight: 100
+
+.text-black
+  font-weight: 900
 
 .text-jumbo
   font-size: 46px

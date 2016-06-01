@@ -36,6 +36,7 @@
 //= require profiles
 //= require profile_images
 //= require listingimage
+//= require features
 //= require chart
 //= require youtube
 //= require pre_mail

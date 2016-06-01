@@ -254,7 +254,6 @@ $ ->
         return false
     return false
 
-
   if $('body').hasClass('message_threads index')
     if $(window).width() < 768
       # ellipsis message_thread username

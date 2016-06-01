@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
-  resources :features
+  resources :features, only: [:index] do
+    collection do
+      get 'contents'
+    end
+  end
+  
   mount Ckeditor::Engine => '/ckeditor'
 
   get 'static_pages/cancel_policy_en'

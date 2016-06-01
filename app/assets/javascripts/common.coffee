@@ -530,63 +530,7 @@ $ ->
     ), 1
     return
 
-  if $('body').hasClass('features')
-
-    $('.to-tour-list').on 'click', ->
-      $('html, body').animate { scrollTop: $('#features-tour-list').offset().top }, 'fast'
-      return false
-
-    $('a.highlight-anchor').on 'click', ->
-      if location.pathname.replace(/^\//, '') == @pathname.replace(/^\//, '') and location.hostname == @hostname
-        target = $(@hash)
-        target = if target.length then target else $('[name=' + @hash.slice(1) + ']')
-        if target.length
-          $('html, body').animate { scrollTop: target.offset().top }, 'fast'
-          return false
-      return
-
-    ###
-    $('a[href*="#"]:not([href="#"])').click ->
-      if location.pathname.replace(/^\//, '') == @pathname.replace(/^\//, '') and location.hostname == @hostname
-        target = $(@hash)
-        target = if target.length then target else $('[name=' + @hash.slice(1) + ']')
-        if target.length
-          $('html, body').animate { scrollTop: target.offset().top }, 1000
-          return false
-      return
-    ###
-
-    #slider
-    $('#features-slider').sliderPro
-      width:'50%'
-      height: 500
-      aspectRatio: 1.5
-      visibleSize: '100%'
-      forceSize: 'fullWidth'
-      arrows: true
-      fadeArrows: false
-      autoplayDelay: 3000
-      slideAnimationDuration: 1000
-      buttons: false
-      keyboard: false
-      slideDistance: 1
-      breakpoints:
-        767:
-          width: '100%'
-          height:200
-
-    # features highlits gallery
-    $('.highlight-gallery').each ->
-      $(this).magnificPopup
-        delegate: 'a'
-        type: 'image'
-        image:
-          verticalFit: true
-        gallery:
-          enabled: true
-      return
-
-  #ga setting
+  # ga setting
   if $('body').hasClass('profiles show')
     $('.profile_message').on 'click', ->
       if typeof _gaq != 'undefined'

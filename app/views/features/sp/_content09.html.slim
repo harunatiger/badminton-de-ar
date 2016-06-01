@@ -1,0 +1,37 @@
+// #section-content09--sp
+- listings = feature_listings
+.page-container
+  .fore-text.row-space-top-8
+    | This small island is 25 minutes away from Kamakura by train, or 15 minutes by car with no traffic. Nowadays it is connected to the mainland by a bridge, but some time ago people could walk across during low tide. The island itself was a place for worshippers such as fishermen to visit.
+  = image_tag "feature/photo_section009-01.jpg", class: "img-responsive"
+  .main-text.row-space-8
+    | Therefore, if you make your way through the winding roads lined with souvenir shops, you can find a temple on the top of the island. After walking up the winding slopes to the top, you can look over the island and drink a local beer for a great experience.
+    p.text-black.row-space-top-4.row-space-4 Enoshima Electric Railway (Enoden)
+    | If you take the local train from Kamakura to Enoshima, the “Enoden,” you may first be surprised by how close the train passes between people’s houses. After a taste of this thrilling experience, you can leisurely make your way along the shore to Enoshima. And on your way back, you can stop at the Great Buddha in Hase or the beach in Shichirigahama to make the most of your trip.
+  = image_tag "feature/photo_section009-02.jpg", class: "img-responsive"
+.features-tourlist.page-container
+  .row.row-space-top-8.row-space-4
+    .col-md-12
+      h3.text-black
+        span 09. Recommended Tours
+  .row.row-space-8
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[315].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[315]), listing: listings[315]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[95].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[95]), listing: listings[95]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[67].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[67]), listing: listings[67]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+= link_to "#content09_sp", class: "btn-close-circle btn-feature-readmore-close--sp row-space-top-4 row-space-4" do
+  span

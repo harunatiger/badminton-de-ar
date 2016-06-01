@@ -6,6 +6,12 @@ class FeaturesController < ApplicationController
   def index
     @features = Feature.all
   end
+  
+  def contents
+    if request.xhr?
+      render partial: "features/#{params[:device]}/#{params[:content_name]}"
+    end
+  end
 
   # GET /features/1
   # GET /features/1.json

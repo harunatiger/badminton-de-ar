@@ -1,0 +1,35 @@
+// #section-content08--sp
+- listings = feature_listings
+.page-container
+  .fore-text.row-space-top-8
+    | The ocean is just a 15-minute walk or 5-minute drive away. In the summer there are many events such as fireworks, with Japanese bars and restaurants in beach houses lining up along the shore.
+  = image_tag "feature/photo_section008-01.jpg", class: "img-responsive"
+  .main-text.row-space-8
+    | During low tide, you can find rock pools with crabs and small fish. Kamakura has many beaches to offer, from beaches with relaxed bars to beaches with the perfect sunset, and you are sure to find the beach perfect for you.
+  = image_tag "feature/photo_section008-02.jpg", class: "img-responsive"
+.features-tourlist.page-container
+  .row.row-space-top-8.row-space-4
+    .col-md-12
+      h3.text-black
+        span 08. Recommended Tours
+  .row.row-space-8
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[31].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[31]), listing: listings[31]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[158].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[158]), listing: listings[158]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+    .col-md-6.col-lg-4.row-space-4
+      - if listings[320].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[320]), listing: listings[320]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+= link_to "#content08_sp", class: "btn-close-circle btn-feature-readmore-close--sp row-space-top-4 row-space-4" do
+  span
