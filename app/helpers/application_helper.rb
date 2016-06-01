@@ -357,6 +357,11 @@ module ApplicationHelper
       new_profile_profile_identity_path(current_user.profile.id)
     end
   end
+  
+  def profile_blank_link
+    return edit_profile_path(current_user.profile.id) unless profile_completed?
+    profile_identity_link
+  end
 
   def profile_bank_link
     profile_bank = ProfileBank.where(user_id: current_user.id, profile_id: current_user.profile.id).first
@@ -485,10 +490,10 @@ module ApplicationHelper
   end
   
   def out_put_error_for_modal(target)
-    if target.errors.present?
+    if target.present? and target.errors.present?
       content_tag(:div, class: 'text-red') do
         target.errors.full_messages.each do |msg|
-          concat content_tag(:div, msg)
+          concat content_tag(:div, '・' + msg)
         end
       end
     end

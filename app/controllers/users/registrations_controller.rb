@@ -1,9 +1,19 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  before_filter :configure_permitted_parameters
 
   def create
-    super
-    profile = Profile.create(user_id: resource.id)
-    #ProfileImage.create(user_id: resource.id, profile_id: profile.id, image: '', caption: '')
+    if request.xhr?
+      session[:to_user_id] = params[:to_user_id]
+      super
+    else
+      super
+      profile = Profile.create(user_id: resource.id)
+    end
+  end
+  
+  def before_omniauth
+    session[:to_user_id] = params[:to_user_id]
+    redirect_to omniauth_authorize_path(:user, 'facebook')
   end
   
   def create_email
@@ -12,6 +22,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.find_for_facebook_oauth(auth, current_user, true)
     if @user.persisted?
       session["omniauth.auth"] = nil
+      sign_in @user
       @status = 'success'
     else
       @status = 'failure'
@@ -54,5 +65,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       resource.update_with_password(params)
     end
+  end
+  
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up).push(profile_attributes: [:first_name, :xhr])
   end
 end

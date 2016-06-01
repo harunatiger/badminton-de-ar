@@ -30,6 +30,8 @@
 
 .fixed-btn-container.show--sp
   = render partial: 'talk_to_me', locals: { listing: @listing, message_thread: @message_thread }
+- unless user_signed_in?
+  = render partial: 'shared/modals/sign_up_form'
   /- if user_signed_in?
     button#request--sp.btn.btn-large.btn-fixed-bottom.btn-primary
       | More

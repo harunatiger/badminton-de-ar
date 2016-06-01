@@ -10,7 +10,7 @@
       .col-9
         p
           | You can discuss anything, including the place, price, and timing.
-  - elsif not profile_completed?
+  /- elsif not profile_completed?
     = link_to profile_link, class: 'btn btn-primary btn-large btn-block btn-relative listing_message' do
       i.fa.fa-comments-o
       | Talk to me
@@ -45,7 +45,7 @@
           p
             | You can discuss anything, including the place, price, and timing.
 - else
-  = link_to profile_link, class: "btn btn-large btn-block btn-primary btn-relative listing_message" do
+  = link_to '#sign_up_form', class: "btn btn-large btn-block btn-primary btn-relative listing_message", data: { toggle: "modal" } do
     i.fa.fa-comments-o
     | Talk to me
   .row.row-condensed.row-space-top-2.hide--sp

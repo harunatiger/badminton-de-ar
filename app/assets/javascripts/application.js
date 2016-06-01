@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require lib/jquery.balloon
+//= require lib/jquery.flicker.min
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery-ui/droppable
