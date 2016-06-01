@@ -295,3 +295,13 @@ $ ->
       element.find('.confirm_cancel_link').addClass('hide')
       element.find('.step1').hide()
       element.find('.step3').show()
+      
+  if $('body').hasClass('message_threads show')
+    $('.profile_alert_link').on 'click', ->
+      $('html,body').animate { scrollTop: 0 }, 'slow'
+      $('#flash').flicker
+        'reps': 7
+        'pause': 200
+        'delay': 800
+        'color': 'rgb(249, 238, 145)'
+      return false

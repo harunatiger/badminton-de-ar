@@ -1,6 +1,5 @@
 <% if @status == "success" %>
-  $(".create_email_modal .card-body").text("<%= t('devise.registrations.signed_up_but_unconfirmed')%>");
-  $(".create_email_modal .card-footer").remove();
+  window.location.href = "<%=root_path %>";
 <% elsif @status == "failure" %>
   $("#error_message").html($("<%=j render partial: 'shared/modals/error_message', locals: {target: @user} %>").hide().fadeIn("slow"));
   targetForm = $('.email_register').closest('form')

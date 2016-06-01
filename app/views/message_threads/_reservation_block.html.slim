@@ -227,7 +227,9 @@
                       = f.submit 'Confirm', name: 'confirm', class: 'btn btn-primary disabled'
                       = f.submit 'Cancel', name: 'cancel', class: 'btn disabled'
                     - else
-                      - if @reservation.amount_for_campaign < 1
+                      - if exist_profile_blank?
+                        = link_to 'Confirm', '#', class: 'btn btn-primary profile_alert_link'
+                      - elsif @reservation.amount_for_campaign < 1
                         = f.submit 'Confirm', name: 'confirm', class: 'btn btn-primary', data: {confirm: "Are you sure you want to approve this tour?"}
                       - else
                         = f.submit 'Confirm', name: 'confirm', class: 'btn btn-primary'

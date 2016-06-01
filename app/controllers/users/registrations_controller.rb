@@ -3,22 +3,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     if request.xhr?
-      Devise::Models::Confirmable.module_eval do
-        def active_for_authentication?
-          super
-        end
-      end
       session[:to_user_id] = params[:to_user_id]
       super
     else
-      Devise::Models::Confirmable.module_eval do
-        def active_for_authentication?
-          super && (!confirmation_required? || confirmed? || confirmation_period_valid?)
-        end
-      end
       super
       profile = Profile.create(user_id: resource.id)
     end
+  end
+  
+  def before_omniauth
+    session[:to_user_id] = params[:to_user_id]
+    redirect_to omniauth_authorize_path(:user, 'facebook')
   end
   
   def create_email
@@ -27,6 +22,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.find_for_facebook_oauth(auth, current_user, true)
     if @user.persisted?
       session["omniauth.auth"] = nil
+      sign_in @user
       @status = 'success'
     else
       @status = 'failure'

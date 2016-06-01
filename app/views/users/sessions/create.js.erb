@@ -1,9 +1,0 @@
-<% if @success %>
-  <% if @message_thread_id %>
-    window.location.href = "<%=message_thread_path(@message_thread_id) %>";
-  <% else %>
-    window.location.href = "<%=root_path %>";
-  <% end %>
-<% else %>
-  $("#error_message_session").html($("<div class='text-red'><%=@message %></div>").hide().fadeIn("slow"));
-<% end %>
