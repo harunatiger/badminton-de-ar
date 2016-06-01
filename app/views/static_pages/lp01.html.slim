@@ -1,6 +1,129 @@
 / lp01
 = stylesheet_link_tag 'partials/lp01'
+.hero
+  .page-container
+    h1.text-center
+      .small.spb To make the most of your trip,
+      .text-wf.cheer Try asking a local!
+h2.text-center
+  .spb Try our free consultation service.
+.recomended-guides.text-center
+  h2
+    | Recommended Guides
+    .text-wf.cheer feel free to talk to us!
+  .page-container
+    .row
+      .col-md-3
+        .guide.text-center
+          = image_tag 'lp01/thumb001.jpg'
+          .name.spb Hotaru(Jade)
+          = link_to "Talk to me", "#", class: "spb"
+          .introduce
+            p Hi, I’m Hotaru, Chinese who has been living in Japan for 5 years. I can speak 3 languages. I know area popular in young generation very well, such as Harajuku, Shibuya, Shimokitazawa…, please feel free to talk to me.
+            = link_to "More Info", "#"
+      .col-md-3
+        .guide.text-center
+          = image_tag 'lp01/thumb002.jpg'
+          .name.spb Tokoro
+          = link_to "Talk to me", "#", class: "spb"
+          .introduce
+            p Hi! I'm from Tokyo. I love exploring city, photographs and enjoy coffee at cafe. Also, I love climbing mountains because I'm so in love with rock faces!  Let's explore Japan together!
+            = link_to "More Info", "#"
+      .col-md-3
+        .guide.text-center
+          = image_tag 'lp01/thumb003.jpg'
+          .name.spb Ayana
+          = link_to "Talk to me", "#", class: "spb"
+          .introduce
+            p Hi! I love "Kawaii (cute)" products and places, so I often walking around town. I've lived in 8 prefectures, around Tokyo, Kyoto, and Kobe. I'm studying French and Indonesian.  I'm looking forward to seeing, and talking with you;D
+            = link_to "More Info", "#"
+      .col-md-3
+        .guide.text-center
+          = image_tag 'lp01/thumb004.jpg'
+          .name.spb Catharina
+          = link_to "Talk to me", "#", class: "spb"
+          .introduce
+            p Hey, I’m looking forward to show you my Japan! Be prepared for good food, temples and walking. And of course the best ending with a good draft beer in the end.
+            = link_to "More Info", "#"
+      .col-md-3
+        .guide.text-center
+          = image_tag 'lp01/thumb005.jpg'
+          .name.spb Saki
+          = link_to "Talk to me", "#", class: "spb"
+          .introduce
+            p Hi, I’m a university student. I study human relationship. I like eating, so I can take you to delicious restaurants! I like communicating with people!! Let’s enjoy a nice trip together!!
+            = link_to "More Info", "#"
+      .col-md-3
+        .guide.text-center
+          = image_tag 'lp01/thumb006.jpg'
+          .name.spb Kana
+          = link_to "Talk to me", "#", class: "spb"
+          .introduce
+            p Hi I'm Kana. I'm a student in Yokohama, occasionally a singer, painter, boozer. I'd love to help you make the most of your time and feel comfortable in Japan (and maybe go out to drink with you!). Just give me a message!
+            = link_to "More Info", "#"
+      .col-md-3
+        .guide.text-center
+          = image_tag 'lp01/thumb007.jpg'
+          .name.spb Yosuke
+          = link_to "Talk to Yome", "#"
+          .introduce
+            p Hi! Do you like something fun? Do you like eating good food? If you like, let’s go and enjoy with me. I want to share the good experiences. Shall we start our amazing time!!
+            = link_to "More Info", "#"
+      .col-md-3
+        .guide.text-center
+          = image_tag 'lp01/thumb008.jpg'
+          .name.spb Wada
+          = link_to "Talk to me", "#", class: "spb"
+          .introduce
+            p Hello, honestly speaking, I’m bad at English lol. But I’m confident that I can make you laugh a lot. Feel free to talk to me, by the way I like movie so much. 
+            = link_to "More Info", "#"
 
-h1.spr abcdefg
-h2.spb this is the test
-.text-wf this is the test
+.howto
+  .page-container
+    .howto-inner.text-center
+      h3.spb HOW TO USE
+      .row
+        .col-md-4
+          = image_tag 'lp01/howto-image001.png'
+          .spb STEP 1
+          .spr Making an account
+        .col-md-4
+          = image_tag 'lp01/howto-image002.png'
+          .spb STEP 2
+          .spr Finding Guides to talk with
+        .col-md-4
+          = image_tag 'lp01/howto-image003.png'
+          .spb STEP 3
+          .spr Discussing your tour plans
+      .h3.square.text-wf Free services
+    h4.thick-lined Advantages: Eliminate any worries about your trip and get local information
+  .additinal.text-center
+    .bg-arrow.text-wf PLUS!
+    h4 Your Guide can even join you on your trip! 
+
+.popular-tours
+  h3.spb.text-center
+    | Popular Tours
+    .spr Find unique tour plans here! 
+  .page-container
+
+.guest-book
+  h3.spb.text-center
+    | Guest Book
+    .spr Tour memories from our guests
+  .page-container
+    .row
+      .col-md-6
+        .card
+          q
+            | Excellent experience in Kamakura!  You don't have to worry what is the direction, what is the next stop, you don't have to see the map. Just enjoy the beautiful scenery. We recommend Huber for all the tourists from all over the world! 
+          | – Nicola
+      .col-md-6
+        .card
+          q
+            | Thank you for the tour of Kamakura. We enjoyed your enthusiastic , friendly style . We had a great morning with you and really appreciated the local restaurant you took us to.
+          | – Lucian
+          
+.please-visit.text-center
+  = link_to root_path, class: "btn btn-primary btn-add-shadow" do
+    = image_tag 'lp01/some-btn-image.png', alt: "please visit the Huber. site!"
