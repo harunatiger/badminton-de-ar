@@ -26,4 +26,7 @@ class StaticPagesController < ApplicationController
   def about
   end
 
+  def lp01
+  end
+
 end
