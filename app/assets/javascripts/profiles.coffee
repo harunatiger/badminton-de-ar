@@ -370,7 +370,7 @@ $ ->
       category = $("[class^='select_category_link'][category_id=" + category_id + "]")
       placeholder = category.attr("placehodler_str")
       array_index = $('.selected_category').eq(category_index).attr('index')
-      
+
       $("<div class='example-tag row-space-2'><input value='' class='string optional form-control imeoff' name='profile[profile_categories_attributes][" + array_index + "][tag_list][]' placeholder='" + placeholder + "' type='text' id='profile_profile_categories_attributes_0_tag_list' /><a class='delete_tag_link' href='#'><i class='fa fa-times fa-red balloon' title='Remove example'></i></a></div>").insertBefore(tag_end)
       return false
 

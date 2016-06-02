@@ -420,7 +420,7 @@ $ ->
       return false
 
   # registrations#new & registrations#create
-  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create')
+  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show')
 
     loginReady = ->
       $('.sns-buttons').addClass('hide')
@@ -428,7 +428,7 @@ $ ->
       $('.social-links').removeClass('hide')
       $('#to-signup-form').addClass('hide')
       $('.policy-wrapper').addClass('hide')
-      return
+      return false
 
     if $('.alert-error > div').length
       loginReady()
@@ -530,63 +530,7 @@ $ ->
     ), 1
     return
 
-  if $('body').hasClass('features')
-
-    $('.to-tour-list').on 'click', ->
-      $('html, body').animate { scrollTop: $('#features-tour-list').offset().top }, 'fast'
-      return false
-
-    $('a.highlight-anchor').on 'click', ->
-      if location.pathname.replace(/^\//, '') == @pathname.replace(/^\//, '') and location.hostname == @hostname
-        target = $(@hash)
-        target = if target.length then target else $('[name=' + @hash.slice(1) + ']')
-        if target.length
-          $('html, body').animate { scrollTop: target.offset().top }, 'fast'
-          return false
-      return
-
-    ###
-    $('a[href*="#"]:not([href="#"])').click ->
-      if location.pathname.replace(/^\//, '') == @pathname.replace(/^\//, '') and location.hostname == @hostname
-        target = $(@hash)
-        target = if target.length then target else $('[name=' + @hash.slice(1) + ']')
-        if target.length
-          $('html, body').animate { scrollTop: target.offset().top }, 1000
-          return false
-      return
-    ###
-
-    #slider
-    $('#features-slider').sliderPro
-      width:'50%'
-      height: 500
-      aspectRatio: 1.5
-      visibleSize: '100%'
-      forceSize: 'fullWidth'
-      arrows: true
-      fadeArrows: false
-      autoplayDelay: 3000
-      slideAnimationDuration: 1000
-      buttons: false
-      keyboard: false
-      slideDistance: 1
-      breakpoints:
-        767:
-          width: '100%'
-          height:200
-
-    # features highlits gallery
-    $('.highlight-gallery').each ->
-      $(this).magnificPopup
-        delegate: 'a'
-        type: 'image'
-        image:
-          verticalFit: true
-        gallery:
-          enabled: true
-      return
-
-  #ga setting
+  # ga setting
   if $('body').hasClass('profiles show')
     $('.profile_message').on 'click', ->
       if typeof _gaq != 'undefined'
@@ -596,9 +540,25 @@ $ ->
           'profile page'
           'Talk to me'
         ]
+    return
+
+    $('.sign_up_form').on 'click', ->
+      $('#sign_in_form').modal('hide')
+      return
+
+    $('.sign_in_form').on 'click', ->
+      $('.sns-buttons-sign-in').addClass('show')
+      $('#sign_up_form').modal('hide')
       return
 
   if $('body').hasClass('listings show')
+    $('#new_user').submit ->
+      targetForm = $(this).closest('form')
+      spinner = $('.spinner', targetForm)
+      spinner.spin('flower', 'white')
+      $('.btn-frame > .btn', targetForm).addClass('text-disappear')
+      return
+
     $('.listing_request').on 'click', ->
       if typeof _gaq != 'undefined'
         _gaq.push [
@@ -618,11 +578,22 @@ $ ->
           'Talk to me'
         ]
       return
+
+    $('.sign_up_form').on 'click', ->
+      $('#sign_in_form').modal('hide')
+      return
+
+    $('.sign_in_form').on 'click', ->
+      $('.sns-buttons-sign-in').addClass('show')
+      $('#sign_up_form').modal('hide')
+      return
+
   if $('body').hasClass('lp01')
     $('#moreguide').on 'click', ->
       $(this).remove()
       $('.hide-guest').removeClass('hide-guest')
       return false
+
   ###
     # circle map
     cityCircle = undefined

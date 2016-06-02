@@ -13,7 +13,7 @@ html
     = include_gon(watch: true)
     = Gon::Base.render_data({})
     = csrf_meta_tags
-  - if controller_name === "welcome"
+  - if controller_name === "welcome" || controller_name === "features"
     |  <body class="
     = controller_name
     '

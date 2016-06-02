@@ -10,8 +10,15 @@ ActiveAdmin.register Reservation do
     column :id do |reservation|
       link_to reservation.id, admin_reservation_path(reservation)
     end
-    column :host_id
-    column :guest_id
+    column :host_id do |reservation|
+      reservation.host_profile_id
+    end
+    column :guest_id do |reservation|
+      reservation.guest_profile_id
+    end
+    column :pair_guide_id do |reservation|
+      reservation.pair_guide_profile_id
+    end
     column :listing_id do |reservation|
       if reservation.listing_id.present?
         link_to Listing.find(reservation.listing_id).title, admin_listing_path(reservation.listing_id)
@@ -102,7 +109,24 @@ ActiveAdmin.register Reservation do
   end
   
   show do
-    attributes_table *default_attribute_table_rows do 
+    attributes_table do
+      Reservation.column_names.each do |col|
+        if col == 'host_id'
+          row :host_id do |reservation|
+            reservation.host_profile_id
+          end
+        elsif col == 'guest_id'
+          row :guest_id do |reservation|
+            reservation.guest_profile_id
+          end
+        elsif col == 'pair_guide_id'
+          row :pair_guide_id do |reservation|
+            reservation.pair_guide_profile_id
+          end
+        else
+          row col
+        end
+      end
       row "Paypal決済トランID" do |reservation|
         payment = Payment.where(reservation_id: reservation.id).first
         payment.try('transaction_id') || '' if payment.present?

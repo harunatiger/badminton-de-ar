@@ -1,0 +1,41 @@
+// #section-content05--sp
+.page-container
+  .fore-text.row-space-top-8
+    | Kamakura is situated by the ocean, so there is a wealth of fresh seafood. Kamakura vegetables are also rated highly, even being proudly named on menus of many high-class restaurants in Tokyo.
+  = image_tag "feature/photo_section005-01.jpg", class: "img-responsive"
+  .main-text.row-space-8
+    | Many culinary researchers live in Kamakura to learn about these ingredients. By having a cooking experience with these types of people, you can learn the secrets behind delicious and healthy Japanese dishes. For those who just want to eat, we recommend izakaya and restaurants that are popular with locals. Satisfy both your intellectual and physical hunger by travelling with your guide!
+  = image_tag "feature/photo_section005-02.jpg", class: "img-responsive"
+.features-tourlist.page-container
+  .row.row-space-top-8.row-space-4
+    .col-md-12
+      h3.text-black
+        span 05. Recommended Tours
+  .row.row-space-8
+    - feature_listing_ids = [141, 282, 292]
+    - feature_listing_ids.each do |id|
+      .col-md-6.col-lg-4.row-space-4
+        - if feature_listing(id).present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+        - else
+          .tour-listing-empty.text-black.text-brand.text-center
+    /.col-md-6.col-lg-4.row-space-4
+      - if listings[312].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[312]), listing: listings[312]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+    /.col-md-6.col-lg-4.row-space-4
+      - if listings[282].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[282]), listing: listings[282]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+    /.col-md-6.col-lg-4.row-space-4
+      - if listings[292].present?
+        = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[292]), listing: listings[292]}
+      - else
+        .tour-listing-empty.text-black.text-brand.text-center
+
+= link_to "#content05_sp", class: "btn-close-circle btn-feature-readmore-close--sp row-space-top-4 row-space-4" do
+  span
