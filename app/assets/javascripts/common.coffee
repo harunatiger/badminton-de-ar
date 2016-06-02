@@ -618,7 +618,11 @@ $ ->
           'Talk to me'
         ]
       return
-
+  if $('body').hasClass('lp01')
+    $('#moreguide').on 'click', ->
+      $(this).remove()
+      $('.hide-guest').removeClass('hide-guest')
+      return false
   ###
     # circle map
     cityCircle = undefined
