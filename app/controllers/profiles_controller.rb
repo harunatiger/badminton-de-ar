@@ -133,9 +133,9 @@ class ProfilesController < ApplicationController
   
   def delete_category
     if request.xhr?
-      profile_categories = ProfileCategory.where(profile_id: current_user.profile.id)
+      profile_pickups = ProfilePickup.where(profile_id: current_user.profile.id)
       result = false
-      result = profile_categories.where(category_id: params[:category_id]).destroy_all if profile_categories.present?
+      result = profile_pickups.where(pickup_id: params[:pickup_id]).destroy_all if profile_pickups.present?
       return render text: result
     end
   end
@@ -189,6 +189,6 @@ class ProfilesController < ApplicationController
         :listing_count, :wishlist_count, :bookmark_count, :reviewed_count,
         :reservation_count,
         :ave_total, :ave_accuracy, :ave_communication, :ave_cleanliness, :ave_location,
-        :ave_check_in, :ave_cost_performance, :created_at, :updated_at, category_ids: [],language_ids: [], profile_categories_attributes: [:id, :category_id, :tag_list => []], profile_countries_attributes: [:id, :country, :_destroy])
+        :ave_check_in, :ave_cost_performance, :created_at, :updated_at, category_ids: [],language_ids: [], profile_pickups_attributes: [:id, :pickup_id, :tag_list => []], profile_countries_attributes: [:id, :country, :_destroy])
     end
 end

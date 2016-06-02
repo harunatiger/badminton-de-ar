@@ -24,6 +24,8 @@
 class Pickup < ActiveRecord::Base
   has_many :listing_pickups, dependent: :destroy
   has_many :listings, through: :listing_pickups
+  has_many :profile_pickups, dependent: :destroy
+  has_many :profiles, through: :profile_pickups
 
   validates :short_name, :long_name, :cover_image, :type, presence: true
   validates :order_number, uniqueness: true, :allow_nil => true
@@ -31,6 +33,8 @@ class Pickup < ActiveRecord::Base
   mount_uploader :cover_image_small, PickupImageUploader
   mount_uploader :icon, PickupImageUploader
   mount_uploader :icon_small, PickupImageUploader
+  
+  scope :order_by_created_at_asc, -> { order('created_at asc') }
 
   def self.pickup_obj_by_order_number(order_number)
     self.where(order_number: order_number).where.not(selected_listing: nil).first
@@ -42,5 +46,18 @@ class Pickup < ActiveRecord::Base
     pickups[1] = Pickup.pickup_obj_by_order_number(3)
     pickups[2] = Pickup.pickup_obj_by_order_number(4)
     pickups
+  end
+  
+  def listings_by_listing_images
+    Listing.where(id: ListingImage.where.not(pickup_id: nil).where(pickup_id: self.id).select('listing_id')).opened
+  end
+  
+  def listings
+    Listing.where(id: ListingPickup.where(pickup_id: self.id).select('listing_id')).opened
+  end
+  
+  def listing_list
+    return self.listings_by_listing_images if self.listings_by_listing_images.present?
+    listings
   end
 end

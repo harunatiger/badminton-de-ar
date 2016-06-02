@@ -47,6 +47,7 @@
 #  bicycle_rental         :integer          default(0)
 #  other_option           :boolean          default(FALSE)
 #  other_cost             :integer          default(0)
+#  insurance_fee          :integer          default(0)
 #
 # Indexes
 #
