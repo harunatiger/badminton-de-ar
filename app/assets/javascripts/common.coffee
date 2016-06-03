@@ -14,6 +14,21 @@ slideSwitch = ->
 
 # onload
 $ ->
+
+  # sns lazyload
+  if $('#fb-widget').length
+    loadAPI = ->
+      js = document.createElement('script')
+      js.src = '//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=197428196987151&version=v2.6'
+      document.body.appendChild js
+      return
+    window.onscroll = ->
+      rect = document.getElementById('fb-widget').getBoundingClientRect()
+      if rect.top < window.innerHeight
+        loadAPI()
+        window.onscroll = null
+      return
+
   if $('.tour-listing .listing-area').length
     $('.tour-listing').each (index) ->
       titleHeight = $(this).find('h5').height()
@@ -335,6 +350,9 @@ $ ->
   # welcome#index
   if $('body').hasClass('welcome index')
 
+    $('.discovery-card, .tour-cover, .youtube-container > div, .huber-card-background').lazyload
+      effect: 'fadeIn'
+
     if $('.announcement_belt').length
       $('body').addClass('announcement')
 
@@ -550,7 +568,7 @@ $ ->
           'Request Booking'
         ]
       return
-    
+
     $('.listing_message').on 'click', ->
       if typeof _gaq != 'undefined'
         _gaq.push [

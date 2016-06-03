@@ -25,8 +25,8 @@
 //= require moment
 //= require lib/jquery.sliderPro
 //= require ckeditor/init
+//= require lib/isInViewport.min.js
 //= require lib/jquery.lazyload.min
-
 
 //= require common
 //= require message
