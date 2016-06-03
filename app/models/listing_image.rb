@@ -11,14 +11,17 @@
 #  updated_at  :datetime         not null
 #  description :text             default("")
 #  category    :string           default("")
+#  pickup_id   :integer
 #
 # Indexes
 #
 #  index_listing_images_on_listing_id  (listing_id)
+#  index_listing_images_on_pickup_id   (pickup_id)
 #
 
 class ListingImage < ActiveRecord::Base
   belongs_to :listing
+  belongs_to :pickup
 
   mount_uploader :image, DefaultImageUploader
   attr_accessor :image_blank_ok
@@ -37,48 +40,24 @@ class ListingImage < ActiveRecord::Base
   end
   
   def category_image
-    result = ''
-    ListingImage.image_categories.each do |category|
-      if self.category == category[:title]
-        result = category 
-        break
-      end
-    end
-    result.present? ? result[:image] : ''
+    return '' if self.pickup_id.blank?
+    PickupTag.find(self.pickup_id).icon
   end
   
   def category_image_thumb
-    result = ''
-    ListingImage.image_categories.each do |category|
-      if self.category == category[:title]
-        result = category 
-        break
-      end
-    end
-    result.present? ? result[:image].gsub('01', '02') : ''
-  end
-  
-  def category_hash
-    result = ''
-    ListingImage.image_categories.each do |category|
-      if self.category == category[:title]
-        result = category 
-        result[:image] = result[:image].gsub('01', '02')
-        break
-      end
-    end
-    result.present? ? result : ''
+    return '' if self.pickup_id.blank?
+    PickupTag.find(self.pickup_id).icon_small
   end
   
   def self.distance(new_category, old_category)
     new_coutn = 0
     old_count = 0
-    ListingImage.image_categories.each_with_index do |category, i|
+    PickupTag.all.order_by_created_at_asc.each_with_index do |pickup_tag, i|
       i += 1
-      if new_category == category[:title]
+      if new_category == pickup_tag.id
         new_coutn = i
       end
-      if old_category == category[:title]
+      if old_category == pickup_tag.id
         old_count = i
       end
     end

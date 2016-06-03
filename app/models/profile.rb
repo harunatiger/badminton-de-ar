@@ -61,12 +61,15 @@ class Profile < ActiveRecord::Base
   has_many :profile_languages, dependent: :destroy
   has_many :languages, :through => :profile_languages, dependent: :destroy
   has_many :profile_countries, dependent: :destroy
+  has_many :profile_pickups, dependent: :destroy
+  has_many :pickups, :through =>  :profile_pickups
 
   enum gender: { female: 0, male: 1, others: 2, not_specified: 3 }
 
   attr_accessor :enable_strict_validation
   accepts_nested_attributes_for :profile_categories, allow_destroy: true
   accepts_nested_attributes_for :profile_countries, allow_destroy: true
+  accepts_nested_attributes_for :profile_pickups, allow_destroy: true
 
   validates :user_id, presence: true, unless: :exist_xhr?
   validates :user_id, uniqueness: true
@@ -189,23 +192,12 @@ class Profile < ActiveRecord::Base
     self.thumb_images.first
   end
   
-  def category_selected?(category_name)
-    result = false
-    self.profile_categories.each do |profile_category|
-      if Category.find(profile_category.category_id).name == category_name
-        result = true
-        break
-      end
-    end
-    result
-  end
-  
   def self.set_up_update_params(profile_params)
     profile_params[:location] = profile_params[:municipality] + ' ' + profile_params[:prefecture] if profile_params[:municipality]
-    if profile_params[:profile_categories_attributes].present?
-      profile_params[:profile_categories_attributes].each_with_index do |profile_category, i|
-        if profile_category[1]['tag_list'].blank?
-          profile_params[:profile_categories_attributes][profile_category[0]]['tag_list'] = ''
+    if profile_params[:profile_pickups_attributes].present?
+      profile_params[:profile_pickups_attributes].each_with_index do |profile_pickup, i|
+        if profile_pickup[1]['tag_list'].blank?
+          profile_params[:profile_pickups_attributes][profile_pickup[0]]['tag_list'] = ''
         end
       end
     end

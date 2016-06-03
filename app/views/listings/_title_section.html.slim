@@ -44,12 +44,12 @@
           .col-md-12.category-list-container
             .tag-list-wrapper.tag-list-wrapper-bordered
               ul.clearfix
-                - image_categories_limited_six(@listing).each do |category|
+                - image_categories_limited_six(@listing).each do |pickup_tag|
                   li
                     .media-round.media-photo.media-avatar
-                      .size28[style="background-image: url('#{asset_path category[:image]}')"]
+                      .size28[style="background-image: url('#{asset_path pickup_tag.icon_small}')"]
                     span
-                      = image_category_display_name(category[:title])
+                      = pickup_tag.short_name
 
       .col-md-5.guide-info-container.text-center
         = link_to profile_path(@host_info.id), class: 'media-photo media-round media-avatar row-space-2' do

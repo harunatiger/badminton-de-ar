@@ -7,6 +7,7 @@
           = link_to destroy_video_listing_listing_images_path(@listing.id), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
             i.fa.fa-trash
     - listing_images.each_with_index do |listing_image, i|
+      - pickup_tag = listing_image_to_pickup_tag(listing_image)
       .col-lg-6.row-space-4.regist-pics
         .image-droppable.image-draggable
           .card
@@ -15,15 +16,15 @@
               = link_to listing_listing_image_path(listing_image.listing_id, listing_image), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
                 i.fa.fa-trash
             .category-container.text-right
-              - if listing_image.category.blank?
+              - if pickup_tag.blank?
                 = link_to '#', class: 'set_listing_image_link small1', listing_image_id: listing_image.id do
                   i.fa.fa-question.media-round
                   | カテゴリーを設定する
               - else
                 = link_to '#', class: 'set_listing_image_link', listing_image_id: listing_image.id do
                   .media-avatar
-                    = image_tag listing_image.category_image_thumb, class: 'media-round size44'
-                  = image_category_display_name(listing_image.category)
+                    = image_tag pickup_tag.icon_small, class: 'media-round size44'
+                  = pickup_tag.short_name
                   /= debug listing_image
             .card-body
               = link_to '#', class: 'set_listing_image_link set_listing_image_link_text small1 row-space-1', listing_image_id: listing_image.id do
