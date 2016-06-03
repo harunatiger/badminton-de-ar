@@ -803,4 +803,8 @@ module ApplicationHelper
     current_user.profile.enable_strict_validation = true
     current_user.profile.valid?
   end
+  
+  def message_thread_link(to_user_id, from_user_id)
+    message_thread_path(GuestThread.get_message_thread_id(to_user_id, from_user_id))
+  end
 end

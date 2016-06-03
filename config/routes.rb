@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'static_pages/privacy_policy_jp'
   get 'static_pages/about'
   get 'static_pages/lp01'
+  get 'static_pages/sign_up_form'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin::Devise.config
