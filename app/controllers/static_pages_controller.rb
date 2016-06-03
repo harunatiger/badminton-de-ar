@@ -26,4 +26,13 @@ class StaticPagesController < ApplicationController
   def about
   end
 
+  def lp01
+  end
+  
+  def sign_up_form
+    if request.xhr?
+      render partial: 'shared/modals/sign_up_form', locals: {to_user_id: params[:to_user_id]}
+    end
+  end
+
 end

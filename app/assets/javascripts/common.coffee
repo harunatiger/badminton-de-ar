@@ -420,7 +420,7 @@ $ ->
       return false
 
   # registrations#new & registrations#create
-  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show')
+  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show') || $('body').hasClass('static_pages lp01')
 
     loginReady = ->
       $('.sns-buttons').addClass('hide')
@@ -545,7 +545,7 @@ $ ->
     $('.sign_up_form').on 'click', ->
       $('#sign_in_form').modal('hide')
       return
-    
+
     $('.sign_in_form').on 'click', ->
       $('.sns-buttons-sign-in').addClass('show')
       $('#sign_up_form').modal('hide')
@@ -558,7 +558,7 @@ $ ->
       spinner.spin('flower', 'white')
       $('.btn-frame > .btn', targetForm).addClass('text-disappear')
       return
-    
+
     $('.listing_request').on 'click', ->
       if typeof _gaq != 'undefined'
         _gaq.push [
@@ -582,11 +582,17 @@ $ ->
     $('.sign_up_form').on 'click', ->
       $('#sign_in_form').modal('hide')
       return
-    
+
     $('.sign_in_form').on 'click', ->
       $('.sns-buttons-sign-in').addClass('show')
       $('#sign_up_form').modal('hide')
       return
+
+  if $('body').hasClass('lp01')
+    $('#moreguide').on 'click', ->
+      $(this).remove()
+      $('.hide-guest').removeClass('hide-guest')
+      return false
 
   ###
     # circle map

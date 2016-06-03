@@ -1,4 +1,4 @@
-- to_user_id = @listing.present? ? @listing.user_id : @profile.user_id
+- to_user_id = @listing.present? ? @listing.user_id : @profile.user_id if to_user_id.blank?
 #sign_up_form.modal[role="dialog" aria-hidden="true"]
   .page-container.page-container-auth.row-space-top-6.row-space-8
     .row
@@ -7,7 +7,7 @@
           .card-body
             .sns-buttons
               - User.omniauth_providers.each do |provider|
-                = link_to users_before_omniauth_path(to_user_id: to_user_id), method: :POST, class: 'btn btn-fb btn-large btn-block' do
+                = link_to users_before_omniauth_path(to_user_id: to_user_id), method: :POST, class: 'btn btn-fb btn-large btn-block', id: 'sns_button' do
                   i.fa.fa-facebook
                   | Sign in with Facebook account
             .text-center.social-links.hide
