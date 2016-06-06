@@ -3,7 +3,7 @@
     = link_to "#", class: "burger--sp" do
       i.fa.fa-reorder
     .title--sp.text-center
-      - if action_name == "lp01"
+      - if action_name == "plan4U"
         = link_to "", root_path, class: "header-logo pull-left"
         p.pull-left.text-brand.additional-text Connecting you with local guides
       - else
@@ -67,7 +67,7 @@
                 .modal-search-wrapper--sp
                   = render partial: '/shared/header_form_sp'
   .header.clearfix.hide--sp
-    - if action_name == "lp01"
+    - if action_name == "plan4U"
       = link_to "", root_path, class: "header-logo pull-left"
       p.pull-left.text-brand.additional-text Connecting you with local guides
     - else

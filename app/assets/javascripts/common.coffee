@@ -420,7 +420,7 @@ $ ->
       return false
 
   # registrations#new & registrations#create
-  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show') || $('body').hasClass('static_pages lp01')
+  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show') || $('body').hasClass('static_pages plan4U')
 
     loginReady = ->
       $('.sns-buttons').addClass('hide')
@@ -588,7 +588,7 @@ $ ->
       $('#sign_up_form').modal('hide')
       return
 
-  if $('body').hasClass('lp01')
+  if $('body').hasClass('plan4U')
     $('#moreguide').on 'click', ->
       $(this).remove()
       $('.hide-guest').removeClass('hide-guest')
