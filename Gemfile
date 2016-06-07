@@ -104,7 +104,7 @@ gem 'gon', '5.2.3'
 gem 'activeadmin', github: 'activeadmin'
 
 # gem 'mailcatcher'
-gem 'google-analytics-rails'
+gem 'google-analytics-rails', '1.1.0'
 
 #paypal payment
 gem 'activemerchant', '1.57.0'

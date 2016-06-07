@@ -533,13 +533,8 @@ $ ->
   # ga setting
   if $('body').hasClass('profiles show')
     $('.profile_message').on 'click', ->
-      if typeof _gaq != 'undefined'
-        _gaq.push [
-          '_trackEvent'
-          'reservation'
-          'profile page'
-          'Talk to me'
-        ]
+      if typeof ga != 'undefined'
+        ga('send', 'event', 'reservation','profile page', 'Talk to me')
     return
 
     $('.sign_up_form').on 'click', ->
@@ -560,23 +555,13 @@ $ ->
       return
 
     $('.listing_request').on 'click', ->
-      if typeof _gaq != 'undefined'
-        _gaq.push [
-          '_trackEvent'
-          'reservation'
-          'listing page'
-          'Request Booking'
-        ]
+      if typeof ga != 'undefined'
+        ga('send', 'event', 'reservation','listing page', 'Request Booking')
       return
 
     $('.listing_message').on 'click', ->
-      if typeof _gaq != 'undefined'
-        _gaq.push [
-          '_trackEvent'
-          'reservation'
-          'listing page'
-          'Talk to me'
-        ]
+      if typeof ga != 'undefined'
+        ga('send', 'event', 'reservation','listing page', 'Talk to me')
       return
 
     $('.sign_up_form').on 'click', ->
