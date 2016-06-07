@@ -1,0 +1,34 @@
+.card-dark.row-space-top-4
+  .page-container.row-space-4 
+    .section-intro.text-center.row-space-8.row-space-top-8
+      h2.h3.row-space-2
+        .spb.row-space-1 Guest Book
+        .spl Tour memories from our guests
+    .row
+      .col-lg-6.row-space-4
+        .card.card-book
+          .media-cover-img
+            .book.book1[data-original="#{asset_path 'plan4U/review-photo001.jpg'}"]
+          .card-body.text-center
+            .card-inner
+              .va-container.va-container-wh
+                .va-middle
+                  q
+                    | Excellent experience in Kamakura!  You don't have to worry what is the direction, what is the next stop, you don't have to see the map. Just enjoy the beautiful scenery. We recommend Huber for all the tourists from all over the world! 
+                  p – Nicola
+      #sp-shy-book.col-lg-6.row-space-4.hide--sp
+        .card.card-book
+          .media-cover-img
+            .book.book2[data-original="#{asset_path 'plan4U/review-photo002.jpg'}"]
+          .card-body.text-center
+            .card-inner
+              .va-container.va-container-wh
+                .va-middle
+                  q
+                    | Thank you for the tour of Kamakura. We enjoyed your enthusiastic , friendly style . We had a great morning with you and really appreciated the local restaurant you took us to.
+                  p – Lucian
+          
+      .col-sm-12.rm-padding--sp.row-space-6.text-center.show--sp
+        = link_to "#", class: "btn btn-large btn-more", id: "morebook" do
+          | See All
+          i.fa.fa-caret-down

@@ -1,0 +1,10 @@
+#hot-news.card.card-naked
+  .page-container.page-container-no-padding
+    .section-intro.text-center.row-space-8.row-space-top-8
+      h2.h3.row-space-2
+        .spb.row-space-1.row-space-top-4 Hot News
+        .spl Latest articles by local folks
+    .feature-carousel.row-space-8
+      = link_to features_path do
+        = image_tag 'feature/welcome-kamakura.png', class: "img-responsive hide--sp img-lazyload", alt: "鎌倉特集", data: {original: "#{asset_path 'feature/welcome-kamakura.png'}"}
+        = image_tag 'feature/welcome-kamakura--sp.png', class: "img-responsive show--sp img-lazyload", alt: "鎌倉特集", data: {original: "#{asset_path 'feature/welcome-kamakura--sp.png'}"}
