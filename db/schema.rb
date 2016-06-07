@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525133859) do
+ActiveRecord::Schema.define(version: 20160601113604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -289,9 +289,11 @@ ActiveRecord::Schema.define(version: 20160525133859) do
     t.datetime "updated_at",               null: false
     t.text     "description", default: ""
     t.string   "category",    default: ""
+    t.integer  "pickup_id"
   end
 
   add_index "listing_images", ["listing_id"], name: "index_listing_images_on_listing_id", using: :btree
+  add_index "listing_images", ["pickup_id"], name: "index_listing_images_on_pickup_id", using: :btree
 
   create_table "listing_languages", force: :cascade do |t|
     t.integer  "listing_id"
@@ -394,14 +396,14 @@ ActiveRecord::Schema.define(version: 20160525133859) do
   add_index "message_thread_users", ["user_id"], name: "index_message_thread_users_on_user_id", using: :btree
 
   create_table "message_threads", force: :cascade do |t|
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.integer  "host_id"
-    t.boolean  "reply_from_host",   default: false
-    t.boolean  "first_message",     default: true
-    t.boolean  "noticemail_sended", default: false
-    t.string   "type"
+    t.boolean  "reply_from_host",               default: false
+    t.boolean  "first_message",                 default: true
+    t.boolean  "noticemail_sended",             default: false
     t.integer  "reservation_id"
+    t.string   "type",              limit: 255
   end
 
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
@@ -600,9 +602,9 @@ ActiveRecord::Schema.define(version: 20160525133859) do
     t.string   "caption",     default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.string   "cover_image", default: ""
     t.integer  "order_num"
     t.boolean  "cover_flg",   default: false
+    t.string   "cover_image"
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree
@@ -629,6 +631,16 @@ ActiveRecord::Schema.define(version: 20160525133859) do
 
   add_index "profile_languages", ["language_id"], name: "index_profile_languages_on_language_id", using: :btree
   add_index "profile_languages", ["profile_id"], name: "index_profile_languages_on_profile_id", using: :btree
+
+  create_table "profile_pickups", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.integer  "pickup_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "profile_pickups", ["pickup_id"], name: "index_profile_pickups_on_pickup_id", using: :btree
+  add_index "profile_pickups", ["profile_id"], name: "index_profile_pickups_on_profile_id", using: :btree
 
   create_table "profile_videos", force: :cascade do |t|
     t.integer  "user_id"
@@ -878,6 +890,7 @@ ActiveRecord::Schema.define(version: 20160525133859) do
   add_foreign_key "listing_categories", "listings"
   add_foreign_key "listing_details", "listings"
   add_foreign_key "listing_images", "listings"
+  add_foreign_key "listing_images", "pickups"
   add_foreign_key "listing_languages", "languages"
   add_foreign_key "listing_languages", "listings"
   add_foreign_key "listing_pvs", "listings"
@@ -906,6 +919,8 @@ ActiveRecord::Schema.define(version: 20160525133859) do
   add_foreign_key "profile_keywords", "users"
   add_foreign_key "profile_languages", "languages"
   add_foreign_key "profile_languages", "profiles"
+  add_foreign_key "profile_pickups", "pickups"
+  add_foreign_key "profile_pickups", "profiles"
   add_foreign_key "profile_videos", "profiles"
   add_foreign_key "profile_videos", "users"
   add_foreign_key "profiles", "users"

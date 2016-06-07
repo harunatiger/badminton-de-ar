@@ -657,15 +657,15 @@ module ApplicationHelper
     return text
   end
   
-  def image_category_display_name(category)
-    I18n.t('listing_images.category.' + category)
+  def listing_image_to_pickup_tag(listing_image)
+    PickupTag.find(listing_image.pickup_id) if listing_image.pickup_id.present?
   end
   
   def image_categories_limited_six(listing)
     all_categories = []
     result = []
     listing.listing_images.each do |listing_image|
-      all_categories << listing_image.category_hash if listing_image.category_hash.present?
+      all_categories << PickupTag.find(listing_image.pickup_id) if listing_image.pickup_id.present?
     end
     return [] if all_categories.blank?
     all_categories.shuffle!
@@ -725,69 +725,42 @@ module ApplicationHelper
     listing = Listing.where(id: id).first
   end
   
-  def profile_category_to_image(profile_category)
-    result = ''
-    ListingImage.image_categories.each do |category|
-      if category[:title] == profile_category_to_name(profile_category)
-        result = category 
-        break
-      end
-    end
-    result.present? ? result[:image] : ''
-  end
-  
-  def profile_category_to_image_thumb(profile_category)
-    result = ''
-    ListingImage.image_categories.each do |category|
-      if category[:title] == profile_category_to_name(profile_category)
-        result = category 
-        break
-      end
-    end
-    result.present? ? result[:image].gsub('01', '02') : ''
-  end
-  
-  def profile_category_to_name(profile_category)
-    Category.find(profile_category.category_id).name
-  end
-  
-  def category_name_to_id(category_name)
-    Category.where(name: category_name).first.id
-  end
-  
-  def category_name_to_placeholder(category_name)
-    category_id = category_name_to_id(category_name)
-    if category_id == 1
+  def pickup_tag_to_placeholder(pickup_tag)
+    if pickup_tag.short_name == 'Spa and Relaxation'
       'Eg. Massage, yoga, etc'
-    elsif category_id == 2
+    elsif pickup_tag.short_name == 'Cultural Sites'
       'Eg. Temples, Japanese gardens,Kamakura-bori, etc.'
-    elsif category_id == 3
+    elsif pickup_tag.short_name == 'Food and Drink'
       'Eg. Sake, soba noodles, cooking, etc.'
-    elsif category_id == 4
+    elsif pickup_tag.short_name == 'Shopping'
       'Eg. Harajuku, fashion, household appliances, etc.'
-    elsif category_id == 5
+    elsif pickup_tag.short_name == 'Outdoors'
       'Eg. Cycling, hiking, BBQ, etc.'
-    elsif category_id == 6
+    elsif pickup_tag.short_name == 'Sports'
       'Eg. Baseball games, football, etc.'
-    elsif category_id == 7
+    elsif pickup_tag.short_name == 'Gardens'
       'Eg. Botan-en, gardening, etc.'
-    elsif category_id == 8
+    elsif pickup_tag.short_name == 'Tourist Hotspots'
       'Eg. Daibutsu, Tokyo Tower, Yanaka Ginza Shopping Street, etc.'
-    elsif category_id == 9
+    elsif pickup_tag.short_name == 'Art'
       'Eg. Oil paintings, Ueno Royal Museum, Picasso, etc.'
-    elsif category_id == 10
+    elsif pickup_tag.short_name == 'Manga and Anime'
       'Eg. Dragonball-Z, Akihabara, etc.'
-    elsif category_id == 11
+    elsif pickup_tag.short_name == 'Onsen'
       'Eg. Open-air onsen, Hakone, etc.'
-    elsif category_id == 12
+    elsif pickup_tag.short_name == 'Theme Parks'
       'Eg. Disneyland, planetarium, zoos, etc.'
-    elsif category_id == 13
+    elsif pickup_tag.short_name == 'Entertainment'
       'Eg. The Beatles, movies, karaoke, etc.'
-    elsif category_id == 14
+    elsif pickup_tag.short_name == 'Experiences'
       'Eg. Pottery, rafting, etc.'
-    elsif category_id == 15
+    elsif pickup_tag.short_name == 'Night Life'
       'Eg. Bars, clubs, night views, etc.'
     end
+  end
+  
+  def profile_pickup_to_pickup_tag(profile_pickup)
+    pickup_tag = PickupTag.find(profile_pickup.pickup_id)
   end
   
   def exist_profile_blank?
@@ -802,5 +775,9 @@ module ApplicationHelper
   def profile_completed?
     current_user.profile.enable_strict_validation = true
     current_user.profile.valid?
+  end
+  
+  def message_thread_link(to_user_id, from_user_id)
+    message_thread_path(GuestThread.get_message_thread_id(to_user_id, from_user_id))
   end
 end

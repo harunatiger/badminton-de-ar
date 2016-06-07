@@ -27,7 +27,7 @@ ActiveAdmin.register Pickup do
       f.input :selected_listing,
               :label => "Select a Listing:",
               :as => :select,
-              :collection =>  Listing.where(id: ListingPickup.where(pickup_id: f.object.id).select('listing_id')).opened
+              :collection =>  f.object.listing_list
       f.input :type,
               :as => :select,
               :collection => ['PickupCategory', 'PickupTag', 'PickupArea']
