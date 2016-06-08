@@ -3,7 +3,11 @@
     = link_to "#", class: "burger--sp" do
       i.fa.fa-reorder
     .title--sp.text-center
-      = link_to "", root_path, class: "header-logo"
+      - if action_name == "plan4U"
+        = link_to "", root_path, class: "header-logo pull-left"
+        p.pull-left.text-brand.additional-text Connecting you with local guides
+      - else
+        = link_to "", root_path, class: "header-logo"
     - if controller_name == "listings" && action_name == "edit" || controller_name == "listing_images" && action_name == "manage" || controller_name == "listing_details" && action_name == "manage" || controller_name == "calendar" && action_name == "index" || controller_name == "listing_details" && action_name == "update" || controller_name == "listing_details" && action_name == "new" || controller_name == "listings" && action_name == "update" || controller_name == "listings" && action_name == "new" || controller_name == "listings" && action_name == "create"
       /= link_to "#", class: "info--sp" do
         i.fa.fa-info
@@ -63,7 +67,11 @@
                 .modal-search-wrapper--sp
                   = render partial: '/shared/header_form_sp'
   .header.clearfix.hide--sp
-    = link_to "", root_path, class: "header-logo pull-left"
+    - if action_name == "plan4U"
+      = link_to "", root_path, class: "header-logo pull-left"
+      p.pull-left.text-brand.additional-text Connecting you with local guides
+    - else
+      = link_to "", root_path, class: "header-logo pull-left"
     /- unless controller_name == "welcome"
       = render partial: '/shared/header_form'
     ul.nav.pull-right

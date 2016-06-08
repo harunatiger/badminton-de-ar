@@ -54,19 +54,20 @@ hr.row-space-4
     h4.row-space-4
       | Likes and hobbies
     .row-space-4
-      - profile.profile_categories.order_by_created_at_asc.each do |profile_category|
+      - profile.profile_pickups.order_by_created_at_asc.each do |profile_pickup|
+        - pickup_tag = profile_pickup_to_pickup_tag(profile_pickup)
         .profile-category-inner
           .row.row-table.row-space-3
             .col-md-3.col-xs-6.text-center.col-middle
               .media-photo.media-round.media-avatar
-                .size90[style="background-image: url('#{asset_path profile_category_to_image(profile_category)}')"]
+                .size90[style="background-image: url('#{asset_path pickup_tag.icon}')"]
               .small1
-                = image_category_display_name(profile_category_to_name(profile_category))
+                = pickup_tag.short_name
             .col-md-9.col-xs-6.col-middle
-              - if profile_category.tag_list.present?
+              - if profile_pickup.tag_list.present?
                 .tag-list-post
                   ul
-                    - profile_category.tag_list.each do |tag|
+                    - profile_pickup.tag_list.each do |tag|
                       li.row-space-1
                         .tag
                           = tag

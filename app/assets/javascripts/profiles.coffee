@@ -325,7 +325,7 @@ $ ->
       selected = $(".selected_category")
       #array_index = selected.length
       category_index = $('.select_category_link').index(this)
-      category_id = $('.select_category_link').eq(category_index).attr("category_id")
+      pickup_id = $('.select_category_link').eq(category_index).attr("pickup_id")
       category_name = $('.set_category_container_title').eq(category_index).text()
 
       if $('.select_category_link').eq(category_index).hasClass('listing_image_selected')
@@ -334,11 +334,11 @@ $ ->
         $.ajax
           type: 'DELETE'
           url: '/profiles/delete_category'
-          data: {category_id: category_id, user_id: user_id}
+          data: {pickup_id: pickup_id, user_id: user_id}
           success: (data) ->
             $('.select_category_link').eq(category_index).children("i").remove()
             $('.select_category_link').eq(category_index).removeClass 'listing_image_selected'
-            $("[class='selected_category'][category_id=" + category_id + "]").remove()
+            $("[class='selected_category'][pickup_id=" + pickup_id + "]").remove()
             return false
           error: ->
             return false
@@ -350,10 +350,10 @@ $ ->
         $('.select_category_link').eq(category_index).addClass 'listing_image_selected'
 
         img_src = $('.select_category_link').eq(category_index).children("img").attr("src")
-        tag_list_id = 'tag_list_' + category_id
+        tag_list_id = 'tag_list_' + pickup_id
         placeholder = $('.select_category_link').eq(category_index).attr("placehodler_str")
 
-        $("<div class='selected_category' category_id=" + category_id + " index=" + array_index + "><img src=" + img_src + " /><input type='hidden' value='" + category_id + "' name='profile[profile_categories_attributes][" + array_index + "][category_id]'/><div class='h5 row-space-2'>" + category_name + "</div><div class='row-space-2'><div class='example-tag row-space-2'><input value='' class='string optional form-control imeoff' placeholder='" + placeholder + "' type='text' name='profile[profile_categories_attributes][" + array_index + "][tag_list][]' id='" + tag_list_id + "'/><a class='delete_tag_link' title='Remove example' href='#'><i class='fa fa-times fa-red balloon' title='Remove example'></i></a></div><span class='tags_input_end'></span></div><a class='add_tag_link' href='#'><i class='fa fa-plus'></i> add example</a></div>").insertBefore(".input_categories_space_end")
+        $("<div class='selected_category' pickup_id=" + pickup_id + " index=" + array_index + "><img src=" + img_src + " /><input type='hidden' value='" + pickup_id + "' name='profile[profile_pickups_attributes][" + array_index + "][pickup_id]'/><div class='h5 row-space-2'>" + category_name + "</div><div class='row-space-2'><div class='example-tag row-space-2'><input value='' class='string optional form-control imeoff' placeholder='" + placeholder + "' type='text' name='profile[profile_pickups_attributes][" + array_index + "][tag_list][]' id='" + tag_list_id + "'/><a class='delete_tag_link' title='Remove example' href='#'><i class='fa fa-times fa-red balloon' title='Remove example'></i></a></div><span class='tags_input_end'></span></div><a class='add_tag_link' href='#'><i class='fa fa-plus'></i> add example</a></div>").insertBefore(".input_categories_space_end")
       return false
 
     # delete tag
@@ -366,12 +366,12 @@ $ ->
     $(document).on 'click', '.add_tag_link', (event) ->
       category_index = $('.add_tag_link').index(this)
       tag_end = $(".tags_input_end").eq(category_index)
-      category_id = $(this).parent().attr("category_id")
-      category = $("[class^='select_category_link'][category_id=" + category_id + "]")
+      pickup_id = $(this).parent().attr("pickup_id")
+      category = $("[class^='select_category_link'][pickup_id=" + pickup_id + "]")
       placeholder = category.attr("placehodler_str")
       array_index = $('.selected_category').eq(category_index).attr('index')
 
-      $("<div class='example-tag row-space-2'><input value='' class='string optional form-control imeoff' name='profile[profile_categories_attributes][" + array_index + "][tag_list][]' placeholder='" + placeholder + "' type='text' id='profile_profile_categories_attributes_0_tag_list' /><a class='delete_tag_link' href='#'><i class='fa fa-times fa-red balloon' title='Remove example'></i></a></div>").insertBefore(tag_end)
+      $("<div class='example-tag row-space-2'><input value='' class='string optional form-control imeoff' name='profile[profile_pickups_attributes][" + array_index + "][tag_list][]' placeholder='" + placeholder + "' type='text' id='profile_profile_pickups_attributes_0_tag_list' /><a class='delete_tag_link' href='#'><i class='fa fa-times fa-red balloon' title='Remove example'></i></a></div>").insertBefore(tag_end)
       return false
 
     # 50 character limit for tag

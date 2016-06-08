@@ -70,11 +70,11 @@ $ ->
       category_index = $('.set_category_link').index(this)
       listing_image_id = $('.set_category_link').eq(category_index).attr("listing_image_id")
       listing_id = $('#listing_id').val()
-      category = $('[id=category]').eq(category_index).val()
+      pickup_id = $('[id=pickup_id]').eq(category_index).val()
       $.ajax
         type: 'POST'
         url: '/listings/' + listing_id + '/listing_images/' + listing_image_id + '/set_category'
-        data: {category: category}
+        data: {pickup_id: pickup_id}
         success: (data) ->
           old_index = (Number data) + (Number category_index)
           if (Number data) == 0

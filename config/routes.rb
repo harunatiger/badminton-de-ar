@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'static_pages/specific_commercial_transactions_jp'
   get 'static_pages/privacy_policy_jp'
   get 'static_pages/about'
+  get 'static_pages/plan4U'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin::Devise.config
@@ -25,7 +26,7 @@ Rails.application.routes.draw do
   rescue Exception => e
     puts "ActiveAdmin: #{e.class}: #{e}"
   end
-  
+
   resources :announcements, param: :page_url, only: [:show, :index]
 
   resources :profiles do

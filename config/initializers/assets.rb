@@ -8,4 +8,4 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( *.woff *.eot *.svg *.ttf *.png *.jpg *.jpeg *.gif application_calendar.js ckeditor/*)
+Rails.application.config.assets.precompile += %w( *.woff *.eot *.svg *.ttf *.png *.jpg *.jpeg *.gif application_calendar.js ckeditor/* partials/plan4U.css)
