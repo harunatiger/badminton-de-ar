@@ -449,7 +449,7 @@ class Reservation < ActiveRecord::Base
         reservation
       end
     else
-      self.new(progress: '')
+      self.new(progress: '', car_option: false)
     end
   end
   

@@ -35,7 +35,7 @@ module ApplicationHelper
     elsif controller_name == 'profiles' and action_name == 'show'
       "#{@profile.try('first_name')}'s self-Introduction！Make Friend, Start Trip!"
     else
-      'Huber.世界中で友達を作ろう！旅する準備はできていますか？'
+      'Dive into the local with a Local! A guide service for a sharing experience.'
     end
   end
   
