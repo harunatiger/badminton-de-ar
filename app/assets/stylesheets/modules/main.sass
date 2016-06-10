@@ -2,9 +2,9 @@
 
 .hero-wrapper
   position: relative
-  height: 500px
+  height: 635px
   @media (max-width: 767px)
-    height: 300px
+    height: 200px
 
 #hero
   position: absolute
@@ -19,10 +19,10 @@
   position: relative
   top: 50px
   width: 100%
-  height: 550px
+  height: 685px
   @media (max-width: 767px)
     top: 0
-    height: 300px
+    height: 200px
 
 .va-container
   display: table
@@ -39,18 +39,29 @@
   @media (max-width: 767px)
     padding-bottom: 0
 
+#tagline
+  font-size: 73px
 #subtitle
-  b
-    margin-right: 10px
-    text-decoration: underline
+  font-size: 37px
+@media (max-width: 1099px)
+  #tagline
+    font-size: 60px
+  #subtitle
+    font-size: 28px
+@media (max-width: 767px)
+  #tagline
+    font-size: 26px
+  #subtitle
+    margin-bottom: 12.5px
+    font-size: 14px
 
-.search--sp
+//.search--sp
   display: none
 
-.fake-search-field
+//.fake-search-field
   background-color: #fff
 
-.arrow--sp
+//.arrow--sp
   display: block
   position: absolute
   left: 0
@@ -58,7 +69,7 @@
   text-align: center
   text-decoration: none
 
-.hero-search
+//.hero-search
   position: absolute
   bottom: 0
   left: 0
@@ -66,7 +77,7 @@
   padding: 30px 0
   background: rgba(0, 0, 0, 0.6)
 
-.hero-searchForm
+//.hero-searchForm
   .search-form-wrapper
     position: relative
     display: inline-block
@@ -81,13 +92,13 @@
       input, select
         height: 44px
 
-.location-width
+//.location-width
   width: 290px
 
-#date
+//#date
   width: 130px
 
-.location
+//.location
   border-top-right-radius: 0
   border-bottom-right-radius: 0
 
@@ -109,6 +120,86 @@
 
 .top-contents
   padding: 100px 0
+
+.section-intro
+  .spb
+    font-size: 36px
+  .spl
+    font-size: 22px
+  @media (max-width: 767px)
+    .spb
+      font-size: 30px
+    .spl
+      font-size: 15px
+
+.feature-carousel
+  a
+    img
+      transition: opacity .2s
+      opacity: 1
+    &:hover
+      img
+        opacity: .8
+
+/* features service */
+#features-service
+  .features-container
+    padding: 0 30px 30px
+    border: 1px solid $brand-theme
+    h2
+      max-width: 608px
+      height: 68px
+      line-height: 68px
+      margin: -36px auto 0
+      background-color: $brand-theme
+  .features-inner
+    background-color: white
+    .col-lg-4
+      .text-center
+        padding: 0 20px 0 0
+        font-size: 22px
+        @media (max-width: 1099px)
+          padding: 20px
+      .thick-lined
+        display: inline-block
+        position: relative
+        padding: 0 8px
+        &:before
+          content: ''
+          position: absolute
+          bottom: 2px
+          left: 0
+          right: 0
+          height: 10px
+          background-color: $skyblue2
+          opacity: .5
+          z-index: 0
+        @media (max-width: 1099px)
+          font-size: 26px
+        span
+          display: inline-block
+          position: relative
+          z-index: 1
+  @media (max-width: 767px)
+    .page-container
+      margin-top: 0
+    .features-container
+      padding: 0 15px 15px
+      h2
+        height: 32px
+        line-height: 32px
+        margin: -16px auto 0
+        font-size: 16px
+    .features-inner
+      .col-lg-4
+        .text-center
+          padding: 10px
+        .thick-lined
+          margin: 0 0 7px
+          padding: 0 8px 3px
+          font-size: 16px
+        a.btn-block
+          margin-top: 25px
 
 /* guest-overview */
 .difference-container
@@ -2296,70 +2387,6 @@ h3.center-lined
         font-size: 24px
   .popular-tours
     padding-bottom: 20px
-  .guest-book
-    border-top: 1px solid $border1
-  .card-book
-    box-shadow: 0 1px 3px rgba(0, 0, 0, .2)
-    .card-body
-      position: relative
-      &:before
-        content: ''
-        position: absolute
-        top: -20px
-        border-left: 20px solid transparent
-        border-right: 20px solid transparent
-        border-bottom: 20px solid white
-        z-index: 10
-    .card-inner
-      position: relative
-      height: 330px
-      padding: 50px 20px 30px
-      @media (max-width: 767px)
-        height: auto
-        padding: 50px 0 30px
-      &:before, &:after
-        display: block
-        position: absolute
-        color: $gray3
-        font-size: 30px
-        font-family: 'fontAwesome'
-      &:before
-        content: '\f10d'
-        top: 0px
-        left: 0px
-      &:after
-        content: '\f10e'
-        bottom: 0px
-        right: 0px
-    q
-      quotes: none
-      line-height: 2
-      font-size: 18px
-    p
-      font-size: 18px
-    @media (max-width: 767px)
-      q
-        line-height: 1.8
-        font-size: 14px
-      p
-        font-size: 14px
-  .book
-    height: 300px
-    background-repeat: no-repeat
-    background-position: center
-    background-size: cover
-    @media (max-width: 540px)
-      height: 260px
-    @media (max-width: 460px)
-      height: 220px
-    @media (max-width: 400px)
-      height: 180px
-    @media (max-width: 360px)
-      height: 150px
-  .book1
-    background-image: image-url('plan4U/review-photo001.jpg')
-  .book2
-    background-image: image-url('plan4U/review-photo002.jpg')
   .please-visit
     background-color: white
     .btn
@@ -2394,3 +2421,69 @@ h3.center-lined
     .header--sp
       .title--sp
         margin-right: 0
+
+/* guest book ============================================================ * /
+.guest-book
+  border-top: 1px solid $border1
+.card-book
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .2)
+  .card-body
+    position: relative
+    &:before
+      content: ''
+      position: absolute
+      top: -20px
+      border-left: 20px solid transparent
+      border-right: 20px solid transparent
+      border-bottom: 20px solid white
+      z-index: 10
+  .card-inner
+    position: relative
+    height: 330px
+    padding: 50px 20px 30px
+    @media (max-width: 767px)
+      height: auto
+      padding: 50px 0 30px
+    &:before, &:after
+      display: block
+      position: absolute
+      color: $gray3
+      font-size: 30px
+      font-family: 'fontAwesome'
+    &:before
+      content: '\f10d'
+      top: 0px
+      left: 0px
+    &:after
+      content: '\f10e'
+      bottom: 0px
+      right: 0px
+  q
+    quotes: none
+    line-height: 2
+    font-size: 18px
+  p
+    font-size: 18px
+  @media (max-width: 767px)
+    q
+      line-height: 1.8
+      font-size: 14px
+    p
+      font-size: 14px
+.book
+  height: 300px
+  background-repeat: no-repeat
+  background-position: center
+  background-size: cover
+  @media (max-width: 540px)
+    height: 260px
+  @media (max-width: 460px)
+    height: 220px
+  @media (max-width: 400px)
+    height: 180px
+  @media (max-width: 360px)
+    height: 150px
+.book1
+  background-image: image-url('plan4U/review-photo001.jpg')
+.book2
+  background-image: image-url('plan4U/review-photo002.jpg')

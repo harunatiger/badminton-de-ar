@@ -1,12 +1,9 @@
-.card-dark
-  .page-container.page-container-no-padding.row-space-8.guide_list-wrapper
-    .section-intro.text-center.row-space-6.row-space-top-8
-      /h2.row-space-1.strong TOMODACHI Guides (Popular TOMODACHI Guides)
-      h2.h3.text-wf.row-space-2
-        b
-          | POPULAR TOMODACHI GUIDE
-        /|  (Popular TOMODACHI GUIDE)
-      /p.text-lead 現地に住む友だちガイドと行くあなただけの旅の計画を始めましょう！
+.card-dark.row-space-top-4
+  .page-container.page-container-no-padding.row-space-4.guide_list-wrapper
+    .section-intro.text-center.row-space-8.row-space-top-8
+      h2.h3.row-space-2
+        .spb.row-space-1 Planning for You
+        .spl Feel free to talk to them
     .guide_list-tiles
       - @profiles[0..2].each do | profile |
         - @all_reviewed_count = Review.my_reviewed_count(profile.user_id)
@@ -19,6 +16,6 @@
               br
             = render partial: 'guide_card', locals: { all_reviewed_count: @all_reviewed_count, profile: profile }
       .col-sm-12.rm-padding--sp.row-space-6.text-center
-        a#moreguide.btn.btn-large.btn-more
+        = link_to "#", class: "btn btn-large btn-more", id: "moreguide" do
           | See All
           i.fa.fa-caret-down
