@@ -4,8 +4,40 @@
 @font-face
   font-family: 'Populaire'
   src: url(asset-path('300089_0_0.eot'))
-  src: url(asset-path('300089_0_0.eot?#iefix')) format('embedded-opentype'),url(asset-path('300089_0_0.woff2')) format('woff2'),url(asset-path('300089_0_0.woff')) format('woff'),url(asset-path('300089_0_0.ttf')) format('truetype')
+  src: url(asset-path('300089_0_0.eot?#iefix')) format('embedded-opentype'), url(asset-path('300089_0_0.woff2')) format('woff2'),url(asset-path('300089_0_0.woff')) format('woff'), url(asset-path('300089_0_0.ttf')) format('truetype')
 
+/* SofiaPro ================================================== */
+@font-face
+  font-family: 'SofiaProBold'
+  src: url(asset-path('313301_2_0.eot'))
+  src: url(asset-path('313301_2_0.eot?#iefix')) format("embedded-opentype"), url(asset-path('313301_2_0.woff2')) format("woff2"), url(asset-path('313301_2_0.woff')) format("woff"), url(asset-path('313301_2_0.ttf')) format("truetype")
+@font-face
+  font-family: 'SofiaProMedium'
+  src: url(asset-path('313301_3_0.eot'))
+  src: url(asset-path('313301_3_0.eot?#iefix')) format("embedded-opentype"), url(asset-path('313301_3_0.woff2')) format("woff2"), url(asset-path('313301_3_0.woff')) format("woff"), url(asset-path('313301_3_0.ttf')) format("truetype")
+@font-face
+  font-family: 'SofiaProSemiBold'
+  src: url(asset-path('313301_5_0.eot'))
+  src: url(asset-path('313301_5_0.eot?#iefix')) format("embedded-opentype"), url(asset-path('313301_5_0.woff2')) format("woff2"), url(asset-path('313301_5_0.woff')) format("woff"), url(asset-path('313301_5_0.ttf')) format("truetype")
+@font-face
+  font-family: 'SofiaProLight'
+  src: url(asset-path('313301_6_0.eot'))
+  src: url(asset-path('313301_6_0.eot?#iefix')) format("embedded-opentype"), url(asset-path('313301_6_0.woff2')) format("woff2"), url(asset-path('313301_6_0.woff')) format("woff"), url(asset-path('313301_6_0.ttf')) format("truetype")
+@font-face
+  font-family: 'SofiaProRegular'
+  src: url(asset-path('313301_7_0.eot'))
+  src: url(asset-path('313301_7_0.eot?#iefix')) format("embedded-opentype"), url(asset-path('313301_7_0.woff2')) format("woff2"), url(asset-path('313301_7_0.woff')) format("woff"), url(asset-path('313301_7_0.ttf')) format("truetype")
+
+.spr
+  font-family: 'SofiaProRegular' !important
+.spl
+  font-family: 'SofiaProLight' !important
+.spsb
+  font-family: 'SofiaProSemiBold' !important
+.spm
+  font-family: 'SofiaProMedium' !important
+.spb
+  font-family: 'SofiaProBold' !important
 
 /* common ================================================== */
 body
@@ -807,6 +839,11 @@ a.alert-warning
   @media (max-width: 767px)
     display: block !important
 
+.show--md
+  display: none !important
+  @media (max-width: 1099px)
+    display: block !important
+
 .show--sp-ib
   display: none !important
   @media (max-width: 767px)
@@ -1563,6 +1600,12 @@ a.alert-warning
 .page-container-full
   width: auto
 
+.page-container-ds
+  width: auto
+  max-width: 1440px
+  padding-left: 0
+  padding-right: 0
+
 /* media */
 .media
   margin-top: 0
@@ -1582,12 +1625,15 @@ a.alert-warning
   vertical-align: bottom
   overflow: hidden
   background-color: $border1
+  outline: 0
   backface-visibility: hidden
 
 .media-photo-block
   display: block
 
 .media-avatar
+  background-color: white
+  outline: 0
   div
     background-repeat: no-repeat
     background-position: center top
@@ -2720,7 +2766,6 @@ footer
   text-align: center
   font-size: 14px
   font-weight: 700
-
 
 @media (max-width: 767px)
   .datepicker-dropdown

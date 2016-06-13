@@ -1,0 +1,28 @@
+#guest-overview.card.card-naked
+  .page-container
+    .row.row-space-top-8.row-space-8
+      /.col-md-4.guest-overview-body
+        .guest-overview-cover.media-cover.media-cover-dark.background-cover.show--sp
+        .va-container.va-container-v.va-container-h
+          .va-middle
+            .row-space-4.text-center--sp
+              strong.h3
+                | How It Works
+                br
+                | まずは動画をクリック
+            = link_to "#", class: "guest-flow-trigger strong btn btn-host btn-large btn-block" do
+              | ご利用までの流れ
+      .col-md-12
+        .youtube-container
+          iframe src="https://www.youtube.com/embed/fhwj6m2cgEY?rel=0&showinfo=0" frameborder="0" modestbranding=1 class="show--sp" allowfullscreen
+          div[id="movie" class="hide--sp" style="background-image: url(#{asset_path('photo/for_movie_1440x560.jpg')})"]
+          #play.play.hide--sp
+            .playbutton-wrapper
+              i.fa.fa-play
+          h4.h3.text-contrast.text-wf What is TOMODACHI GUIDE?
+          /= image_tag , id: 'movie'
+
+          /iframe src="https://www.youtube.com/embed/WEtiK86GSAA?showinfo=0" frameborder="0" id="movie"
+
+      /.col-sm-8.hide--sp
+      /  .guest-overview-image

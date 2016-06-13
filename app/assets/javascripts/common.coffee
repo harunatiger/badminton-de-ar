@@ -217,15 +217,6 @@ $ ->
       $('#search-modal--sp').modal()
 
   if $('.header--sp').css('display') == 'block' || $('body').hasClass('welcome index')
-    # guest-flow modal
-    $('.guest-flow-trigger').on 'click', ->
-      if $('.header--sp').css('display') == 'block'
-        # sidenav switch
-        $('body').removeClass('slideout')
-      $('body').addClass('paper')
-      $('#guest-flow').modal()
-      $('.panel-close-fix').show()
-      return false
 
     # move to $('.close-three-reasons').on 'click', ->
     #$('.close-guest-flow').on 'click', ->
@@ -246,6 +237,7 @@ $ ->
       $('body').removeClass('paper')
 
     # three reasons modal
+    ###
     $('.three-reasons-trigger').on 'click', ->
       if $('.header--sp').css('display') == 'block'
         # sidenav switch
@@ -254,12 +246,41 @@ $ ->
       $('#three-reasons').modal()
       $('.panel-close-fix').show()
       return false
+    ###
 
-    $('.close-three-reasons').on 'click', ->
+    # guest-flow modal
+    $('.guest-flow-trigger').on 'click', ->
+      if $('.header--sp').css('display') == 'block'
+        # sidenav switch
+        $('body').removeClass('slideout')
+      $('body').addClass('paper')
+      $('#guest-flow').modal()
+      $('.close-guest-flow').show()
+      return false
+
+    # learn more modal
+    $('.learn-more-trigger').on 'click', ->
+      if $('.header--sp').css('display') == 'block'
+        # sidenav switch
+        $('body').removeClass('slideout')
+      $('body').addClass('paper')
+      $('#learn-more').modal()
+      $('.close-learn-more').show()
+      return false
+
+    # close learn more
+    $('.close-learn-more').on 'click', ->
       $('body').removeClass('paper')
-      $('#three-reasons').modal('hide')
+      $('#learn-more').modal('hide')
+      $(this).hide()
+      return false
+
+    # close guest flow
+    $('.close-guest-flow').on 'click', ->
+      $('body').removeClass('paper')
       $('#guest-flow').modal('hide')
-      $('.panel-close-fix').hide()
+      $(this).hide()
+      return false
 
   # subnav
   if $('.subnav').length && !$('body').hasClass('friends')
@@ -350,7 +371,7 @@ $ ->
   # welcome#index
   if $('body').hasClass('welcome index')
 
-    $('.discovery-card, .tour-cover, .youtube-container > div, .huber-card-background').lazyload
+    $('.discovery-card, .tour-cover, .youtube-container > div, .huber-card-background, .media-cover-img > div, .img-lazyload').lazyload
       effect: 'fadeIn'
 
     if $('.announcement_belt').length
@@ -381,6 +402,11 @@ $ ->
     ###
 
     $('#charmer').carousel()
+
+    $('#morebook').on 'click', ->
+      $(this).parent().removeClass('show--sp').hide()
+      $('#sp-shy-book').removeClass('hide--sp')
+      return false
 
     $('#moreguide').on 'click', ->
       if $('#allguides').is(':hidden')
