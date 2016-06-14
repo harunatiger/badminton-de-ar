@@ -94,7 +94,7 @@
             span#max_num_of_people_label
               = @listing_detail.max_num_of_people
             | 人)
-            strong.pull-right#price-per-person
+            /strong.pull-right#price-per-person
               | ¥#{(@listing_detail.display_amount / default_num_of_people).round(0)}/人
           .select.select-block#num-of-people
             = select 'sample', 'num_of_people', @listing_detail.min_num_of_people..@listing_detail.max_num_of_people, :selected => default_num_of_people
