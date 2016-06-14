@@ -136,15 +136,15 @@
                 - if current_user.id == @listing.user_id or @active_reservation
                   - if @active_reservation
                     .balloon(title="Under a conversation")
-                      = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled listing_request"
+                      = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled listing_request js-google-tag-manager"
                   - else
-                    = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled listing_request"
+                    = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary disabled listing_request js-google-tag-manager"
                 - elsif not profile_completed?
-                  = link_to 'Request Booking', profile_link, class: 'btn btn-large btn-block btn-primary listing_request'
+                  = link_to 'Request Booking', profile_link, class: 'btn btn-large btn-block btn-primary listing_request js-google-tag-manager'
                 - else
-                  = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary listing_request"
+                  = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary listing_request js-google-tag-manager"
               - else
-                = link_to '#sign_up_form', class: 'btn btn-large btn-block btn-primary listing_request', data: { toggle: "modal" } do
+                = link_to '#sign_up_form', class: 'btn btn-large btn-block btn-primary listing_request js-google-tag-manager', data: { toggle: "modal" } do
                   | Request Booking
           .tour-price-others.row-space-top-2
             .row
