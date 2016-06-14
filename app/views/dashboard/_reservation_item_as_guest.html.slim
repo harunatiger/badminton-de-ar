@@ -50,8 +50,12 @@
                 .col-md-8.text-center--sp
                   /.h5.text-muted.row-space-1.row-space-top-1
                     | Unknown
-                  = link_to "#", class: "pair_guide_list-trigger small2" do
-                    | supporting guide will join on the day!
+                  - if pair_guide_profiles(host.id).present?
+                    = link_to "#", class: "pair_guide_list-trigger small2" do
+                      | supporting guide will join on the day!
+                  - else
+                    .text-primary
+                      | supporting guide will join on the day!
                   div
                     = link_to "#", class: "about-support-guide-trigger" do
                       | supporting guide 

@@ -91,7 +91,9 @@
           .col-md-12
             .pair-guide-list-container
               p
-                b Supporting guide will join on the day!
+                b Supporting guide will join on the day! 
+                = link_to "#", class: "about-support-guide-trigger" do
+                  i.fa.fa-question-circle
               - pair_guide_profiles(@listing.user_id).each_with_index do |guide, i|
                 - break if i == 4
                 .media-photo.media-round.media-avatar
