@@ -23,7 +23,7 @@ class ProfileImageUploader < CarrierWave::Uploader::Base
 
   # Process files as they are uploaded:
   # process scale: [1200, 900]
-  process resize_to_fit: [1200, 900]
+  process resize_to_fit: [1440, 1080]
   #
   # def scale(width, height)
   #   # do something
@@ -32,7 +32,7 @@ class ProfileImageUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
   version :thumb do
     process :auto_orient
-    process resize_to_fit: [200, 150]
+    process resize_to_fit: [560, 420]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
