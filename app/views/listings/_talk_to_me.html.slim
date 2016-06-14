@@ -34,7 +34,7 @@
           p
             | You can discuss anything, including the place, price, and timing.
     - else
-      = link_to message_threads_path(message_thread: {host_id: listing.user_id}), method: 'POST', class: 'btn btn-primary btn-large btn-block btn-relative listing_message js-google-tag-manager' do
+      = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: listing.user_id}), method: 'POST', class: 'btn btn-primary btn-large btn-block btn-relative listing_message js-google-tag-manager' do
         i.fa.fa-comments-o
         | Talk to me
       .row.row-condensed.row-space-top-2.hide--sp
