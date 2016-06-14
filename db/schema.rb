@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601113604) do
+ActiveRecord::Schema.define(version: 20160613110658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,6 +191,22 @@ ActiveRecord::Schema.define(version: 20160601113604) do
     t.datetime "updated_at"
     t.integer  "blocker_id"
   end
+
+  create_table "ga_campaign_tags", force: :cascade do |t|
+    t.string   "default_url", default: ""
+    t.string   "long_url",    default: ""
+    t.string   "short_url",   default: ""
+    t.string   "source",      default: ""
+    t.string   "medium",      default: ""
+    t.string   "term",        default: ""
+    t.string   "content",     default: ""
+    t.string   "name",        default: ""
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "ga_campaign_tags", ["long_url"], name: "index_ga_campaign_tags_on_long_url", using: :btree
+  add_index "ga_campaign_tags", ["short_url"], name: "index_ga_campaign_tags_on_short_url", using: :btree
 
   create_table "help_categories", force: :cascade do |t|
     t.string   "name_ja"

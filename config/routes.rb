@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :ga_campaign_tags, param: :short_url, path: 'cp', only: [:show]
+  
   mount Ckeditor::Engine => '/ckeditor'
 
   get 'static_pages/cancel_policy_en'
