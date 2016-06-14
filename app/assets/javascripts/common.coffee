@@ -557,15 +557,10 @@ $ ->
 
   # ga setting
   if $('body').hasClass('profiles show')
-    $('.profile_message').on 'click', ->
-      if typeof _gaq != 'undefined'
-        _gaq.push [
-          '_trackEvent'
-          'reservation'
-          'profile page'
-          'Talk to me'
-        ]
-    return
+    #$('.profile_message').on 'click', ->
+    #  if typeof ga != 'undefined'
+    #    ga('send', 'event', 'reservation','profile page', 'Talk to me')
+    #return
 
     $('.sign_up_form').on 'click', ->
       $('#sign_in_form').modal('hide')
@@ -584,25 +579,15 @@ $ ->
       $('.btn-frame > .btn', targetForm).addClass('text-disappear')
       return
 
-    $('.listing_request').on 'click', ->
-      if typeof _gaq != 'undefined'
-        _gaq.push [
-          '_trackEvent'
-          'reservation'
-          'listing page'
-          'Request Booking'
-        ]
-      return
+    #$('.listing_request').on 'click', ->
+    #  if typeof ga != 'undefined'
+    #    ga('send', 'event', 'reservation','listing page', 'Request Booking')
+    #  return
 
-    $('.listing_message').on 'click', ->
-      if typeof _gaq != 'undefined'
-        _gaq.push [
-          '_trackEvent'
-          'reservation'
-          'listing page'
-          'Talk to me'
-        ]
-      return
+    #$('.listing_message').on 'click', ->
+    #  if typeof ga != 'undefined'
+    #    ga('send', 'event', 'reservation','listing page', 'Talk to me')
+    #  return
 
     $('.sign_up_form').on 'click', ->
       $('#sign_in_form').modal('hide')
