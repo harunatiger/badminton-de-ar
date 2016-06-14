@@ -31,7 +31,7 @@ class GaCampaignTag < ActiveRecord::Base
   end
   
   def set_long_url
-    long_url = self.default_url + '/?utm_source=' + self.source + '&utm_medium=' + self.medium
+    long_url = self.default_url + '?utm_source=' + self.source + '&utm_medium=' + self.medium
     long_url = long_url + '&utm_term=' + self.term if self.term.present?
     long_url = long_url + '&utm_content=' + self.content if self.content.present?
     long_url = long_url + '&utm_campaign=' + self.name
