@@ -453,6 +453,8 @@ select
   .fa
     width: 26px
     font-size: 18px
+  @media (max-width: 767px)
+    padding: 6px 20px
 
 .btn.btn-lg-ds
   position: relative
@@ -676,6 +678,10 @@ select
 
 .text-brand-dark
   color: $brand-theme-dark
+
+// some stupid demand from so called designer.lol
+.text-brand-add
+  color: $skyblue4
 
 .text-light-gray, .fa-light-gray
   color: $lightgray1
@@ -2165,13 +2171,19 @@ a.alert-warning
   border-bottom: 1px solid $border1
   .header-logo
     display: block
-    width: 120px
+    width: 90px
     //width: 90px //for prod
     height: 32px
     margin: 0 auto
-    background: image-url('logo-beta.png') 0 0 no-repeat
-    background-size: 120px 32px
+    background: image-url('logo.png') 0 0 no-repeat
+    background-size: 90px auto
     //background-size: 90px 32px //for prod
+  .additional-text
+    margin: 12px 0 0 5px
+    font-size: 13px
+    @media (max-width: 767px)
+      margin: 14px 0 0 0
+      font-size: 10px
   .nav
     margin: 2px 0 0
     > li
@@ -2404,7 +2416,9 @@ a.alert-warning
     border-bottom: none
     z-index: 1000
     .header-logo
-      background-image: image-url('logo-white-beta.png')
+      background-image: image-url('logo-white.png')
+    .additional-text
+      color: white
     .nav
       > li
         > a
@@ -2453,11 +2467,16 @@ a.alert-warning
   .common-header
     padding: 0
     .header-logo
-      background-image: image-url('logo-beta.png') !important
+      width: 70px
+      background-image: image-url('logo.png') !important
+      background-size: 70px auto
+      background-position: left 5px
   .is-simpleHeader
     .common-header
       background: white
       position: static
+      .additional-text
+        color: $brand-theme
 
   .header--sp
     display: block !important

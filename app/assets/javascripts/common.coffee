@@ -415,14 +415,13 @@ $ ->
         $('#allguides').slideDown 'normal', ->
           position = $('.guide_list-tiles .col-lg-4:eq(2)').offset().top
           $('html,body').animate { scrollTop: position }
-
       else
         $(this).empty()
         $(this).prepend('See All' + '<i class="fa fa-caret-down"></i>')
         $('#allguides').slideUp 'normal', ->
           position = $('.guide_list-wrapper').offset().top
           $('html,body').animate { scrollTop: position }
-      return
+      return false
 
   # google place-auto-complete
   #initialize()
