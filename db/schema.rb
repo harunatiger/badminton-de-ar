@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601113604) do
+ActiveRecord::Schema.define(version: 20160613110658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,6 +191,22 @@ ActiveRecord::Schema.define(version: 20160601113604) do
     t.datetime "updated_at"
     t.integer  "blocker_id"
   end
+
+  create_table "ga_campaign_tags", force: :cascade do |t|
+    t.string   "default_url", default: ""
+    t.string   "long_url",    default: ""
+    t.string   "short_url",   default: ""
+    t.string   "source",      default: ""
+    t.string   "medium",      default: ""
+    t.string   "term",        default: ""
+    t.string   "content",     default: ""
+    t.string   "name",        default: ""
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "ga_campaign_tags", ["long_url"], name: "index_ga_campaign_tags_on_long_url", using: :btree
+  add_index "ga_campaign_tags", ["short_url"], name: "index_ga_campaign_tags_on_short_url", using: :btree
 
   create_table "help_categories", force: :cascade do |t|
     t.string   "name_ja"
@@ -396,14 +412,14 @@ ActiveRecord::Schema.define(version: 20160601113604) do
   add_index "message_thread_users", ["user_id"], name: "index_message_thread_users_on_user_id", using: :btree
 
   create_table "message_threads", force: :cascade do |t|
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "host_id"
-    t.boolean  "reply_from_host",               default: false
-    t.boolean  "first_message",                 default: true
-    t.boolean  "noticemail_sended",             default: false
+    t.boolean  "reply_from_host",   default: false
+    t.boolean  "first_message",     default: true
+    t.boolean  "noticemail_sended", default: false
+    t.string   "type"
     t.integer  "reservation_id"
-    t.string   "type",              limit: 255
   end
 
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
@@ -602,9 +618,9 @@ ActiveRecord::Schema.define(version: 20160601113604) do
     t.string   "caption",     default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "cover_image", default: ""
     t.integer  "order_num"
     t.boolean  "cover_flg",   default: false
-    t.string   "cover_image"
   end
 
   add_index "profile_images", ["profile_id"], name: "index_profile_images_on_profile_id", using: :btree

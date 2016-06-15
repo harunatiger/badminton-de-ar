@@ -1,0 +1,25 @@
+#features-service
+  .page-container.row-space-top-8
+    .features-container.row-space-top-8
+      h2.spb.text-contrast.text-center Features of Huber. Service
+      .features-inner
+        .row.row-space-top-5
+          .col-lg-8
+            .youtube-container
+              /iframe src="https://www.youtube.com/embed/fhwj6m2cgEY?rel=0&showinfo=0" frameborder="0" modestbranding=1 allowfullscreen
+              div[id="movie" style="background-image: url(#{asset_path('photo/movie_image.jpg')})"]
+              = link_to "https://www.youtube.com/watch?v=fhwj6m2cgEY?rel=0&showinfo=0", id: "play", class: "play" do
+                .playbutton-wrapper
+                  i.fa.fa-play
+          .col-lg-4
+            .text-center.spr.row-space-top-3
+              .thick-lined.row-space-2.row-space-top-8
+                span Free Consultation
+              br
+              .thick-lined.row-space-2
+                span Enjoy Local Experiences
+              br
+              .thick-lined.row-space-8
+                span Travel in a Flexible Way
+              br
+              = link_to "Learn more", "#", class: "btn btn-primary btn-large btn-block learn-more-trigger"

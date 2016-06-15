@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    = display_meta_tags :charset => 'utf-8', :og => { :title => 'Huber. huber-japan.com', :type => 'website', :url => request.url, image: og_image, :site_name => 'Huber.', :description => og_description }, :fb => {:admins => '1081639010'}, :title => 'Huber. huber-japan.com', :description => full_description(yield(:description)), :keywords => full_words(yield(:words)), :author => '', :viewport => 'width=device-width,initial-scale=1,user-scalable=no', :format => {:detection  => 'telephone=no, address=no, email=no'}
+    = display_meta_tags :charset => 'utf-8', :og => { :title => 'Huber. Connecting you with local guides.', :type => 'website', :url => request.url, image: og_image, :site_name => 'Huber.', :description => og_description }, :fb => {:admins => '1081639010'}, :title => 'Huber. huber-japan.com', :description => full_description(yield(:description)), :keywords => full_words(yield(:words)), :author => '', :viewport => 'width=device-width,initial-scale=1,user-scalable=no', :format => {:detection  => 'telephone=no, address=no, email=no'}
     /meta[http-equiv="X-UA-Compatible" content="IE=edge"]
     meta[name="apple-mobile-web-app-title" content="Huber."]
     = analytics_init if Rails.env.production?
@@ -39,7 +39,8 @@ html
   = render partial: 'shared/tooltip'
   = render partial: 'shared/modals/flow'
   = render partial: 'shared/modals/about_guide'
-  = render partial: 'shared/modals/three_reasons'
+  = render partial: 'shared/modals/learn_more'
+  /= render partial: 'shared/modals/three_reasons'
   /= javascript_include_tag '//j.wovn.io/0', 'data-wovnio'=> 'key=CC4ZB'
   = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?libraries=places&language=en', acync: 'acync'
 

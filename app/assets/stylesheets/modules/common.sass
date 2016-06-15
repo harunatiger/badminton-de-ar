@@ -4,8 +4,40 @@
 @font-face
   font-family: 'Populaire'
   src: url(asset-path('300089_0_0.eot'))
-  src: url(asset-path('300089_0_0.eot?#iefix')) format('embedded-opentype'),url(asset-path('300089_0_0.woff2')) format('woff2'),url(asset-path('300089_0_0.woff')) format('woff'),url(asset-path('300089_0_0.ttf')) format('truetype')
+  src: url(asset-path('300089_0_0.eot?#iefix')) format('embedded-opentype'), url(asset-path('300089_0_0.woff2')) format('woff2'),url(asset-path('300089_0_0.woff')) format('woff'), url(asset-path('300089_0_0.ttf')) format('truetype')
 
+/* SofiaPro ================================================== */
+@font-face
+  font-family: 'SofiaProBold'
+  src: url(asset-path('313301_2_0.eot'))
+  src: url(asset-path('313301_2_0.eot?#iefix')) format("embedded-opentype"), url(asset-path('313301_2_0.woff2')) format("woff2"), url(asset-path('313301_2_0.woff')) format("woff"), url(asset-path('313301_2_0.ttf')) format("truetype")
+@font-face
+  font-family: 'SofiaProMedium'
+  src: url(asset-path('313301_3_0.eot'))
+  src: url(asset-path('313301_3_0.eot?#iefix')) format("embedded-opentype"), url(asset-path('313301_3_0.woff2')) format("woff2"), url(asset-path('313301_3_0.woff')) format("woff"), url(asset-path('313301_3_0.ttf')) format("truetype")
+@font-face
+  font-family: 'SofiaProSemiBold'
+  src: url(asset-path('313301_5_0.eot'))
+  src: url(asset-path('313301_5_0.eot?#iefix')) format("embedded-opentype"), url(asset-path('313301_5_0.woff2')) format("woff2"), url(asset-path('313301_5_0.woff')) format("woff"), url(asset-path('313301_5_0.ttf')) format("truetype")
+@font-face
+  font-family: 'SofiaProLight'
+  src: url(asset-path('313301_6_0.eot'))
+  src: url(asset-path('313301_6_0.eot?#iefix')) format("embedded-opentype"), url(asset-path('313301_6_0.woff2')) format("woff2"), url(asset-path('313301_6_0.woff')) format("woff"), url(asset-path('313301_6_0.ttf')) format("truetype")
+@font-face
+  font-family: 'SofiaProRegular'
+  src: url(asset-path('313301_7_0.eot'))
+  src: url(asset-path('313301_7_0.eot?#iefix')) format("embedded-opentype"), url(asset-path('313301_7_0.woff2')) format("woff2"), url(asset-path('313301_7_0.woff')) format("woff"), url(asset-path('313301_7_0.ttf')) format("truetype")
+
+.spr
+  font-family: 'SofiaProRegular' !important
+.spl
+  font-family: 'SofiaProLight' !important
+.spsb
+  font-family: 'SofiaProSemiBold' !important
+.spm
+  font-family: 'SofiaProMedium' !important
+.spb
+  font-family: 'SofiaProBold' !important
 
 /* common ================================================== */
 body
@@ -421,6 +453,8 @@ select
   .fa
     width: 26px
     font-size: 18px
+  @media (max-width: 767px)
+    padding: 6px 20px
 
 .btn.btn-lg-ds
   position: relative
@@ -645,6 +679,10 @@ select
 .text-brand-dark
   color: $brand-theme-dark
 
+// some stupid demand from so called designer.lol
+.text-brand-add
+  color: $skyblue4
+
 .text-light-gray, .fa-light-gray
   color: $lightgray1
 
@@ -805,6 +843,11 @@ a.alert-warning
 .show--sp
   display: none !important
   @media (max-width: 767px)
+    display: block !important
+
+.show--md
+  display: none !important
+  @media (max-width: 1099px)
     display: block !important
 
 .show--sp-ib
@@ -1563,6 +1606,12 @@ a.alert-warning
 .page-container-full
   width: auto
 
+.page-container-ds
+  width: auto
+  max-width: 1440px
+  padding-left: 0
+  padding-right: 0
+
 /* media */
 .media
   margin-top: 0
@@ -1582,12 +1631,15 @@ a.alert-warning
   vertical-align: bottom
   overflow: hidden
   background-color: $border1
+  outline: 0
   backface-visibility: hidden
 
 .media-photo-block
   display: block
 
 .media-avatar
+  background-color: white
+  outline: 0
   div
     background-repeat: no-repeat
     background-position: center top
@@ -2119,13 +2171,19 @@ a.alert-warning
   border-bottom: 1px solid $border1
   .header-logo
     display: block
-    width: 120px
+    width: 90px
     //width: 90px //for prod
     height: 32px
     margin: 0 auto
-    background: image-url('logo-beta.png') 0 0 no-repeat
-    background-size: 120px 32px
+    background: image-url('logo.png') 0 0 no-repeat
+    background-size: 90px auto
     //background-size: 90px 32px //for prod
+  .additional-text
+    margin: 12px 0 0 5px
+    font-size: 13px
+    @media (max-width: 767px)
+      margin: 14px 0 0 0
+      font-size: 10px
   .nav
     margin: 2px 0 0
     > li
@@ -2358,7 +2416,9 @@ a.alert-warning
     border-bottom: none
     z-index: 1000
     .header-logo
-      background-image: image-url('logo-white-beta.png')
+      background-image: image-url('logo-white.png')
+    .additional-text
+      color: white
     .nav
       > li
         > a
@@ -2407,11 +2467,16 @@ a.alert-warning
   .common-header
     padding: 0
     .header-logo
-      background-image: image-url('logo-beta.png') !important
+      width: 70px
+      background-image: image-url('logo.png') !important
+      background-size: 70px auto
+      background-position: left 5px
   .is-simpleHeader
     .common-header
       background: white
       position: static
+      .additional-text
+        color: $brand-theme
 
   .header--sp
     display: block !important
@@ -2720,7 +2785,6 @@ footer
   text-align: center
   font-size: 14px
   font-weight: 700
-
 
 @media (max-width: 767px)
   .datepicker-dropdown

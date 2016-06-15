@@ -1,12 +1,12 @@
 .card-dark
   .discovery-container.row-space-6
     .discovery-section.page-container.page-container-no-padding
-      .section-intro.text-center.row-space-8.row-space-top-6
-        h2.text-wf.row-space-2
-          | Find trips for you
-        h3.h4.row-space-top-2.text-wf
-          | TOMODACHI GUIDE are waiting with unique plans for you
-      .row.text-center.row-space-4.row-space-top-6
+      .section-intro.text-center.row-space-8.row-space-top-8
+        h2.spb.row-space-2
+          | Find trip for you
+        h3.h4.row-space-top-2.spl
+          | Have a look at unique plans
+      /.row.text-center.row-space-4.row-space-top-6
         .col-md-12
           .discovery-card.feature-banner[style="background-image: url(#{asset_path 'feature/banner.png'})" data-original="#{asset_path 'feature/banner.png'}"]
             = link_to features_path, class: "" do
@@ -24,7 +24,7 @@
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
-                        .h2.strong.overflow
+                        .h2.overflow.spsb
                           = pickup.long_name
                   | </div>
                 = render partial: 'tour_list', locals: { listing: select_pick_up_listing(pickup) }
@@ -37,7 +37,7 @@
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
-                        .h2.strong.overflow
+                        .h2.overflow.spsb
                           = pickup.short_name
                   | </div>
               - elsif i >= 2 && i <= 3
@@ -49,7 +49,7 @@
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
-                        .h2.strong.overflow
+                        .h2.overflow.spsb
                           = pickup.short_name
                   | </div>
               - elsif i == 4
@@ -59,7 +59,7 @@
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
-                        .h2.strong.overflow
+                        .h2.overflow.spsb
                           = pickup.long_name
                   | </div>
               - elsif i == 5
@@ -71,7 +71,7 @@
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
-                        .h2.strong.overflow
+                        .h2.overflow.spsb
                           = pickup.short_name
                   | </div>
               - elsif i >= 6 && i <= 7
@@ -83,7 +83,7 @@
                   = link_to pickup_path(pickup) do
                     .va-container.va-container-v.va-container-h
                       .va-middle.text-center.text-contrast
-                        .h2.strong.overflow
+                        .h2.overflow.spsb
                           = pickup.short_name
                   | </div>
               - else
@@ -96,7 +96,7 @@
                 = link_to pickup_path(@pickups) do
                   .va-container.va-container-v.va-container-h
                     .va-middle.text-center.text-contrast
-                      .h2.strong.overflow
+                      .h2.overflow.spsb
                         = @pickups.long_name
                 | </div>
               .col-lg-8.col-md-12.rm-padding--sp.visible-sm
@@ -107,7 +107,7 @@
                 = link_to pickup_path(@pickups) do
                   .va-container.va-container-v.va-container-h
                     .va-middle.text-center.text-contrast
-                      .h2.strong.overflow
+                      .h2.overflow.spsb
                         = @pickups.long_name
                 | </div>
               = render partial: 'tour_list', locals: { listing: Listing.find(@pickups.selected_listing) }

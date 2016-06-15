@@ -1,59 +1,36 @@
-- provide(:title, "Huber.")
-- provide(:description, "Huber. | Let's Travel with TOMODACHI GUIDE!!")
+/- provide(:title, "Huber.")
+/- provide(:description, "Huber. | Let's Travel with TOMODACHI GUIDE!!")
 - if @announcement.present?
   .announcement_belt.text-center
     = link_to @announcement.title.html_safe, announcement_path(@announcement.page_url)
 .hero-wrapper
   #hero
-    /ul#slideshow.list-unstyled
-      li.active
-        = image_tag 'top-slider/slide001.jpg'
-      li
-        = image_tag 'top-slider/slide002.jpg'
-      li
-        = image_tag 'top-slider/slide003.jpg'
-      li
-        = image_tag 'top-slider/slide004.jpg'
-      li
-        = image_tag 'top-slider/slide005.jpg'
-      li
-        = image_tag 'top-slider/slide006.jpg'
     ul#slideshow.list-unstyled
       li.active
-        div[style="background-image: url(#{asset_path('top-slider/slide001.jpg')})"]
+        div[style="background-image: url(#{asset_path('top-slider/slide1.jpg')})"]
       li
-        div[style="background-image: url(#{asset_path('top-slider/slide002.jpg')})"]
+        div[style="background-image: url(#{asset_path('top-slider/slide2.jpg')})"]
       li
-        div[style="background-image: url(#{asset_path('top-slider/slide003.jpg')})"]
+        div[style="background-image: url(#{asset_path('top-slider/slide3.jpg')})"]
       li
-        div[style="background-image: url(#{asset_path('top-slider/slide004.jpg')})"]
+        div[style="background-image: url(#{asset_path('top-slider/slide4.jpg')})"]
       li
-        div[style="background-image: url(#{asset_path('top-slider/slide005.jpg')})"]
-      li
+        div[style="background-image: url(#{asset_path('top-slider/slide5.jpg')})"]
+      /li
         div[style="background-image: url(#{asset_path('top-slider/slide006.jpg')})"]
     #slideshow-cover.media-cover.media-cover-dark
   .hero-contents.text-center
     .va-container.va-container-wh
       .hero-inner
-        /#subtitle.h4.text-contrast Let's Travel with TOMODACHI GUIDE!!
-        h1#tagline.text-contrast.row-space-1.text-wf Make Friend, Start Trip
-        #subtitle.h3.text-contrast.text-wf.row-space-5
-          b
-            | TOMODACHI GUIDE
-          | A guide service for a sharing experience.
-        = link_to "How to use", "#", class: "guest-flow-trigger btn btn-large btn-transparent"
+        h1#tagline.text-contrast.row-space-1.spsb Dive into the real Japan
+        #subtitle.text-contrast.row-space-5
+          .spr Friendly Locals as Your Guides.
+        = link_to "How to use", "#", class: "guest-flow-trigger btn btn-large btn-transparent spsb"
 
-        /.col-sm-12
-          .search--sp.show--sp
-            #sp-search-field.input-addon
-              span.input-stem.input-large.fake-search-field 検索しますか？
-              i.input-suffix.btn.btn-primary.fa.fa-full.fa-search
-          a.guest-flow-trigger.btn.btn-large.btn-transparent.hide--sp[href="#"] 友達ガイドって？
-        /.hero-search.hide--sp
-          .col-xs-12
-            = render partial: 'form'
-= render partial: 'overview'
-= render partial: 'discovery'
-= render partial: 'difference'
+= render partial: 'features'
 = render partial: 'guide_list'
+= render partial: 'hot_news'
+= render partial: 'discovery'
+= render partial: 'guest_book'
+/= render partial: 'difference'
 /= render partial: 'charmer'

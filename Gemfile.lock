@@ -286,7 +286,7 @@ GEM
       json
       multi_json
       request_store (>= 1.0.5)
-    google-analytics-rails (0.0.6)
+    google-analytics-rails (1.1.0)
     google-tag-manager-rails (0.1.3)
       rails (>= 3.0.0)
     guard (2.12.5)
@@ -683,7 +683,7 @@ DEPENDENCIES
   fog (= 1.28.0)
   fullcalendar-rails
   gon (= 5.2.3)
-  google-analytics-rails
+  google-analytics-rails (= 1.1.0)
   google-tag-manager-rails
   guard (= 2.12.5)
   guard-livereload (= 2.4.0)

@@ -1,27 +1,37 @@
 / modal guest-flow
-#guest-flow.modal[role="dialog" aria-hidden="true"]
+#guest-flow.modal.modal-paper-bordered[role="dialog" aria-hidden="true"]
   .modal-paper
-    .page-container
+    .page-container.text-center
+      h3.h1.spb.text-brand-add.row-space-8 How To Use
       .row
-        .col-md-4.row-space-4
-          .illust-box.text-center
-            = image_tag "illust/flow-illust001.png"
-            .h3.row-space-top-3.row-space-2 1.Find trips for you
-            p TOMODACHI GUIDE are waiting with unique plans for you 
-        .col-md-4.row-space-4
-          .illust-box.text-center
-            = image_tag "illust/flow-illust002.png"
-            .h3.row-space-top-3.row-space-2 2.Discuss and book!
-            p It all starts with a conversation! Your TOMODACHI GUIDE will customize your tour based on your preferences
-        .col-md-4.row-space-4
-          .illust-box.text-center
-            = image_tag "illust/flow-illust003.png"
-            .h3.row-space-top-3.row-space-2 3.START YOUR TRIP
-            p Enjoy local experiences with TOMODACHI GUIDE 
-            p Don't feel confined to the plan and feel free to be spontaneous on your trip!
+        .col-md-4.row-space-6
+          .illust-box
+            = image_tag "illust/flow001.png"
+            .h3.spsb.text-brand.row-space-top-3.row-space-2
+              .row-space-1 STEP 1
+              | Finding guides to talk with
+            p.row-space-top-4 Take a look at a few guides' profile pages and the tours they have on offer, and try starting conversation with someone you think you'll get along with.
+        .col-md-4.row-space-6
+          .illust-box
+            = image_tag "illust/flow002.png"
+            .h3.spsb.text-brand.row-space-top-3.row-space-2
+              .row-space-1 STEP 2
+              | Discussing your tour plans
+            p.row-space-top-4 Your guide will suggest things to do on your tour, from major tourist spots to little-known local gems, taking your ideas and wishes into account.
+        .col-md-4.row-space-6
+          .illust-box
+            = image_tag "illust/flow003.png"
+            .h3.spsb.text-brand.row-space-top-3.row-space-2
+              .row-space-1 STEP 3
+              | Booking your original tour
+            p.row-space-top-4 Once you're satisfied with the plan, it's time to book! Your guide will prepare a detailed schedule for your tour.
 
-        .col-md-12
+        /.col-md-12
           h3.h2.text-brand.text-wf.text-center.hero-text
             | Find your "TOMODACHI GUIDE"
             br
             | TOMODACHI means friend in Japanese
+
+= link_to "#", class: "panel-close panel-close-fix close-guest-flow" do
+  i.fa.fa-times
+  | CLOSE
