@@ -120,7 +120,7 @@ class Profile < ActiveRecord::Base
   def self.main_and_support_guides
     user_ids = User.main_guide.without_soft_destroyed + User.support_guide.without_soft_destroyed
     users = User.where(id: user_ids)
-    Profile.where(user_id: users.ids)
+    Profile.where(user_id: users.ids).order("RANDOM()")
   end
 
   def self.get_percentage(id)
