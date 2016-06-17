@@ -94,9 +94,10 @@
                 b Supporting guide will join on the day! 
                 = link_to "#", class: "about-support-guide-trigger" do
                   i.fa.fa-question-circle
-              - pair_guide_profiles(@listing.user_id).each_with_index do |guide, i|
-                - break if i == 4
-                .media-photo.media-round.media-avatar
-                  .size50[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(guide.user_id)}')"]
-              = link_to "#", class: "pair_guide_list-trigger media-photo media-round text-center" do
-                b more
+              - if pair_guide_profiles(@listing.user_id).present?
+                - pair_guide_profiles(@listing.user_id).each_with_index do |guide, i|
+                  - break if i == 4
+                  .media-photo.media-round.media-avatar
+                    .size50[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(guide.user_id)}')"]
+                = link_to "#", class: "pair_guide_list-trigger media-photo media-round text-center" do
+                  b more
