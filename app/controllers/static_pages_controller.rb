@@ -28,5 +28,11 @@ class StaticPagesController < ApplicationController
 
   def plan4U
   end
+  
+  def three_reasons
+  end
+  
+  def our_partners
+  end
 
 end
