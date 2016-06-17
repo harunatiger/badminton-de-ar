@@ -28,17 +28,17 @@ module ApplicationHelper
       "#{page_words}"
     end
   end
-  
+
   def og_description
     if controller_name == 'listings' and action_name == 'show'
       "#{@listing.title}！Make Friend, Start Trip!"
     elsif controller_name == 'profiles' and action_name == 'show'
       "#{@profile.try('first_name')}'s self-Introduction！Make Friend, Start Trip!"
     else
-      'Dive into the local with a Local! A guide service for a sharing experience.'
+      'Dive into the real Japan! Friendly Locals as Your Guides.'
     end
   end
-  
+
   def og_image
     if controller_name == 'listings' and action_name == 'show'
       if Rails.env.development?
@@ -357,7 +357,7 @@ module ApplicationHelper
       new_profile_profile_identity_path(current_user.profile.id)
     end
   end
-  
+
   def profile_blank_link
     return edit_profile_path(current_user.profile.id) unless profile_completed?
     profile_identity_link
@@ -488,7 +488,7 @@ module ApplicationHelper
       end
     end
   end
-  
+
   def out_put_error_for_modal(target)
     if target.present? and target.errors.present?
       content_tag(:div, class: 'text-red') do
@@ -635,7 +635,7 @@ module ApplicationHelper
   def has_reservation_as_guide
     current_user.comming_reservations_as_guide.present?
   end
-  
+
   def users_to_guide_thread(to_user_id, from_user_id)
     if mt = GuideThread.exists_thread_for_pair_request?(to_user_id, from_user_id)
       mt
@@ -643,7 +643,7 @@ module ApplicationHelper
       GuideThread.create_thread(to_user_id, from_user_id)
     end
   end
-  
+
   def disp_friends_request_block?(mt, counterpart_id)
     mt.guide_thread? and current_user.friend_requested?(counterpart_id)
   end
@@ -656,11 +656,11 @@ module ApplicationHelper
     end
     return text
   end
-  
+
   def listing_image_to_pickup_tag(listing_image)
     PickupTag.find(listing_image.pickup_id) if listing_image.pickup_id.present?
   end
-  
+
   def image_categories_limited_six(listing)
     all_categories = []
     result = []
@@ -672,12 +672,12 @@ module ApplicationHelper
     result = all_categories.group_by{|e| e}.sort_by{|_,v|-v.size}.map(&:first)
     result.present? ? result[0..5] : []
   end
-  
+
   def pair_guide_profiles(host_id)
     host = User.find(host_id)
     host.friends_profiles
   end
-  
+
   def pair_user(reservation)
     if reservation.pg_completion?
       pair_user = current_user.id == reservation.pair_guide_id ? User.find(reservation.host_id) : User.find(reservation.pair_guide_id)
@@ -685,15 +685,15 @@ module ApplicationHelper
       return false
     end
   end
-  
+
   def guide_type_str(reservation)
     current_user.id != reservation.host_id ? 'Main guide' : 'Supporting guide'
   end
-  
+
   def current_user_is_host?(reservation)
     current_user.id == reservation.host_id
   end
-  
+
   def send_update_pair_guide_notification_body(status, from_user)
     body = ""
     if status == Settings.reservation.pair_guide_status.offer
@@ -705,11 +705,11 @@ module ApplicationHelper
     end
     body
   end
-  
+
   def pair_guide_thread_to_reservation(mt)
     Reservation.find(mt.reservation_id)
   end
-  
+
   def feature_guides_profile
     if Rails.env.production?
       ids = [20,25,39,59,109,116]
@@ -721,11 +721,11 @@ module ApplicationHelper
       return Profile.find(ids)
     end
   end
-  
+
   def feature_listing(id)
     listing = Listing.where(id: id).first
   end
-  
+
   def pickup_tag_to_placeholder(pickup_tag)
     if pickup_tag.short_name == 'Spa and Relaxation'
       'Eg. Massage, yoga, etc'
@@ -759,16 +759,16 @@ module ApplicationHelper
       'Eg. Bars, clubs, night views, etc.'
     end
   end
-  
+
   def profile_pickup_to_pickup_tag(profile_pickup)
     pickup_tag = PickupTag.find(profile_pickup.pickup_id)
   end
-  
+
   def exist_profile_blank?
     current_user.profile.enable_strict_validation = true
     !current_user.profile.valid? or !profile_identity_authorized?(current_user.id)
   end
-  
+
   def display_news?
     Announcement.display.present?
   end
@@ -777,7 +777,7 @@ module ApplicationHelper
     current_user.profile.enable_strict_validation = true
     current_user.profile.valid?
   end
-  
+
   def message_thread_link(to_user_id, from_user_id)
     message_thread_path(GuestThread.get_message_thread_id(to_user_id, from_user_id))
   end
