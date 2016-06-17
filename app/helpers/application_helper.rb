@@ -674,7 +674,8 @@ module ApplicationHelper
   end
 
   def pair_guide_profiles(host_id)
-    Profile.main_and_support_guides.where.not(id: host_id)
+    host = User.find(host_id)
+    host.friends_profiles
   end
 
   def pair_user(reservation)
