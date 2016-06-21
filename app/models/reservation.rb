@@ -67,7 +67,7 @@ class Reservation < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'pair_guide_id'
   belongs_to :listing
   belongs_to :campaign
-  has_one :review
+  has_many :reviews
   has_one :payment
   has_many :ngevents, dependent: :destroy
 
@@ -472,5 +472,18 @@ class Reservation < ActiveRecord::Base
   def pair_guide_profile_id
     profile = Profile.where(user_id: self.pair_guide_id).first
     profile.id if profile.present?
+  end
+  
+  def review_writed?(user_id)
+    ReviewForGuest.exists?(reservation_id: self.id, host_id: user_id)
+  end
+  
+  def create_pair_guide_review
+    main_review = ReviewForGuide.where(reservation_id: self.id, host_id: self.host_id).first
+    pair_guide_review = main_review.dup
+    pair_guide_review.host_id = self.pair_guide_id
+    if pair_guide_review.save
+      pair_guide_review.re_calc_ave_of_profile
+    end
   end
 end

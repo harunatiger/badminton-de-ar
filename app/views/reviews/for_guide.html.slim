@@ -6,12 +6,25 @@
       .card.row-space-4.host_n_listing-info-box
         .col-xs-4.col-lg-12
           .media.media-photo-block.dashboard-profile-photo.panel-image
-            = link_to profile_path(counterpart.id)
+            = link_to profile_path(user_id_to_profile_id(counterpart.id))
               = image_tag(user_id_to_profile_image(counterpart.id), class: 'img-responsive')
         .col-xs-8.col-lg-12
           .card-body.card-body-condensed
             h4.text-center
               = user_obj_to_name(counterpart)
+      - if @reservation.pg_completion?
+        .card.row-space-4.host_n_listing-info-box
+          .col-xs-4.col-lg-12
+            .media.media-photo-block.dashboard-profile-photo.panel-image
+              = link_to profile_path(user_id_to_profile_id(@reservation.pair_guide_id))
+                = image_tag(user_id_to_profile_image(@reservation.pair_guide_id), class: 'img-responsive')
+          .col-xs-8.col-lg-12
+            .card-body.card-body-condensed
+              h4.text-center
+                = user_id_to_name(@reservation.pair_guide_id)
+      .card.row-space-4.host_n_listing-info-box
+        .col-xs-8.col-lg-12
+          .card-body.card-body-condensed
             .row.row-condensed
               .col-md-3.hide--sp
                 = link_to image_tag(listing_cover_image_url(@reservation.listing_id), class: "img-responsive"), listing_path(reservation_to_listing(@reservation))
@@ -24,6 +37,10 @@
           | Send feedback to 
           = link_to profile_path(counterpart.profile.id)
              = user_obj_to_name(counterpart)
+          - if @reservation.pg_completion?
+            |  and 
+            = link_to profile_path(user_id_to_profile_id(@reservation.pair_guide_id))
+             = user_id_to_name(@reservation.pair_guide_id)
         p.row-space-3
           | You can send your thoughts and comments about your recent tour to your guide.
           br

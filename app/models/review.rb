@@ -62,10 +62,10 @@ class Review < ActiveRecord::Base
   end
 
   def calc_ave_of_listing
-    review = ReviewForGuide.where(reservation_id: self.reservation_id).first
+    review = ReviewForGuide.where(reservation_id: self.reservation_id, host_id: self.host_id).first
     if review.present?
       l = Listing.find(self.listing_id)
-      r_count = ReviewForGuide.where(listing_id: self.listing_id).joins(:reservation).merge(Reservation.review_open?).count
+      r_count = ReviewForGuide.where(listing_id: self.listing_id, host_id: self.host_id).joins(:reservation).merge(Reservation.review_open?).count
     
       if r_count == 1
         ave_total = review.total
@@ -78,8 +78,8 @@ class Review < ActiveRecord::Base
   end
 
   def calc_ave_of_profile
-    review_for_guide = ReviewForGuide.where(reservation_id: self.reservation_id).first
-    review_for_guest = ReviewForGuest.where(reservation_id: self.reservation_id).first
+    review_for_guide = ReviewForGuide.where(reservation_id: self.reservation_id, host_id: self.host_id).first
+    review_for_guest = ReviewForGuest.where(reservation_id: self.reservation_id)
     host = User.find(self.host_id)
     guest = User.find(self.guest_id)
 
@@ -116,10 +116,10 @@ class Review < ActiveRecord::Base
   end
   
   def re_calc_ave_of_listing
-    review = ReviewForGuide.where(reservation_id: self.reservation_id).first
+    l = Listing.find(self.listing_id)
+    review = ReviewForGuide.where(reservation_id: self.reservation_id, host_id: l.user_id).first
     if review.present?
-      l = Listing.find(self.listing_id)
-      listing_reviews = ReviewForGuide.where(listing_id: self.listing_id).joins(:reservation).merge(Reservation.review_open?)
+      listing_reviews = ReviewForGuide.where(listing_id: l.id, host_id: l.user_id).joins(:reservation).merge(Reservation.review_open?)
       r_count = listing_reviews.count
     
       if r_count == 1
@@ -137,7 +137,7 @@ class Review < ActiveRecord::Base
   end
 
   def re_calc_ave_of_profile
-    review_for_guide = ReviewForGuide.where(reservation_id: self.reservation_id).first
+    review_for_guide = ReviewForGuide.where(reservation_id: self.reservation_id, host_id: self.host_id).first
     review_for_guest = ReviewForGuest.where(reservation_id: self.reservation_id).first
     host = User.find(self.host_id)
     guest = User.find(self.guest_id)
@@ -205,11 +205,20 @@ class Review < ActiveRecord::Base
     ReviewForGuide.where(host_id: user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
   end
 
-  def self.this_listing(listing_id)
-    ReviewForGuide.where(listing_id: listing_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
+  def self.this_listing(listing)
+    ReviewForGuide.where(listing_id: listing.id, host_id: listing.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
   end
   
   def set_total
     self.total = nil if self.total == 0
+  end
+  
+  def anothre_review_exist?
+    ReviewForGuest.all.where.not(id: self.id).where(guest_id: self.guest_id, reservation_id: self.reservation_id).present?
+  end
+  
+  def host_review
+    listing = Listing.find(self.listing_id)
+    ReviewForGuide.where(reservation_id: self.reservation_id, host_id: listing.user_id).first
   end
 end

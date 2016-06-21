@@ -7,6 +7,7 @@ namespace :review_mail do
       #ReviewMailer.send_review_notification(r).deliver_later!(wait: 1.minute) # if you want to use active job(delayedjob, resque....), use this line.
       ReviewMailer.send_review_notification(r).deliver_now! # if you don't want to use active job, use this line.
       ReviewMailer.send_review_reply_notification(r).deliver_now!
+      ReviewMailer.send_review_reply_notification_pair_guide(r).deliver_now! if r.pg_completion?
       # if you want to update info below one by one, remove comment-out
       # r.review_mail_sent_at = Time.zone.now
       # r.review_expiration_date = Time.zone.now + 14.days
