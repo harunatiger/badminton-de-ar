@@ -2,28 +2,37 @@
 - counterpart = user_id_to_user_obj(@reservation.guest_id)
 .page-container.row-space-top-6.row-space-8
   .row
-    .col-md-3.hide--sp
+    .col-lg-4.col-md-12
+      .card.row-space-4.host_n_listing-info-box
+        .col-xs-4.col-lg-12
+          .media.media-photo-block.dashboard-profile-photo.panel-image
+            = link_to profile_path(user_id_to_profile_id(counterpart.id))
+              = image_tag(user_id_to_profile_image(counterpart.id), class: 'img-responsive')
+        .col-xs-8.col-lg-12
+          .card-body.card-body-condensed
+            h4.text-center
+              = user_obj_to_name(counterpart)
+      .card.row-space-4.host_n_listing-info-box
+        .col-xs-8.col-lg-12
+          .card-body.card-body-condensed
+            .row.row-condensed
+              .col-md-3.hide--sp
+                = link_to image_tag(listing_cover_image_url(@reservation.listing_id), class: "img-responsive"), listing_path(reservation_to_listing(@reservation))
+              .col-md-9
+                = link_to listing_name(@reservation.listing_id), listing_path(reservation_to_listing(@reservation))
+    .col-lg-8.col-md-12
       .row-space-4
-        .media.media-photo-block.dashboard-profile-photo.panel-image
-          = link_to profile_path(counterpart.id)
-            = image_tag(user_id_to_profile_image(counterpart.id), class: 'img-responsive')
-        h4.text-center
-          .row-space-top-2
-            = user_obj_to_name(counterpart)
-            
-    .col-md-9
-      .row-space-4
-        .h3.row-space-2
+        .h3.row-space-2       
           = link_to profile_path(counterpart.profile.id)
             = user_obj_to_name(counterpart)
              | さん
-          | に評価を送りましょう。
+          | にレビューを送りましょう。
         p.row-space-3
-          | 先日のツアーの評価や感想をゲストの方に送ることができます。
+          | TOMODACHI GUIDEはどうでしたか？
           br
-          | あまり難しく考えず、あなたの率直な感想を伝えましょう。
+          | ゲストの方へ感想と評価を送りましょう。
           br
-          | 次回このゲストさんとご一緒される方に大変役立ちます。ぜひ一筆お願い申し上げます。
+          | あまり難しく考えず、あなたの率直な気持ちを伝えましょう。
         p.row-space-3.text-red
           strong
             | ＊ レビューできるのはツアー終了から2週間以内です。尚、片方からしかレビュー投稿が無かった場合、2週間経ったら公開されます。

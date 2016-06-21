@@ -40,6 +40,21 @@ class ReviewMailer < ApplicationMailer
     end
   end
   
+  def send_review_reply_notification_pair_guide(reservation)
+    @reservation = reservation
+    @listing = reservation.listing
+    to_user = User.find(reservation.pair_guide_id)
+    @to_user_name = "#{to_user.profile.last_name} #{to_user.profile.first_name}"
+    guest_user = User.find(reservation.guest_id)
+    @guest_user_name = "#{guest_user.profile.last_name} #{guest_user.profile.first_name}"
+    mail(
+      to:      to_user.email,
+      subject: I18n.t('mailer.review_reply_notification.subject', name: @guest_user_name)
+    ) do |format|
+      format.text
+    end
+  end
+  
   def send_review_accept_notification(to_user_id, from_user_id)
     from_user = User.find(from_user_id)
     @to_user = User.find(to_user_id)

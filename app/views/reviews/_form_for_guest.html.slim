@@ -17,7 +17,7 @@
           .h5
             | 評価
             small
-              ' 　あなたの判断でガイドの評価を最高星5つでつけてみてください
+              ' 　あなたの判断でゲストの評価を最高星5つでつけてみてください
         .col-12
           fieldset.rating
             = f.input_field :total, as: :radio_buttons, required: true, boolean_style: :inline, collection: [["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], label_method: :last, item_wrapper_tag: false

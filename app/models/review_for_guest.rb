@@ -29,7 +29,7 @@
 #
 
 class ReviewForGuest < Review
-  validates :reservation_id, uniqueness: true
+  #validates :reservation_id, uniqueness: true
 
   mount_uploader :tour_image, DefaultImageUploader
   attr_accessor :image_blank_ok

@@ -25,7 +25,7 @@ class ListingsController < ApplicationController
     BrowsingHistory.insert_record(user_id, @listing.id)
     ListingPv.add_count(@listing.id)
     @active_reservation = Reservation.active_reservation(user_id, @listing.user_id)
-    @reviews = Review.this_listing(@listing.id).page(params[:page])
+    @reviews = Review.this_listing(@listing).page(params[:page])
     @all_reviewed_count = Review.my_reviewed_count(@listing.user_id)
     @host_info = Profile.find_by(user_id: @listing.user_id)
     @host_image = ProfileImage.find_by(user_id: @listing.user_id)
@@ -163,7 +163,7 @@ class ListingsController < ApplicationController
   end
 
   def preview
-    @reviews = Review.this_listing(@listing.id).page(params[:page])
+    @reviews = Review.this_listing(@listing).page(params[:page])
     @all_reviewed_count = Review.my_reviewed_count(@listing.user_id)
     @host_info = Profile.find_by(user_id: @listing.user_id)
     @host_image = ProfileImage.find_by(user_id: @listing.user_id)
