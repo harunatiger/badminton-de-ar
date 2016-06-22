@@ -236,7 +236,7 @@ module ApplicationHelper
 
   def profile_to_image_thumb(profile)
     if profile.thumb_image.present? and profile.thumb_image.image.present?
-      profile.thumb_image.image.url
+      profile.thumb_image.image.thumb.url
     else
       Settings.image.noimage2.url
     end
@@ -244,7 +244,7 @@ module ApplicationHelper
 
   def profile_to_cover_image_thumb(profile)
     if profile.cover.present? and profile.cover.image.present?
-      profile.cover.image
+      profile.cover.image.thumb
     else
       Settings.image.noimage.url
     end
@@ -674,7 +674,8 @@ module ApplicationHelper
   end
 
   def pair_guide_profiles(host_id)
-    Profile.main_and_support_guides.where.not(id: host_id)
+    host = User.find(host_id)
+    host.friends_profiles
   end
 
   def pair_user(reservation)

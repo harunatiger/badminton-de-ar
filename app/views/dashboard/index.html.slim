@@ -6,7 +6,7 @@
       .card.row-space-4
         .media.media-photo-block.dashboard-profile-photo.panel-image
           = link_to profile_path(current_user.profile.id)
-            = image_tag(profile_to_image(current_user.profile), class: 'img-responsive')
+            = image_tag(profile_to_image_thumb(current_user.profile), class: 'img-responsive')
         .card-body
           h3.text-center
             = user_id_to_name(current_user.id)
@@ -67,7 +67,7 @@
                       = link_to message_thread_path(um.message_thread_id) do
                         .img-round
                           /.size50[style="background-image: url('#{asset_path user_id_to_profile_image(um.from_user_id)}')"]
-                          = image_tag(user_id_to_profile_image(um.from_user_id), class: 'size50')
+                          = image_tag(user_id_to_profile_image_thumb(um.from_user_id), class: 'size50')
                     .col-xs-9.col-md-8
                       = user_obj_to_name(from_user)
                       br

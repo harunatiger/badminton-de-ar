@@ -256,7 +256,7 @@ class User < ActiveRecord::Base
   
   def friends_profiles
     users = self.friends
-    Profile.where(user_id: users.ids)
+    Profile.where(user_id: users.ids).order("RANDOM()")
   end
   
   def requested_friends_profiles

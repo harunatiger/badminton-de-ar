@@ -127,7 +127,7 @@
                 label[for="reservation_num_of_people"]
                   |  People
                   | (MAX #{listing_detail.max_num_of_people}people)
-                  strong.pull-right#price-per-person
+                  /strong.pull-right#price-per-person
                     | ¥#{(listing_detail.display_amount / default_num_of_people).round(0)}/person
                 .select.select-block#num-of-people
                   = f.input_field :num_of_people, as: :select, collection: listing_detail.min_num_of_people..listing_detail.max_num_of_people, selected: default_num_of_people
