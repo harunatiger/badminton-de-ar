@@ -12,7 +12,7 @@
             .row
               .col-md-4.text-center
                 = link_to profile_path(user_id_to_profile_id(r.guest_id)), class: "media-round media-photo media-avatar" do
-                  .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.guest_id)}')"]
+                  .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(r.guest_id)}')"]
               .col-md-8.text-center--sp
                 .user-type.user-guest Guest
                 .h5.row-space-top-1.row-space-1
