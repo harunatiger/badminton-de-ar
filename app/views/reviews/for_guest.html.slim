@@ -5,28 +5,28 @@
     .col-lg-4.col-md-12
       .h3.row-space-4.show--sp
         = link_to profile_path(counterpart.profile.id)
-          = user_obj_to_name(counterpart)
+          = user_id_to_firstname(counterpart.id)
            | さん
         | にレビューを送りましょう。
       .media.media-cover-img.dashboard-profile-photo.panel-image
-        = link_to "", profile_path(user_id_to_profile_id(counterpart.id)), style: "background-image: url(#{user_id_to_profile_image(counterpart.id)})", class: "thumbnail-review-edit"
+        = link_to "", profile_path(user_id_to_profile_id(counterpart.id)), style: "background-image: url(#{user_id_to_profile_image_thumb(counterpart.id)})", class: "thumbnail-review-edit"
           /= image_tag(user_id_to_profile_image(counterpart.id), class: 'img-responsive')
       h4.text-center.row-space-4.row-space-top-2
-        = user_obj_to_name(counterpart)
+        = user_id_to_firstname(counterpart.id)
       .card.row-space-4.host_n_listing-info-box
         .col-md-8.col-lg-12
           .card-body.card-body-condensed
             .row.row-condensed
               .col-md-3.hide--sp
-                = link_to image_tag(listing_cover_image_url(@reservation.listing_id), class: "img-responsive"), listing_path(reservation_to_listing(@reservation))
+                = link_to image_tag(listing_cover_image_thumb_url(@reservation.listing_id), class: "img-responsive"), listing_path(reservation_to_listing(@reservation))
               .col-md-9
                 = link_to listing_name(@reservation.listing_id), listing_path(reservation_to_listing(@reservation))
     .col-lg-8.col-md-12
       .row-space-4
         .h3.row-space-2.hide--sp
           = link_to profile_path(counterpart.profile.id)
-            = user_obj_to_name(counterpart)
-             | さん
+            = user_id_to_firstname(counterpart.id)
+          | さん
           | にレビューを送りましょう。
         p.row-space-3
           | TOMODACHI GUIDEはどうでしたか？

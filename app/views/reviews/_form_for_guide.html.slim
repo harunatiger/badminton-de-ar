@@ -30,7 +30,7 @@
           .tour-image-thumb.row-space-1.hide
           | Please choose a photo to upload with a memory of your trip! It will be displayed publically on the tour page with your review.
           | Show the appeal of 
-          = user_obj_to_name(counterpart)
+          = user_id_to_firstname(counterpart.id)
           | ’s tour! 
   .card-footer
     = f.submit "Send this feedback", class: "btn btn-primary"
