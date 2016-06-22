@@ -3,27 +3,29 @@
 .page-container.row-space-top-6.row-space-8
   .row
     .col-lg-4.col-md-12
+      .h3.row-space-4.show--sp
+        | Send feedback to 
+        = link_to profile_path(counterpart.profile.id)
+           = user_obj_to_name(counterpart)
+        - if @reservation.pg_completion?
+          |  and 
+          = link_to profile_path(user_id_to_profile_id(@reservation.pair_guide_id))
+           = user_id_to_name(@reservation.pair_guide_id)
+      .row.row-condensed
+        .col-xs-6.col-lg-12.row-space-4
+          .media.media-cover-img.dashboard-profile-photo.panel-image
+            = link_to "", profile_path(user_id_to_profile_id(counterpart.id)), style: "background-image: url(#{user_id_to_profile_image(counterpart.id)})", class: "thumbnail-review-edit"
+              /= image_tag(, class: 'img-responsive')
+          h4.text-center.row-space-4.row-space-top-2
+            = user_obj_to_name(counterpart)
+        - if @reservation.pg_completion?
+          .col-xs-6.col-lg-12.row-space-4
+            .media.media-cover-img.dashboard-profile-photo.panel-image
+              = link_to "", profile_path(user_id_to_profile_id(@reservation.pair_guide_id)), style: "background-image: url(#{user_id_to_profile_image(@reservation.pair_guide_id)})", class: "thumbnail-review-edit"
+            h4.text-center.row-space-4.row-space-top-2
+              = user_id_to_name(@reservation.pair_guide_id)
       .card.row-space-4.host_n_listing-info-box
-        .col-xs-4.col-lg-12
-          .media.media-photo-block.dashboard-profile-photo.panel-image
-            = link_to profile_path(user_id_to_profile_id(counterpart.id))
-              = image_tag(user_id_to_profile_image(counterpart.id), class: 'img-responsive')
-        .col-xs-8.col-lg-12
-          .card-body.card-body-condensed
-            h4.text-center
-              = user_obj_to_name(counterpart)
-      - if @reservation.pg_completion?
-        .card.row-space-4.host_n_listing-info-box
-          .col-xs-4.col-lg-12
-            .media.media-photo-block.dashboard-profile-photo.panel-image
-              = link_to profile_path(user_id_to_profile_id(@reservation.pair_guide_id))
-                = image_tag(user_id_to_profile_image(@reservation.pair_guide_id), class: 'img-responsive')
-          .col-xs-8.col-lg-12
-            .card-body.card-body-condensed
-              h4.text-center
-                = user_id_to_name(@reservation.pair_guide_id)
-      .card.row-space-4.host_n_listing-info-box
-        .col-xs-8.col-lg-12
+        .col-md-8.col-lg-12
           .card-body.card-body-condensed
             .row.row-condensed
               .col-md-3.hide--sp
@@ -33,7 +35,7 @@
             
     .col-lg-8.col-md-12
       .row-space-4
-        .h3.row-space-2
+        .h3.row-space-2.hide--sp
           | Send feedback to 
           = link_to profile_path(counterpart.profile.id)
              = user_obj_to_name(counterpart)
