@@ -171,9 +171,9 @@ ActiveAdmin.register_page "Payment" do
               #サービス料金（ガイド）
               service_fee_guide: service_fee_guide,
               #メインガイド支払
-              guide_payment: support_guide.present? ? guide_payment : fixed_amount - (fixed_amount * 0.145).ceil,
+              guide_payment: (support_guide.present? and payment.reservation.default?) ? guide_payment : fixed_amount - (fixed_amount * 0.145).ceil,
               #サポートガイド支払
-              support_guide_payment: support_guide.present? ? support_guide_payment : '',
+              support_guide_payment: (support_guide.present? and payment.reservation.default?) ? support_guide_payment : '',
               #ゲスト返金
               guest_refund: guest_refund,
               #自動返金
