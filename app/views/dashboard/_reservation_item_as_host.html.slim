@@ -12,7 +12,7 @@
             .row
               .col-md-4.text-center
                 = link_to profile_path(user_id_to_profile_id(r.guest_id)), class: "media-round media-photo media-avatar" do
-                  .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image(r.guest_id)}')"]
+                  .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(r.guest_id)}')"]
               .col-md-8.text-center--sp
                 .user-type.user-guest Guest
                 .h5.row-space-top-1.row-space-1
@@ -53,7 +53,7 @@
                 = f.hidden_field :pair_guide_id, value: nil
                 = f.submit 'Cancel PairGuide', class: 'btn btn-thread row-space-top-1 row-space-1 text-red', id: "reservation_block-toggle", name: 'cancel_pair_guide_from_dashboard', data: {confirm: '本当にキャンセルしてよろしいですか？'}
           
-          - elsif r.review_for_guest_enabled? and current_user_is_host?(r)
+          - elsif r.review_for_guest_enabled? and !r.review_writed?(current_user.id)
             = link_to "Review", for_guest_reservation_reviews_path(r), class: "btn btn-thread btn-primary row-space-top-1 row-space-1"
             br
           = link_to "#", class: "small2 btn-block about_cancel_from_guide_link" do

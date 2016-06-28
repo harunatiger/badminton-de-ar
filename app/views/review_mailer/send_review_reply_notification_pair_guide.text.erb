@@ -1,0 +1,14 @@
+Hello, <%= @to_user_name %>
+
+
+Would you like to write a review for <%= @guest_user_name %> from your tour <%= @listing.title %> (<%= @reservation.schedule %>)?
+
+You can write a review by clicking the following link.
+
+<%= for_guest_reservation_reviews_url(@reservation.id) %>
+
+After both the guide and guest finish writing reviews, each review will be published on their own page.
+
+
+--
+Huber.

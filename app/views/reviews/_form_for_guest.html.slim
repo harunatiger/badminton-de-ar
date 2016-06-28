@@ -17,7 +17,7 @@
           .h5
             | 評価
             small
-              ' 　あなたの判断でガイドの評価を最高星5つでつけてみてください
+              ' 　あなたの判断でゲストの評価を最高星5つでつけてみてください
         .col-12
           fieldset.rating
             = f.input_field :total, as: :radio_buttons, required: true, boolean_style: :inline, collection: [["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], label_method: :last, item_wrapper_tag: false
@@ -32,7 +32,7 @@
           = f.file_field :tour_image, as: :file, class: "row-space-1"
           .tour-image-thumb.row-space-1.hide
           | 是非、旅の思い出の写真を1枚投稿してください。レビューコメントと一緒に
-          = user_obj_to_name(counterpart)
+          = user_id_to_firstname(counterpart.id)
           | さんのプロフィールページに公開されます。
   .card-footer
     = f.submit "この内容で送信する", class: "btn btn-primary"

@@ -1,7 +1,7 @@
 .card.tour-listing
   .card-image
     = link_to listing_path(listing), class: "media-photo media-photo-block media-cover" do
-      .tour-cover[style="background-image:url(#{asset_path listing_cover_image_url(listing.id)})" data-original="#{asset_path listing_cover_image_url(listing.id)}"]
+      .tour-cover[style="background-image:url(#{asset_path listing_cover_image_thumb_url(listing.id)})" data-original="#{asset_path listing_cover_image_thumb_url(listing.id)}"]
     .card-overlay-bottom-left.flush-left.card-overlay-label
       .h3
         | ¥&nbsp;

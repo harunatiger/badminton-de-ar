@@ -17,13 +17,19 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     respond_to do |format|
       if @review.save
-        @reservation.save_replied_at_now
-        if @reservation.reviewed_at.present?
-          @reservation.save_review_opened_at_now
-          @review.calc_average
-          notice = Settings.review.opened
-          ReviewMailer.send_review_accept_notification(@review.host_id, @review.guest_id).deliver_now!
-          ReviewMailer.send_review_accept_notification(@review.guest_id, @review.host_id).deliver_now!
+        if @review.anothre_review_exist?
+          @reservation.save_replied_at_now
+          if @reservation.reviewed_at.present?
+            @reservation.save_review_opened_at_now
+            @review.host_review.re_calc_average
+            @reservation.create_pair_guide_review
+            notice = Settings.review.opened
+            ReviewMailer.send_review_accept_notification(@reservation.host_id, @reservation.guest_id).deliver_now!
+            ReviewMailer.send_review_accept_notification(@reservation.pair_guide_id, @reservation.guest_id).deliver_now!
+            ReviewMailer.send_review_accept_notification(@reservation.guest_id, @reservation.host_id).deliver_now!
+          else
+            notice = Settings.review.for_guest.save.success
+          end
         else
           notice = Settings.review.for_guest.save.success
         end
@@ -42,10 +48,12 @@ class ReviewsController < ApplicationController
         @reservation.save_reviewed_at_now
         if @reservation.replied_at.present?
           @reservation.save_review_opened_at_now
-          @review.calc_average
+          @review.re_calc_average
+          @reservation.create_pair_guide_review
           notice = Settings.review.opened
-          ReviewMailer.send_review_accept_notification(@review.host_id, @review.guest_id).deliver_now!
-          ReviewMailer.send_review_accept_notification(@review.guest_id, @review.host_id).deliver_now!
+          ReviewMailer.send_review_accept_notification(@reservation.host_id, @reservation.guest_id).deliver_now!
+          ReviewMailer.send_review_accept_notification(@reservation.pair_guide_id, @reservation.guest_id).deliver_now!
+          ReviewMailer.send_review_accept_notification(@reservation.guest_id, @reservation.host_id).deliver_now!
         else
           notice = Settings.review.for_guide.save.success
         end
@@ -89,10 +97,10 @@ class ReviewsController < ApplicationController
     def regulate_user_for_guest!
       reservation = Reservation.where(id: params[:reservation_id].to_i).first
       if reservation.present?
-        if current_user.id == reservation.host_id
+        if current_user.id == reservation.host_id or current_user.id == reservation.pair_guide_id
           if User.find(reservation.guest_id).soft_destroyed?
             redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.profile.deleted_profile_id
-          elsif ReviewForGuest.exists?(reservation_id: reservation.id)
+          elsif ReviewForGuest.exists?(reservation_id: reservation.id, host_id: current_user.id)
             redirect_to root_path, alert: Settings.regulate_user.entry.duplicated
           end
         else
