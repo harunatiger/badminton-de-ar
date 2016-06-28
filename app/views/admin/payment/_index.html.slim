@@ -160,9 +160,9 @@
                   td
                     = (fixed_amount * 0.145).ceil
                   td
-                    = (payment.reservation.price + payment.reservation.option_amount) - ((fixed_amount * 0.145) / 2).ceil
+                    = support_guide.present? ? (payment.reservation.price + payment.reservation.option_amount) - ((fixed_amount * 0.145) / 2).ceil : fixed_amount - (fixed_amount * 0.145).ceil
                   td
-                    = payment.reservation.price_for_support - ((fixed_amount * 0.145) / 2).ceil
+                    = support_guide.present? ? payment.reservation.price_for_support - ((fixed_amount * 0.145) / 2).ceil : ''
                   td
                     - if payment.reservation.default?
                       = settlement_amount * 0
