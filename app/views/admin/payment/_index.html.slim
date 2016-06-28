@@ -12,8 +12,12 @@
           thead
             tr
               th 決済ID
-              th ガイドユーザーID
-              th ゲストユーザーID
+              th メインガイドID
+              th メインガイド名
+              th サポートガイドID
+              th サポートガイド名
+              th ゲストID
+              th ゲスト名
               th プラン実施日
               th キャンセル日
               th 参加人数
@@ -37,7 +41,8 @@
               th キャンセル事由
               th 確定ガイド料金
               th サービス料金（ガイド）
-              th ガイド支払
+              th メインガイド支払
+              th サポートガイド支払
               th ゲスト返金
               th 自動返金
               th Paypal決済トランID
@@ -48,6 +53,7 @@
             - if @payments.present?
               - @payments.each do | payment |
                 - guide = User.includes(:profile).find(payment.reservation.host_id)
+                - support_guide = User.includes(:profile).where(id: payment.reservation.pair_guide_id).first
                 - guest = User.find(payment.reservation.guest_id)
                 - listing = Listing.find(payment.reservation.listing_id)
                 - cancel_by = payment.reservation.cancel_by
@@ -62,9 +68,17 @@
                   td
                     = payment.id
                   td
-                    = payment.reservation.host_id
+                    = link_to guide.profile.id, profile_path(guide.profile.id), target: '_blank'
                   td
-                    = payment.reservation.guest_id
+                    = user_id_to_name(guide.id)
+                  td
+                    = link_to support_guide.profile.id, profile_path(support_guide.profile.id), target: '_blank' if support_guide.present?
+                  td
+                    = user_id_to_name(support_guide.id) if support_guide.present?
+                  td
+                    = link_to guest.profile.id, profile_path(guest.profile.id), target: '_blank'
+                  td
+                    = user_id_to_name(guest.id)
                   td
                     = payment.reservation.schedule
                   td
@@ -146,7 +160,9 @@
                   td
                     = (fixed_amount * 0.145).ceil
                   td
-                    = fixed_amount - (fixed_amount * 0.145).ceil
+                    = (payment.reservation.price + payment.reservation.option_amount) - ((fixed_amount * 0.145) / 2).ceil
+                  td
+                    = payment.reservation.price_for_support - ((fixed_amount * 0.145) / 2).ceil
                   td
                     - if payment.reservation.default?
                       = settlement_amount * 0
