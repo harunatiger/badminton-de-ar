@@ -18,8 +18,9 @@ class ApplicationController < ActionController::Base
         request.fullpath != "/users" &&
         request.fullpath !~ Regexp.new("\\A/users/password.*\\z") &&
         request.fullpath !~ Regexp.new("\\A/users/confirmation.*\\z") &&
-        !request.xhr?) # don't store ajax calls
-      session[:previous_url] = request.fullpath 
+        !request.xhr? && # don't store ajax calls
+        @not_update_previous_url.blank?)
+      session[:previous_url] = request.fullpath
     end
   end
 end
