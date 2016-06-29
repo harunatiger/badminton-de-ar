@@ -36,9 +36,15 @@ ActiveAdmin.register_page "Payment" do
           @payments.each do |payment|
             #guide
             guide = User.includes(:profile).find(payment.reservation.host_id)
+            guide_name = "#{guide.profile.first_name} #{guide.profile.last_name}"
+            
+            #support_guide
+            support_guide = User.includes(:profile).where(id: payment.reservation.pair_guide_id).first
+            support_guide_name = "#{support_guide.profile.first_name} #{support_guide.profile.last_name}" if support_guide.present?
 
             #guest
             guest = User.find(payment.reservation.guest_id)
+            guest_name = "#{guest.profile.first_name} #{guest.profile.last_name}"
 
             #listing
             listing = Listing.find(payment.reservation.listing_id)
@@ -96,78 +102,89 @@ ActiveAdmin.register_page "Payment" do
             end
 
             service_fee_guide = (fixed_amount * 0.145).ceil
-            guide_payment = fixed_amount - (fixed_amount * 0.145).ceil
+            guide_payment = (payment.reservation.price + payment.reservation.option_amount) - ((fixed_amount * 0.145) / 2).ceil
+            support_guide_payment = payment.reservation.price_for_support - ((fixed_amount * 0.145) / 2).ceil
 
             if !reservation.default?
               refund_complete = 'NG' if payment.refund_disabled?
             end
 
             host_profit_info = {
-              #1 決済ID
+              #決済ID
               id: payment.id,
-              #2 ガイドユーザーID
-              host_id: payment.reservation.host_id,
-              #3 ゲストユーザーID
-              guest_id: payment.reservation.guest_id,
-              #4 プラン実施日
+              #メインガイドID
+              host_id: guide.profile.id,
+              #メインガイド名
+              host_name: guide_name,
+              #サポートガイドID
+              support_guide_id: support_guide.present? ? support_guide.profile.id : '',
+              #サポートガイド名
+              support_guide_name: support_guide_name,
+              #ゲストID
+              guest_id: guest.profile.id,
+              #ゲスト名
+              guest_name: guest_name,
+              #プラン実施日
               schedule: payment.reservation.schedule,
-              #5 キャンセル日
+              #キャンセル日
               cancel_date: cancel_date,
-              #6 参加人数
+              #参加人数
               num_of_people: payment.reservation.num_of_people,
-              #7 ガイド銀行名称
+              #ガイド銀行名称
               host_bank_name: host_bank_name,
-              #8 ガイド銀行支店名
+              #ガイド銀行支店名
               host_bank_branch: host_bank_branch,
-              #9 口座種別
+              #口座種別
               host_bank_account_type: host_bank_account_type,
-              #10 口座名義人
+              #口座名義人
               host_bank_user_name: host_bank_user_name,
-              #11 口座番号
+              #口座番号
               host_bank_user_number: host_bank_user_number,
-              #12 ガイドEmailアドレス
+              #ガイドEmailアドレス
               host_email: guide.email,
-              #13 ゲストEmailアドレス
+              #ゲストEmailアドレス
               guest_email: guest.email,
-              #14 プランID
+              #プランID
               listing_id: payment.reservation.listing_id,
-              #15 プランタイトル
+              #プランタイトル
               listing_title: listing.title,
-              #16 ガイドの収入
+              #ガイドの収入
               listing_price: payment.reservation.price,
-              #17 サポートメンバーの収入
+              #サポートメンバーの収入
               listing_price_for_support: payment.reservation.price_for_support,
-              #18 2人にかかる費用
+              #2人にかかる費用
               #listing_price_for_both_guides: payment.reservation.price_for_both_guides,
-              #19 オプション費用
+              #オプション費用
               listing_option_amount: payment.reservation.option_amount,
-              #20 ガイド料金
+              #ガイド料金
               guide_amount: guide_amount,
-              #21 サービス料金（ゲスト）
+              #サービス料金（ゲスト）
               service_fee_guest: service_fee_guest,
-              #22 CPディスカウント金額
+              #CPディスカウント金額
               campaign_discount: campaign_discount,
-              #23 決済金額
+              #決済金額
               reservation_price: settlement_amount,
-              #24 キャンセル事由
+              #キャンセル事由
               refund_reason: refund_reason,
-              #25 確定ガイド料金
+              #確定ガイド料金
               fixed_amount: fixed_amount,
-              #26 サービス料金（ガイド）
+              #サービス料金（ガイド）
               service_fee_guide: service_fee_guide,
-              #27 ガイド支払
-              guide_payment: guide_payment,
-              #28 ゲスト返金
+              #メインガイド支払
+              guide_payment: (support_guide.present? and payment.reservation.default?) ? guide_payment : fixed_amount - (fixed_amount * 0.145).ceil,
+              #サポートガイド支払
+              support_guide_payment: (support_guide.present? and payment.reservation.default?) ? support_guide_payment : '',
+              #ゲスト返金
               guest_refund: guest_refund,
-              #29 自動返金
+              #自動返金
               refund_complete: refund_complete,
-              #30 Paypal決済トランID
+              #Paypal決済トランID
               payment_transaction_id: payment.transaction_id,
-              #31 CPコード
+              #CPコード
               campaign_code: campaign_code,
-              #32 ゲストPaypalID
+              #ゲストPaypalID
               guest_paypal_id: payment.payer_id,
-              #33 ReservationID
+              #ReservationID
               reservation_id: payment.reservation_id
             }
             @host_profit_infos << host_profit_info
