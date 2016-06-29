@@ -97,6 +97,7 @@ class Reservation < ActiveRecord::Base
   scope :accepts, -> { where(progress: 3) }
   scope :for_dashboard, -> { where('progress = ? or progress = ?', 3, 6) }
   scope :finished_before_yesterday, -> { where("schedule_end <= ?", Time.zone.yesterday.in_time_zone('UTC')) }
+  scope :finished_days_ago, -> days { where("schedule_end = ?", (Time.zone.today - days.day).in_time_zone('UTC')) }
   scope :not_finished, -> { where('schedule >= ?', Time.zone.tomorrow.beginning_of_day.in_time_zone('UTC') ) }
   scope :review_mail_never_be_sent, -> { where(review_mail_sent_at: nil) }
   scope :reviewed, -> { where.not(reviewed_at: nil) }
@@ -478,9 +479,17 @@ class Reservation < ActiveRecord::Base
     ReviewForGuest.exists?(reservation_id: self.id, host_id: user_id)
   end
   
+  def guest_review_writed?
+    ReviewForGuide.exists?(reservation_id: self.id, guest_id: self.guest_id)
+  end
+  
   def create_pair_guide_review
     main_review = ReviewForGuide.where(reservation_id: self.id, host_id: self.host_id).first
     pair_guide_review = main_review.dup
+    if main_review.tour_image.present?
+      pair_guide_review.image_blank_ok = true
+      pair_guide_review.tour_image = main_review.tour_image.file
+    end
     pair_guide_review.host_id = self.pair_guide_id
     if pair_guide_review.save
       pair_guide_review.re_calc_ave_of_profile

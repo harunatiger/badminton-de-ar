@@ -379,3 +379,4 @@ review:
       failure: "Failed to post review"
   opened: "Your review has been sent successfully. This review will be seen on your public page."
   expiration_date: 14
+  timing_of_sending_notification: [3,7,13]
