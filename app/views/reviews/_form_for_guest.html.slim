@@ -1,4 +1,4 @@
-- counterpart = user_id_to_user_obj(@reservation.host_id)
+- counterpart = user_id_to_user_obj(@reservation.guest_id)
 = simple_form_for([@reservation, @review], url: create_guest_reservation_reviews_path(@reservation), method: :POST) do |f|
   .card-body
       = f.hidden_field :guest_id, value: @reservation.guest_id

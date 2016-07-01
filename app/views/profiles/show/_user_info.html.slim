@@ -14,7 +14,7 @@ hr.row-space-4
   hr.row-space-4.hide--sp
 - if !profile.user.guest? and profile.self_introduction.present?
   h4.row-space-4
-    | Guid-Introduction
+    | Guide-Introduction
   .row-space-4
     p
       = simple_format(profile.try('self_introduction') || '')

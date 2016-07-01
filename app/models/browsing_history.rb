@@ -30,4 +30,9 @@ class BrowsingHistory < ActiveRecord::Base
       viewed_at: Time.zone.now.to_date
     )
   end
+  
+  def self.latest_listing_id(user)
+    browsing_history = BrowsingHistory.where(user_id: user.id).order('created_at desc').first
+    browsing_history.present? ? browsing_history.listing_id : false
+  end
 end

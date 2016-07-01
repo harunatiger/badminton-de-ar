@@ -1,14 +1,14 @@
 Hello, <%= @to_user_name %>
 
 
-Would you like to write a review for <%= @guest_user_name %> from your tour <%= @listing.title %> (<%= @reservation.schedule %>)?
+Don't forget to leave a review for <%= @listing.title %> (<%= @reservation.schedule %>) planned by <%= @host_user_name %> !
 
-You can write a review by clicking the following link.
+Follow the link below to write your review!
 
 <%= for_guest_reservation_reviews_url(@reservation.id) %>
 
-After both the guide and guest finish writing reviews, each review will be published on their own page.
+After you and your guest have both written your reviews, they will be published on each of your profiles  and the tour page.
 
-
+You have <%= Settings.review.expiration_date - @days %> days left to write a review for this tour.
 --
 Huber.
