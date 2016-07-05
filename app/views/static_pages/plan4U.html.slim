@@ -2,9 +2,11 @@
 .hero
   .page-container
     h1.text-center.text-plan4U
-      .spr To make the most of your trip,
-      .text-wf.cheer
-        | Try asking a local!
+      .va-container.va-container-wh
+        .va-middle
+          .spr To make the most of your trip,
+          .text-wf.cheer
+            | Try asking a local!
 h2.belt.text-center.text-contrast
   .spb.h1 Try our free consultation service.
 section.recomended-guides.text-center.section
@@ -90,7 +92,7 @@ section.recomended-guides.text-center.section
           = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
         - else
           = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
-      .col-md-4.col-lg-3.row-space-6.hide-guest
+      /.col-md-4.col-lg-3.row-space-6.hide-guest
         - profile = Profile.where(id: 80).first
         .guide.text-center
           = image_tag 'plan4U/thumb007.jpg', class: "img-responsive"
