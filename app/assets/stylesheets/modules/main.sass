@@ -2136,40 +2136,47 @@ h3.center-lined
 
 .plan4U
   .hero
-    height: 730px
-    background-image: image-url('plan4U/bg_static_image.png')
+    position: relative
+    height: 740px
+    background-image: image-url('plan4U/header_bg--pc.png')
     background-size: 100% auto
     background-repeat: no-repeat
     background-position: center
     @media (max-width: 1699px)
-      height: 680px
+      height: 690px
     @media (max-width: 1599px)
-      height: 620px
+      height: 640px
     @media (max-width: 1499px)
-      height: 560px
+      height: 620px
+    @media (max-width: 1399px)
+      height: 580px
     @media (max-width: 1299px)
-      height: 520px
+      height: 535px
     @media (max-width: 1199px)
-      height: 460px
+      height: 490px
     @media (max-width: 1099px)
-      height: 400px
+      height: 440px
     @media (max-width: 999px)
-      height: 360px
+      height: 400px
     @media (max-width: 899px)
-      height: 340px
-    @media (max-width: 767px)
-      background-size: 140% auto
-    @media (max-width: 640px)
-      height: 300px
-    @media (max-width: 540px)
+      height: 360px
+    @media (max-width: 799px)
+      height: 310px
+    @media (max-width: 699px)
       height: 270px
-      background-size: 150% auto
-    @media (max-width: 420px)
+    @media (max-width: 599px)
       height: 240px
+    @media (max-width: 540px)
+      height: 520px
+      background-image: image-url('plan4U/header_bg--sp.png')
+      background-size: 105% auto
+    @media (max-width: 420px)
+      height: 440px
     @media (max-width: 370px)
-      height: 210px
+      height: 400px
     @media (max-width: 320px)
-      height: 180px
+      height: 360px
+      background-size: 101% auto
 
   .cheer
     display: inline-block
@@ -2184,12 +2191,77 @@ h3.center-lined
       bottom: 0
     &:before
       left: 0
-      border-left: 4px solid $plan4U-theme
+      border-left: 4px solid white
       transform: rotate(-25deg)
     &:after
       right: 0
-      border-right: 4px solid $plan4U-theme
+      border-right: 4px solid white
       transform: rotate(25deg)
+
+  h1.text-plan4U
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 8%
+    width: 100%
+    height: 432px
+    padding-bottom: 4%
+    color: white
+    background-image: image-url('plan4U/header_text_bg.png')
+    background-repeat: no-repeat
+    background-position: center
+    background-size: contain
+    .spr
+      font-size: 36px
+    .cheer
+      font-size: 120px
+      text-shadow: 0 0 2px 2px white
+    @media (max-width: 1299px)
+      height: 360px
+      .spr
+        font-size: 32px
+      .cheer
+        font-size: 100px
+    @media (max-width: 1099px)
+      height: 300px
+      .spr
+        font-size: 28px
+      .cheer
+        font-size: 86px
+    @media (max-width: 999px)
+      height: 260px
+      .spr
+        font-size: 24px
+      .cheer
+        font-size: 72px
+    @media (max-width: 899px)
+      height: 240px
+      .spr
+        font-size: 22px
+      .cheer
+        font-size: 64px
+    @media (max-width: 767px)
+      bottom: 1%
+      height: 200px
+      .spr
+        font-size: 16px
+      .cheer
+        font-size: 50px
+    @media (max-width: 540px)
+      left: 15px
+      right: 15px
+      bottom: 10%
+      width: auto
+      height: 180px
+      padding-bottom: 3%
+      .spr
+        font-size: 15px
+      .cheer
+        padding: 0 15px
+        font-size: 42px
+        &:before, &:after
+          top: 0
+          border-width: 2px
 
   .text-plan4U
     color: $plan4U-theme
@@ -2202,23 +2274,6 @@ h3.center-lined
     &:after
       content: 'Coming Soon...'
 
-  h1
-    padding-top: 20px
-    .spr
-      font-size: 30px
-    .cheer
-      font-size: 104px
-      text-shadow: 0 0 2px 2px white
-    @media (max-width: 767px)
-      padding-top: 12px
-      .spr
-        font-size: 16px
-      .cheer
-        font-size: 50px
-    @media (max-width: 640px)
-      .cheer
-        margin-top: -5px
-        font-size: 40px
   h2.belt
     margin: 0
     padding: 25px 0 30px

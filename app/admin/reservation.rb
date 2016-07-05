@@ -134,4 +134,28 @@ ActiveAdmin.register Reservation do
     end
     active_admin_comments
   end
+  
+  csv :force_quotes => false do
+    Reservation.column_names.each do |col|
+      if col == 'host_id'
+        column :host_id do |reservation|
+          reservation.host_profile_id
+        end
+      elsif col == 'guest_id'
+        column :guest_id do |reservation|
+          reservation.guest_profile_id
+        end
+      elsif col == 'pair_guide_id'
+        column :pair_guide_id do |reservation|
+          reservation.pair_guide_profile_id
+        end
+      else
+        column col.to_sym
+      end
+    end
+    column "Paypal決済トランID" do |reservation|
+      payment = Payment.where(reservation_id: reservation.id).first
+      payment.try('transaction_id') || '' if payment.present?
+    end
+  end
 end
