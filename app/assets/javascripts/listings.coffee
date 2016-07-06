@@ -93,7 +93,6 @@ $ ->
 
       $('#include_what .card-body p').text(fv15)
       $('#max_num_of_people_label').text(fv)
-      $('#price-per-person').text('¥' + Math.round((fv14 + fv16 + fv17) / num_of_people) + '/人')
 
     $('.value_fragile').on 'change', ->
       value_calc()
@@ -414,8 +413,7 @@ $ ->
       basicPrice = basicPrice + optionAmount
       $('#tour-option-bicycle').text('¥' + bycycleCost)
       $('#tour-option-amount').text('¥' + optionAmount)
-      $('#tour-basic-amount').text('¥' + basicPrice + '/Group')
-      $('#price-per-person').text('¥' + Math.round(basicPrice / numOfPeople) + '/person')
+      $('#tour-basic-amount').text(basicPrice)
 
     $('#request--sp').on 'click', ->
       $('#tour-action').show()

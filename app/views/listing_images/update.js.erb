@@ -2,6 +2,8 @@
   $('.alert').remove();
   $('#listing-image-loading').modal('hide');
   $('#images_list').html($("<%=j render partial: 'images_list', locals: { cover_video: @listing.cover_video, listing_images: @listing.listing_images.order_asc} %>").hide().fadeIn('slow'));
+  $('.image-draggable').draggable({revert: 'invalid', scroll: true, zIndex: 1});
+  $('.image-droppable').droppable({activeClass: 'image-drag-active', hoverClass: 'image-drag-hover', tolerance: 'intersect'});
   $('#set_listing_image').hide
 <% elsif @status == "failure" %>
   $('.alert').remove();

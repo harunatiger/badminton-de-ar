@@ -48,6 +48,35 @@ ActiveAdmin.register User do
     f.actions
   end
   
+  index do
+    User.column_names.each do |col|
+      if col == 'id'
+        column col
+        column 'profile_id' do |user|
+          profile = Profile.where(user_id: user.id).first
+          link_to profile.id, profile_path(profile.id), target: '_blank' if profile.present?
+        end
+      else
+        column col
+      end
+    end
+    actions
+  end
+  
+  csv :force_quotes => false do
+	  User.column_names.each do |col|
+      if col == 'id'
+        column col.to_sym
+        column 'profile id' do |user|
+          profile = Profile.where(user_id: user.id).first
+          profile.id if profile.present?
+        end
+      else
+	      column col.to_sym
+      end
+	  end
+	end
+      
   #set filters temporary as has_friendship works bad... 
   filter :auths
   filter :profile

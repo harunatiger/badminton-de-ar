@@ -81,13 +81,19 @@ class ProfilesController < ApplicationController
     respond_to do |format|
       if @profile.update(para)
         Profile.set_percentage(@profile.user_id)
-        format.html { redirect_to params[:page_self_introduction].present? ? self_introduction_profile_path(@profile) : edit_profile_path(@profile), notice: Settings.profile.save.success }
+        if session[:previous_url].index("send_message").present?
+          redirect_path = listing_path(BrowsingHistory.latest_listing_id(current_user))
+        elsif params[:page_self_introduction].present?
+          redirect_path = self_introduction_profile_path(@profile)
+        else
+          redirect_path = edit_profile_path(@profile)
+        end
+        format.html { redirect_to redirect_path, notice: Settings.profile.save.success }
         #format.mobile { redirect_to @profile, notice: Settings.profile.save.success }
         format.json { render :show, status: :ok, location: @profile }
       else
-        #flash.now[:alert] = Settings.profile.save.failure
+        @not_update_previous_url = true if session[:previous_url].index("send_message").present?
         format.html { render 'edit' }
-        #format.mobile { render 'edit' }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end

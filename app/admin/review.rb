@@ -33,4 +33,18 @@ ActiveAdmin.register Review do
     end
     f.actions
   end
+  
+  csv :force_quotes => false do
+    column :id
+    column :guest_id
+    column :host_id
+    column :reservation_id
+    column :listing_id
+    column :total
+    column :msg
+    column :type
+    column :tour_image
+    column :created_at
+    column :updated_at
+  end
 end
