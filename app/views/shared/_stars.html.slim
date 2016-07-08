@@ -1,15 +1,23 @@
 .foreground
-  /- rate = 4.0
+  /0〜0.24＝0
+  /0.25〜0.74＝0.5
+  /0.75〜1.24＝1.0
   - num = rate.floor
-  - half_num = ((rate - num) / 0.5).floor
+  - decimal_number = BigDecimal((rate - num).to_s).floor(2)
+  - harf = false
+  - if 0.25 <= decimal_number and decimal_number <= 0.74
+    - harf = true
+  - elsif 0.75 <= decimal_number
+    - num = num + 1
+  /- half_num = ((rate - num) / 0.25).floor
   - num.times do |n|
     i.fa.fa-star.fa-starlight
-  - if half_num.floor == 1
+  - if harf
     i.fa.fa-star-half-o.fa-starlight
     - (5 - rate.floor.ceil - 1).times do |rc|
       i.fa.fa-star-o.fa-light-gray
   - else
-    - (5 - rate.floor.ceil).times do |rc|
+    - (5 - rate.floor.ceil - 1).times do |rc|
       i.fa.fa-star-o.fa-light-gray
 
 .background
