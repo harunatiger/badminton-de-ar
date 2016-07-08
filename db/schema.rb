@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613110658) do
+ActiveRecord::Schema.define(version: 20160708045714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -228,9 +228,11 @@ ActiveRecord::Schema.define(version: 20160613110658) do
     t.string   "title_en"
     t.text     "body_ja"
     t.text     "body_en"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "order_num",        default: 0
+    t.string   "image",            default: ""
+    t.string   "video_id",         default: ""
   end
 
   add_index "help_topics", ["help_category_id"], name: "index_help_topics_on_help_category_id", using: :btree
