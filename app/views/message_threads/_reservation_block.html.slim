@@ -195,11 +195,7 @@
                 .row.row-condensed.row-space-2
                   .col-md-12
                     .text-right
-                      - if @counterpart.soft_destroyed?
-                        = link_to '#', class: 'btn btn-primary btn-mw120 disabled', id: "reservation_block-toggle" do
-                          i.fa.fa-pencil
-                          | Edit
-                      - else
+                      - if !@counterpart.soft_destroyed? and !@reservation.requested? 
                         = link_to '#', class: 'btn btn-primary btn-mw120', id: "reservation_block-toggle" do
                           i.fa.fa-pencil
                           | Edit
