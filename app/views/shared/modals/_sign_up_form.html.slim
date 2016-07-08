@@ -7,12 +7,12 @@
           .card-body
             .sns-buttons
               - User.omniauth_providers.each do |provider|
-                = link_to users_before_omniauth_path(to_user_id: to_user_id), method: :POST, class: 'btn btn-fb btn-large btn-block', id: 'sns_button' do
+                = link_to users_before_omniauth_path(to_user_id: to_user_id), method: :POST, class: 'btn btn-fb btn-large btn-block facebook_button', id: 'sns_button' do
                   i.fa.fa-facebook
                   | Sign in with Facebook account
             .text-center.social-links.hide
               - User.omniauth_providers.each do |provider|
-                = link_to "Sign in with Facebook account", omniauth_authorize_path(:user, provider)
+                = link_to "Sign in with Facebook account", users_before_omniauth_path(to_user_id: to_user_id), method: :POST, class: 'facebook_link'
             .textInclude-separator
               h6.text
                 | or
