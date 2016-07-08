@@ -37,6 +37,13 @@
                         = topic.title
                       .topic-content
                         = hbr_noescape(topic.body).html_safe
+                      - if topic.image.present?
+                        .media-cover-img.row-space-top-4
+                          .topic-img-cover[style="background-image: url(#{asset_path topic.image})"]
+                      - if topic.video_id.present?
+                        .youtube-container.row-space-top-4
+                          iframe src="https://www.youtube.com/embed/#{topic.video_id}?rel=0&showinfo=0" frameborder="0" modestbranding=1 allowfullscreen
+              
               - else
                 - HelpTopic.select_topics(category.id).order_num.each do |topic|
                   li.topic-block
@@ -44,3 +51,9 @@
                       = topic.title
                     .topic-content
                       = hbr_noescape(topic.body).html_safe
+                    - if topic.image.present?
+                      .media-cover-img.row-space-top-4
+                        .topic-img-cover[style="background-image: url(#{asset_path topic.image})"]
+                    - if topic.video_id.present?
+                      .youtube-container.row-space-top-4
+                        iframe src="https://www.youtube.com/embed/#{topic.video_id}?rel=0&showinfo=0" frameborder="0" modestbranding=1 allowfullscreen

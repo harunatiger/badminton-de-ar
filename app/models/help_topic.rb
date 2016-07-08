@@ -11,6 +11,8 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  order_num        :integer          default(0)
+#  image            :string           default("")
+#  video_id         :string           default("")
 #
 # Indexes
 #
@@ -20,6 +22,9 @@
 class HelpTopic < ActiveRecord::Base
   belongs_to :help_category
   before_save :set_id
+  
+  mount_uploader :image, AdminImageUploader
+  attr_accessor :image_blank_ok
 
   scope :select_topics, -> help_category_id { where(help_category_id: help_category_id) }
   scope :order_num, -> { order('order_num') }
