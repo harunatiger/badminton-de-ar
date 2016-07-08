@@ -6,8 +6,9 @@
         |  Info
         span rmation
         .state-container
-          span.state-label
-            | State:
+          - unless @reservation.accepted?
+            span.state-label
+              | State:
           - if @reservation.requested?
             - unless @counterpart.soft_destroyed?
               .state.state-primary
@@ -19,7 +20,7 @@
             - unless @counterpart.soft_destroyed?
               .state.state-alert
                 = @reservation.string_of_progress_english
-          - elsif @reservation.accepted?
+          /- elsif @reservation.accepted?
             .state.state-success
               = @reservation.string_of_progress_english
           - elsif @reservation.rejected?

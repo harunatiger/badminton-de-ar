@@ -57,11 +57,12 @@ $ ->
       if $('#offer_to_guest').length
         if isFormcheck() == false
           $('#offer_to_guest').addClass("disabled")
+          $('#offer_comment').text('＊必須情報を登録して、オファーをしましょう。')
         else
           $('#offer_to_guest').removeClass("disabled")
-      $('#offer_comment').text('＊登録された情報でオファーできます。')
+          $('#offer_comment').text('＊登録された情報でオファーできます。')
     else
-      $('#offer_comment').text('＊現在オファー中です。')
+      $('#offer_comment').text('＊ツアー内容をオファー済みです。内容を変更するにはゲストにオファーのキャンセルを依頼してください。')
 
 
   # loader preset
