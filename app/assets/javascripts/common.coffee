@@ -604,6 +604,14 @@ $ ->
       $('.hide-guest').removeClass('hide-guest')
       return false
 
+  $('.facebook_button').on 'click', ->
+    $(this).addClass("disabled")
+    return
+  
+  $('.facebook_link').on 'click', ->
+    $(this).hide()
+    return
+
   ###
     # circle map
     cityCircle = undefined
