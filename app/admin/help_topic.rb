@@ -28,6 +28,7 @@ ActiveAdmin.register HelpTopic do
       input :title_en
       input :body_en
       input :image
+      input :remove_image, as: :boolean
       input :video_id
     end
     actions
@@ -45,7 +46,7 @@ ActiveAdmin.register HelpTopic do
 
     def permitted_params
       params.permit :utf8, :_method, :authenticity_token, :locale, :commit, :id,
-                    help_topic: [:help_category_id, :title_ja, :body_ja, :title_en, :body_en, :order_num, :image, :video_id]
+                    help_topic: [:help_category_id, :title_ja, :body_ja, :title_en, :body_en, :order_num, :image, :remove_image, :video_id]
     end
   end
 end
