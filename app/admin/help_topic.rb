@@ -6,6 +6,8 @@ ActiveAdmin.register HelpTopic do
     column :body_ja
     column :title_en
     column :body_en
+    column :image
+    column :video_id
     actions
   end
 
@@ -25,6 +27,9 @@ ActiveAdmin.register HelpTopic do
       input :body_ja
       input :title_en
       input :body_en
+      input :image
+      input :remove_image, as: :boolean
+      input :video_id
     end
     actions
   end
@@ -41,7 +46,7 @@ ActiveAdmin.register HelpTopic do
 
     def permitted_params
       params.permit :utf8, :_method, :authenticity_token, :locale, :commit, :id,
-                    help_topic: [:help_category_id, :title_ja, :body_ja, :title_en, :body_en, :order_num]
+                    help_topic: [:help_category_id, :title_ja, :body_ja, :title_en, :body_en, :order_num, :image, :remove_image, :video_id]
     end
   end
 end
