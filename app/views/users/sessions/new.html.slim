@@ -6,7 +6,7 @@
         .card-body
           .sns-buttons
             - resource_class.omniauth_providers.each do |provider|
-              = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-large btn-block' do
+              = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-large btn-block facebook_button' do
                 i.fa.fa-facebook
                 | Log in with 
                 br

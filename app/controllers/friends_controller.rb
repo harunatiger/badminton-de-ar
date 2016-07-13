@@ -84,13 +84,18 @@ class FriendsController < ApplicationController
     end
   end
   
+  #from booking list
   def friends_list
     session[:guide_ids] = nil if session[:previous_url].blank? or !session[:previous_url].include?('friends')
     @friends = current_user.friends_profiles.page(params[:page]).per(Settings.friend.page_count)
     @reservation = Reservation.find(params[:id])
     respond_to do |format|
-      format.html
-      format.js
+      if @friends.blank?
+        format.html { redirect_to list_search_friends_path }
+      else
+        format.html
+        format.js
+      end
     end
   end
   
@@ -105,7 +110,7 @@ class FriendsController < ApplicationController
       end
       @reservation.pg_under_construction!
       session[:guide_ids] = nil
-      redirect_to friends_list_reservation_path(@reservation.id), notice: Settings.friend.send_message_to_selected_guides.success
+      redirect_to message_threads_path, notice: Settings.friend.send_message_to_selected_guides.success
     end
   end
   
