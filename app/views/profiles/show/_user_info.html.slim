@@ -1,56 +1,60 @@
-h4.row-space-4
-  | Self-Introduction
-.row-space-4
-  p
-    = simple_format(profile.try('free_field') || '')
-hr.row-space-4
-/- if profile_keyword.present?
-  h4.row-space-4.hide--sp
-    | My recipe for the perfect tour
-  .row-space-4
-    .radarchart-wrapper.text-center
-      .chart-container
-        canvas#canvas height='300' width='360'
-  hr.row-space-4.hide--sp
-- if !profile.user.guest? and profile.self_introduction.present?
+- if profile.profile_video.present?
   h4.row-space-4
-    | Guide-Introduction
+    | Profile Video
+  .row-space-4
+    .listing-video-container
+      = video_player src: { mp4: profile.profile_video.video.encoded, webm: profile.profile_video.video.encoded }, controls: true, width: "100%", height: "240px", id: "profile_movie"
+  hr.row-space-4
+- if profile.free_field.present?
+  h4.row-space-4
+    | Self-Introduction
   .row-space-4
     p
-      = simple_format(profile.try('self_introduction') || '')
+      = simple_format(profile.try('free_field') || '')
+  hr.row-space-4
 - if !profile.user.guest?
-  .lang-list-wrapper.row-space-4
-    ul
-      - if language_en?(profile)
-        li.balloon(title="English")
-          span EN
-      - if language_zh?(profile)
-        li.balloon(title="Chinese")
-          span ZH
-      - if language_de?(profile)
-        li.balloon(title="German")
-          span DE
-      - if language_fr?(profile)
-        li.balloon(title="French")
-          span FR
-      - if language_es?(profile)
-        li.balloon(title="Spanish")
-          span ES
-      - if language_ja?(profile)
-        li.balloon(title="Japanese")
-          span JA
+  - if profile.self_introduction.present? or profile.profile_languages.present?
+    h4.row-space-4
+      | Guide-Introduction
+    .row-space-4
+      p
+        = simple_format(profile.try('self_introduction') || '')
+    .lang-list-wrapper.row-space-4
+      ul
+        - if language_en?(profile)
+          li.balloon(title="English")
+            span EN
+        - if language_zh?(profile)
+          li.balloon(title="Chinese")
+            span ZH
+        - if language_de?(profile)
+          li.balloon(title="German")
+            span DE
+        - if language_fr?(profile)
+          li.balloon(title="French")
+            span FR
+        - if language_es?(profile)
+          li.balloon(title="Spanish")
+            span ES
+        - if language_ja?(profile)
+          li.balloon(title="Japanese")
+            span JA
+    .row
+    hr.row-space-top-4.row-space-4
 - if profile.profile_countries.present?
   .profile-countries
-    hr.row-space-top-4.row-space-4
+    /hr.row-space-top-4.row-space-4
     h4.row-space-4
       | Countries visited
     .row-space-4
       - profile.profile_countries.each do |profile_country|
         span.country-tag
           = profile_country.country_name
-- unless profile.user.guest?
+  .row
+  hr.row-space-top-4.row-space-4
+- if !profile.user.guest? and profile.profile_pickups.present?
   .profile-category-container
-    hr.row-space-top-4.row-space-4
+    /hr.row-space-top-4.row-space-4
     h4.row-space-4
       | Likes and hobbies
     .row-space-4
