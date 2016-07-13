@@ -27,6 +27,9 @@
 //= require ckeditor/init
 //= require lib/isInViewport.min.js
 //= require lib/jquery.lazyload.min
+//= require lib/croppic
+//= require lib/megapix-image
+//= require lib/exif
 
 //= require common
 //= require message

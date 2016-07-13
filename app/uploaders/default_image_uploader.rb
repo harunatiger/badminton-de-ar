@@ -33,6 +33,7 @@ class DefaultImageUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
   version :thumb do
     process :auto_orient
+    process :crop
     process resize_to_fit: [560, 420]
   end
 
@@ -67,4 +68,22 @@ class DefaultImageUploader < CarrierWave::Uploader::Base
     var = :"@#{mounted_as}_secure_token"
     model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
   end
+  
+  private
+
+    def crop
+      return unless defined? model.image_crop_x # profile_image only
+      return unless [model.image_crop_x, model.image_crop_y, model.image_crop_w, model.image_crop_h, model.image_resize_w, model.image_resize_h].all?
+      manipulate! do |img|
+        img.resize!(model.image_resize_w, model.image_resize_h)
+        crop_x = model.image_crop_x.to_i
+        crop_y = model.image_crop_y.to_i
+        crop_w = model.image_crop_w.to_i
+        crop_h = model.image_crop_h.to_i
+        img.crop!(crop_x,crop_y,crop_w,crop_h)
+        #img.crop "#{crop_w}x#{crop_h}+#{crop_x}+#{crop_y}"
+        img = yield(img) if block_given?
+        img
+      end
+    end
 end
