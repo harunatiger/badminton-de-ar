@@ -40,6 +40,9 @@ Rails.application.routes.draw do
       post 'create_cover_image', on: :collection
       post 'check_validation', on: :collection
     end
+    resources :profile_videos, only: [:destroy] do
+      patch 'upload_video', on: :collection
+    end
     resources :profile_banks
     resources :profile_identities, only: [:new, :edit, :create, :update, :destroy]
     #resources :profile_keywords

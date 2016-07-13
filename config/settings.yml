@@ -21,6 +21,11 @@ profile_images:
     success: "Profile updated successfully"
   delete:
     success: "Successfully deleted your photo"
+profile_video:
+  save:
+    success: "Profile updated successfully"
+  delete:
+    success: "Successfully deleted your video"
 profile_identities:
   save:
     success: "Profile updated successfully"
