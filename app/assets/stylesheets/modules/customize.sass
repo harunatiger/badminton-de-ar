@@ -143,18 +143,20 @@ label.error
     list-style: none
     li
       display: inline-block
+      max-width: 100%
       margin-right: 20px
       padding: 0
       .tag
         display: block
         position: relative
-        height: 30px
-        line-height: 30px
-        padding: 0 12px
+        height: auto
+        line-height: 22px
+        padding: 4px 12px
         background-color: $bg1
         border-radius: 4px
         border: 1px solid $border1
         text-decoration: none
+        word-break: break-all
         &::before, &::after
           content: ''
           position: absolute
