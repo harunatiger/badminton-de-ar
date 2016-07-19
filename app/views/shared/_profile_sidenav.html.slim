@@ -1,5 +1,5 @@
 .sidenav-list-profile
-  ul.sidenav-list
+  ul.sidenav-list[class=("sidenav-list-guest" if current_user.guest?)]
     - current_user.profile.enable_strict_validation = true
     - if controller_name == 'profiles' and action_name != 'self_introduction'
       li
@@ -9,7 +9,12 @@
           span.hide--sp
             | General information
           span.show--sp
-            | General
+            - if !current_user.guest?
+              | General
+              br
+              | info
+            - else
+              | General information
     - else
       li
         = link_to edit_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"} do
@@ -18,7 +23,12 @@
           span.hide--sp
             | General information
           span.show--sp
-            | General
+            - if !current_user.guest?
+              | General
+              br
+              | info
+            - else
+              | General information
     - if !current_user.guest?
       - if controller_name == 'profiles' and action_name == 'self_introduction'
         li
@@ -26,14 +36,14 @@
             span.hide--sp
               | Introduction
             span.show--sp
-              | Intro
+              | Introduction
       - else
         li
           = link_to self_introduction_profile_path(current_user.profile.id), class: "sidenav-item", aria: {selected: "false"} do
             span.hide--sp
               | Introduction
             span.show--sp
-              | Intro
+              | Introduction
     /- if Listing.mine(current_user.id).without_soft_destroyed.order_by_updated_at_desc.present?
       - if controller_name == 'profile_keywords'
         li
@@ -47,32 +57,51 @@
           span.hide--sp
             | Profile picture
           span.show--sp
-            | Pic
+            - if !current_user.guest?
+              | Profile
+              br
+              | picture
+            - else
+              | Profile picture
     - else
       li
         = link_to manage_profile_profile_images_path(@profile), class: "sidenav-item", aria: {selected: "false"} do
           span.hide--sp
             | Profile picture
           span.show--sp
-            | Pic
-    - if controller_name == 'profile_identities'
-      li
-        = link_to "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"} do
-          - if !profile_identity_authorized?(current_user.id)
-            i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
-          span.hide--sp
-            | ID information
-          span.show--sp
-            | ID
-    - else
-      li
-        = link_to "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"} do
-          - if !profile_identity_authorized?(current_user.id)
-            i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
-          span.hide--sp
-            | ID information
-          span.show--sp
-            | ID
+            - if !current_user.guest?
+              | Profile
+              br
+              | picture
+            - else
+              | Profile picture
+    - if !current_user.guest?
+      - if controller_name == 'profile_identities'
+        li
+          = link_to "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"} do
+            span.hide--sp
+              - if !profile_identity_authorized?(current_user.id)
+                i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+              | ID information
+            span.show--sp
+              - if !profile_identity_authorized?(current_user.id)
+                i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+              | ID
+              br
+              | info
+      - else
+        li
+          = link_to "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"} do
+            span.hide--sp
+              - if !profile_identity_authorized?(current_user.id)
+                i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+              | ID information
+            span.show--sp
+              - if !profile_identity_authorized?(current_user.id)
+                i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+              | ID
+              br
+              | info
     /- if !current_user.guest?
       - if controller_name == 'profile_banks'
         li

@@ -70,6 +70,7 @@ class Profile < ActiveRecord::Base
   accepts_nested_attributes_for :profile_categories, allow_destroy: true
   accepts_nested_attributes_for :profile_countries, allow_destroy: true
   accepts_nested_attributes_for :profile_pickups, allow_destroy: true
+  accepts_nested_attributes_for :profile_video, allow_destroy: true
 
   validates :user_id, presence: true, unless: :exist_xhr?
   validates :user_id, uniqueness: true

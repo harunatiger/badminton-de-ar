@@ -37,6 +37,11 @@ Rails.application.routes.draw do
     resources :profile_images, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
       put 'change_order', on: :collection
+      post 'create_cover_image', on: :collection
+      post 'check_validation', on: :collection
+    end
+    resources :profile_videos, only: [:destroy] do
+      patch 'upload_video', on: :collection
     end
     resources :profile_banks
     resources :profile_identities, only: [:new, :edit, :create, :update, :destroy]

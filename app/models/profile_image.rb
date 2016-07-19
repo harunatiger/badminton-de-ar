@@ -23,9 +23,15 @@ class ProfileImage < ActiveRecord::Base
   belongs_to :user
   belongs_to :profile
 
-  mount_uploader :image, DefaultImageUploader
-  mount_uploader :cover_image, DefaultImageUploader
+  mount_uploader :image, ProfileImageUploader
+  mount_uploader :cover_image, ProfileImageUploader
   attr_accessor :image_blank_ok
+  attr_accessor :imgW
+  attr_accessor :imgH
+  attr_accessor :imgX1
+  attr_accessor :imgY1
+  attr_accessor :cropW
+  attr_accessor :cropH
 
   validates :user_id, presence: true
   validates :profile_id, presence: true
@@ -49,5 +55,14 @@ class ProfileImage < ActiveRecord::Base
     else
       return false
     end
+  end
+  
+  def set_crop_size(imgW, imgH, imgX1, imgY1, cropW, cropH)
+    self.imgW = imgW.to_i
+    self.imgH = imgH.to_i
+    self.imgX1 = imgX1.to_i
+    self.imgY1 = imgY1.to_i
+    self.cropW = cropW.to_i
+    self.cropH = cropH.to_i
   end
 end
