@@ -26,12 +26,12 @@ class ProfileVideo < ActiveRecord::Base
   validates :profile_id, presence: true
   validates :video, presence: true
   validates_each :video do |record, attr, value|
-    if value.present? and value.file.size.to_f > UPLOAD_VIDEO_LIMIT_SIZE.megabytes.to_f
+    if value.present? and value.file.size.to_f > UPLOAD_PROFILE_VIDEO_LIMIT_SIZE.megabytes.to_f
       #record.errors.add(attr, "You cannot upload a file greater than #{UPLOAD_VIDEO_LIMIT_SIZE}MB")
-      record.errors.add(attr, I18n.t('errors.messages.size_over',size: UPLOAD_VIDEO_LIMIT_SIZE))
+      record.errors.add(attr, I18n.t('errors.messages.size_over',size: UPLOAD_PROFILE_VIDEO_LIMIT_SIZE))
     end
   end
-  UPLOAD_VIDEO_LIMIT_SIZE = ENV["UPLOAD_VIDEO_LIMIT_SIZE"].to_i.freeze
+  UPLOAD_PROFILE_VIDEO_LIMIT_SIZE = ENV["UPLOAD_PROFILE_VIDEO_LIMIT_SIZE"].to_i.freeze
   
   #validates :order_num, numericality: {
   #  only_integer: true,

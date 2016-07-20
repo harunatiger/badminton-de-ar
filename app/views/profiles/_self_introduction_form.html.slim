@@ -87,7 +87,7 @@
                 br
                 | Your introduction video can bridge the gap between you and your guests.
               p.text-red
-                | ※Maximum file size is 25MB
+                | ※Maximum file size is 100MB
               = render partial: 'profile_video', locals: { profile_video: @profile_video }
               = f.simple_fields_for :profile_video, ProfileVideo.new do |v|
                 = v.input_field :video, as: :file, accept: "video/*"
