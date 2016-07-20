@@ -8,6 +8,13 @@ $('#play').magnificPopup
   preloader: false
   fixedContentPos: false
 
+$('#play-profile-video').magnificPopup
+  type: 'inline'
+  mainClass: 'mfp-fade'
+  removalDelay: 150
+  preloader: false
+  fixedContentPos: false
+
 ###
 script = document.createElement('script')
 

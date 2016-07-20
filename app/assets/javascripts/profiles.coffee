@@ -382,16 +382,16 @@ $ ->
           $(":focus").val(str.substr(0, 50))
           alert '50 character limit'
         return
-      
+
     # profile video
     video_button_text = ""
     if $('#profile_movie').length == 0
       video_button_text = '動画を追加'
     else
       video_button_text = '動画を変更'
-      
+
     $('#profile_profile_video_attributes_video').filestyle input: false, buttonText: video_button_text, size: "lg", iconName: "fa fa-cloud-upload", badge: false
-    
+
     #upload video
     $(document).on 'change', '#profile_profile_video_attributes_video', ->
       url = $('#url').val()
@@ -399,7 +399,7 @@ $ ->
       $('#update_introduction').attr('data-remote', true)
       $('#update_introduction').submit()
       return
-    
+
     $(document).on 'ajax:before', (event) ->
       $('#hidden-form-id').val(event.target.id)
       $('#listing-image-loading').modal()
