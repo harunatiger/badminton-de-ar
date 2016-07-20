@@ -36,6 +36,6 @@
         label.text-right.col-3.row-space-4
           | Photo ID
         .col-8
-          = f.file_field :image, class: "row-space-top-1-file"
+          = f.file_field :image, class: "row-space-top-1-file", accept: "image/*"
           .small2.text-red.row-space-top-1 Please upload a scan of your drivers license, student ID or passport photo page.
   = f.button :submit, "Upload", class: "btn btn-primary btn-large row-space-4"

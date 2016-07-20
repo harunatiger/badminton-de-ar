@@ -32,7 +32,7 @@
             #upload_image
               = hidden_field_tag :crop_url, profile_profile_images_path(@profile)
               form[class='upload_image_imgUploadForm']
-                = file_field_tag :image, class: "row-space-top-1-file", id: 'image_upload_button'
+                = file_field_tag :image, class: "row-space-top-1-file", id: 'image_upload_button', accept: "image/*"
               /= link_to 'upload', '#', class: 'btn btn-primary', id: 'image_upload_button'
               .small1.text-blue.row-space-top-1 A square image is recommended
       =render partial: 'images_list', locals: { profile: @profile}
