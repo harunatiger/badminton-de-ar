@@ -1,5 +1,5 @@
 <% if @status == "success" %>
-  $('#profile_video').html($("<%=j render partial: 'profiles/profile_video', locals: { profile_video: @profile_video } %>").hide().fadeIn('slow'));
+  location.reload();
 <% elsif @status == "failure" %>
   $('.alert').remove();
   $('#error_message').html($("<%=j render partial: 'shared/error_message', locals: { target: @profile_video } %>").hide().fadeIn('slow'));
