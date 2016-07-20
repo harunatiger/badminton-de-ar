@@ -56,6 +56,12 @@
                   /= "#{schedule_span(@reservation)}(#{format_time_required(@reservation.time_required.to_s)})"
             .row.row-condensed.row-space-1
               .col-md-3.text-left.text-muted.strong
+                | Number of people:
+              .col-md-8.strong
+                = @reservation.num_of_people
+                |  People
+            .row.row-condensed.row-space-1
+              .col-md-3.text-left.text-muted.strong
                 | GUIDE PRICE:
               .col-md-8.strong
                 |¥
@@ -134,11 +140,6 @@
                 = @reservation.guests_cost
                 = link_to "#", class: "include_what_trigger small1 text-red" do
                   |  ※Invoice
-            .row.row-condensed.row-space-1
-              .col-md-3.text-left.text-muted.strong
-                | Number of people:
-              .col-md-8.strong
-                = @reservation.num_of_people
             .row.row-condensed.row-space-1
               .col-md-3.text-left.text-muted.strong
                 | Meeting at：
