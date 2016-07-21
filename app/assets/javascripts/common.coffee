@@ -113,6 +113,23 @@ $ ->
           $('#profie-thumb-carousel').carousel 'next'
           return
 
+    # handles the carousel thumbnails
+    $('[id^=carousel-selector-]').click ->
+      id_selector = $(this).attr('id')
+      id = id_selector.substr(id_selector.length - 1)
+      id = parseInt(id)
+      $('#profie-thumb-carousel').carousel id
+      $('[id^=carousel-selector-]').removeClass 'selected'
+      $(this).addClass 'selected'
+      return
+    # when the carousel slides, auto update
+    $('#profie-thumb-carousel').on 'slid', (e) ->
+      id = $('.item.active').data('slide-number')
+      id = parseInt(id)
+      $('[id^=carousel-selector-]').removeClass 'selected'
+      $('[id=carousel-selector-' + id + ']').addClass 'selected'
+      return
+
     # profile tour location
     initialize = ->
       bounds = new google.maps.LatLngBounds()
@@ -607,7 +624,7 @@ $ ->
   $('.facebook_button').on 'click', ->
     $(this).addClass("disabled")
     return
-  
+
   $('.facebook_link').on 'click', ->
     $(this).hide()
     return

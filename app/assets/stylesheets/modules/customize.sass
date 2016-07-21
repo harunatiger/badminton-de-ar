@@ -1934,23 +1934,139 @@ body.paper
 /* profile
   ================================================================================ */
 .profiles.show
+  .profile-card
+    border-radius: 2px
+    border: 0
+    overflow: hidden
   .profile-face
     position: relative
+    padding-top: 10px
+    padding-left: 20px
+    padding-right: 20px
+    overflow: hidden
     .favorite-btn
       position: absolute
-      top: 10px
-      right: 10px
+      top: 20px
+      right: 30px
     .carousel-inner
       > .item
-        max-height: 320px
-        > img
-          position: relative
+        height: 275px
+        background-position: center
+        background-repeat: no-repeat
+        background-size: cover
+  .carousel-control
+    width: 32px
+    height: 100px
+    top: 90px
+    background-image: none
+    background-color: white
+    border: 1px solid $border1
+    opacity: .9
+    &.left
+      border-radius: 0 2px 2px 0
+      border-left: 0
+    &.right
+      border-radius: 2px 0 0 2px
+      border-right: 0
+    i.fa
+      color: $border1
+      text-shadow: none
+    &:hover
+      opacity: 1
+      i.fa
+        color: $brand-theme-hover
+  #carousel-thumbs
+    ul
+      padding: 0
+      margin: 0
+      li
+        float: left
+        width: 40px
+        margin: 5px 5px 5px 0
+        .thumbnail-item
+          height: 40px
+          background-position: center
+          background-repeat: no-repeat
+          background-size: cover
+  .carousel-thumbnail-video
+    display: inline-block
+    width: 40px
+    height: 40px
+    padding-top: 6px
+    background-color: $brand-theme
+    i.fa
+      width: 26px
+      height: 26px
+      line-height: 26px
+      padding-left: 2px
+      background-color: white
+      border-radius: 13px
+  .profile-card-body
+    clear: both
+    padding: 0 20px 15px
+  .profile_message
+    padding: 12px 20px
+    border-radius: 0 0 2px 2px
+    .media-avatar
+      top: 7px
+      left: 7px
+  @media (max-width: 767px)
+    .profile-face
+      padding-left: 10px
+      padding-right: 10px
+    .profile-card-body
+      padding: 0 10px 15px
+    #carousel-thumbs
+      ul
+        li
+          width: 38px
+          .thumbnail-item
+            height: 38px
+
+#profile_movie
+  max-width: 600px
+  margin: 0 auto
+  .video-js, video
+    height: 480px
+
+.profile-video-container
+  position: relative
+  height: 275px
+  margin: 0 auto
+  @media (max-width: 767px)
+    width: 100%
+  #profile_movie
+    video
+      height: 275px
+    .vjs-big-play-button
+      display: none
+    &.mfp-hide
+      display: block !important
+  #profile_movie, #play-profile-video
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    height: 275px
+    overflow: hidden
+  #play-profile-video
+    padding-top: 80px
+    z-index: 10
+    i.fa
+      display: inline-block
+      width: 100px
+      height: 100px
+      line-height: 100px
+      padding-left: 7px
+      color: $brand-theme
+      font-size: 44px
+      background-color: rgba(255, 255, 255, .75)
+      border-radius: 50px
 
 .profile-category-container
   clear: both
   padding-top: 12.5px
-
-.profile-category-inner
 
 .profile-card-wrapper
   float: right
@@ -1990,11 +2106,17 @@ body.paper
     margin-right: 4px
     font-size: 18px
     font-weight: 700
+  small
+    display: inline-block
+    margin-left: 5px
+    padding-left: 7px
+    font-size: 13px
+    border-left: 1px solid $border1
 
 .profile-created
   font-size: 13px
 
-.profile-status
+//.profile-status
   .inputrate
     margin: 0 5px
 
@@ -2072,14 +2194,21 @@ body.paper
     min-width: 200px
 
 /* inputrate */
-.inputrate
+.inputrate-container
+  display: inline-block
+  border: 1px solid $border1
+  border-radius: 3px
+.inputrate-label, .inputrate
   display: inline-block
   height: 28px
   line-height: 28px
-  padding: 0 12px
+  padding: 0 9px
   color: white
   font-size: 13px
-  border-radius: 2px
+  border-radius: 0 3px 3px 0
+.inputrate-label
+  color: $gray1
+  padding-right: 5px
 .inputrate-red
   background-color: $red1
 .inputrate-orange
