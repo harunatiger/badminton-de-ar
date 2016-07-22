@@ -34,15 +34,20 @@
 
     #carousel-thumbs
       ul.list-unstyled
-        - profile.thumb_images.each_with_index do |thumb_image, i|
-          - if i == 0
-            li
-              = link_to "#", class: "selected", id: "carousel-selector-#{i}" do
-                .thumbnail-item[style="background-image: url(#{asset_path thumb_image.image.thumb})"]
-          - else
-            li
-              = link_to "#", class: "", id: "carousel-selector-#{i}" do
-                .thumbnail-item[style="background-image: url(#{asset_path thumb_image.image.thumb})"]
+        - if profile.thumb_images.present?
+          - profile.thumb_images.each_with_index do |thumb_image, i|
+            - if i == 0
+              li
+                = link_to "#", class: "selected", id: "carousel-selector-#{i}" do
+                  .thumbnail-item[style="background-image: url(#{asset_path thumb_image.image.thumb})"]
+            - else
+              li
+                = link_to "#", class: "", id: "carousel-selector-#{i}" do
+                  .thumbnail-item[style="background-image: url(#{asset_path thumb_image.image.thumb})"]
+        - else
+          li
+            = link_to "#", class: "", id: "carousel-selector-#{0}" do
+              .thumbnail-item[style="background-image: url(#{asset_path profile_to_image_thumb(profile)})" data-slide-number="#{0}"]
         - if profile.profile_video.present?
           li.text-center
             = link_to "#", id: "carousel-selector-#{count_for_thumb + 1}", class: "carousel-thumbnail-video" do 
