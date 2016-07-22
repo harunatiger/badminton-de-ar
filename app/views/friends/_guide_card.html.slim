@@ -27,8 +27,7 @@ div
           .media-round.media-photo.media-avatar
             .size28[style="background-image: url('#{asset_path pickup_tag.icon_small}')"]
       .language
-        - if language_en?(profile)
-          span.balloon(title="English") EN
+        span.balloon(title="English") EN
         - if language_zh?(profile)
           span.balloon(title="Chinese") ZH
         - if language_de?(profile)
