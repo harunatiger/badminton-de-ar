@@ -460,6 +460,17 @@ $ ->
 
   if $('body').hasClass('profiles show')
 
+    $('#play-profile-video').magnificPopup
+      type: 'inline'
+      mainClass: 'mfp-fade'
+      removalDelay: 150
+      preloader: false
+      fixedContentPos: false
+      callbacks:
+        open: ->
+          myPlayer = videojs('guide_profile_video')
+          myPlayer.play()
+
     # profile thumbnail carousel
     if $('#profie-thumb-carousel').length
       $('#profie-thumb-carousel').carousel(interval: false)

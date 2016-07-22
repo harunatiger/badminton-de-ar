@@ -17,7 +17,7 @@
                   i.fa.fa-play
                   / Profile Movie
                 #profile_movie
-                  = video_player src: { mp4: profile.profile_video.video.encoded, webm: profile.profile_video.video.encoded }, controls: true, width: "auto", height: "auto"
+                  = video_player src: { mp4: profile.profile_video.video.encoded, webm: profile.profile_video.video.encoded }, controls: true, width: "auto", height: "auto", id: "guide_profile_video"
         - if profile.profile_video.present? || count_for_thumb > 1
           = link_to "#profie-thumb-carousel", class: "left carousel-control" do
             i.fa.fa-caret-left aria-hidden="true"
