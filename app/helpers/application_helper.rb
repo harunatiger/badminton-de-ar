@@ -781,4 +781,12 @@ module ApplicationHelper
   def message_thread_link(to_user_id, from_user_id)
     message_thread_path(GuestThread.get_message_thread_id(to_user_id, from_user_id))
   end
+  
+  def disabled_language_id
+    Language.where(name: 'English').first.id
+  end
+  
+  def checked_language_ids(profile)
+    profile.language_ids.index(disabled_language_id) ? @profile.language_ids : @profile.language_ids.push(disabled_language_id)
+  end
 end

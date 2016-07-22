@@ -21,9 +21,8 @@ hr.row-space-4
 - if !profile.user.guest?
   .lang-list-wrapper.row-space-4
     ul
-      - if language_en?(profile)
-        li.balloon(title="English")
-          span EN
+      li.balloon(title="English")
+        span EN
       - if language_zh?(profile)
         li.balloon(title="Chinese")
           span ZH
