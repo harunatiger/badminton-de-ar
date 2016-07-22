@@ -33,7 +33,7 @@
         .row-space-top-1.small2.text-muted
           | Sign up:
           = counterpart.created_at.strftime("%Y")
-    - if @host_id == counterpart.id
+    /- if @host_id == counterpart.id
       .guide-count.text-muted.text-center
         | Guide experience
         span.strong
