@@ -2072,21 +2072,23 @@ body.paper
   float: right
 
 .profile-card
-  position: fixed
-  top: 80px
+  position: absolute
   width: 315px
-  z-index: 10
   border-top: none
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25)
+  z-index: 10
+  &.fixed
+    position: fixed
+    top: 70px
   .card
     border: 0
-    .card-body
 
 @media (max-width: 1099px)
   .profile-card-wrapper
     float: none
   .profile-card
-    position: static
+    position: static !important
+    top: auto !important
     margin: -240px auto 40px
 
 @media (max-width: 767px)
