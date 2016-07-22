@@ -29,14 +29,17 @@ $ ->
       $('#update_profile_cover_image').submit()
       return
 
-    #upload image (new)
-    $(document).on 'change', '#profile_thumb_image', ->
-      $('#upload_image').submit()
-      return
-
-    #upload image (update)
-    $(document).on 'change', '[id^=update_thumb_image]', ->
-      id = $(this).attr("id")
-      id_num = id.substr(id.length - 1)
-      $('#update_image' + id_num).submit()
-      return 
+    crop_url = $('#crop_url').val()
+    profile_id = $('#profile_id').val()
+    cropperOptions =
+      modal: true
+      rotateControls: false
+      doubleZoomControls: false
+      customUploadButtonId: 'image_upload_button'
+      imgEyecandy: true
+      imgEyecandyOpacity: 0.2
+      processInline: true
+      cropUrl: crop_url
+      cropData: { "profile_id": profile_id}
+      loaderHtml: '<i class="fa fa-spinner fa-spin fa-white fa-4x text-center loader"></i>'
+    cropperHeader = new Croppic('upload_image', cropperOptions)

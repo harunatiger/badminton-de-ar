@@ -1,60 +1,105 @@
-.card.profile-card
-  .card-body.card-light
-    .profile-face
-      #profie-thumb-carousel.slide data-ride="carousel"
-        - if profile.thumb_images.present?
-          .carousel-inner
+.card.profile-card.fixed
+  .profile-face
+    #profie-thumb-carousel.slide data-ride="carousel"
+      - if profile.thumb_images.present? or profile.profile_video.present?
+        .carousel-inner
+          - count_for_thumb = 0
+          - if profile.thumb_images.present?
             - profile.thumb_images.each_with_index do |thumb_image, i|
+              - count_for_thumb = i
               - if i == 0
-                .item.active
-                  = image_tag(thumb_image.image.thumb, class: 'img-responsive')
+                .item.active[style="background-image: url(#{asset_path thumb_image.image.thumb})" data-slide-number="#{i}"]
               - else
-                .item
-                  = image_tag(thumb_image.image.thumb, class: 'img-responsive')
+                .item[style="background-image: url(#{asset_path thumb_image.image.thumb})" data-slide-number="#{i}"]
+          - else
+            - count_for_thumb = 0
+            .item.active[style="background-image: url(#{asset_path profile_to_image_thumb(profile)})" data-slide-number="#{0}"]
+          - if profile.profile_video.present?
+            .item[data-slide-number="#{count_for_thumb + 1}"]
+              .profile-video-container
+                = link_to "#profile_movie", id: "play-profile-video", class: "text-center" do
+                  i.fa.fa-play
+                  / Profile Movie
+                #profile_movie
+                  = video_player src: { mp4: profile.profile_video.video.encoded, webm: profile.profile_video.video.encoded }, controls: true, width: "auto", height: "auto", id: "guide_profile_video"
+        - if profile.profile_video.present? || count_for_thumb > 1
           = link_to "#profie-thumb-carousel", class: "left carousel-control" do
-            i.fa.fa-chevron-left aria-hidden="true"
+            i.fa.fa-caret-left aria-hidden="true"
             span.sr-only Previous
           = link_to "#profie-thumb-carousel", class: "right carousel-control" do
-            i.fa.fa-chevron-right aria-hidden="true"
+            i.fa.fa-caret-right aria-hidden="true"
             span.sr-only Next
-        - else
-          = image_tag(profile_to_image_thumb(profile), class: 'img-responsive')
-      - if user_signed_in?
-        = link_to favorite_user_profile_path(profile), method: :post, remote: true, class: "favorite-btn" do
-          - if current_user.favorite_user?(profile.user_id)
-            i.fa.fa-heart.favorited
-            i.fa.fa-heart.unfavorite.hide
-            i.fa.fa-heart-o.outline.hide.fav-balloon
-          - else
-            i.fa.fa-heart.favorited.hide
-            i.fa.fa-heart.unfavorite
-            i.fa.fa-heart-o.outline.fav-balloon
       - else
-        = link_to new_profile_path, class: "favorite-btn" do
+        = image_tag(profile_to_image_thumb(profile), class: 'img-responsive')
+
+    #carousel-thumbs
+      ul.list-unstyled
+        - if profile.thumb_images.present?
+          - profile.thumb_images.each_with_index do |thumb_image, i|
+            - if i == 0
+              li
+                = link_to "#", class: "selected", id: "carousel-selector-#{i}" do
+                  .thumbnail-item[style="background-image: url(#{asset_path thumb_image.image.thumb})"]
+            - else
+              li
+                = link_to "#", class: "", id: "carousel-selector-#{i}" do
+                  .thumbnail-item[style="background-image: url(#{asset_path thumb_image.image.thumb})"]
+        - else
+          li
+            = link_to "#", class: "", id: "carousel-selector-#{0}" do
+              .thumbnail-item[style="background-image: url(#{asset_path profile_to_image_thumb(profile)})" data-slide-number="#{0}"]
+        - if profile.profile_video.present?
+          li.text-center
+            = link_to "#", id: "carousel-selector-#{count_for_thumb + 1}", class: "carousel-thumbnail-video" do 
+              i.fa.fa-play
+
+    /- if profile.profile_video.present?
+      #profile_movie.profile_movie-container.mfp-hide
+        = video_player src: { mp4: profile.profile_video.video.encoded, webm: profile.profile_video.video.encoded }, controls: true, width: "100%", height: "320px"
+
+    - if user_signed_in?
+      = link_to favorite_user_profile_path(profile), method: :post, remote: true, class: "favorite-btn" do
+        - if current_user.favorite_user?(profile.user_id)
+          i.fa.fa-heart.favorited
+          i.fa.fa-heart.unfavorite.hide
+          i.fa.fa-heart-o.outline.hide.fav-balloon
+        - else
+          i.fa.fa-heart.favorited.hide
           i.fa.fa-heart.unfavorite
           i.fa.fa-heart-o.outline.fav-balloon
+    - else
+      = link_to new_profile_path, class: "favorite-btn" do
+        i.fa.fa-heart.unfavorite
+        i.fa.fa-heart-o.outline.fav-balloon
+
+  .profile-card-body
     .profile-name.row-space-top-2.row-space-1
       span
         = profile.first_name
-    .profile-created.text-muted.row-space-1
-      = "(Registerd #{@profile.created_at.strftime("%Y/%m")})"
+      small.text-muted
+        = "Registerd #{@profile.created_at.strftime("%Y/%m")}"
+    /.profile-created.text-muted.row-space-1
+      
     .profile-status.row-space-2
-      | Account Information
-      - if profile.progress <= 19
-        .inputrate.inputrate-red
-          span.rate #{profile.progress}%
-      - elsif profile.progress >= 20 && profile.progress <= 39
-        .inputrate.inputrate-orange
-          span.rate #{profile.progress}%
-      - elsif profile.progress >= 40 && profile.progress <= 59
-        .inputrate.inputrate-yellow
-          span.rate #{profile.progress}%
-      - elsif profile.progress >= 60 && profile.progress <= 79
-        .inputrate.inputrate-lightgreen
-          span.rate #{profile.progress}%
-      - elsif profile.progress >= 80
-        .inputrate.inputrate-green
-          span.percent #{profile.progress}%
+      .inputrate-container
+        .inputrate-label
+          | Account Info
+        - if profile.progress <= 19
+          .inputrate.inputrate-red
+            span.rate #{profile.progress}%
+        - elsif profile.progress >= 20 && profile.progress <= 39
+          .inputrate.inputrate-orange
+            span.rate #{profile.progress}%
+        - elsif profile.progress >= 40 && profile.progress <= 59
+          .inputrate.inputrate-yellow
+            span.rate #{profile.progress}%
+        - elsif profile.progress >= 60 && profile.progress <= 79
+          .inputrate.inputrate-lightgreen
+            span.rate #{profile.progress}%
+        - elsif profile.progress >= 80
+          .inputrate.inputrate-green
+            span.percent #{profile.progress}%
+
       - if profile_identity_authorized?(profile.user_id)
         .reliable-sign
           i.fa.fa-check-square-o
@@ -63,9 +108,12 @@
         .reliable-sign.unreliable
           i.fa.fa-square-o
           | ID Unconfirmed
-    .profile-area.row-space-2
+
+    .profile-area.row-space-1
+      i.fa.fa-map-marker
+      ' 
       = profile.location
-    .profile-rating.row-space-2
+    .profile-rating
       .star-rating
         = render partial: 'shared/stars', locals: { rate: @profile.ave_total }
       span.badge-pill-count.small1
@@ -75,38 +123,38 @@
           = reviewed_count
         |)
 
-    - if user_signed_in?
-      - if current_user.id == @profile.user_id
-        = link_to profile_link, class: "btn btn-large btn-block btn-primary disabled btn-relative profile_message js-google-tag-manager" do
-          .media-photo.media-round.media-avatar
-            .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
-          i.fa.fa-comments-o
-          | Talk to me
-      /- elsif not profile_completed?
-        = link_to profile_link, class: 'btn btn-large btn-block btn-primary btn-relative profile_message js-google-tag-manager' do
-          .media-photo.media-round.media-avatar
-            .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
-          i.fa.fa-comments-o
-          | Talk to me
-      - else
-        -if @message_thread
-          = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary btn-relative profile_message js-google-tag-manager' do
-            .media-photo.media-round.media-avatar
-              .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
-            i.fa.fa-comments-o
-            | Talk to me
-        -else
-          = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: @profile.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary btn-relative profile_message' do
-            .media-photo.media-round.media-avatar
-              .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
-            i.fa.fa-comments-o
-            | Talk to me
-    - else
-      = link_to '#sign_up_form', class: "btn btn-large btn-block btn-primary btn-relative profile_message js-google-tag-manager", data: { toggle: "modal" } do
+  - if user_signed_in?
+    - if current_user.id == @profile.user_id
+      = link_to profile_link, class: "btn btn-large btn-block btn-primary disabled btn-relative profile_message js-google-tag-manager" do
         .media-photo.media-round.media-avatar
           .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
         i.fa.fa-comments-o
         | Talk to me
+    /- elsif not profile_completed?
+      = link_to profile_link, class: 'btn btn-large btn-block btn-primary btn-relative profile_message js-google-tag-manager' do
+        .media-photo.media-round.media-avatar
+          .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
+        i.fa.fa-comments-o
+        | Talk to me
+    - else
+      -if @message_thread
+        = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary btn-relative profile_message js-google-tag-manager' do
+          .media-photo.media-round.media-avatar
+            .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
+          i.fa.fa-comments-o
+          | Talk to me
+      -else
+        = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: @profile.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary btn-relative profile_message' do
+          .media-photo.media-round.media-avatar
+            .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
+          i.fa.fa-comments-o
+          | Talk to me
+  - else
+    = link_to '#sign_up_form', class: "btn btn-large btn-block btn-primary btn-relative profile_message js-google-tag-manager", data: { toggle: "modal" } do
+      .media-photo.media-round.media-avatar
+        .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
+      i.fa.fa-comments-o
+      | Talk to me
 
     /.profile-add.row-space-top-1.row-space-1
       = link_to "#", class: "pair_guide_list-trigger small2" do

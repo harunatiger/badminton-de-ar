@@ -39,6 +39,7 @@ class ListingImagesController < ApplicationController
     end
     
     rescue => e
+    p e.message
     respond_to do |format|
       format.js { @status = 'failure' }
     end

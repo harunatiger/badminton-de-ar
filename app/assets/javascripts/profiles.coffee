@@ -383,6 +383,31 @@ $ ->
           alert '50 character limit'
         return
 
+    # profile video
+    video_button_text = ""
+    if $('#profile_movie').length == 0
+      video_button_text = '動画を追加'
+    else
+      video_button_text = '動画を変更'
+
+    $('#profile_profile_video_attributes_video').filestyle input: false, buttonText: video_button_text, size: "lg", iconName: "fa fa-cloud-upload", badge: false
+
+    #upload video
+    $(document).on 'change', '#profile_profile_video_attributes_video', ->
+      url = $('#url').val()
+      $('#update_introduction').attr('action', url)
+      $('#update_introduction').attr('data-remote', true)
+      $('#update_introduction').submit()
+      return
+
+    $(document).on 'ajax:before', (event) ->
+      $('#hidden-form-id').val(event.target.id)
+      $('#listing-image-loading').modal()
+    $(document).on 'ajax:success',  (event) ->
+      $('#listing-image-loading').modal('hide')
+    $(document).on 'ajax:error',  (event) ->
+      $('#listing-image-loading').modal('hide')
+
   # self_introduction
   if $('body').hasClass('profiles self_introduction')
 
@@ -429,6 +454,91 @@ $ ->
           clearTimeout timer
         timer = setTimeout((->
           stickyNav()
+          return
+        ), 200)
+        return
+
+  if $('body').hasClass('profiles show')
+
+    $('#play-profile-video').magnificPopup
+      type: 'inline'
+      mainClass: 'mfp-fade'
+      removalDelay: 150
+      preloader: false
+      fixedContentPos: false
+      callbacks:
+        open: ->
+          myPlayer = videojs('guide_profile_video')
+          myPlayer.play()
+
+    # profile thumbnail carousel
+    if $('#profie-thumb-carousel').length
+      $('#profie-thumb-carousel').carousel(interval: false)
+      if $('.item').length < 2
+        $('.carousel-control').hide()
+      else
+        $('.carousel-control.left').on 'click', ->
+          $('#profie-thumb-carousel').carousel 'prev'
+          return false
+        $('.carousel-control.right').on 'click', ->
+          $('#profie-thumb-carousel').carousel 'next'
+          return false
+
+    # handles the carousel thumbnails
+    $('[id^=carousel-selector-]').on 'click', ->
+      id_selector = $(this).attr('id')
+      id = id_selector.substr(id_selector.length - 1)
+      id = parseInt(id)
+      $('#profie-thumb-carousel').carousel id
+      $('[id^=carousel-selector-]').removeClass 'selected'
+      $(this).addClass 'selected'
+      return false
+
+    # when the carousel slides, auto update
+    $('#profie-thumb-carousel').on 'slid', (e) ->
+      id = $('.item.active').data('slide-number')
+      id = parseInt(id)
+      $('[id^=carousel-selector-]').removeClass 'selected'
+      $('[id=carousel-selector-' + id + ']').addClass 'selected'
+      return
+
+    # sticky user card
+    if $('.col-lg-8').css('float') == 'left'
+
+      bodyHeight = $('body').outerHeight()
+      photoHeight = $('#photos').outerHeight()
+      headerHeight = $('#header').outerHeight()
+      footerHeight = $('footer').outerHeight()
+      profileCardHeight = $('.profile-card').outerHeight()
+      profileCardTop = $('.profile-card').css('top')
+      profileCardTop = parseInt(profileCardTop)
+      # 55 means ajustment num
+      tempCount = bodyHeight - (footerHeight + profileCardHeight + profileCardTop + 55)
+
+      stickyUserCard = ->
+        scrollTop = $(window).scrollTop()
+
+        if scrollTop >= tempCount
+          # 40 means ajustment num
+          tempPos1 = tempCount - (photoHeight + headerHeight) + 40
+          $('.profile-card').removeClass 'fixed'
+          $('.profile-card').css('top', tempPos1 + 'px')
+        else
+          $('.profile-card').addClass('fixed').removeAttr 'style'
+        return
+
+      stickyUserCard()
+
+      $(window).scroll ->
+        stickyUserCard()
+        return
+
+      timer = false
+      $(window).resize ->
+        if timer != false
+          clearTimeout timer
+        timer = setTimeout((->
+          stickyUserCard()
           return
         ), 200)
         return
