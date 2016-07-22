@@ -30,46 +30,46 @@
 
 - id_name = 'reservation_block' + count
 .collapse[id=id_name]
-  .collapse-inner
+  .reservation-collapse.collapse-inner
     #reservation_block-info
       .row.row-condensed.row-space-1
-        .col-md-3.text-left.text-muted.strong
+        .col-md-4.text-left.text-muted
           | Tour:
         .col-md-8.strong
           = listing.title
       .row.row-condensed.row-space-1
-        .col-md-3.text-left.text-muted.strong
+        .col-md-4.text-left.text-muted
           | Date:
         .col-md-8.strong
           = "#{schedule_span(reservation)}"
       .row.row-condensed.row-space-1
-        .col-md-3.text-left.text-muted.strong
+        .col-md-4.text-left.text-muted
           | Support Fee:
         .col-md-8.strong
-          |¥
+          | ¥
           = reservation.price_for_support
       .row.row-condensed.row-space-1
-        .col-md-3.text-left.text-muted.strong
+        .col-md-4.text-left.text-muted
           | Number of people:
         .col-md-8.strong
           = reservation.num_of_people
       .row.row-condensed.row-space-1
-        .col-md-3.text-left.text-muted.strong
+        .col-md-4.text-left.text-muted
           | Meeting at：
         .col-md-8
           = reservation.place
       .row.row-condensed.row-space-1
-        .col-md-3.text-left.text-muted.strong
+        .col-md-4.text-left.text-muted
           | Detail on meeting place：
         .col-md-8.row-space-reset
           = reservation.place_memo
       .row.row-condensed.row-space-1
-        .col-md-3.text-left.text-muted.strong
+        .col-md-4.text-left.text-muted
           | Meeting time:
         .col-md-8
           = meeting_at(reservation)
       .row.row-condensed.row-space-1
-        .col-md-3.text-left.text-muted.strong
+        .col-md-4.text-left.text-muted
           | Note:
         .col-md-8
           = simple_format(reservation.description)

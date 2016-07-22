@@ -199,4 +199,6 @@ Rails.application.routes.draw do
   get "weekly_payment_report" => 'admin/payment#payment_weekly_report'
   get "payment_report_index" => 'admin/payment#index'
   root 'welcome#index'
+  
+  get '*path', controller: 'application', action: 'render_404'
 end
