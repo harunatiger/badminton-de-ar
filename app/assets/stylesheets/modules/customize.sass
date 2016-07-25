@@ -1998,13 +1998,15 @@ body.paper
     width: 40px
     height: 40px
     padding-top: 6px
-    background-color: $brand-theme
+    //background-color: $brand-theme
+    border: 1px solid $brand-theme
     i.fa
       width: 26px
       height: 26px
-      line-height: 26px
+      line-height: 24px
       padding-left: 2px
       background-color: white
+      border: 1px solid $brand-theme
       border-radius: 13px
   .profile-card-body
     clear: both
@@ -2204,7 +2206,7 @@ body.paper
 /* inputrate */
 .inputrate-container
   display: inline-block
-  border: 1px solid $border1
+  //border: 1px solid $border1
   border-radius: 3px
 .inputrate-label, .inputrate
   display: inline-block
@@ -2213,10 +2215,14 @@ body.paper
   padding: 0 9px
   color: white
   font-size: 13px
-  border-radius: 0 3px 3px 0
+  //border-radius: 0 3px 3px 0
 .inputrate-label
   color: $gray1
   padding-right: 5px
+  padding-left: 0
+.inputrate
+  border-radius: 2px
+  margin-right: 5px
 .inputrate-red
   background-color: $red1
 .inputrate-orange
