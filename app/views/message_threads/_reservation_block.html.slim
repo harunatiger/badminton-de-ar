@@ -126,19 +126,19 @@
                           .col-md-8.strong
                             | ¥
                             = @reservation[option]
-            .row.row-condensed
-              .col-md-4.text-left.text-muted
-                | Service Commission :
-              .col-md-8.strong
-                | ¥
-                = @reservation.service_fee
-            .row.row-condensed
-              .col-md-4.text-left.text-muted
-                = link_to 'Travel insurance:', "#travel_insurance", class: "travel_insurance link-bordered", data: { toggle: "modal" }
-              .col-md-8.strong
-                |¥
-                = @reservation.insurance_fee
-                | (#{@reservation.insurance_people_str})
+                .row.row-condensed
+                  .col-md-4.text-left.text-muted
+                    | Service Commission :
+                  .col-md-8.strong
+                    | ¥
+                    = @reservation.service_fee
+                .row.row-condensed
+                  .col-md-4.text-left.text-muted
+                    = link_to 'Travel insurance:', "#travel_insurance", class: "travel_insurance link-bordered", data: { toggle: "modal" }
+                  .col-md-8.strong
+                    |¥
+                    = @reservation.insurance_fee
+                    | (#{@reservation.insurance_people_str})
             .row.row-condensed
               .col-md-4.text-left.text-muted
                 | Not included :
