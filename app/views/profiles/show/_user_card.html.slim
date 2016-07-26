@@ -22,7 +22,7 @@
                   / Profile Movie
                 #profile_movie
                   = video_player src: { mp4: profile.profile_video.video.encoded, webm: profile.profile_video.video.encoded }, controls: true, width: "auto", height: "auto", id: "guide_profile_video"
-        - if profile.profile_video.present? || count_for_thumb > 1
+        /- if profile.profile_video.present? || count_for_thumb > 1
           = link_to "#profie-thumb-carousel", class: "left carousel-control" do
             i.fa.fa-caret-left aria-hidden="true"
             span.sr-only Previous
@@ -113,7 +113,7 @@
       i.fa.fa-map-marker
       ' 
       = profile.location
-    .profile-rating
+    .profile-rating.row-space-2
       .star-rating
         = render partial: 'shared/stars', locals: { rate: @profile.ave_total }
       span.badge-pill-count.small1
@@ -123,38 +123,38 @@
           = reviewed_count
         |)
 
-  - if user_signed_in?
-    - if current_user.id == @profile.user_id
-      = link_to profile_link, class: "btn btn-large btn-block btn-primary disabled btn-relative profile_message js-google-tag-manager" do
+    - if user_signed_in?
+      - if current_user.id == @profile.user_id
+        = link_to profile_link, class: "btn btn-large btn-block btn-primary disabled btn-relative profile_message js-google-tag-manager" do
+          .media-photo.media-round.media-avatar
+            .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
+          i.fa.fa-comments-o
+          | Talk to me
+      /- elsif not profile_completed?
+        = link_to profile_link, class: 'btn btn-large btn-block btn-primary btn-relative profile_message js-google-tag-manager' do
+          .media-photo.media-round.media-avatar
+            .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
+          i.fa.fa-comments-o
+          | Talk to me
+      - else
+        -if @message_thread
+          = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary btn-relative profile_message js-google-tag-manager' do
+            .media-photo.media-round.media-avatar
+              .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
+            i.fa.fa-comments-o
+            | Talk to me
+        -else
+          = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: @profile.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary btn-relative profile_message' do
+            .media-photo.media-round.media-avatar
+              .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
+            i.fa.fa-comments-o
+            | Talk to me
+    - else
+      = link_to '#sign_up_form', class: "btn btn-large btn-block btn-primary btn-relative profile_message js-google-tag-manager", data: { toggle: "modal" } do
         .media-photo.media-round.media-avatar
           .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
         i.fa.fa-comments-o
         | Talk to me
-    /- elsif not profile_completed?
-      = link_to profile_link, class: 'btn btn-large btn-block btn-primary btn-relative profile_message js-google-tag-manager' do
-        .media-photo.media-round.media-avatar
-          .size28[style="background-image: url('#{asset_path profile_to_image(@profile)}')"]
-        i.fa.fa-comments-o
-        | Talk to me
-    - else
-      -if @message_thread
-        = link_to message_thread_path(@message_thread), class: 'btn btn-large btn-block btn-primary btn-relative profile_message js-google-tag-manager' do
-          .media-photo.media-round.media-avatar
-            .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
-          i.fa.fa-comments-o
-          | Talk to me
-      -else
-        = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: @profile.user_id}), method: 'POST', class: 'btn btn-large btn-block btn-primary btn-relative profile_message' do
-          .media-photo.media-round.media-avatar
-            .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
-          i.fa.fa-comments-o
-          | Talk to me
-  - else
-    = link_to '#sign_up_form', class: "btn btn-large btn-block btn-primary btn-relative profile_message js-google-tag-manager", data: { toggle: "modal" } do
-      .media-photo.media-round.media-avatar
-        .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
-      i.fa.fa-comments-o
-      | Talk to me
 
     /.profile-add.row-space-top-1.row-space-1
       = link_to "#", class: "pair_guide_list-trigger small2" do
