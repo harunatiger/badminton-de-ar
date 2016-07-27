@@ -46,14 +46,14 @@
         .row.row-condensed
           .col-md-4.text-left.text-muted
             | Basic Price :
-          .col-md-8.strong
+          .col-md-8
             |¥
             = reservation.guide_price
         - if reservation.option_amount > 0
           .row.row-condensed
             .col-md-4.text-left.text-muted
               | Optional Price :
-            .col-md-8.strong
+            .col-md-8
               |¥
               = reservation.option_amount
           /- if reservation.space_option
@@ -62,7 +62,7 @@
                 .row.row-condensed
                   .col-md-4.text-left.text-muted
                     = I18n.t('option_price_en.' + option)
-                  .col-md-8.strong
+                  .col-md-8
                     |¥
                     = reservation.option_amount
                 /- if reservation.space_option
@@ -80,7 +80,7 @@
                       .row.row-condensed
                         .col-md-4.text-left.text-muted
                           = I18n.t('option_price_en.' + option)
-                        .col-md-8.strong
+                        .col-md-8
                           |¥
                           = reservation[option]
                 - if reservation.bicycle_option
@@ -90,7 +90,7 @@
                       .row.row-condensed
                         .col-md-4.text-left.text-muted
                           = I18n.t('option_price_en.' + option)
-                        .col-md-8.strong
+                        .col-md-8
                           |¥
                           = reservation[option] * num_of_people
                 - if reservation.other_option
@@ -99,19 +99,19 @@
                       .row.row-condensed
                         .col-md-4.text-left.text-muted
                           = I18n.t('option_price_en.' + option)
-                        .col-md-8.strong
+                        .col-md-8
                           |¥
                           = reservation[option]
         .row.row-condensed
           .col-md-4.text-left.text-muted
             | Service Commission :
-          .col-md-8.strong
+          .col-md-8
             | ¥
             = reservation.service_fee
         .row.row-condensed
           .col-md-4.text-left.text-muted
             = link_to 'Travel insurance:', "#travel_insurance", class: "travel_insurance link-bordered", data: { toggle: "modal" }
-          .col-md-8.strong
+          .col-md-8
             | ¥
             = reservation.insurance_fee
             | (#{reservation.insurance_people_str})
