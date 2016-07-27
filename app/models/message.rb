@@ -198,9 +198,10 @@ class Message < ActiveRecord::Base
       to_user_id: guest_id
     )
     
+    message = content == 'Others' ? Settings.message.what_talk_about.to_guide_other : Settings.message.what_talk_about.to_guide + content.downcase!
     to_guide_message = Message.new(
       message_thread_id: message_thread.id,
-      content: Settings.message.what_talk_about.to_guide + content,
+      content: message + '.',
       read: false,
       from_user_id: guest_id,
       to_user_id: host_id

@@ -801,7 +801,8 @@ module ApplicationHelper
   
   def what_talk_about_message?(message)
     what_talk_about_contents.each do |content|
-      return true if message == Settings.message.what_talk_about.to_guide + content[:name]
+      return true if message == Settings.message.what_talk_about.to_guide + content[:name].downcase! + '.'
+      return true if message == Settings.message.what_talk_about.to_guide_other + '.'
     end
     return false
   end
