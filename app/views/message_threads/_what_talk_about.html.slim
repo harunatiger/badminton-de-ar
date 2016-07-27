@@ -1,0 +1,13 @@
+#what_talk_about.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        form
+          .card-body
+            = link_to "Close", "#", data: { dismiss: "modal" }, class: "modal-close"
+            = image_tag(their_profile_image)
+            | What should we talk about?
+            - what_talk_about_contents.each do |content|
+              = link_to what_talk_about_message_thread_path(@message_thread, content: content[:name]), class: 'btn btn-primary', method: :POST do
+                /= image_tag(content[:image])
+                = content[:name]

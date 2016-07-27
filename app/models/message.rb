@@ -188,6 +188,37 @@ class Message < ActiveRecord::Base
       to_user_id: to_user_id
     )
   end
+  
+  def self.send_what_talk_about(message_thread, host_id, guest_id, content)
+    to_guest_message = Message.new(
+      message_thread_id: message_thread.id,
+      content: Settings.message.what_talk_about.to_guest,
+      read: false,
+      from_user_id: host_id,
+      to_user_id: guest_id
+    )
+    
+    to_guide_message = Message.new(
+      message_thread_id: message_thread.id,
+      content: Settings.message.what_talk_about.to_guide + content,
+      read: false,
+      from_user_id: guest_id,
+      to_user_id: host_id
+    )
+    
+    if to_guest_message.valid? and to_guide_message.valid?
+      to_guest_message.save
+      to_guide_message.save
+      message_params = {
+        'from_user_id' => guest_id,
+        'to_user_id' => host_id,
+        'content' => to_guide_message.content
+        }
+      return message_params
+    else
+      return false
+    end
+  end
 
   def english_content
     if self.try('content') == Settings.reservation.msg.request

@@ -238,6 +238,9 @@ message:
           label: "Send a message"
         content:
           placeholder: "例）どうぞよろしくおねがいします。"
+  what_talk_about:
+    to_guest: 'What should we talk about?'
+    to_guide: 'I want to know about '
 user:
   host:
     noname: "Guide"

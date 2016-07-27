@@ -789,4 +789,20 @@ module ApplicationHelper
   def checked_language_ids(profile)
     profile.language_ids.index(disabled_language_id) ? @profile.language_ids : @profile.language_ids.push(disabled_language_id)
   end
+  
+  def what_talk_about_contents
+    [
+      {name: 'Sports', image: 'what_talk_about/ttm_spots.png'},
+      {name: 'Food', image: 'what_talk_about/ttm_food.png'},
+      {name: 'Activities', image: 'what_talk_about/ttm_activities.png'},
+      {name: 'Others', image: 'what_talk_about/ttm_others.png'}
+    ]
+  end
+  
+  def what_talk_about_message?(message)
+    what_talk_about_contents.each do |content|
+      return true if message == Settings.message.what_talk_about.to_guide + content[:name]
+    end
+    return false
+  end
 end
