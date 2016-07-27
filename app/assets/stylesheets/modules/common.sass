@@ -623,9 +623,21 @@ select
 .link-reset
   color: inherit
 
+.link-bordered
+  color: #333
+  //text-decoration: underline
+  border-bottom: 1px dotted #333
+  &:hover
+    color: $brand-theme
+    text-decoration: none
+    border-bottom: 1px dotted $brand-theme
+
 /* text fa styling */
 .strong
   font-weight: 700
+
+.normal
+  font-weight: 400
 
 .text-wf
   font-family: 'Populaire', Avenir, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif

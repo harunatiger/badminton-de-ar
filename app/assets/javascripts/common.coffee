@@ -100,19 +100,6 @@ $ ->
   # profile#show
   if $('body').hasClass('profiles show')
 
-    # profile thumbnail carousel
-    if $('#profie-thumb-carousel').length
-      $('#profie-thumb-carousel').carousel(interval: false)
-      if $('.item').length < 2
-        $('.carousel-control').hide()
-      else
-        $('.carousel-control.left').click ->
-          $('#profie-thumb-carousel').carousel 'prev'
-          return
-        $('.carousel-control.right').click ->
-          $('#profie-thumb-carousel').carousel 'next'
-          return
-
     # profile tour location
     initialize = ->
       bounds = new google.maps.LatLngBounds()
@@ -607,7 +594,7 @@ $ ->
   $('.facebook_button').on 'click', ->
     $(this).addClass("disabled")
     return
-  
+
   $('.facebook_link').on 'click', ->
     $(this).hide()
     return

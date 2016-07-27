@@ -1,4 +1,5 @@
 class ProfileImagesController < ApplicationController
+  include CarrierwaveBase64Uploader
   before_action :authenticate_user!
   before_action :set_profile_image, only: [:show, :edit, :update, :destroy]
   before_action :set_profile
@@ -27,13 +28,41 @@ class ProfileImagesController < ApplicationController
   def manage
     @cover_image = @profile.cover.present? ? @profile.cover : ProfileImage.new
   end
+  
+  # before create thumb_image
+  def check_validation
+    if request.xhr?
+      @profile_image = ProfileImage.new(user_id: @profile.user_id, profile_id: @profile.id, cover_flg: false)
+      image_data = base64_conversion(params[:image])
+      @profile_image.image = image_data
+      if @profile_image.valid?
+        return render text: 'success'
+      end
+    end
+  end
 
-  # POST /profile_images
-  # POST /profile_images.json
+  # create thumb_image
   def create
+    if request.xhr?
+      @profile_image = ProfileImage.new(user_id: @profile.user_id, profile_id: @profile.id, cover_flg: false)
+      count = @profile.thumb_images.size
+      @profile_image.order_num = count + 1
+      @profile_image.set_crop_size(params[:imgW], params[:imgH], params[:imgX1], params[:imgY1], params[:cropW], params[:cropH])
+      image_data = base64_conversion(params[:imgUrl])
+      @profile_image.image = image_data
+      if @profile_image.save
+        result = {'status' => 'success', 'url' => @profile_image.image.url}
+        render json: result
+      else
+        result = {'status' => 'error', "message" => @profile_image.errors}
+        render json: result
+      end
+    end
+  end
+  
+  # create cover_image
+  def create_cover_image
     @profile_image = ProfileImage.new(profile_image_params)
-    count = @profile.thumb_images.size
-    @profile_image.order_num = count + 1
     respond_to do |format|
       if @profile_image.save
         format.html { redirect_to edit_profile_profile_image_path(@profile, @profile_image), notice: Settings.profile_images.save.success }
@@ -52,7 +81,7 @@ class ProfileImagesController < ApplicationController
   def update
     respond_to do |format|
       if @profile_image.update(profile_image_params)
-        format.html { redirect_to edit_profile_profile_image_path(@profile, @profile_image), notice: Settings.profile_images.save.success }
+        format.html { redirect_to manage_profile_profile_images_path(@profile, @profile_image), notice: Settings.profile_images.save.success }
         format.json { render :show, status: :ok, location: @profile_image }
         format.js { @status = 'success' }
       else

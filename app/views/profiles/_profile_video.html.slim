@@ -1,0 +1,8 @@
+#profile_video
+  .row
+    - if profile_video.present?
+      .col-lg-6.row-space-4.regist-pics
+        .listing-video-container
+          = video_player src: { mp4: profile_video.video.encoded, webm: profile_video.video.encoded }, controls: true, width: "100%", height: "240px", id: "profile_movie"
+          = link_to profile_profile_video_path(profile_id: profile_video.profile_id, id: profile_video.id), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
+            i.fa.fa-trash

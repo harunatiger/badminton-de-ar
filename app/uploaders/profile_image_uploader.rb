@@ -28,17 +28,23 @@ class ProfileImageUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
+  
 
   # Create different versions of your uploaded files:
   version :thumb do
     process :auto_orient
+    process :crop
     process resize_to_fit: [560, 420]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_white_list
-    %w(jpg jpeg gif png)
+    if model.respond_to?(:image_blank_ok) and model.image_blank_ok
+      ['jpg', 'jpeg', 'gif', 'png', '']
+    else
+      %w(jpg jpeg gif png)
+    end
   end
 
   # Override the filename of the uploaded files:
@@ -46,6 +52,7 @@ class ProfileImageUploader < CarrierWave::Uploader::Base
   #def filename
     #'something.jpg' if original_filename
   #end
+  
   def filename
     "#{secure_token}" if original_filename.present?
   end
@@ -61,4 +68,24 @@ class ProfileImageUploader < CarrierWave::Uploader::Base
     var = :"@#{mounted_as}_secure_token"
     model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
   end
+  
+  private
+
+    def crop
+      return unless defined? model.imgW # profile_image only
+      return unless [model.imgW, model.imgH, model.imgX1, model.imgY1, model.cropW, model.cropH].all?
+      manipulate! do |img|
+        width_ratio = model.imgW / img.columns.to_f
+        height_ratio = model.imgH / img.rows.to_f
+        
+        crop_x = (model.imgX1 / width_ratio).round
+        crop_y = (model.imgY1 / height_ratio).round
+        crop_w = (model.cropW / width_ratio).round
+        crop_h = (model.cropH / height_ratio).round
+        img.crop!(crop_x, crop_y, crop_w, crop_h)
+        #img.crop "#{crop_w}x#{crop_h}+#{crop_x}+#{crop_y}"
+        img = yield(img) if block_given?
+        img
+      end
+    end
 end

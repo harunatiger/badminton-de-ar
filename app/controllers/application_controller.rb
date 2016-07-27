@@ -23,4 +23,14 @@ class ApplicationController < ActionController::Base
       session[:previous_url] = request.fullpath
     end
   end
+  
+  if !Rails.env.development?
+    rescue_from ActiveRecord::RecordNotFound, with: :render_404
+    rescue_from ActionController::RoutingError,   with: :render_404
+  end
+  
+  def render_404(e = nil)
+    logger.info "Rendering 404 with exception: #{e.message}" if e
+    render template: 'errors/error_404', status: 404, layout: 'application', content_type: 'text/html'
+  end
 end
