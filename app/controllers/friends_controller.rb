@@ -4,7 +4,7 @@ class FriendsController < ApplicationController
   before_action :set_guide, only: [:send_request, :destroy, :accept, :reject]
   
   def index
-    @friends = current_user.friends_profiles.page(params[:page]).per(Settings.friend.page_count)
+    @friends = current_user.friends_profiles.order_by_created_at_asc.page(params[:page]).per(Settings.friend.page_count)
     respond_to do |format|
       format.html
       format.js
@@ -12,7 +12,7 @@ class FriendsController < ApplicationController
   end
   
   def list_search
-    @not_friends = current_user.not_friends_profiles.page(params[:page]).per(Settings.friend.page_count)
+    @not_friends = current_user.not_friends_profiles.order_by_created_at_asc.page(params[:page]).per(Settings.friend.page_count)
     respond_to do |format|
       format.html
       format.js
@@ -87,7 +87,7 @@ class FriendsController < ApplicationController
   #from booking list
   def friends_list
     session[:guide_ids] = nil if session[:previous_url].blank? or !session[:previous_url].include?('friends')
-    @friends = current_user.friends_profiles.page(params[:page]).per(Settings.friend.page_count)
+    @friends = current_user.friends_profiles.order_by_created_at_asc.page(params[:page]).per(Settings.friend.page_count)
     @reservation = Reservation.find(params[:id])
     respond_to do |format|
       if @friends.blank?

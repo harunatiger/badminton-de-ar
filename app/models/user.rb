@@ -256,7 +256,7 @@ class User < ActiveRecord::Base
   
   def friends_profiles
     users = self.friends
-    Profile.where(user_id: users.ids).order("RANDOM()")
+    Profile.where(user_id: users.ids)
   end
   
   def requested_friends_profiles
@@ -286,11 +286,11 @@ class User < ActiveRecord::Base
   
   def search_friends(search_params)
     users = self.friends.joins(:profile).merge(Profile.contains?(search_params[:keyword]))
-    Profile.where(user_id: users.ids)
+    Profile.where(user_id: users.ids).order_by_created_at_asc
   end
   
   def search_not_friends(search_params)
-    self.not_friends_profiles.contains?(search_params[:keyword])
+    self.not_friends_profiles.contains?(search_params[:keyword]).order_by_created_at_asc
   end
   
   def unconfirmed?

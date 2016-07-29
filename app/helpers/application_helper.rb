@@ -675,7 +675,7 @@ module ApplicationHelper
 
   def pair_guide_profiles(host_id)
     host = User.find(host_id)
-    host.friends_profiles
+    host.friends_profiles.order("RANDOM()")
   end
 
   def pair_user(reservation)
