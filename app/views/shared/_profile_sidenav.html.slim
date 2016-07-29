@@ -75,33 +75,33 @@
               | picture
             - else
               | Profile picture
-    - if !current_user.guest?
-      - if controller_name == 'profile_identities'
-        li
-          = link_to "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"} do
-            span.hide--sp
-              - if !profile_identity_authorized?(current_user.id)
-                i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
-              | ID information
-            span.show--sp
-              - if !profile_identity_authorized?(current_user.id)
-                i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
-              | ID
-              br
-              | info
-      - else
-        li
-          = link_to "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"} do
-            span.hide--sp
-              - if !profile_identity_authorized?(current_user.id)
-                i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
-              | ID information
-            span.show--sp
-              - if !profile_identity_authorized?(current_user.id)
-                i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
-              | ID
-              br
-              | info
+    /- if !current_user.guest?
+    - if controller_name == 'profile_identities'
+      li
+        = link_to "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"} do
+          span.hide--sp
+            - if !profile_identity_authorized?(current_user.id)
+              i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+            | ID information
+          span.show--sp
+            - if !profile_identity_authorized?(current_user.id)
+              i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+            | ID
+            br
+            | info
+    - else
+      li
+        = link_to "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "false"} do
+          span.hide--sp
+            - if !profile_identity_authorized?(current_user.id)
+              i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+            | ID information
+          span.show--sp
+            - if !profile_identity_authorized?(current_user.id)
+              i.fa.fa-exclamation-circle.fa-red.fa-exclamation-circle-alert
+            | ID
+            br
+            | info
     /- if !current_user.guest?
       - if controller_name == 'profile_banks'
         li
