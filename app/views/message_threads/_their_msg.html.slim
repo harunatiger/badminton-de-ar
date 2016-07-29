@@ -72,6 +72,12 @@ li.thread-list-item
                 - elsif m.try('content') == Settings.reservation.msg.cancel_pair_guide_from_dashboard
                   span.text-pink.strong
                     = m.try('content')
+                - elsif m.try('content') == Settings.message.what_talk_about.to_guest
+                  span.text-blue.strong
+                    = m.try('content')
+                - elsif what_talk_about_message?(m.try('content'))
+                  span.text-pink.strong
+                    = m.try('content')
                 - else
                   = text_url_to_link(hbr(m.try('content'))).html_safe
             - if m.attached_file.present?

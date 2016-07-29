@@ -23,7 +23,7 @@
           | You can discuss anything, including the place, price, and timing.
   - else
     -if message_thread
-      = link_to message_thread_path(message_thread), class: 'btn btn-primary btn-large btn-block btn-relative listing_message js-google-tag-manager' do
+      = link_to talk_to_me_message_thread_path(message_thread, talk_to_me: true), class: 'btn btn-primary btn-large btn-block btn-relative listing_message js-google-tag-manager' do
         i.fa.fa-comments-o
         | Talk to me
       .row.row-condensed.row-space-top-2.hide--sp
@@ -34,7 +34,7 @@
           p
             | You can discuss anything, including the place, price, and timing.
     - else
-      = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: listing.user_id}), method: 'POST', class: 'btn btn-primary btn-large btn-block btn-relative listing_message js-google-tag-manager' do
+      = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: listing.user_id}, talk_to_me: true), method: 'POST', class: 'btn btn-primary btn-large btn-block btn-relative listing_message js-google-tag-manager' do
         i.fa.fa-comments-o
         | Talk to me
       .row.row-condensed.row-space-top-2.hide--sp

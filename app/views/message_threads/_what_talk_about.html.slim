@@ -1,0 +1,21 @@
+#what_talk_about.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-body
+          .row
+            .col-md-12
+              = link_to " Close", "#", data: { dismiss: "modal" }, class: "modal-close"
+          .row.row-space-4
+            .col-md-12.text-center
+              .media-photo.media-round.media-avatar
+                .size90[style="background-image: url(#{asset_path their_profile_image})"]
+              .card.card-quote
+                .card-body
+                  .h4.text-brand What should we talk about?
+          .row
+            - what_talk_about_contents.each do |content|
+              .col-xs-6.row-space-2
+                = link_to what_talk_about_message_thread_path(@message_thread, content: content[:name]), class: 'btn btn-block', method: :POST do
+                  = image_tag(content[:image])
+                  .text-lead = content[:name]

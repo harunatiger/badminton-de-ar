@@ -32,6 +32,7 @@ class MessageThread < ActiveRecord::Base
     self.users.where.not(id: my_user_id).first
   end
 
+  # can use only for GuideThread and when to_user_id = host && from_user_id == guest
   def self.exists_thread?(to_user_id, from_user_id)
     t_threads = MessageThreadUser.user_joins(to_user_id).joins(:message_thread).merge(MessageThread.typed(self.model_name.name)).select(:message_thread_id)
     f_threads = MessageThreadUser.user_joins(from_user_id).joins(:message_thread).merge(MessageThread.typed(self.model_name.name)).select(:message_thread_id)
@@ -106,11 +107,7 @@ class MessageThread < ActiveRecord::Base
   end
 
   def same_thread?(from_user_id)
-    if self.origin_from_user_id
-      self.origin_from_user_id == from_user_id
-    else
-      return self.host_id != from_user_id
-    end
+    return self.host_id != from_user_id
   end
 
   def guest_thread?
@@ -133,5 +130,10 @@ class MessageThread < ActiveRecord::Base
   def origin_to_user_id
     message = Message.message_thread(self.id).order('created_at asc').first
     message.present? ? message.to_user_id : false
+  end
+  
+  def origin_message
+    message = Message.message_thread(self.id).order('created_at asc').first
+    message.present? ? message.content : false
   end
 end

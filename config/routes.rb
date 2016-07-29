@@ -65,7 +65,10 @@ Rails.application.routes.draw do
   # get 'introductions'                       => 'profiles#introduction', as: 'introduction'
   #get 'pickups/show/:type/:id'                    => 'listing_pickups#show', as: 'pickups_list'
 
-  resources :message_threads, except: [:edit]
+  resources :message_threads, except: [:edit] do
+    get 'talk_to_me', on: :member
+    post 'what_talk_about', on: :member
+  end
 
   resources :messages do
     collection do
