@@ -7,6 +7,7 @@
 #  listing_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  read_at    :datetime
 #
 # Indexes
 #
@@ -20,5 +21,6 @@ class FavoriteListing < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :listing_id, presence: true
-
+  
+  scope :order_by_created_at_desc, -> { order('created_at desc') }
 end

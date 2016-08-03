@@ -61,6 +61,7 @@ Rails.application.routes.draw do
   get 'dashboard'                           => 'dashboard#index'
   get 'dashboard/host_reservation_manager'  => 'dashboard#host_reservation_manager'
   get 'dashboard/guest_reservation_manager' => 'dashboard#guest_reservation_manager'
+  get 'dashboard/favorite_histories' => 'dashboard#favorite_histories'
   # get 'reviews'                             => 'profiles#review', as: 'user_review'
   # get 'introductions'                       => 'profiles#introduction', as: 'introduction'
   #get 'pickups/show/:type/:id'                    => 'listing_pickups#show', as: 'pickups_list'

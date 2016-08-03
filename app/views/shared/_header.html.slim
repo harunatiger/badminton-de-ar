@@ -95,6 +95,9 @@
               .size28[style="background-image: url('#{asset_path profile_to_image_thumb(current_user.profile)}')"]
             - if exist_profile_blank?
               i.fa.fa-exclamation.fa-exclamation-alert
+            - elsif current_user.unread_bookmark_count != 0
+              i.alert-count
+                = current_user.unread_bookmark_count
             span.name
               - if current_user.profile.first_name.present?
                 = current_user.profile.first_name
@@ -102,8 +105,13 @@
                 = current_user.email
             i.fa.fa-caret-down
           ul.user-nav.dropdown-menu.dropdown-menu-top-right
-            li
-              = link_to Settings.page.dashboard, dashboard_path, rel: "nofollow"
+            - if current_user.main_guide?
+              li
+                = link_to dashboard_path, rel: "nofollow" do
+                  - if current_user.unread_bookmark_count != 0
+                    i.alert-count
+                      = current_user.unread_bookmark_count
+                  = Settings.page.dashboard
             - if current_user.main_guide?
               li
                 = link_to Settings.page.listings, listings_path, rel: "nofollow"

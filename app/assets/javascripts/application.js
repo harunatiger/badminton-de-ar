@@ -32,6 +32,7 @@
 //= require lib/exif
 
 //= require common
+//= require dashboard
 //= require message
 //= require listings
 //= require reservation

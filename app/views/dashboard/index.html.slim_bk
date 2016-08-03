@@ -1,0 +1,100 @@
+= render partial: 'shared/subnav'
+
+.page-container.row-space-top-4.row-space-8
+  .row
+    .col-lg-3.hide--md.hide--sp
+      .card.row-space-4
+        .media.media-photo-block.dashboard-profile-photo.panel-image
+          = link_to profile_path(current_user.profile.id)
+            = image_tag(profile_to_image_thumb(current_user.profile), class: 'img-responsive')
+        .card-body
+          h3.text-center
+            = user_id_to_name(current_user.id)
+          ul.list-unstyled.text-center
+            li
+              = link_to "See profile", profile_path(current_user.profile.id)
+            li
+              = link_to "Edit profile", edit_profile_path(current_user.profile.id)
+          .favorite-icon.text-center
+            i.fa.fa-heart
+            = favorite_users_count(current_user.id)
+    .col-lg-9.col-md-12
+      #alert-panel.card.row-space-4
+        .card-header Notification
+        .card-body
+          ul.list-unstyled.list-smooth
+            - unless @never_replied_reservations.count.zero?
+              li
+                = link_to dashboard_host_reservation_manager_path do
+                  | You have
+                  = @never_replied_reservations.count
+                  | applications.
+                  i.fa.fa-chevron-right
+            - unless @unread_messages.count.zero?
+              li
+                = link_to message_threads_path do
+                  | You have
+                  = @unread_messages.count
+                  |  new message.
+                  i.fa.fa-chevron-right
+            - if @never_replied_reservations.count.zero? && @unread_messages.count.zero?
+              .text-center
+                p.h5.row-space-2.row-space-top-2
+                  | All confirmed
+      #message-panel.card.row-space-4
+        .card-header
+          | Unread
+          =< Settings.page.messages
+          ' 　New
+          span.count
+            = @unread_messages.count
+          |  message
+        - if @unread_messages.count.zero?
+          .card-body
+            .text-center
+              p.h5.row-space-top-2.row-space-2
+                | There are no new messages.
+        - else
+        ul.list-layout
+          - @unread_messages.each do |um|
+            - from_user = user_id_to_user_obj(um.from_user_id)
+            - from_user_profile = from_user.profile
+            li.card-body
+              .row
+                .col-md-5
+                  .row.row-table
+                    .col-xs-3.col-md-4
+                      = link_to message_thread_path(um.message_thread_id) do
+                        .img-round
+                          /.size50[style="background-image: url('#{asset_path user_id_to_profile_image(um.from_user_id)}')"]
+                          = image_tag(user_id_to_profile_image_thumb(um.from_user_id), class: 'size50')
+                    .col-xs-9.col-md-8
+                      = user_obj_to_name(from_user)
+                      br
+                      = um.created_at.strftime("%m/%d/ %H:%M")
+                = link_to message_thread_path(um.message_thread_id), class: "link-reset text-muted" do
+                  .col-md-7
+                    = um.english_content
+                    br
+                    span.text-muted
+                      = from_user_profile.location
+                /- if um.reservation_id.present? && !um.reservation_id.zero?
+                  - r = reservation_id_to_reservation_obj(um.reservation_id)
+                  - l = listing_id_to_listing_obj(um.listing_id)
+                  .col-md-2
+                    = render partial: 'progress', locals: { r: r }
+                    .small1
+                      | ￥
+                      = r.amount
+                      br
+                      = r.schedule.to_s
+                      /br
+                      /= r.num_of_people
+                      /| 人
+                /- else
+                  .col-md-2
+                    span.label.status-contact.text-starlight
+                      = Settings.message.unread.string
+        .card-body
+          = link_to message_threads_path do
+            | All messages

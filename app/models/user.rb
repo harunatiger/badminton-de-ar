@@ -154,6 +154,22 @@ class User < ActiveRecord::Base
     self.favorite_users_of_from_user.exists?(to_user_id: to_user)
   end
   
+  def bookmarked_histories
+    mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id)
+    mixed_array.sort{|f,s| s.created_at <=> f.created_at}
+  end
+  
+  def unread_bookmark_count
+    FavoriteListing.where(listing_id: self.listings.ids, read_at: nil).count + FavoriteUser.where(to_user_id: self.id, read_at: nil).count
+  end
+  
+  def mark_all_bookmarks_as_read
+    favorite_listings = FavoriteListing.where(listing_id: self.listings.ids, read_at: nil)
+    favorite_listings.update_all(read_at: Time.zone.now)
+    favorite_users = FavoriteUser.where(to_user_id: self.id, read_at: nil)
+    favorite_users.update_all(read_at: Time.zone.now)
+  end
+  
   def delete_children
     favorite_users = FavoriteUser.where('from_user_id = ? or to_user_id = ?', self.id, self.id)
     favorite_users.destroy_all if favorite_users.present?
