@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(version: 20160803050026) do
     t.integer  "listing_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "read_at"
   end
 
   add_index "favorite_listings", ["listing_id"], name: "index_favorite_listings_on_listing_id", using: :btree
@@ -177,6 +178,7 @@ ActiveRecord::Schema.define(version: 20160803050026) do
     t.integer  "to_user_id",   null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.datetime "read_at"
   end
 
   add_index "favorite_users", ["from_user_id"], name: "index_favorite_users_on_from_user_id", using: :btree

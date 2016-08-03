@@ -5,7 +5,7 @@
 #  id           :integer          not null, primary key
 #  to_user_id   :integer
 #  from_user_id :integer
-#  user_type    :integer          default(0), not null
+#  user_type    :integer          default(0)
 #  reason       :string           default("")
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -14,7 +14,6 @@
 #
 #  index_reports_on_from_user_id  (from_user_id)
 #  index_reports_on_to_user_id    (to_user_id)
-#  index_reports_on_user_type     (user_type)
 #
 
 class Report < ActiveRecord::Base

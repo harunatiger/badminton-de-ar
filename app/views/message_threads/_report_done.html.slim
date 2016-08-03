@@ -2,9 +2,15 @@
   .modal-table
     .modal-cell
       .modal-content
+        .card-header
+          = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+          | Thank you for your cooperation!
         .card-body
-          .row
-            = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
-          | Your report has been sent.
-          br
-          | Thank you.
+          .text-center
+            .h3.row-space-6.row-space-top-8
+              | Your report has been sent.
+              br
+              | Thank you.
+            .row-space-4
+              = link_to "#", data: { dismiss: "modal" }, class: "btn" do
+                | 閉じる
