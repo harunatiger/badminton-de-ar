@@ -96,7 +96,7 @@
             - if exist_profile_blank?
               i.fa.fa-exclamation.fa-exclamation-alert
             - elsif current_user.unread_bookmark_count != 0
-              i.alert-count
+              i.alert-count.fa-exclamation-alert
                 = current_user.unread_bookmark_count
             span.name
               - if current_user.profile.first_name.present?
@@ -109,7 +109,7 @@
               li
                 = link_to dashboard_path, rel: "nofollow" do
                   - if current_user.unread_bookmark_count != 0
-                    i.alert-count
+                    i.alert-count.position-left
                       = current_user.unread_bookmark_count
                   = Settings.page.dashboard
             - if current_user.main_guide?
