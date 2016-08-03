@@ -308,3 +308,19 @@ $ ->
         'delay': 800
         'color': 'rgb(249, 238, 145)'
       return false
+    
+    # report
+    $('.report').on 'click', ->
+      $.ajax(
+        type: 'POST'
+        url: '/reports'
+        data: {
+          to_user_id: $('#message_to_user_id').val()
+          from_user_id: $('#message_from_user_id').val()
+          message_thread_id: $('#message_message_thread_id').val()
+          reason: $(this).text()
+        }
+      )
+      $('#report_user').hide()
+      $('#report_done').modal()
+      return false

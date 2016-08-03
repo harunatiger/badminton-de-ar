@@ -1,0 +1,5 @@
+通報者：<%= user_id_to_name(@report.from_user_id) %>(UserID:<%= @report.from_user_id %>)
+
+通報対象者：<%= user_id_to_name(@report.to_user_id) %>(UserID:<%= @report.to_user_id %>)
+
+通報理由：<%= @report.reason %>

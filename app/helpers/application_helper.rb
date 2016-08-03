@@ -806,4 +806,8 @@ module ApplicationHelper
     end
     return false
   end
+  
+  def report_reasons
+    ['Spam/advertising.', 'They are using TOMODACHI GUIDE as a dating site.', 'They are causing trouble.', 'Other']
+  end
 end

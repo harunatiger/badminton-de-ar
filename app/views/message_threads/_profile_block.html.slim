@@ -33,8 +33,4 @@
         .row-space-top-1.small2.text-muted
           | Sign up:
           = counterpart.created_at.strftime("%Y")
-    /- if @host_id == counterpart.id
-      .guide-count.text-muted.text-center
-        | Guide experience
-        span.strong
-          = counterpart.finish_reservation_count
+  = link_to '通報する', '#report_user', class: 'text-red', data: { toggle: "modal" }

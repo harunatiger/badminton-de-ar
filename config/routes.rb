@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   end
 
   resources :announcements, param: :page_url, only: [:show, :index]
+  resources :reports, only: [:create]
 
   resources :profiles do
     resources :profile_images, only: [:show, :create, :update, :destroy] do

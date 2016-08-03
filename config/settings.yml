@@ -360,6 +360,8 @@ mailer:
     subject: 'ID認証依頼がありました。'
   send_id_authentication_complete_notification_to_user:
     subject: 'Your ID has been confirmed.'
+  send_report:
+    subject: '通報がありました。'
 left_steps:
   listing: "listing"
   listing_image: "listing_image"
