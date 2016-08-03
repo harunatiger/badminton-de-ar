@@ -5,7 +5,6 @@ $ ->
   if $('body').hasClass('message_threads show')
     if $('#what_talk_about')
       $('#what_talk_about').modal()
-      return
 
     # option price collapse
     $('.option-check').each ->
