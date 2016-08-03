@@ -1,8 +1,8 @@
 = render partial: 'shared/subnav'
 .page-container.row-space-top-4.row-space-8
   .row
-    .col-lg-3.hide--md.hide--sp
-      .card.row-space-4
+    .col-md-4.col-lg-3
+      #user-panel.card.row-space-4
         .media.media-photo-block.dashboard-profile-photo.panel-image
           = link_to profile_path(current_user.profile.id)
             = image_tag(profile_to_image_thumb(current_user.profile), class: 'img-responsive')
@@ -18,49 +18,68 @@
             = link_to '#', class: 'favorite_hitory', user_id: current_user.id do
               i.fa.fa-heart
               = favorite_users_count(current_user.id)
-    .col-lg-9.col-md-12
-      #alert-panel.card.row-space-4
+    .col-md-8.col-lg-9
+      #history-panel.card.row-space-4
         .card-header お気に入り履歴
-        .card-body
-          - if @bookmarked_histories.present?
-            ul.list-unstyled.list-smooth
-              - @bookmarked_histories.each do |history|
-                - user = listing_history?(history) ? user_id_to_user_obj(history.user_id) : user_id_to_user_obj(history.from_user_id)
-                
-                li
-                  = 'ゲスト' if user.guest?
-                  = link_to profile_path(user_id_to_profile_id(user.id)) do
-                    .img-round
-                      = image_tag(user_id_to_profile_image_thumb(user.id), class: 'size50')
-                  = history.created_at
-                  
-                  /*******bookmarked history of listings*******
-                  - if listing_history?(history)
-                    = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
-                    | さんが
-                    = link_to "#{listing_id_to_listing_obj(history.listing_id).title}", listing_path(history.listing_id)
-                    | をお気に入りに登録しました。
-                  /*******bookmarked history of current_user*******
-                  - else
-                    = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
-                    | さんがあなたをお気に入りに登録しました。
-          - else
-            | お気に入り履歴はありません。
-            
-    .col-lg-3.hide--md.hide--sp
-    .col-lg-9.col-md-12
-      #alert-panel.card.row-space-4
+        .scroll-container
+          .card-body
+            - if @bookmarked_histories.present?
+              ul.list-unstyled
+                - @bookmarked_histories.each do |history|
+                  - user = listing_history?(history) ? user_id_to_user_obj(history.user_id) : user_id_to_user_obj(history.from_user_id)
+                  li
+                    .row
+                      .col-md-3.col-lg-2.text-center
+                        = link_to profile_path(user_id_to_profile_id(user.id)) do
+                          .media-avatar
+                            - if user.guest?
+                              .size60.media-round.media-avatar-bordered[style="background-image: url(#{asset_path user_id_to_profile_image_thumb(user.id)})"]
+                            - else
+                              .size60.media-round[style="background-image: url(#{asset_path user_id_to_profile_image_thumb(user.id)})"]
+                      .col-md-9.col-lg-10
+                        .date.text-muted.row-space-1
+                          = history.created_at
+                        /*******bookmarked history of listings*******
+                        - if listing_history?(history)
+                          = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
+                          | さんが
+                          = link_to "#{listing_id_to_listing_obj(history.listing_id).title}", listing_path(history.listing_id)
+                          | をお気に入りに登録しました。
+                        /*******bookmarked history of current_user*******
+                        - else
+                          = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
+                          | さんがあなたをお気に入りに登録しました。
+            - else
+              .text-center
+                .h4 お気に入り履歴はありません。
+
+  .row
+    .col-md-12
+      #tour-panel.card.row-space-4
         .card-header あなたのツアー
         .card-body
-          - if @listings.present?
-            - @listings.each do |listing|
-              = link_to listing_path(listing.id) do
-                .img-round
-                  = image_tag(listing_cover_image_thumb_url(listing.id), class: 'size50')
-                = listing.title
-              = link_to '#', class: 'favorite_hitory', listing_id: listing.id do
-                .favorite-icon
-                  i.fa.fa-heart
-                  = favorite_listings_count(listing.id)
-          - else
-            | ツアーが登録されていません。
+          .row
+            - if @listings.present?
+              - @listings.each do |listing|
+                .col-lg-6.row-space-4
+                  .card
+                    .card-body
+                      .row
+                        .col-md-4
+                          = link_to listing_path(listing.id) do
+                            .media-cover-img
+                              div[style="background-image: url(#{asset_path listing_cover_image_thumb_url(listing.id)})"]
+                        .col-md-6
+                          = link_to listing_path(listing.id) do
+                            .multiple-ellipsis
+                              div
+                                b = listing.title
+                        .col-md-2.text-center
+                          = link_to '#', class: 'favorite_hitory', listing_id: listing.id do
+                            .favorite-icon
+                              i.fa.fa-heart
+                            div
+                              = favorite_listings_count(listing.id)
+            - else
+              .col-md-12.text-center
+                .h4 ツアーが登録されていません。
