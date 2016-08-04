@@ -55,9 +55,11 @@
 
   .row
     .col-md-12
-      #tour-panel.card.row-space-4
-        .card-header あなたのツアー
-        .card-body
+      #tour-panel.row-space-4
+        /.card-header あなたのツアー
+        = link_to "#tour-panel-collpase", class: "collapse-header text-lead row-space-4 collapsed", data: { toggle: "collapse" } do
+          b あなたのツアー
+        #tour-panel-collpase.collapse
           .row
             - if @listings.present?
               - @listings.each do |listing|
