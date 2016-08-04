@@ -203,6 +203,7 @@ message_thread:
     message_form:
       content:
         placeholder: "Write a message"
+  start_planning: 'You can start tour planning from this thread.'
 message:
   save:
     success: "Your message has been sent"

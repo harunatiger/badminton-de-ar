@@ -14,6 +14,8 @@
         - elsif @message_thread.guide_thread?
           span.user-type.user-guide
             | Guide
+        - elsif @message_thread.default_thread?
+          / not display
         - elsif @message_thread.host_id == current_user.id
           span.user-type.user-guest
             | Guest

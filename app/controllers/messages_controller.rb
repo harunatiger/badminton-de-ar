@@ -37,17 +37,9 @@ class MessagesController < ApplicationController
     end
   end
 
+  # only can use this method for message created at message_thread
   def create
-    if message_params[:message_thread_id]
-      res = message_params[:message_thread_id]
-    else
-      res = MessageThread.exists_thread?(message_params)
-    end
-    if res
-      mt_obj = MessageThread.find(res)
-    else
-      mt_obj = MessageThread.create_thread(message_params)
-    end
+    mt_obj = MessageThread.find(message_params[:message_thread_id])
 
     host_id = mt_obj.host_id.present? ? mt_obj.host_id.to_i : 0
     from_user_id = message_params[:from_user_id].present? ? message_params[:from_user_id].to_i : 0

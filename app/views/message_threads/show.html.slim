@@ -26,6 +26,8 @@
         = render partial: 'friends_request_block'
       - elsif @message_thread.pair_guide_thread?
         = render partial: 'pair_guide_block'
+      - elsif current_user.main_guide? and @message_thread.default_thread?
+        = render partial: 'start_planning_block'
       ul.list-unstyled
         li.thread-list-item
           .row.row-condensed.row-space-4

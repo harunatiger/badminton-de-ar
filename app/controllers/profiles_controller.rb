@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!, except: [:show, :read_more_reviews]
   before_action :set_profile, only: [:show, :edit, :update, :destroy, :self_introduction, :favorite_user, :read_more_reviews, :upload_profile_video]
   #before_action :set_pair_guide, only: [:show]
   before_action :set_message_thread, only: [:show]
@@ -159,8 +159,8 @@ class ProfilesController < ApplicationController
 
     def set_message_thread
       if current_user
-        if res = GuestThread.exists_thread?(@profile.user_id, current_user.id)
-          @message_thread = GuestThread.find(res)
+        if res = DefaultThread.exists_default_thread?(@profile.user_id, current_user.id)
+          @message_thread = res
         end
       end
     end

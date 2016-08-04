@@ -1,7 +1,7 @@
 class MessageThreadsController < ApplicationController
   before_action :authenticate_user!
-  before_action :message_thread_user?, only: [:show, :update, :destroy, :what_talk_about]
-  before_action :set_message_thread, only: [:show, :update, :destroy, :what_talk_about]
+  before_action :message_thread_user?, only: [:show, :update, :destroy, :what_talk_about, :start_planning]
+  before_action :set_message_thread, only: [:show, :update, :destroy, :what_talk_about, :start_planning]
   before_action :set_messages, only: [:show]
   before_action :set_reservation, only: [:show]
 
@@ -12,7 +12,9 @@ class MessageThreadsController < ApplicationController
     @message_threads = []
     message_threads_ids.each do |mt_id|
       message_thread = MessageThread.find(mt_id)
-      @message_threads << message_thread.set_reservation_progress if message_thread.messages.present?
+      if message_thread.messages.present? or message_thread.reservation_owner?(current_user.id)
+        @message_threads << message_thread.set_reservation_progress
+      end
     end
     @message_threads.sort_by! &:updated_at
     @message_threads.reverse!
@@ -59,11 +61,13 @@ class MessageThreadsController < ApplicationController
 
   # POST /message_threads
   # POST /message_threads.json
+  # only for GuestThread
   def create
     session[:talk_to_me] = params[:talk_to_me] if params[:talk_to_me]
     @message_thread = MessageThread.new(message_thread_params)
     @message_thread.message_thread_users.build(user_id: current_user.id)
     @message_thread.message_thread_users.build(user_id: @message_thread.host_id)
+    @message_thread.host_id = nil unless @message_thread.guest_thread?
     respond_to do |format|
       if @message_thread.save
         format.html { redirect_to message_thread_path(@message_thread.id)}
@@ -87,6 +91,11 @@ class MessageThreadsController < ApplicationController
         format.json { render json: @message_thread.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  def start_planning
+    guest_thread_id = @message_thread.get_guest_thread_id(current_user.id)
+    redirect_to message_thread_path(guest_thread_id), notice: Settings.message_thread.start_planning
   end
 
   # DELETE /message_threads/1
