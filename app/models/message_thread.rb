@@ -149,7 +149,7 @@ class MessageThread < ActiveRecord::Base
   
   def reservation_owner?(user_id)
     counterpart_user = self.counterpart_user(user_id)
-    self.host_id == user_id and Reservation.latest_reservation(counterpart_user, user_id)
+    self.guest_thread? and self.host_id == user_id and Reservation.latest_reservation(counterpart_user, user_id)
   end
   
   def get_guest_thread_id(current_user_id)
