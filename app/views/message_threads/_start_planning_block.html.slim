@@ -8,4 +8,5 @@
       #reservation_block[class="collapse in"]
         .reservation-collapse.collapse-inner
           | Do you start the planning for your guests?
-          = link_to 'Start Tour Planning', start_planning_message_thread_path(@message_thread), method: :PATCH, class: 'btn btn-primary btn-mw120'
+          .row-space-top-2.text-right
+            = link_to 'Start Tour Planning', start_planning_message_thread_path(@message_thread), method: :PATCH, class: 'btn btn-primary btn-mw120'
