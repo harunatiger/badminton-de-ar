@@ -95,7 +95,7 @@
               .size28[style="background-image: url('#{asset_path profile_to_image_thumb(current_user.profile)}')"]
             - if exist_profile_blank?
               i.fa.fa-exclamation.fa-exclamation-alert
-            - elsif current_user.unread_bookmark_count != 0
+            - elsif current_user.main_guide? and current_user.unread_bookmark_count != 0
               i.alert-count.fa-exclamation-alert
                 = current_user.unread_bookmark_count
             span.name
