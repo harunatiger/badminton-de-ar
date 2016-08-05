@@ -1,9 +1,8 @@
 = render partial: 'shared/subnav'
-
 .page-container.row-space-top-4.row-space-8
   .row
-    .col-lg-3.hide--md.hide--sp
-      .card.row-space-4
+    .col-md-4.col-lg-3
+      #user-panel.card.row-space-4
         .media.media-photo-block.dashboard-profile-photo.panel-image
           = link_to profile_path(current_user.profile.id)
             = image_tag(profile_to_image_thumb(current_user.profile), class: 'img-responsive')
@@ -16,85 +15,73 @@
             li
               = link_to "Edit profile", edit_profile_path(current_user.profile.id)
           .favorite-icon.text-center
-            i.fa.fa-heart
-            = favorite_users_count(current_user.id)
-    .col-lg-9.col-md-12
-      #alert-panel.card.row-space-4
-        .card-header Notification
-        .card-body
-          ul.list-unstyled.list-smooth
-            - unless @never_replied_reservations.count.zero?
-              li
-                = link_to dashboard_host_reservation_manager_path do
-                  | You have
-                  = @never_replied_reservations.count
-                  | applications.
-                  i.fa.fa-chevron-right
-            - unless @unread_messages.count.zero?
-              li
-                = link_to message_threads_path do
-                  | You have
-                  = @unread_messages.count
-                  |  new message.
-                  i.fa.fa-chevron-right
-            - if @never_replied_reservations.count.zero? && @unread_messages.count.zero?
-              .text-center
-                p.h5.row-space-2.row-space-top-2
-                  | All confirmed
-      #message-panel.card.row-space-4
-        .card-header
-          | Unread
-          =< Settings.page.messages
-          ' 　New
-          span.count
-            = @unread_messages.count
-          |  message
-        - if @unread_messages.count.zero?
+            = link_to '#', class: 'favorite_hitory', user_id: current_user.id do
+              i.fa.fa-heart
+              = favorite_users_count(current_user.id)
+    .col-md-8.col-lg-9
+      #history-panel.card.row-space-4
+        .card-header お気に入り履歴
+        .scroll-container
           .card-body
-            .text-center
-              p.h5.row-space-top-2.row-space-2
-                | There are no new messages.
-        - else
-        ul.list-layout
-          - @unread_messages.each do |um|
-            - from_user = user_id_to_user_obj(um.from_user_id)
-            - from_user_profile = from_user.profile
-            li.card-body
-              .row
-                .col-md-5
-                  .row.row-table
-                    .col-xs-3.col-md-4
-                      = link_to message_thread_path(um.message_thread_id) do
-                        .img-round
-                          /.size50[style="background-image: url('#{asset_path user_id_to_profile_image(um.from_user_id)}')"]
-                          = image_tag(user_id_to_profile_image_thumb(um.from_user_id), class: 'size50')
-                    .col-xs-9.col-md-8
-                      = user_obj_to_name(from_user)
-                      br
-                      = um.created_at.strftime("%m/%d/ %H:%M")
-                = link_to message_thread_path(um.message_thread_id), class: "link-reset text-muted" do
-                  .col-md-7
-                    = um.english_content
-                    br
-                    span.text-muted
-                      = from_user_profile.location
-                /- if um.reservation_id.present? && !um.reservation_id.zero?
-                  - r = reservation_id_to_reservation_obj(um.reservation_id)
-                  - l = listing_id_to_listing_obj(um.listing_id)
-                  .col-md-2
-                    = render partial: 'progress', locals: { r: r }
-                    .small1
-                      | ￥
-                      = r.amount
-                      br
-                      = r.schedule.to_s
-                      /br
-                      /= r.num_of_people
-                      /| 人
-                /- else
-                  .col-md-2
-                    span.label.status-contact.text-starlight
-                      = Settings.message.unread.string
-        .card-body
-          = link_to message_threads_path do
-            | All messages
+            - if @bookmarked_histories.present?
+              ul.list-unstyled
+                - @bookmarked_histories.each do |history|
+                  - user = listing_history?(history) ? user_id_to_user_obj(history.user_id) : user_id_to_user_obj(history.from_user_id)
+                  li
+                    .row
+                      .col-md-3.col-lg-2.text-center
+                        = link_to profile_path(user_id_to_profile_id(user.id)) do
+                          .media-avatar
+                            - if user.guest?
+                              .size60.media-round.media-avatar-bordered[style="background-image: url(#{asset_path user_id_to_profile_image_thumb(user.id)})"]
+                            - else
+                              .size60.media-round[style="background-image: url(#{asset_path user_id_to_profile_image_thumb(user.id)})"]
+                      .col-md-9.col-lg-10
+                        .date.text-muted.row-space-1
+                          = history.created_at
+                        /*******bookmarked history of listings*******
+                        - if listing_history?(history)
+                          = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
+                          | さんが
+                          = link_to "#{listing_id_to_listing_obj(history.listing_id).title}", listing_path(history.listing_id)
+                          | をお気に入りに登録しました。
+                        /*******bookmarked history of current_user*******
+                        - else
+                          = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
+                          | さんがあなたをお気に入りに登録しました。
+            - else
+              .text-center
+                .h4 お気に入り履歴はありません。
+
+  .row
+    .col-md-12
+      #tour-panel.row-space-4
+        /.card-header あなたのツアー
+        = link_to "#tour-panel-collpase", class: "collapse-header text-lead row-space-4 collapsed", data: { toggle: "collapse" } do
+          b あなたのツアー
+        #tour-panel-collpase.collapse
+          .row
+            - if @listings.present?
+              - @listings.each do |listing|
+                .col-lg-6.row-space-4
+                  .card
+                    .card-body
+                      .row
+                        .col-md-4
+                          = link_to listing_path(listing.id) do
+                            .media-cover-img
+                              div[style="background-image: url(#{asset_path listing_cover_image_thumb_url(listing.id)})"]
+                        .col-md-6
+                          = link_to listing_path(listing.id) do
+                            .multiple-ellipsis
+                              div
+                                b = listing.title
+                        .col-md-2.text-center
+                          = link_to '#', class: 'favorite_hitory', listing_id: listing.id do
+                            .favorite-icon
+                              i.fa.fa-heart
+                            div
+                              = favorite_listings_count(listing.id)
+            - else
+              .col-md-12.text-center
+                .h4 ツアーが登録されていません。

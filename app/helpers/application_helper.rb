@@ -806,4 +806,8 @@ module ApplicationHelper
     end
     return false
   end
+  
+  def listing_history?(history)
+    history.model_name == 'FavoriteListing'
+  end
 end

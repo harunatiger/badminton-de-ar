@@ -1656,6 +1656,8 @@ a.alert-warning
     background-repeat: no-repeat
     background-position: center top
     background-size: cover
+    &.media-avatar-bordered
+      border: 2px solid $brand-theme
 
 .media-avatar-double
   background-color: white
@@ -1730,6 +1732,28 @@ a.alert-warning
   margin: 0 5px 3px 0
   font-size: 18px
   vertical-align: middle
+
+.alert-count
+  display: block
+  position: absolute
+  top: -5px
+  left: 18px
+  width: 18px
+  height: 18px
+  line-height: 18px
+  color: white
+  font-size: 12px
+  font-style: normal
+  font-weight: 600
+  text-align: center
+  background-color: $red1
+  border-radius: 50%
+  &.position-left
+    display: inline-block
+    position: relative
+    top: auto
+    left: auto
+    margin-right: 4px
 
 /* section */
 .section-header

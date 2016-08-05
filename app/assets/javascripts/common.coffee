@@ -316,6 +316,7 @@ $ ->
             $('#talk_to').removeClass('fixed').removeAttr 'style'
             $('.subnav').attr 'aria-hidden','true'
           return
+        ###
         else
           if scrollTop >= stickyNavTop
             #$('.subnav, .manage-listing-nav, .manage-listing-detail').addClass 'pinned'
@@ -325,6 +326,7 @@ $ ->
             $('.subnav-placeholder').addClass 'hide'
           return
         return
+        ###
       stickyNav()
       $(window).scroll ->
         stickyNav()

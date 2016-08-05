@@ -2660,3 +2660,85 @@ h3.center-lined
       .text-lead
         line-height: 32px
         font-size: 15px
+
+/* dashboard edit 20160802
+.dashboard
+  #user-panel
+    height: 420px
+  #history-panel
+    .scroll-container
+      height: 366px
+      overflow-x: hidden
+      overflow-y: scroll
+      ul
+        li
+          padding-top: 20px
+          padding-bottom: 20px
+          border-bottom: 1px solid $border1
+    .media-avatar
+      div
+        margin-left: auto
+        margin-right: auto
+  #tour-panel
+    .collapse-header
+      display: block
+      padding:  15px
+      border: 1px solid $brand-theme
+      background-color: white
+      text-align: center
+      border-radius: 3px
+      &:after
+        content: '\f077'
+        float: right
+        font-family: 'FontAwesome'
+      &.collapsed
+        &:after
+          content: '\f078'
+    .card
+      .card
+        height: 120px
+    .media-cover-img
+      div
+        height: 80px
+  // ellipsis
+  $font-size-base: 16px
+  $line-height-computed: 1.5
+  $lines-to-show: 3
+
+  .multiple-ellipsis
+    width: 100%
+    background: white
+    overflow: hidden
+    div
+      position: relative
+      display: block
+      font-size: $font-size-base
+      max-height: $font-size-base * $line-height-computed * $lines-to-show
+      line-height: $line-height-computed
+      &:before,
+      &:after
+        position: absolute
+        background: white
+      &:before
+        content: '...'
+        top: $font-size-base * $line-height-computed * ($lines-to-show - 1)
+        right: 0
+        padding: 0 5px
+      &:after
+        content: ''
+        height: 100%
+        width: 100%
+
+  @media (max-width: 767px)
+    #user-panel
+      height: auto
+    #history-panel
+      .media-avatar
+        margin-bottom: 12.5px
+    #tour-panel
+      .card
+        height: auto
+      .media-cover-img
+        margin-bottom: 12.5px
+    .multiple-ellipsis
+      margin-bottom: 12.5px

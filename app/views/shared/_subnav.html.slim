@@ -2,12 +2,13 @@
 .subnav.hide--sp[data-sticky="true"]
   .page-container
     ul.subnav-list.list-unstyled
-      - if action_name !="guest_reservation_manager" && action_name !="host_reservation_manager" && controller_name =="dashboard"
-        li.active
-          = link_to Settings.page.dashboard, dashboard_path
-      - else
-        li
-          = link_to Settings.page.dashboard, dashboard_path
+      - if current_user.main_guide?
+        - if action_name !="guest_reservation_manager" && action_name !="host_reservation_manager" && controller_name =="dashboard"
+          li.active
+            = link_to Settings.page.dashboard, dashboard_path
+        - else
+          li
+            = link_to Settings.page.dashboard, dashboard_path
       - if controller_name =="messages" || controller_name =="message_threads"
         li.active
           = link_to Settings.page.messages, message_threads_path

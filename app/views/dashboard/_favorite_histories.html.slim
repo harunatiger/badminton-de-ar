@@ -1,0 +1,28 @@
+#favorite_histories.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+          | #{target}をお気に入りした人
+        .scroll-container
+          .card-body
+            - if histories.present?
+              - histories.each do |history|
+                - user = listing_history?(history) ? user_id_to_user_obj(history.user_id) : user_id_to_user_obj(history.from_user_id)
+                .row.row-space-4
+                  .col-xs-3.col-lg-2.text-center
+                    = link_to profile_path(user_id_to_profile_id(user.id)) do
+                      .media-avatar
+                        - if user.guest?
+                          .size60.media-round.media-avatar-bordered[style="background-image: url(#{asset_path user_id_to_profile_image_thumb(user.id)})"]
+                        - else
+                          .size60.media-round[style="background-image: url(#{asset_path user_id_to_profile_image_thumb(user.id)})"]
+                  .col-xs-9.col-lg-10
+                    .date.text-muted.row-space-1.row-space-top-1
+                      = history.created_at
+                    = link_to user_id_to_firstname(user.id), profile_path(user_id_to_profile_id(user.id)), class: "h4"
+                    | さん
+            - else
+              .text-center
+                .h4 お気に入り履歴はありません。
