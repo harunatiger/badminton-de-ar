@@ -1,0 +1,12 @@
+.row.row-condensed.row-space-4
+  .col-sm-12.col-md-10.col-md-push-1
+    .collapse-box
+      = link_to "#reservation_block",  data: { toggle:"collapse" }, class: "reservation_collapse link-reset" do
+        | Tour
+        |  Info
+        span rmation
+      #reservation_block[class="collapse in"]
+        .reservation-collapse.collapse-inner
+          | Do you start the planning for your guests?
+          .row-space-top-2.text-right
+            = link_to 'Start Tour Planning', start_planning_message_thread_path(@message_thread), method: :PATCH, class: 'btn btn-primary btn-mw120'

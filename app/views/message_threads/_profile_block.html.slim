@@ -1,5 +1,5 @@
 .col-lg-4
-  .card.row-space-4
+  .card.row-space-2
     .mini-profile.va-container.media
       .va-top.pull-left
         = link_to profile_path(counterpart.profile.id), class: "media-photo media-avatar" do
@@ -14,6 +14,8 @@
         - elsif @message_thread.guide_thread?
           span.user-type.user-guide
             | Guide
+        - elsif @message_thread.default_thread?
+          / not display
         - elsif @message_thread.host_id == current_user.id
           span.user-type.user-guest
             | Guest
@@ -33,8 +35,7 @@
         .row-space-top-1.small2.text-muted
           | Sign up:
           = counterpart.created_at.strftime("%Y")
-    /- if @host_id == counterpart.id
-      .guide-count.text-muted.text-center
-        | Guide experience
-        span.strong
-          = counterpart.finish_reservation_count
+  .row-space-4
+    = link_to '#report_user', class: 'text-red small1', data: { toggle: "modal" } do
+      i.fa.fa-ban
+      | 通報する

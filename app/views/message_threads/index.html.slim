@@ -11,7 +11,7 @@
             - @message_threads.each do |mt|
               - counterpart_user = mt.counterpart_user(current_user.id)
               - lm = latest_message(mt)
-              - to_user = lm.to_user_id
+              - to_user = lm.try('to_user_id')
               - if to_user == current_user.id
                 - li_class = "unread" unless lm.read.present?
               li class="thread #{li_class}"
@@ -28,65 +28,68 @@
                         - elsif mt.guide_thread?
                           span.user-type.user-guide
                             | Guide
-                        -elsif mt.host_id == current_user.id
+                        - elsif mt.default_thread?
+                          / not display
+                        - elsif mt.host_id == current_user.id
                           span.user-type.user-guest
                             | Guest
-                        -else
+                        - else
                           span.user-type.user-guide
                             | Guide
                         .row-space-top-1.user-name
                           = user_id_to_name(counterpart_user.id)
                   = link_to message_thread_path(mt), class: "col-md-8" do
-                    .col-md-8.thread-body.clearfix
-                      .message-content-single.row-space-1.pull-left
-                        = lm.english_content
-                      .thread-date.row-space-1.pull-left
-                        = mt.updated_at.to_s
-                      -if mt.first_message == true and mt.guest_thread?
-                        -if mt.reservation_progress != "Accept" && mt.reservation_progress != "Cancelled"
-                          -if mt.host_id == current_user.id && !mt.reply_from_host
-                            - unreply_time = time_ago(lm)
-                            - if unreply_time == '24時間以上'
-                              .reply-status.text-red.strong.row-space-1.pull-left
-                                | ゲストがあなたの返信を待っています
-                                =< unreply_time
-                                | 経過
-                            - else
-                              .reply-status.row-space-1.pull-left
-                                | ゲストがあなたの返信を待っています
-                                =< unreply_time
-                                | 経過
-                    .col-md-4.thread-progress
-                      .row.row-table
-                        .col-md-12.col-middle.text-center
-                          - if mt.guest_thread?
-                            - if mt.reservation_progress == Settings.reservation.progress.requested
-                              - unless counterpart_user.soft_destroyed?
-                                .state.state-primary
+                    - if lm.present?
+                      .col-md-8.thread-body.clearfix
+                        .message-content-single.row-space-1.pull-left
+                          = lm.english_content
+                        .thread-date.row-space-1.pull-left
+                          = mt.updated_at.to_s
+                        -if mt.first_message == true and mt.guest_thread?
+                          -if mt.reservation_progress != "Accept" && mt.reservation_progress != "Cancelled"
+                            -if mt.host_id == current_user.id && !mt.reply_from_host
+                              - unreply_time = time_ago(lm)
+                              - if unreply_time == '24時間以上'
+                                .reply-status.text-red.strong.row-space-1.pull-left
+                                  | ゲストがあなたの返信を待っています
+                                  =< unreply_time
+                                  | 経過
+                              - else
+                                .reply-status.row-space-1.pull-left
+                                  | ゲストがあなたの返信を待っています
+                                  =< unreply_time
+                                  | 経過
+                      .col-md-4.thread-progress
+                        .row.row-table
+                          .col-md-12.col-middle.text-center
+                            - if mt.guest_thread?
+                              - if mt.reservation_progress == Settings.reservation.progress.requested
+                                - unless counterpart_user.soft_destroyed?
+                                  .state.state-primary
+                                    = mt.reservation_progress
+                              - elsif mt.reservation_progress == Settings.reservation.progress.canceled
+                                .state.state-danger
                                   = mt.reservation_progress
-                            - elsif mt.reservation_progress == Settings.reservation.progress.canceled
-                              .state.state-danger
-                                = mt.reservation_progress
-                            - elsif mt.reservation_progress == Settings.reservation.progress.under_construction
-                              - unless counterpart_user.soft_destroyed?
+                              - elsif mt.reservation_progress == Settings.reservation.progress.under_construction
+                                - unless counterpart_user.soft_destroyed?
+                                  .state.state-alert
+                                    = mt.reservation_progress
+                              - elsif mt.reservation_progress == Settings.reservation.progress.accepted
+                                .state.state-success
+                                  = mt.reservation_progress
+                              - elsif mt.reservation_progress == Settings.reservation.progress.rejected
                                 .state.state-alert
                                   = mt.reservation_progress
-                            - elsif mt.reservation_progress == Settings.reservation.progress.accepted
-                              .state.state-success
-                                = mt.reservation_progress
-                            - elsif mt.reservation_progress == Settings.reservation.progress.rejected
-                              .state.state-alert
-                                = mt.reservation_progress
-                            - elsif mt.reservation_progress == Settings.reservation.progress.listing_closed
-                              .state.state-normal
-                                = mt.reservation_progress
-                          - elsif mt.pair_guide_thread? and mt.reservation.accepted? and !mt.reservation.finished?
-                            -if mt.reservation.pg_under_construction?
-                              .state.state-alert
-                                = mt.reservation.pair_guide_status_string
-                            - elsif mt.reservation.pg_offering?
-                              .state.state-primary
-                                = mt.reservation.pair_guide_status_string
-                            - elsif mt.reservation.pg_completion?
-                              .state.state-success
-                                = mt.reservation.pair_guide_status_string
+                              - elsif mt.reservation_progress == Settings.reservation.progress.listing_closed
+                                .state.state-normal
+                                  = mt.reservation_progress
+                            - elsif mt.pair_guide_thread? and mt.reservation.accepted? and !mt.reservation.finished?
+                              -if mt.reservation.pg_under_construction?
+                                .state.state-alert
+                                  = mt.reservation.pair_guide_status_string
+                              - elsif mt.reservation.pg_offering?
+                                .state.state-primary
+                                  = mt.reservation.pair_guide_status_string
+                              - elsif mt.reservation.pg_completion?
+                                .state.state-success
+                                  = mt.reservation.pair_guide_status_string

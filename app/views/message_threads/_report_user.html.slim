@@ -1,0 +1,15 @@
+#report_user.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+          | Would you like to report this user?
+        .card-body.text-center
+          .h4.row-space-2
+            | Please tell us why.
+            br
+            | Our team will check your reason.
+          - report_reasons.each do |reason|
+            .row-space-2
+              = link_to reason, '#', class: 'btn btn-secondary btn-block btn-large report'

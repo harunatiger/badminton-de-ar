@@ -810,4 +810,8 @@ module ApplicationHelper
   def listing_history?(history)
     history.model_name == 'FavoriteListing'
   end
+
+  def report_reasons
+    ['Spam/advertising.', 'They are using TOMODACHI GUIDE as a dating site.', 'They are causing trouble.', 'Other']
+  end
 end

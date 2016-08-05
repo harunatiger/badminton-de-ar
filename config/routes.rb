@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   end
 
   resources :announcements, param: :page_url, only: [:show, :index]
+  resources :reports, only: [:create]
 
   resources :profiles do
     resources :profile_images, only: [:show, :create, :update, :destroy] do
@@ -69,6 +70,7 @@ Rails.application.routes.draw do
   resources :message_threads, except: [:edit] do
     get 'talk_to_me', on: :member
     post 'what_talk_about', on: :member
+    patch 'start_planning', on: :member
   end
 
   resources :messages do

@@ -159,8 +159,8 @@ class ProfilesController < ApplicationController
 
     def set_message_thread
       if current_user
-        if res = GuestThread.exists_thread?(@profile.user_id, current_user.id)
-          @message_thread = GuestThread.find(res)
+        if res = DefaultThread.exists_default_thread?(@profile.user_id, current_user.id)
+          @message_thread = res
         end
       end
     end

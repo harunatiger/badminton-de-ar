@@ -22,6 +22,12 @@ class MessageThread < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :message_thread_users, dependent: :destroy
   has_many :users, through: :message_thread_users, dependent: :destroy
+  
+  #type description
+  #GuestThread : host <=> guest (for reservation)
+  #DefaultThread : ? <=> ? (before GuestThread)
+  #GuideThread : host <=> host (for making friends)
+  #PairGuideThread : host <=> host (for offering pair guide of reservation)
 
   attr_accessor :reservation_progress
 
@@ -32,7 +38,7 @@ class MessageThread < ActiveRecord::Base
     self.users.where.not(id: my_user_id).first
   end
 
-  # can use only for GuideThread and when to_user_id = host && from_user_id == guest
+  # can use only for GuestThread and when to_user_id = host && from_user_id == guest
   def self.exists_thread?(to_user_id, from_user_id)
     t_threads = MessageThreadUser.user_joins(to_user_id).joins(:message_thread).merge(MessageThread.typed(self.model_name.name)).select(:message_thread_id)
     f_threads = MessageThreadUser.user_joins(from_user_id).joins(:message_thread).merge(MessageThread.typed(self.model_name.name)).select(:message_thread_id)
@@ -121,6 +127,10 @@ class MessageThread < ActiveRecord::Base
   def pair_guide_thread?
     self.type == 'PairGuideThread'
   end
+  
+  def default_thread?
+    self.type == 'DefaultThread'
+  end
 
   def origin_from_user_id
     message = Message.message_thread(self.id).order('created_at asc').first
@@ -135,5 +145,28 @@ class MessageThread < ActiveRecord::Base
   def origin_message
     message = Message.message_thread(self.id).order('created_at asc').first
     message.present? ? message.content : false
+  end
+  
+  def reservation_owner?(user_id)
+    counterpart_user = self.counterpart_user(user_id)
+    self.guest_thread? and self.host_id == user_id and Reservation.latest_reservation(counterpart_user, user_id)
+  end
+  
+  def get_guest_thread_id(current_user_id)
+    guest = self.counterpart_user(current_user_id)
+    if message_thread_id = GuestThread.exists_thread?(current_user_id, guest.id)
+      message_thread = GuestThread.find(message_thread_id)
+      if message_thread.messages.present?
+        message_thread_id = message_thread.id
+      else
+        message_thread.destroy!
+        self.update(type: 'GuestThread', host_id: current_user_id, reply_from_host: true)
+        message_thread_id = self.id
+      end
+    else
+      self.update(type: 'GuestThread', host_id: current_user_id, reply_from_host: true)
+      message_thread_id = self.id
+    end
+    message_thread_id
   end
 end

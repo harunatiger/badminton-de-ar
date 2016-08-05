@@ -22,7 +22,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   
   def after_sign_in_path_for(resource)
     if session[:to_user_id]
-      message_thread_id = GuestThread.get_message_thread_id(session[:to_user_id], current_user.id)
+      profile_page = session[:previous_url].index('profiles')
+      if profile_page
+        message_thread_id = DefaultThread.get_message_thread_id(session[:to_user_id], current_user.id)
+      else
+        session[:talk_to_me] = true
+        message_thread_id = GuestThread.get_message_thread_id(session[:to_user_id], current_user.id)
+      end
       session[:to_user_id] = nil
       message_thread_id ? message_thread_path(message_thread_id) : root_path
     else

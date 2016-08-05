@@ -26,6 +26,8 @@
         = render partial: 'friends_request_block'
       - elsif @message_thread.pair_guide_thread?
         = render partial: 'pair_guide_block'
+      - elsif current_user.main_guide? and @message_thread.default_thread?
+        = render partial: 'start_planning_block'
       ul.list-unstyled
         li.thread-list-item
           .row.row-condensed.row-space-4
@@ -43,5 +45,7 @@
 = render partial: 'shared/modals/about_cancel'
 = render partial: 'shared/modals/about_payment'
 = render partial: '/shared/modals/travel_insurance'
+= render partial: 'report_user'
+= render partial: 'report_done'
 - if @talk_to_me
   = render partial: 'what_talk_about', locals: { their_profile_image: their_profile_image }
