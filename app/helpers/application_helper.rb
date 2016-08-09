@@ -792,7 +792,7 @@ module ApplicationHelper
   
   def what_talk_about_contents
     [
-      {name: 'Sports', image: 'what_talk_about/ttm_spots.png'},
+      {name: 'Spots', image: 'what_talk_about/ttm_spots.png'},
       {name: 'Food', image: 'what_talk_about/ttm_food.png'},
       {name: 'Activities', image: 'what_talk_about/ttm_activities.png'},
       {name: 'Others', image: 'what_talk_about/ttm_others.png'}

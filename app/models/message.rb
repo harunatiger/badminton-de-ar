@@ -189,7 +189,8 @@ class Message < ActiveRecord::Base
     )
   end
   
-  def self.send_what_talk_about(message_thread, host_id, guest_id, content)
+  def self.send_what_talk_about(message_thread, guest_id, content)
+    host_id = message_thread.counterpart_user(guest_id).try('id')
     to_guest_message = Message.new(
       message_thread_id: message_thread.id,
       content: Settings.message.what_talk_about.to_guest,
