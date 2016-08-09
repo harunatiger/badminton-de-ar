@@ -24,9 +24,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if session[:to_user_id]
       profile_page = session[:previous_url].index('profiles')
       if profile_page
+        session[:what_talk_about] = true unless current_user.main_guide?
         message_thread_id = DefaultThread.get_message_thread_id(session[:to_user_id], current_user.id)
       else
-        session[:talk_to_me] = true
+        session[:what_talk_about] = true
         message_thread_id = GuestThread.get_message_thread_id(session[:to_user_id], current_user.id)
       end
       session[:to_user_id] = nil

@@ -23,8 +23,8 @@ class MessageThreadsController < ApplicationController
   # GET /message_threads/1
   # GET /message_threads/1.json
   def show
-    @talk_to_me = session[:talk_to_me]
-    session[:talk_to_me] = nil
+    @what_talk_about = session[:what_talk_about]
+    session[:what_talk_about] = nil
     Message.make_all_read(@message_thread.id, current_user.id)
     @message = Message.new
     @counterpart = @message_thread.counterpart_user(current_user.id)
@@ -44,13 +44,13 @@ class MessageThreadsController < ApplicationController
   end
   
   def talk_to_me
-    session[:talk_to_me] = true
+    session[:what_talk_about] = true if params[:what_talk_about]
     redirect_to message_thread_path(params[:id])
   end
   
   def what_talk_about
     mail_to_admin = @message_thread.messages.present? ? false : true
-    if message_params = Message.send_what_talk_about(@message_thread, @message_thread.host_id, current_user.id, params[:content])
+    if message_params = Message.send_what_talk_about(@message_thread, current_user.id, params[:content])
       MessageMailer.send_new_message_notification(@message_thread, message_params).deliver_now!
       MessageMailer.send_new_message_notification_to_admin(@message_thread, message_params).deliver_now! if mail_to_admin
       redirect_to message_thread_path(@message_thread.id), notice: Settings.message.save.success
@@ -61,9 +61,9 @@ class MessageThreadsController < ApplicationController
 
   # POST /message_threads
   # POST /message_threads.json
-  # only for GuestThread
+  # only for GuestThread and DefaultThread
   def create
-    session[:talk_to_me] = params[:talk_to_me] if params[:talk_to_me]
+    session[:what_talk_about] = true if params[:what_talk_about]
     @message_thread = MessageThread.new(message_thread_params)
     @message_thread.message_thread_users.build(user_id: current_user.id)
     @message_thread.message_thread_users.build(user_id: @message_thread.host_id)

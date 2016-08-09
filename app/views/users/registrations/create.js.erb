@@ -1,11 +1,12 @@
 <% if @user.persisted? %>
   <% if session[:previous_url].index('profiles') %>
+    <% session[:what_talk_about] = true unless current_user.main_guide? %>
     window.location.href = "<%=message_thread_path(DefaultThread.get_message_thread_id(session[:to_user_id], current_user.id)) %>";
   <% else %>
     window.location.href = "<%=message_thread_path(GuestThread.get_message_thread_id(session[:to_user_id], current_user.id)) %>";
-    <% session[:talk_to_me] = true %>
+    <% session[:what_talk_about] = true %>
   <% end %>
-  <% session[:to_user_id] = nil %>
+  <% session[:what_talk_about] = nil %>
 <% else %>
   $("#error_message").html($("<%=j render partial: 'shared/modals/error_message', locals: {target: @user} %>").hide().fadeIn("slow"));
 <% end %>
