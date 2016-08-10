@@ -1,0 +1,66 @@
+#performance
+  - disabled = data.tour == Settings.chart_data.tours.all
+  .row
+    .col-md-12.text-center
+      h3
+        | Performance
+  = simple_form_for(data, url: dashboard_get_chart_data_path, remote: true, html: {id: 'chart_from'}) do |f|
+    = hidden_field_tag :user_id, user_id
+    = f.hidden_field :day, value: data.day
+    .row
+      .col-md-4
+        h4
+          | TOURS
+        = f.select :tour, data.tours_list(listings), {}, {class: 'chart_submit', id: 'change_tour'}
+      .col-md-4
+        h4
+          | DATA
+        = f.select :data, data.data_list, {}, {class: 'chart_submit'}
+      .col-md-4
+        h4
+          | BENCHMARKS
+        = f.select :benchmark, data.benchmark_list, {include_blank: true}, {disabled: disabled, class: 'chart_submit'}
+    .row
+      .col-md-12
+        = link_to '#', id: 'prev_month' do
+          i.fa.fa-caret-left.fa-2x
+        #chart
+          = render_chart(data.chart_data, 'chart')
+        = link_to '#', id: 'next_month' do
+          i.fa.fa-caret-right.fa-2x
+
+    .row
+      .col-md-4
+        h4
+          = data.day.strftime("%B, %Y")
+      .col-md-8
+        | total_pv:
+        = data.pv_monthly_count(listings)
+        span<
+        | total_favorites:
+        = data.favorites_monthly_count(listings)
+        span<
+        | total_reservations:
+        = data.reservations_monthly_count(listings)
+        span<
+        | total_salse:
+        = data.sales_monthly_amount(listings)
+
+    - if data.tour == Settings.chart_data.tours.all
+      / when TOURS == ALL
+      - listings.each do |listing|
+        .row
+          .col-md-4
+            = link_to listing.title, listing_path(listing.id)
+          .col-md-8
+            | pv:
+            = listing.pv_monthly_count(data)
+            span<
+            | favorites:
+            = listing.favorites_monthly_count(data)
+            span<
+            | reservations:
+            = listing.reservations_monthly_count(data)
+            span<
+            | salse:
+            = listing.sales_monthly_amount(data)

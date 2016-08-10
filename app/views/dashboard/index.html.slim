@@ -85,3 +85,8 @@
             - else
               .col-md-12.text-center
                 .h4 ツアーが登録されていません。
+  
+  - if @chart_data.present?
+    = render partial: 'performance', locals: { data: @chart_data, listings: @listings, user_id: current_user.id}
+= render partial: 'shared/modals/listing_image_loading'
+#hidden-form-id

@@ -22,6 +22,8 @@ class BrowsingHistory < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :listing_id, presence: true
+  
+  scope :viewed_when, -> from, to { where('viewed_at >= ? AND viewed_at <= ?', from.in_time_zone('UTC'), to.in_time_zone('UTC')) }
 
   def self.insert_record(user_id, listing_id)
     BrowsingHistory.create(
@@ -34,5 +36,9 @@ class BrowsingHistory < ActiveRecord::Base
   def self.latest_listing_id(user)
     browsing_history = BrowsingHistory.where(user_id: user.id).order('created_at desc').first
     browsing_history.present? ? browsing_history.listing_id : false
+  end
+  
+  def self.listings_pv(listings)
+    self.where(listing_id: listings.ids)
   end
 end

@@ -107,6 +107,8 @@ class Reservation < ActiveRecord::Base
   scope :review_expiration_date_is_before_yesterday, -> { where("schedule_end <= ?", Time.zone.yesterday.in_time_zone('UTC') - Settings.review.expiration_date.day) }
   scope :week_before, -> { where('schedule >= ? AND schedule <= ?', (Time.zone.today + 7.day).beginning_of_day.in_time_zone('UTC'), (Time.zone.today + 7.day).end_of_day.in_time_zone('UTC')) }
   scope :day_before, -> { where('schedule >= ? AND schedule <= ?', Time.zone.tomorrow.beginning_of_day.in_time_zone('UTC'),Time.zone.tomorrow.end_of_day.in_time_zone('UTC') ) }
+  scope :finished_when, -> from, to { where('schedule_end >= ? AND schedule_end <= ?', from, to) }
+  scope :need_to_guide_pay, -> { where('cancel_by = ? OR cancel_by = ? OR cancel_by = ?', 0, 3, 4) }
 
   REGISTRABLE_ATTRIBUTES = %i(
     schedule_date schedule_hour schedule_minute
@@ -224,6 +226,11 @@ class Reservation < ActiveRecord::Base
     total = self.price + self.price_for_support
     total + option_amount
   end
+  
+  def main_guide_basic_amount
+    total = self.price
+    total + option_amount
+  end
 
   def option_amount
     total = 0
@@ -259,7 +266,20 @@ class Reservation < ActiveRecord::Base
 
   def service_fee
     #basic_amount < 2000 ? 500 : (basic_amount * 0.145).ceil
-    (basic_amount * 0.145).ceil
+    (basic_amount * Settings.reservation.service_rate).ceil
+  end
+  
+  def main_guide_payment
+    if self.pg_completion? and self.default?
+      return self.main_guide_basic_amount - (self.service_fee / 2).ceil
+    elsif self.default? or self.guest_less_than_days?
+      return self.basic_amount - self.service_fee
+    elsif self.guest_before_days?
+      amount = (self.basic_amount * 0.5).ceil
+      return amount - (amount * Settings.reservation.service_rate).ceil
+    else
+      return 0
+    end
   end
 
   def paypal_amount
@@ -274,12 +294,12 @@ class Reservation < ActiveRecord::Base
 
   def handling_cost
     #basic_amount < 2000 ? 500 : (basic_amount * 0.145).ceil
-    (basic_amount * 0.145).ceil
+    (basic_amount * Settings.reservation.service_rate).ceil
   end
 
   def paypal_handling_cost
     #basic_amount < 2000 ? 50000 : (basic_amount * 0.145).ceil * 100
-    (basic_amount * 0.145).ceil * 100
+    (basic_amount * Settings.reservation.service_rate).ceil * 100
   end
   
   def paypal_travel_insurance
@@ -496,5 +516,21 @@ class Reservation < ActiveRecord::Base
         pair_guide_review.re_calc_ave_of_profile
       end
     end
+  end
+  
+  def self.listings_reservation(listings)
+    self.where(listing_id: listings.ids)
+  end
+  
+  def self.seles_daily(listings, day)
+    reservations = self.where(listing_id: listings.ids).finished_before_yesterday.need_to_guide_pay.finished_when(day, day)
+    return 0 if reservations.blank?
+    
+    p reservations
+    total_sales = 0
+    reservations.each do |reservation|
+      total_sales += reservation.main_guide_payment
+    end
+    total_sales
   end
 end

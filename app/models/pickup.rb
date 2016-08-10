@@ -60,4 +60,12 @@ class Pickup < ActiveRecord::Base
     return self.listings_by_listing_images if self.listings_by_listing_images.present?
     listings
   end
+  
+  def pickup_area?
+    self.type == 'PickupArea'
+  end
+  
+  def pickup_tag?
+    self.type == 'PickupTag'
+  end 
 end

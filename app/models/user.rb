@@ -312,4 +312,8 @@ class User < ActiveRecord::Base
   def unconfirmed?
     self.confirmation_sent_at.present? and self.confirmed_at.blank?
   end
+  
+  def active_listings
+    self.listings.without_soft_destroyed.order_by_updated_at_desc
+  end
 end

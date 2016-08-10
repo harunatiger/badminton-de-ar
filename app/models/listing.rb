@@ -310,4 +310,38 @@ class Listing < ActiveRecord::Base
       return false
     end
   end
+    
+  def pv_monthly_count(data)
+    BrowsingHistory.where(listing_id: self.id).viewed_when(data.day.beginning_of_month, data.day.end_of_month).count
+  end
+    
+  def favorites_monthly_count(data)
+    FavoriteListing.where(listing_id: self.id).created_when(data.day.beginning_of_month, data.day.end_of_month).count
+  end
+    
+  def reservations_monthly_count(data)
+    self.reservations.finished_before_yesterday.need_to_guide_pay.finished_when(data.day.beginning_of_month, data.day.end_of_month).count
+  end
+    
+  def sales_monthly_amount(data)
+    reservations = self.reservations.finished_before_yesterday.finished_when(data.day.beginning_of_month, data.day.end_of_month).need_to_guide_pay
+    return 0 if reservations.blank?
+    
+    total_sales = 0
+    reservations.each do |reservation|
+      total_sales += reservation.main_guide_payment
+    end
+    total_sales
+  end
+    
+  def sales_daily_amount(day)
+    reservations = self.reservations.finished_before_yesterday.finished_when(day.beginning_of_day, day.end_of_day).need_to_guide_pay
+    return 0 if reservations.blank?
+    
+    total_sales = 0
+    reservations.each do |reservation|
+      total_sales += reservation.main_guide_payment
+    end
+    total_sales
+  end
 end

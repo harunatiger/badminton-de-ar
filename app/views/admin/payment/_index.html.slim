@@ -59,7 +59,7 @@
                 - cancel_by = payment.reservation.cancel_by
                 /- guide_amount = payment.reservation.price + payment.reservation.price_for_support + payment.reservation.price_for_both_guides + payment.reservation.option_amount
                 - guide_amount = payment.reservation.price + payment.reservation.price_for_support + payment.reservation.option_amount
-                - service_fee_guest = (guide_amount * 0.145).ceil
+                - service_fee_guest = (guide_amount * Settings.reservation.service_rate).ceil
                 - if payment.reservation.campaign_id.present?
                   - campaign = Campaign.find(payment.reservation.campaign_id)
                   - if campaign.present?
@@ -158,11 +158,11 @@
                       - fixed_amount = guide_amount * 1
                       = fixed_amount
                   td
-                    = (fixed_amount * 0.145).ceil
+                    = (fixed_amount * Settings.reservation.service_rate).ceil
                   td
-                    = (support_guide.present? and payment.reservation.default?) ? (payment.reservation.price + payment.reservation.option_amount) - ((fixed_amount * 0.145) / 2).ceil : fixed_amount - (fixed_amount * 0.145).ceil
+                    = (support_guide.present? and payment.reservation.default?) ? (payment.reservation.price + payment.reservation.option_amount) - ((fixed_amount * Settings.reservation.service_rate) / 2).ceil : fixed_amount - (fixed_amount * Settings.reservation.service_rate).ceil
                   td
-                    = (support_guide.present? and payment.reservation.default?) ? payment.reservation.price_for_support - ((fixed_amount * 0.145) / 2).ceil : ''
+                    = (support_guide.present? and payment.reservation.default?) ? payment.reservation.price_for_support - ((fixed_amount * Settings.reservation.service_rate) / 2).ceil : ''
                   td
                     - if payment.reservation.default?
                       = settlement_amount * 0

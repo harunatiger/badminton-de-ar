@@ -13,6 +13,7 @@ html
     = include_gon(watch: true)
     = Gon::Base.render_data({})
     = csrf_meta_tags
+    = javascript_include_tag "https://www.google.com/jsapi"
   - if controller_name === "welcome" || controller_name === "features"
     |  <body class="
     = controller_name
@@ -42,9 +43,8 @@ html
   = render partial: 'shared/modals/learn_more'
   /= render partial: 'shared/modals/three_reasons'
   /= javascript_include_tag '//j.wovn.io/0', 'data-wovnio'=> 'key=CC4ZB'
-  = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?libraries=places&language=en', acync: 'acync'
-
   - if controller_name === "calendar"
     = javascript_include_tag 'application_calendar'
   - else
     = javascript_include_tag 'application'
+  = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?libraries=places&language=en', acync: 'acync'
