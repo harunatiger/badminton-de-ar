@@ -6,8 +6,9 @@ ActiveAdmin.register ProfileIdentity do
 
   index do
     column :id
-    column :user_id do |obj|
-      link_to obj.id, profile_path(obj.profile_id), :target => ["_blank"]
+    column :user_id
+    column :profile_id do |obj|
+      link_to obj.profile_id, profile_path(obj.profile_id), :target => ["_blank"]
     end
     column :first_name do |obj|
       Profile.find(obj.profile_id).first_name
