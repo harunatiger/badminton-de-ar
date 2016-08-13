@@ -2751,3 +2751,59 @@ h3.center-lined
   &:hover
     color: $gray1
     background-color: white
+
+/* dashboard-chart edit 20160812-13
+#dashboard-chart-container
+  position: relative
+  border: 1px solid $border1
+  #prev_month, #next_month
+    position: absolute
+    top: 50%
+    width: 20px
+    height: 20px
+    line-height: 20px
+    font-size: 20px
+    margin-top: -20px
+  #prev_month
+    left: 5px
+  #next_month
+    right: 5px
+.table-container
+  padding-left: 12.5px
+  padding-right: 12.5px
+  background-color: white
+  border-top: 1px solid $border1
+  border-left: 1px solid $border1
+  border-right: 1px solid $border1
+  > .row
+    border-bottom: 1px solid $border1
+    > div
+      padding-top: 6.25px
+      padding-bottom: 6.25px
+    .col-xs-3
+      i.fa
+        color: $gray1
+        font-size: 18px
+        margin-right: 5px
+      b
+        display: inline-block
+        font-size: 18px
+    .h4
+      line-height: normal
+    .col-md-4
+      line-height: 1.4
+      border-right: 1px solid $border1
+    .date-col
+      background-color: $lightblue2
+    .period-col
+      background-color: $bg1
+  @media (max-width: 767px)
+    > .row
+      .col-md-4
+        border: 0
+    .row-table
+      display: block
+    .col-middle
+      display: block
+  #chart
+    width: 100%
