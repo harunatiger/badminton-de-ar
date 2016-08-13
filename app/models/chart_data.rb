@@ -14,7 +14,7 @@ class ChartData
           end
         elsif self.data == Settings.chart_data.data.favorites
           (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
-            favorites = FavoriteListing.listings_favorites(listings).created_when(date.beginning_of_day, date.end_of_day).count
+            favorites = FavoriteListingHistory.listings_favorites(listings).created_when(date.beginning_of_day, date.end_of_day).count
             result.push([date.day.to_s,favorites])
           end
         elsif self.data == Settings.chart_data.data.sales
@@ -29,9 +29,9 @@ class ChartData
         if self.benchmark.present?
           pickup = Pickup.find(self.benchmark.to_i)
           if pickup.pickup_area?
-            benchmark_listings = pickup.listings
+            benchmark_listings = pickup.benchmark_listings
           elsif pickup.pickup_tag?
-            benchmark_listings = pickup.listings_by_listing_images
+            benchmark_listings = pickup.benchmark_listings_by_listing_images
           end
         end
 
@@ -51,13 +51,13 @@ class ChartData
         elsif self.data == Settings.chart_data.data.favorites
           if self.benchmark.present?
             (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
-              favorites = FavoriteListing.where(listing_id: listing.id).created_when(date.beginning_of_day, date.end_of_day).count
-              benchmark_favorites = FavoriteListing.listings_favorites(benchmark_listings).created_when(date.beginning_of_day, date.end_of_day).count
+              favorites = FavoriteListingHistory.where(listing_id: listing.id).created_when(date.beginning_of_day, date.end_of_day).count
+              benchmark_favorites = FavoriteListingHistory.listings_favorites(benchmark_listings).created_when(date.beginning_of_day, date.end_of_day).count
               result.push([date.day.to_s,favorites, benchmark_favorites / benchmark_listings.count])
             end
           else
             (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
-              favorites = FavoriteListing.where(listing_id: listing.id).created_when(date.beginning_of_day, date.end_of_day).count
+              favorites = FavoriteListingHistory.where(listing_id: listing.id).created_when(date.beginning_of_day, date.end_of_day).count
               result.push([date.day.to_s,favorites])
             end
           end
@@ -82,8 +82,11 @@ class ChartData
     data_table.new_column('string', 'date' )
     data_table.new_column('number', 'value')
     data_table.new_column('number', 'average') if self.benchmark.present?
-    data_table.add_rows(result)
-    option = self.benchmark.present? ? { series: { 1 => { type: "line" } } } : {}
+    data_table.add_rows(result) if result.present?
+    #option = { height: 400 , hAxis: {title: 'Day'}, vAxis: {minValue: 0}}
+    #option = self.benchmark.present? ? { series: { 1 => { type: "line" } } } : {}
+    option = {hAxis: {title: 'Day'}}
+    option.store("series", { 1 => { type: "line" } }) if self.benchmark.present?
     self.chart_data = GoogleVisualr::Interactive::ColumnChart.new(data_table, option)
   end
   
@@ -171,5 +174,42 @@ class ChartData
       listing = Listing.find(self.tour)
       return listing.sales_monthly_amount(self)
     end
+  end
+  
+  def pv_whole_count(listings)
+    if self.tour == Settings.chart_data.tours.all
+      return BrowsingHistory.where(listing_id: listings.ids).count
+    else
+      return BrowsingHistory.where(listing_id: self.tour.to_i).count
+    end
+  end
+  
+  def favorites_whole_count(listings)
+    if self.tour == Settings.chart_data.tours.all
+      return FavoriteListingHistory.where(listing_id: listings.ids).count
+    else
+      return FavoriteListingHistory.where(listing_id: self.tour.to_i).count
+    end
+  end
+  
+  def reservations_whole_count(listings)
+    if self.tour == Settings.chart_data.tours.all
+      return Reservation.where(listing_id: listings.ids).finished_before_yesterday.need_to_guide_pay.count
+    else
+      return Reservation.where(listing_id: self.tour.to_i).finished_before_yesterday.need_to_guide_pay.count
+    end
+  end
+  
+  def sales_whole_amount(listings)
+    if self.tour == Settings.chart_data.tours.all
+      reservations = Reservation.where(listing_id: listings.ids).finished_before_yesterday.need_to_guide_pay
+    else
+      reservations = Reservation.where(listing_id: self.tour.to_i).finished_before_yesterday.need_to_guide_pay
+    end
+    total_sales = 0
+    reservations.each do |reservation|
+      total_sales += reservation.main_guide_payment
+    end
+    total_sales
   end
 end

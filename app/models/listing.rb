@@ -83,6 +83,7 @@ class Listing < ActiveRecord::Base
   has_many :listing_pickups, dependent: :destroy
   has_many :pickups, :through =>  :listing_pickups
   has_many :favorite_listing, dependent: :destroy
+  has_many :favorite_history, dependent: :destroy
 
   mount_uploader :cover_image, DefaultImageUploader
   mount_uploader :cover_video, ListingVideoUploader
@@ -316,7 +317,7 @@ class Listing < ActiveRecord::Base
   end
     
   def favorites_monthly_count(data)
-    FavoriteListing.where(listing_id: self.id).created_when(data.day.beginning_of_month, data.day.end_of_month).count
+    FavoriteListingHistory.where(listing_id: self.id).created_when(data.day.beginning_of_month, data.day.end_of_month).count
   end
     
   def reservations_monthly_count(data)
@@ -335,7 +336,7 @@ class Listing < ActiveRecord::Base
   end
     
   def sales_daily_amount(day)
-    reservations = self.reservations.finished_before_yesterday.finished_when(day.beginning_of_day, day.end_of_day).need_to_guide_pay
+    reservations = self.reservations.finished_before_yesterday.finished_when(day, day).need_to_guide_pay
     return 0 if reservations.blank?
     
     total_sales = 0

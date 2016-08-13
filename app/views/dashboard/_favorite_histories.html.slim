@@ -9,7 +9,7 @@
           .card-body
             - if histories.present?
               - histories.each do |history|
-                - user = listing_history?(history) ? user_id_to_user_obj(history.user_id) : user_id_to_user_obj(history.from_user_id)
+                - user = favorite_listing?(history) ? user_id_to_user_obj(history.user_id) : user_id_to_user_obj(history.from_user_id)
                 .row.row-space-4
                   .col-xs-3.col-lg-2.text-center
                     = link_to profile_path(user_id_to_profile_id(user.id)) do

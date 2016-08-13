@@ -107,7 +107,7 @@ class Reservation < ActiveRecord::Base
   scope :review_expiration_date_is_before_yesterday, -> { where("schedule_end <= ?", Time.zone.yesterday.in_time_zone('UTC') - Settings.review.expiration_date.day) }
   scope :week_before, -> { where('schedule >= ? AND schedule <= ?', (Time.zone.today + 7.day).beginning_of_day.in_time_zone('UTC'), (Time.zone.today + 7.day).end_of_day.in_time_zone('UTC')) }
   scope :day_before, -> { where('schedule >= ? AND schedule <= ?', Time.zone.tomorrow.beginning_of_day.in_time_zone('UTC'),Time.zone.tomorrow.end_of_day.in_time_zone('UTC') ) }
-  scope :finished_when, -> from, to { where('schedule_end >= ? AND schedule_end <= ?', from, to) }
+  scope :finished_when, -> from, to { where('schedule_end >= ? AND schedule_end <= ?', from.in_time_zone('UTC'), to.in_time_zone('UTC')) }
   scope :need_to_guide_pay, -> { where('cancel_by = ? OR cancel_by = ? OR cancel_by = ?', 0, 3, 4) }
 
   REGISTRABLE_ATTRIBUTES = %i(
@@ -526,7 +526,6 @@ class Reservation < ActiveRecord::Base
     reservations = self.where(listing_id: listings.ids).finished_before_yesterday.need_to_guide_pay.finished_when(day, day)
     return 0 if reservations.blank?
     
-    p reservations
     total_sales = 0
     reservations.each do |reservation|
       total_sales += reservation.main_guide_payment

@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
   has_many :favorite_listing, dependent: :destroy
   has_many :favorite_users_of_from_user, class_name: 'FavoriteUser', foreign_key: 'from_user_id', dependent: :destroy
   has_many :favorite_users_of_to_user, class_name: 'FavoriteUser', foreign_key: 'to_user_id', dependent: :destroy
+  has_many :favorite_history, dependent: :destroy
   
   accepts_nested_attributes_for :profile
   #validates :email, presence: true
@@ -155,19 +156,20 @@ class User < ActiveRecord::Base
   end
   
   def bookmarked_histories
-    mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id)
+    FavoriteListingHistory
+    mixed_array = FavoriteListingHistory.where(listing_id: self.listings.ids) + FavoriteUserHistory.where(to_user_id: self.id)
     mixed_array.sort{|f,s| s.created_at <=> f.created_at}
   end
   
   def unread_bookmark_count
-    FavoriteListing.where(listing_id: self.listings.ids, read_at: nil).count + FavoriteUser.where(to_user_id: self.id, read_at: nil).count
+    FavoriteListingHistory.where(listing_id: self.listings.ids, read_at: nil).count + FavoriteUserHistory.where(to_user_id: self.id, read_at: nil).count
   end
   
   def mark_all_bookmarks_as_read
-    favorite_listings = FavoriteListing.where(listing_id: self.listings.ids, read_at: nil)
-    favorite_listings.update_all(read_at: Time.zone.now)
-    favorite_users = FavoriteUser.where(to_user_id: self.id, read_at: nil)
-    favorite_users.update_all(read_at: Time.zone.now)
+    favorite_listing_histories = FavoriteListingHistory.where(listing_id: self.listings.ids, read_at: nil)
+    favorite_listing_histories.update_all(read_at: Time.zone.now)
+    favorite_user_histories = FavoriteUserHistory.where(to_user_id: self.id, read_at: nil)
+    favorite_user_histories.update_all(read_at: Time.zone.now)
   end
   
   def delete_children

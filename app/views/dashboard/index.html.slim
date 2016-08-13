@@ -26,7 +26,7 @@
             - if @bookmarked_histories.present?
               ul.list-unstyled
                 - @bookmarked_histories.each do |history|
-                  - user = listing_history?(history) ? user_id_to_user_obj(history.user_id) : user_id_to_user_obj(history.from_user_id)
+                  - user = user_id_to_user_obj(history.from_user_id)
                   li
                     .row
                       .col-md-3.col-lg-2.text-center
@@ -40,7 +40,7 @@
                         .date.text-muted.row-space-1
                           = history.created_at
                         /*******bookmarked history of listings*******
-                        - if listing_history?(history)
+                        - if history.listing_history?
                           = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
                           | さんが
                           = link_to "#{listing_id_to_listing_obj(history.listing_id).title}", listing_path(history.listing_id)

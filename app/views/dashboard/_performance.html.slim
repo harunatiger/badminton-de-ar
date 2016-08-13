@@ -52,6 +52,12 @@
         .row
           .col-md-4
             = link_to listing.title, listing_path(listing.id)
+            br
+            - listing.pickups.each do |pickup|
+              | /#{pickup.short_name}
+            - listing.listing_images.each do |listing_image|
+              - if listing_image.pickup_id.present?
+                | /#{listing_image.pickup_tag.short_name}
           .col-md-8
             | pv:
             = listing.pv_monthly_count(data)
@@ -64,3 +70,22 @@
             span<
             | salse:
             = listing.sales_monthly_amount(data)
+
+    .row
+      .col-md-4
+        h4
+          | Whole period
+          br
+          | (from June, 2015)
+      .col-md-8
+        | pv_whole_count:
+        = data.pv_whole_count(listings)
+        span<
+        | favorites_whole_count:
+        = data.favorites_whole_count(listings)
+        span<
+        | reservations_whole_count:
+        = data.reservations_whole_count(listings)
+        span<
+        | sales_whole_amount:
+        = data.sales_whole_amount(listings)

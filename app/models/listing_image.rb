@@ -63,4 +63,8 @@ class ListingImage < ActiveRecord::Base
     end
     old_count - new_coutn
   end
+  
+  def pickup_tag
+    PickupTag.find(self.pickup_id)
+  end
 end

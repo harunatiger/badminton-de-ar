@@ -16,6 +16,8 @@
 #
 
 class FavoriteListing < ActiveRecord::Base
+  before_create :create_history
+  
   belongs_to :user
   belongs_to :listing
 
@@ -27,5 +29,13 @@ class FavoriteListing < ActiveRecord::Base
   
   def self.listings_favorites(listings)
     self.where(listing_id: listings.ids)
+  end
+  
+  def create_history
+    history = FavoriteListingHistory.new(from_user_id: self.user_id, listing_id: self.listing_id)
+    unless FavoriteListingHistory.exists?(from_user_id: self.user_id, listing_id: self.listing_id)
+      history.save
+    end
+    self
   end
 end
