@@ -345,4 +345,27 @@ class Listing < ActiveRecord::Base
     end
     total_sales
   end
+    
+  def pv_whole_count
+    BrowsingHistory.where(listing_id: self.id).count
+  end
+  
+  def favorites_whole_count
+    FavoriteListingHistory.where(listing_id: self.id).count
+  end
+    
+  def reservations_whole_count
+    self.reservations.finished_before_yesterday.need_to_guide_pay.count
+  end
+    
+  def sales_whole_amount
+    reservations = self.reservations.finished_before_yesterday.need_to_guide_pay
+    return 0 if reservations.blank?
+    
+    total_sales = 0
+    reservations.each do |reservation|
+      total_sales += reservation.main_guide_payment
+    end
+    total_sales
+  end
 end

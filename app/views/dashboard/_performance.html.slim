@@ -47,7 +47,7 @@
         = data.sales_monthly_amount(listings)
 
     - if data.tour == Settings.chart_data.tours.all
-      / when TOURS == ALL
+      / ********when TOURS == ALL***********
       - listings.each do |listing|
         .row
           .col-md-4
@@ -89,3 +89,27 @@
         span<
         | sales_whole_amount:
         = data.sales_whole_amount(listings)
+  - if data.tour == Settings.chart_data.tours.all
+    / ********when TOURS == ALL***********
+    - listings.each do |listing|
+      .row
+        .col-md-4
+          = link_to listing.title, listing_path(listing.id)
+          br
+          - listing.pickups.each do |pickup|
+            | /#{pickup.short_name}
+          - listing.listing_images.each do |listing_image|
+            - if listing_image.pickup_id.present?
+              | /#{listing_image.pickup_tag.short_name}
+        .col-md-8
+          | pv:
+          = listing.pv_whole_count
+          span<
+          | favorites:
+          = listing.favorites_whole_count
+          span<
+          | reservations:
+          = listing.reservations_whole_count
+          span<
+          | salse:
+          = listing.sales_whole_amount
