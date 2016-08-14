@@ -10,17 +10,17 @@ class ChartData
         if self.data == Settings.chart_data.data.pv
           (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
             pv = BrowsingHistory.listings_pv(listings).viewed_when(date.beginning_of_day, date.end_of_day).count
-            result.push([date.day.to_s,pv])
+            result.push([date.day.to_s,pv, Reservation.count_on_the_day(listings, date)])
           end
         elsif self.data == Settings.chart_data.data.favorites
           (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
             favorites = FavoriteListingHistory.listings_favorites(listings).created_when(date.beginning_of_day, date.end_of_day).count
-            result.push([date.day.to_s,favorites])
+            result.push([date.day.to_s,favorites, Reservation.count_on_the_day(listings, date)])
           end
         elsif self.data == Settings.chart_data.data.sales
           (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
             sales = Reservation.seles_daily(listings, date)
-            result.push([date.day.to_s,sales])
+            result.push([date.day.to_s,sales, Reservation.count_on_the_day(listings, date)])
           end
         end
       else
@@ -40,12 +40,12 @@ class ChartData
             (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
               pv = BrowsingHistory.where(listing_id: listing.id).viewed_when(date.beginning_of_day, date.end_of_day).count
               benchmark_pv = BrowsingHistory.listings_pv(benchmark_listings).viewed_when(date.beginning_of_day, date.end_of_day).count
-              result.push([date.day.to_s, pv, benchmark_pv / benchmark_listings.count])
+              result.push([date.day.to_s, pv,listing.reservations_daily_count(date), benchmark_pv / benchmark_listings.count])
             end
           else
             (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
               pv = BrowsingHistory.where(listing_id: listing.id).viewed_when(date.beginning_of_day, date.end_of_day).count
-              result.push([date.day.to_s,pv])
+              result.push([date.day.to_s,pv,listing.reservations_daily_count(date)])
             end
           end
         elsif self.data == Settings.chart_data.data.favorites
@@ -53,12 +53,12 @@ class ChartData
             (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
               favorites = FavoriteListingHistory.where(listing_id: listing.id).created_when(date.beginning_of_day, date.end_of_day).count
               benchmark_favorites = FavoriteListingHistory.listings_favorites(benchmark_listings).created_when(date.beginning_of_day, date.end_of_day).count
-              result.push([date.day.to_s,favorites, benchmark_favorites / benchmark_listings.count])
+              result.push([date.day.to_s,favorites, listing.reservations_daily_count(date), benchmark_favorites / benchmark_listings.count])
             end
           else
             (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
               favorites = FavoriteListingHistory.where(listing_id: listing.id).created_when(date.beginning_of_day, date.end_of_day).count
-              result.push([date.day.to_s,favorites])
+              result.push([date.day.to_s,favorites,listing.reservations_daily_count(date)])
             end
           end
         elsif self.data == Settings.chart_data.data.sales
@@ -66,12 +66,12 @@ class ChartData
             (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
               sales = listing.sales_daily_amount(date)
               benchmark_sales = Reservation.seles_daily(benchmark_listings, date)
-              result.push([date.day.to_s,sales, benchmark_sales / benchmark_listings.count])
+              result.push([date.day.to_s,sales,listing.reservations_daily_count(date), benchmark_sales / benchmark_listings.count])
             end
           else
             (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
               sales = listing.sales_daily_amount(date)
-              result.push([date.day.to_s,sales])
+              result.push([date.day.to_s,sales,listing.reservations_daily_count(date)])
             end
           end
         end
@@ -81,12 +81,16 @@ class ChartData
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'date' )
     data_table.new_column('number', 'value')
+    data_table.new_column('number', 'reservation')
     data_table.new_column('number', 'average') if self.benchmark.present?
     data_table.add_rows(result) if result.present?
-    #option = { height: 400 , hAxis: {title: 'Day'}, vAxis: {minValue: 0}}
-    #option = self.benchmark.present? ? { series: { 1 => { type: "line" } } } : {}
-    option = {hAxis: {title: 'Day'}}
-    option.store("series", { 1 => { type: "line" } }) if self.benchmark.present?
+    
+    option = {hAxis: {title: 'Day'}, interpolateNulls: true, height: 400}
+    if self.benchmark.present?
+      option.store("series", { 1 => { type: "scatter" }, 2 => { type: "line" } })
+    else
+      option.store("series", { 1 => { type: "scatter" } })
+    end
     self.chart_data = GoogleVisualr::Interactive::ColumnChart.new(data_table, option)
   end
   

@@ -324,6 +324,11 @@ class Listing < ActiveRecord::Base
     self.reservations.finished_before_yesterday.need_to_guide_pay.finished_when(data.day.beginning_of_month, data.day.end_of_month).count
   end
     
+  def reservations_daily_count(day)
+    count = self.reservations.finished_before_yesterday.finished_when(day, day).need_to_guide_pay.count
+    return count == 0 ? nil : count
+  end
+    
   def sales_monthly_amount(data)
     reservations = self.reservations.finished_before_yesterday.finished_when(data.day.beginning_of_month, data.day.end_of_month).need_to_guide_pay
     return 0 if reservations.blank?

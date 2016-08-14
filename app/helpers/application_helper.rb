@@ -814,4 +814,8 @@ module ApplicationHelper
   def report_reasons
     ['Spam/advertising.', 'They are using TOMODACHI GUIDE as a dating site.', 'They are causing trouble.', 'Other']
   end
+  
+  def listing_to_listing_images(listing)
+    ListingImage.where(listing_id: listing.id)
+  end
 end

@@ -532,4 +532,9 @@ class Reservation < ActiveRecord::Base
     end
     total_sales
   end
+  
+  def self.count_on_the_day(listings, day)
+    count = self.where(listing_id: listings.ids).finished_before_yesterday.need_to_guide_pay.finished_when(day, day).count
+    return count == 0 ? nil : count
+  end
 end

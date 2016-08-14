@@ -58,11 +58,11 @@
         - listings.each do |listing|
           .row.row-table
             .col-md-4.col-middle
-              .text-lead
+              .text-lead.overflow
                 = link_to listing.title, listing_path(listing.id)
               - listing.pickups.each do |pickup|
                 | /#{pickup.short_name}
-              - listing.listing_images.each do |listing_image|
+              - listing_to_listing_images(listing).each do |listing_image|
                 - if listing_image.pickup_id.present?
                   | /#{listing_image.pickup_tag.short_name}
             .col-md-8.col-middle
@@ -106,11 +106,11 @@
         - listings.each do |listing|
           .row.row-table
             .col-md-4.col-middle
-              .text-lead
+              .text-lead.overflow
                 = link_to listing.title, listing_path(listing.id)
               - listing.pickups.each do |pickup|
                 | /#{pickup.short_name}
-              - listing.listing_images.each do |listing_image|
+              - listing_to_listing_images(listing).each do |listing_image|
                 - if listing_image.pickup_id.present?
                   | /#{listing_image.pickup_tag.short_name}
             .col-md-8.col-middle
