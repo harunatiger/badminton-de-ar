@@ -6,7 +6,9 @@ class DashboardController < ApplicationController
   def index
     current_user.mark_all_bookmarks_as_read
     @bookmarked_histories = current_user.bookmarked_histories
-    @listings = current_user.listings.without_soft_destroyed.order_by_updated_at_desc
+    @listings = current_user.active_listings
+    @chart_data = ChartData.new(day: Time.zone.today, tour: Settings.chart_data.tours.all, data: Settings.chart_data.data.pv)
+    @chart_data.set_chart_data(@listings)
   end
 
   def host_reservation_manager
@@ -38,6 +40,26 @@ class DashboardController < ApplicationController
       render partial: 'favorite_histories', locals: { target: target, histories: histories}
     end
   end
+  
+  def get_chart_data
+    if request.xhr?
+      @chart_data = ChartData.new(chart_data_params)
+      
+      @chart_data.day = Date.parse(@chart_data.day)
+      if params[:prev_month].present?
+        @chart_data.day = @chart_data.day.prev_month
+      elsif params[:next_month].present?
+        @chart_data.day = @chart_data.day.next_month
+      elsif params[:change_tour].present?
+        @chart_data.benchmark = nil
+      end
+      
+      @chart_data.tour = @chart_data.tour.to_i if @chart_data.tour != Settings.chart_data.tours.all
+      @user = User.find(params[:user_id])
+      @listings = @user.active_listings
+      @chart_data.set_chart_data(@listings)
+    end
+  end
 
   private
 
@@ -47,5 +69,9 @@ class DashboardController < ApplicationController
   
   def regulate_user
     return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if !current_user.main_guide?
+  end
+  
+  def chart_data_params
+    params.require(:chart_data).permit(:day, :tour, :data, :benchmark)
   end
 end

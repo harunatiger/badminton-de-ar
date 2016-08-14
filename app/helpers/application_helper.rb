@@ -807,11 +807,15 @@ module ApplicationHelper
     return false
   end
   
-  def listing_history?(history)
+  def favorite_listing?(history)
     history.model_name == 'FavoriteListing'
   end
 
   def report_reasons
     ['Spam/advertising.', 'They are using TOMODACHI GUIDE as a dating site.', 'They are causing trouble.', 'Other']
+  end
+  
+  def listing_to_listing_images(listing)
+    ListingImage.where(listing_id: listing.id)
   end
 end

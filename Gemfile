@@ -135,9 +135,6 @@ gem 'cancancan', '~> 1.10'
 #taggable
 gem 'acts-as-taggable-on'
 
-# Chartjs
-gem 'chart-js-rails'
-
 # jQuery File Uploads
 gem 'remotipart', '~> 1.2'
 
@@ -161,6 +158,9 @@ gem 'google-tag-manager-rails'
 
 # nested_form
 gem 'nested_form', '0.3.2'
+
+# chart
+gem "google_visualr", "2.5.1"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

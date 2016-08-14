@@ -16,6 +16,8 @@
 #
 
 class FavoriteUser < ActiveRecord::Base
+  before_create :create_history
+  
   belongs_to :user, class_name: 'User', foreign_key: 'from_user_id'
   belongs_to :user, class_name: 'User', foreign_key: 'to_user_id'
 
@@ -23,4 +25,12 @@ class FavoriteUser < ActiveRecord::Base
   validates :to_user_id, presence: true
 
   scope :order_by_created_at_desc, -> { order('created_at desc') }
+  
+  def create_history
+    history = FavoriteUserHistory.new(from_user_id: self.from_user_id, to_user_id: self.to_user_id)
+    unless FavoriteUserHistory.exists?(from_user_id: self.from_user_id, to_user_id: self.to_user_id)
+      history.save
+    end
+    self
+  end
 end

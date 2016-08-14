@@ -83,6 +83,7 @@ class Listing < ActiveRecord::Base
   has_many :listing_pickups, dependent: :destroy
   has_many :pickups, :through =>  :listing_pickups
   has_many :favorite_listing, dependent: :destroy
+  has_many :favorite_history, dependent: :destroy
 
   mount_uploader :cover_image, DefaultImageUploader
   mount_uploader :cover_video, ListingVideoUploader
@@ -309,5 +310,67 @@ class Listing < ActiveRecord::Base
     else
       return false
     end
+  end
+    
+  def pv_monthly_count(data)
+    BrowsingHistory.where(listing_id: self.id).viewed_when(data.day.beginning_of_month, data.day.end_of_month).count
+  end
+    
+  def favorites_monthly_count(data)
+    FavoriteListingHistory.where(listing_id: self.id).created_when(data.day.beginning_of_month, data.day.end_of_month).count
+  end
+    
+  def reservations_monthly_count(data)
+    self.reservations.finished_before_yesterday.need_to_guide_pay.finished_when(data.day.beginning_of_month, data.day.end_of_month).count
+  end
+    
+  def reservations_daily_count(day)
+    count = self.reservations.finished_before_yesterday.finished_when(day, day).need_to_guide_pay.count
+    return count == 0 ? nil : count
+  end
+    
+  def sales_monthly_amount(data)
+    reservations = self.reservations.finished_before_yesterday.finished_when(data.day.beginning_of_month, data.day.end_of_month).need_to_guide_pay
+    return 0 if reservations.blank?
+    
+    total_sales = 0
+    reservations.each do |reservation|
+      total_sales += reservation.main_guide_payment
+    end
+    total_sales
+  end
+    
+  def sales_daily_amount(day)
+    reservations = self.reservations.finished_before_yesterday.finished_when(day, day).need_to_guide_pay
+    return 0 if reservations.blank?
+    
+    total_sales = 0
+    reservations.each do |reservation|
+      total_sales += reservation.main_guide_payment
+    end
+    total_sales
+  end
+    
+  def pv_whole_count
+    BrowsingHistory.where(listing_id: self.id).count
+  end
+  
+  def favorites_whole_count
+    FavoriteListingHistory.where(listing_id: self.id).count
+  end
+    
+  def reservations_whole_count
+    self.reservations.finished_before_yesterday.need_to_guide_pay.count
+  end
+    
+  def sales_whole_amount
+    reservations = self.reservations.finished_before_yesterday.need_to_guide_pay
+    return 0 if reservations.blank?
+    
+    total_sales = 0
+    reservations.each do |reservation|
+      total_sales += reservation.main_guide_payment
+    end
+    total_sales
   end
 end
