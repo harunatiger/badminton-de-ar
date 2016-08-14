@@ -28,10 +28,10 @@ class ChartData
         listing = Listing.find(self.tour)
         if self.benchmark.present?
           pickup = Pickup.find(self.benchmark.to_i)
-          if pickup.pickup_area?
-            benchmark_listings = pickup.benchmark_listings
-          elsif pickup.pickup_tag?
+          if pickup.pickup_tag?
             benchmark_listings = pickup.benchmark_listings_by_listing_images
+          else
+            benchmark_listings = pickup.benchmark_listings
           end
         end
 
