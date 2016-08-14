@@ -39,10 +39,9 @@ $ ->
     $(document).on 'ajax:before', (event) ->
       $('#hidden-form-id').val(event.target.id)
       $('#listing-image-loading').modal()
+      return
 
     # update chart when window resized
-    ###
     $(window).resize ->
-      drawChart()
+      draw_chart()
       return
-    ###

@@ -85,7 +85,7 @@ class ChartData
     data_table.new_column('number', 'average') if self.benchmark.present?
     data_table.add_rows(result) if result.present?
     
-    option = {hAxis: {title: 'Day'}, interpolateNulls: true, height: 400}
+    option = {hAxis: {title: 'Day'}, interpolateNulls: true, height: 400, legend: { position: 'top'}}
     if self.benchmark.present?
       option.store("series", { 1 => { type: "scatter" }, 2 => { type: "line" } })
     else
