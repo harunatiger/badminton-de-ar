@@ -182,7 +182,7 @@ class User < ActiveRecord::Base
   
   def bookmarked_histories
     mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id)
-    mixed_array.sort{|f,s| s.updated_at <=> f.updated_at}
+    mixed_array.sort{|f,s| s.created_at <=> f.created_at}
   end
   
   def unread_bookmark_count
