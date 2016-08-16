@@ -1,36 +1,32 @@
 # == Schema Information
 #
-# Table name: favorite_users
+# Table name: favorites
 #
-#  id           :integer          not null, primary key
-#  from_user_id :integer          not null
-#  to_user_id   :integer          not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  read_at      :datetime
+#  id                :integer          not null, primary key
+#  from_user_id      :integer          not null
+#  to_user_id        :integer
+#  listing_id        :integer
+#  read_at           :datetime
+#  type              :string           not null
+#  soft_destroyed_at :datetime
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 # Indexes
 #
-#  index_favorite_users_on_from_user_id  (from_user_id)
-#  index_favorite_users_on_to_user_id    (to_user_id)
+#  index_favorites_on_from_user_id       (from_user_id)
+#  index_favorites_on_listing_id         (listing_id)
+#  index_favorites_on_soft_destroyed_at  (soft_destroyed_at)
+#  index_favorites_on_to_user_id         (to_user_id)
+#  index_favorites_on_type               (type)
 #
 
-class FavoriteUser < ActiveRecord::Base
-  before_create :create_history
-  
+class FavoriteUser < Favorite
   belongs_to :user, class_name: 'User', foreign_key: 'from_user_id'
   belongs_to :user, class_name: 'User', foreign_key: 'to_user_id'
 
   validates :from_user_id, presence: true
   validates :to_user_id, presence: true
-
-  scope :order_by_created_at_desc, -> { order('created_at desc') }
   
-  def create_history
-    history = FavoriteUserHistory.new(from_user_id: self.from_user_id, to_user_id: self.to_user_id)
-    unless FavoriteUserHistory.exists?(from_user_id: self.from_user_id, to_user_id: self.to_user_id)
-      history.save
-    end
-    self
-  end
+  validates_uniqueness_of :from_user_id, scope: :to_user_id
 end

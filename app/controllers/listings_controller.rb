@@ -140,10 +140,16 @@ class ListingsController < ApplicationController
 
   def favorite_listing
     if current_user.favorite_listing?(@listing)
-      current_user.favorite_listing.where(listing: @listing).destroy_all
+      current_user.favorite_listings.where(listing: @listing).each do |favorite_listing|
+        favorite_listing.soft_destroy
+      end
       post = 'delete'
     else
-      if current_user.favorite_listing.create(listing: @listing)
+      if favorite_listing = current_user.favorite_listings_deleted(@listing)
+        favorite_listing.restore
+        status = 'success'
+        post = 'create'
+      elsif current_user.favorite_listings.create(listing: @listing)
         status = 'success'
         post = 'create'
       else

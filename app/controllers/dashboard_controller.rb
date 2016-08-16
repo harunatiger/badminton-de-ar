@@ -31,11 +31,11 @@ class DashboardController < ApplicationController
     if request.xhr?
       if params[:user_id].present?
         target = 'あなた'
-        histories = FavoriteUser.where(to_user_id: params[:user_id]).order_by_created_at_desc
+        histories = FavoriteUser.where(to_user_id: params[:user_id]).without_soft_destroyed.order_by_updated_at_desc
       else
         listing = Listing.find(params[:listing_id])
         target = listing.title
-        histories = FavoriteListing.where(listing_id: listing.id).order_by_created_at_desc
+        histories = FavoriteListing.where(listing_id: listing.id).without_soft_destroyed.order_by_updated_at_desc
       end
       render partial: 'favorite_histories', locals: { target: target, histories: histories}
     end

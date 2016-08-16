@@ -9,7 +9,7 @@
           .card-body
             - if histories.present?
               - histories.each do |history|
-                - user = favorite_listing?(history) ? user_id_to_user_obj(history.user_id) : user_id_to_user_obj(history.from_user_id)
+                - user = user_id_to_user_obj(history.from_user_id)
                 .row.row-space-4
                   .col-xs-3.col-lg-2.text-center
                     = link_to profile_path(user_id_to_profile_id(user.id)) do
@@ -20,7 +20,7 @@
                           .size60.media-round[style="background-image: url(#{asset_path user_id_to_profile_image_thumb(user.id)})"]
                   .col-xs-9.col-lg-10
                     .date.text-muted.row-space-1.row-space-top-1
-                      = history.created_at
+                      = history.updated_at
                     = link_to user_id_to_firstname(user.id), profile_path(user_id_to_profile_id(user.id)), class: "h4"
                     | さん
             - else

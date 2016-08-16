@@ -551,11 +551,12 @@ module ApplicationHelper
   end
 
   def favorite_users_count(user_id)
-    FavoriteUser.where(to_user_id: user_id).count
+    user = User.find(user_id)
+    user.favorite_users_of_to_user.count
   end
 
   def favorite_listings_count(listing_id)
-    FavoriteListing.where(listing_id: listing_id).count
+    FavoriteListing.where(listing_id: listing_id).without_soft_destroyed.count
   end
 
   def favorite_listing_set(listing, user)
@@ -805,10 +806,6 @@ module ApplicationHelper
       return true if message == Settings.message.what_talk_about.to_guide_other + '.'
     end
     return false
-  end
-  
-  def favorite_listing?(history)
-    history.model_name == 'FavoriteListing'
   end
 
   def report_reasons
