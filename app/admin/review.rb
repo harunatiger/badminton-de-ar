@@ -11,10 +11,18 @@ ActiveAdmin.register Review do
   
   index do
     column :id
-    column :guest_id
-    column :host_id
+    column :guest_prof do |review|
+      profile = Profile.find_by_user_id(review.guest_id)
+      link_to profile.id, profile_path(profile), target: '_blank' if profile.present?
+    end
+    column :host_prof do |review|
+      profile = Profile.find_by_user_id(review.host_id)
+      link_to profile.id, profile_path(profile), target: '_blank' if profile.present?
+    end
     column :reservation_id
-    column :listing_id
+    column :listing_id do |review|
+      link_to review.listing_id, listing_path(review.listing_id), target: '_blank' if review.listing_id.present?
+    end
     column :total
     column :msg
     column :type
