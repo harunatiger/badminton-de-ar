@@ -176,6 +176,7 @@ reservation:
     withdraw_as_guide: 'ガイド退会'
     withdraw_as_guest: 'ゲスト退会'
   insurance_fee: 300
+  service_rate: 0.145
 payment:
   refunds:
     policy: '8日以上前のキャンセル  ：エスクロー分の全額返金、1日〜7日前のキャンセル：エスクロー分の50％返金、24時間以内のキャンセル：返金なし'
@@ -392,3 +393,10 @@ review:
   opened: "Your review has been sent successfully. This review will be seen on your public page."
   expiration_date: 14
   timing_of_sending_notification: [3,7,13]
+chart_data:
+  tours:
+    all: 'ALL'
+  data:
+    pv: 'PREVIEWS'
+    favorites: 'FAVORITES'
+    sales: 'SALES'

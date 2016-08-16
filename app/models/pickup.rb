@@ -49,15 +49,31 @@ class Pickup < ActiveRecord::Base
   end
   
   def listings_by_listing_images
-    Listing.where(id: ListingImage.where.not(pickup_id: nil).where(pickup_id: self.id).select('listing_id')).opened
+    Listing.where(id: ListingImage.where.not(pickup_id: nil).where(pickup_id: self.id).select('listing_id')).without_soft_destroyed.opened
   end
   
   def listings
-    Listing.where(id: ListingPickup.where(pickup_id: self.id).select('listing_id')).opened
+    Listing.where(id: ListingPickup.where(pickup_id: self.id).select('listing_id')).without_soft_destroyed.opened
+  end
+  
+  def benchmark_listings
+    Listing.where(id: ListingPickup.where(pickup_id: self.id).select('listing_id')).without_soft_destroyed
+  end
+  
+  def benchmark_listings_by_listing_images
+    Listing.where(id: ListingImage.where.not(pickup_id: nil).where(pickup_id: self.id).select('listing_id')).without_soft_destroyed
   end
   
   def listing_list
     return self.listings_by_listing_images if self.listings_by_listing_images.present?
     listings
   end
+  
+  def pickup_area?
+    self.type == 'PickupArea'
+  end
+  
+  def pickup_tag?
+    self.type == 'PickupTag'
+  end 
 end

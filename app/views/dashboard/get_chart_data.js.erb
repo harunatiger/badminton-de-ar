@@ -1,0 +1,2 @@
+$('#performance').html($("<%=j render partial: 'performance', locals: { data: @chart_data, listings: @listings, user_id: @user.id} %>").hide().fadeIn('slow'));
+$('#listing-image-loading').modal('hide');

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803050026) do
+ActiveRecord::Schema.define(version: 20160813054407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,6 +161,21 @@ ActiveRecord::Schema.define(version: 20160803050026) do
 
   add_index "emergencies", ["profile_id"], name: "index_emergencies_on_profile_id", using: :btree
   add_index "emergencies", ["user_id"], name: "index_emergencies_on_user_id", using: :btree
+
+  create_table "favorite_histories", force: :cascade do |t|
+    t.integer  "from_user_id", null: false
+    t.integer  "to_user_id"
+    t.integer  "listing_id"
+    t.datetime "read_at"
+    t.string   "type",         null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "favorite_histories", ["from_user_id"], name: "index_favorite_histories_on_from_user_id", using: :btree
+  add_index "favorite_histories", ["listing_id"], name: "index_favorite_histories_on_listing_id", using: :btree
+  add_index "favorite_histories", ["to_user_id"], name: "index_favorite_histories_on_to_user_id", using: :btree
+  add_index "favorite_histories", ["type"], name: "index_favorite_histories_on_type", using: :btree
 
   create_table "favorite_listings", force: :cascade do |t|
     t.integer  "user_id"
@@ -914,6 +929,9 @@ ActiveRecord::Schema.define(version: 20160803050026) do
   add_foreign_key "dress_codes", "listings"
   add_foreign_key "emergencies", "profiles"
   add_foreign_key "emergencies", "users"
+  add_foreign_key "favorite_histories", "listings"
+  add_foreign_key "favorite_histories", "users", column: "from_user_id"
+  add_foreign_key "favorite_histories", "users", column: "to_user_id"
   add_foreign_key "favorite_listings", "listings"
   add_foreign_key "favorite_listings", "users"
   add_foreign_key "favorite_users", "users", column: "from_user_id"
