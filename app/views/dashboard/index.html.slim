@@ -38,7 +38,7 @@
                               .size60.media-round[style="background-image: url(#{asset_path user_id_to_profile_image_thumb(user.id)})"]
                       .col-md-9.col-lg-10
                         .date.text-muted.row-space-1
-                          = history.updated_at
+                          = history.created_at
                         /*******bookmarked history of listings*******
                         - if history.favorite_listing?
                           = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))

@@ -24,6 +24,10 @@
 class Favorite < ActiveRecord::Base
   soft_deletable
   
+  belongs_to :user, class_name: 'User', foreign_key: 'from_user_id'
+  belongs_to :user, class_name: 'User', foreign_key: 'to_user_id'
+  belongs_to :listing
+  
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
   scope :created_when, -> from, to { where('created_at >= ? AND created_at <= ?', from.in_time_zone('UTC'), to.in_time_zone('UTC')) }
