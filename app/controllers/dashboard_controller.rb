@@ -8,8 +8,8 @@ class DashboardController < ApplicationController
     current_user.mark_all_bookmarks_as_read
     @bookmarked_histories = current_user.bookmarked_histories
     @listings = current_user.active_listings
-    @chart_data = ChartData.new(day: Time.zone.today, tour: Settings.chart_data.tours.all, data: Settings.chart_data.data.pv)
-    @chart_data.set_chart_data(@listings)
+    #@chart_data = ChartData.new(day: Time.zone.today, tour: Settings.chart_data.tours.all, data: Settings.chart_data.data.pv)
+    #@chart_data.set_chart_data(@listings)
   end
 
   def host_reservation_manager
