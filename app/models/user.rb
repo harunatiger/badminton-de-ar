@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
   has_many :user_campaigns, dependent: :destroy
   has_many :campaigns, :through => :user_campaigns, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :withdrawals, dependent: :destroy
   
   accepts_nested_attributes_for :profile
   #validates :email, presence: true

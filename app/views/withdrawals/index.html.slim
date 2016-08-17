@@ -1,0 +1,57 @@
+= render partial: 'shared/subnav'
+- credit = @credit.present? ? @credit.amount : 0
+/= out_put_error(resource) if resource.present?
+.page-container.row-space-top-4.row-space-4
+  .row
+    = render partial: 'shared/account_sidenav'
+    .col-lg-9
+      .card.row-space-4
+        .card-header Withdrawal（出金依頼）
+        .card-body.card-body-vpad30
+          | 出金依頼をかけることで、ご登録の銀行口座にHuber,から振込が行われます。
+          br
+          | 通常、1週間以内に振り込まれます。
+          
+          .row
+            | 報酬残高:
+            = credit
+            | 円
+            - if credit >= 5000
+              = link_to '出金依頼', '#request_withdrawal', class: 'btn btn-primary', data: { toggle: "modal" }
+            - else
+              = link_to '出金依頼', '#', class: 'btn btn-primary disabled', data: { toggle: "modal" }
+            .text-red
+              | ※5,000円以上から出金依頼できます。
+            = link_to '＊報酬残高について', '#about_withdrawal', data: { toggle: "modal" }
+            
+          - if @requests.present?
+            - @requests.each do |request|
+              .row
+                | 出金依頼中
+                = request.amount
+                | 円
+                
+                |依頼日
+                = request.requested_at
+          
+          - if @paid_in_two_weeks.present?
+            - @paid_in_two_weeks.each do |withdrawal|
+              .row
+                | 出金完了
+                = withdrawal.amount
+                | 円
+                
+                |完了日
+                = withdrawal.paid_at
+                
+          - if @histories.present?
+            | 履歴
+            - @histories.each do |history|
+              .row
+                = history.paid_at
+
+                = history.amount
+                | 円
+                
+= render partial: 'about_withdrawal'
+= render partial: 'request_withdrawal', locals: {credit: credit}

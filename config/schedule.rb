@@ -1,6 +1,10 @@
 set :output, 'log/crontab.log'
 set :environment, ENV["RAILS_ENV"]
 
+every 1.day, at: '3:01 pm' do
+  rake "week_before_notification:send"
+end
+
 every 1.day, at: '3:00 am' do
   rake "week_before_notification:send"
 end

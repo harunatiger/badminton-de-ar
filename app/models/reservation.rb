@@ -67,6 +67,8 @@ class Reservation < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'pair_guide_id'
   belongs_to :listing
   belongs_to :campaign
+  has_many :reservation_withdrawals, dependent: :destroy
+  has_many :withdrawals, through: :reservation_withdrawals
   has_many :reviews
   has_one :payment
   has_many :ngevents, dependent: :destroy
@@ -277,6 +279,14 @@ class Reservation < ActiveRecord::Base
     elsif self.guest_before_days?
       amount = (self.basic_amount * 0.5).ceil
       return amount - (amount * Settings.reservation.service_rate).ceil
+    else
+      return 0
+    end
+  end
+  
+  def support_guide_payment
+    if self.pg_completion? and self.default?
+      return self.price_for_support - (self.service_fee / 2).ceil
     else
       return 0
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160816071303) do
+ActiveRecord::Schema.define(version: 20160817153806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -720,6 +720,16 @@ ActiveRecord::Schema.define(version: 20160816071303) do
   add_index "reports", ["from_user_id"], name: "index_reports_on_from_user_id", using: :btree
   add_index "reports", ["to_user_id"], name: "index_reports_on_to_user_id", using: :btree
 
+  create_table "reservation_withdrawals", force: :cascade do |t|
+    t.integer  "reservation_id", null: false
+    t.integer  "withdrawal_id",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "reservation_withdrawals", ["reservation_id"], name: "index_reservation_withdrawals_on_reservation_id", using: :btree
+  add_index "reservation_withdrawals", ["withdrawal_id"], name: "index_reservation_withdrawals_on_withdrawal_id", using: :btree
+
   create_table "reservations", force: :cascade do |t|
     t.integer  "host_id"
     t.integer  "guest_id"
@@ -903,6 +913,19 @@ ActiveRecord::Schema.define(version: 20160816071303) do
   add_index "wishlists", ["user_id", "name"], name: "index_wishlists_on_user_id_and_name", unique: true, using: :btree
   add_index "wishlists", ["user_id"], name: "index_wishlists_on_user_id", using: :btree
 
+  create_table "withdrawals", force: :cascade do |t|
+    t.integer  "user_id",                  null: false
+    t.integer  "amount",       default: 0, null: false
+    t.datetime "requested_at"
+    t.datetime "paid_at"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "withdrawals", ["paid_at"], name: "index_withdrawals_on_paid_at", using: :btree
+  add_index "withdrawals", ["requested_at"], name: "index_withdrawals_on_requested_at", using: :btree
+  add_index "withdrawals", ["user_id"], name: "index_withdrawals_on_user_id", using: :btree
+
   add_foreign_key "auths", "users"
   add_foreign_key "browsing_histories", "listings"
   add_foreign_key "confections", "listings"
@@ -952,6 +975,8 @@ ActiveRecord::Schema.define(version: 20160816071303) do
   add_foreign_key "profiles", "users"
   add_foreign_key "reports", "users", column: "from_user_id"
   add_foreign_key "reports", "users", column: "to_user_id"
+  add_foreign_key "reservation_withdrawals", "reservations"
+  add_foreign_key "reservation_withdrawals", "withdrawals"
   add_foreign_key "reservations", "listings"
   add_foreign_key "reservations", "users", column: "guest_id"
   add_foreign_key "reservations", "users", column: "host_id"
@@ -965,4 +990,5 @@ ActiveRecord::Schema.define(version: 20160816071303) do
   add_foreign_key "user_campaigns", "campaigns"
   add_foreign_key "user_campaigns", "users"
   add_foreign_key "wishlists", "users"
+  add_foreign_key "withdrawals", "users"
 end

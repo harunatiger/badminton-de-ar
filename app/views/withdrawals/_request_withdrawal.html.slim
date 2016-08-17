@@ -1,0 +1,17 @@
+#request_withdrawal.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+          | 出金依頼
+        .card-body
+          p
+            | #{credit}円をご指定の銀行口座に振り込みます。
+            br
+            | （振り込みはおおよそ1週間以内に行われます。）
+          br
+          p
+            | よろしいですか？
+          = link_to 'はい', apply_withdrawals_path, method: :POST, class: 'btn btn-primary'
+          = link_to 'いいえ', "#", data: { dismiss: "modal" }, class: 'btn btn-default'

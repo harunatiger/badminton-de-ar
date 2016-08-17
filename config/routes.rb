@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     end
     resources :profile_banks
     resources :profile_identities, only: [:new, :edit, :create, :update, :destroy]
-    #resources :profile_keywords
+    
     member do
       get 'self_introduction',    action: 'self_introduction'
       get 'read_more_reviews',    action: 'read_more_reviews'
@@ -57,6 +57,10 @@ Rails.application.routes.draw do
     member do
       post :favorite_user
     end
+  end
+  
+  resources :withdrawals, only: [:index] do
+    post 'apply', on: :collection
   end
 
   get 'dashboard'                           => 'dashboard#index'
