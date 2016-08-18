@@ -8,50 +8,76 @@
       .card.row-space-4
         .card-header Withdrawal（出金依頼）
         .card-body.card-body-vpad30
-          | 出金依頼をかけることで、ご登録の銀行口座にHuber,から振込が行われます。
-          br
-          | 通常、1週間以内に振り込まれます。
-          
-          .row
-            | 報酬残高:
-            = credit
-            | 円
-            - if credit >= 5000
-              = link_to '出金依頼', '#request_withdrawal', class: 'btn btn-primary', data: { toggle: "modal" }
-            - else
-              = link_to '出金依頼', '#', class: 'btn btn-primary disabled', data: { toggle: "modal" }
-            .text-red
-              | ※5,000円以上から出金依頼できます。
-            = link_to '＊報酬残高について', '#about_withdrawal', data: { toggle: "modal" }
-            
+          p
+            | 出金依頼をかけることで、ご登録の銀行口座にHuber.から振込が行われます。
+            br
+            | 通常、1週間以内に振り込まれます。
+          .card.row-space-2
+            .card-body
+              .row.row-table
+                .col-md-4.text-center.col-middle
+                  .text-lead.row-space-1 報酬残高:
+                  = link_to '※ 報酬残高について', '#about_withdrawal', class: "small1", data: { toggle: "modal" }
+                .col-md-3.text-center.col-middle
+                  .h4.row-space-2.row-space-top-2
+                    = credit
+                    | 円
+                .col-md-5.text-center.col-middle
+                  - if credit >= 5000
+                    = link_to '出金依頼', '#request_withdrawal', class: 'btn btn-primary', data: { toggle: "modal" }
+                  - else
+                    = link_to '出金依頼', '#', class: 'btn btn-primary disabled', data: { toggle: "modal" }
+                  .small1.text-red.row-space-top-1
+                    | ※ 5,000円以上から出金依頼できます。
+
           - if @requests.present?
-            - @requests.each do |request|
-              .row
-                | 出金依頼中
-                = request.amount
-                | 円
-                
-                |依頼日
-                = request.requested_at
+            .card.card-danger
+              .card-body
+                - @requests.each do |request|
+                  .row.row-table
+                    .col-md-4.col-middle
+                      .text-lead.text-center.text-danger
+                        | 出金依頼中
+                    .col-md-3.text-center.col-middle
+                      .h4.text-danger.row-space-2.row-space-top-2
+                        = request.amount
+                        | 円
+                    .col-md-5.text-center.col-middle
+                      .text-danger
+                        | 依頼日 
+                        = request.requested_at
           
           - if @paid_in_two_weeks.present?
-            - @paid_in_two_weeks.each do |withdrawal|
-              .row
-                | 出金完了
-                = withdrawal.amount
-                | 円
-                
-                |完了日
-                = withdrawal.paid_at
-                
-          - if @histories.present?
-            | 履歴
-            - @histories.each do |history|
-              .row
-                = history.paid_at
+            .card.card-info
+              .card-body
+                - @paid_in_two_weeks.each do |withdrawal|
+                  .row.row-table
+                    .col-md-4.col-middle
+                      .text-lead.text-center.text-brand
+                        | 出金完了
+                    .col-md-3.text-center.col-middle
+                      .h4.text-brand.row-space-2.row-space-top-2
+                        = withdrawal.amount
+                        | 円
+                    .col-md-5.text-center.col-middle
+                      .text-brand
+                        | 完了日 
+                        = withdrawal.paid_at
 
-                = history.amount
-                | 円
+          - if @histories.present?
+            .withdrow-history.row-space-top-2
+              table.table
+                thead
+                  tr
+                    td[colspan="2"] 履歴
+                tbody
+                  - @histories.each do |history|
+                    tr
+                      td
+                        = history.paid_at
+                      td
+                        = history.amount
+                        | 円
                 
 = render partial: 'about_withdrawal'
 = render partial: 'request_withdrawal', locals: {credit: credit}
