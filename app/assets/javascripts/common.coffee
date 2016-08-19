@@ -15,6 +15,9 @@ slideSwitch = ->
 # onload
 $ ->
 
+  # TMP edit
+  # $('#request_withdrawal').modal('show')
+
   # sns lazyload
   if $('#fb-widget').length
     loadAPI = ->

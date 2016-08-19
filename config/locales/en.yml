@@ -17,6 +17,7 @@ en:
       size_over: "size is too big. Please ensure file size is less than %{size}MB"
       katakana_error: "はカタカナで入力してください"
       too_long: "は%{length}文字以内で入力してください"
+      duplicate: 'duplicated.'
   activerecord:
     attributes:
       listing:
