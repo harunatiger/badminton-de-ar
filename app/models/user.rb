@@ -65,10 +65,7 @@ class User < ActiveRecord::Base
   has_many :ngevents, dependent: :destroy
   has_many :user_campaigns, dependent: :destroy
   has_many :campaigns, :through => :user_campaigns, dependent: :destroy
-  has_many :favorite_listing, dependent: :destroy
-  has_many :favorite_users_of_from_user, class_name: 'FavoriteUser', foreign_key: 'from_user_id', dependent: :destroy
-  has_many :favorite_users_of_to_user, class_name: 'FavoriteUser', foreign_key: 'to_user_id', dependent: :destroy
-  has_many :favorite_history, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   
   accepts_nested_attributes_for :profile
   #validates :email, presence: true
@@ -146,9 +143,37 @@ class User < ActiveRecord::Base
   def already_authrized
     ProfileIdentity.where(user_id: self.id).first.try('authorized') || false
   end
+  
+  def favorite_listings
+    FavoriteListing.without_soft_destroyed.where(from_user_id: self.id)
+  end
+  
+  def favorite_listings_deleted(listing=nil)
+    if listing
+      FavoriteListing.only_soft_destroyed.where(from_user_id: self.id, listing_id: listing.id).first
+    else
+      FavoriteListing.only_soft_destroyed.where(from_user_id: self.id)
+    end
+  end
+  
+  def favorite_users_deleted(to_user_id=nil)
+    if to_user_id
+      FavoriteUser.only_soft_destroyed.where(from_user_id: self.id, to_user_id: to_user_id).first
+    else
+      FavoriteUser.only_soft_destroyed.where(from_user_id: self.id)
+    end
+  end
+  
+  def favorite_users_of_from_user
+    FavoriteUser.without_soft_destroyed.where(from_user_id: self.id)
+  end
+  
+  def favorite_users_of_to_user
+    FavoriteUser.without_soft_destroyed.where(to_user_id: self.id)
+  end
 
   def favorite_listing?(listing)
-    self.favorite_listing.exists?(listing: listing)
+    self.favorite_listings.exists?(listing: listing)
   end
 
   def favorite_user?(to_user)
@@ -156,20 +181,19 @@ class User < ActiveRecord::Base
   end
   
   def bookmarked_histories
-    FavoriteListingHistory
-    mixed_array = FavoriteListingHistory.where(listing_id: self.listings.ids) + FavoriteUserHistory.where(to_user_id: self.id)
+    mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id)
     mixed_array.sort{|f,s| s.created_at <=> f.created_at}
   end
   
   def unread_bookmark_count
-    FavoriteListingHistory.where(listing_id: self.listings.ids, read_at: nil).count + FavoriteUserHistory.where(to_user_id: self.id, read_at: nil).count
+    FavoriteListing.where(listing_id: self.listings.ids, read_at: nil).count + FavoriteUser.where(to_user_id: self.id, read_at: nil).count
   end
   
   def mark_all_bookmarks_as_read
-    favorite_listing_histories = FavoriteListingHistory.where(listing_id: self.listings.ids, read_at: nil)
-    favorite_listing_histories.update_all(read_at: Time.zone.now)
-    favorite_user_histories = FavoriteUserHistory.where(to_user_id: self.id, read_at: nil)
-    favorite_user_histories.update_all(read_at: Time.zone.now)
+    favorite_listings = FavoriteListing.where(listing_id: self.listings.ids, read_at: nil)
+    favorite_listings.update_all(read_at: Time.zone.now)
+    favorite_users = FavoriteUser.where(to_user_id: self.id, read_at: nil)
+    favorite_users.update_all(read_at: Time.zone.now)
   end
   
   def delete_children

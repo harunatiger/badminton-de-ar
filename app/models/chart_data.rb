@@ -14,7 +14,7 @@ class ChartData
           end
         elsif self.data == Settings.chart_data.data.favorites
           (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
-            favorites = FavoriteListingHistory.listings_favorites(listings).created_when(date.beginning_of_day, date.end_of_day).count
+            favorites = FavoriteListing.listings_favorites(listings).created_when(date.beginning_of_day, date.end_of_day).count
             result.push([date.day.to_s,favorites, Reservation.count_on_the_day(listings, date)])
           end
         elsif self.data == Settings.chart_data.data.sales
@@ -51,13 +51,13 @@ class ChartData
         elsif self.data == Settings.chart_data.data.favorites
           if self.benchmark.present?
             (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
-              favorites = FavoriteListingHistory.where(listing_id: listing.id).created_when(date.beginning_of_day, date.end_of_day).count
-              benchmark_favorites = FavoriteListingHistory.listings_favorites(benchmark_listings).created_when(date.beginning_of_day, date.end_of_day).count
+              favorites = FavoriteListing.where(listing_id: listing.id).created_when(date.beginning_of_day, date.end_of_day).count
+              benchmark_favorites = FavoriteListing.listings_favorites(benchmark_listings).created_when(date.beginning_of_day, date.end_of_day).count
               result.push([date.day.to_s,favorites, listing.reservations_daily_count(date), benchmark_favorites / benchmark_listings.count])
             end
           else
             (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
-              favorites = FavoriteListingHistory.where(listing_id: listing.id).created_when(date.beginning_of_day, date.end_of_day).count
+              favorites = FavoriteListing.where(listing_id: listing.id).created_when(date.beginning_of_day, date.end_of_day).count
               result.push([date.day.to_s,favorites,listing.reservations_daily_count(date)])
             end
           end
@@ -190,9 +190,9 @@ class ChartData
   
   def favorites_whole_count(listings)
     if self.tour == Settings.chart_data.tours.all
-      return FavoriteListingHistory.where(listing_id: listings.ids).count
+      return FavoriteListing.where(listing_id: listings.ids).count
     else
-      return FavoriteListingHistory.where(listing_id: self.tour.to_i).count
+      return FavoriteListing.where(listing_id: self.tour.to_i).count
     end
   end
   

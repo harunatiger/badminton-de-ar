@@ -6,7 +6,7 @@ class FavoriteUsersController < ApplicationController
   end
 
   def destroy
-    @favorite_user.destroy
+    @favorite_user.soft_destroy
     respond_to do |format|
       format.html { redirect_to favorite_users_path }
       format.json { head :no_content }

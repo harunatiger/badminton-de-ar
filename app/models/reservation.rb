@@ -108,7 +108,7 @@ class Reservation < ActiveRecord::Base
   scope :week_before, -> { where('schedule >= ? AND schedule <= ?', (Time.zone.today + 7.day).beginning_of_day.in_time_zone('UTC'), (Time.zone.today + 7.day).end_of_day.in_time_zone('UTC')) }
   scope :day_before, -> { where('schedule >= ? AND schedule <= ?', Time.zone.tomorrow.beginning_of_day.in_time_zone('UTC'),Time.zone.tomorrow.end_of_day.in_time_zone('UTC') ) }
   scope :finished_when, -> from, to { where('schedule_end >= ? AND schedule_end <= ?', from.in_time_zone('UTC'), to.in_time_zone('UTC')) }
-  scope :need_to_guide_pay, -> { where('cancel_by = ? OR cancel_by = ? OR cancel_by = ?', 0, 3, 4) }
+  scope :need_to_guide_pay, -> { where('progress = ? or (progress = ? and (cancel_by = ? OR cancel_by = ?))', 3, 6, 3, 4) }
 
   REGISTRABLE_ATTRIBUTES = %i(
     schedule_date schedule_hour schedule_minute

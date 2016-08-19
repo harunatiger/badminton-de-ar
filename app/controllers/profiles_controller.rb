@@ -120,10 +120,16 @@ class ProfilesController < ApplicationController
 
   def favorite_user
     if current_user.favorite_user?(@profile)
-      current_user.favorite_users_of_from_user.where(to_user_id: @profile.user_id).destroy_all
+      current_user.favorite_users_of_from_user.where(to_user_id: @profile.user_id).each do |favorite_user|
+        favorite_user.soft_destroy
+      end
       post = 'delete'
     else
-      if current_user.favorite_users_of_from_user.create(to_user_id: @profile.user_id)
+      if favorite_user = current_user.favorite_users_deleted(@profile.user_id)
+        favorite_user.restore
+        status = 'success'
+        post = 'create'
+      elsif current_user.favorite_users_of_from_user.create(to_user_id: @profile.user_id)
         status = 'success'
         post = 'create'
       else

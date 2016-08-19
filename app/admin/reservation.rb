@@ -10,14 +10,14 @@ ActiveAdmin.register Reservation do
     column :id do |reservation|
       link_to reservation.id, admin_reservation_path(reservation)
     end
-    column :host_id do |reservation|
-      reservation.host_profile_id
+    column :host_prof do |reservation|
+      link_to reservation.host_profile_id, profile_path(reservation.host_profile_id), target: '_blank' if reservation.host_profile_id.present?
     end
-    column :guest_id do |reservation|
-      reservation.guest_profile_id
+    column :guest_prof do |reservation|
+      link_to reservation.guest_profile_id, profile_path(reservation.guest_profile_id), target: '_blank' if reservation.guest_profile_id.present?
     end
-    column :pair_guide_id do |reservation|
-      reservation.pair_guide_profile_id
+    column :pair_guide_prof do |reservation|
+      link_to  reservation.pair_guide_profile_id, profile_path(reservation.pair_guide_profile_id), target: '_blank' if reservation.pair_guide_profile_id.present?
     end
     column :listing_id do |reservation|
       if reservation.listing_id.present?

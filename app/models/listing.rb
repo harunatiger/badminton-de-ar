@@ -82,8 +82,7 @@ class Listing < ActiveRecord::Base
   has_many :ngevents
   has_many :listing_pickups, dependent: :destroy
   has_many :pickups, :through =>  :listing_pickups
-  has_many :favorite_listing, dependent: :destroy
-  has_many :favorite_history, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   mount_uploader :cover_image, DefaultImageUploader
   mount_uploader :cover_video, ListingVideoUploader
@@ -317,7 +316,7 @@ class Listing < ActiveRecord::Base
   end
     
   def favorites_monthly_count(data)
-    FavoriteListingHistory.where(listing_id: self.id).created_when(data.day.beginning_of_month, data.day.end_of_month).count
+    FavoriteListing.where(listing_id: self.id).created_when(data.day.beginning_of_month, data.day.end_of_month).count
   end
     
   def reservations_monthly_count(data)
@@ -356,7 +355,7 @@ class Listing < ActiveRecord::Base
   end
   
   def favorites_whole_count
-    FavoriteListingHistory.where(listing_id: self.id).count
+    FavoriteListing.where(listing_id: self.id).count
   end
     
   def reservations_whole_count

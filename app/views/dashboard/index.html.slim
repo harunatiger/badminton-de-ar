@@ -40,7 +40,7 @@
                         .date.text-muted.row-space-1
                           = history.created_at
                         /*******bookmarked history of listings*******
-                        - if history.listing_history?
+                        - if history.favorite_listing?
                           = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
                           | さんが
                           = link_to "#{listing_id_to_listing_obj(history.listing_id).title}", listing_path(history.listing_id)
