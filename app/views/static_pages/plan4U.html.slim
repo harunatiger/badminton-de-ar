@@ -12,7 +12,7 @@ h2.belt.text-center.text-contrast
 section.recomended-guides.text-center.section
   h2.row-space-8
     .spsb.h1.row-space-4 Recommended Guides
-    .text-plan4U.text-wf.cheer feel free to talk to us!
+    .text-plan4U.text-wf.cheer \ feel free to talk to us! /
   .page-container
     .row
       .col-md-4.col-lg-3.row-space-6
@@ -68,6 +68,7 @@ section.recomended-guides.text-center.section
           = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
         - else
           = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+      .col-lg-2.center-boxes
       .col-md-4.col-lg-3.row-space-6.hide-guest
         - profile = Profile.where(id: 41).first
         .guide.text-center
