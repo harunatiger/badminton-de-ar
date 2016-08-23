@@ -16,6 +16,6 @@
           .row
             - what_talk_about_contents.each do |content|
               .col-xs-6.row-space-2
-                = link_to what_talk_about_message_thread_path(@message_thread, content: content[:name]), class: 'btn btn-block', method: :POST do
+                = link_to what_talk_about_message_thread_path(@message_thread, content: content[:name]), class: 'btn btn-block what_talk_about', method: :POST  do
                   = image_tag(content[:image])
                   .text-lead = content[:name]

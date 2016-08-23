@@ -1,10 +1,12 @@
 #message.coffee
 $ ->
-
   # message_threads#show
   if $('body').hasClass('message_threads show')
     if $('#what_talk_about')
       $('#what_talk_about').modal()
+      
+    $('.what_talk_about').on 'click', ->
+      $('.what_talk_about').addClass("disabled")
 
     # option price collapse
     $('.option-check').each ->
