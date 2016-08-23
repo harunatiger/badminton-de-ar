@@ -22,8 +22,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   
   def after_sign_in_path_for(resource)
     if session[:to_user_id]
-      profile_page = session[:previous_url].index('profiles')
-      if profile_page
+      if session[:previous_url].index('profiles')
         session[:what_talk_about] = true unless current_user.main_guide?
         message_thread_id = DefaultThread.get_message_thread_id(session[:to_user_id], current_user.id)
       else

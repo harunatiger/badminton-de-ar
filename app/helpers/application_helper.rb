@@ -780,7 +780,12 @@ module ApplicationHelper
   end
 
   def message_thread_link(to_user_id, from_user_id)
-    message_thread_path(GuestThread.get_message_thread_id(to_user_id, from_user_id))
+    if to_user_id == from_user_id
+      root_path
+    else
+      id = GuestThread.get_message_thread_id(to_user_id, from_user_id)
+      talk_to_me_message_thread_path(id, what_talk_about: true)
+    end
   end
   
   def disabled_language_id
