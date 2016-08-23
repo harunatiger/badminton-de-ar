@@ -32,4 +32,33 @@ ActiveAdmin.register Favorite do
     column :updated_at
     actions
   end
+  
+  csv :force_quotes => false do
+    column :id
+    column :from_user_prof_id do |obj|
+      profile = Profile.where(user_id: obj.from_user_id).first
+      profile.id if profile.present?
+    end
+    column :from_user_type do |obj|
+      user = User.find(obj.from_user_id)
+      user.user_type
+    end
+    column :to_user_prof_id do |obj|
+      profile = Profile.where(user_id: obj.to_user_id).first
+      profile.id if profile.present?
+    end
+    column :to_user_type do |obj|
+      user = User.find_by_id(obj.to_user_id)
+      user.user_type if user.present?
+    end
+    column :listing do |obj|
+      listing_id = obj.listing_id
+      listing_id if listing_id.present?
+    end
+    column :type
+    column :read_at
+    column :soft_destroyed_at
+    column :created_at
+    column :updated_at
+  end
 end

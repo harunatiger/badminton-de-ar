@@ -1,4 +1,5 @@
 ActiveAdmin.register Review do
+  
   permit_params :total
   after_update do |review|
     review.re_calc_average
@@ -44,8 +45,8 @@ ActiveAdmin.register Review do
   
   csv :force_quotes => false do
     column :id
-    column :guest_id
-    column :host_id
+    column("guest_prof") { |review| Profile.find_by_user_id(review.guest_id).try('id') }
+    column("host_prof") { |review| Profile.find_by_user_id(review.host_id).try('id') }
     column :reservation_id
     column :listing_id
     column :total
