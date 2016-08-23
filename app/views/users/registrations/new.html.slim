@@ -9,10 +9,10 @@
             - resource_class.omniauth_providers.each do |provider|
               = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-large btn-block facebook_button' do
                 i.fa.fa-facebook
-                | Sign in with Facebook account
+                | Sign up with Facebook account
           .text-center.social-links.hide
             - resource_class.omniauth_providers.each do |provider|
-              = link_to "Sign in with Facebook account", omniauth_authorize_path(resource_name, provider), class: 'facebook_link'
+              = link_to "Sign up with Facebook account", omniauth_authorize_path(resource_name, provider), class: 'facebook_link'
           .textInclude-separator
             h6.text
               | or
@@ -20,7 +20,7 @@
           .text-center
             = link_to "#", id: "to-signup-form", class: 'btn btn-primary btn-large btn-block' do
               i.fa.fa-envelope-o
-              | Sign in with your email address
+              | Sign up with your email address
           = simple_form_for(resource, as: resource_name, url: user_registration_path) do |f|
             .signup-form.hide
               = f.error_notification
@@ -32,7 +32,7 @@
                 = f.input_field :password_confirmation, class: "decorative-input", placeholder: "Confirm password", required: true
               .row-space-2.row-space-top-2
                 small
-                  | By register with Huber, you agree to 
+                  | By registering with Huber, you agree to 
                   = link_to "our terms of service", static_pages_service_agreement_en_path
                   | , 
                   = link_to "privacy policy", static_pages_privacy_policy_en_path
@@ -44,7 +44,7 @@
                 = f.button :submit, "Register", class: "btn btn-primary btn-large btn-block"
           .policy-wrapper.row-space-top-2
             small
-              | By register with Huber, you agree to 
+              | By registering with Huber, you agree to 
               = link_to "our terms of service", static_pages_service_agreement_en_path
               | , 
               = link_to "privacy policy", static_pages_privacy_policy_en_path
