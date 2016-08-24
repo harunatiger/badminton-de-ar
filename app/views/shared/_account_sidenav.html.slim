@@ -17,10 +17,10 @@
       - else
         li
           = link_to "Bank Details", "#{profile_bank_link}", class: "sidenav-item", aria: {selected: "false"}
-      - if controller_name == 'withdrawals'
+      /- if controller_name == 'withdrawals'
         li
           = link_to "Withdrawal (出金依頼)", withdrawals_path, class: "sidenav-item", aria: {selected: "true"}
-      - else
+      /- else
         li
           = link_to "Withdrawal (出金依頼)", withdrawals_path, class: "sidenav-item", aria: {selected: "false"}
     - if action_name == 'withdraw'
