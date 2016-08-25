@@ -19,7 +19,10 @@
                 | We need to do a Photo ID and General information check in order to approve the tour.
                 i.fa.fa-chevron-right
       - if @message_thread.guest_thread?
-        = render partial: 'reservation_block'
+        - if @host_id == current_user.id
+          = render partial: 'reservation_block_guide'
+        - else
+          = render partial: 'reservation_block_guest'
       - elsif disp_friends_request_block?(@message_thread, @counterpart.id)
         = render partial: 'friends_request_block'
       - elsif @message_thread.pair_guide_thread?

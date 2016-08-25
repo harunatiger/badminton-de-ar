@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   #http_basic_authenticate_with name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD'] unless Rails.env.development?
-  before_action :set_locale
+  before_action :set_locale, :set_locale_from_remote_addr
  
   def set_locale
     I18n.locale = :en
@@ -33,5 +33,30 @@ class ApplicationController < ActionController::Base
   def render_404(e = nil)
     logger.info "Rendering 404 with exception: #{e.message}" if e
     render template: 'errors/error_404', status: 404, layout: 'application', content_type: 'text/html'
+  end
+  
+  private
+
+  TIMEOUT = 1.hour
+  def set_locale_from_remote_addr
+    return check_currency_rate if session[:currency_code].present?
+    remoteaddr = ''
+    if request.env['HTTP_X_FORWARDED_FOR']
+      remoteaddr = request.env['HTTP_X_FORWARDED_FOR'].split(",")[0]
+    else
+      remoteaddr = request.env['REMOTE_ADDR'] if request.env['REMOTE_ADDR']
+    end
+    
+    geoip = GeoIP.new(Rails.root + "db/GeoIP.dat").country(remoteaddr)
+    session[:currency_code] = Currency.local_to_currency_code(geoip.country_code2)
+    session[:rate] = session[:currency_code] != 'JPY' ? Currency.get_rate(session[:currency_code]) : 0
+    session[:latest_rate_get_time] = Time.current
+  end
+    
+  def check_currency_rate
+    if session[:latest_rate_get_time] <= TIMEOUT.ago
+      session[:rate] = session[:currency_code] != 'JPY' ? Currency.get_rate(session[:currency_code]) : 0
+      session[:latest_rate_get_time] = Time.current
+    end
   end
 end

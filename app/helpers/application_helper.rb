@@ -820,4 +820,75 @@ module ApplicationHelper
   def listing_to_listing_images(listing)
     ListingImage.where(listing_id: listing.id)
   end
+  
+  def currency_sign
+    sign = Currency.currency_code_and_sign_hash[session[:currency_code]]
+    sign.present? ? sign : '¥'
+  end
+  
+  def currency_sign_by_payment(payment)
+    return '¥' if payment.blank?
+    sign = Currency.currency_code_and_sign_hash[payment.currency_code]
+    sign.present? ? sign : '¥'
+  end
+  
+  def exchanged_amount(amount)
+    return amount if session[:currency_code] == 'JPY'
+    result = (BigDecimal(amount.to_s) * BigDecimal(session[:rate].to_s))
+    return result.ceil if session[:currency_code] == 'HUF' or session[:currency_code] == 'TWD'
+    result.round(2)
+  end
+  
+  def exchanged_amount_by_payment(payment, amount)
+    return amount if payment.blank? or payment.currency_code.blank?
+    currency_code = payment.currency_code
+    rate = payment.exchange_rate
+    
+    return amount if currency_code == 'JPY'
+    
+    result = (BigDecimal(amount.to_s) * BigDecimal(rate.to_s))
+    return result.ceil if currency_code == 'HUF' or currency_code == 'TWD'
+    result.round(2)
+  end
+  
+  def exchanged_display_amount(amount)
+    return amount if session[:currency_code] == 'JPY'
+    
+    result = ((BigDecimal(amount.to_s) * BigDecimal(session[:rate].to_s)) + exchange_fee(amount))
+    return result.ceil if session[:currency_code] == 'HUF' or session[:currency_code] == 'TWD'  
+    result.round(2)
+  end
+  
+  def exchanged_display_amount_by_payment(payment, amount)
+    return amount if payment.blank? or payment.currency_code.blank?
+    currency_code = payment.currency_code
+    rate = payment.exchange_rate
+    
+    return amount if currency_code == 'JPY'
+    
+    result = ((BigDecimal(amount.to_s) * BigDecimal(rate.to_s)) + exchange_fee_by_payment(payment, amount))
+    return result.ceil if currency_code == 'HUF' or currency_code == 'TWD'  
+    result.round(2)
+  end
+  
+  def exchange_fee(amount)
+    return 0 if session[:currency_code] == 'JPY'
+    amount = (BigDecimal(amount.to_s) * BigDecimal(Settings.reservation.exchange_rate.to_s)).ceil
+    result = (BigDecimal(amount.to_s) * BigDecimal(session[:rate].to_s))
+    return result.ceil if session[:currency_code] == 'HUF' or session[:currency_code] == 'TWD'  
+    result.round(2)
+  end
+  
+  def exchange_fee_by_payment(payment, amount)
+    return 0 if payment.blank? or payment.currency_code.blank?
+    currency_code = payment.currency_code
+    rate = payment.exchange_rate
+    
+    return 0 if currency_code == 'JPY'
+    
+    amount = (BigDecimal(amount.to_s) * BigDecimal(Settings.reservation.exchange_rate.to_s)).ceil
+    result = (BigDecimal(amount.to_s) * BigDecimal(rate.to_s))
+    return result.ceil if currency_code == 'HUF' or currency_code == 'TWD'  
+    result.round(2)
+  end
 end

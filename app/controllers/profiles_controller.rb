@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
   before_action :regulate_user, except: [:new, :index, :create, :show, :favorite_user, :delete_category, :read_more_reviews]
   before_action :deleted_check, only: [:show, :edit]
   before_action :set_reviews, only: [:show]
-
+  
   # GET /profiles
   # GET /profiles.json
   def index
@@ -19,8 +19,6 @@ class ProfilesController < ApplicationController
   def show
     @listings = Listing.mine(@profile.user_id).opened.without_soft_destroyed.includes(:listing_detail).order_by_updated_at_desc
     gon.listings = ListingDetail.where(listing_id: @listings.map{|l| l.id}).where.not('place_longitude = 0 and place_latitude = 0')
-    @profile_keyword = ProfileKeyword.where(user_id: @profile.user_id, profile_id: @profile.id).keyword_limit
-    gon.keywords = @profile_keyword
   end
   
   def read_more_reviews

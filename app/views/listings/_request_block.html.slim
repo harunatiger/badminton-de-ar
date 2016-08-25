@@ -22,24 +22,25 @@
           .tour-price.row-space-1
             h3.h4.strong.row-space-2 Price
             .h3.row-space-2
-              | ¥
+              | #{currency_sign}
               b
-                span#tour-basic-amount= listing_detail.display_amount
+                span#tour-basic-amount
+                  = exchanged_display_amount(listing_detail.display_amount)
               | /Group
             .tour-price-detail
               .row
                 .col-xs-7
                   | Guide Price
                 .col-xs-5.text-right.strong
-                  | ¥
-                  = listing_detail.guide_price
+                  | #{currency_sign}
+                  = exchanged_amount(listing_detail.guide_price)
               - if listing_detail.option_amount > 0
                 .row
                   .col-xs-7
                     | Costs included in this price
                   #tour-option-amount.col-xs-5.text-right.strong
-                    | ¥
-                    = default_num_of_people == 1 ? listing_detail.option_amount : listing_detail.option_amount + listing_detail.bicycle_option_for_a_person
+                    | #{currency_sign}
+                    = default_num_of_people == 1 ? exchanged_amount(listing_detail.option_amount) : exchanged_amount(listing_detail.option_amount + listing_detail.bicycle_option_for_a_person)
               /- if listing_detail.space_option
                 - space_options.each do |option|
                   - if listing_detail[option] > 0
@@ -59,8 +60,8 @@
                   .col-xs-7
                     |  -#{I18n.t('option_price_en.' + 'car_rental')} fee
                   #tour-option-car.col-xs-5.text-right.strong
-                    | ¥
-                    = car_rental_cost
+                    | #{currency_sign}
+                    = exchanged_amount(car_rental_cost)
               - if listing_detail.bicycle_option
                 - bicycle_options.each do |option|
                   - if listing_detail[option] > 0
@@ -68,8 +69,8 @@
                       .col-xs-7
                         |  -#{I18n.t('option_price_en.' + option)} fee
                       #tour-option-bicycle.col-xs-5.text-right.strong
-                        | ¥
-                        = listing_detail[option] * default_num_of_people
+                        | #{currency_sign}
+                        = exchanged_amount(listing_detail[option] * default_num_of_people)
               - if listing_detail.other_option
                 - other_options.each do |option|
                   - if listing_detail[option] > 0
@@ -77,15 +78,16 @@
                       .col-xs-7
                         |  -#{I18n.t('option_price_en.' + option)} fee
                       #tour-option-other.col-xs-5.text-right.strong
-                        | ¥
-                        = listing_detail[option]
+                        | #{currency_sign}
+                        = exchanged_amount(listing_detail[option])
 
-              /.row
-                .col-xs-7
-                  | Service Commission
-                .col-xs-5.text-right.strong
-                  | ¥
-                  = listing.listing_detail.service_fee
+              - if session[:currency_code] != 'JPY'
+                .row
+                  .col-xs-7
+                    | Exchange Fee
+                  #tour-option-amount.col-xs-5.text-right.strong
+                    | #{currency_sign}
+                    = exchange_fee(listing_detail.display_amount)
 
           = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
             - user_id = 0
@@ -149,8 +151,8 @@
                 br
                 | Approximate costs not included in guide price
               .col-md-7
-                small ¥
-                b #{listing_detail.guests_cost}
+                small #{currency_sign}
+                b #{exchanged_amount(listing_detail.guests_cost)}
                 |  /per person
               .col-md-5
                 = render partial: '/shared/modals/include_what', locals: { included_guests_cost: @listing.listing_detail.included_guests_cost }

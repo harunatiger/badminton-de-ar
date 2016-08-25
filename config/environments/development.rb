@@ -71,5 +71,13 @@ Rails.application.configure do
       signature: Rails.application.secrets.paypal_express_signature
     }
     ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+    
+    paypal_adaptive_options = {
+      login: Rails.application.secrets.paypal_express_user_name,
+      password: Rails.application.secrets.paypal_express_user_password,
+      signature: Rails.application.secrets.paypal_express_signature,
+      appid: "APP-80W284485P519543T"
+    }
+    ::ADAPTIVE_GATEWAY = ActiveMerchant::Billing::PaypalAdaptivePayment.new(paypal_adaptive_options)
   end
 end

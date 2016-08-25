@@ -108,6 +108,7 @@ gem 'google-analytics-rails', '1.1.0'
 
 #paypal payment
 gem 'activemerchant', '1.57.0'
+gem "active_paypal_adaptive_payment", '0.3.16'
 
 # dotenv
 gem 'dotenv-rails'
@@ -161,6 +162,9 @@ gem 'nested_form', '0.3.2'
 
 # chart
 gem "google_visualr", "2.5.1"
+
+# locale from ip
+gem 'geoip'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

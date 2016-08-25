@@ -35,6 +35,9 @@ footer
           - if user_signed_in? and current_user.guest? and current_user.pre_mail.blank?
             li.row-space-2
               = link_to Settings.page.listing_new, "#guide_request", class: "guide_request", data: { toggle: "modal" }
+          .row
+            .col-md-5.row-space-4
+              = select_tag 'currency_code', options_for_select(Currency.currency_list, selected: session[:currency_code])
       .col-md-7.row-space-6.text-center
         .fb-page-container
           #fb-widget.fb-page[data-href="https://www.facebook.com/HuberInc-1579765458969603/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-width="500" data-height="205"]

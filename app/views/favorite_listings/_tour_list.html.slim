@@ -21,8 +21,8 @@
                 | <div class="tour-cover" style="background-image:url(#{asset_path listing_cover_image_thumb_url(listing.id)})"></div>
               .card-overlay-bottom-left.flush-left.card-overlay-label
                 .h3
-                  | ¥&nbsp;
-                  = listing.listing_detail.basic_amount if listing.listing_detail.present?
+                  | #{currency_sign}
+                  = exchanged_display_amount(listing.listing_detail.basic_amount) if listing.listing_detail.present?
                   | /Group
               = link_to favorite_listing_path(favorite_listing_set(listing, current_user)), method: 'DELETE' , class: "favorite-btn" do
                 i.fa.fa-heart.favorited
