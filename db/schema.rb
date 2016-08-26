@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160817153806) do
+ActiveRecord::Schema.define(version: 20160825102221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -484,7 +484,7 @@ ActiveRecord::Schema.define(version: 20160817153806) do
     t.string   "payer_id",         default: ""
     t.string   "payers_status",    default: ""
     t.string   "transaction_id",   default: ""
-    t.integer  "amount"
+    t.decimal  "amount"
     t.string   "currency_code",    default: ""
     t.string   "email",            default: ""
     t.string   "first_name",       default: ""
@@ -495,6 +495,7 @@ ActiveRecord::Schema.define(version: 20160817153806) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "status",           default: 0
+    t.decimal  "exchange_rate"
   end
 
   add_index "payments", ["reservation_id"], name: "index_payments_on_reservation_id", using: :btree

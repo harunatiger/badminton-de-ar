@@ -8,7 +8,7 @@
 #  payer_id         :string           default("")
 #  payers_status    :string           default("")
 #  transaction_id   :string           default("")
-#  amount           :integer
+#  amount           :decimal(, )
 #  currency_code    :string           default("")
 #  email            :string           default("")
 #  first_name       :string           default("")
@@ -19,6 +19,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  status           :integer          default(0)
+#  exchange_rate    :decimal(, )
 #
 # Indexes
 #
@@ -49,6 +50,10 @@ class Payment < ActiveRecord::Base
   end
 
   def refund_amount_for_paypal(percentage)
-    (self.amount / (100 / percentage)) * 100
+    if ['JPY', 'HUF', 'TWD'].index(self.currency_code).present?
+      (self.amount - (self.amount / (100 / percentage)).ceil.to_i) * 100
+    else
+      (self.amount - (self.amount / (100 / percentage)).round(2)) * 100
+    end
   end
 end

@@ -1,4 +1,5 @@
 /* shared#reservation_block
+- sign = currency_sign_by_payment(reservation.payment)
 .reservation-collapse-toggle-container
   .reservation-collapse-toggle.collapsed[data-toggle="collapse" data-target="#{"#reservation_block" + count}"]
     .row
@@ -36,26 +37,23 @@
         .h4.normal GUIDE PRICE :
       .col-md-8
         .h3.strong
-          | ¥
-          - if reservation.host_id == current_user.id
-            = reservation.amount
-          - else
-            = reservation.amount_for_campaign
+          | #{sign}
+          = exchanged_display_amount_by_payment(reservation.payment, reservation.amount_for_campaign)
     .row.row-condensed
       .col-xs-11.col-offset-10px
         .row.row-condensed
           .col-md-4.text-left.text-muted
             | Basic Price :
           .col-md-8
-            |¥
-            = reservation.guide_price
+            |#{sign}
+            = exchanged_amount_by_payment(reservation.payment, reservation.guide_price)
         - if reservation.option_amount > 0
           .row.row-condensed
             .col-md-4.text-left.text-muted
               | Optional Price :
             .col-md-8
-              |¥
-              = reservation.option_amount
+              |#{sign}
+              = exchanged_amount_by_payment(reservation.payment, reservation.option_amount)
           /- if reservation.space_option
             - space_options.each do |option|
               - if reservation[option] > 0
@@ -63,17 +61,8 @@
                   .col-md-4.text-left.text-muted
                     = I18n.t('option_price_en.' + option)
                   .col-md-8
-                    |¥
-                    = reservation.option_amount
-                /- if reservation.space_option
-                  - space_options.each do |option|
-                    - if reservation[option] > 0
-                      .row.row-condensed
-                        .col-md-4.text-left.text-muted
-                          = I18n.t('option_price_en.' + option)
-                        .col-md-8.strong
-                          |¥
-                          = reservation[option]
+                    |#{sign}
+                    = exchanged_amount_by_payment(reservation.payment, reservation.option_amount)
                 - if reservation.car_option
                   - car_options.each do |option|
                     - if reservation[option] > 0
@@ -81,8 +70,8 @@
                         .col-md-4.text-left.text-muted
                           = I18n.t('option_price_en.' + option)
                         .col-md-8
-                          |¥
-                          = reservation[option]
+                          |#{sign}
+                          = exchanged_amount_by_payment(reservation.payment, reservation[option])
                 - if reservation.bicycle_option
                   - num_of_people = reservation.num_of_people
                   - bicycle_options.each do |option|
@@ -91,8 +80,8 @@
                         .col-md-4.text-left.text-muted
                           = I18n.t('option_price_en.' + option)
                         .col-md-8
-                          |¥
-                          = reservation[option] * num_of_people
+                          |#{sign}
+                          = exchanged_amount_by_payment(reservation.payment, reservation[option] * num_of_people)
                 - if reservation.other_option
                   - other_options.each do |option|
                     - if reservation[option] > 0
@@ -100,27 +89,41 @@
                         .col-md-4.text-left.text-muted
                           = I18n.t('option_price_en.' + option)
                         .col-md-8
-                          |¥
-                          = reservation[option]
+                          |#{sign}
+                          = exchanged_amount_by_payment(reservation.payment, reservation[option])
         .row.row-condensed
           .col-md-4.text-left.text-muted
             | Service Commission :
           .col-md-8
-            | ¥
-            = reservation.service_fee
+            | #{sign}
+            = exchanged_amount_by_payment(reservation.payment, reservation.service_fee)
         .row.row-condensed
           .col-md-4.text-left.text-muted
             = link_to 'Travel insurance:', "#travel_insurance", class: "travel_insurance link-bordered", data: { toggle: "modal" }
           .col-md-8
-            | ¥
-            = reservation.insurance_fee
+            | #{sign}
+            = exchanged_amount_by_payment(reservation.payment, reservation.insurance_fee)
             | (#{reservation.insurance_people_str})
+        - if reservation.payment.try('currency_code') != 'JPY'
+          .row.row-condensed
+            .col-md-4.text-left.text-muted
+              | Exchange Fee :
+            .col-md-8
+              | #{sign}
+              = exchange_fee_by_payment(reservation.payment, reservation.amount_for_campaign)
+        - if reservation.campaign.present?
+          .row.row-condensed
+            .col-md-4.text-left.text-muted
+              | Discount :
+            .col-md-8
+              | #{sign}
+              = 0 - exchanged_amount_by_payment(reservation.payment, reservation.campaign.discount)
     .row.row-condensed
       .col-md-4.text-left.text-muted
         | Not included :
       .col-md-8.text-muted
-        | ¥
-        = reservation.guests_cost
+        | #{sign}
+        = exchanged_amount_by_payment(reservation.payment, reservation.guests_cost)
         = link_to "#", class: "include_what_trigger_for_dashboard small1 strong text-red" do
           |  ※ Invoice
     .row.row-condensed

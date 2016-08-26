@@ -17,8 +17,8 @@
                 p.strong.text-lead
                   | It’s the #{(r.schedule.to_date - today.to_date).to_i} day before your tour.
                 p.strong.text-lead
-                  | You will be charged
-                  span.strong.text-red ¥&nbsp#{r.cancellation_fee_for_dashboard}
+                  | You will be charged 
+                  span.strong.text-red #{currency_sign_by_payment(r.payment)}&nbsp#{r.cancellation_fee_for_dashboard}
                   |  if you cancel now.
                 p.small1
                   /i.fa.fa-exclamation-circle.fa-red
@@ -27,7 +27,7 @@
                   br
                   | Please be aware that these conditions are subject to change.
                   br
-                  | Please check
+                  | Please check 
                   = link_to "the cancellation policy", "#", class: "about_cancel_link"
                   |  for more datails.
                   br

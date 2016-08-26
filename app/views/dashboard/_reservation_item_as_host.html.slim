@@ -105,9 +105,9 @@
 
     .collapse-body
       - if current_user_is_host?(r)
-        = render partial: 'shared/reservation_block', locals: { reservation: r, count: i.to_s }
+        = render partial: 'reservation_block_as_guide', locals: { reservation: r, count: i.to_s }
       - else
-        = render partial: 'shared/pair_guide_block', locals: { reservation: r, count: i.to_s }
+        = render partial: 'pair_guide_block', locals: { reservation: r, count: i.to_s }
 
   = render partial: '/shared/modals/include_what', locals: { included_guests_cost: r.included_guests_cost, count: i.to_s }
   = render partial: 'shared/modals/message_to_guest_from_reservation_manger', locals: { r: r, listing: reservation_to_listing(r) }

@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get 'static_pages/plan4U'
   get 'static_pages/three_reasons'
   get 'static_pages/our_partners'
+  
+  post 'currencies/change_currency'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin::Devise.config

@@ -402,6 +402,41 @@ $ ->
     $('#checkin').on 'changeDate', ->
       priceCulc()
 
+    calcExchagedPrice = (amount)->
+      currency_code = gon.currency.currency_code
+      rate = gon.currency.rate
+      if currency_code == 'JPY'
+        return amount
+      else if currency_code == 'HUF' or currency_code == 'TWD'
+        return Math.ceil(amount * rate)
+      else
+        return (amount * rate).toFixed(2)
+      
+#     calcExchagedPriceWithFee = (amount)->
+#       currency_code = gon.currency.currency_code
+#       rate = gon.currency.rate
+#       if currency_code == 'JPY'
+#         return amount
+#       else if currency_code == 'HUF' or currency_code == 'TWD'
+#         exchange_fee = calcExchangeFee(amount)
+#         return Math.ceil(amount * rate + exchange_fee)
+#       else
+#         exchange_fee = calcExchangeFee(amount)
+#         return (amount * rate + parseFloat(exchange_fee)).toFixed(2)
+      
+    calcExchangeFee = (amount)->
+      currency_code = gon.currency.currency_code
+      rate = gon.currency.rate
+      exhange_fee_rate = gon.currency.exhange_fee_rate
+      
+      result = Math.ceil(amount * exhange_fee_rate)
+      result = result * rate
+      
+      if currency_code == 'HUF' or currency_code == 'TWD'
+        return Math.ceil(result)
+      else
+        return result.toFixed(2)
+      
     $('#reservation_num_of_people').on 'change', ->
       numOfPeople = Number($('#reservation_num_of_people option:selected').text())
 
@@ -411,10 +446,13 @@ $ ->
       otherCost = Number($('#reservation_other_cost').val())
       optionAmount = carCost + bycycleCost + otherCost
       basicPrice = basicPrice + optionAmount
-      $('#tour-option-bicycle').text('¥' + bycycleCost)
-      $('#tour-option-amount').text('¥' + optionAmount)
-      $('#tour-basic-amount').text(basicPrice)
-
+      $('#tour-option-bicycle').text(calcExchagedPrice(bycycleCost))
+      $('#tour-option-amount').text(calcExchagedPrice(optionAmount))
+      $('#tour-basic-amount').text(calcExchagedPrice(basicPrice))
+      #$('#tour-basic-amount').text(calcExchagedPriceWithFee(basicPrice))
+      #if currency_code != 'JPY'
+      #  $('#exchange-fee').text(calcExchangeFee(basicPrice))
+        
     $('#request--sp').on 'click', ->
       $('#tour-action').show()
 
