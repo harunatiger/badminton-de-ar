@@ -9,10 +9,10 @@
               - User.omniauth_providers.each do |provider|
                 = link_to users_before_omniauth_path(to_user_id: to_user_id), method: :POST, class: 'btn btn-fb btn-large btn-block facebook_button', id: 'sns_button' do
                   i.fa.fa-facebook
-                  | Sign in with Facebook account
+                  | Sign up with Facebook account
             .text-center.social-links.hide
               - User.omniauth_providers.each do |provider|
-                = link_to "Sign in with Facebook account", users_before_omniauth_path(to_user_id: to_user_id), method: :POST, class: 'facebook_link'
+                = link_to "Sign up with Facebook account", users_before_omniauth_path(to_user_id: to_user_id), method: :POST, class: 'facebook_link'
             .textInclude-separator
               h6.text
                 | or
@@ -20,7 +20,7 @@
             .text-center
               = link_to "#", id: "to-signup-form", class: 'btn btn-primary btn-large btn-block' do
                 i.fa.fa-envelope-o
-                | Sign in with your email address
+                | Sign up with your email address
             = simple_form_for(User.new, as: :user, url: user_registration_path(to_user_id: to_user_id), remote: true) do |f|
               .signup-form.hide
                 = f.error_notification
@@ -37,7 +37,7 @@
                 = render partial: 'shared/modals/error_message', locals: {target: @user}
                 .row-space-2.row-space-top-2
                   small
-                    | By register with Huber, you agree to 
+                    | By registering with Huber, you agree to 
                     = link_to "our terms of service", static_pages_service_agreement_en_path
                     | , 
                     = link_to "privacy policy", static_pages_privacy_policy_en_path
@@ -49,7 +49,7 @@
                   = f.button :submit, "Register", class: "btn btn-primary btn-large btn-block"
             .policy-wrapper.row-space-top-2
               small
-                | By register with Huber, you agree to 
+                | By registering with Huber, you agree to 
                 = link_to "our terms of service", static_pages_service_agreement_en_path
                 | , 
                 = link_to "privacy policy", static_pages_privacy_policy_en_path
