@@ -25,7 +25,7 @@
               | #{currency_sign}
               b
                 span#tour-basic-amount
-                  = exchanged_display_amount(listing_detail.display_amount)
+                  = exchanged_amount(listing_detail.display_amount)
               | /Group
             .tour-price-detail
               .row
@@ -38,19 +38,10 @@
                 .row
                   .col-xs-7
                     | Costs included in this price
-                  #tour-option-amount.col-xs-5.text-right.strong
+                  .col-xs-5.text-right.strong
                     | #{currency_sign}
-                    = default_num_of_people == 1 ? exchanged_amount(listing_detail.option_amount) : exchanged_amount(listing_detail.option_amount + listing_detail.bicycle_option_for_a_person)
-              /- if listing_detail.space_option
-                - space_options.each do |option|
-                  - if listing_detail[option] > 0
-                    .row.text-muted.small2
-                      .col-xs-7
-                        |  -
-                        = I18n.t('option_price_en.' + option)
-                      .col-xs-5.text-right.strong
-                        | ¥
-                        = listing_detail[option]
+                    span#tour-option-amount
+                      = default_num_of_people == 1 ? exchanged_amount(listing_detail.option_amount) : exchanged_amount(listing_detail.option_amount + listing_detail.bicycle_option_for_a_person)
               - if listing_detail.car_option
                 - car_rental_cost = 0
                 - car_options.each do |option|
@@ -68,9 +59,10 @@
                     .row.text-muted.small2
                       .col-xs-7
                         |  -#{I18n.t('option_price_en.' + option)} fee
-                      #tour-option-bicycle.col-xs-5.text-right.strong
+                      .col-xs-5.text-right.strong
                         | #{currency_sign}
-                        = exchanged_amount(listing_detail[option] * default_num_of_people)
+                        span#tour-option-bicycle
+                          = exchanged_amount(listing_detail[option] * default_num_of_people)
               - if listing_detail.other_option
                 - other_options.each do |option|
                   - if listing_detail[option] > 0
@@ -81,13 +73,14 @@
                         | #{currency_sign}
                         = exchanged_amount(listing_detail[option])
 
-              - if session[:currency_code] != 'JPY'
+              /- if session[:currency_code] != 'JPY'
                 .row
                   .col-xs-7
                     | Exchange Fee
-                  #tour-option-amount.col-xs-5.text-right.strong
+                  .col-xs-5.text-right.strong
                     | #{currency_sign}
-                    = exchange_fee(listing_detail.display_amount)
+                    span#exchange-fee
+                      = exchange_fee(listing_detail.display_amount)
 
           = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
             - user_id = 0

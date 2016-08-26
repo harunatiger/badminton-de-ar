@@ -5,7 +5,7 @@
     .card-overlay-bottom-left.flush-left.card-overlay-label
       .h3
         | #{currency_sign}&nbsp;
-        = exchanged_display_amount(listing.listing_detail.display_amount) if listing.listing_detail.present?
+        = exchanged_amount(listing.listing_detail.display_amount) if listing.listing_detail.present?
         | /Group
     - if user_signed_in?
       = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do

@@ -5,6 +5,6 @@ module Payments
   end
   
   def refund_full(payment)
-    response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY'} )
+    response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: payment.currency_code} )
   end
 end

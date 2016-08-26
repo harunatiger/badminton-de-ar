@@ -38,6 +38,7 @@ class ListingsController < ApplicationController
     @reservation = Reservation.new
     @profile_keyword = ProfileKeyword.where(user_id: @listing.user_id, profile_id: Profile.where(user_id: @listing.user_id).pluck(:id).first).keyword_limit
     gon.keywords = @profile_keyword
+    gon.currency = {currency_code: session[:currency_code], rate: session[:rate], exhange_fee_rate: Settings.reservation.exchange_rate}
     @announcement = Announcement.display_at('listing').first
   end
 
