@@ -108,7 +108,7 @@ gem 'google-analytics-rails', '1.1.0'
 
 #paypal payment
 gem 'activemerchant', '1.57.0'
-gem "active_paypal_adaptive_payment", '0.3.16'
+gem 'paypal_adaptive', '0.3.10'
 
 # dotenv
 gem 'dotenv-rails'

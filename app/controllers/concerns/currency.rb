@@ -17,7 +17,8 @@ module Currency
   end
   
   def self.get_rate(to_currency_code)
-    exchange = ADAPTIVE_GATEWAY.convert_currency(currency_list: [{amount: 100, code: 'JPY'}], to_currencies: {currency_code: to_currency_code})
-    rate = exchange.response.estimated_amount_table.currency_conversion_list[0].currency_list.currency[0].amount.to_f / 100
+    exchange = PaypalAdaptive::Request.new
+    response = exchange.convert_currency({requestEnvelope: {}, baseAmountList: [currency: {amount: 100, code: 'JPY'}], convertToCurrencyList: [{currencyCode: to_currency_code}]})
+    p rate = response['estimatedAmountTable']['currencyConversionList'][0]['currencyList']['currency'][0]['amount'].to_f / 100
   end
 end
