@@ -7,7 +7,7 @@ development:
   api_cert_file:
 
 develop:
-  environment: <%= ENV["PAYPAL_EXPRESS_USER_NAME"] %>
+  environment: "sandbox"
   username: <%= ENV["PAYPAL_EXPRESS_USER_NAME"] %>
   password: <%= ENV["PAYPAL_EXPRESS_USER_PASSWORD"] %>
   signature: <%= ENV["PAYPAL_EXPRESS_SIGNATURE"] %>
@@ -15,7 +15,7 @@ develop:
   api_cert_file:
   
 staging:
-  environment: <%= ENV["PAYPAL_EXPRESS_USER_NAME"] %>
+  environment: "sandbox"
   username: <%= ENV["PAYPAL_EXPRESS_USER_NAME"] %>
   password: <%= ENV["PAYPAL_EXPRESS_USER_PASSWORD"] %>
   signature: <%= ENV["PAYPAL_EXPRESS_SIGNATURE"] %>
