@@ -251,6 +251,7 @@ class Listing < ActiveRecord::Base
     listing_copied.open = false
     listing_copied.title = self.title + ' 2'
     listing_copied.not_valid_ok = true
+    listing_copied.ave_total = 0
     listing_copied.save ? listing_copied : false
   end
 
