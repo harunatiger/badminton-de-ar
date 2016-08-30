@@ -40,15 +40,8 @@ class ApplicationController < ActionController::Base
   TIMEOUT = 1.hour
   def set_locale_from_remote_addr
     return check_currency_rate if session[:currency_code].present?
-    remoteaddr = ''
-    if request.env['HTTP_X_FORWARDED_FOR']
-      remoteaddr = request.env['HTTP_X_FORWARDED_FOR'].split(",")[0]
-    else
-      remoteaddr = request.env['REMOTE_ADDR'] if request.env['REMOTE_ADDR']
-    end
-    
-    geoip = GeoIP.new(Rails.root + "db/GeoIP.dat").country(remoteaddr)
-    session[:currency_code] = Currency.local_to_currency_code(geoip.country_code2)
+    language = http_accept_language.preferred_language_from(Currency.available_locales)
+    session[:currency_code] = Currency.language_to_currency_code(language)
     session[:rate] = session[:currency_code] != 'JPY' ? Currency.get_rate(session[:currency_code]) : 0
     session[:latest_rate_get_time] = Time.current
   end
