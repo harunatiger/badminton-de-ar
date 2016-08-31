@@ -68,24 +68,7 @@
                   = @all_reviewed_count
                 | )
               .lang-list-wrapper
-                ul
-                  li.balloon(title="English")
-                    span EN
-                  - if language_zh?(@host_info)
-                    li.balloon(title="Chinese")
-                      span ZH
-                  - if language_de?(@host_info)
-                    li.balloon(title="German")
-                      span DE
-                  - if language_fr?(@host_info)
-                    li.balloon(title="French")
-                      span FR
-                  - if language_es?(@host_info)
-                    li.balloon(title="Spanish")
-                      span ES
-                  - if language_ja?(@host_info)
-                    li.balloon(title="Japanese")
-                      span JA
+                = render partial: 'shared/language_list', locals: { profile: @host_info}
         .row.row-space-4.row-space-top-2
           .col-md-12
             .pair-guide-list-container

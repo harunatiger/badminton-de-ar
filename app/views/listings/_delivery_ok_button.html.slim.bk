@@ -1,4 +1,0 @@
-- if listing.delivery_flg.present?
-  div.text-center--sp
-    = link_to "javascript:void(0)", class: "btn btn-guest" do
-      = Settings.listings.delivery.ok

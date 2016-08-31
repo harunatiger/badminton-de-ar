@@ -1,0 +1,36 @@
+#review-block-container
+  #review-block
+    .row-space-4.row-space-top-8
+      h3.row-space-2
+        | Guide Information
+    .media-photo.media-round.media-avatar
+      .size60[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
+    .row-space-4
+      p
+        = simple_format(profile.try('self_introduction') || '')
+    .profile-name.row-space-top-2.row-space-1
+      span
+        = profile.first_name
+      small.text-muted
+        = "Registerd #{profile.created_at.strftime("%Y/%m")}"
+    .profile-area.row-space-1
+      i.fa.fa-map-marker
+      ' 
+      = profile.location
+    .profile-rating.row-space-2
+      .star-rating
+        = render partial: 'shared/stars', locals: { rate: profile.ave_total }
+      span.badge-pill-count.small1
+        | review
+        |(
+        b
+          = Review.my_reviewed_count(profile.user_id)
+        |)
+    = render partial: 'talk_to_me', locals: { listing: listing, message_thread: message_thread }
+    | Response rate
+    = link_to "#about_response_rate", data: { toggle: "modal" } do
+      i.fa.fa-question-circle
+    = listing.user.message_return_rate
+    
+    .lang-list-wrapper
+      = render partial: 'shared/language_list', locals: { profile: profile}

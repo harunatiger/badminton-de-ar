@@ -343,4 +343,22 @@ class User < ActiveRecord::Base
   def active_listings
     self.listings.without_soft_destroyed.order_by_updated_at_desc
   end
+  
+  def message_return_rate
+    guest_threads = GuestThread.where(host_id: self.id, reply_from_host: true, first_message: false)
+    total_count = guest_threads.count
+    return_in_1day_count = 0
+    
+    return '-' if total_count < 3
+    
+    guest_threads.each do |guest_thread|
+      guest_id = guest_thread.counterpart_user(self.id)
+      guest_first_message = guest_thread.messages.where(from_user_id: guest_id).order_by_created_at_asc.first
+      
+      guide_returned_message = guest_thread.messages.where('from_user_id = ? and created_at > ?', self.id, guest_first_message.created_at.in_time_zone('UTC')).order_by_created_at_asc.first
+      next if guide_returned_message.created_at - guest_first_message.created_at > 24.hour
+      return_in_1day_count += 1
+    end
+    (return_in_1day_count / total_count.to_f * 100).round.to_s + '%'
+  end
 end
