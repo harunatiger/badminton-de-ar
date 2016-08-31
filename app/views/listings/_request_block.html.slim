@@ -21,9 +21,14 @@
             .col-9
               p
                 | You can discuss anything, including the place, price, and timing.
+        .card-footer.text-left
+          i.fa.fa-reply
+          ' 
           | Response rate
+          ' 
           = link_to "#about_response_rate", data: { toggle: "modal" } do
             i.fa.fa-question-circle
+            ' 
           = listing.user.message_return_rate
       .card.row-space-2
         /.card-header.show--sp

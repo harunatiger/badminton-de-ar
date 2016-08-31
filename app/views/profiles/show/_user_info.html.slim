@@ -32,10 +32,14 @@
           span JA
   - if profile.user.main_guide?
     .row
-    | Response rate
-    = link_to "#about_response_rate", data: { toggle: "modal" } do
-      i.fa.fa-question-circle
-    = profile.user.message_return_rate
+      .col-xs-12.text-lead
+        i.fa.fa-reply
+        |  Response rate
+        ' 
+        = link_to "#about_response_rate", data: { toggle: "modal" } do
+          i.fa.fa-question-circle
+          ' 
+        = profile.user.message_return_rate
     
   .row
   hr.row-space-top-4.row-space-4

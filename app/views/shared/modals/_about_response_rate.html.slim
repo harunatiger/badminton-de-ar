@@ -8,3 +8,5 @@
         .card-body
           .row-space-2 This number shows the percentage of first messages from guests responded to within 24 hours. Guides who have received less than three messages will have a “-” instead of a percentage.
           .row-space-2 初めてのゲストからのメッセージに対してガイドが24時間以内に返信した割合を表示しています。3件未満の場合は「-」で表示されます。
+        .card-footer
+          = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"
