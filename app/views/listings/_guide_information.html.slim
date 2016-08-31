@@ -19,7 +19,7 @@ hr
           i.fa.fa-map-marker
           ' 
           = profile.location
-        .row-space-4
+        .row-space-2
           .expandable
             .expandable-trigger-more
               .expandable-content
@@ -29,7 +29,9 @@ hr
                   .expandable-indicator
             = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
               | read more
-        .profile-rating.row-space-2
+        .clearfix.lang-list-wrapper.clear-both.row-space-2
+          = render partial: 'shared/language_list', locals: { profile: profile}
+        .profile-rating.row-space-2.clear-both
           .star-rating
             = render partial: 'shared/stars', locals: { rate: profile.ave_total }
           span.badge-pill-count.small1
@@ -38,8 +40,9 @@ hr
             b
               = Review.my_reviewed_count(profile.user_id)
             |)
-        /= render partial: 'talk_to_me', locals: { listing: listing, message_thread: message_thread }
-        .row-space-4
+        .talk_to_me-wrapper
+          = render partial: 'talk_to_me', locals: { listing: listing, message_thread: message_thread }
+        .row-space-4.row-space-top-2
           i.fa.fa-reply
           ' 
           | Response rate
@@ -49,5 +52,3 @@ hr
           ' 
           = listing.user.message_return_rate
         
-        /.lang-list-wrapper
-          = render partial: 'shared/language_list', locals: { profile: profile}
