@@ -47,6 +47,7 @@ class Message < ActiveRecord::Base
   scope :unread_messages, -> user_id { where(to_user_id: user_id, read: false) }
   scope :message_thread, -> message_thread_id { where(message_thread_id: message_thread_id) }
   scope :order_by_created_at_desc, -> { order('created_at desc') }
+  scope :order_by_created_at_asc, -> { order('created_at asc') }
   scope :reservation, -> reservation_id { where(reservation_id: reservation_id) }
 
   def self.send_message(mt_obj, message_params)

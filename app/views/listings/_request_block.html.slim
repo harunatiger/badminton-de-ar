@@ -14,6 +14,22 @@
       .talk_to_me-container.card.row-space-2
         .card-body
           = render partial: 'talk_to_me', locals: { listing: @listing, message_thread: @message_thread }
+          .row.row-condensed.row-space-top-2.hide--sp
+            .col-3.text-center
+              .media-photo.media-round.media-avatar
+                .size60[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
+            .col-9
+              p
+                | You can discuss anything, including the place, price, and timing.
+        .card-footer.text-left
+          i.fa.fa-reply
+          ' 
+          | Response rate
+          ' 
+          = link_to "#about_response_rate", data: { toggle: "modal" } do
+            i.fa.fa-question-circle
+            ' 
+          = listing.user.message_return_rate
       .card.row-space-2
         /.card-header.show--sp
           = link_to "", "#", class: "modal-close modal-close-request-booking", data: {dismiss: "modal"}
