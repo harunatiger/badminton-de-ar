@@ -37,7 +37,7 @@ class MessagesController < ApplicationController
     end
   end
 
-  # only can use this method for message created at message_thread
+  # use this method only for message created at message_thread
   def create
     mt_obj = MessageThread.find(message_params[:message_thread_id])
 
