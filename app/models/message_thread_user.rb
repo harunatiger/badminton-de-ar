@@ -26,6 +26,7 @@ class MessageThreadUser < ActiveRecord::Base
   scope :mine, -> user_id { where(user_id: user_id) }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
   scope :order_by_updated_at_asc, -> { order('updated_at asc') }
+  scope :order_by_created_at_asc, -> { order('created_at asc') }
   scope :message_thread, -> message_thread_id { where( message_thread_id: message_thread_id ) }
 
   def self.is_a_member(message_thread_id, user_id)

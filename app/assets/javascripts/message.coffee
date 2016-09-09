@@ -66,7 +66,11 @@ $ ->
           $('#offer_to_guest').removeClass("disabled")
           $('#offer_comment').text('＊登録された情報でオファーできます。')
     else
-      $('#offer_comment').text('＊ツアー内容をオファー済みです。内容を変更するにはゲストにオファーのキャンセルを依頼してください。')
+      $('#offer_to_guest').text('ツアーをオファー中です。')
+      $('#offer_to_guest').removeClass("btn-primary")
+      $('#offer_to_guest').addClass("btn-default")
+      $("#offer_comment").wrap("<div class='col-md-6'></div>");
+      $('#offer_comment').text('＊ツアー内容を変更してオファーをやり直す場合は、ゲストにも伝えた上でオファーを取り消してください。')
 
 
   # loader preset

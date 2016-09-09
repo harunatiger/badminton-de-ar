@@ -14,6 +14,7 @@
 #
 # Indexes
 #
+#  index_message_threads_on_create_user_id  (create_user_id)
 #  index_message_threads_on_host_id         (host_id)
 #  index_message_threads_on_reservation_id  (reservation_id)
 #
@@ -145,11 +146,6 @@ class MessageThread < ActiveRecord::Base
   def origin_message
     message = Message.message_thread(self.id).order('created_at asc').first
     message.present? ? message.content : false
-  end
-  
-  def reservation_owner?(user_id)
-    counterpart_user = self.counterpart_user(user_id)
-    self.guest_thread? and self.host_id == user_id and Reservation.latest_reservation(counterpart_user, user_id)
   end
   
   def get_guest_thread_id(current_user_id)

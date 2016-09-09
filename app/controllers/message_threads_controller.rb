@@ -4,6 +4,7 @@ class MessageThreadsController < ApplicationController
   before_action :set_message_thread, only: [:show, :update, :destroy, :what_talk_about, :start_planning]
   before_action :set_messages, only: [:show]
   before_action :set_reservation, only: [:show]
+  before_action :set_create_user, only: [:show]
 
   # GET /message_threads
   # GET /message_threads.json
@@ -12,7 +13,7 @@ class MessageThreadsController < ApplicationController
     @message_threads = []
     message_threads_ids.each do |mt_id|
       message_thread = MessageThread.find(mt_id)
-      if message_thread.messages.present? or message_thread.reservation_owner?(current_user.id)
+      if message_thread.messages.present? || message_thread.create_user_id == current_user.id
         @message_threads << message_thread.set_reservation_progress
       end
     end
@@ -132,5 +133,11 @@ class MessageThreadsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_thread_params
       params.require(:message_thread).permit(:id, :host_id, :type)
+    end
+  
+    def set_create_user
+      if @message_thread.create_user_id.blank? && @message_thread.messages.blank?
+        @message_thread.update(create_user_id: current_user.id)
+      end
     end
 end
