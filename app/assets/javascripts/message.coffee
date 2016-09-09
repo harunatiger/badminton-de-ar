@@ -13,7 +13,7 @@ $ ->
       if $(this).is(':checked')
         $(this).parents('.collapse-trigger').next().collapse('show')
 
-    $('.option-check').on 'click', (e) ->
+    $(document).on 'click', '.option-check', (e) ->
       if $(this).is(':checked')
         $(this).parents('.collapse-trigger').next().collapse('show')
       else

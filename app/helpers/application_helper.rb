@@ -820,4 +820,8 @@ module ApplicationHelper
   def listing_to_listing_images(listing)
     ListingImage.where(listing_id: listing.id)
   end
+  
+  def languages
+    [Settings.laguages.ja, Settings.laguages.en]
+  end
 end
