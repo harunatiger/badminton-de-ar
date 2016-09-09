@@ -140,6 +140,7 @@ reservation:
     request_en: "I sent you a tour plan"
     accepted_en: "I approved your tour plan"
     canceled_en: "I cancelled your tour plan"
+    canceled_offer_en: "I cancelled my offer"
     refunded_en: "Your refund has been authorized"
     send_message: 'ペアガイドの相談をさせてください。'
     pair_guide_offer: 'ペアガイドオファーを送りました。'
