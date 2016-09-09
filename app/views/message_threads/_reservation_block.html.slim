@@ -220,6 +220,10 @@
                           i.fa.fa-envelope-o
                           | ゲストにオファーする
                       #offer_comment.text-red.small1.row-space-top-2
+                      - if @reservation.requested? 
+                        .col-md-6.row-space-top-2
+                          = f.button :button, class: "btn btn-small btn-block btn-default bg-gray", value: 'offer', name: 'cancel_offer', data: {confirm: "本当にオファーを取り消しますか？"} do
+                            | オファーを取り消す
             - else
               - if @reservation.requested?
                 = simple_form_for(@reservation) do |f|

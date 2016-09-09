@@ -32,6 +32,9 @@ li.thread-list-item
                 - if m.try('content') == Settings.reservation.msg.request
                   span.text-blue.strong
                     | I sent you a tour plan
+                - elsif m.try('content') == Settings.reservation.msg.canceled_offer_en
+                  span.text-pink.strong
+                    | #{Settings.reservation.msg.canceled_offer_en}
                 - elsif m.try('content') == Settings.reservation.msg.accepted
                   span.text-green.strong
                     | I approved your tour plan

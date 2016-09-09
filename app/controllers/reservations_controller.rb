@@ -46,6 +46,8 @@ class ReservationsController < ApplicationController
     return save if params[:save]
     # offer button of the message thread (guide)
     return offer if params[:offer]
+    # cancel offer button of the message thread (guide)
+    return cancel_offer if params[:cancel_offer]
     # cancel button of the message thread (guest)
     return cancel if params[:cancel]
     # confirm button of the message thread (guest)
@@ -96,6 +98,16 @@ class ReservationsController < ApplicationController
       else
         format.html { redirect_to message_thread_path(message_thread_id), alert: Settings.reservation.update.failure }
       end
+    end
+  end
+  
+  def cancel_offer
+    @reservation.under_construction!
+    respond_to do |format|
+      Ngevent.cancel(@reservation)
+      Message.send_reservation_message_to_guest(@reservation, Settings.reservation.msg.canceled_offer_en)
+      ReservationMailer.send_update_reservation_notification(@reservation, @reservation.host_id).deliver_now!
+      format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.update.success }
     end
   end
 
