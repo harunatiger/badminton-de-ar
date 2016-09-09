@@ -5,6 +5,7 @@ class MessageThreadsController < ApplicationController
   before_action :set_messages, only: [:show]
   before_action :set_reservation, only: [:show]
   before_action :set_create_user, only: [:show]
+  before_action :set_language, only: [:show]
 
   # GET /message_threads
   # GET /message_threads.json
@@ -108,6 +109,13 @@ class MessageThreadsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def change_language
+    if request.xhr?
+      session[:edit_language] = params[:language]
+      return render text: 'success'
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -139,5 +147,9 @@ class MessageThreadsController < ApplicationController
       if @message_thread.create_user_id.blank? && @message_thread.messages.blank?
         @message_thread.update(create_user_id: current_user.id)
       end
+    end
+  
+    def set_language
+      session[:edit_language] = Settings.laguages.ja if session[:edit_language].blank?
     end
 end

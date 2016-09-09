@@ -406,3 +406,6 @@ withdrawal:
   request:
     success: '出金を依頼しました。'
     failure: '出金依頼に失敗しました。'
+laguages:
+  ja: 'JA'
+  en: 'EN'

@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     get 'talk_to_me', on: :member
     post 'what_talk_about', on: :member
     patch 'start_planning', on: :member
+    get 'change_language', on: :collection
   end
 
   resources :messages do

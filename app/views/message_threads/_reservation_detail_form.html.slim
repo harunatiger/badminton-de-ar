@@ -1,34 +1,43 @@
 #reservation_detail_form
   .row.row-condensed.row-space-3
+    - languages.each do |language|
+      - class_text = session[:edit_language] == language ? 'btn btn-sm btn-primary language_btn' : 'btn btn-sm btn-default language_btn'
+      = link_to language, '#', class: class_text
+  span.text-red#english_only_discription
+  .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      | ツアー選択
+      span#select-tour
+        | ツアー選択
     .col-md-8
       .select.required-container
         = collection_select :reservation, :listing_id, @listings, :id, :title, include_blank: true
         i.fa.fa-asterisk.balloon[title="required"]
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      | 所要時間
+      span#time-required
+        | 所要時間
     .col-md-4
       .select.select-opt.opt-double.required-container
         /= select :time_required, set_time_required , {}, {class: "value_fragile"}
         = select :reservation, :time_required, set_time_required
-        span 時間
+        span#hours 時間
         i.fa.fa-asterisk.two-chara.balloon[title="required"]
   .row.row-condensed.row-space-3
-    label.col-md-4.text-right.text-left--sp
-      | あなたの収入
+    label.col-md-4.text-right.text-left--
+      span#your-guide-fee
+        | あなたの収入
     .col-md-5
       .input-opt
         = number_field :reservation, :price, type: 'number', pattern: '[0-9]*'
-        span 円
+        span.yen 円
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      | サポートメンバーの収入
+      span#support-guide-fee
+        | サポートメンバーの収入
     .col-md-5
       .input-opt
         = number_field :reservation, :price_for_support, type: 'number', pattern: '[0-9]*'
-        span 円
+        span.yen 円
   /.row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
       .small2
@@ -54,108 +63,117 @@
             span 円
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      .small2
+      .small2#car-option
         | 車両レンタル費が含まれるツアー(オプション費用)
     .col-md-5
       label.collapse-trigger
         = check_box :reservation, :car_option, class: "option-check"
       .collapse
         - car_options.each do |option|
-          label
+          label(id=option)
             = I18n.t('option_price_ja.' + option)
           .input-opt
             = number_field :reservation, option, type: 'number', pattern: '[0-9]*'
-            span 円
+            span.yen 円
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      .small2
+      .small2#bicycle-option
         | 自転車レンタル費が含まれるツアー(オプション費用)
     .col-md-5
       label.collapse-trigger
         = check_box :reservation, :bicycle_option, class: "option-check"
       .collapse
         - bicycle_options.each do |option|
-          label
+          label(id=option)
             = I18n.t('option_price_ja.' + option)
           .input-opt
             = number_field :reservation, option, type: 'number', pattern: '[0-9]*'
-            span 円
+            span.yen 円
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      .small2
+      .small2#other-option
         | その他（交通費、飲食代、体験料、場所代、人件費など）が含まれるツアー(オプション費用)
     .col-md-5
       label.collapse-trigger
         = check_box :reservation, :other_option, class: "option-check"
       .collapse
         - other_options.each do |option|
-          label
+          label(id=option)
             = I18n.t('option_price_ja.' + option)
           .input-opt
             = number_field :reservation, option, type: 'number', pattern: '[0-9]*'
-            span 円
+            span.yen 円
   hr
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      .small2
+      .small2#not-included-price
         | ゲストの費用（概算）
     .col-md-5
       .input-opt
         = select :reservation, :guests_cost, [*(0..200)].map{|i| (i * 500)}
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      .small2
+      .small2#breakdown-of-above-costs
         | 上記費用の内訳
     .col-md-8
-      = text_area :reservation, :included_guests_cost, class: "textarea-normal", placeholder: "例）交通費 / 飲食費 / 入場料 / 料理体験の食材購入費など", rows: "6"
+      = text_area :reservation, :included_guests_cost, class: "textarea-normal imeoff", placeholder: "Eg.: Transportation fees, cost of food, cost of entry, cost of ingredients for cooking class", rows: "6"
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      | 人数
+      span#number-of-people
+        | 人数
     .col-md-8.required-container
       .select.select-opt
         = select :reservation, :num_of_people, [*(1..20)]
-        span 人
+        span#people 人
         i.fa.fa-asterisk.one-chara.balloon[title="required"]
-      .row-space-top-1.text-blue.small2 ペアガイド料金＋諸費用（グループあたり）＋諸費用（ゲスト１名あたり）×人数にサービス料を足した値がゲストに表示されます。
+      .row-space-top-1.text-blue.small2
+        span#price-discription
+          | ペアガイド料金＋諸費用（グループあたり）＋諸費用（ゲスト１名あたり）×人数にサービス料を足した値がゲストに表示されます。
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      | 開始日
+      span#start-date
+        | 開始日
     .col-md-6
       .required-container
         = text_field :reservation, :schedule_date, class: 'checkin datepicker'
         i.fa.fa-asterisk.balloon[title="required"]
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      | 終了日
+      span#end-date
+        | 終了日
     .col-md-6
       .required-container
         = text_field :reservation, :schedule_end, class: 'checkout datepicker', value: @reservation.schedule_end.to_s
         i.fa.fa-asterisk.balloon[title="required"]
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      | 集合場所
+      span#meeting-at
+        | 集合場所
     .col-md-8.required-container
-      = text_field :reservation, :place, placeholder: "例）ハチ公前"
+      = text_field :reservation, :place, placeholder: "Eg.: Hachiko-mae", class: 'imeoff'
       i.fa.fa-asterisk.balloon[title="required"]
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      | 集合場所のメモ
+      span#notes-about-meeting-place
+        | 集合場所のメモ
     .col-md-8
-      = text_field :reservation, :place_memo, placeholder: "例）ハチ公前にバラの花を付けて集合"
+      = text_field :reservation, :place_memo, placeholder: "Eg.: Meet at Hachiko statue. I will be wearing a red cap.", class: 'imeoff'
   .row.row-condensed.row-space-3
     label.col-md-4.text-right.text-left--sp
-      | 集合時間
+      span#meeting-time
+        | 集合時間
     .col-md-6.required-container
       .select.select-opt
         = select :reservation, :schedule_hour, (0..23).to_a.map { |v| "%02d" % v }, {}
-        span 時
+        span#hour 時
       .select.select-opt
         = select :reservation, :schedule_minute, (0..59).to_a.map { |v| "%02d" % v }, {}
-        span 分
+        span#minute 分
         i.fa.fa-asterisk.one-chara.balloon[title="required"]
   .row.row-condensed.row-space-4
     label.col-md-4.text-right.text-left--sp
-      | ガイドの内容など
+      span#tour-notes
+        | ガイドの内容など
     .col-md-8.required-container
-      = text_area :reservation, :description, class: "textarea-normal", placeholder: "メモやリマインダーなどにご利用ください"
+      = text_area :reservation, :description, class: "textarea-normal", placeholder: "Use this for notes or reminders", class: 'imeoff'
       i.fa.fa-asterisk.balloon[title="required"]

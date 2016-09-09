@@ -28,5 +28,6 @@
             /= f.submit "保存", class: "btn", name: "save"
             = button_tag :submit, class: "btn btn-primary", name: "save" do
               i.fa.fa-save
-              |  保存
+              span#save
+                |  保存
             /= f.submit "ゲストにオファーする", class: "btn btn-primary", name: 'request', id: 'offer_to_guest'

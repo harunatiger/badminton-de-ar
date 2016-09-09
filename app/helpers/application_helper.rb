@@ -891,4 +891,8 @@ module ApplicationHelper
     return result.ceil if currency_code == 'HUF' or currency_code == 'TWD'  
     result.round(2)
   end
+  
+  def languages
+    [Settings.laguages.ja, Settings.laguages.en]
+  end
 end
