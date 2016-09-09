@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160817153806) do
+ActiveRecord::Schema.define(version: 20160909063318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -419,8 +419,10 @@ ActiveRecord::Schema.define(version: 20160817153806) do
     t.boolean  "noticemail_sended", default: false
     t.string   "type"
     t.integer  "reservation_id"
+    t.integer  "create_user_id"
   end
 
+  add_index "message_threads", ["create_user_id"], name: "index_message_threads_on_create_user_id", using: :btree
   add_index "message_threads", ["host_id"], name: "index_message_threads_on_host_id", using: :btree
   add_index "message_threads", ["reservation_id"], name: "index_message_threads_on_reservation_id", using: :btree
 
@@ -948,6 +950,7 @@ ActiveRecord::Schema.define(version: 20160817153806) do
   add_foreign_key "message_thread_users", "message_threads"
   add_foreign_key "message_thread_users", "users"
   add_foreign_key "message_threads", "reservations"
+  add_foreign_key "message_threads", "users", column: "create_user_id"
   add_foreign_key "message_threads", "users", column: "host_id"
   add_foreign_key "messages", "message_threads"
   add_foreign_key "messages", "users", column: "from_user_id"

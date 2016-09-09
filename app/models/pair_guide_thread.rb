@@ -14,6 +14,7 @@
 #
 # Indexes
 #
+#  index_message_threads_on_create_user_id  (create_user_id)
 #  index_message_threads_on_host_id         (host_id)
 #  index_message_threads_on_reservation_id  (reservation_id)
 #
