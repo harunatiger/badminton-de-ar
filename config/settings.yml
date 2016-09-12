@@ -140,7 +140,7 @@ reservation:
     request_en: "I sent you a tour plan"
     accepted_en: "I approved your tour plan"
     canceled_en: "I cancelled your tour plan"
-    canceled_offer_en: "I cancelled my offer"
+    canceled_offer_en: "I have deleted the previous tour plan"
     refunded_en: "Your refund has been authorized"
     send_message: 'ペアガイドの相談をさせてください。'
     pair_guide_offer: 'ペアガイドオファーを送りました。'
@@ -365,6 +365,8 @@ mailer:
     subject: 'Your ID has been confirmed.'
   send_report:
     subject: '通報がありました。'
+  cancel_offer:
+    subject: 'Your guide has temporarily deleted the previous tour plan.'
 left_steps:
   listing: "listing"
   listing_image: "listing_image"
