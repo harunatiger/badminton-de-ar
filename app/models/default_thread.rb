@@ -49,7 +49,6 @@ class DefaultThread < MessageThread
       else
         message_thread.destroy!
         self.update(type: 'GuestThread', host_id: host_id, reply_from_host: true)
-        self.set_reply_from_host
       end
     else
       self.update(type: 'GuestThread', host_id: host_id, reply_from_host: true)
