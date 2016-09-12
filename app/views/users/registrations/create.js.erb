@@ -1,5 +1,5 @@
 <% if @user.persisted? %>
-  <% if session[:previous_url].index('profiles') %>
+  <% if session[:previous_url].index('profiles') && !current_user.guest? %>
     <% session[:what_talk_about] = true unless current_user.main_guide? %>
     window.location.href = "<%=message_thread_path(DefaultThread.get_message_thread_id(session[:to_user_id], current_user.id)) %>";
   <% else %>
