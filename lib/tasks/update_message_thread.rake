@@ -33,6 +33,18 @@ namespace :update_message_thread do
                 end
               end
             end
+          else
+            p users = default_thread.users
+            user_1 = users[0]
+            user_2 = users[1]
+            
+            if user_1.present? and user_2.present?
+              if user_1.main_guide? and user_2.guest?
+                p default_thread.update!(type: 'GuestThread', host_id: user_1.id, reply_from_host: false, first_message: true)
+              elsif user_1.guest? and user_2.main_guide?
+                p default_thread.update!(type: 'GuestThread', host_id: user_2.id, reply_from_host: false, first_message: true)
+              end
+            end
           end
         end
       end
