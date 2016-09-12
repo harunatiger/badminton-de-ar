@@ -145,6 +145,6 @@ class MessageThread < ActiveRecord::Base
   
   def origin_message
     message = Message.message_thread(self.id).order('created_at asc').first
-    message.present? ? message.content : false
+    message.present? ? message : false
   end
 end
