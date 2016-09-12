@@ -26,10 +26,10 @@ namespace :update_message_thread do
                   message_thread = GuestThread.find(message_thread_id)
                   if message_thread.messages.blank?
                     message_thread.destroy!
-                    p default_thread.update!(type: 'GuestThread', host_id: host_id, reply_from_host: reply_from_host, first_message: !reply_from_host)
+                    p default_thread.update!(type: 'GuestThread', host_id: guide_id, reply_from_host: reply_from_host, first_message: !reply_from_host)
                   end
                 else
-                  p default_thread.update!(type: 'GuestThread', host_id: host_id, reply_from_host: reply_from_host, first_message: !reply_from_host)
+                  p default_thread.update!(type: 'GuestThread', host_id: guide_id, reply_from_host: reply_from_host, first_message: !reply_from_host)
                 end
               end
             end
