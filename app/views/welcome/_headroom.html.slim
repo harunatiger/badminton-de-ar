@@ -1,0 +1,8 @@
+/! welcome/headroom.html.slim
+header#headroom-header.headroom.headroom--unpinned
+  = link_to "", root_path, class: "header-logo pull-left"
+  .pull-left.text-brand.additional-text Connecting you with local guides
+  .pull-right
+    form
+      .location-wrapper
+        input#header-location-search.header-location-search[autocomplete="off" placeholder="Where are you going?"]

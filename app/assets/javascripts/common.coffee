@@ -652,6 +652,77 @@ $ ->
     $(this).hide()
     return
 
+  # search edit 20160913
+  if $('body').hasClass('welcome index')
+    # headroom
+    currentOffset = 0
+    $(window).scroll ->
+      scrolltop = $(this).scrollTop()
+      if scrolltop > 150 and scrolltop > currentOffset
+        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
+      else if scrolltop < 150
+        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
+      else
+        $('#headroom-header').addClass('headroom--pinned').removeClass 'headroom--unpinned'
+      currentOffset = scrolltop
+      return
+
+    #! auto complete
+    initPAC = ->
+      input = document.getElementById('location-search')
+      options = {
+        #types: [ '(cities)' ],
+        componentRestrictions: {
+          country: "jp"
+        }
+      }
+      autocomplete = new (google.maps.places.Autocomplete)(input, options)
+      location_being_changed = undefined
+
+      google.maps.event.addListener autocomplete, 'place_changed', ->
+        location_being_changed = false
+        return
+
+      $('#location-search').keydown (e) ->
+        if e.keyCode == 13
+          if location_being_changed
+            e.preventDefault()
+            e.stopPropagation()
+        else
+          location_being_changed = true
+        return
+      return
+    #! auto complete activate
+    initPAC()
+
+    #! header auto complete
+    initHeaderPAC = ->
+      input = document.getElementById('header-location-search')
+      options = {
+        #types: [ '(cities)' ],
+        componentRestrictions: {
+          country: "jp"
+        }
+      }
+      autocomplete = new (google.maps.places.Autocomplete)(input, options)
+      location_being_changed = undefined
+
+      google.maps.event.addListener autocomplete, 'place_changed', ->
+        location_being_changed = false
+        return
+
+      $('#header-location-search').keydown (e) ->
+        if e.keyCode == 13
+          if location_being_changed
+            e.preventDefault()
+            e.stopPropagation()
+        else
+          location_being_changed = true
+        return
+      return
+    #! header auto complete activate
+    initHeaderPAC()
+    
   ###
     # circle map
     cityCircle = undefined

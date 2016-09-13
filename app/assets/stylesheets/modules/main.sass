@@ -2890,3 +2890,88 @@ h3.center-lined
       height: 300px
     @media (max-width: 543px)
       height: 200px
+
+/* search/* edit 20160913
+.hero-searchForm
+  max-width: 420px
+  margin-left: auto
+  margin-right: auto
+  @media (max-width: 767px)
+    max-width: 90%
+    .location-wrapper
+      &:after
+        display: none
+      input
+        padding: 0 12px
+.location-wrapper
+  float: left
+  position: relative
+  width: 75%
+  padding: 0
+  background-color: rgba(255, 255, 255, .75)
+  &:after
+    content: '\f002'
+    display: block
+    position: absolute
+    top: 5px
+    left: 10px
+    color: #888
+    font-size: 22px
+    font-family: 'fontAwesome'
+  input
+    display: block
+    width: 100%
+    height: 44px
+    font-size: 16px
+    padding: 0 12px 0 40px
+    background: none
+    border: 0
+    -webkit-appearance: none
+#submit_location
+  float: left
+  width: 25%
+  height: 44px
+  border-top-left-radius: 0
+  border-bottom-left-radius: 0
+  i.fa
+    margin: 0 auto
+
+/* headroom edit 20160913
+.headroom
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  padding: 7px 20px
+  background-color: rgba(255, 255, 255, .95)
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .125)
+  transition: transform .25s ease-in-out
+  will-change: transform
+  z-index: 1001
+  @media (max-width: 767px)
+    display: none !important
+  .header-logo
+    display: block
+    width: 90px
+    height: 32px
+    margin: 2px auto 0
+    background: image-url('logo.png') 0 0 no-repeat
+    background-size: 90px auto
+  .additional-text
+    margin: 13px 0 0 4px
+  .location-wrapper
+    float: none
+    width: 280px
+    border: 1px solid $border1
+    background-color: white
+    border-radius: 3px
+    &:after
+      top: 2px
+      left: 10px
+      font-size: 22px
+    input
+      height: 36px
+.headroom--pinned
+  transform: translateY(0)
+.headroom--unpinned
+  transform: translateY(-100%)
