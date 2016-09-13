@@ -410,3 +410,5 @@ withdrawal:
 laguages:
   ja: 'JA'
   en: 'EN'
+response_rate:
+  begining_date: '2016/8/1 00:00:00'
