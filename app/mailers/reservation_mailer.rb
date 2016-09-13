@@ -1,4 +1,5 @@
 class ReservationMailer < ApplicationMailer
+  add_template_helper(ApplicationHelper)
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -65,6 +66,17 @@ class ReservationMailer < ApplicationMailer
     mail(
       to:      to_user.email,
       subject: reservation.subject_of_update_mail
+    ) do |format|
+      format.text
+    end
+  end
+  
+  def cancel_offer_notification(reservation)
+    @reservation = reservation
+    guest = User.find(reservation.guest_id)
+    mail(
+      to:      guest.email,
+      subject: Settings.mailer.cancel_offer.subject
     ) do |format|
       format.text
     end

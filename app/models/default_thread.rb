@@ -39,4 +39,21 @@ class DefaultThread < MessageThread
     end
     id
   end
+  
+  def get_guest_thread_id(host_id)
+    guest = self.counterpart_user(host_id)
+    if message_thread_id = GuestThread.exists_thread?(host_id, guest.id)
+      message_thread = GuestThread.find(message_thread_id)
+      if message_thread.messages.present?
+        message_thread_id = message_thread.id
+      else
+        message_thread.destroy!
+        self.update(type: 'GuestThread', host_id: host_id, reply_from_host: true)
+      end
+    else
+      self.update(type: 'GuestThread', host_id: host_id, reply_from_host: true)
+      message_thread_id = self.id
+    end
+    message_thread_id
+  end
 end

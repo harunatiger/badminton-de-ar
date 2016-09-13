@@ -106,7 +106,7 @@ class ReservationsController < ApplicationController
     respond_to do |format|
       Ngevent.cancel(@reservation)
       Message.send_reservation_message_to_guest(@reservation, Settings.reservation.msg.canceled_offer_en)
-      ReservationMailer.send_update_reservation_notification(@reservation, @reservation.host_id).deliver_now!
+      ReservationMailer.cancel_offer_notification(@reservation).deliver_now!
       format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.update.success }
     end
   end
