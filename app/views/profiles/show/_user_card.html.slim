@@ -145,7 +145,8 @@
             i.fa.fa-comments-o
             | Talk to me
         -else
-          = link_to message_threads_path(message_thread: {type: 'DefaultThread', host_id: @profile.user_id}, what_talk_about: what_talk_about), method: 'POST', class: 'btn btn-large btn-block btn-primary btn-relative profile_message' do
+          - type = current_user.guest? ? 'GuestThread' : 'DefaultThread'
+          = link_to message_threads_path(message_thread: {type: type, host_id: @profile.user_id}, what_talk_about: what_talk_about), method: 'POST', class: 'btn btn-large btn-block btn-primary btn-relative profile_message' do
             .media-photo.media-round.media-avatar
               .size28[style="background-image: url('#{asset_path profile_to_image_thumb(@profile)}')"]
             i.fa.fa-comments-o

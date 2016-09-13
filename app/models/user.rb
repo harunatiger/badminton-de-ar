@@ -346,6 +346,10 @@ class User < ActiveRecord::Base
   
   def message_return_rate
     guest_threads = GuestThread.where(host_id: self.id, reply_from_host: true, first_message: false)
+    array = guest_threads
+    array.each do |guest_thread|
+      guest_threads = guest_threads.where.not(id: guest_thread.id) if guest_thread.origin_message.created_at < Settings.response_rate.begining_date
+    end
     total_count = guest_threads.count
     return_in_1day_count = 0
     
