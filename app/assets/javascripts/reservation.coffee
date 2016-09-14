@@ -106,6 +106,7 @@ $ ->
         $('#tour-notes').text('Tour notes')
         $('.about_payment_link').text('Important: About guest payment')
         $('#cancel_detail').val('Cancel')
+        $('#cancel_detail').attr('data-disable-with', 'Cancel')
         $('#save').text('Save')
       else if language == 'JA'
         $('#english_only_discription').text('＊入力は全て英語で行ってください。')
@@ -140,6 +141,7 @@ $ ->
         $('#tour-notes').text('ガイドの内容など')
         $('.about_payment_link').text('ゲストの支払いに関しての注意点')
         $('#cancel_detail').val('キャンセル')
+        $('#cancel_detail').attr('data-disable-with', 'キャンセル')
         $('#save').text('保存')
       return false
     

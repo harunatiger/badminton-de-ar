@@ -64,13 +64,13 @@ $ ->
           $('#offer_comment').text('＊必須情報を登録して、オファーをしましょう。')
         else
           $('#offer_to_guest').removeClass("disabled")
-          $('#offer_comment').text('＊登録された情報でオファーできます。')
+          $('#offer_comment').text('Send tour plan with the registered information.')
     else
-      $('#offer_to_guest').text('ツアーをオファー中です。')
+      $('#offer_to_guest').text('This tour plan is being offered to the Guest.')
       $('#offer_to_guest').removeClass("btn-primary")
       $('#offer_to_guest').addClass("btn-default")
       $("#offer_comment").wrap("<div class='col-md-6'></div>");
-      $('#offer_comment').text('＊ツアー内容を変更してオファーをやり直す場合は、ゲストにも伝えた上でオファーを取り消してください。')
+      $('#offer_comment').text('＊If you want to remake the tour plan to change the content of the tour, please inform your guest before withdrawing the offer.')
 
 
   # loader preset
