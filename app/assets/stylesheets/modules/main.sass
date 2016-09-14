@@ -2596,6 +2596,10 @@ h3.center-lined
     width: auto !important
     font-size: 13px
 
+/* ================================================================================
+   additinal edit
+   ================================================================================ */
+
 /* profile edit 20160714
 .sidenav-list-profile
   ul.sidenav-list
@@ -2975,3 +2979,77 @@ h3.center-lined
   transform: translateY(0)
 .headroom--unpinned
   transform: translateY(-100%)
+
+/* welcome/index style fix 20160914
+.guide-card
+  display: block
+  position: relative
+  .guide-card-background
+    height: 310px
+    background-repeat: no-repeat
+    background-position: 0 50%
+    background-size: cover
+  .guide-card-content
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    background-color: rgba(0, 0, 0, .5)
+  .language
+    span
+      display: inline-block
+      height: 24px
+      line-height: 22px
+      padding: 0 10px
+      margin: 0 5px 0 0
+      color: white
+      font-size: 13px
+      border: 1px solid white
+      border-radius: 2px
+  &:hover
+    .guide-card-background
+      opacity: .75
+
+.feature-carousel
+  position: relative
+  display: table
+  width: 100%
+  padding-bottom: 80px
+  > a
+    display: table-cell
+    width: 1045px
+    vertical-align: middle
+  .feature-carousel-before, .feature-carousel-after
+    display: table-cell
+    padding: 0 20px
+    color: white
+    font-size: 30px
+    font-weight: 700
+    text-align: center
+    vertical-align: middle
+    border-top: 25px solid white
+    border-bottom: 25px solid white
+    background-color: $gray3
+    z-index: 0
+  img
+    position: relative
+    max-width: 1045px
+    margin: 0 auto
+    z-index: 1
+  @media (max-width: 767px)
+    .feature-carousel-before, .feature-carousel-after
+      display: none
+
+.tour-listing
+  .tour-tag
+    display: block
+    position: absolute
+    top: -10px
+    left: 25px
+    padding: 4px 20px
+    color: white
+    font-weight: 700
+    background-color: $brand-theme
+    border-radius: 3px
+    @media (max-width: 767px)
+      top: 10px

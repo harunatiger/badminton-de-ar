@@ -409,9 +409,8 @@ $ ->
           $('.sp-slide:last').addClass('sp-prev')
         return
 
-
-    # lazyload image
-    $('.discovery-card, .tour-cover, .youtube-container > div, .huber-card-background, .media-cover-img > div, .img-lazyload').lazyload
+    # lazyload
+    $('.discovery-card, .tour-cover, .youtube-container > div, .guide-card-background, .media-cover-img > div, .img-lazyload').lazyload
       effect: 'fadeIn'
 
     if $('.announcement_belt').length
@@ -722,6 +721,8 @@ $ ->
       return
     #! header auto complete activate
     initHeaderPAC()
+
+    # search edit 20160914
     
   ###
     # circle map
