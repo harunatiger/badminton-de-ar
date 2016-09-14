@@ -195,16 +195,16 @@
                     - if @counterpart.soft_destroyed? || @listings.blank?
                       = f.button :button, class: "btn btn-large btn-block btn-primary disabled", value: 'offer', name: 'offer' do
                         i.fa.fa-envelope-o
-                        | ゲストにオファーする
+                        | Send this tour plan to your Guest
                     - else
                       = f.button :button, class: "btn btn-large btn-block btn-primary disabled", value: 'offer', name: 'offer', id: 'offer_to_guest' do
                         i.fa.fa-envelope-o
-                        | ゲストにオファーする
+                        | Send this tour plan to your Guest
                     #offer_comment.text-red.small1.row-space-top-2
                     - if @reservation.requested? 
                       .col-md-6.row-space-top-2
                         = f.button :button, class: "btn btn-small btn-block btn-default bg-gray", value: 'offer', name: 'cancel_offer', data: {confirm: "本当にオファーを取り消しますか？"} do
-                          | オファーを取り消す
+                          | Withdraw tour plan
           
           #reservation_block-form
             = render partial: 'reservation_form', locals: { reservation: @reservation }
