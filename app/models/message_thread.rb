@@ -147,4 +147,8 @@ class MessageThread < ActiveRecord::Base
     message = Message.message_thread(self.id).order('created_at asc').first
     message.present? ? message : false
   end
+  
+  def message_from_guide?(host_id)
+    self.origin_from_user_id == host_id and origin_message.content != Settings.message.what_talk_about.to_guest
+  end
 end
