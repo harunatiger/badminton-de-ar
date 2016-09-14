@@ -63,22 +63,55 @@ class Message < ActiveRecord::Base
     progress = message_params['progress'].present? ? message_params['progress'] : ''
     listing_id = message_params['listing_id'].present? ? message_params['listing_id'] : 0
     reservation_id = message_params['reservation_id'].present? ? message_params['reservation_id'] : 0
-    obj = Message.new(
-      message_thread_id: mt_obj.id,
-      content: content,
-      attached_file: attached_file,
-      read: false,
-      from_user_id: message_params['from_user_id'],
-      to_user_id: message_params['to_user_id'],
-      listing_id: listing_id,
-      reservation_id: reservation_id
-    )
     
-    if ret = obj.save
-      ret
-    else
-      obj
+    ActiveRecord::Base.transaction do
+      if attached_file.present?
+        
+        if content.present?
+          @obj = Message.new(
+            message_thread_id: mt_obj.id,
+            content: content,
+            attached_file: '',
+            read: false,
+            from_user_id: message_params['from_user_id'],
+            to_user_id: message_params['to_user_id'],
+            listing_id: listing_id,
+            reservation_id: reservation_id
+          )
+          @obj.save!
+        end
+        
+        attached_file.each_with_index do |file, index|
+          @obj = Message.new(
+            message_thread_id: mt_obj.id,
+            content: '',
+            attached_file: file,
+            read: false,
+            from_user_id: message_params['from_user_id'],
+            to_user_id: message_params['to_user_id'],
+            listing_id: listing_id,
+            reservation_id: reservation_id
+          )
+          @obj.save!
+        end
+        
+      else
+        @obj = Message.new(
+          message_thread_id: mt_obj.id,
+          content: content,
+          attached_file: '',
+          read: false,
+          from_user_id: message_params['from_user_id'],
+          to_user_id: message_params['to_user_id'],
+          listing_id: listing_id,
+          reservation_id: reservation_id
+        )
+        @obj.save!
+      end
     end
+    return true
+    rescue => e
+    return @obj
   end
   
   # use when create reservation
