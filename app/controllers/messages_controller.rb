@@ -99,7 +99,7 @@ class MessagesController < ApplicationController
         format.html { return redirect_to message_thread_path(mt_obj.id), notice: Settings.message.save.success }
         format.json { return render json: { success: true } } if request.xhr?
       else
-        error_message = ret == false ? Settings.message.save.failure : ret
+        error_message = ret.errors.messages[:attached_file].present? ? ret.errors.full_messages_for(:attached_file)[0] : ret.errors.full_messages[0]
         format.html { return redirect_to message_thread_path(mt_obj.id), alert: error_message }
         format.json { return render json: { success: false } } if request.xhr?
       end
