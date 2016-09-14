@@ -5,13 +5,6 @@
       = link_to new_listing_path do
         span.text-pink.strong
           | ツアーを登録してガイド内容を作成しましょう！
-    - elsif @reservation.requested?
-      | ツアー内容をオファー済みです。
-      br
-      | 内容を変更するには
-      span.text-pink.strong
-        | ゲストにオファーのキャンセルを依頼
-      | してください。
     - else
       = simple_form_for(@reservation, html: { id: "non_special_offer_form", class: "message_form clearfix" }) do |f|
         = f.hidden_field :message_thread_id, value: @message_thread.id
