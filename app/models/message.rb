@@ -36,8 +36,9 @@ class Message < ActiveRecord::Base
   validates :message_thread_id, presence: true
   validates :from_user_id, presence: true
   validates :to_user_id, presence: true
-  validates :content, presence: true, if: 'attached_file.blank?'
-  validates :attached_file, presence: true, if: 'content.blank?'
+  validate :content_or_file_needed
+  #validates :content, presence: true, if: 'attached_file.blank?'
+  #validates :attached_file, presence: true, if: 'content.blank?'
   validates :attached_name, presence: true, if: 'attached_file.present?'
   validates :attached_extension, presence: true, if: 'attached_file.present?'
   validate :file_size_validation, if: 'attached_file.present?'
@@ -49,6 +50,12 @@ class Message < ActiveRecord::Base
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :order_by_created_at_asc, -> { order('created_at asc') }
   scope :reservation, -> reservation_id { where(reservation_id: reservation_id) }
+  
+  def content_or_file_needed
+    if self.content.blank? and self.attached_file.blank?
+      errors[:base] << Settings.message.save.failure
+    end
+  end
 
   def self.send_message(mt_obj, message_params)
     content = message_params['content'].present? ? message_params['content'] : ''
@@ -56,31 +63,55 @@ class Message < ActiveRecord::Base
     progress = message_params['progress'].present? ? message_params['progress'] : ''
     listing_id = message_params['listing_id'].present? ? message_params['listing_id'] : 0
     reservation_id = message_params['reservation_id'].present? ? message_params['reservation_id'] : 0
-    obj = Message.new(
-      message_thread_id: mt_obj.id,
-      content: content,
-      attached_file: attached_file,
-      read: false,
-      from_user_id: message_params['from_user_id'],
-      to_user_id: message_params['to_user_id'],
-      listing_id: listing_id,
-      reservation_id: reservation_id
-    )
-    ret = obj.save
-    if obj.save
-      ret
-    else
-      if obj.errors.messages.any?
-        message = obj.errors.messages[:attached_file].present? ? obj.errors.messages[:attached_file][0] : ''
-        if message.blank?
-          ret = false
-        else
-          ret = message == Settings.message.save.toobig ? message : Settings.message.save.notavailable
+    
+    ActiveRecord::Base.transaction do
+      if attached_file.present?
+        
+        if content.present?
+          @obj = Message.new(
+            message_thread_id: mt_obj.id,
+            content: content,
+            attached_file: '',
+            read: false,
+            from_user_id: message_params['from_user_id'],
+            to_user_id: message_params['to_user_id'],
+            listing_id: listing_id,
+            reservation_id: reservation_id
+          )
+          @obj.save!
         end
+        
+        attached_file.each_with_index do |file, index|
+          @obj = Message.new(
+            message_thread_id: mt_obj.id,
+            content: '',
+            attached_file: file,
+            read: false,
+            from_user_id: message_params['from_user_id'],
+            to_user_id: message_params['to_user_id'],
+            listing_id: listing_id,
+            reservation_id: reservation_id
+          )
+          @obj.save!
+        end
+        
       else
-        ret = false
+        @obj = Message.new(
+          message_thread_id: mt_obj.id,
+          content: content,
+          attached_file: '',
+          read: false,
+          from_user_id: message_params['from_user_id'],
+          to_user_id: message_params['to_user_id'],
+          listing_id: listing_id,
+          reservation_id: reservation_id
+        )
+        @obj.save!
       end
     end
+    return true
+    rescue => e
+    return @obj
   end
   
   # use when create reservation

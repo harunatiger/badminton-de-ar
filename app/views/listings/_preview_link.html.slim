@@ -9,7 +9,10 @@
         | です
       = link_to "ツアー編集に戻る", edit_listing_path(@listing), class: "btn"
       ' 
-      - if !left_step_count.zero?
-        = link_to "この内容で公開", listing_publish_path(@listing), class: "btn btn-primary disabled"
+      - if !@listing.open?
+        - if !left_step_count.zero?
+          = link_to "この内容で公開", listing_publish_path(@listing), class: "btn btn-primary disabled"
+        - else
+          = link_to "この内容で公開", listing_publish_path(@listing), class: "btn btn-primary"
       - else
-        = link_to "この内容で公開", listing_publish_path(@listing), class: "btn btn-primary"
+          = link_to "非公開にする", listing_unpublish_path(@listing), class: "btn btn-default bg-gray"
