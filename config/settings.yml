@@ -211,8 +211,7 @@ message:
   save:
     success: "Your message has been sent"
     failure: "message delivery failed"
-    toobig: "Attached file is too big"
-    notavailable: "This file is not available"
+    toobig: "is too big"
   read:
     string: "Read"
   unread:

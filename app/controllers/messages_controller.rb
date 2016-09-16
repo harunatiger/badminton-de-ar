@@ -99,7 +99,7 @@ class MessagesController < ApplicationController
         format.html { return redirect_to message_thread_path(mt_obj.id), notice: Settings.message.save.success }
         format.json { return render json: { success: true } } if request.xhr?
       else
-        error_message = ret == false ? Settings.message.save.failure : ret
+        error_message = ret.errors.messages[:attached_file].present? ? ret.errors.full_messages_for(:attached_file)[0] : ret.errors.full_messages[0]
         format.html { return redirect_to message_thread_path(mt_obj.id), alert: error_message }
         format.json { return render json: { success: false } } if request.xhr?
       end
@@ -148,6 +148,6 @@ class MessagesController < ApplicationController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:message_thread_id, :from_user_id, :to_user_id, :schedule, :num_of_people, :content, :attached_file, :progress, :read, :reservation_id, :listing_id)
+      params.require(:message).permit(:message_thread_id, :from_user_id, :to_user_id, :schedule, :num_of_people, :content, :progress, :read, :reservation_id, :listing_id, attached_file: [])
     end
 end
