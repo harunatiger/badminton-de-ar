@@ -124,6 +124,8 @@ Rails.application.routes.draw do
       post :favorite_listing
     end
   end
+  
+  resources :spots
 
   resources :favorite_listings, only: [:index, :destroy]
   resources :favorite_users, only: [:index, :destroy]

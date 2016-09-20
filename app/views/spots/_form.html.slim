@@ -1,0 +1,13 @@
+= simple_form_for(@spot, html: {class: "form--sp"}) do |f|
+  | 画像
+  = f.simple_fields_for :spot_image, SpotImage.new do |ff|
+    = ff.file_field :image
+  | タイトル
+  .required-container
+    = f.input_field :title, class: 'imeoff'
+    i.fa.fa-asterisk
+  | ひとこと
+  .required-container
+    = f.input_field :one_word, class: 'imeoff'
+    i.fa.fa-asterisk
+  = f.submit 'save'

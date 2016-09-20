@@ -115,6 +115,8 @@
             - if current_user.main_guide?
               li
                 = link_to Settings.page.listings, listings_path, rel: "nofollow"
+              li
+                = link_to Settings.page.spots, spots_path, rel: "nofollow"
             - if !current_user.guest?
               li
                 = link_to Settings.page.host_reservation_manager, dashboard_host_reservation_manager_path, rel: "nofollow"

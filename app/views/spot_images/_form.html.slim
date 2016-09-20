@@ -1,0 +1,9 @@
+= form_for @spot_image do |f|
+  - if @spot_image.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@spot_image.errors.count, "error")} prohibited this spot_image from being saved:"
+      ul
+        - @spot_image.errors.full_messages.each do |message|
+          li = message
+
+  .actions = f.submit

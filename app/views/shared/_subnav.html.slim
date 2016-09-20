@@ -22,6 +22,12 @@
         - else
           li
             = link_to Settings.page.listings, listings_path
+        - if controller_name =="spots"
+          li.active
+            = link_to Settings.page.spots, spots_path
+        - else
+          li
+            = link_to Settings.page.spots, spots_path
       - if !current_user.guest?
         - if action_name =="host_reservation_manager"
           li.active
