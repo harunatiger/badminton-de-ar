@@ -108,6 +108,12 @@ $ ->
         $('#cancel_detail').val('Cancel')
         $('#cancel_detail').attr('data-disable-with', 'Cancel')
         $('#save').text('Save')
+        
+        $('#about_payment_title').text('About guest payment')
+        $('#about_payment_body_1').text('There is a commission fee of ')
+        $('#about_payment_body_2').text(' of the total tour price for using Huber. services.The commission fee will be automatically deducted from the tour payment when payment is complete.')
+        $('#about_payment_body_3').text('Please see the terms of service for more information. ')
+        $('#about_payment_close_button').text('Close')
       else if language == 'JA'
         $('#english_only_discription').text('＊入力は全て英語で行ってください。')
         $('#select-tour').text('ツアー選択')
@@ -143,6 +149,12 @@ $ ->
         $('#cancel_detail').val('キャンセル')
         $('#cancel_detail').attr('data-disable-with', 'キャンセル')
         $('#save').text('保存')
+        
+        $('#about_payment_title').text('ゲストの支払いに関して')
+        $('#about_payment_body_1').text('Huber.では、ツアー総額の')
+        $('#about_payment_body_2').text('がシステム手数料として発生します。この費用はツアー代の金額支払時に自動的に差し引かれます。')
+        $('#about_payment_body_3').text('詳しくはサービス規約をご確認ください。')
+        $('#about_payment_close_button').text('閉じる')
       return false
     
     $(document).on 'click', '.language_btn', ->
@@ -172,7 +184,7 @@ $ ->
       return
     ).on 'change', '#reservation_detail_form #reservation_listing_id', ->
       if $('#reservation_detail_form #reservation_listing_id').val() != ''
-        tour = $('#reservation_detail_form #reservation_listing_id option:selected').text() + 'の情報に書き換えます。よろしいですか？これまで編集したガイド内容が上書きされます。ご注意ください。'
+        tour = 'Do you want to change the tour information for ' + $('#reservation_detail_form #reservation_listing_id option:selected').text() + '? This will overwrite the previous tour information.'
         ret = confirm(tour)
         if ret
           set_ngday_reservation_by_listing($('#reservation_detail_form #reservation_listing_id').val(), $('#reservation_form #reservation_id').val())
@@ -267,7 +279,7 @@ $ ->
     $('#offer_to_guest').on 'click', ->
       if exist_ngday_reservation($('#reservation_form #reservation_id').val())
         if ngday_exist == true
-          confirm 'この内容でゲストにオファーします。よろしいですか？'
+          confirm 'Do you want to offer this tour plan to your guest?'
         else
           alert 'NG日が設定されています。'
           return false

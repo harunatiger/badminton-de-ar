@@ -61,7 +61,7 @@ $ ->
       if $('#offer_to_guest').length
         if isFormcheck() == false
           $('#offer_to_guest').addClass("disabled")
-          $('#offer_comment').text('＊必須情報を登録して、オファーをしましょう。')
+          $('#offer_comment').text('＊Enter the required information, and then offer your tour plan.')
         else
           $('#offer_to_guest').removeClass("disabled")
           $('#offer_comment').text('Send tour plan with the registered information.')
