@@ -428,7 +428,7 @@ $ ->
   #    return confirm('この予約をキャンセルします。本当によろしいですか？')
 
   # dashboard
-  if $('body').hasClass('dashboard') or $('body').hasClass('listings show')
+  if $('body').hasClass('dashboard') or $('body').hasClass('listings show') or $('body').hasClass('message_threads show')
     $('a.about-support-guide-trigger').on 'click', ->
       $('#about_support_guide').modal()
       return false

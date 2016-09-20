@@ -32,6 +32,8 @@
             | ID Unconfirmed
         /small
           = counterpart.profile.try('location') || '住所未登録'
+        .row-space-top-1
+          = counterpart.profile.country
         .row-space-top-1.small2.text-muted
           | Sign up:
           = counterpart.created_at.strftime("%Y")
