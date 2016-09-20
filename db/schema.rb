@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909063318) do
+ActiveRecord::Schema.define(version: 20160921022000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,16 @@ ActiveRecord::Schema.define(version: 20160909063318) do
   add_index "favorites", ["soft_destroyed_at"], name: "index_favorites_on_soft_destroyed_at", using: :btree
   add_index "favorites", ["to_user_id"], name: "index_favorites_on_to_user_id", using: :btree
   add_index "favorites", ["type"], name: "index_favorites_on_type", using: :btree
+
+  create_table "features", force: :cascade do |t|
+    t.string   "title",        null: false
+    t.string   "url",          null: false
+    t.integer  "order_number", null: false
+    t.string   "image",        null: false
+    t.string   "image_sp",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "friendable_id"
