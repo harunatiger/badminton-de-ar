@@ -5,14 +5,17 @@
       .modal-content
         .card-header
           a.modal-close[href="#" data-dismiss="modal"]
-          | ゲストの支払いに関して
+          span#about_payment_title
+            | ゲストの支払いに関して
         form
           .card-body
             p
-              | Huber.では、ツアー総額の
+              span#about_payment_body_1
+                | Huber.では、ツアー総額の
               span.strong.text-red 14.5%
-              | がシステム手数料として発生します。この費用はツアー代の金額支払時に自動的に差し引かれます。
-            p
+              span#about_payment_body_2
+                | がシステム手数料として発生します。この費用はツアー代の金額支払時に自動的に差し引かれます。
+            p#about_payment_body_3
               | 詳しくはサービス規約をご確認ください。
           .card-footer
-            = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn"
+            = link_to "閉じる", "#", data: {dismiss:"modal"}, class: "btn", id: 'about_payment_close_button'
