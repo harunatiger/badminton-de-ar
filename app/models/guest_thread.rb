@@ -11,6 +11,7 @@
 #  noticemail_sended :boolean          default(FALSE)
 #  type              :string
 #  reservation_id    :integer
+#  create_user_id    :integer
 #
 # Indexes
 #

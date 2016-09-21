@@ -2553,7 +2553,7 @@ h3.center-lined
       padding: 4px 18px 9px
 
 /* pair guide list more-btn fix
-.listings.show
+.listings.show, .message_threads.show
   .pair_guide_list-trigger
     &.media-photo
       background-color: #d5dade
@@ -2821,3 +2821,23 @@ h3.center-lined
     width: auto
 .clear-both
   clear: both
+
+/* feature carousel edit 20160921
+#feature-carousel
+  position: relative
+  .carousel-img
+    height: 560px
+    background-repeat: no-repeat
+    background-position: center
+    background-size: cover
+    @media (max-width: 1099px)
+      height: 360px
+    @media (max-width: 767px)
+      height: 300px
+    @media (max-width: 543px)
+      height: 200px
+
+/* message_threds edit 20160921
+.mini-profile
+  .country-info
+    margin-right: 7px

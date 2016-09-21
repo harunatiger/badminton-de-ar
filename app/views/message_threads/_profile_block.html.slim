@@ -32,9 +32,13 @@
             | ID Unconfirmed
         /small
           = counterpart.profile.try('location') || '住所未登録'
-        .row-space-top-1.small2.text-muted
-          | Sign up:
-          = counterpart.created_at.strftime("%Y")
+        /.row-space-top-1
+          = counterpart.profile.country
+        .row-space-top-1
+          b.country-info = counterpart.profile.country
+          span.small2.text-muted
+            | Sign up:
+            = counterpart.created_at.strftime("%Y")
   .row-space-4
     = link_to '#report_user', class: 'text-red small1', data: { toggle: "modal" } do
       i.fa.fa-ban
