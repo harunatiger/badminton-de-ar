@@ -7,6 +7,7 @@
 #  url          :string           not null
 #  order_number :integer          not null
 #  image        :string           not null
+#  image_sp     :string           not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

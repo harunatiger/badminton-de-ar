@@ -363,6 +363,10 @@ $ ->
   # welcome#index
   if $('body').hasClass('welcome index')
 
+    # feature carousel
+    $('#feature-carousel').carousel()
+
+    # lazyload image
     $('.discovery-card, .tour-cover, .youtube-container > div, .huber-card-background, .media-cover-img > div, .img-lazyload').lazyload
       effect: 'fadeIn'
 
@@ -393,7 +397,7 @@ $ ->
       language: 'ja'
     ###
 
-    $('#charmer').carousel()
+    # $('#charmer').carousel()
 
     $('#morebook').on 'click', ->
       $(this).parent().removeClass('show--sp').hide()

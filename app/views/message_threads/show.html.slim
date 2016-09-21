@@ -40,7 +40,7 @@
             
     = render partial: 'profile_block', locals: { counterpart: @counterpart }
     - if @message_thread.guest_thread? and @counterpart.main_guide?
-      .col-lg-4
+      .col-lg-4.row-space-4
         = render partial: 'shared/support_guide_section', locals: { user_id: @counterpart.id }
       = render partial: '/shared/modals/pair_guide_list', locals: { host_id: @counterpart.id }
       = render partial: 'shared/modals/about_support_guide'
