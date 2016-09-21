@@ -363,6 +363,10 @@ $ ->
   # welcome#index
   if $('body').hasClass('welcome index')
 
+    # feature carousel
+    $('#feature-carousel').carousel()
+
+    # lazyload image
     $('.discovery-card, .tour-cover, .youtube-container > div, .huber-card-background, .media-cover-img > div, .img-lazyload').lazyload
       effect: 'fadeIn'
 
@@ -393,7 +397,7 @@ $ ->
       language: 'ja'
     ###
 
-    $('#charmer').carousel()
+    # $('#charmer').carousel()
 
     $('#morebook').on 'click', ->
       $(this).parent().removeClass('show--sp').hide()
@@ -428,7 +432,7 @@ $ ->
   #    return confirm('この予約をキャンセルします。本当によろしいですか？')
 
   # dashboard
-  if $('body').hasClass('dashboard') or $('body').hasClass('listings show')
+  if $('body').hasClass('dashboard') or $('body').hasClass('listings show') or $('body').hasClass('message_threads show')
     $('a.about-support-guide-trigger').on 'click', ->
       $('#about_support_guide').modal()
       return false

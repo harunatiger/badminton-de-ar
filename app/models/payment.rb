@@ -8,7 +8,7 @@
 #  payer_id         :string           default("")
 #  payers_status    :string           default("")
 #  transaction_id   :string           default("")
-#  amount           :integer
+#  amount           :decimal(, )
 #  currency_code    :string           default("")
 #  email            :string           default("")
 #  first_name       :string           default("")
@@ -19,6 +19,7 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  status           :integer          default(0)
+#  exchange_rate    :decimal(, )
 #
 # Indexes
 #

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909063318) do
+ActiveRecord::Schema.define(version: 20160921022000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,43 @@ ActiveRecord::Schema.define(version: 20160909063318) do
   add_index "emergencies", ["profile_id"], name: "index_emergencies_on_profile_id", using: :btree
   add_index "emergencies", ["user_id"], name: "index_emergencies_on_user_id", using: :btree
 
+  create_table "favorite_histories", force: :cascade do |t|
+    t.integer  "from_user_id", null: false
+    t.integer  "to_user_id"
+    t.integer  "listing_id"
+    t.datetime "read_at"
+    t.string   "type",         null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "favorite_histories", ["from_user_id"], name: "index_favorite_histories_on_from_user_id", using: :btree
+  add_index "favorite_histories", ["listing_id"], name: "index_favorite_histories_on_listing_id", using: :btree
+  add_index "favorite_histories", ["to_user_id"], name: "index_favorite_histories_on_to_user_id", using: :btree
+  add_index "favorite_histories", ["type"], name: "index_favorite_histories_on_type", using: :btree
+
+  create_table "favorite_listings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "listing_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "read_at"
+  end
+
+  add_index "favorite_listings", ["listing_id"], name: "index_favorite_listings_on_listing_id", using: :btree
+  add_index "favorite_listings", ["user_id"], name: "index_favorite_listings_on_user_id", using: :btree
+
+  create_table "favorite_users", force: :cascade do |t|
+    t.integer  "from_user_id", null: false
+    t.integer  "to_user_id",   null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.datetime "read_at"
+  end
+
+  add_index "favorite_users", ["from_user_id"], name: "index_favorite_users_on_from_user_id", using: :btree
+  add_index "favorite_users", ["to_user_id"], name: "index_favorite_users_on_to_user_id", using: :btree
+
   create_table "favorites", force: :cascade do |t|
     t.integer  "from_user_id",      null: false
     t.integer  "to_user_id"
@@ -178,6 +215,16 @@ ActiveRecord::Schema.define(version: 20160909063318) do
   add_index "favorites", ["soft_destroyed_at"], name: "index_favorites_on_soft_destroyed_at", using: :btree
   add_index "favorites", ["to_user_id"], name: "index_favorites_on_to_user_id", using: :btree
   add_index "favorites", ["type"], name: "index_favorites_on_type", using: :btree
+
+  create_table "features", force: :cascade do |t|
+    t.string   "title",        null: false
+    t.string   "url",          null: false
+    t.integer  "order_number", null: false
+    t.string   "image",        null: false
+    t.string   "image_sp",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "friendable_id"
@@ -486,7 +533,7 @@ ActiveRecord::Schema.define(version: 20160909063318) do
     t.string   "payer_id",         default: ""
     t.string   "payers_status",    default: ""
     t.string   "transaction_id",   default: ""
-    t.integer  "amount"
+    t.decimal  "amount"
     t.string   "currency_code",    default: ""
     t.string   "email",            default: ""
     t.string   "first_name",       default: ""
@@ -497,6 +544,7 @@ ActiveRecord::Schema.define(version: 20160909063318) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "status",           default: 0
+    t.decimal  "exchange_rate"
   end
 
   add_index "payments", ["reservation_id"], name: "index_payments_on_reservation_id", using: :btree
@@ -934,6 +982,13 @@ ActiveRecord::Schema.define(version: 20160909063318) do
   add_foreign_key "dress_codes", "listings"
   add_foreign_key "emergencies", "profiles"
   add_foreign_key "emergencies", "users"
+  add_foreign_key "favorite_histories", "listings"
+  add_foreign_key "favorite_histories", "users", column: "from_user_id"
+  add_foreign_key "favorite_histories", "users", column: "to_user_id"
+  add_foreign_key "favorite_listings", "listings"
+  add_foreign_key "favorite_listings", "users"
+  add_foreign_key "favorite_users", "users", column: "from_user_id"
+  add_foreign_key "favorite_users", "users", column: "to_user_id"
   add_foreign_key "favorites", "listings"
   add_foreign_key "favorites", "users", column: "from_user_id"
   add_foreign_key "favorites", "users", column: "to_user_id"
