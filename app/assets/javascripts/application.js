@@ -47,6 +47,7 @@
 //= require helps
 //= require review
 //= require friends
+//= require spot
 //= require lp
 //= require chamo
 //= require jquery_nested_form

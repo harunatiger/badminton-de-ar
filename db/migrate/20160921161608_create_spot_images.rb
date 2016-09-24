@@ -5,6 +5,6 @@ class CreateSpotImages < ActiveRecord::Migration
       t.string :image, null: false
       t.timestamps null: false
     end
-    add_foreign_key :spot_images, :spots, column: 'spot_id'
+    add_foreign_key :spot_images, :spots
   end
 end

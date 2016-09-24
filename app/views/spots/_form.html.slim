@@ -1,13 +1,38 @@
 = simple_form_for(@spot, html: {class: "form--sp"}) do |f|
   | 画像
-  = f.simple_fields_for :spot_image, SpotImage.new do |ff|
+  - if @spot.spot_image.try('image').present?
+    = image_tag(@spot.spot_image.image.thumb)
+  = f.simple_fields_for :spot_image, @spot.spot_image do |ff|
+    = ff.hidden_field :image_cache
     = ff.file_field :image
   | タイトル
   .required-container
     = f.input_field :title, class: 'imeoff'
     i.fa.fa-asterisk
-  | ひとこと
+  | 魅力をひとことで
   .required-container
     = f.input_field :one_word, class: 'imeoff'
     i.fa.fa-asterisk
+  | カテゴリーを1つ選んでください。
+  = f.hidden_field :pickup_id, value: @spot.pickup.try('id')
+  .profile-category-container.row.row-space-2
+    - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
+      .col-lg-15.col-md-3.col-xs-4.row-space-3
+        - if @spot.pickup.try('id') == pickup_tag.id
+          = link_to "#", class: "select_spot_category listing_image_selected media-round media-photo", pickup_id: pickup_tag.id  do
+            = image_tag pickup_tag.icon, class: "img-responsive media-round"
+            i.fa.fa-check
+        - else
+          = link_to "#", class: "select_spot_category media-round media-photo", pickup_id: pickup_tag.id do
+            = image_tag pickup_tag.icon, class: "img-responsive media-round"
+        .text-center.set_category_container_title
+          small
+            b = pickup_tag.short_name
+  | スポットの場所
+  = f.hidden_field :longitude
+  = f.hidden_field :latitude
+  = f.input_field :location, :class => 'imeoff', placeholder: "Googleマップから検索できます"
+  #map-wrapper.row.row-space-5.row-space-top-5
+    .col-lg-5
+      #map
   = f.submit 'save'

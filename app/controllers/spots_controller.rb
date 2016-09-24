@@ -4,7 +4,7 @@ class SpotsController < ApplicationController
   # GET /spots
   # GET /spots.json
   def index
-    @spots = Spot.all
+    @spots = current_user.spots.includes(:spot_image).order_by_updated_at_desc
   end
 
   # GET /spots/1
@@ -15,6 +15,7 @@ class SpotsController < ApplicationController
   # GET /spots/new
   def new
     @spot = Spot.new
+    @spot.spot_image = SpotImage.new
   end
 
   # GET /spots/1/edit
@@ -25,10 +26,11 @@ class SpotsController < ApplicationController
   # POST /spots.json
   def create
     @spot = Spot.new(spot_params)
-
+    @spot.user_id = current_user.id
+    
     respond_to do |format|
       if @spot.save
-        format.html { redirect_to @spot, notice: 'Spot was successfully created.' }
+        format.html { redirect_to spots_path, notice: 'Spot was successfully created.' }
         format.json { render :show, status: :created, location: @spot }
       else
         format.html { render :new }
@@ -42,7 +44,7 @@ class SpotsController < ApplicationController
   def update
     respond_to do |format|
       if @spot.update(spot_params)
-        format.html { redirect_to @spot, notice: 'Spot was successfully updated.' }
+        format.html { redirect_to spots_path, notice: 'Spot was successfully updated.' }
         format.json { render :show, status: :ok, location: @spot }
       else
         format.html { render :edit }
@@ -54,6 +56,8 @@ class SpotsController < ApplicationController
   # DELETE /spots/1
   # DELETE /spots/1.json
   def destroy
+    @spot.spot_image.remove_image!
+    @spot.spot_image.destroy
     @spot.destroy
     respond_to do |format|
       format.html { redirect_to spots_url, notice: 'Spot was successfully destroyed.' }
@@ -69,6 +73,6 @@ class SpotsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def spot_params
-      params.require(:spot).permit(:title, :one_word, :pickup_id, :location, :longitude, :latitude, spot_image_attributes: [ :image ])
+      params.require(:spot).permit(:title, :one_word, :pickup_id, :location, :longitude, :latitude, spot_image_attributes: [ :id, :image, :image_cache ])
     end
 end

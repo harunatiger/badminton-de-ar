@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
   has_one :pre_mail, dependent: :destroy
   has_many :profile_images, dependent: :destroy
   has_many :listings, dependent: :destroy
+  has_many :spots, dependent: :destroy
   has_many :message_thread_users, dependent: :destroy
   has_many :message_threads, through: :message_thread_users, dependent: :destroy
   has_many :ngevents, dependent: :destroy

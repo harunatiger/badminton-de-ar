@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921022000) do
+ActiveRecord::Schema.define(version: 20160921161608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -884,6 +884,7 @@ ActiveRecord::Schema.define(version: 20160921022000) do
   add_index "spot_images", ["spot_id"], name: "index_spot_images_on_spot_id", using: :btree
 
   create_table "spots", force: :cascade do |t|
+    t.integer  "user_id",                                         null: false
     t.string   "title",                                           null: false
     t.string   "one_word",                           default: ""
     t.integer  "pickup_id"
@@ -895,6 +896,7 @@ ActiveRecord::Schema.define(version: 20160921022000) do
   end
 
   add_index "spots", ["pickup_id"], name: "index_spots_on_pickup_id", using: :btree
+  add_index "spots", ["user_id"], name: "index_spots_on_user_id", using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -1068,6 +1070,7 @@ ActiveRecord::Schema.define(version: 20160921022000) do
   add_foreign_key "reviews", "users", column: "host_id"
   add_foreign_key "spot_images", "spots"
   add_foreign_key "spots", "pickups"
+  add_foreign_key "spots", "users"
   add_foreign_key "tools", "listings"
   add_foreign_key "user_campaigns", "campaigns"
   add_foreign_key "user_campaigns", "users"
