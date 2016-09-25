@@ -138,28 +138,6 @@ class ListingsController < ApplicationController
     end
   end
 
-  def favorite_listing
-    if current_user.favorite_listing?(@listing)
-      current_user.favorite_listings.where(listing: @listing).each do |favorite_listing|
-        favorite_listing.soft_destroy
-      end
-      post = 'delete'
-    else
-      if favorite_listing = current_user.favorite_listings_deleted(@listing)
-        favorite_listing.restore
-        status = 'success'
-        post = 'create'
-      elsif current_user.favorite_listings.create(listing: @listing)
-        status = 'success'
-        post = 'create'
-      else
-        status = 'error'
-      end
-    end
-    count = FavoriteListing.where(listing_id: @listing.id).count
-    render json: { status: status, post: post, count: count}
-  end
-
   def copy
     if @listing_copied = @listing.dup_all
       redirect_to edit_listing_path(@listing_copied), notice: Settings.listings.copy.success

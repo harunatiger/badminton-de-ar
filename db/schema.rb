@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921161608) do
+ActiveRecord::Schema.define(version: 20160925053619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,43 +162,6 @@ ActiveRecord::Schema.define(version: 20160921161608) do
   add_index "emergencies", ["profile_id"], name: "index_emergencies_on_profile_id", using: :btree
   add_index "emergencies", ["user_id"], name: "index_emergencies_on_user_id", using: :btree
 
-  create_table "favorite_histories", force: :cascade do |t|
-    t.integer  "from_user_id", null: false
-    t.integer  "to_user_id"
-    t.integer  "listing_id"
-    t.datetime "read_at"
-    t.string   "type",         null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "favorite_histories", ["from_user_id"], name: "index_favorite_histories_on_from_user_id", using: :btree
-  add_index "favorite_histories", ["listing_id"], name: "index_favorite_histories_on_listing_id", using: :btree
-  add_index "favorite_histories", ["to_user_id"], name: "index_favorite_histories_on_to_user_id", using: :btree
-  add_index "favorite_histories", ["type"], name: "index_favorite_histories_on_type", using: :btree
-
-  create_table "favorite_listings", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "listing_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "read_at"
-  end
-
-  add_index "favorite_listings", ["listing_id"], name: "index_favorite_listings_on_listing_id", using: :btree
-  add_index "favorite_listings", ["user_id"], name: "index_favorite_listings_on_user_id", using: :btree
-
-  create_table "favorite_users", force: :cascade do |t|
-    t.integer  "from_user_id", null: false
-    t.integer  "to_user_id",   null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.datetime "read_at"
-  end
-
-  add_index "favorite_users", ["from_user_id"], name: "index_favorite_users_on_from_user_id", using: :btree
-  add_index "favorite_users", ["to_user_id"], name: "index_favorite_users_on_to_user_id", using: :btree
-
   create_table "favorites", force: :cascade do |t|
     t.integer  "from_user_id",      null: false
     t.integer  "to_user_id"
@@ -208,11 +171,13 @@ ActiveRecord::Schema.define(version: 20160921161608) do
     t.datetime "soft_destroyed_at"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "spot_id"
   end
 
   add_index "favorites", ["from_user_id"], name: "index_favorites_on_from_user_id", using: :btree
   add_index "favorites", ["listing_id"], name: "index_favorites_on_listing_id", using: :btree
   add_index "favorites", ["soft_destroyed_at"], name: "index_favorites_on_soft_destroyed_at", using: :btree
+  add_index "favorites", ["spot_id"], name: "index_favorites_on_spot_id", using: :btree
   add_index "favorites", ["to_user_id"], name: "index_favorites_on_to_user_id", using: :btree
   add_index "favorites", ["type"], name: "index_favorites_on_type", using: :btree
 
@@ -1006,14 +971,8 @@ ActiveRecord::Schema.define(version: 20160921161608) do
   add_foreign_key "dress_codes", "listings"
   add_foreign_key "emergencies", "profiles"
   add_foreign_key "emergencies", "users"
-  add_foreign_key "favorite_histories", "listings"
-  add_foreign_key "favorite_histories", "users", column: "from_user_id"
-  add_foreign_key "favorite_histories", "users", column: "to_user_id"
-  add_foreign_key "favorite_listings", "listings"
-  add_foreign_key "favorite_listings", "users"
-  add_foreign_key "favorite_users", "users", column: "from_user_id"
-  add_foreign_key "favorite_users", "users", column: "to_user_id"
   add_foreign_key "favorites", "listings"
+  add_foreign_key "favorites", "spots"
   add_foreign_key "favorites", "users", column: "from_user_id"
   add_foreign_key "favorites", "users", column: "to_user_id"
   add_foreign_key "listing_categories", "categories"

@@ -182,13 +182,23 @@ class User < ActiveRecord::Base
     self.favorite_users_of_from_user.exists?(to_user_id: to_user)
   end
   
+  def get_favorite_of_this_target(target)
+    if target.model_name == 'Spot'
+      return FavoriteSpot.without_soft_destroyed.where(from_user_id: self.id, spot_id: target.id).first
+    elsif target.model_name == 'User'
+      return FavoriteUser.without_soft_destroyed.where(from_user_id: self.id, to_user_id: target.id).first
+    elsif target.model_name == 'Listing'
+      return FavoriteListing.without_soft_destroyed.where(from_user_id: self.id, listing_id: target.id).first
+    end
+  end
+  
   def bookmarked_histories
-    mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id)
+    mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id) + FavoriteSpot.where(spot_id: self.spots.ids).includes(:spot)
     mixed_array.sort{|f,s| s.created_at <=> f.created_at}
   end
   
   def unread_bookmark_count
-    FavoriteListing.where(listing_id: self.listings.ids, read_at: nil).count + FavoriteUser.where(to_user_id: self.id, read_at: nil).count
+    FavoriteListing.where(listing_id: self.listings.ids, read_at: nil).count + FavoriteUser.where(to_user_id: self.id, read_at: nil).count + FavoriteSpot.where(spot_id: self.spots.ids, read_at: nil).count
   end
   
   def mark_all_bookmarks_as_read

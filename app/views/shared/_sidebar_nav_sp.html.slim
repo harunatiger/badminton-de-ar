@@ -43,7 +43,7 @@
           li
             = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path, class: "link-reset menu-item", rel: "nofollow"
           li
-            = link_to Settings.page.favorites, favorite_listings_path, rel: "nofollow", class: "link-reset menu-item"
+            = link_to Settings.page.favorites, listings_favorites_path, rel: "nofollow", class: "link-reset menu-item"
           - if !current_user.guest?
             li
               = link_to Settings.page.friends, friends_path, rel: "nofollow", class: "link-reset menu-item"

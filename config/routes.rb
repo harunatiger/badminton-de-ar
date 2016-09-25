@@ -54,9 +54,6 @@ Rails.application.routes.draw do
     collection do
       delete 'delete_category',    action: 'delete_category'
     end
-    member do
-      post :favorite_user
-    end
   end
   
   resources :withdrawals, only: [:index] do
@@ -120,15 +117,18 @@ Rails.application.routes.draw do
       put 'unset', on: :collection
     end
     resources :calendar
-    member do
-      post :favorite_listing
-    end
   end
   
   resources :spots
 
-  resources :favorite_listings, only: [:index, :destroy]
-  resources :favorite_users, only: [:index, :destroy]
+  resources :favorites, only: [:create, :destroy] do
+    collection do
+      get :users
+      get :listings
+      get :spots
+    end
+  end
+  
   resources :pickups, only: [:show]
   resources :friends, only: [:index, :destroy] do
     member do

@@ -563,14 +563,6 @@ module ApplicationHelper
     FavoriteListing.where(listing_id: listing_id).without_soft_destroyed.count
   end
 
-  def favorite_listing_set(listing, user)
-    FavoriteListing.find_by(listing: listing, user: user)
-  end
-
-  def favorite_user_set(to_user_id, from_user_id)
-    FavoriteUser.find_by(to_user_id: to_user_id, from_user_id: from_user_id)
-  end
-
   def space_options
     ['space_rental']
   end

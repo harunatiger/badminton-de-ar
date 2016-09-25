@@ -23,12 +23,12 @@
 #  index_favorites_on_type               (type)
 #
 
-class FavoriteUser < Favorite
+class FavoriteSpot < Favorite
   belongs_to :user, class_name: 'User', foreign_key: 'from_user_id'
-  belongs_to :user, class_name: 'User', foreign_key: 'to_user_id'
+  belongs_to :spot
 
   validates :from_user_id, presence: true
-  validates :to_user_id, presence: true
+  validates :spot_id, presence: true
   
-  validates_uniqueness_of :from_user_id, scope: :to_user_id
+  validates_uniqueness_of :from_user_id, scope: :spot_id
 end
