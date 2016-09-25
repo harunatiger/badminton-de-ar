@@ -1,14 +1,15 @@
 /! guide_information
-hr
+-profile = user.profile
+/hr
 #guide-info-container
   #guide-info 
-    .row-space-4.row-space-top-4
+    /.row-space-4.row-space-top-4
       h3.row-space-2
         | Guide Information
     .row
       .col-md-3.text-center
         .media-photo.media-round.media-avatar
-          .size68[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
+          .size68[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(user.id)}')"]
       .col-md-9
         .profile-name.row-space-top-2.row-space-1
           span
@@ -38,10 +39,10 @@ hr
             | review
             |(
             b
-              = Review.my_reviewed_count(profile.user_id)
+              = Review.my_reviewed_count(user.id)
             |)
         .talk_to_me-wrapper
-          = render partial: 'talk_to_me', locals: { listing: listing, message_thread: message_thread }
+          = render partial: 'shared/talk_to_me', locals: { user_id: user.id, message_thread: message_thread }
         .row-space-4.row-space-top-2
           i.fa.fa-reply
           ' 
@@ -50,5 +51,5 @@ hr
           = link_to "#about_response_rate", data: { toggle: "modal" } do
             i.fa.fa-question-circle
           ' 
-          = listing.user.message_return_rate
+          = user.message_return_rate
         

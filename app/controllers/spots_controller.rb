@@ -10,6 +10,15 @@ class SpotsController < ApplicationController
   # GET /spots/1
   # GET /spots/1.json
   def show
+    @spots = current_user.spots.where.not(id: @spot.id)
+    @listings = current_user.listings.opened.without_soft_destroyed.includes(:listing_detail).order_by_updated_at_desc.limit(3)
+    @near_spots = @spot.near_spots
+    if current_user
+      if id = GuestThread.exists_thread?(@spot.user_id, current_user.id)
+        @message_thread = GuestThread.find(id)
+      end
+    end
+    gon.spot = @spot
   end
 
   # GET /spots/new

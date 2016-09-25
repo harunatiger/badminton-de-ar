@@ -143,6 +143,10 @@ module ApplicationHelper
   def user_id_to_profile_id(user_id)
     User.find(user_id).profile.id
   end
+  
+  def user_id_to_profile(user_id)
+    User.find(user_id).profile
+  end
 
   def review_count_of_host(host_id)
     results = Listing.mine(host_id).pluck('review_count')
@@ -823,5 +827,24 @@ module ApplicationHelper
   
   def languages
     [Settings.laguages.ja, Settings.laguages.en]
+  end
+  
+  def spot_to_pickup(spot)
+    return false if spot.pickup_id.blank?
+    pickup = Pickup.find_by_id(spot.pickup_id)
+    return false if pickup.blank?
+    return pickup
+  end
+  
+  def spot_image(spot)
+    spot_image = SpotImage.find_by_spot_id(spot.id)
+    return false if spot_image.blank? || spot_image.image.blank?
+    spot_image.image
+  end
+  
+  def spot_image_thumb(spot)
+    spot_image = SpotImage.find_by_spot_id(spot.id)
+    return false if spot_image.blank? || spot_image.image.blank?
+    spot_image.image.thumb
   end
 end

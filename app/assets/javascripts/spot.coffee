@@ -132,3 +132,22 @@ $ ->
         return
       return
     return
+  
+  if $('body').hasClass('spots show')
+    # show location
+    initialize = ->
+      mapOptions =
+        scrollwheel: false
+        zoom: 13
+        center: new (google.maps.LatLng)(gon.spot.latitude, gon.spot.longitude)
+        # center: new (google.maps.LatLng)(35.319225, 139.546687)
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+
+      map = new (google.maps.Map)(document.getElementById('location'), mapOptions)
+
+      marker = new (google.maps.Marker)(
+        position:  new (google.maps.LatLng)(gon.spot.latitude, gon.spot.longitude)
+        map: map )
+      return
+
+    google.maps.event.addDomListener window, 'load', initialize

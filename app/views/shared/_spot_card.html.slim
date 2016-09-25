@@ -1,0 +1,29 @@
+.card.tour-listing
+  .card-image
+    = link_to spot_path(spot), class: "media-photo media-photo-block media-cover" do
+      .tour-cover[style="background-image:url(#{asset_path spot_image_thumb(spot)})" data-original="#{asset_path spot_image_thumb(spot)}"]
+    /- if user_signed_in?
+      = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
+        - if current_user.favorite_listing?(listing)
+          i.fa.fa-heart.favorited
+          i.fa.fa-heart.unfavorite.hide
+          i.fa.fa-heart-o.outline.hide.fav-balloon
+        - else
+          i.fa.fa-heart.favorited.hide
+          i.fa.fa-heart.unfavorite
+          i.fa.fa-heart-o.outline.fav-balloon
+    /- else
+      = link_to new_profile_path, class: "favorite-btn" do
+        i.fa.fa-heart.unfavorite
+        i.fa.fa-heart-o.outline.fav-balloon
+  .card-body
+    .media
+      = link_to profile_path(profile), class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+        div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')" title="#{user_id_to_name(profile.user_id)}"]
+      = link_to spot_path(spot), class: "text-normal" do
+        h5.row-space-1.overflow
+          = truncate(spot.title, length: 40)
+      - if pickup = spot_to_pickup(spot)
+        .text-center
+          .media-round.media-photo.media-avatar
+            .size28[style="background-image: url('#{asset_path pickup.icon_small}')"]
