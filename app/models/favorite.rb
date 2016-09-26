@@ -11,12 +11,14 @@
 #  soft_destroyed_at :datetime
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  spot_id           :integer
 #
 # Indexes
 #
 #  index_favorites_on_from_user_id       (from_user_id)
 #  index_favorites_on_listing_id         (listing_id)
 #  index_favorites_on_soft_destroyed_at  (soft_destroyed_at)
+#  index_favorites_on_spot_id            (spot_id)
 #  index_favorites_on_to_user_id         (to_user_id)
 #  index_favorites_on_type               (type)
 #
@@ -38,5 +40,29 @@ class Favorite < ActiveRecord::Base
   
   def favorite_user?
     self.type == 'FavoriteUser'
+  end
+  
+  def favorite_spot?
+    self.type == 'FavoriteSpot'
+  end
+  
+  def target
+    if self.favorite_listing?
+      return Listing.find(self.listing_id)
+    elsif self.favorite_user?
+      return User.find(self.to_user_id)
+    elsif self.favorite_spot?
+      return Spot.find(self.spot_id)
+    end
+  end
+  
+  def old
+    if self.favorite_listing?
+      FavoriteListing.only_soft_destroyed.where(from_user_id: self.from_user_id, listing_id: self.listing_id).first
+    elsif self.favorite_user?
+      FavoriteUser.only_soft_destroyed.where(from_user_id: self.from_user_id, to_user_id: self.to_user_id).first
+    elsif self.favorite_spot?
+      FavoriteSpot.only_soft_destroyed.where(from_user_id: self.from_user_id, spot_id: self.spot_id).first
+    end
   end
 end

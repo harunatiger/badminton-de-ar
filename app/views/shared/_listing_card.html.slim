@@ -7,20 +7,8 @@
         | ¥&nbsp;
         = listing.listing_detail.display_amount if listing.listing_detail.present?
         | /Group
-    - if user_signed_in?
-      = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
-        - if current_user.favorite_listing?(listing)
-          i.fa.fa-heart.favorited
-          i.fa.fa-heart.unfavorite.hide
-          i.fa.fa-heart-o.outline.hide.fav-balloon
-        - else
-          i.fa.fa-heart.favorited.hide
-          i.fa.fa-heart.unfavorite
-          i.fa.fa-heart-o.outline.fav-balloon
-    - else
-      = link_to new_profile_path, class: "favorite-btn" do
-        i.fa.fa-heart.unfavorite
-        i.fa.fa-heart-o.outline.fav-balloon
+    - if controller_name != 'favorites'
+      = render partial: 'shared/favorite', locals: { user: current_user, target: listing}
   .card-body
     .media
       = link_to profile_path(profile), class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do

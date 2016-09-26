@@ -117,32 +117,6 @@ class ProfilesController < ApplicationController
   def introduction
 
   end
-
-  def favorite_user
-    if current_user.favorite_user?(@profile)
-      current_user.favorite_users_of_from_user.where(to_user_id: @profile.user_id).each do |favorite_user|
-        favorite_user.soft_destroy
-      end
-      post = 'delete'
-    else
-      if favorite_user = current_user.favorite_users_deleted(@profile.user_id)
-        favorite_user.restore
-        status = 'success'
-        post = 'create'
-      elsif current_user.favorite_users_of_from_user.create(to_user_id: @profile.user_id)
-        status = 'success'
-        post = 'create'
-      else
-        status = 'error'
-      end
-    end
-    @reviewed = Review.reviewed_as_guide(@profile.user_id)
-    @reviewed_as_guest = Review.reviewed_as_guest(@profile.user_id)
-    reviewed_count = @reviewed.count
-    reviewed_as_guest_count = @reviewed_as_guest.count
-    html = render_to_string partial: '/profiles/show/user_card', locals: { profile: @profile, reviewed_count: reviewed_count + reviewed_as_guest_count }
-    render json: { status: status, html: html , post: post}
-  end
   
   def delete_category
     if request.xhr?

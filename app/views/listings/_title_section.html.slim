@@ -1,6 +1,4 @@
 /* listings#title_section
-- favorite_count = favorite_listings_count(listing.id)
-
 .title-section
   .page-container
     .row
@@ -23,24 +21,7 @@
           .col-md-1.text-center.favorite-container
             .va-container.va-container-wh
               .va-middle
-                - if user_signed_in?
-                  = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
-                    - if current_user.favorite_listing?(listing)
-                      i.fa.fa-heart.favorited
-                      i.fa.fa-heart.unfavorite.hide
-                      i.fa.fa-heart-o.outline.hide.fav-balloon
-                    - else
-                      i.fa.fa-heart.favorited.hide
-                      i.fa.fa-heart.unfavorite
-                      i.fa.fa-heart-o.outline.fav-balloon
-                    span.favorited-count
-                      = favorite_count
-                - else
-                  = link_to new_profile_path, class: "favorite-btn" do
-                    i.fa.fa-heart.unfavorite
-                    i.fa.fa-heart-o.outline.fav-balloon
-                    span.favorited-count
-                      = favorite_count
+                = render partial: 'shared/favorite', locals: { user: current_user, target: @listing}
           .col-md-12.category-list-container
             .tag-list-wrapper.tag-list-wrapper-bordered
               ul.clearfix

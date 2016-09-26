@@ -1,0 +1,17 @@
+.card.tour-listing
+  .card-image
+    = link_to spot_path(spot), class: "media-photo media-photo-block media-cover" do
+      .tour-cover[style="background-image:url(#{asset_path spot_image_thumb(spot)})" data-original="#{asset_path spot_image_thumb(spot)}"]
+    - if controller_name != 'favorites'
+      = render partial: 'shared/favorite', locals: { user: current_user, target: spot}
+  .card-body
+    .media
+      = link_to profile_path(profile), class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
+        div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')" title="#{user_id_to_name(profile.user_id)}"]
+      = link_to spot_path(spot), class: "text-normal" do
+        h5.row-space-1.overflow
+          = truncate(spot.title, length: 40)
+      - if pickup = spot_to_pickup(spot)
+        .text-center
+          .media-round.media-photo.media-avatar
+            .size28[style="background-image: url('#{asset_path pickup.icon_small}')"]

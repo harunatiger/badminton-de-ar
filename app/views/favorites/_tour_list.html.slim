@@ -1,0 +1,27 @@
+.card-header
+  | Your favorited tour plans
+.card-body
+  - if favorite_listings.blank?
+    .text-muted.text-center
+      p.row-space-top-4.row-space-1
+        | Build your collection of tour you want to go by clicking the 
+        i.fa.fa-heart.fa-pink
+        |  button!
+      p.row-space-4
+        | Everything you Save will be collected here.
+  - else
+    .row
+      - favorite_listings.each do |favorite|
+        - listing = favorite_to_listing(favorite)
+        - profile = favorite_listing_to_profile(listing)
+        .col-md-6.row-space-4.favorite-card
+          - listing = favorite_to_listing(favorite)
+          - profile = favorite_listing_to_profile(listing)
+          = render partial: 'shared/listing_card', locals: { profile: profile, listing: listing}
+          = link_to favorite_path(favorite), method: 'DELETE', class: 'favorite-btn-large btn btn-large btn-block', data: { confirm: 'お気に入りを解除します。よろしいですか？'} do
+            i.fa.fa-times
+            | Delete from favorites
+    - if favorite_listings.num_pages > 1
+      .card-footer
+        .text-center
+          = paginate(favorite_listings)

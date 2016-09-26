@@ -1,0 +1,47 @@
+= render 'shared/subnav'
+= image_tag(spot_image(@spot))
+br
+= link_to profile_path(user_id_to_profile_id(@spot.user_id)) do
+  .media-photo.media-round.media-avatar
+    .size68[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@spot.user_id)}')"]
+  = user_id_to_firstname(@spot.user_id)
+br
+= @spot.title
+- if @spot.pickup.present?
+  br
+  .media-round.media-photo.media-avatar
+    .size28[style="background-image: url('#{asset_path @spot.pickup.icon_small}')"]
+  span
+    = @spot.pickup.short_name
+br
+= @spot.one_word
+
+h3
+  | Peaple Who Recommended Same Spots
+br
+- @spots.each do |spot|
+  = link_to image_tag(spot_image_thumb(spot)), spot_path(spot)
+
+br
+| このスポットを登録したガイドです。
+= render partial: 'shared/guide_information', locals: { user: @spot.user, message_thread: @message_thread}
+.row
+  .col-md-5
+    .location-container
+      #location
+
+- if @listings.present?
+  h3
+    | This Guide's Tour
+  .row
+    - @listings.each do |listing|
+      .col-md-4.row-space-4
+        = render partial: 'shared/listing_card', locals: { profile: user_id_to_profile(@spot.user_id), listing: listing}
+  
+- if @near_spots.present?
+  h3
+    | This Area's Other Spots
+  .row
+    - @near_spots.each do |spot|
+      .col-md-4.row-space-4
+        = render partial: 'shared/spot_card', locals: { profile: user_id_to_profile(spot.user_id), spot: spot}

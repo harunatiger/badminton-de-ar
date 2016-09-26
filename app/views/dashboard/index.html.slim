@@ -46,9 +46,15 @@
                           = link_to "#{listing_id_to_listing_obj(history.listing_id).title}", listing_path(history.listing_id)
                           | をお気に入りに登録しました。
                         /*******bookmarked history of current_user*******
-                        - else
+                        - elsif history.favorite_user?
                           = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
                           | さんがあなたをお気に入りに登録しました。
+                        /*******bookmarked history of spots*******
+                        - elsif history.favorite_spot?
+                          = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
+                          | さんが
+                          = link_to "#{history.spot.title}", spot_path(history.spot_id)
+                          | をお気に入りに登録しました。
             - else
               .text-center
                 .h4 お気に入り履歴はありません。
