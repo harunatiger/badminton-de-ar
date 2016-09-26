@@ -364,7 +364,51 @@ $ ->
   if $('body').hasClass('welcome index')
 
     # feature carousel
-    $('#feature-carousel').carousel()
+    # $('#feature-carousel').carousel()
+
+    #slider
+    $('#feature-carousel').sliderPro
+      width: 960
+      height: 500
+      # aspectRatio: 1.5
+      visibleSize: '100%'
+      forceSize: 'fullWidth'
+      arrows: true
+      fadeArrows: false
+      autoSlideSize: true
+      autoplayDelay: 3000
+      slideAnimationDuration: 1000
+      buttons: false
+      keyboard: false
+      slideDistance: 1
+      breakpoints:
+        1099:
+          width: 640
+          height: 340
+        767:
+          width: '100%'
+          height: 300
+          visibleSize: 'auto'
+          forceSize: 'none'
+        543:
+          width: '100%'
+          height: 200
+          visibleSize: 'auto'
+          forceSize: 'none'
+      # scale class
+      gotoSlide: (event) ->
+        $('.sp-slide').removeClass('sp-prev sp-next')
+        if $('.sp-selected').next().length
+          $('.sp-selected').next().addClass('sp-next')
+        else
+          $('.sp-slide:first').addClass('sp-next')
+
+        if $('.sp-selected').prev().length
+          $('.sp-selected').prev().addClass('sp-prev')
+        else
+          $('.sp-slide:last').addClass('sp-prev')
+        return
+
 
     # lazyload image
     $('.discovery-card, .tour-cover, .youtube-container > div, .huber-card-background, .media-cover-img > div, .img-lazyload').lazyload

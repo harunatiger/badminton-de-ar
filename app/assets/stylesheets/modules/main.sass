@@ -2841,3 +2841,52 @@ h3.center-lined
 .mini-profile
   .country-info
     margin-right: 7px
+
+
+/* feature carousel edit 20160924
+#feature-carousel
+  .sp-slide
+    transition: transform .2s ease-in-out
+    transform: scale(.9)
+    transform-origin: center
+    opacity: .75
+    &.sp-prev
+      transform-origin: right
+    &.sp-next
+      transform-origin: left
+  .sp-selected
+    transform: scale(1)
+    opacity: 1
+  .sp-arrow
+    width: 44px
+    height: 44px
+    line-height: 42px
+    text-align: center
+    background-color: rgba(0, 0, 0, .75)
+    border-radius: 50%
+    &:before
+      content: '\f104'
+      position: relative
+      top: auto !important
+      left: auto !important
+      right: auto !important
+      width: auto
+      height: auto
+      color: white
+      font-family: 'fontAwesome'
+      font-size: 34px
+      background-color: transparent
+      transform: none !important
+    &:after
+      display: none
+    &.sp-next-arrow
+      &:before
+        content: '\f105'
+  .carousel-img
+    height: 500px
+    @media (max-width: 1099px)
+      height: 340px
+    @media (max-width: 767px)
+      height: 300px
+    @media (max-width: 543px)
+      height: 200px
