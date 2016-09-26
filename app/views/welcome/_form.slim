@@ -1,11 +1,12 @@
-= simple_form_for(:search, url: '/listings/search', html: { method: 'get', id: 'search_form', class: 'hero-searchForm'}) do |f|
-  = f.hidden_field :where, value: 'top'
-  .search-form-wrapper
-    .location-wrapper
-      = f.input_field :location, autocomplete: 'off', placeholder: '探す地域', id: 'location', class: 'location-width input-large location'
-    .date-wrapper
-      = f.input_field :schedule, placeholder: '日時', id: 'date', class: 'datepicker input-large checkin'
-    .guests-wrapper.select.select-large
-      = f.input_field :num_of_guest, as: :select, id: 'guests', collection: [["参加人数 1人", 1], ["参加人数 2人", 2], ["参加人数 3人", 3], ["参加人数 4人", 4], ["参加人数 5人", 5], ["参加人数 6人", 6], ["参加人数 7人", 7], ["参加人数 7人", 7], ["参加人数 8人", 8], ["参加人数 8人", 8], ["参加人数 9人", 9], ["参加人数 10人", 10], ["参加人数 11人", 12], ["参加人数 13人", 13], ["参加人数 14人", 14], ["参加人数 15人", 15], ["参加人数 16人", 16]], selected: ["参加人数 1人", 1]
+= simple_form_for(:search, url: '', html: { method: 'get', id: 'search_form', class: 'hero-searchForm'}) do |f|
+  /= f.hidden_field :where, value: 'top'
+  .location-wrapper
+    /= f.input_field :location, autocomplete: 'off', placeholder: '探す地域', id: 'location', class: 'location-width input-large location'
+    input#location-search.location-search[autocomplete="off" placeholder="Where are you going?"]
+  /.date-wrapper
+    /= f.input_field :schedule, placeholder: '日時', id: 'date', class: 'datepicker input-large checkin'
+  /.guests-wrapper.select.select-large
+    /= f.input_field :num_of_guest, as: :select, id: 'guests', collection: [["参加人数 1人", 1], ["参加人数 2人", 2], ["参加人数 3人", 3], ["参加人数 4人", 4], ["参加人数 5人", 5], ["参加人数 6人", 6], ["参加人数 7人", 7], ["参加人数 7人", 7], ["参加人数 8人", 8], ["参加人数 8人", 8], ["参加人数 9人", 9], ["参加人数 10人", 10], ["参加人数 11人", 12], ["参加人数 13人", 13], ["参加人数 14人", 14], ["参加人数 15人", 15], ["参加人数 16人", 16]], selected: ["参加人数 1人", 1]
   = button_tag("", type: "submit", class: "btn btn-primary btn-large", id: "submit_location") do
-    |  検索
+    span.hide--sp Search
+    i.fa.fa-search.fa-white.show--sp
