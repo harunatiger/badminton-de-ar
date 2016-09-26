@@ -107,15 +107,6 @@ class ListingsController < ApplicationController
     end
   end
 
-  def search
-    #listings = Listing.search(search_params).opened.page(params[:page])
-    listings = Listing.all.opened.page(params[:page])
-    gon.listings = listings
-    @hit_count = listings.count
-    @listings = listings.page(params[:page]).per(10)
-    @conditions = search_params
-  end
-
   def publish
     return redirect_to new_profile_path unless Profile.exists?(user_id: @listing.user_id)
     respond_to do |format|
@@ -216,9 +207,5 @@ class ListingsController < ApplicationController
         language_ids: [], pickup_ids: [],
         listing_detail_attributes: [:id, :place, :place_longitude, :place_latitude, :place_memo, :condition, :stop_if_rain, :in_case_of_rain ]
         )
-    end
-
-    def search_params
-      params.require(:search).permit(:location, :schedule, :num_of_guest, :price, :confection, :tool, :wafuku, :keywords, :where)
     end
 end

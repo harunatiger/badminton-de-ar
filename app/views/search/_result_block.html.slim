@@ -1,6 +1,6 @@
     .search-results.touch
       .outer-listings-container.row-space-5.row-space-2-sm
         .row.listings-container
-          = render partial: 'listings/search/result_item', locals: { listings: listings }
+          = render partial: 'result_item', locals: { listings: listings, spots: spots }
       .results-footer
         = paginate listings

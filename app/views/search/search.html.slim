@@ -1,8 +1,8 @@
 .map-search-container
   .sidebar
-    = render partial: '/listings/search/filter', locals: { hit_count: @hit_count, conditions: @conditions, listing: @listing }
+    = render partial: 'filter', locals: { hit_count: @hit_count, conditions: @conditions, listing: @listing }
     .sidebar-header-placeholder
-    - if @listings.blank?
+    - if @listings.blank? and @spots.blank?
       .no-listings-block
         div
           p
@@ -10,11 +10,11 @@
             br
             | 条件を変えて検索してみましょう。
     - else
-      = render partial: '/listings/search/result_block', locals: { listings: @listings, conditions: @conditions }
+      = render partial: 'result_block', locals: { listings: @listings, spots: @spots, conditions: @conditions }
     .card-btn--sp.filters-btn.fixed.show--sp
       button.js-small-filter-toggle.btn.btn-large.btn-block.btn-primary 検索条件
   .map.hide--sp
-    - if @listings.blank?
+    - if @listings.blank? and @spots.blank?
       .no-listings-map
         div
           i.fa.fa-map-marker

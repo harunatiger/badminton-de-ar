@@ -85,12 +85,14 @@ Rails.application.routes.draw do
   end
 
   resources :pre_mails, only: [:create]
+  
+  namespace :search do
+    get '/', action: :search
+    get 'search_result', action: 'search_result'
+    #get 'page/:page',    action: 'index'
+  end
+  
   resources :listings do
-    collection do
-      get 'search',        action: 'search'
-      get 'search_result', action: 'search_result'
-      get 'page/:page',    action: 'index'
-    end
     resources :listing_images, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
       post 'upload_video_cover_image', on: :collection

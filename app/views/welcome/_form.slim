@@ -1,4 +1,4 @@
-= simple_form_for(:search, url: search_listings_path, html: { method: 'get', id: 'search_form', class: 'hero-searchForm'}) do |f|
+= simple_form_for(:search, url: search_path, html: { method: 'get', id: 'search_form', class: 'hero-searchForm'}) do |f|
   /= f.hidden_field :where, value: 'top'
   .location-wrapper
     /= f.input_field :location, autocomplete: 'off', placeholder: '探す地域', id: 'location', class: 'location-width input-large location'

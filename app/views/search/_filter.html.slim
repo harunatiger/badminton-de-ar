@@ -1,4 +1,4 @@
-= simple_form_for(:search, url: '/listings/search', html: {class: "trip-form", method: 'get'}) do |f|
+= simple_form_for(:search, url: search_path, html: {class: "trip-form", method: 'get'}) do |f|
   .filters.collapse
     = f.error_notification
     = f.hidden_field :where, value: 'listing_search'
