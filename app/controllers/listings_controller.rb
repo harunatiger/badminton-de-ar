@@ -108,7 +108,8 @@ class ListingsController < ApplicationController
   end
 
   def search
-    listings = Listing.search(search_params).opened.page(params[:page])
+    #listings = Listing.search(search_params).opened.page(params[:page])
+    listings = Listing.all.opened.page(params[:page])
     gon.listings = listings
     @hit_count = listings.count
     @listings = listings.page(params[:page]).per(10)
