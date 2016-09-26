@@ -49,7 +49,7 @@ $ ->
       return
     
     # delete favorite
-    $(document).on 'click', '.favorite-btn.delete', ->
+    $(document).on 'click', '.favorite-btn.del', ->
       favorite_id = $(this).attr('favorite_id')
       parent = $(this).parent("#favorite")
       $.ajax(

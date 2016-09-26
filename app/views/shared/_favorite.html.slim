@@ -1,7 +1,7 @@
 #favorite
   - if user
     - if favorite = user.get_favorite_of_this_target(target)
-      = link_to '#', class: "favorite-btn delete", favorite_id: favorite.id do
+      = link_to '#', class: "favorite-btn del", favorite_id: favorite.id do
         i.fa.fa-heart.favorited
         i.fa.fa-heart.unfavorite.hide
         i.fa.fa-heart-o.outline.hide.fav-balloon
