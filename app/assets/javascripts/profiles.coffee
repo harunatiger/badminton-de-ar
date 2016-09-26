@@ -52,7 +52,6 @@ $ ->
       $('input[name=\'profile[municipality]\']').val resp.below
       return
     return
-  return
 
   #balloon for languages
   if $('html').hasClass('no-touch')
