@@ -3084,11 +3084,9 @@ h3.center-lined
 
 /* search style fix 20160927
 .tour-listing
-  .card-image
+  .card-image, .tour-cover, .media-cover, #favorite, .card-overlay-bottom-left, .tour-tag
     /* chrome bug fix
     transform: translate3d(0, 0, 0)
-    .tour-cover
-      z-index: 0
 .search
   .card-body + .card-body:before
     border-top-color: $border1
@@ -3105,7 +3103,7 @@ h3.center-lined
   .col-subject
     span
       display: inline-block
-      padding: 8px 15px 0
+      padding: 9px 15px 0
   .nav-tabs
     border: 0
     > li
@@ -3133,6 +3131,8 @@ h3.center-lined
     border-radius: 2px
     @media (max-width: 1099px)
       margin-bottom: 15px
+      &.last
+        margin-bottom: 0
     .category-selected, .category-default
       position: relative
       padding: 0 10px
@@ -3177,3 +3177,122 @@ h3.center-lined
           height: 1px
           top: -9999px
           left: -9999px
+  .datepicker
+    @media (max-width: 1099px)
+      margin-bottom: 15px
+
+/* range slider */
+#duration-range
+  height: 10px
+  opacity: 0
+.slider
+  margin-top: 7px
+  &.slider-horizontal
+    width: 100%
+    height: 20px
+    .slider-track
+      height: 14px
+      width: 100%
+      margin-top: -5px
+      top: 50%
+      left: 0
+    .slider-selection
+      height: auto
+      top: 5px
+      bottom: 5px
+    .slider-track-low, .slider-track-high
+      height: auto
+      top: 6px
+      bottom: 6px
+    .slider-handle
+      margin-left: -10px
+      margin-top: -3px
+    .slider-handle.triangle
+      border-width: 0 10px 10px 10px
+      width: 0
+      height: 0
+      border-bottom-color: #0480be
+      margin-top: 0
+  input
+    display: none
+  .tooltip.top
+    margin-top: -36px
+  .tooltip-inner
+    font-size:  16px
+    font-family: 'SofiaProRegular'
+    background-color: $brand-theme
+    white-space: nowrap
+    &:after
+      content: 'h'
+  .tooltip.top
+    .tooltip-arrow
+      border-top-color: $brand-theme
+  .tooltip.bottom
+    .tooltip-arrow
+      border-bottom-color: $brand-theme
+  .hide
+    display: none
+.slider-track
+  position: absolute
+  background: white
+  box-shadow: none
+  border-radius: 0
+  cursor: pointer
+.slider-selection
+  position: absolute
+  background: $brand-theme
+  box-shadow: none
+  box-sizing: border-box
+  border-radius: 0
+.slider-track-low, .slider-track-high
+  position: absolute
+  background: transparent
+  box-sizing: border-box
+  background-color: #aaa
+  border-radius: 0
+.slider-handle
+  width: 20px
+  height: 20px
+  background: #eee
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .2)
+  border: 1px solid $brand-theme
+
+.language-select
+  label
+    position: relative
+    display: inline-block
+    padding: 0
+    margin-right: 5px
+    overflow: hidden
+    cursor: pointer
+    &:hover
+      background-color: $bg1
+    span
+      display: inline-block
+      padding: 5px 15px
+      color: $brand-theme
+      border: 1px solid $skyblue2
+      border-radius: 2px
+    input
+      position: absolute
+      top: -32px
+      left: -32px
+      width: 1px
+      height: 1px
+      appearance: none
+      &:checked ~ span
+        border-color: $brand-theme
+        background-color: $skyblue5
+
+.sort-filter
+  display: none
+
+.default-buttons
+
+.apply-buttons
+  display: none
+
+.filter-buttons
+  .btn
+    width: 160px
+    margin-left: 10px

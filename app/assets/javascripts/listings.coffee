@@ -212,6 +212,37 @@ $ ->
         selectedContainer.text(defaultValText).css('background-image', defaultValIcon).addClass('category-selected-icon')
       return
 
+    # bootstrap datepicker
+    $('.datepicker').datepicker
+      autoclose: true,
+      startDate: '+1d',
+      language: 'ja',
+      orientation: 'top auto',
+      format: "yyyy-mm-dd"
+
+    # duration range
+    $("#duration-range").slider
+      min: 0
+      max: 10
+      step: 1
+      range: true
+      value: [2, 8]
+      tooltip: 'always'
+      tooltip_split: true
+
+    # show filetr
+    $('.show-sort-filter').on 'click', (e) ->
+      $('.default-buttons').hide()
+      $('.sort-filter, .apply-buttons').show()
+      e.preventDefault()
+
+    # reset filetr
+    $('.cancel-filter').on 'click', (e) ->
+      $('.default-buttons').show()
+      $('.sort-filter, .apply-buttons').hide()
+      $('#tab-spot, #tab-tour').removeClass('active')
+      $('.sort-filter li').removeClass('active')
+      e.preventDefault()
 
   # listings#search
   ###
