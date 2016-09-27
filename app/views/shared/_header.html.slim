@@ -88,6 +88,11 @@
             i.fa.fa-question-circle
             span.qa
               = Settings.page.help
+        li.pull-left
+          = link_to Settings.blog.url ,class: "qa-link" do
+            i.fa.fa-pencil-square
+            span.qa
+              = Settings.page.blog
         li.user-item.user-nav-toggle.pull-left
           = link_to profile_path(current_user.profile.id), class: "" do
             .media-photo.media-round.user-profile-image.media-avatar
@@ -152,6 +157,9 @@
         li#login.pull-left
           = link_to new_user_session_path, rel: "nofollow" do
             = Settings.page.login
+        li.pull-left
+          = link_to Settings.blog.url, rel: "nofollow" do
+            = Settings.page.blog
 
 - if !user_signed_in? or current_user.guest?
   = render partial: 'shared/modals/guide_request'

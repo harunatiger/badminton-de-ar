@@ -2,6 +2,8 @@ site_info:
   base_title: "Make friends all over the world! "
   base_description: "Let's plan your trip in Japan. Make your very own trip and go with local and private guides. Wear Kimono, Watching Sumo, Cook Japanese food..."
   base_words: "huber"
+blog:
+  url: 'https://huber-japan.com/lp/post/'
 oauth:
   facebook:
     scope: "public_profile,email,user_friends"
@@ -284,6 +286,7 @@ page:
   login: 'Log In'
   logout: 'Log Out'
   help: 'Q&A'
+  blog: 'BLOG'
   subnav:
     top: 'Top'
     photos: '写真'
