@@ -6,6 +6,7 @@ html
     meta[name="apple-mobile-web-app-title" content="Huber."]
     = analytics_init if Rails.env.production?
     = google_tag_manager if Rails.env.production?
+    = javascript_include_tag 'hotjar' if Rails.env.production?
     = favicon_link_tag 'apple-touch-icon.png', rel:'apple-touch-icon-precomposed', type:'image/png'
     = favicon_link_tag 'favicon.ico'
     = stylesheet_link_tag 'application', media: 'all'
