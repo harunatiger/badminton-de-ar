@@ -101,15 +101,22 @@ $ ->
       return
 
   # profile#show
-  if $('body').hasClass('profiles show') || $('body').hasClass('listings show')　|| $('body').hasClass('listings preview')
+  if $('body').hasClass('profiles show') || $('body').hasClass('listings')
 
     # profile tour location
     initialize = ->
       bounds = new google.maps.LatLngBounds()
+      if gon.listing_destinations[0]
+        latitude = gon.listing_destinations[0].latitude
+        longitude = gon.listing_destinations[0].longitude
+      else
+        latitude = 0
+        longitude = 0
+        
       mapOptions =
         scrollwheel: false
         zoom: 13
-        center: new (google.maps.LatLng)(gon.listing_destinations[0].latitude, gon.listing_destinations[0].longitude)
+        center: new (google.maps.LatLng)(latitude, longitude)
         mapTypeId: google.maps.MapTypeId.TERRAIN
 
       if $('body').hasClass('profiles show')
