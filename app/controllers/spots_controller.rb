@@ -1,6 +1,8 @@
 class SpotsController < ApplicationController
+  before_action :authenticate_user!, except: [:show]
   before_action :set_spot, only: [:show, :edit, :update, :destroy]
-
+  before_action :regulate_user, only: [:edit, :update, :destroy]
+  
   # GET /spots
   # GET /spots.json
   def index
@@ -10,11 +12,12 @@ class SpotsController < ApplicationController
   # GET /spots/1
   # GET /spots/1.json
   def show
-    @spots = current_user.spots.where.not(id: @spot.id)
-    @listings = current_user.listings.opened.without_soft_destroyed.includes(:listing_detail).order_by_updated_at_desc.limit(3)
+    guide = User.find(@spot.user_id)
+    @spots = guide.spots.where.not(id: @spot.id)
+    @listings = guide.listings.opened.without_soft_destroyed.includes(:listing_detail).order_by_updated_at_desc.limit(3)
     @near_spots = @spot.near_spots
     if current_user
-      if id = GuestThread.exists_thread?(@spot.user_id, current_user.id)
+      if id = GuestThread.exists_thread?(guide.id, current_user.id)
         @message_thread = GuestThread.find(id)
       end
     end
@@ -78,6 +81,10 @@ class SpotsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_spot
       @spot = Spot.find(params[:id])
+    end
+  
+    def regulate_user
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @spot.user_id != current_user.id
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

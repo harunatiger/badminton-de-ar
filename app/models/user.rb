@@ -206,6 +206,8 @@ class User < ActiveRecord::Base
     favorite_listings.update_all(read_at: Time.zone.now)
     favorite_users = FavoriteUser.where(to_user_id: self.id, read_at: nil)
     favorite_users.update_all(read_at: Time.zone.now)
+    favorite_spots = FavoriteSpot.where(spot_id: self.spots.ids, read_at: nil)
+    favorite_spots.update_all(read_at: Time.zone.now)
   end
   
   def delete_children

@@ -19,9 +19,11 @@
               |  （Unread:
               = unread_messages
               | ）
-          li
-            -if current_user.main_guide?
+          -if current_user.main_guide?
+            li
               = link_to Settings.page.listings, listings_path, class: "link-reset menu-item", rel: "nofollow"
+            li
+              = link_to Settings.page.spots, spots_path, class: "link-reset menu-item", rel: "nofollow"
               /- if controller_name == "listings" && action_name == "edit" || controller_name == "listing_images" && action_name == "manage" || controller_name == "listing_details" && action_name == "manage" || controller_name == "calendar" && action_name == "index"
                 ul.list-in-list
                   li

@@ -1,5 +1,6 @@
-= render 'shared/subnav'
 = image_tag(spot_image(@spot))
+br
+= render partial: 'shared/favorite', locals: { user: current_user, target: @spot}
 br
 = link_to profile_path(user_id_to_profile_id(@spot.user_id)) do
   .media-photo.media-round.media-avatar
@@ -45,3 +46,6 @@ br
     - @near_spots.each do |spot|
       .col-md-4.row-space-4
         = render partial: 'shared/spot_card', locals: { profile: user_id_to_profile(spot.user_id), spot: spot}
+        
+- if !user_signed_in?
+  = render partial: 'shared/modals/sign_up_form'
