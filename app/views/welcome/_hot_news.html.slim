@@ -4,36 +4,27 @@
       h2.h3.row-space-2
         .spb.row-space-1.row-space-top-4 Hot News
         .spl Latest articles by local folks
-    #feature-carousel.carousel.slide.row-space-8[data-ride="carousel"]
-      ol.carousel-indicators
-        - indocatornum = 0
-        - @features.each do |feature|
-          - if indocatornum == 0
-            li.active[data-slide-to="#{indocatornum}" data-target="#feature-carousel"]
-          - else
-            li[data-slide-to="#{indocatornum}" data-target="#feature-carousel"]
-          - indocatornum += 1
-      .carousel-inner
-        - num = 1
-        - @features.each do |feature|
-          - if num == 1
-            .item.active
-              = link_to root_url + feature.url, class: "" do
-                .carousel-img.hide--sp.img-lazyload[style="background-image: url(#{feature.image})" alt="#{feature.title}" data-original="#{asset_path feature.image}"]
-                .carousel-img.show--sp.img-lazyload[style="background-image: url(#{feature.image_sp})" alt="#{feature.title}" data-original="#{asset_path feature.image_sp}"]
-          - else
-            .item
-              = link_to root_url + feature.url, class: "" do
-                .carousel-img.hide--sp.img-lazyload[style="background-image: url(#{feature.image})" alt="#{feature.title}" data-original="#{asset_path feature.image}"]
-                .carousel-img.show--sp.img-lazyload[style="background-image: url(#{feature.image_sp})" alt="#{feature.title}" data-original="#{asset_path feature.image_sp}"]
-          - num += 1
-
-      = link_to "#feature-carousel", class: "left carousel-control", role: "button", data: { slide: "prev" } do
-        i.fa.fa-chevron-left[aria-hidden="true"]
-        span.sr-only Previous
-      = link_to "#feature-carousel", class: "right carousel-control", role: "button", data: { slide: "next" } do
-        i.fa.fa-chevron-right[aria-hidden="true"]
-        span.sr-only Next
+    .row-space-8
+      #feature-carousel.slider-pro
+        .sp-slides
+          - num = 0
+          - @features.each do |feature|
+            - if num ==  1
+              .sp-slide.sp-next
+                = link_to root_url + feature.url, class: "" do
+                  .carousel-img.hide--sp[style="background-image: url(#{feature.image})" alt="#{feature.title}"]
+                  .carousel-img.show--sp[style="background-image: url(#{feature.image_sp})" alt="#{feature.title}"]
+            - elsif num.size - 1
+              .sp-slide.sp-prev
+                = link_to root_url + feature.url, class: "" do
+                  .carousel-img.hide--sp[style="background-image: url(#{feature.image})" alt="#{feature.title}"]
+                  .carousel-img.show--sp[style="background-image: url(#{feature.image_sp})" alt="#{feature.title}"]
+            - else
+              .sp-slide
+                = link_to root_url + feature.url, class: "" do
+                  .carousel-img.hide--sp[style="background-image: url(#{feature.image})" alt="#{feature.title}"]
+                  .carousel-img.show--sp[style="background-image: url(#{feature.image_sp})" alt="#{feature.title}"]
+            - num += 1
 
   /.test
     ul#aaa.slide-wrap
@@ -42,10 +33,17 @@
         li[class="pos#{num}"]
           .inner
             = link_to root_url + feature.url do
-              /= image_tag feature.image, class: "", alt: feature.title
-              .carousel-img.hide--sp.img-lazyload[style="background-image: url(#{feature.image})" alt="#{feature.title}" data-original="#{asset_path feature.image}"]
+              //= image_tag feature.image, class: "", alt: feature.title
+              /.carousel-img.hide--sp.img-lazyload[style="background-image: url(#{feature.image})" alt="#{feature.title}" data-original="#{asset_path feature.image}"]
+              = image_tag feature.image, class: "", alt: feature.title
               /.carousel-img[style="background-image: url(#{feature.image})" alt="#{feature.title}"]
               /= image_tag feature.image_sp, class: "show--sp img-lazyload carousel-image", alt: feature.title, data: {original: "#{asset_path feature.image_sp}"}
         - num += 1
     i#jprev.arrow.prev &lt;
     i#jnext.arrow.next &gt;
+    /= link_to "#feature-carousel", class: "left carousel-control", role: "button", data: { slide: "prev" } do
+      i.fa.fa-chevron-left[aria-hidden="true"]
+      span.sr-only Previous
+    /= link_to "#feature-carousel", class: "right carousel-control", role: "button", data: { slide: "next" } do
+      i.fa.fa-chevron-right[aria-hidden="true"]
+      span.sr-only Next

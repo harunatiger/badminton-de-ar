@@ -49,88 +49,98 @@
                 = "#{schedule_span(@reservation)}" if @reservation.schedule.present?
                   /= "#{schedule_span(@reservation)}(#{format_time_required(@reservation.time_required.to_s)})"
             .row.row-condensed
-              .col-md-4.text-left.text-muted
+              .col-md-4.col-sm-6.text-left.text-muted
                 | Number of people :
-              .col-md-8.strong
+              .col-md-8.col-sm-6.strong
                 = @reservation.num_of_people
                 |  People
             .row.row-condensed.row-large-spaced
-              .col-md-4.text-left.text-muted
+              .col-md-4.col-sm-6.text-left.text-muted
                 .h4.normal GUIDE PRICE :
-              .col-md-8
+              .col-md-8.col-sm-6
                 .h3.strong
                   | #{currency_sign}
                   = exchanged_display_amount(@reservation.amount_for_campaign)
             .row.row-condensed
               .col-xs-11.col-offset-10px
                 .row.row-condensed
-                  .col-md-4.text-left.text-muted
+                  .col-md-4.col-sm-6.text-left.text-muted
                     | Basic Price :
-                  .col-md-8
+                  .col-md-8.col-sm-6
                     | #{currency_sign}
                     = exchanged_amount(@reservation.guide_price)
                 - if @reservation.option_amount > 0
                   .row.row-condensed
-                    .col-md-4.text-left.text-muted
+                    .col-md-4.col-sm-6.text-left.text-muted
                       | Optional Price :
-                    .col-md-8
+                    .col-md-8.col-sm-6
                       | #{currency_sign}
                       = exchanged_amount(@reservation.option_amount)
-                  - if @reservation.car_option
-                    - car_options.each do |option|
-                      - if @reservation[option] > 0
-                        .row.row-condensed
-                          .col-md-4.text-left.text-muted
-                            = I18n.t('option_price_en.' + option)
-                            |  :
-                          .col-md-8
-                            | #{currency_sign}
-                            = exchanged_amount(@reservation[option])
-                  - if @reservation.bicycle_option
-                    - num_of_people = @reservation.num_of_people
-                    - bicycle_options.each do |option|
-                      - if @reservation[option] > 0
-                        .row.row-condensed
-                          .col-md-4.text-left.text-muted
-                            = I18n.t('option_price_en.' + option)
-                            |  :
-                          .col-md-8
-                            | #{currency_sign}
-                            = exchanged_amount(@reservation[option] * num_of_people)
-                  - if @reservation.other_option
-                    - other_options.each do |option|
-                      - if @reservation[option] > 0
-                        .row.row-condensed
-                          .col-md-4.text-left.text-muted
-                            = I18n.t('option_price_en.' + option)
-                            |  :
-                          .col-md-8
-                            | #{currency_sign}
-                            = exchanged_amount(@reservation[option])
+                - if @reservation.car_option
+                  - car_options.each do |option|
+                    - if @reservation[option] > 0
+                      .row.row-condensed
+                        .col-xs-11.col-offset-10px
+                          .row.row-condensed
+                            .col-md-4.col-sm-6.text-left.text-muted
+                              small
+                                = I18n.t('option_price_en.' + option)
+                                |  :
+                            .col-md-8.col-sm-6
+                              small
+                                | #{currency_sign}
+                                = exchanged_amount(@reservation[option])
+                - if @reservation.bicycle_option
+                  - num_of_people = @reservation.num_of_people
+                  - bicycle_options.each do |option|
+                    - if @reservation[option] > 0
+                      .row.row-condensed
+                        .col-xs-11.col-offset-10px
+                          .row.row-condensed
+                            .col-md-4.col-sm-6.text-left.text-muted
+                              = I18n.t('option_price_en.' + option)
+                              |  :
+                            .col-md-8.col-sm-6
+                              | #{currency_sign}
+                              = exchanged_amount(@reservation[option] * num_of_people)
+                - if @reservation.other_option
+                  - other_options.each do |option|
+                    - if @reservation[option] > 0
+                      .row.row-condensed
+                        .col-xs-11.col-offset-10px
+                          .row.row-condensed
+                            .col-md-4.col-sm-6.text-left.text-muted
+                              small
+                                = I18n.t('option_price_en.' + option)
+                                |  :
+                            .col-md-8.col-sm-6
+                              small
+                                | #{currency_sign}
+                                = exchanged_amount(@reservation[option])
                 .row.row-condensed
-                  .col-md-4.text-left.text-muted
+                  .col-md-4.col-sm-6.text-left.text-muted
                     | Service Commission :
-                  .col-md-8
+                  .col-md-8.col-sm-6
                     | #{currency_sign}
                     = exchanged_amount(@reservation.service_fee)
                 .row.row-condensed
-                  .col-md-4.text-left.text-muted
+                  .col-md-4.col-sm-6.text-left.text-muted
                     = link_to 'Travel insurance:', "#travel_insurance", class: "travel_insurance link-bordered", data: { toggle: "modal" }
-                  .col-md-8
+                  .col-md-8.col-sm-6
                     | #{currency_sign}
                     = exchanged_amount(@reservation.insurance_fee)
                     | (#{@reservation.insurance_people_str})
                 - if session[:currency_code] != 'JPY'
                   .row.row-condensed
-                    .col-md-4.text-left.text-muted
+                    .col-md-4.col-sm-6.text-left.text-muted
                       | Exchange Fee :
-                    .col-md-8
+                    .col-md-8.col-sm-6
                       | #{currency_sign}
                       = exchange_fee(@reservation.amount_for_campaign)
             .row.row-condensed
-              .col-md-4.text-left.text-muted
+              .col-md-4.col-sm-6.text-left.text-muted
                 | Not included :
-              .col-md-8
+              .col-md-8.col-sm-6
                 span.text-muted
                   | #{currency_sign}
                   = exchanged_amount(@reservation.guests_cost)
