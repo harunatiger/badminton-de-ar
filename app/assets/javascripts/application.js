@@ -29,6 +29,7 @@
 //= require lib/croppic
 //= require lib/megapix-image
 //= require lib/exif
+//= require lib/bootstrap-slider.min
 
 //= require common
 //= require dashboard
