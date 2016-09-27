@@ -15,51 +15,7 @@
         - profile = favorite_user_to_profile(favorite.to_user_id)
         - all_reviewed_count = Review.my_reviewed_count(profile.user_id)
         .col-md-6.row-space-4.favorite-card
-          div.favorite-card-inner
-            /= link_to favorite_path(favorite), method: 'DELETE' , class: "favorite-btn", data: { confirm: 'お気に入りを解除します。よろしいですか？'} do
-              i.fa.fa-heart.favorited
-            = link_to profile_path(profile), class: 'huber-card' do
-              .huber-card-background[style="background-image: url('#{asset_path profile_to_cover_image_thumb(profile)}')"]
-              .huber-card-content
-                .row.row-condensed
-                  .col-5
-                    .huber-card-face
-                      div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
-                  .col-7.text-left
-                    .huber-inner
-                      .name.text-truncate
-                        = profile.first_name
-                      .profile-rating.row-space-2
-                        .star-rating.star-rating-fit
-                          = render partial: 'shared/stars', locals: { rate: profile.ave_total }
-                        span.badge-pill-count.small1
-                          | review
-                          |(
-                          b
-                            = all_reviewed_count
-                          |)
-                  .col-12
-                    .area.text-truncate
-                      = profile.location
-                      /.introducing
-                        span
-                          = profile.self_introduction
-                .capability
-                  - profile.pickups.order_by_created_at_asc.each do |pickup_tag|
-                    .media-round.media-photo.media-avatar
-                      .size28[style="background-image: url('#{asset_path pickup_tag.icon_small}')"]
-                .language
-                  span.balloon(title="English") EN
-                  - if language_zh?(profile)
-                    span.balloon(title="Chinese") ZH
-                  - if language_de?(profile)
-                    span.balloon(title="German") DE
-                  - if language_fr?(profile)
-                    span.balloon(title="French") FR
-                  - if language_es?(profile)
-                    span.balloon(title="Spanish") ES
-                  - if language_ja?(profile)
-                    span.balloon(title="Japanese") JA
+          = render partial: 'shared/guide_card', locals: { all_reviewed_count: all_reviewed_count, profile: profile }
           = link_to favorite_path(favorite), method: 'DELETE', class: 'favorite-btn-large btn btn-large btn-block', data: { confirm: 'お気に入りを解除します。よろしいですか？'} do
             i.fa.fa-times
             | Delete from favorites
