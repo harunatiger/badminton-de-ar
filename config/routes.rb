@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :listing_destinations
+
   resources :features, only: [:index] do
     collection do
       get 'contents'

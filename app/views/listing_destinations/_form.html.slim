@@ -1,0 +1,9 @@
+= form_for @listing_destination do |f|
+  - if @listing_destination.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@listing_destination.errors.count, "error")} prohibited this listing_destination from being saved:"
+      ul
+        - @listing_destination.errors.full_messages.each do |message|
+          li = message
+
+  .actions = f.submit

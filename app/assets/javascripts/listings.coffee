@@ -814,16 +814,202 @@ $ ->
         $('.manage-listing-edit, .close-layer--sp').removeClass('show-off')
       return false
 
-  ###
-  if $('body').hasClass('listings show')
-    array_keywords = gon.keywords
-    if array_keywords.length != 0
-      keywords = []
-      rates = []
-
-      $.each array_keywords, (index, data) ->
-        keywords.push data.keyword
-        rates.push data.level
+  if $('body').hasClass('listings new') || $('body').hasClass('listings edit') || $('body').hasClass('listings create') || $('body').hasClass('listings update')
+    #---------------------------------------------------------------------
+    # SearchBox Enterkey controll
+    #---------------------------------------------------------------------
+    $('#listing_listing_destination_location').keypress (e) ->
+      if (e.which == 13)
+        $('#listing_notes').focus()
+        e.preventDefault()
+    #---------------------------------------------------------------------
+    # GoogleMap for Place
+    #---------------------------------------------------------------------
+    map = null
+    markers = new Array()
+    locations = $("input[name*='listing_destinations_attributes'][name*='location']")
+    autocompletes = new Array()
+    locations.each (index) ->
+      autocompletes[index] = new (google.maps.places.Autocomplete)(document.getElementById($(this).attr('id')))
+    geocoder = new (google.maps.Geocoder)
+    show = true
+    #---------------------------------------------------------------------
+    # Create MapCanvas
+    #---------------------------------------------------------------------
+    initialize = ->
+      mark_count = 0
+      bounds = new google.maps.LatLngBounds()
+      locations.each (index) ->
+        if $(this).val() != null && $(this).val() != ''
+          lat_element = $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index)
+          lng_element = $("input[name*='listing_destinations_attributes'][name*='longitude']").eq(index)
+          lat =  document.getElementById(lat_element.attr('id')).value
+          lng =  document.getElementById(lng_element.attr('id')).value
+          if lat && lng
+            mark_count += 1
+            latlng = new google.maps.LatLng(lat,lng)
+            mapOptions =
+              center: latlng
+              zoom: 17
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            if map == null
+              map = new (google.maps.Map)(document.getElementById('map'), mapOptions)
+            markers[index] = new (google.maps.Marker)(
+              map: map
+              position: latlng
+              anchorPoint: new google.maps.Point(0,-24)
+              draggable: true)
+            bounds.extend markers[index].position
+            
+            show = true
+            google.maps.event.addListener markers[index], 'dragend', (e) ->
+              geocodeLatLng e.latLng.lat(), e.latLng.lng(), index
+              return
+            
+        $(this).blur ->
+          if jQuery.trim($(this).val()) == ''
+            deleteMark(index)
+            
+      setBounds()
+      
+      if mark_count == 0
+        $('#map').parents('.row').slideUp()
+        $('#map').parents('.row').removeClass('in')
+        show = false
+      else
+        $('#map').parents('.row').slideDown()
+        $('#map').parents('.row').addClass('in')
+        $('#map').css 'height', '300px'
+        show = true
         return
-      $('#canvas').Radarchart(keywords, rates)
-  ###
+      
+    google.maps.event.addDomListener window, 'load', initialize
+    #---------------------------------------------------------------------
+    # geocoding from LatLng
+    #---------------------------------------------------------------------
+    geocodeLatLng = (lat, lng, index) ->
+      latlng = new (google.maps.LatLng)(lat, lng)
+      geocoder.geocode { 'latLng': latlng }, (results, status) ->
+        if status == google.maps.GeocoderStatus.OK
+          if results[1]
+            $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).val results[0].geometry.location.lat()
+            $("input[name*='listing_destinations_attributes'][name*='longitude']").eq(index).val results[0].geometry.location.lng()
+            $("input[name*='listing_destinations_attributes'][name*='location']").eq(index).val results[0].formatted_address
+        return
+      return
+    
+    #---------------------------------------------------------------------
+    # Set Bounds
+    #---------------------------------------------------------------------
+    setBounds = ->
+      bounds = new google.maps.LatLngBounds()
+      $.each locations, (i) ->
+        if markers[i] && markers[i].map != null
+          bounds.extend markers[i].position
+      map.fitBounds bounds
+      listener = google.maps.event.addListener(map, 'idle', ->
+        if map.getZoom() > 17
+          map.setZoom 17
+        google.maps.event.removeListener listener
+        return
+      )
+
+    #---------------------------------------------------------------------
+    # delete mark
+    #---------------------------------------------------------------------
+    deleteMark = (index) ->
+      $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).val ''
+      $("input[name*='listing_destinations_attributes'][name*='longitude']").eq(index).val ''
+            
+      if markers[index]
+        markers[index].setMap(null)
+        setBounds()
+            
+      all_empty = true
+      $.each locations, (i) ->
+        if markers[i] && markers[i].map != null
+          all_empty = false
+          return
+          
+      if all_empty
+        $('#map').parents('.row').slideUp()
+        $('#map').parents('.row').removeClass('in')
+        show = false      
+      return
+        
+    #---------------------------------------------------------------------
+    # Place Change Event
+    #---------------------------------------------------------------------
+    autoComplete = ->
+      $.each autocompletes, (index) ->
+        this.addListener 'place_changed', ->
+          console.log index
+          console.log markers
+          console.log markers[index]
+          place = this.getPlace()
+          if !place.geometry
+            $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).empty()
+            $("input[name*='listing_destinations_attributes'][name*='longitude']").eq(index).empty()
+            if show == true
+              $('#map').parents('.row').slideUp()
+              show = false
+            return
+          
+          $('#map').parents('.row').slideDown()
+          $('#map').css 'height', '300px'
+          show = true
+          
+          if !map
+            mapOptions =
+              center: place.geometry.location
+              zoom: 17
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            map = new (google.maps.Map)(document.getElementById('map'), mapOptions)
+          if markers[index]
+            markers[index].setMap map
+            markers[index].setPosition place.geometry.location
+            markers[index].setVisible true
+          else
+            markers[index] = new (google.maps.Marker)(
+              map: map
+              position: place.geometry.location
+              draggable: true)
+            
+          setBounds()
+          $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).val place.geometry.location.lat()
+          $("input[name*='listing_destinations_attributes'][name*='longitude']").eq(index).val place.geometry.location.lng()
+          $("input[name*='listing_destinations_attributes'][name*='location']").eq(index).val place.name + ', ' +place.formatted_address
+          
+          google.maps.event.addListener markers[index], 'dragend', (e) ->
+            geocodeLatLng e.latLng.lat(), e.latLng.lng(), index
+      return
+    
+    autoComplete()
+    $(document).on 'click', '.add_nested_fields', ->
+      $.each locations, (i) ->
+        if markers[i] && markers[i].map != null
+          markers[i].setMap(null)
+      markers = new Array()
+      autocompletes = new Array()
+      locations = $("input[name*='listing_destinations_attributes'][name*='location']")
+      locations.each (index) ->
+        autocompletes[index] = new (google.maps.places.Autocomplete)(document.getElementById($(this).attr('id')))
+      initialize()
+      autoComplete()
+      return
+    
+    $(document).on 'click', '.remove_nested_fields', ->
+      index = $('.remove_nested_fields').index(this)
+      deleteMark(index)
+      
+      $.each locations, (i) ->
+        if markers[i] && markers[i].map != null
+          markers[i].setMap(null)
+      markers = new Array()
+      autocompletes = new Array()
+      locations = $("input[name*='listing_destinations_attributes'][name*='location']")
+      locations.each (index) ->
+        autocompletes[index] = new (google.maps.places.Autocomplete)(document.getElementById($(this).attr('id')))
+      initialize()
+      autoComplete()
+      return

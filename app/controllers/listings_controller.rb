@@ -44,15 +44,13 @@ class ListingsController < ApplicationController
   def new
     @listing = Listing.new
     @listing.build_listing_detail
-    #@categories = PickupCategory.all
-    #@tags = PickupTag.all
+    @listing.listing_destinations.build
     @areas = PickupArea.all
   end
 
   def edit
     @listing.build_listing_detail if @listing.listing_detail.blank?
-    #@categories = PickupCategory.all
-    #@tags = PickupTag.all
+    @listing.listing_destinations.build if @listing.listing_destinations.blank?
     @areas = PickupArea.all
   end
 
@@ -205,7 +203,8 @@ class ListingsController < ApplicationController
         :cover_video, :cover_video_caption,
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
         language_ids: [], pickup_ids: [],
-        listing_detail_attributes: [:id, :place, :place_longitude, :place_latitude, :place_memo, :condition, :stop_if_rain, :in_case_of_rain ]
+        listing_detail_attributes: [:id, :place_memo, :condition, :stop_if_rain, :in_case_of_rain ],
+        listing_destinations_attributes: [:id, :location, :longitude, :latitude, :_destroy ]
         )
     end
 end

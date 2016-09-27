@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160925053619) do
+ActiveRecord::Schema.define(version: 20160927093946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,6 +261,17 @@ ActiveRecord::Schema.define(version: 20160925053619) do
 
   add_index "listing_categories", ["category_id"], name: "index_listing_categories_on_category_id", using: :btree
   add_index "listing_categories", ["listing_id"], name: "index_listing_categories_on_listing_id", using: :btree
+
+  create_table "listing_destinations", force: :cascade do |t|
+    t.integer  "listing_id",                         null: false
+    t.string   "location",                           null: false
+    t.decimal  "longitude",  precision: 9, scale: 6
+    t.decimal  "latitude",   precision: 9, scale: 6
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "listing_destinations", ["listing_id"], name: "index_listing_destinations_on_listing_id", using: :btree
 
   create_table "listing_details", force: :cascade do |t|
     t.integer  "listing_id"
@@ -977,6 +988,7 @@ ActiveRecord::Schema.define(version: 20160925053619) do
   add_foreign_key "favorites", "users", column: "to_user_id"
   add_foreign_key "listing_categories", "categories"
   add_foreign_key "listing_categories", "listings"
+  add_foreign_key "listing_destinations", "listings"
   add_foreign_key "listing_details", "listings"
   add_foreign_key "listing_images", "listings"
   add_foreign_key "listing_images", "pickups"

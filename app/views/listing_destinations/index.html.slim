@@ -1,0 +1,19 @@
+h1 Listing listing_destinations
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @listing_destinations.each do |listing_destination|
+      tr
+        td = link_to 'Show', listing_destination
+        td = link_to 'Edit', edit_listing_destination_path(listing_destination)
+        td = link_to 'Destroy', listing_destination, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Listing destination', new_listing_destination_path

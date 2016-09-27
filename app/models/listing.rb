@@ -52,6 +52,8 @@
 #
 
 class Listing < ActiveRecord::Base
+  before_validation :fix_destination
+  
   soft_deletable
   soft_deletable dependent_associations: [:user]
 =begin
@@ -83,6 +85,7 @@ class Listing < ActiveRecord::Base
   has_many :listing_pickups, dependent: :destroy
   has_many :pickups, :through =>  :listing_pickups
   has_many :favorites, dependent: :destroy
+  has_many :listing_destinations, dependent: :destroy
 
   mount_uploader :cover_image, DefaultImageUploader
   mount_uploader :cover_video, ListingVideoUploader
@@ -90,6 +93,7 @@ class Listing < ActiveRecord::Base
   attr_accessor :not_valid_ok
 
   accepts_nested_attributes_for :listing_detail
+  accepts_nested_attributes_for :listing_destinations, allow_destroy: true
 
   validates :user_id, presence: true
   #validates :location, presence: true
@@ -118,6 +122,12 @@ class Listing < ActiveRecord::Base
   scope :available_num_of_guest?, -> num_of_guest { where("capacity >= ?", num_of_guest) }
   scope :available_price_min?, -> price_min { where("price >= ?", price_min) }
   scope :available_price_max?, -> price_max { where("price <= ?", price_max) }
+  
+  def fix_destination
+    self.listing_destinations.each do |listing_destination|
+      self.listing_destinations.delete(listing_destination) if listing_destination.location.blank?
+    end
+  end
   
   def open_reviews_count
     self.reviews.where(type: 'ReviewForGuide', host_id: self.user_id).joins(:reservation).merge(Reservation.review_open?).count

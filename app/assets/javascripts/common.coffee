@@ -567,6 +567,10 @@ $ ->
         return
       if $(this).attr('data-dismiss') == "modal"
         return
+      if $(this).attr('href') == "#"
+        return
+      if $(this).attr('href') == "javascript:void(0)"
+        return
       else
         handleClick($(this),$(this).attr('href'))
     $('#form_change_confirm #pagemove').on 'click', -> modalyesClick()
