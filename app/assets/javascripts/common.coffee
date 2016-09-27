@@ -101,7 +101,7 @@ $ ->
       return
 
   # profile#show
-  if $('body').hasClass('profiles show')
+  if $('body').hasClass('profiles show') || $('body').hasClass('listings show')　|| $('body').hasClass('listings preview')
 
     # profile tour location
     initialize = ->
@@ -109,19 +109,22 @@ $ ->
       mapOptions =
         scrollwheel: false
         zoom: 13
-        center: new (google.maps.LatLng)(gon.listings[0].place_latitude, gon.listings[0].place_longitude)
+        center: new (google.maps.LatLng)(gon.listing_destinations[0].latitude, gon.listing_destinations[0].longitude)
         mapTypeId: google.maps.MapTypeId.TERRAIN
 
-      map = new (google.maps.Map)(document.getElementById('tour-map'), mapOptions)
+      if $('body').hasClass('profiles show')
+        map = new (google.maps.Map)(document.getElementById('tour-map'), mapOptions)
+      else if $('body').hasClass('listings')
+        map = new (google.maps.Map)(document.getElementById('location'), mapOptions)
 
       # Multiple Markers
       # Info Window Content
       markers = new Array()
       # infoWindowContent = new Array()
-      gon.listings.map (l) ->
+      gon.listing_destinations.map (l) ->
         tmp_marker = new Array()
         #tmp_info = new Array()
-        tmp_marker.push(l.title, l.place_latitude, l.place_longitude)
+        tmp_marker.push(l.title, l.latitude, l.longitude)
         markers.push(tmp_marker)
         #tmp_info.push('<div class="info_content">aaa<h3>' + l.title + '</h3><p>' + l.description  + '</p></div>')
         #infoWindowContent.push(tmp_info)

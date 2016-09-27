@@ -20,7 +20,7 @@
         = render partial: 'request_block', locals: { listing: @listing }
         - if @listing.cover_video.blank? and @announcement.present?
           = render partial: 'banner_space', locals: { announcement: @announcement}
-        = render partial: 'option_info', locals: { listing_detail: @listing.listing_detail }
+        = render partial: 'option_info', locals: { listing_detail: @listing.listing_detail, listing_destinations: @listing.listing_destinations }
 
 .page-container.show--sp
   .row

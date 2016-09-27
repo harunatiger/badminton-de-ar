@@ -725,24 +725,6 @@ $ ->
       $('div.expandable-trigger-more', tempWrap).addClass('expanded')
     ###
 
-    # show location
-    initialize = ->
-      mapOptions =
-        scrollwheel: false
-        zoom: 13
-        center: new (google.maps.LatLng)(gon.listing.place_latitude, gon.listing.place_longitude)
-        # center: new (google.maps.LatLng)(35.319225, 139.546687)
-        mapTypeId: google.maps.MapTypeId.TERRAIN
-
-      map = new (google.maps.Map)(document.getElementById('location'), mapOptions)
-
-      marker = new (google.maps.Marker)(
-        position:  new (google.maps.LatLng)(gon.listing.place_latitude, gon.listing.place_longitude)
-        map: map )
-      return
-
-    google.maps.event.addDomListener window, 'load', initialize
-
     ###
     # carousel
     if $('.carousel-item').length > 1
@@ -931,9 +913,12 @@ $ ->
             google.maps.event.addListener markers[index], 'dragend', (e) ->
               geocodeLatLng e.latLng.lat(), e.latLng.lng(), index
               return
-            
+        
+        text = ''
+        $(this).focus ->
+          text = $(this).val()
         $(this).blur ->
-          if jQuery.trim($(this).val()) == ''
+          if text != $(this).val()
             deleteMark(index)
             
       setBounds()
@@ -1009,9 +994,6 @@ $ ->
     autoComplete = ->
       $.each autocompletes, (index) ->
         this.addListener 'place_changed', ->
-          console.log index
-          console.log markers
-          console.log markers[index]
           place = this.getPlace()
           if !place.geometry
             $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).empty()
