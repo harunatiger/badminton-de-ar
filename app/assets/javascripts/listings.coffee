@@ -1,6 +1,6 @@
 #listings.coffee
 $ ->
-  
+
   # listings#new
   if $('body').hasClass('listing_details manage') || $('body').hasClass('listing_details update')
     car1 = Number($('#listing_detail_car_rental').val())
@@ -176,6 +176,41 @@ $ ->
           url: true
       messages: 'tool[url]':
         url: 'URLアドレスを入力してください'
+
+  # listings#search =================
+  if $('body').hasClass('search')
+
+    # category selector show
+    $('.category-selected').on 'click', (e) ->
+      $('.category-radio').hide()
+      $(this).next('.category-radio').show()
+      e.preventDefault()
+
+    # category selecting
+    $('.category-radio > label').on 'click', (e) ->
+      parentContainer = $(this).parents('.category-select')
+      radioText = $(this).text()
+      radioIcon = $(this).css('background-image')
+      parentContainer.find('.category-radio').hide()
+      # for back to default value style
+      if $(this).hasClass('category-default')
+        parentContainer.find('.category-selected').text(radioText).css('background-image', 'none').removeClass('category-selected-icon')
+      else
+        parentContainer.find('.category-selected').text(radioText).css('background-image', radioIcon).addClass('category-selected-icon')
+      return
+
+    # category selector default value setting
+    $('.category-select').each ->
+      selectedContainer = $(this).find('.category-selected')
+      defaultVal = $(this).find('input[type="radio"]:checked').parent()
+      defaultValText = defaultVal.text()
+      defaultValIcon = defaultVal.css('background-image')
+      # for back to default value style
+      if defaultVal.hasClass('category-default') || defaultValText == ''
+        return
+      else
+        selectedContainer.text(defaultValText).css('background-image', defaultValIcon).addClass('category-selected-icon')
+      return
 
 
   # listings#search

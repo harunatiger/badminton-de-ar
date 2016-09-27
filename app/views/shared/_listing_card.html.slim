@@ -1,6 +1,6 @@
 .card.tour-listing
   .card-image
-    = link_to listing_path(listing), class: "media-photo media-photo-block media-cover" do
+    = link_to listing_path(listing), class: "media-photo-block media-cover" do
       .tour-cover[style="background-image:url(#{asset_path listing_cover_image_thumb_url(listing.id)})" data-original="#{asset_path listing_cover_image_thumb_url(listing.id)}"]
     .card-overlay-bottom-left.flush-left.card-overlay-label
       .h3
@@ -40,3 +40,4 @@
             .size28[style="background-image: url('#{asset_path pickup_tag.icon_small}')"]
         /.row-space-1.text-muted
           | #{format_time_required(listing.listing_detail.time_required.to_s, 'hours') if listing.listing_detail.present?} · Review #{listing.open_reviews_count}
+  .tour-tag Tour
