@@ -238,10 +238,29 @@ $ ->
 
     # reset filetr
     $('.cancel-filter').on 'click', (e) ->
-      $('.default-buttons').show()
-      $('.sort-filter, .apply-buttons').hide()
-      $('#tab-spot, #tab-tour').removeClass('active')
-      $('.sort-filter li').removeClass('active')
+      # sp
+      if $('.filters').css('position') == 'fixed'
+        $('.filters').hide()
+      # pc
+      else
+        $('.default-buttons').show()
+        $('.sort-filter, .apply-buttons').hide()
+        $('#tab-spot, #tab-tour').removeClass('active')
+        $('.sort-filter li').removeClass('active')
+      e.preventDefault()
+
+    # sp sort-tab toggle
+    $('.sort-filter a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
+      if $('.filters').css('position') == 'fixed'
+        $('.apply-buttons').show()
+      return
+
+    # sp filter show/hide
+    $('.js-small-filter-show').on 'click', (e) ->
+      $('.filters').show()
+      e.preventDefault()
+    $('.js-small-filters-close').on 'click', (e) ->
+      $('.filters').hide()
       e.preventDefault()
 
   # listings#search
@@ -908,21 +927,21 @@ $ ->
               anchorPoint: new google.maps.Point(0,-24)
               draggable: true)
             bounds.extend markers[index].position
-            
+
             show = true
             google.maps.event.addListener markers[index], 'dragend', (e) ->
               geocodeLatLng e.latLng.lat(), e.latLng.lng(), index
               return
-        
+
         text = ''
         $(this).focus ->
           text = $(this).val()
         $(this).blur ->
           if text != $(this).val()
             deleteMark(index)
-            
+
       setBounds()
-      
+
       if mark_count == 0
         $('#map').parents('.row').slideUp()
         $('#map').parents('.row').removeClass('in')
@@ -933,7 +952,7 @@ $ ->
         $('#map').css 'height', '300px'
         show = true
         return
-      
+
     google.maps.event.addDomListener window, 'load', initialize
     #---------------------------------------------------------------------
     # geocoding from LatLng
@@ -948,7 +967,7 @@ $ ->
             $("input[name*='listing_destinations_attributes'][name*='location']").eq(index).val results[0].formatted_address
         return
       return
-    
+
     #---------------------------------------------------------------------
     # Set Bounds
     #---------------------------------------------------------------------
@@ -971,23 +990,23 @@ $ ->
     deleteMark = (index) ->
       $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).val ''
       $("input[name*='listing_destinations_attributes'][name*='longitude']").eq(index).val ''
-            
+
       if markers[index]
         markers[index].setMap(null)
         setBounds()
-            
+
       all_empty = true
       $.each locations, (i) ->
         if markers[i] && markers[i].map != null
           all_empty = false
           return
-          
+
       if all_empty
         $('#map').parents('.row').slideUp()
         $('#map').parents('.row').removeClass('in')
-        show = false      
+        show = false
       return
-        
+
     #---------------------------------------------------------------------
     # Place Change Event
     #---------------------------------------------------------------------
@@ -1002,11 +1021,11 @@ $ ->
               $('#map').parents('.row').slideUp()
               show = false
             return
-          
+
           $('#map').parents('.row').slideDown()
           $('#map').css 'height', '300px'
           show = true
-          
+
           if !map
             mapOptions =
               center: place.geometry.location
@@ -1022,16 +1041,16 @@ $ ->
               map: map
               position: place.geometry.location
               draggable: true)
-            
+
           setBounds()
           $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).val place.geometry.location.lat()
           $("input[name*='listing_destinations_attributes'][name*='longitude']").eq(index).val place.geometry.location.lng()
           $("input[name*='listing_destinations_attributes'][name*='location']").eq(index).val place.name + ', ' +place.formatted_address
-          
+
           google.maps.event.addListener markers[index], 'dragend', (e) ->
             geocodeLatLng e.latLng.lat(), e.latLng.lng(), index
       return
-    
+
     autoComplete()
     $(document).on 'click', '.add_nested_fields', ->
       $.each locations, (i) ->
@@ -1045,11 +1064,11 @@ $ ->
       initialize()
       autoComplete()
       return
-    
+
     $(document).on 'click', '.remove_nested_fields', ->
       index = $('.remove_nested_fields').index(this)
       deleteMark(index)
-      
+
       $.each locations, (i) ->
         if markers[i] && markers[i].map != null
           markers[i].setMap(null)

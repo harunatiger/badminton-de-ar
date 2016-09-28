@@ -1,7 +1,16 @@
 .map-search-container
   .sidebar
+    .search-trigger--sp.show--sp.page-container
+      .row.row-condensed
+        .col-sm-8
+          form
+            input[type="text" placeholder="location"]
+            i.fa.fa-search.fa-brand
+        .col-sm-4
+          = link_to "FILTERS", "#", class: "js-small-filter-show btn btn-block btn-primary"
+          
     = render partial: 'filter', locals: { hit_count: @hit_count, conditions: @conditions, listing: @listing }
-    .sidebar-header-placeholder
+    .sidebar-header-placeholder.show--sp
     - if @listings.blank? and @spots.blank?
       .no-listings-block
         div
@@ -11,8 +20,6 @@
             | 条件を変えて検索してみましょう。
     - else
       = render partial: 'result_block', locals: { listings: @listings, spots: @spots, conditions: @conditions }
-    .card-btn--sp.filters-btn.fixed.show--sp
-      button.js-small-filter-toggle.btn.btn-large.btn-block.btn-primary 検索条件
   .map.hide--sp
     - if @listings.blank? and @spots.blank?
       .no-listings-map
