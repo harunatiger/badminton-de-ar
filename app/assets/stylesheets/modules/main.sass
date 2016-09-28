@@ -814,8 +814,24 @@ a.delete
     overflow-x: hidden
 
   .results-footer
+    padding: 10px 0 40px
     overflow: hidden
-    padding: 20px
+    @media (max-width: 767px)
+      padding: 0px 0 60px
+    ul
+      li
+        margin: 0 1px
+        a
+          display: inline-block
+          min-width: 20px
+          color: $gray1
+          font-size: 16px
+          text-decoration: none
+          &:hover
+            color: $brand-theme
+        &.active
+          a
+            border-bottom: 1px solid #999
 
   .results_count
     margin: 0px 0px 5px 2px

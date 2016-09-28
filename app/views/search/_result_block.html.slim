@@ -2,5 +2,13 @@
       .outer-listings-container.row-space-5.row-space-2-sm
         .row.listings-container
           = render partial: 'result_item', locals: { listings: listings, spots: spots }
-      .results-footer
-        = paginate listings
+      .results-footer.text-center
+        /= paginate listings
+        ul.list-inline
+          li.active
+            = link_to "1", "#"
+          li
+            = link_to "2", "#"
+          li
+            = link_to "3", "#"
+        
