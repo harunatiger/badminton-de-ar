@@ -255,6 +255,7 @@ user:
     success: |-
       The process for deleting your account has been completed.Thank you for using Huber.
       退会が完了しました。Huber.をご利用頂き誠にありがとうございました。
+  active_period: 14
 image:
   noimage:
     url: 'no-image-1024x640.gif'

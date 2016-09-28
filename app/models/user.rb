@@ -378,4 +378,8 @@ class User < ActiveRecord::Base
     end
     (return_in_1day_count / total_count.to_f * 100).round.to_s + '%'
   end
+  
+  def active?
+    current_user.last_access_date.present? and current_user.last_access_date > Time.zone.today - Settings.user.active_period.days
+  end
 end

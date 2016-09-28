@@ -49,6 +49,6 @@ class FavoritesController < ApplicationController
   end
   
   def spots
-    @favorite_spots = FavoriteSpot.without_soft_destroyed.where(from_user_id: current_user.id)
+    @favorite_spots = FavoriteSpot.without_soft_destroyed.where(from_user_id: current_user.id).includes(:spot).page(params[:page]).per(6)
   end
 end
