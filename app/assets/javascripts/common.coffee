@@ -693,6 +693,9 @@ $ ->
       location_being_changed = undefined
 
       google.maps.event.addListener autocomplete, 'place_changed', ->
+        if place = this.getPlace()
+          $("#search_latitude").val place.geometry.location.lat()
+          $("#search_longitude").val place.geometry.location.lng()
         location_being_changed = false
         return
 

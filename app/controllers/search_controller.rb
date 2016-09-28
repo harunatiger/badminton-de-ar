@@ -1,10 +1,17 @@
 class SearchController < ApplicationController
   def search
-    @listings = Listing.all.opened.page(params[:page])
+    @listings = Listing.search(search_params)
     @spots = Spot.all
-    gon.listings = @listings
+    @hit_count = 0
     
-    @hit_count = @listings.count + @spots.count
+    if @listings.present?
+      gon.listing_destinations = ListingDestination.where(listing_id: @listings.ids) if @listings.present?
+      @hit_count += @listings.count 
+    end
+    
+    if @spots.present?
+      @hit_count += @spots.count
+    end
     @conditions = search_params
   end
   
@@ -13,6 +20,6 @@ class SearchController < ApplicationController
   
   private
   def search_params
-    params.require(:search).permit(:location, :schedule, :num_of_guest, :price, :confection, :tool, :wafuku, :keywords, :where)
+    params.require(:search).permit(:location, :latitude, :longitude, :schedule, :num_of_guest, :price, :confection, :tool, :wafuku, :keywords, :where)
   end
 end

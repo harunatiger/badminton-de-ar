@@ -52,6 +52,8 @@
 #
 
 class Listing < ActiveRecord::Base
+  include Search
+  
   before_validation :fix_destination
   
   soft_deletable
@@ -168,35 +170,44 @@ class Listing < ActiveRecord::Base
   end
 
   def self.search(search_params)
-    location = Listing.arel_table['location']
-    location_sel = location.matches("\%#{search_params["location"]}\%")
-    if search_params['where'] == 'top' || search_params['where'] == 'header'
-      Listing.search_location(location_sel).available_num_of_guest?(search_params['num_of_guest'])
-    elsif search_params['where'] == 'listing_search'
-      # tba: schedule
-      price = search_params['price'].split(',')
-      price_min = price[0].to_i
-      price_max = price[1].to_i
-      keywords = Listing.arel_table['description']
-      keywords_sel = keywords.matches("\%#{search_params["keywords"]}\%")
-      if search_params['wafuku'].present?
-        Listing.search_location(location_sel)
-               .available_num_of_guest?(search_params['num_of_guest'])
-               .available_price_min?(price_min)
-               .available_price_max?(price_max)
-               .joins{ dress_code.outer }.where{ (dress_code.wafuku == search_params['wafuku']) }
-               .search_keywords(keywords_sel)
-      else
-        Listing.search_location(location_sel)
-               .available_num_of_guest?(search_params['num_of_guest'])
-               .available_price_min?(price_min)
-               .available_price_max?(price_max)
-               .search_keywords(keywords_sel)
+    if search_params["longitude"].present? && search_params["latitude"].present?
+      listings = Listing.opened
+      listing_destinations = ListingDestination.where(listing_id: listings.ids).where.not(latitude: nil, longitude: nil)
+      array = listing_destinations
+      array.each do |listing_destination|
+        distance = Search.distance(search_params["longitude"].to_f, search_params["latitude"].to_f, listing_destination.longitude, listing_destination.latitude)
+        
+        if distance > 10
+          listing_destinations.delete(listing_destination)
+        end
       end
+      Listing.where(id: listing_destinations.pluck(:listing_id))
     end
+#     location_sel = location.matches("\%#{search_params["location"]}\%")
+#     if search_params['where'] == 'top' || search_params['where'] == 'header'
+#       Listing.search_location(location_sel).available_num_of_guest?(search_params['num_of_guest'])
+#     elsif search_params['where'] == 'listing_search'
+#       # tba: schedule
+#       price = search_params['price'].split(',')
+#       price_min = price[0].to_i
+#       price_max = price[1].to_i
+#       keywords = Listing.arel_table['description']
+#       keywords_sel = keywords.matches("\%#{search_params["keywords"]}\%")
+#       if search_params['wafuku'].present?
+#         Listing.search_location(location_sel)
+#                .available_num_of_guest?(search_params['num_of_guest'])
+#                .available_price_min?(price_min)
+#                .available_price_max?(price_max)
+#                .joins{ dress_code.outer }.where{ (dress_code.wafuku == search_params['wafuku']) }
+#                .search_keywords(keywords_sel)
+#       else
+#         Listing.search_location(location_sel)
+#                .available_num_of_guest?(search_params['num_of_guest'])
+#                .available_price_min?(price_min)
+#                .available_price_max?(price_max)
+#                .search_keywords(keywords_sel)
+#       end
   end
-
-
 
   def current_user_bookmarked?(user_id)
     Favorite.exists?(user_id: user_id, listing_id: self.id)

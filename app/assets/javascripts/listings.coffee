@@ -179,6 +179,33 @@ $ ->
 
   # listings#search =================
   if $('body').hasClass('search')
+    #! auto complete
+    initPAC = ->
+      input = document.getElementById('location-search')
+      options = {
+        #types: [ '(cities)' ],
+        componentRestrictions: {
+          country: "jp"
+        }
+      }
+      autocomplete = new (google.maps.places.Autocomplete)(input, options)
+      location_being_changed = undefined
+
+      google.maps.event.addListener autocomplete, 'place_changed', ->
+        location_being_changed = false
+        return
+
+      $('#location-search').keydown (e) ->
+        if e.keyCode == 13
+          if location_being_changed
+            e.preventDefault()
+            e.stopPropagation()
+        else
+          location_being_changed = true
+        return
+      return
+    #! auto complete activate
+    initPAC()
 
     # category selector show
     $('.category-selected').on 'click', (e) ->
@@ -939,8 +966,9 @@ $ ->
         $(this).blur ->
           if text != $(this).val()
             deleteMark(index)
-
-      setBounds()
+      
+      if map
+        setBounds()
 
       if mark_count == 0
         $('#map').parents('#map-wrapper').slideUp()

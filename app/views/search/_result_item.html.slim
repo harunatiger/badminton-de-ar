@@ -1,6 +1,8 @@
-- listings.each do |listing|
-  .col-sm-12.col-md-6.row-space-4
-    = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
-- spots.each do |spot|
-  .col-sm-12.col-md-6.row-space-4
-    = render partial: 'shared/spot_card', locals: { profile: user_id_to_profile(spot.user_id), spot: spot}
+- if listings.present?
+  - listings.each do |listing|
+    .col-sm-12.col-md-6.row-space-4
+      = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
+- if spots.present?
+  - spots.each do |spot|
+    .col-sm-12.col-md-6.row-space-4
+      = render partial: 'shared/spot_card', locals: { profile: user_id_to_profile(spot.user_id), spot: spot}
