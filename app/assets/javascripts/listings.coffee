@@ -943,12 +943,12 @@ $ ->
       setBounds()
 
       if mark_count == 0
-        $('#map').parents('.row').slideUp()
-        $('#map').parents('.row').removeClass('in')
+        $('#map').parents('#map-wrapper').slideUp()
+        $('#map').parents('#map-wrapper').removeClass('in')
         show = false
       else
-        $('#map').parents('.row').slideDown()
-        $('#map').parents('.row').addClass('in')
+        $('#map').parents('#map-wrapper').slideDown()
+        $('#map').parents('#map-wrapper').addClass('in')
         $('#map').css 'height', '300px'
         show = true
         return
@@ -1002,8 +1002,8 @@ $ ->
           return
 
       if all_empty
-        $('#map').parents('.row').slideUp()
-        $('#map').parents('.row').removeClass('in')
+        $('#map').parents('#map-wrapper').slideUp()
+        $('#map').parents('#map-wrapper').removeClass('in')
         show = false
       return
 
@@ -1018,11 +1018,11 @@ $ ->
             $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).empty()
             $("input[name*='listing_destinations_attributes'][name*='longitude']").eq(index).empty()
             if show == true
-              $('#map').parents('.row').slideUp()
+              $('#map').parents('#map-wrapper').slideUp()
               show = false
             return
 
-          $('#map').parents('.row').slideDown()
+          $('#map').parents('#map-wrapper').slideDown()
           $('#map').css 'height', '300px'
           show = true
 

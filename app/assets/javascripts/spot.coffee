@@ -1,6 +1,6 @@
 $ ->
   if $('body').hasClass('spots new') || $('body').hasClass('spots edit') || $('body').hasClass('spots create') || $('body').hasClass('spots update')
-    
+
     #---------------------------------------------------------------------
     # GoogleMap for Place
     #---------------------------------------------------------------------
@@ -13,12 +13,12 @@ $ ->
         $('.select_spot_category').each (index) ->
           $(this).children("i").remove()
           $(this).removeClass('listing_image_selected')
-      
+
         $(this).addClass('listing_image_selected')
         $(this).append("<i class='fa fa-check'></i>")
         $('#spot_pickup_id').val($(this).attr('pickup_id'))
       return false
-      
+
     #---------------------------------------------------------------------
     # GoogleMap for Place
     #---------------------------------------------------------------------
@@ -47,8 +47,8 @@ $ ->
             position: latlng
             anchorPoint: new google.maps.Point(0,-24)
             draggable: true)
-          $('#map').parents('.row').slideDown()
-          $('#map').parents('.row').addClass('in')
+          $('#map').parents('#map-wrapper').slideDown()
+          $('#map').parents('#map-wrapper').addClass('in')
           $('#map').css 'height', '300px'
           autocomplete.bindTo 'bounds', map
           show = true
@@ -56,24 +56,24 @@ $ ->
             geocodeLatLng e.latLng.lat(), e.latLng.lng()
             return
         else
-          $('#map').parents('.row').slideUp()
-          $('#map').parents('.row').removeClass('in')
+          $('#map').parents('#map-wrapper').slideUp()
+          $('#map').parents('#map-wrapper').removeClass('in')
           show = false
       else
-        $('#map').parents('.row').slideUp()
-        $('#map').parents('.row').removeClass('in')
+        $('#map').parents('#map-wrapper').slideUp()
+        $('#map').parents('#map-wrapper').removeClass('in')
         show = false
-      
+
       $('#spot_location').blur ->
         if jQuery.trim($(this).val()) == ''
           $('#spot_latitude').val 0.0
           $('#spot_longitude').val 0.0
-          $('#map').parents('.row').slideUp()
-          $('#map').parents('.row').removeClass('in')
+          $('#map').parents('#map-wrapper').slideUp()
+          $('#map').parents('#map-wrapper').removeClass('in')
           show = false
         return
       return
-    
+
     google.maps.event.addDomListener window, 'load', initialize
     #---------------------------------------------------------------------
     # geocoding from LatLng
@@ -97,10 +97,10 @@ $ ->
         $('#spot_latitude').empty()
         $('#spot_longitude').empty()
         if show = true
-          $('#map').parents('.row').slideUp()
+          $('#map').parents('#map-wrapper').slideUp()
           show = false
         return
-      $('#map').parents('.row').slideDown()
+      $('#map').parents('#map-wrapper').slideDown()
       $('#map').css 'height', '300px'
       show = true
       if map
@@ -132,7 +132,7 @@ $ ->
         return
       return
     return
-  
+
   if $('body').hasClass('spots show')
     # show location
     initialize = ->

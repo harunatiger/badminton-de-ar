@@ -1,6 +1,7 @@
 = render partial: 'shared/error_message', locals: { target: @spot} if @spot.present?
 = render 'shared/subnav'
-| 穴場登録
-br
-| あなたが紹介したい、お気に入りを登録してください。
-= render 'form'
+.page-container
+  .text-center.row-space-top-6.row-space-6
+    h2 穴場の登録
+    .h5 お気に入りの穴場を登録して、あなたのガイドの価値を高めましょう。
+  = render 'form'
