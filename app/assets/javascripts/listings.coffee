@@ -179,32 +179,50 @@ $ ->
 
   # listings#search =================
   if $('body').hasClass('search')
+    
     #! auto complete
     initPAC = ->
-      input = document.getElementById('location-search')
+      inputs = $("input[name='search[location]']")
       options = {
         #types: [ '(cities)' ],
         componentRestrictions: {
           country: "jp"
         }
       }
-      autocomplete = new (google.maps.places.Autocomplete)(input, options)
+
+      autocompletes = new Array()
+      inputs.each (index) ->
+        autocompletes[index] = new (google.maps.places.Autocomplete)(document.getElementById($(this).attr('id')))
       location_being_changed = undefined
 
-      google.maps.event.addListener autocomplete, 'place_changed', ->
-        if place = this.getPlace()
-          $('#search_latitude').val place.geometry.location.lat()
-          $('#search_longitude').val　place.geometry.location.lng()
-        location_being_changed = false
-        return
+      $.each autocompletes, ->
+        google.maps.event.addListener this, 'place_changed', ->
+          place = this.getPlace()
+          if place.geometry
+            inputs.each ->
+              $(this).val place.formatted_address
+            $('#search_latitude').val place.geometry.location.lat()
+            $('#search_longitude').val　place.geometry.location.lng()
+            $('#search_form').submit()
+          location_being_changed = false
+          return
 
-      $('#location-search').keydown (e) ->
+      inputs.keydown (e) ->
         if e.keyCode == 13
           if location_being_changed
             e.preventDefault()
             e.stopPropagation()
         else
           location_being_changed = true
+        return
+      
+      # sync text box
+      inputs.keyup (e) ->
+        val = $(this).val()
+        inputs.each ->
+          $(this).val val
+          $('#search_latitude').val ''
+          $('#search_longitude').val　''
         return
       return
     #! auto complete activate

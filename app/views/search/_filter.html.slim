@@ -1,141 +1,41 @@
-= simple_form_for(:search, url: search_path, html: {class: "trip-form", method: 'get'}) do |f|
-  .filters
-    = f.error_notification
-    = f.hidden_field :where, value: 'listing_search'
-    /= f.hidden_field :location, value: @conditions['location']
-
-    .card-header.filters-section.show--sp.text-center
-      = link_to "", "#", class: "modal-close js-small-filters-close"
-      | Search
-
-    .intro-filter.filters-section.card-body
-      .row.row-condensed
-        .col-sm-3.col-md-1.row-space-1--sp.text-right
-          i.fa.fa-search.fa-brand.fa-size-1
-        .col-sm-9.col-md-10
-          input.location#location-search[type="text" placeholder="location" value=@conditions['location']]
-          = f.hidden_field :latitude, value: @conditions['latitude']
-          = f.hidden_field :longitude, value: @conditions['longitude']
-          /= f.input_field :schedule, placeholder: "参加する日"
-          /= f.input_field :num_of_guest, as: :select, class: "guest-select", collection: [['参加人数 1人', :'1'], ['参加人数 2人', :'2'], ['参加人数 3人', :'3'], ['参加人数 4人', :'4'], ['参加人数 5人', :'5'], ['参加人数 6人', :'6'], ['参加人数 7人', :'7'], ['参加人数 8人', :'8'], ['参加人数 9人', :'9'], ['参加人数 10人', :'10'], ['参加人数 11人', :'11'], ['参加人数 12人', :'12'], ['参加人数 13人', :'13'], ['参加人数 14人', :'14'], ['参加人数 15人', :'15'], ['参加人数 16人以上', :'16+']], default: ['1']
-    .sort-filter.filters-section.card-body
-      .row
-        .col-sm-4.col-md-3.text-left.col-subject
-          span Sort by
-        .col-sm-8.col-md-9
-          ul.nav.nav-tabs
-            li
-              = link_to "Tour", "#tab-tour", data: {toggle: "tab"}
-            li
-              = link_to "Spot", "#tab-spot", data: {toggle: "tab"}
-    .tab-content
-      #tab-tour.tab-pane
-        .location-filter.filters-section.card-body.show--sp
-          .form
-            input[type="text" placeholder="location"]
-            i.fa.fa-search.fa-brand
-
-        .category-filters.filters-section.card-body
-          .row
-            .col-sm-12.col-md-3.text-left.col-subject
-              span Category
-            .col-sm-12.col-md-9
-              .category-filters-inner
-                .row.row-condensed
-                  .col-sm-4.col-md-6.col-lg-4
-                    .category-select
-                      .category-selected
-                        span Choose Category
-                      .category-radio
-                        label.category-default
-                          | Choose Category
-                          input[name="category1" type="radio" value=""]
-                        - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
-                          /= hidden_field_tag  :category, pickup_tag.short_name
-                          label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
-                            span = pickup_tag.short_name
-                            input[name="category1" type="radio" value="#{ pickup_tag.short_name }"]
-
-                  .col-sm-4.col-md-6.col-lg-4
-                    .category-select
-                      .category-selected
-                        | Choose Category
-                      .category-radio
-                        label.category-default
-                          | Choose Category
-                          input[name="category2" type="radio" value=""]
-                        - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
-                          /= hidden_field_tag  :category, pickup_tag.short_name
-                          label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
-                            span = pickup_tag.short_name
-                            input[name="category2" type="radio" value="#{ pickup_tag.short_name }"]
-
-                  .col-sm-4.col-md-6.col-lg-4
-                    .category-select.last
-                      .category-selected
-                        | Choose Category
-                      .category-radio
-                        label.category-default
-                          | Choose Category
-                          input[name="category3" type="radio" value=""]
-                        - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
-                          /= hidden_field_tag  :category, pickup_tag.short_name
-                          label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
-                            span = pickup_tag.short_name
-                            input[name="category3" type="radio" value="#{ pickup_tag.short_name }"]
-
-        .date-filters.filters-section.card-body
-          .row
-            .col-md-3.text-left.col-subject.hide--sp
-              span Date
-            .col-sm-12.col-md-9
-              .row
-                .col-md-12.col-lg-5
-                  = f.input_field :schedule, placeholder: "MM/DD/YY", class: "datepicker"
-                .col-md-12.col-lg-5
-                  .select.select-block
-                    = f.input_field :num_of_people, as: :select, collection: [1,2,3], selected: [1]
-        .duration-filter.filters-section.card-body
-          .row
-            .col-sm-6.col-md-3.text-left.col-subject
-              span Duration
-            .col-sm-12.col-md-9
-              .row-space-top-4.row-space-2
-                input#duration-range
-        .laguage-filter.filters-section.card-body
-          .row
-            .col-sm-6.col-md-3.text-left.col-subject
-              span Language
-            .col-sm-12.col-md-9
-              .language-select
-                = collection_check_boxes(:listing, :language_ids, Language.ordered, :id, :name) do |l|
-                  /= debug l
-                  label
-                    = l.check_box
-                    - if l.value == 2
-                      span EN
-                    - elsif l.value == 3
-                      span ZH
-                    - elsif l.value == 4
-                      span DE
-                    - elsif l.value == 5
-                      span FR
-                    - elsif l.value == 6
-                      span ES
-                    - else
-                      span JA
-
-      #tab-spot.tab-pane
-        .filters-section.card-body
-          .row
-            .col-sm-4.col-md-3.text-left.col-subject
-              span Category
-            .col-sm-8.col-md-9
+.filters
+  .card-header.filters-section.show--sp.text-center
+    = link_to "", "#", class: "modal-close js-small-filters-close"
+    | Search
+  
+  .intro-filter.filters-section.card-body
+    .row.row-condensed
+      .col-sm-3.col-md-1.row-space-1--sp.text-right
+        i.fa.fa-search.fa-brand.fa-size-1
+      .col-sm-9.col-md-10
+        input.location#location-search[type="text" placeholder="location" value=@conditions['location'] name="search[location]"]
+  .sort-filter.filters-section.card-body
+    .row
+      .col-sm-4.col-md-3.text-left.col-subject
+        span Sort by
+      .col-sm-8.col-md-9
+        ul.nav.nav-tabs
+          li
+            = link_to "Tour", "#tab-tour", data: {toggle: "tab"}
+          li
+            = link_to "Spot", "#tab-spot", data: {toggle: "tab"}
+  .tab-content
+    #tab-tour.tab-pane
+      .location-filter.filters-section.card-body.show--sp
+        .form
+          input#location-search-filter-sp[type="text" placeholder="location" value=@conditions['location'] name="search[location]"]
+          i.fa.fa-search.fa-brand
+      .category-filters.filters-section.card-body
+        .row
+          .col-sm-12.col-md-3.text-left.col-subject
+            span Category
+          .col-sm-12.col-md-9
+            .category-filters-inner
               .row.row-condensed
-                .col-sm-12.col-md-6.col-lg-4
+                .col-sm-4.col-md-6.col-lg-4
                   .category-select
                     .category-selected
-                      | Choose Category
+                      span Choose Category
                     .category-radio
                       label.category-default
                         | Choose Category
@@ -143,17 +43,111 @@
                       - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
                         /= hidden_field_tag  :category, pickup_tag.short_name
                         label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
-                          = pickup_tag.short_name
+                          span = pickup_tag.short_name
                           input[name="category1" type="radio" value="#{ pickup_tag.short_name }"]
 
-    .filter-buttons.filters-section.card-body.text-right.row-space-6
-      .default-buttons.hide--sp
-        = link_to "#", class: "btn btn-primary show-sort-filter" do
-          span.text-more-filters MORE FILTERS
-      .apply-buttons
-        = link_to "#", class: "btn cancel-filter" do
-          span.text-more-filters CANCEL
-        = f.button :submit, "APPLY FILTERS", class: "btn btn-primary"
+                .col-sm-4.col-md-6.col-lg-4
+                  .category-select
+                    .category-selected
+                      | Choose Category
+                    .category-radio
+                      label.category-default
+                        | Choose Category
+                        input[name="category2" type="radio" value=""]
+                      - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
+                        /= hidden_field_tag  :category, pickup_tag.short_name
+                        label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
+                          span = pickup_tag.short_name
+                          input[name="category2" type="radio" value="#{ pickup_tag.short_name }"]
+
+                .col-sm-4.col-md-6.col-lg-4
+                  .category-select.last
+                    .category-selected
+                      | Choose Category
+                    .category-radio
+                      label.category-default
+                        | Choose Category
+                        input[name="category3" type="radio" value=""]
+                      - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
+                        /= hidden_field_tag  :category, pickup_tag.short_name
+                        label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
+                          span = pickup_tag.short_name
+                          input[name="category3" type="radio" value="#{ pickup_tag.short_name }"]
+
+      .date-filters.filters-section.card-body
+        .row
+          .col-md-3.text-left.col-subject.hide--sp
+            span Date
+          .col-sm-12.col-md-9
+            .row
+              .col-md-12.col-lg-5
+                = f.input_field :schedule, placeholder: "MM/DD/YY", class: "datepicker"
+              .col-md-12.col-lg-5
+                .select.select-block
+                  = f.input_field :num_of_people, as: :select, collection: [1,2,3], selected: [1]
+      .duration-filter.filters-section.card-body
+        .row
+          .col-sm-6.col-md-3.text-left.col-subject
+            span Duration
+          .col-sm-12.col-md-9
+            .row-space-top-4.row-space-2
+              input#duration-range
+      .laguage-filter.filters-section.card-body
+        .row
+          .col-sm-6.col-md-3.text-left.col-subject
+            span Language
+          .col-sm-12.col-md-9
+            .language-select
+              = collection_check_boxes(:listing, :language_ids, Language.ordered, :id, :name) do |l|
+                /= debug l
+                label
+                  = l.check_box
+                  - if l.value == 2
+                    span EN
+                  - elsif l.value == 3
+                    span ZH
+                  - elsif l.value == 4
+                    span DE
+                  - elsif l.value == 5
+                    span FR
+                  - elsif l.value == 6
+                    span ES
+                  - else
+                    span JA
+
+    #tab-spot.tab-pane
+      .location-filter.filters-section.card-body.show--sp
+        .form
+          input#location-search-filter-sp[type="text" placeholder="location" value=@conditions['location'] name="search[location]"]
+          i.fa.fa-search.fa-brand
+      .filters-section.card-body
+        .row
+          .col-sm-4.col-md-3.text-left.col-subject
+            span Category
+          .col-sm-8.col-md-9
+            .row.row-condensed
+              .col-sm-12.col-md-6.col-lg-4
+                .category-select
+                  .category-selected
+                    | Choose Category
+                  .category-radio
+                    label.category-default
+                      | Choose Category
+                      input[name="category1" type="radio" value=""]
+                    - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
+                      /= hidden_field_tag  :category, pickup_tag.short_name
+                      label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
+                        = pickup_tag.short_name
+                        input[name="category1" type="radio" value="#{ pickup_tag.short_name }"]
+
+  .filter-buttons.filters-section.card-body.text-right.row-space-6
+    .default-buttons.hide--sp
+      = link_to "#", class: "btn btn-primary show-sort-filter" do
+        span.text-more-filters MORE FILTERS
+    .apply-buttons
+      = link_to "#", class: "btn cancel-filter" do
+        span.text-more-filters CANCEL
+      = f.button :submit, "APPLY FILTERS", class: "btn btn-primary"
 
 
 
