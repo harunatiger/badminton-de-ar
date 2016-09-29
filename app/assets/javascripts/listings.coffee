@@ -971,17 +971,15 @@ $ ->
         $(this).blur ->
           if text != $(this).val()
             deleteMark(index)
-      
+
       if map
         setBounds()
 
       if mark_count == 0
-        alert 999
         $('#map').parents('#map-wrapper').slideUp()
         $('#map').parents('#map-wrapper').removeClass('in')
         show = false
       else
-        alert 888
         $('#map').parents('#map-wrapper').slideDown()
         $('#map').parents('#map-wrapper').addClass('in')
         $('#map').css 'height', '300px'
