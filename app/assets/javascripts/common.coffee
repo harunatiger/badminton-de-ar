@@ -101,12 +101,12 @@ $ ->
       return
 
   # profile#show
-  if $('body').hasClass('profiles show') || $('body').hasClass('listings')
+  if $('body').hasClass('profiles show') || $('body').hasClass('listings show') || $('body').hasClass('listings preview')
 
     # profile tour location
     initialize = ->
       bounds = new google.maps.LatLngBounds()
-      if gon.listing_destinations[0]
+      if gon.listing_destinations
         latitude = gon.listing_destinations[0].latitude
         longitude = gon.listing_destinations[0].longitude
       else
@@ -693,9 +693,10 @@ $ ->
       location_being_changed = undefined
 
       google.maps.event.addListener autocomplete, 'place_changed', ->
-        if place = this.getPlace()
-          $("#search_latitude").val place.geometry.location.lat()
-          $("#search_longitude").val place.geometry.location.lng()
+        place = this.getPlace()
+        if place.geometry
+          $('#search_form').find('#search_latitude').val place.geometry.location.lat()
+          $('#search_form').find('#search_longitude').val　place.geometry.location.lng()
         location_being_changed = false
         return
 
@@ -705,6 +706,8 @@ $ ->
             e.preventDefault()
             e.stopPropagation()
         else
+          $('#search_form').find('#search_latitude').val ''
+          $('#search_form').find('#search_longitude').val　''
           location_being_changed = true
         return
       return
@@ -724,6 +727,10 @@ $ ->
       location_being_changed = undefined
 
       google.maps.event.addListener autocomplete, 'place_changed', ->
+        place = this.getPlace()
+        if place.geometry
+          $('#headroom-header').find('#search_latitude').val place.geometry.location.lat()
+          $('#headroom-header').find('#search_longitude').val　place.geometry.location.lng()
         location_being_changed = false
         return
 
@@ -733,6 +740,8 @@ $ ->
             e.preventDefault()
             e.stopPropagation()
         else
+          $('#headroom-header').find('#search_latitude').val ''
+          $('#headroom-header').find('#search_longitude').val　''
           location_being_changed = true
         return
       return

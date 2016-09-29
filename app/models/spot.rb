@@ -20,6 +20,8 @@
 #
 
 class Spot < ActiveRecord::Base
+  include Search
+  
   belongs_to :user
   belongs_to :pickup
   has_one :spot_image
@@ -42,16 +44,8 @@ class Spot < ActiveRecord::Base
     if self.longitude.present? && self.latitude.present?
       Spot.where.not(id: self.id).order_by_updated_at_desc.each do |spot|
         if spot.longitude.present? && spot.latitude.present?
-          from_x = self.longitude * Math::PI / 180
-          from_y = self.latitude * Math::PI / 180
-          to_x = spot.longitude * Math::PI / 180
-          to_y = spot.latitude * Math::PI / 180
-          earth_r = 6378140
-
-          deg = Math::sin(from_y) * Math::sin(to_y) + Math::cos(from_y) * Math::cos(to_y) * Math::cos(to_x - from_x)
-          distance = earth_r * (Math::atan(-deg / Math::sqrt(-deg * deg + 1)) + Math::PI / 2) / 1000
-
-          if distance < 10
+          distance = Search.distance(self.longitude, self.latitude, spot.longitude, spot.latitude)
+          if distance < Settings.search.distance
             list.push(spot)
           end
         end
@@ -59,6 +53,21 @@ class Spot < ActiveRecord::Base
       return list.sample(3)
     else
       return nil
+    end
+  end
+  
+  def self.search(search_params)
+    if search_params["longitude"].present? && search_params["latitude"].present?
+      spots = Spot.where.not(latitude: nil, longitude: nil)
+      spot_id_array = []
+      spots.each do |spot|
+        distance = Search.distance(search_params["longitude"].to_f, search_params["latitude"].to_f, spot.longitude, spot.latitude)
+        
+        if distance <= Settings.search.distance
+          spot_id_array.push(spot.id)
+        end
+      end
+      Spot.where(id: spot_id_array)
     end
   end
 end

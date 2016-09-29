@@ -173,15 +173,15 @@ class Listing < ActiveRecord::Base
     if search_params["longitude"].present? && search_params["latitude"].present?
       listings = Listing.opened
       listing_destinations = ListingDestination.where(listing_id: listings.ids).where.not(latitude: nil, longitude: nil)
-      array = listing_destinations
-      array.each do |listing_destination|
+      listing_id_array = []
+      listing_destinations.each do |listing_destination|
         distance = Search.distance(search_params["longitude"].to_f, search_params["latitude"].to_f, listing_destination.longitude, listing_destination.latitude)
         
-        if distance > 10
-          listing_destinations.delete(listing_destination)
+        if distance <= Settings.search.distance
+          listing_id_array.push(listing_destination.listing_id)
         end
       end
-      Listing.where(id: listing_destinations.pluck(:listing_id))
+      Listing.where(id: listing_id_array)
     end
 #     location_sel = location.matches("\%#{search_params["location"]}\%")
 #     if search_params['where'] == 'top' || search_params['where'] == 'header'

@@ -2,7 +2,7 @@
   .filters
     = f.error_notification
     = f.hidden_field :where, value: 'listing_search'
-    = f.hidden_field :location, value: @conditions['location']
+    /= f.hidden_field :location, value: @conditions['location']
 
     .card-header.filters-section.show--sp.text-center
       = link_to "", "#", class: "modal-close js-small-filters-close"
@@ -13,7 +13,9 @@
         .col-sm-3.col-md-1.row-space-1--sp.text-right
           i.fa.fa-search.fa-brand.fa-size-1
         .col-sm-9.col-md-10
-          input.location#location-search[type="text" placeholder="location"]
+          input.location#location-search[type="text" placeholder="location" value=@conditions['location']]
+          = f.hidden_field :latitude, value: @conditions['latitude']
+          = f.hidden_field :longitude, value: @conditions['longitude']
           /= f.input_field :schedule, placeholder: "参加する日"
           /= f.input_field :num_of_guest, as: :select, class: "guest-select", collection: [['参加人数 1人', :'1'], ['参加人数 2人', :'2'], ['参加人数 3人', :'3'], ['参加人数 4人', :'4'], ['参加人数 5人', :'5'], ['参加人数 6人', :'6'], ['参加人数 7人', :'7'], ['参加人数 8人', :'8'], ['参加人数 9人', :'9'], ['参加人数 10人', :'10'], ['参加人数 11人', :'11'], ['参加人数 12人', :'12'], ['参加人数 13人', :'13'], ['参加人数 14人', :'14'], ['参加人数 15人', :'15'], ['参加人数 16人以上', :'16+']], default: ['1']
     .sort-filter.filters-section.card-body

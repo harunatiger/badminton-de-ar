@@ -416,3 +416,5 @@ response_rate:
 spot_image:
   save:
     blank: "Image can't be blank"
+search:
+  distance: 10

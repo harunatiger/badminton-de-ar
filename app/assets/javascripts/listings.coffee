@@ -192,6 +192,9 @@ $ ->
       location_being_changed = undefined
 
       google.maps.event.addListener autocomplete, 'place_changed', ->
+        if place = this.getPlace()
+          $('#search_latitude').val place.geometry.location.lat()
+          $('#search_longitude').val　place.geometry.location.lng()
         location_being_changed = false
         return
 
@@ -289,6 +292,61 @@ $ ->
     $('.js-small-filters-close').on 'click', (e) ->
       $('.filters').hide()
       e.preventDefault()
+      
+    # search result map
+    initialize = ->
+      if gon.locations
+        bounds = new google.maps.LatLngBounds()
+        mapOptions =
+          scrollwheel: false
+          zoom: 13
+          center: new (google.maps.LatLng)(gon.locations[0].latitude, gon.locations[0].longitude)
+          mapTypeId: google.maps.MapTypeId.TERRAIN
+
+        map = new (google.maps.Map)(document.getElementById('map'), mapOptions)
+
+        # Multiple Markers
+        # Info Window Content
+        markers = new Array()
+        infoWindowContent = new Array()
+        gon.locations.map (l) ->
+          tmp_marker = new Array()
+          tmp_info = new Array()
+          tmp_marker.push(l.title, l.latitude, l.longitude)
+          markers.push(tmp_marker)
+#           tmp_info.push('<div class="info_content"><img src="' + l.cover_image.thumb.url + '"><h3>' + l.title + '</h3><p>' + l.description  + '</p></div>')
+#           infoWindowContent.push(tmp_info)
+
+        # Display multiple markers on a map
+        infoWindow = new google.maps.InfoWindow()
+
+        # Loop through our array of markers & place each one on the map
+        i = 0
+        while i < markers.length
+          position = new (google.maps.LatLng)(markers[i][1], markers[i][2])
+          bounds.extend position
+          marker = new (google.maps.Marker)(
+            position: position
+            map: map
+            title: markers[i][0])
+          # Allow each marker to have an info window
+          google.maps.event.addListener marker, 'click', do (marker, i) ->
+            ->
+             infoWindow.setContent infoWindowContent[i][0]
+             infoWindow.open map, marker
+             return
+          # Automatically center the map fitting all markers on the screen
+          map.fitBounds bounds
+          i++
+
+          # Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+          #boundsListener = google.maps.event.addListener(map, 'bounds_changed', (event) ->
+          #  @setZoom 14
+          #  google.maps.event.removeListener(boundsListener)
+          #  return
+          #)
+
+    google.maps.event.addDomListener window, 'load', initialize
 
   # listings#search
   ###
