@@ -58,7 +58,11 @@ class Spot < ActiveRecord::Base
   
   def self.search(search_params)
     if search_params["longitude"].present? && search_params["latitude"].present?
-      spots = Spot.where.not(latitude: nil, longitude: nil)
+      if search_params["spot_category"].present?
+        spots = Spot.where.not(latitude: nil, longitude: nil).where(pickup_id: search_params["spot_category"])
+      else
+        spots = Spot.where.not(latitude: nil, longitude: nil)
+      end
       spot_id_array = []
       spots.each do |spot|
         distance = Search.distance(search_params["longitude"].to_f, search_params["latitude"].to_f, spot.longitude, spot.latitude)
@@ -67,7 +71,7 @@ class Spot < ActiveRecord::Base
           spot_id_array.push(spot.id)
         end
       end
-      Spot.where(id: spot_id_array)
+      spots = Spot.where(id: spot_id_array)
     end
   end
 end

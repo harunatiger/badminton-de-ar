@@ -16,9 +16,9 @@
       .col-sm-8.col-md-9
         ul.nav.nav-tabs
           li
-            = link_to "Tour", "#tab-tour", data: {toggle: "tab"}
+            = link_to "Tour", "#tab-tour", data: {toggle: "tab"}, class: 'tour_tab'
           li
-            = link_to "Spot", "#tab-spot", data: {toggle: "tab"}
+            = link_to "Spot", "#tab-spot", data: {toggle: "tab"}, class: 'spot_tab'
   .tab-content
     #tab-tour.tab-pane
       .location-filter.filters-section.card-body.show--sp
@@ -39,12 +39,12 @@
                     .category-radio
                       label.category-default
                         | Choose Category
-                        input[name="category1" type="radio" value=""]
+                        input[name="search[category1]" type="radio" value=""]
                       - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
-                        /= hidden_field_tag  :category, pickup_tag.short_name
+                        - checked = @conditions['category1'].to_i == pickup_tag.id
                         label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
                           span = pickup_tag.short_name
-                          input[name="category1" type="radio" value="#{ pickup_tag.short_name }"]
+                          input#search_category1[name="search[category1]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
 
                 .col-sm-4.col-md-6.col-lg-4
                   .category-select
@@ -53,12 +53,12 @@
                     .category-radio
                       label.category-default
                         | Choose Category
-                        input[name="category2" type="radio" value=""]
+                        input[name="search[category2]" type="radio" value=""]
                       - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
-                        /= hidden_field_tag  :category, pickup_tag.short_name
+                        - checked = @conditions['category2'].to_i == pickup_tag.id
                         label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
                           span = pickup_tag.short_name
-                          input[name="category2" type="radio" value="#{ pickup_tag.short_name }"]
+                          input#search_category2[name="search[category2]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
 
                 .col-sm-4.col-md-6.col-lg-4
                   .category-select.last
@@ -67,12 +67,12 @@
                     .category-radio
                       label.category-default
                         | Choose Category
-                        input[name="category3" type="radio" value=""]
+                        input[name="search[category3]" type="radio" value=""]
                       - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
-                        /= hidden_field_tag  :category, pickup_tag.short_name
+                        - checked = @conditions['category3'].to_i == pickup_tag.id
                         label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
                           span = pickup_tag.short_name
-                          input[name="category3" type="radio" value="#{ pickup_tag.short_name }"]
+                          input#search_category3[name="search[category3]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
 
       .date-filters.filters-section.card-body
         .row
@@ -98,7 +98,7 @@
             span Language
           .col-sm-12.col-md-9
             .language-select
-              = collection_check_boxes(:listing, :language_ids, Language.ordered, :id, :name) do |l|
+              = collection_check_boxes(:language, :ids, Language.ordered, :id, :name) do |l|
                 /= debug l
                 label
                   = l.check_box
@@ -133,12 +133,12 @@
                   .category-radio
                     label.category-default
                       | Choose Category
-                      input[name="category1" type="radio" value=""]
+                      input[name="search[spot_category]" type="radio" value='' ]
                     - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
-                      /= hidden_field_tag  :category, pickup_tag.short_name
+                      - checked = @conditions['spot_category'].to_i == pickup_tag.id
                       label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
                         = pickup_tag.short_name
-                        input[name="category1" type="radio" value="#{ pickup_tag.short_name }"]
+                        input#search_spot_category[name="search[spot_category]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
 
   .filter-buttons.filters-section.card-body.text-right.row-space-6
     .default-buttons.hide--sp

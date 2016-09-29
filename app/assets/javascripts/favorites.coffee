@@ -43,9 +43,8 @@ $ ->
           ), ->
           $(this).prev().removeClass 'unfavorite-o'
       
-      if !$('body').hasClass('listings show')
-          $('.favorited-count').each (index) ->
-            $(this).remove()
+      if $('body').hasClass('listings show')
+          $('.favorited-count').removeClass('hide')
       return
     
     # delete favorite
@@ -81,19 +80,3 @@ $ ->
       return false
     
     setBtn()
-#       $(this).on 'ajax:complete',  (event, ajax, status) ->
-#         if status == 'success'
-#           if ajax.responseJSON.post == 'create'
-#             $(this).find('i.favorited').removeClass 'hide'
-#             $(this).find('i.unfavorite').addClass 'hide'
-#             $(this).find('i.outline').addClass 'hide'
-#             if $(window).width() < 768
-#               window.setTimeout (->
-#                 $('body').find('.fav-balloon').showBalloon().hideBalloon()
-#               ), 1000
-#           else if ajax.responseJSON.post == 'delete'
-#             $(this).find('i.favorited').addClass 'hide'
-#             $(this).find('i.unfavorite').removeClass 'hide'
-#             $(this).find('i.outline').removeClass 'hide'
-#           count = ajax.responseJSON.count
-#           $(this).find('span.favorited-count').text(count)

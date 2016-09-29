@@ -22,6 +22,5 @@
       i.fa.fa-heart.unfavorite
       i.fa.fa-heart-o.outline.fav-balloon
 
-  - if target.model_name == 'Listing'
-    span.favorited-count
-      = favorite_listings_count(target.id)
+  span.favorited-count.hide
+    = favorite_listings_count(target.id)

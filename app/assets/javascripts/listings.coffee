@@ -282,6 +282,10 @@ $ ->
     $('.show-sort-filter').on 'click', (e) ->
       $('.default-buttons').hide()
       $('.sort-filter, .apply-buttons').show()
+      if $('#search_sort_by').val() == 'Tour'
+        $(".sort-filter a[class='tour_tab']").tab('show')
+      else if $('#search_sort_by').val() == 'Spot'
+        $(".sort-filter a[class='spot_tab']").tab('show')
       e.preventDefault()
 
     # reset filetr
@@ -295,6 +299,19 @@ $ ->
         $('.sort-filter, .apply-buttons').hide()
         $('#tab-spot, #tab-tour').removeClass('active')
         $('.sort-filter li').removeClass('active')
+        
+      # clear search params
+      $('#search_sort_by').val ''
+      $('#search_spot_category').val ''
+      $("input[name='search[category1]']").each ->
+        $(this).attr('checked', false)
+      $("input[name='search[category2]']").each ->
+        $(this).attr('checked', false)
+      $("input[name='search[category3]']").each ->
+        $(this).attr('checked', false)
+      
+      # submit tempolary
+      $('#search_form').submit()
       e.preventDefault()
 
     # sp sort-tab toggle
@@ -313,7 +330,7 @@ $ ->
       
     # search result map
     initialize = ->
-      if gon.locations
+      if gon.locations.length != 0
         bounds = new google.maps.LatLngBounds()
         mapOptions =
           scrollwheel: false
@@ -357,14 +374,20 @@ $ ->
           map.fitBounds bounds
           i++
 
-          # Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
-          #boundsListener = google.maps.event.addListener(map, 'bounds_changed', (event) ->
-          #  @setZoom 14
-          #  google.maps.event.removeListener(boundsListener)
-          #  return
-          #)
-
     google.maps.event.addDomListener window, 'load', initialize
+    
+    ######
+    # set hidden_feild
+    ######
+    setHidden = ->
+      # sort by
+      $(document).on 'click', "a[data-toggle='tab']", ->
+        $('#search_sort_by').val $(this).text()
+        return
+      return
+        
+    # activate setHidden
+    setHidden()
 
   # listings#search
   ###

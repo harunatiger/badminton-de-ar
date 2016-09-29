@@ -171,7 +171,16 @@ class Listing < ActiveRecord::Base
 
   def self.search(search_params)
     if search_params["longitude"].present? && search_params["latitude"].present?
-      listings = Listing.opened
+      category_ids = []
+      category_ids.push(search_params["category1"]) if search_params["category1"].present?
+      category_ids.push(search_params["category2"]) if search_params["category2"].present?
+      category_ids.push(search_params["category3"]) if search_params["category3"].present?
+      if category_ids.present?
+        listings = Listing.opened.joins(:listing_images).merge(ListingImage.where(pickup_id: category_ids))
+      else
+        listings = Listing.opened
+      end
+      
       listing_destinations = ListingDestination.where(listing_id: listings.ids).where.not(latitude: nil, longitude: nil)
       listing_id_array = []
       listing_destinations.each do |listing_destination|
@@ -183,6 +192,9 @@ class Listing < ActiveRecord::Base
       end
       Listing.where(id: listing_id_array)
     end
+    
+    
+    
 #     location_sel = location.matches("\%#{search_params["location"]}\%")
 #     if search_params['where'] == 'top' || search_params['where'] == 'header'
 #       Listing.search_location(location_sel).available_num_of_guest?(search_params['num_of_guest'])
