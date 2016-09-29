@@ -98,15 +98,9 @@ class Listing < ActiveRecord::Base
   accepts_nested_attributes_for :listing_destinations, allow_destroy: true
 
   validates :user_id, presence: true
-  #validates :location, presence: true
-  #validates :longitude, presence: true
-  #validates :latitude, presence: true
-  #validates :price, presence: true
   validates :title, presence: true
   validates :overview, presence: true
   validates :interview1, :interview2, :interview3, presence: true, unless: :not_valid_ok
-  #validates :description, presence: true
-  #validates :capacity, presence: true
   validates_each :cover_video do |record, attr, value|
     if value.present? and value.file.size.to_f > UPLOAD_VIDEO_LIMIT_SIZE.megabytes.to_f
       #record.errors.add(attr, "You cannot upload a file greater than #{UPLOAD_VIDEO_LIMIT_SIZE}MB")
@@ -117,6 +111,7 @@ class Listing < ActiveRecord::Base
 
   scope :mine, -> user_id { where(user_id: user_id) }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
+  scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :opened, -> { where(open: true) }
   scope :not_opened, -> { where(open: false) }
   scope :search_location, -> location_sel { where(location_sel) }
@@ -124,6 +119,7 @@ class Listing < ActiveRecord::Base
   scope :available_num_of_guest?, -> num_of_guest { where("capacity >= ?", num_of_guest) }
   scope :available_price_min?, -> price_min { where("price >= ?", price_min) }
   scope :available_price_max?, -> price_max { where("price <= ?", price_max) }
+  scope :created_new, -> { where("created_at > ?", (Time.zone.today - 1.month).beginning_of_day) }
   
   def fix_destination
     self.listing_destinations.each do |listing_destination|
@@ -171,14 +167,51 @@ class Listing < ActiveRecord::Base
 
   def self.search(search_params)
     if search_params["longitude"].present? && search_params["latitude"].present?
-      category_ids = []
-      category_ids.push(search_params["category1"]) if search_params["category1"].present?
-      category_ids.push(search_params["category2"]) if search_params["category2"].present?
-      category_ids.push(search_params["category3"]) if search_params["category3"].present?
-      if category_ids.present?
-        listings = Listing.opened.joins(:listing_images).merge(ListingImage.where(pickup_id: category_ids))
-      else
+      if search_params["sort_by"].blank?
         listings = Listing.opened
+      else
+        listings = Listing.select('id, user_id').opened
+        
+        category_ids = []
+        category_ids.push(search_params["category1"]) if search_params["category1"].present?
+        category_ids.push(search_params["category2"]) if search_params["category2"].present?
+        category_ids.push(search_params["category3"]) if search_params["category3"].present?
+        if category_ids.present?
+          listings = listings.joins(:listing_images).merge(ListingImage.where(pickup_id: category_ids))
+        end
+        
+        if search_params["num_of_people"].present?
+          num_of_people = search_params["num_of_people"].to_i
+          listings = listings.joins(:listing_detail).merge(ListingDetail.available_num_of_people(num_of_people))
+        end
+        
+        if search_params["duration_range"].present?
+          duration = search_params['duration_range'].split(',')
+          duration_min = duration[0].to_i
+          duration_max = duration[1].to_i
+          listings = listings.joins(:listing_detail).merge(ListingDetail.available_time_required(duration_min, duration_max))
+        end
+        
+        if search_params["language_ids"].present?
+          search_params["language_ids"].push(Language.where(name: 'English').first.id).uniq
+          user_ids = Profile.where(user_id: listings.pluck(:user_id)).joins(:profile_languages).merge(ProfileLanguage.where(language_id: search_params["language_ids"])).pluck(:user_id)
+          listings = listings.where(user_id: user_ids)
+        end
+        
+        if search_params["schedule"].present?
+          date = Date.strptime(search_params["schedule"], "%m/%d/%Y")
+          wday = date.wday
+ 
+          # ngevent_week
+          ng_user_ids = NgeventWeek.where(dow: wday, mode: 1).pluck(:user_id)
+          ng_listing_ids = NgeventWeek.where(listing_id: listings.ids, dow: wday, mode: 0).where.not(user_id: ng_user_ids).pluck(:listing_id)
+          listings = listings.where.not(user_id: ng_user_ids).where.not(id: ng_listing_ids)
+          
+          # ng_event
+          ng_user_ids = Ngevent.where.not(mode: 0).where('start <= ? and ? <= ngevents.end', date, date).pluck(:user_id)
+          ng_listing_ids = Ngevent.where(listing_id: listings.ids, mode: 0).where('start <= ? and ? <= ngevents.end', date, date).pluck(:listing_id)
+          listings = listings.where.not(user_id: ng_user_ids).where.not(id: ng_listing_ids)
+        end
       end
       
       listing_destinations = ListingDestination.where(listing_id: listings.ids).where.not(latitude: nil, longitude: nil)

@@ -18,6 +18,6 @@
 class ListingDestination < ActiveRecord::Base
   belongs_to :listing
   
-  validates :listing_id, presence: true
+  validates :listing_id, presence: true, on: :update
   validates :location, presence: true
 end

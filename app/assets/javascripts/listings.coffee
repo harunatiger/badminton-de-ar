@@ -264,17 +264,22 @@ $ ->
     $('.datepicker').datepicker
       autoclose: true,
       startDate: '+1d',
-      language: 'ja',
-      orientation: 'top auto',
-      format: "yyyy-mm-dd"
+      language: 'en',
+      orientation: 'top auto'
 
     # duration range
+    if $("#duration-range").val()
+      duration_value = $("#duration-range").val().split(',')
+      duration_value[0] = parseInt(duration_value[0])
+      duration_value[1] = parseInt(duration_value[1])
+    else
+      duration_value = [2,8]
     $("#duration-range").slider
-      min: 0
-      max: 10
+      min: 1
+      max: 24
       step: 1
       range: true
-      value: [2, 8]
+      value: duration_value
       tooltip: 'always'
       tooltip_split: true
 
@@ -309,10 +314,16 @@ $ ->
         $(this).attr('checked', false)
       $("input[name='search[category3]']").each ->
         $(this).attr('checked', false)
+      $('#search_schedule').val ''
+      $('#search_num_of_people').val ''
+      $("#duration-range").val ''
+      $("input[name*='search[language_ids]']").each ->
+        $(this).attr('checked', false)
       
       # submit tempolary
       $('#search_form').submit()
       e.preventDefault()
+      return false
 
     # sp sort-tab toggle
     $('.sort-filter a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
@@ -323,6 +334,13 @@ $ ->
     # sp filter show/hide
     $('.js-small-filter-show').on 'click', (e) ->
       $('.filters').show()
+      # clear duration range
+      $('#duration-range').val ''
+      
+      if $('#search_sort_by').val() == 'Tour'
+        $(".sort-filter a[class='tour_tab']").tab('show')
+      else if $('#search_sort_by').val() == 'Spot'
+        $(".sort-filter a[class='spot_tab']").tab('show')
       e.preventDefault()
     $('.js-small-filters-close').on 'click', (e) ->
       $('.filters').hide()

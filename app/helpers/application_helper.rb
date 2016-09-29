@@ -839,4 +839,16 @@ module ApplicationHelper
     return false if spot_image.blank? || spot_image.image.blank?
     spot_image.image.thumb
   end
+  
+  def language_id_to_short_name(language_id)
+    language = Language.find_by_id(language_id)
+    return '' if language.blank?
+    return 'EN' if language.name == 'English'
+    return 'ZH' if language.name == 'Chinese'
+    return 'DE' if language.name == 'German'
+    return 'FR' if language.name == 'French'
+    return 'ES' if language.name == 'Spanish'
+    return 'JA' if language.name == 'Japanese'
+    ''
+  end
 end

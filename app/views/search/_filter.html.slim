@@ -81,39 +81,27 @@
           .col-sm-12.col-md-9
             .row
               .col-md-12.col-lg-5
-                = f.input_field :schedule, placeholder: "MM/DD/YY", class: "datepicker"
+                = f.input_field :schedule, placeholder: "MM/DD/YY", class: "datepicker", value: @conditions['schedule']
               .col-md-12.col-lg-5
                 .select.select-block
-                  = f.input_field :num_of_people, as: :select, collection: [1,2,3], selected: [1]
+                  = f.input_field :num_of_people, as: :select, collection: 1..20, selected: [@conditions['num_of_people']], include_blank: true
       .duration-filter.filters-section.card-body
         .row
           .col-sm-6.col-md-3.text-left.col-subject
             span Duration
-          .col-sm-12.col-md-9
+          .col-sm-12.col-md-8
             .row-space-top-4.row-space-2
-              input#duration-range
+              input#duration-range[name="search[duration_range]" value=@conditions['duration_range'] ]
       .laguage-filter.filters-section.card-body
         .row
           .col-sm-6.col-md-3.text-left.col-subject
             span Language
           .col-sm-12.col-md-9
             .language-select
-              = collection_check_boxes(:language, :ids, Language.ordered, :id, :name) do |l|
-                /= debug l
+              = collection_check_boxes(:search, :language_ids, Language.ordered, :id, :name, checked: @conditions['language_ids']) do |l|
                 label
                   = l.check_box
-                  - if l.value == 2
-                    span EN
-                  - elsif l.value == 3
-                    span ZH
-                  - elsif l.value == 4
-                    span DE
-                  - elsif l.value == 5
-                    span FR
-                  - elsif l.value == 6
-                    span ES
-                  - else
-                    span JA
+                  span #{language_id_to_short_name(l.value)}
 
     #tab-spot.tab-pane
       .location-filter.filters-section.card-body.show--sp
