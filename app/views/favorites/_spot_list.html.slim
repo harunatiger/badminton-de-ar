@@ -11,8 +11,8 @@
         | Everything you Save will be collected here.
   - else
     .row
-      .col-md-6.row-space-4.favorite-card
-        - favorite_spots.each do |favorite|
+      - favorite_spots.each do |favorite|
+        .col-md-6.row-space-4.favorite-card
           = render partial: 'shared/spot_card', locals: { profile: user_id_to_profile(favorite.spot.user_id), spot: favorite.spot}
           = link_to favorite_path(favorite), method: 'DELETE', class: 'favorite-btn-large btn btn-large btn-block', data: { confirm: 'お気に入りを解除します。よろしいですか？'} do
             i.fa.fa-times

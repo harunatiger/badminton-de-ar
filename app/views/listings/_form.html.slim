@@ -20,7 +20,6 @@
       .required-container
         = f.input_field :title, :class => 'imeoff', placeholder: "Eg. Kamakura vegetable food-fest for girls! "
         i.fa.fa-asterisk.balloon[title="required"]
-  
   hr
   .row.row-space-5.row-space-top-5
     .col-lg-12.text-left.listing-manager-intaview
@@ -106,21 +105,23 @@
     .col-lg-12.text-left
       .h4.row-space-2.text-light
         | 目的地
-    - @listing.listing_destinations.each do |listing_destination|
-      = f.simple_fields_for :listing_destinations, listing_destination do |ff|
-        .col-10.row-space-1.row-space-top-1
-          = ff.hidden_field :longitude
-          = ff.hidden_field :latitude
-          = ff.input_field :location, :class => 'imeoff', placeholder: "Googleマップから検索できます"
-        .col-2.row-space-1.row-space-top-1
-          = ff.link_to_remove do
-            span.remove-country.balloon[title="この目的地を削除"]
-              i.fa.fa-times.fa-red
-    = f.link_to_add :listing_destinations, class: "row-space-top-1" do
-      .col-lg-12.row-space-1.row-space-top-1
-        i.fa.fa-plus
-        ' 
-        | 新しい目的地を追加する
+    .col-lg-12.text-left
+      .row.row-condensed
+        - @listing.listing_destinations.each do |listing_destination|
+          = f.simple_fields_for :listing_destinations, listing_destination do |ff|
+            .col-10.row-space-1.row-space-top-1
+              = ff.hidden_field :longitude
+              = ff.hidden_field :latitude
+              = ff.input_field :location, :class => 'imeoff', placeholder: "Googleマップから検索できます"
+            .col-2.row-space-1.row-space-top-1
+              = ff.link_to_remove do
+                span.location-remove.balloon[title="この目的地を削除"]
+                  i.fa.fa-times.fa-red.fa-size-1
+        = f.link_to_add :listing_destinations, class: "row-space-top-1" do
+          .col-lg-12.row-space-1.row-space-top-1
+            i.fa.fa-plus
+            ' 
+            | 新しい目的地を追加する
   #map-wrapper.row.row-space-5.row-space-top-5
     .col-lg-12
       #map

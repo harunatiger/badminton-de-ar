@@ -967,6 +967,7 @@ $ ->
       return false
 
   if $('body').hasClass('listings new') || $('body').hasClass('listings edit') || $('body').hasClass('listings create') || $('body').hasClass('listings update')
+
     #---------------------------------------------------------------------
     # SearchBox Enterkey controll
     #---------------------------------------------------------------------
@@ -974,9 +975,11 @@ $ ->
       if (e.which == 13)
         $('#listing_notes').focus()
         e.preventDefault()
+
     #---------------------------------------------------------------------
     # GoogleMap for Place
     #---------------------------------------------------------------------
+
     map = null
     markers = new Array()
     locations = $("input[name*='listing_destinations_attributes'][name*='location']")
@@ -985,9 +988,11 @@ $ ->
       autocompletes[index] = new (google.maps.places.Autocomplete)(document.getElementById($(this).attr('id')))
     geocoder = new (google.maps.Geocoder)
     show = true
+
     #---------------------------------------------------------------------
     # Create MapCanvas
     #---------------------------------------------------------------------
+
     initialize = ->
       mark_count = 0
       bounds = new google.maps.LatLngBounds()
@@ -1024,7 +1029,7 @@ $ ->
         $(this).blur ->
           if text != $(this).val()
             deleteMark(index)
-      
+
       if map
         setBounds()
 
@@ -1037,12 +1042,13 @@ $ ->
         $('#map').parents('#map-wrapper').addClass('in')
         $('#map').css 'height', '300px'
         show = true
-        return
 
     google.maps.event.addDomListener window, 'load', initialize
+
     #---------------------------------------------------------------------
     # geocoding from LatLng
     #---------------------------------------------------------------------
+
     geocodeLatLng = (lat, lng, index) ->
       latlng = new (google.maps.LatLng)(lat, lng)
       geocoder.geocode { 'latLng': latlng }, (results, status) ->
@@ -1138,6 +1144,7 @@ $ ->
       return
 
     autoComplete()
+
     $(document).on 'click', '.add_nested_fields', ->
       $.each locations, (i) ->
         if markers[i] && markers[i].map != null

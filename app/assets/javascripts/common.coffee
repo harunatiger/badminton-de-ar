@@ -112,7 +112,7 @@ $ ->
       else
         latitude = 0
         longitude = 0
-        
+
       mapOptions =
         scrollwheel: false
         zoom: 13
@@ -749,7 +749,7 @@ $ ->
     initHeaderPAC()
 
     # search edit 20160914
-    
+
   ###
     # circle map
     cityCircle = undefined
