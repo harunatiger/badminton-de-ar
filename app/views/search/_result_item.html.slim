@@ -6,3 +6,8 @@
   - spots.each do |spot|
     .col-sm-12.col-md-6.row-space-4
       = render partial: 'shared/spot_card', locals: { profile: user_id_to_profile(spot.user_id), spot: spot}
+
+/* New Tours
+/.col-sm-12.row-space-4
+  .new-result-block.text-center
+    span.h4.text-contrast New Tours
