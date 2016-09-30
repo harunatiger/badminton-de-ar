@@ -3163,6 +3163,14 @@ h3.center-lined
         top: -9999px
         left: -9999px
 
+#tab-spot
+  .category-select
+    .category-radio
+      top: auto
+      left: -5px
+      right: -5px
+      bottom: -50px
+
 .category-filters
   @media (max-width: 767px)
     .col-subject
@@ -3215,6 +3223,9 @@ h3.center-lined
         overflow: hidden
         &::after
           display: none
+    .category-selected
+      span
+        display: block
     .category-radio
       position: fixed
       top: 10px
@@ -3339,8 +3350,6 @@ h3.center-lined
 .sort-filter
   display: none
 
-.default-buttons
-
 .apply-buttons
   display: none
 
@@ -3379,7 +3388,7 @@ h3.center-lined
       .fa-search
         position: absolute
         top: 7px
-        left: 10px
+        left: 12px
         font-size: 16px
         z-index: 1
       .btn
@@ -3396,7 +3405,7 @@ h3.center-lined
         background-color: white
         overflow-x: hidden
         overflow-y: scroll
-        z-index: 3001
+        z-index: 901
       .card-header
         color: white
         font-size: 16px
@@ -3452,6 +3461,35 @@ h3.center-lined
     display: block
     overflow: hidden
     text-overflow: ellipsis
+.select_spot_category
+  display: block
 .location-remove
   display: inline-block
   margin: 6px 0 0
+.spots-index-card
+  .card-body
+    padding-bottom: 10px
+  .media-cover-img > div
+    height: 120px
+  .text-truncate
+    color: $gray1
+    &:hover
+      color: $brand-theme
+  .styled-fa-btn
+    position: absolute
+    top: 5px
+    right: 10px
+.styled-fa-btn
+  display: inline-block
+  width: 32px
+  height: 32px
+  line-height: 32px
+  color: $border1
+  font-size: 18px
+  text-align: center
+  background-color: white
+  border: 1px solid $border1
+  border-radius: 50%
+  &:hover
+    color: $brand-theme
+    border-color: $brand-theme

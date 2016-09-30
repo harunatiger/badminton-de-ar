@@ -179,7 +179,7 @@ $ ->
 
   # listings#search =================
   if $('body').hasClass('search')
-    
+
     #! auto complete
     initPAC = ->
       inputs = $("input[name='search[location]']")
@@ -215,7 +215,7 @@ $ ->
         else
           location_being_changed = true
         return
-      
+
       # sync text box
       inputs.keyup (e) ->
         val = $(this).val()
@@ -304,7 +304,7 @@ $ ->
         $('.sort-filter, .apply-buttons').hide()
         $('#tab-spot, #tab-tour').removeClass('active')
         $('.sort-filter li').removeClass('active')
-        
+
       # clear search params
       $('#search_sort_by').val ''
       $('#search_spot_category').val ''
@@ -319,7 +319,7 @@ $ ->
       $("#duration-range").val ''
       $("input[name*='search[language_ids]']").each ->
         $(this).attr('checked', false)
-      
+
       # submit tempolary
       $('#search_form').submit()
       e.preventDefault()
@@ -336,7 +336,7 @@ $ ->
       $('.filters').show()
       # clear duration range
       $('#duration-range').val ''
-      
+
       if $('#search_sort_by').val() == 'Tour'
         $(".sort-filter a[class='tour_tab']").tab('show')
       else if $('#search_sort_by').val() == 'Spot'
@@ -345,7 +345,7 @@ $ ->
     $('.js-small-filters-close').on 'click', (e) ->
       $('.filters').hide()
       e.preventDefault()
-      
+
     # search result map
     initialize = ->
       if gon.locations.length != 0
@@ -393,7 +393,7 @@ $ ->
           i++
 
     google.maps.event.addDomListener window, 'load', initialize
-    
+
     #set hidden_feild
     $(document).on 'click', "a[data-toggle='tab']", ->
       $('#search_sort_by').val $(this).text()
