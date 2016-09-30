@@ -81,6 +81,7 @@ class User < ActiveRecord::Base
   enum user_type: { guest: 0, main_guide: 1, support_guide: 2}
 
   scope :mine, -> user_id { where(id: user_id) }
+  scope :active_users, -> { where.not(last_access_date: nil).where('last_access_date > ?', Time.zone.today - Settings.user.active_period.days) }
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil, create_email=false)
     unless user = User.where(provider: auth.provider, uid: auth.uid).first

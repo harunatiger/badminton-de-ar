@@ -13,6 +13,12 @@ class SearchController < ApplicationController
         @new_listings = listings.created_new.order_by_created_at_desc.limit(4) if listings.present?
       end
       gon.locations += ListingDestination.where(listing_id: listings.ids) if listings.present?
+      
+      # sort
+      if listings.present?
+        listings = listings.sort_for_search
+      end
+      
       @results += listings if listings.present?
       @hit_count += listings.count if listings.present?
     end
@@ -21,6 +27,7 @@ class SearchController < ApplicationController
     if search_params['sort_by'].blank? || search_params['sort_by'] == 'Spot'
       spots = Spot.search(search_params)
       gon.locations += spots if spots.present?
+      
       if @results.present?
         @results = @results.zip(spots).flatten.compact if spots.present?
       else

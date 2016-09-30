@@ -112,7 +112,7 @@ class Listing < ActiveRecord::Base
   scope :mine, -> user_id { where(user_id: user_id) }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
   scope :order_by_created_at_desc, -> { order('created_at desc') }
-  scope :order_for_search, -> { order('ave_total desc, updated_at desc') }
+  scope :order_by_ave_and_updated_at_desc, -> { order('listings.ave_total desc, listings.updated_at desc') }
   scope :opened, -> { where(open: true) }
   scope :not_opened, -> { where(open: false) }
   scope :search_location, -> location_sel { where(location_sel) }
@@ -222,35 +222,15 @@ class Listing < ActiveRecord::Base
           listing_id_array.push(listing_destination.listing_id)
         end
       end
-      Listing.where(id: listing_id_array).order_for_search
+      listings = Listing.where(id: listing_id_array)
     end
+  end
     
-    
-    
-#     location_sel = location.matches("\%#{search_params["location"]}\%")
-#     if search_params['where'] == 'top' || search_params['where'] == 'header'
-#       Listing.search_location(location_sel).available_num_of_guest?(search_params['num_of_guest'])
-#     elsif search_params['where'] == 'listing_search'
-#       # tba: schedule
-#       price = search_params['price'].split(',')
-#       price_min = price[0].to_i
-#       price_max = price[1].to_i
-#       keywords = Listing.arel_table['description']
-#       keywords_sel = keywords.matches("\%#{search_params["keywords"]}\%")
-#       if search_params['wafuku'].present?
-#         Listing.search_location(location_sel)
-#                .available_num_of_guest?(search_params['num_of_guest'])
-#                .available_price_min?(price_min)
-#                .available_price_max?(price_max)
-#                .joins{ dress_code.outer }.where{ (dress_code.wafuku == search_params['wafuku']) }
-#                .search_keywords(keywords_sel)
-#       else
-#         Listing.search_location(location_sel)
-#                .available_num_of_guest?(search_params['num_of_guest'])
-#                .available_price_min?(price_min)
-#                .available_price_max?(price_max)
-#                .search_keywords(keywords_sel)
-#       end
+  def self.sort_for_search
+    active_listing_ids = self.joins(:user).merge(User.active_users).order_by_ave_and_updated_at_desc.pluck(:id)
+    not_active_listing_ids = self.where.not(id: active_listing_ids).order_by_ave_and_updated_at_desc.pluck(:id)
+    ids = active_listing_ids.concat(not_active_listing_ids).uniq
+    listings = self.where(id: ids).sort_by{|c| ids.map(&:to_i).index(c.id)}
   end
 
   def current_user_bookmarked?(user_id)

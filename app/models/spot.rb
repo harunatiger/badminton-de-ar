@@ -32,10 +32,10 @@ class Spot < ActiveRecord::Base
   validate :has_spot_image?
   
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
-  scope :order_for_search, -> { select("spots.*, count(favorites.id) AS favorites_count").
+  scope :order_by_favorite_count_desc, -> { select("spots.*, count(favorites.id) AS favorites_count").
                                 joins("LEFT JOIN favorites ON spots.id = favorites.spot_id").
                                 group("spots.id").
-                                order("favorites_count DESC, updated_at DESC")}
+                                order("favorites_count DESC, spots.updated_at DESC")}
   scope :mine, -> user_id { where(user_id: user_id) }
   
   accepts_nested_attributes_for :spot_image
@@ -76,7 +76,7 @@ class Spot < ActiveRecord::Base
           spot_id_array.push(spot.id)
         end
       end
-      spots = Spot.where(id: spot_id_array).order_for_search
+      spots = Spot.where(id: spot_id_array).order_by_favorite_count_desc
     end
   end
 end
