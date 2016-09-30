@@ -29,6 +29,7 @@
 #  email_before_closed    :string           default("")
 #  reason                 :text             default("")
 #  user_type              :integer          default(0)
+#  last_access_date       :date
 #
 # Indexes
 #
