@@ -33,7 +33,7 @@ class Spot < ActiveRecord::Base
   
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
   scope :order_for_search, -> { select("spots.*, count(favorites.id) AS favorites_count").
-                                joins(:favorites).
+                                joins("LEFT JOIN favorites ON spots.id = favorites.spot_id").
                                 group("spots.id").
                                 order("favorites_count DESC, updated_at DESC")}
   scope :mine, -> user_id { where(user_id: user_id) }
