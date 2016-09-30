@@ -1,7 +1,39 @@
-.col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
+.col-lg-4.col-md-6.col-sm-12.row-space-4
+  = link_to profile_path(profile), class: "guide-card" do
+    .guide-card-background[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')" data-original="#{asset_path profile_to_image_thumb(profile)}"]
+    .guide-card-content.text-contrast.text-left
+      .card-body
+        .text-lead.text-truncate.row-space-1
+          b = profile.first_name
+        .row-space-1
+          .star-rating.star-rating-fit
+            = render partial: 'shared/stars', locals: { rate: profile.ave_total }
+          span.badge-pill-count.small1
+            | review
+            |(
+            b
+              = all_reviewed_count
+            |)
+        .text-truncate.row-space-1
+          = profile.location
+        .language
+          span.balloon(title="English") EN
+          - if language_zh?(profile)
+            span.balloon(title="Chinese") ZH
+          - if language_de?(profile)
+            span.balloon(title="German") DE
+          - if language_fr?(profile)
+            span.balloon(title="French") FR
+          - if language_es?(profile)
+            span.balloon(title="Spanish") ES
+          - if language_ja?(profile)
+            span.balloon(title="Japanese") JA
+
+/! 20160914
+/.col-lg-4.col-md-6.col-sm-12.rm-padding--sp.row-space-6.change-sp
   div
-    = link_to profile_path(profile), class: 'huber-card' do
-      .huber-card-background[style="background-image: url('#{asset_path profile_to_cover_image_thumb(profile)}')" data-original="#{asset_path profile_to_cover_image_thumb(profile)}"]
+    = link_to profile_path(profile), class: 'guide-card' do
+      .guide-card-background[style="background-image: url('#{asset_path profile_to_cover_image_thumb(profile)}')" data-original="#{asset_path profile_to_cover_image_thumb(profile)}"]
       .huber-card-content
         .row.row-condensed
           .col-5

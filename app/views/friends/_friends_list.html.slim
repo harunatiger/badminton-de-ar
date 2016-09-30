@@ -7,7 +7,7 @@
             - friends.each do |profile|
               - all_reviewed_count = Review.my_reviewed_count(profile.user_id)
               .col-lg-4.col-md-6.row-space-6
-                = render partial: 'guide_card', locals: { all_reviewed_count: all_reviewed_count, profile: profile }
+                = render partial: 'shared/guide_card', locals: { all_reviewed_count: all_reviewed_count, profile: profile }
 
                 - if action_name == 'index' or action_name == 'search'
                   = link_to 'メッセージ', message_thread_path(users_to_guide_thread(profile.user_id, current_user.id)), class: "btn btn-primary btn-large btn-block row-space-top-1 row-space-1"

@@ -1,5 +1,5 @@
 - if user_signed_in?
-  - if current_user.id == listing.user_id
+  - if current_user.id == user_id
     = button_tag type: 'submit', id: 'book_it_button', class: "btn btn-primary btn-large btn-block disabled btn-relative listing_message js-google-tag-manager" do
       i.fa.fa-comments-o
       | Talk to me
@@ -9,7 +9,7 @@
         i.fa.fa-comments-o
         | Talk to me
     - else
-      = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: listing.user_id}, what_talk_about: true), method: 'POST', class: 'btn btn-primary btn-large btn-block btn-relative listing_message js-google-tag-manager' do
+      = link_to message_threads_path(message_thread: {type: 'GuestThread', host_id: user_id}, what_talk_about: true), method: 'POST', class: 'btn btn-primary btn-large btn-block btn-relative listing_message js-google-tag-manager' do
         i.fa.fa-comments-o
         | Talk to me
 - else

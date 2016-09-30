@@ -3,7 +3,7 @@
       .row-space-2.strong.text-red.listing-manager-notice
         i.fa.fa-exclamation-circle
         | 入力は全て英語で行ってください
-= simple_form_for(@listing, html: {class: "form--sp"}) do |f|
+= simple_nested_form_for(@listing, html: {class: "form--sp"}) do |f|
   = f.error_notification
   = f.hidden_field :user_id, value: current_user.id
   /= f.hidden_field :open, value: false
@@ -20,7 +20,6 @@
       .required-container
         = f.input_field :title, :class => 'imeoff', placeholder: "Eg. Kamakura vegetable food-fest for girls! "
         i.fa.fa-asterisk.balloon[title="required"]
-  
   hr
   .row.row-space-5.row-space-top-5
     .col-lg-12.text-left.listing-manager-intaview
@@ -102,19 +101,31 @@
           .card-footer
             button.btn.btn-primary.listing-manager-area-submit[type="button"] OK
 
-  = f.simple_fields_for :listing_detail do |ff|
-    .row.row-space-5.row-space-top-5
-      .col-lg-12.text-left
-        .h4.row-space-2.text-light
-          | 当日の集合場所
-      .col-lg-12
-        = ff.hidden_field :place_longitude
-        = ff.hidden_field :place_latitude
-        = ff.input_field :place,:class => 'imeoff', placeholder: "Googleマップから検索できます"
-    #map-wrapper.row.row-space-5.row-space-top-5
-      .col-lg-12
-        #map
-    .row.row-space-5.row-space-top-5
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h4.row-space-2.text-light
+        | 目的地
+    .col-lg-12.text-left
+      .row.row-condensed
+        - @listing.listing_destinations.each do |listing_destination|
+          = f.simple_fields_for :listing_destinations, listing_destination do |ff|
+            .col-10.row-space-1.row-space-top-1
+              = ff.hidden_field :longitude
+              = ff.hidden_field :latitude
+              = ff.input_field :location, :class => 'imeoff', placeholder: "Googleマップから検索できます"
+            .col-2.row-space-1.row-space-top-1
+              = ff.link_to_remove do
+                span.location-remove.balloon[title="この目的地を削除"]
+                  i.fa.fa-times.fa-red.fa-size-1
+        = f.link_to_add :listing_destinations, class: "row-space-top-1" do
+          .col-lg-12.row-space-1.row-space-top-1
+            i.fa.fa-plus
+            ' 
+            | 新しい目的地を追加する
+  #map-wrapper.row.row-space-5.row-space-top-5
+    .col-lg-12
+      #map
+    /.row.row-space-5.row-space-top-5
       .col-lg-12.text-left
         .h4.row-space-2.text-light
           | 集合場所の説明
@@ -145,169 +156,3 @@
         = f.button :submit, "保存して次のステップへ", class: "btn-primary btn-large", id: 'listing-manager-listing-submit'
       - else
         = f.button :submit, "次へ", class: "btn-primary btn-large"
-
-  / .row.row-space-5.row-space-top-5.row-table
-  /   .col-xs-4.text-right.col-middle
-  /     .h4.text-light
-  /       |  ゲストとしての出張は？
-  /   .col-xs-8.fieldset.col-middle
-  /     .row
-  /       .col-xs-11.checkbox
-  /         = f.input_field :delivery_flg, boolean_style: :inline
-  /         label[for="listing_delivery_flg"]
-  /           | 可能です
-  /         .question-icon-container.inline
-  /           i#togo-tooltip.fa.fa-question-circle.tooltip-trigger[data-placement="bottom"]
-  /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        |  参加可能人数
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-6.col-md-3
-          .select.select-block
-            = f.input_field :capacity, as: :select, :collection => [["1人", :"1"], ["2人", :"2"], ["3人", :"3"], ["4人", :"4"], ["5人", :"5"], ["6人", :"6"], ["7人", :"7"], ["8人", :"8"], ["9人", :"9"], ["10人", :"10"], ["11人", :"11"], ["12人", :"12"], ["13人", :"13"], ["14人", :"14"], ["15人", :"15"], ["16人以上", :"16+"]], :default => ["1"]
-  /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        |  一人あたりの金額
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-5.add-value--price.add--help
-          = f.input_field :price, as: :string, value: "", placeholder: "例) 5000"
-          p.help.text-pink カンマ( , )は使わないでください
-  /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | ガイドについて
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11
-          = f.input_field :description, rows: "6", placeholder: "例) 葛飾区近郊〜歌舞伎町までのエリアならなんでもお任せください。英語・中国語大得意です！！"
-  /- if @listing.cover_image.present?
-    .row.row-space-5.row-space-top-5.row-table
-      .col-xs-4.text-right.col-middle
-        .h4.text-light
-          |  現在のカバー画像
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11.regist-pics
-            = image_tag(@listing.cover_image.thumb)
-  /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | ガイドページのカバー画像
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11.regist-pics
-          = f.file_field :cover_image, as: :file, class: "row-space-1"
-          /= f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2 row-space-1"
-          span.text-pink 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
-  /- if @listing.cover_video.present?
-    .row.row-space-5.row-space-top-5.row-table
-      .col-xs-4.text-right.col-middle
-        .h4.text-light
-          |  現在のカバー動画
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11.regist-pics
-            video[src=@listing.cover_video.encoded controls width="240" height="240"]
-  /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | ガイドページのカバー動画
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11.regist-pics
-          = f.file_field :cover_video, as: :file, class: "row-space-1"
-          /= f.input_field :cover_image_caption, placeholder: "カバー画像の説明を入力できます", class: "row-space-top-2 row-space-1"
-          span.text-pink 横長の大きな画像がおすすめです。例: 横1280px縦860px程度
-  /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        |  ガイド場所の郵便番号
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-6.col-md-4
-          = f.input_field :zipcode, placeholder: "例) 012-3456"
-        .question-icon-container
-          i#zipcode-tooltip.fa.fa-question-circle.tooltip-trigger
-  /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        |  ガイド場所の住所
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11
-          = f.input_field :location, placeholder: "郵便番号を入力すれば自動で出力されます"
-  /- if @categories.present?
-    hr
-    .row.row-space-5.row-space-top-5.row-table
-      .col-xs-4.text-right.col-middle
-        .h4.text-light
-          |  ツアーのカテゴリー
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11
-            = collection_check_boxes(:listing, :pickup_ids, @categories, :id, :short_name) do |b|
-              = b.label { b.check_box + b.text }
-  /- if @tags.present?
-    hr
-    .row.row-space-5.row-space-top-5.row-table
-      .col-xs-4.text-right.col-middle
-        .h4.text-light
-          |  ツアーのタグ
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11
-            = collection_check_boxes(:listing, :pickup_ids, @tags, :id, :short_name) do |b|
-              = b.label { b.check_box + b.text }
-  /- if @areas.present?
-    hr
-    .row.row-space-5.row-space-top-5.row-table
-      .col-xs-4.text-right.col-middle
-        .h4.text-light
-          |  ツアーのエリア
-      .col-xs-8.fieldset.col-middle
-        .row
-          .col-xs-11
-            = collection_check_boxes(:listing, :pickup_ids, @areas, :id, :short_name) do |b|
-              = b.label { b.check_box + b.text }
-  /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | 開催場所までの道順の説明
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11
-          = f.input_field :direction, rows: "4", placeholder: "開催場所までのオススメの移動方法や、迷いそうなポイントなど記入ください"
-  /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        |  出張は？
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11.checkbox
-          = f.input_field :delivery_flg, boolean_style: :inline
-          label[for="listing_delivery_flg"]
-            | 可能です
-          .question-icon-container.inline
-            i#togo-tooltip.fa.fa-question-circle.tooltip-trigger[data-placement="bottom"]
-  /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | 好きなカテゴリ
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11.regist-pics
-          = collection_check_boxes(:listing, :category_ids, Category.all, :id, :name) do |b|
-            = b.label { b.check_box + b.text }
-  /.row.row-space-5.row-space-top-5.row-table
-    .col-xs-4.text-right.col-middle
-      .h4.text-light
-        | 対応可能言語
-    .col-xs-8.fieldset.col-middle
-      .row
-        .col-xs-11.regist-pics
-          = collection_check_boxes(:listing, :language_ids, Language.all, :id, :name) do |l|
-            = l.label { l.check_box + l.text }

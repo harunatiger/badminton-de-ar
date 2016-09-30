@@ -1,4 +1,9 @@
-- to_user_id = @listing.present? ? @listing.user_id : @profile.user_id if to_user_id.blank?
+- if @listing.present?
+  - to_user_id = @listing.user_id
+- elsif @profile.present?
+  - to_user_id = @profile.user_id
+- elsif @spot.present?
+  - to_user_id = @spot.user_id
 #sign_up_form.modal[role="dialog" aria-hidden="true"]
   .page-container.page-container-auth.row-space-top-6.row-space-8
     .row

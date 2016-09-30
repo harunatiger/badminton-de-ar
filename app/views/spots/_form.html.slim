@@ -1,0 +1,55 @@
+= simple_form_for(@spot) do |f|
+  .row.row-space-4
+    label.text-right.text-left--sp.col-md-4
+      | 画像
+    .col-md-7
+      - if @spot.spot_image.try('image').present?
+        = image_tag(@spot.spot_image.image.thumb)
+      = f.simple_fields_for :spot_image, @spot.spot_image do |ff|
+        = ff.hidden_field :image_cache
+        = ff.file_field :image, class: "row-space-top-1-file"
+  .row.row-space-4
+    label.text-right.text-left--sp.col-md-4
+      | タイトル
+    .col-md-7
+      .required-container
+        = f.input_field :title, class: 'imeoff'
+        i.fa.fa-asterisk
+  .row.row-space-4
+    label.text-right.text-left--sp.col-md-4
+      | 魅力をひとことで
+    .col-md-7
+      .required-container
+        = f.input_field :one_word, class: 'imeoff'
+        i.fa.fa-asterisk
+  .row.row-space-4
+    label.text-right.text-left--sp.col-md-4
+      | カテゴリーを1つ選んでください
+    .col-md-7
+      = f.hidden_field :pickup_id, value: @spot.pickup.try('id')
+      .profile-category-container.row.row-space-2
+        - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
+          .col-sm-4.col-md-4.col-lg-3.row-space-3
+            - if @spot.pickup.try('id') == pickup_tag.id
+              = link_to "#", class: "select_spot_category listing_image_selected media-round media-photo", pickup_id: pickup_tag.id  do
+                = image_tag pickup_tag.icon, class: "img-responsive media-round"
+                i.fa.fa-check
+            - else
+              = link_to "#", class: "select_spot_category media-round media-photo", pickup_id: pickup_tag.id do
+                = image_tag pickup_tag.icon, class: "img-responsive media-round"
+            .text-center.set_category_container_title
+              small
+                b = pickup_tag.short_name
+  .row.row-space-6
+    label.text-right.text-left--sp.col-md-4
+      | スポットの場所
+    .col-md-7
+      = f.hidden_field :longitude
+      = f.hidden_field :latitude
+      = f.input_field :location, :class => 'imeoff', placeholder: "Googleマップから検索できます"
+      #map-wrapper.row.row-space-5.row-space-top-5
+        .col-lg-10
+          #map
+  .row.row-space-8
+    .col-md-12.text-center
+      = f.submit 'save', class: "btn btn-primary btn-large"

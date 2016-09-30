@@ -29,6 +29,7 @@
 //= require lib/croppic
 //= require lib/megapix-image
 //= require lib/exif
+//= require lib/bootstrap-slider.min
 
 //= require common
 //= require dashboard
@@ -47,6 +48,8 @@
 //= require helps
 //= require review
 //= require friends
+//= require spot
+//= require favorites
 //= require lp
 //= require chamo
 //= require jquery_nested_form

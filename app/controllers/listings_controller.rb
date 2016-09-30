@@ -34,7 +34,7 @@ class ListingsController < ApplicationController
     #@wishlists = Wishlist.mine(current_user).order_by_created_at_desc
     gon.ngdates = Ngevent.get_ngdates(@listing)
     gon.ngweeks = NgeventWeek.get_ngweeks_from_listing(@listing).pluck(:dow)
-    gon.listing = @listing.listing_detail
+    gon.listing_destinations = ListingDestination.select('longitude, latitude').where(listing_id: @listing.id).where.not('longitude is null or latitude is null')
     @reservation = Reservation.new
     @profile_keyword = ProfileKeyword.where(user_id: @listing.user_id, profile_id: Profile.where(user_id: @listing.user_id).pluck(:id).first).keyword_limit
     gon.keywords = @profile_keyword
@@ -45,15 +45,13 @@ class ListingsController < ApplicationController
   def new
     @listing = Listing.new
     @listing.build_listing_detail
-    #@categories = PickupCategory.all
-    #@tags = PickupTag.all
+    @listing.listing_destinations.build
     @areas = PickupArea.all
   end
 
   def edit
     @listing.build_listing_detail if @listing.listing_detail.blank?
-    #@categories = PickupCategory.all
-    #@tags = PickupTag.all
+    @listing.listing_destinations.build if @listing.listing_destinations.blank?
     @areas = PickupArea.all
   end
 
@@ -108,14 +106,6 @@ class ListingsController < ApplicationController
     end
   end
 
-  def search
-    listings = Listing.search(search_params).opened.page(params[:page])
-    gon.listings = listings
-    @hit_count = listings.count
-    @listings = listings.page(params[:page]).per(10)
-    @conditions = search_params
-  end
-
   def publish
     return redirect_to new_profile_path unless Profile.exists?(user_id: @listing.user_id)
     respond_to do |format|
@@ -139,28 +129,6 @@ class ListingsController < ApplicationController
     end
   end
 
-  def favorite_listing
-    if current_user.favorite_listing?(@listing)
-      current_user.favorite_listings.where(listing: @listing).each do |favorite_listing|
-        favorite_listing.soft_destroy
-      end
-      post = 'delete'
-    else
-      if favorite_listing = current_user.favorite_listings_deleted(@listing)
-        favorite_listing.restore
-        status = 'success'
-        post = 'create'
-      elsif current_user.favorite_listings.create(listing: @listing)
-        status = 'success'
-        post = 'create'
-      else
-        status = 'error'
-      end
-    end
-    count = FavoriteListing.where(listing_id: @listing.id).count
-    render json: { status: status, post: post, count: count}
-  end
-
   def copy
     if @listing_copied = @listing.dup_all
       redirect_to edit_listing_path(@listing_copied), notice: Settings.listings.copy.success
@@ -177,7 +145,7 @@ class ListingsController < ApplicationController
     @profiles = Profile.guides.where.not(id: @host_info.id)
     gon.ngdates = Ngevent.get_ngdates(@listing)
     gon.ngweeks = NgeventWeek.get_ngweeks_from_listing(@listing).pluck(:dow)
-    gon.listing = @listing.listing_detail
+    gon.listing_destinations = ListingDestination.select('longitude, latitude').where(listing_id: @listing.id).where.not('longitude is null or latitude is null')
     @reservation = Reservation.new
     @profile_keyword = ProfileKeyword.where(user_id: @listing.user_id, profile_id: Profile.where(user_id: @listing.user_id).pluck(:id).first).keyword_limit
     gon.keywords = @profile_keyword
@@ -236,11 +204,8 @@ class ListingsController < ApplicationController
         :cover_video, :cover_video_caption,
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
         language_ids: [], pickup_ids: [],
-        listing_detail_attributes: [:id, :place, :place_longitude, :place_latitude, :place_memo, :condition, :stop_if_rain, :in_case_of_rain ]
+        listing_detail_attributes: [:id, :place_memo, :condition, :stop_if_rain, :in_case_of_rain ],
+        listing_destinations_attributes: [:id, :location, :longitude, :latitude, :_destroy ]
         )
-    end
-
-    def search_params
-      params.require(:search).permit(:location, :schedule, :num_of_guest, :price, :confection, :tool, :wafuku, :keywords, :where)
     end
 end

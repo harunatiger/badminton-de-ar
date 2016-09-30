@@ -101,27 +101,37 @@ $ ->
       return
 
   # profile#show
-  if $('body').hasClass('profiles show')
+  if $('body').hasClass('profiles show') || $('body').hasClass('listings show') || $('body').hasClass('listings preview')
 
     # profile tour location
     initialize = ->
       bounds = new google.maps.LatLngBounds()
+      if gon.listing_destinations
+        latitude = gon.listing_destinations[0].latitude
+        longitude = gon.listing_destinations[0].longitude
+      else
+        latitude = 0
+        longitude = 0
+
       mapOptions =
         scrollwheel: false
         zoom: 13
-        center: new (google.maps.LatLng)(gon.listings[0].place_latitude, gon.listings[0].place_longitude)
+        center: new (google.maps.LatLng)(latitude, longitude)
         mapTypeId: google.maps.MapTypeId.TERRAIN
 
-      map = new (google.maps.Map)(document.getElementById('tour-map'), mapOptions)
+      if $('body').hasClass('profiles show')
+        map = new (google.maps.Map)(document.getElementById('tour-map'), mapOptions)
+      else if $('body').hasClass('listings')
+        map = new (google.maps.Map)(document.getElementById('location'), mapOptions)
 
       # Multiple Markers
       # Info Window Content
       markers = new Array()
       # infoWindowContent = new Array()
-      gon.listings.map (l) ->
+      gon.listing_destinations.map (l) ->
         tmp_marker = new Array()
         #tmp_info = new Array()
-        tmp_marker.push(l.title, l.place_latitude, l.place_longitude)
+        tmp_marker.push(l.title, l.latitude, l.longitude)
         markers.push(tmp_marker)
         #tmp_info.push('<div class="info_content">aaa<h3>' + l.title + '</h3><p>' + l.description  + '</p></div>')
         #infoWindowContent.push(tmp_info)
@@ -409,9 +419,8 @@ $ ->
           $('.sp-slide:last').addClass('sp-prev')
         return
 
-
-    # lazyload image
-    $('.discovery-card, .tour-cover, .youtube-container > div, .huber-card-background, .media-cover-img > div, .img-lazyload').lazyload
+    # lazyload
+    $('.discovery-card, .tour-cover, .youtube-container > div, .guide-card-background, .media-cover-img > div, .img-lazyload').lazyload
       effect: 'fadeIn'
 
     if $('.announcement_belt').length
@@ -485,7 +494,7 @@ $ ->
       return false
 
   # registrations#new & registrations#create
-  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show') || $('body').hasClass('static_pages plan4U')
+  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show') || $('body').hasClass('static_pages plan4U') || $('body').hasClass('spots show')
 
     loginReady = ->
       $('.sns-buttons').addClass('hide')
@@ -567,6 +576,10 @@ $ ->
       if $(this).hasClass("ignore_form_change")
         return
       if $(this).attr('data-dismiss') == "modal"
+        return
+      if $(this).attr('href') == "#"
+        return
+      if $(this).attr('href') == "javascript:void(0)"
         return
       else
         handleClick($(this),$(this).attr('href'))
@@ -662,6 +675,91 @@ $ ->
         }
      ).done (data) ->
       location.reload()
+
+  # search edit 20160913
+  if $('body').hasClass('welcome index')
+    # headroom
+    currentOffset = 0
+    $(window).scroll ->
+      scrolltop = $(this).scrollTop()
+      if scrolltop > 150 and scrolltop > currentOffset
+        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
+      else if scrolltop < 150
+        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
+      else
+        $('#headroom-header').addClass('headroom--pinned').removeClass 'headroom--unpinned'
+      currentOffset = scrolltop
+      return
+
+    #! auto complete
+    initPAC = ->
+      input = document.getElementById('location-search')
+      options = {
+        #types: [ '(cities)' ],
+        componentRestrictions: {
+          country: "jp"
+        }
+      }
+      autocomplete = new (google.maps.places.Autocomplete)(input, options)
+      location_being_changed = undefined
+
+      google.maps.event.addListener autocomplete, 'place_changed', ->
+        place = this.getPlace()
+        if place.geometry
+          $('#search_form').find('#search_latitude').val place.geometry.location.lat()
+          $('#search_form').find('#search_longitude').val　place.geometry.location.lng()
+        location_being_changed = false
+        return
+
+      $('#location-search').keydown (e) ->
+        if e.keyCode == 13
+          if location_being_changed
+            e.preventDefault()
+            e.stopPropagation()
+        else
+          $('#search_form').find('#search_latitude').val ''
+          $('#search_form').find('#search_longitude').val　''
+          location_being_changed = true
+        return
+      return
+    #! auto complete activate
+    initPAC()
+
+    #! header auto complete
+    initHeaderPAC = ->
+      input = document.getElementById('header-location-search')
+      options = {
+        #types: [ '(cities)' ],
+        componentRestrictions: {
+          country: "jp"
+        }
+      }
+      autocomplete = new (google.maps.places.Autocomplete)(input, options)
+      location_being_changed = undefined
+
+      google.maps.event.addListener autocomplete, 'place_changed', ->
+        place = this.getPlace()
+        if place.geometry
+          $('#headroom-header').find('#search_latitude').val place.geometry.location.lat()
+          $('#headroom-header').find('#search_longitude').val　place.geometry.location.lng()
+        location_being_changed = false
+        return
+
+      $('#header-location-search').keydown (e) ->
+        if e.keyCode == 13
+          if location_being_changed
+            e.preventDefault()
+            e.stopPropagation()
+        else
+          $('#headroom-header').find('#search_latitude').val ''
+          $('#headroom-header').find('#search_longitude').val　''
+          location_being_changed = true
+        return
+      return
+    #! header auto complete activate
+    initHeaderPAC()
+
+    # search edit 20160914
 
   ###
     # circle map

@@ -55,6 +55,9 @@ class ListingDetail < ActiveRecord::Base
 
   validates :listing_id, uniqueness: true
   validates :time_required, numericality: {greater_than: 0.0}, on: :update, if: 'register_detail?'
+  
+  scope :available_num_of_people, -> num_of_people { where('min_num_of_people <= ? and ? <= max_num_of_people', num_of_people, num_of_people) }
+  scope :available_time_required, -> duration_min, duration_max { where('? <= time_required and time_required <= ?', duration_min, duration_max) } 
 
   def set_lon_lat
     hash = Hash.new

@@ -29,6 +29,8 @@ en:
       listing_image:
         image: 'photo'
         caption: 'コメント'
+      spot_image:
+        image: 'image'
       pre_mail:
         email: 'email'
         last_name: 'last_name'

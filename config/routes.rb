@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :listing_destinations
+
   resources :features, only: [:index] do
     collection do
       get 'contents'
@@ -56,9 +58,6 @@ Rails.application.routes.draw do
     collection do
       delete 'delete_category',    action: 'delete_category'
     end
-    member do
-      post :favorite_user
-    end
   end
   
   resources :withdrawals, only: [:index] do
@@ -90,12 +89,14 @@ Rails.application.routes.draw do
   end
 
   resources :pre_mails, only: [:create]
+  
+  namespace :search do
+    get '/', action: :search
+    get 'search_result', action: 'search_result'
+    #get 'page/:page',    action: 'index'
+  end
+  
   resources :listings do
-    collection do
-      get 'search',        action: 'search'
-      get 'search_result', action: 'search_result'
-      get 'page/:page',    action: 'index'
-    end
     resources :listing_images, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
       post 'upload_video_cover_image', on: :collection
@@ -122,13 +123,18 @@ Rails.application.routes.draw do
       put 'unset', on: :collection
     end
     resources :calendar
-    member do
-      post :favorite_listing
+  end
+  
+  resources :spots
+
+  resources :favorites, only: [:create, :destroy] do
+    collection do
+      get :users
+      get :listings
+      get :spots
     end
   end
-
-  resources :favorite_listings, only: [:index, :destroy]
-  resources :favorite_users, only: [:index, :destroy]
+  
   resources :pickups, only: [:show]
   resources :friends, only: [:index, :destroy] do
     member do

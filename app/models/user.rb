@@ -29,6 +29,7 @@
 #  email_before_closed    :string           default("")
 #  reason                 :text             default("")
 #  user_type              :integer          default(0)
+#  last_access_date       :date
 #
 # Indexes
 #
@@ -60,6 +61,7 @@ class User < ActiveRecord::Base
   has_one :pre_mail, dependent: :destroy
   has_many :profile_images, dependent: :destroy
   has_many :listings, dependent: :destroy
+  has_many :spots, dependent: :destroy
   has_many :message_thread_users, dependent: :destroy
   has_many :message_threads, through: :message_thread_users, dependent: :destroy
   has_many :ngevents, dependent: :destroy
@@ -80,6 +82,7 @@ class User < ActiveRecord::Base
   enum user_type: { guest: 0, main_guide: 1, support_guide: 2}
 
   scope :mine, -> user_id { where(id: user_id) }
+  scope :active_users, -> { where.not(last_access_date: nil).where('last_access_date > ?', Time.zone.today - Settings.user.active_period.days) }
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil, create_email=false)
     unless user = User.where(provider: auth.provider, uid: auth.uid).first
@@ -181,13 +184,23 @@ class User < ActiveRecord::Base
     self.favorite_users_of_from_user.exists?(to_user_id: to_user)
   end
   
+  def get_favorite_of_this_target(target)
+    if target.model_name == 'Spot'
+      return FavoriteSpot.without_soft_destroyed.where(from_user_id: self.id, spot_id: target.id).first
+    elsif target.model_name == 'User'
+      return FavoriteUser.without_soft_destroyed.where(from_user_id: self.id, to_user_id: target.id).first
+    elsif target.model_name == 'Listing'
+      return FavoriteListing.without_soft_destroyed.where(from_user_id: self.id, listing_id: target.id).first
+    end
+  end
+  
   def bookmarked_histories
-    mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id)
+    mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id) + FavoriteSpot.where(spot_id: self.spots.ids).includes(:spot)
     mixed_array.sort{|f,s| s.created_at <=> f.created_at}
   end
   
   def unread_bookmark_count
-    FavoriteListing.where(listing_id: self.listings.ids, read_at: nil).count + FavoriteUser.where(to_user_id: self.id, read_at: nil).count
+    FavoriteListing.where(listing_id: self.listings.ids, read_at: nil).count + FavoriteUser.where(to_user_id: self.id, read_at: nil).count + FavoriteSpot.where(spot_id: self.spots.ids, read_at: nil).count
   end
   
   def mark_all_bookmarks_as_read
@@ -195,6 +208,8 @@ class User < ActiveRecord::Base
     favorite_listings.update_all(read_at: Time.zone.now)
     favorite_users = FavoriteUser.where(to_user_id: self.id, read_at: nil)
     favorite_users.update_all(read_at: Time.zone.now)
+    favorite_spots = FavoriteSpot.where(spot_id: self.spots.ids, read_at: nil)
+    favorite_spots.update_all(read_at: Time.zone.now)
   end
   
   def delete_children
@@ -364,5 +379,9 @@ class User < ActiveRecord::Base
       return_in_1day_count += 1
     end
     (return_in_1day_count / total_count.to_f * 100).round.to_s + '%'
+  end
+  
+  def active?
+    current_user.last_access_date.present? and current_user.last_access_date > Time.zone.today - Settings.user.active_period.days
   end
 end

@@ -1,0 +1,25 @@
+.card-header
+  | Your favorited guides
+.card-body
+  - if favorite_users.blank?
+    .text-muted.text-center
+      p.row-space-top-4.row-space-1
+        | Build your collection of TOMODACHI GUIDE you like by clicking the 
+        i.fa.fa-heart.fa-pink
+        |  button!
+      p.row-space-4
+        | Everything you Save will be collected here.
+  - else
+    .row
+      - favorite_users.each do |favorite|
+        - profile = favorite_user_to_profile(favorite.to_user_id)
+        - all_reviewed_count = Review.my_reviewed_count(profile.user_id)
+        .col-md-6.row-space-4.favorite-card
+          = render partial: 'shared/guide_card', locals: { all_reviewed_count: all_reviewed_count, profile: profile }
+          = link_to favorite_path(favorite), method: 'DELETE', class: 'favorite-btn-large btn btn-large btn-block', data: { confirm: 'お気に入りを解除します。よろしいですか？'} do
+            i.fa.fa-times
+            | Delete from favorites
+    - if favorite_users.num_pages > 1
+      .card-footer
+        .text-center
+          = paginate(favorite_users)

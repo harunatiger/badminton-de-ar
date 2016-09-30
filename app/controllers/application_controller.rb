@@ -25,6 +25,16 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  after_action  :set_last_access_date
+  def set_last_access_date
+    if user_signed_in?
+      if current_user.last_access_date.blank? || current_user.last_access_date < Time.zone.today
+        current_user.profile.enable_strict_validation = false
+        current_user.update(last_access_date: Time.zone.today)
+      end
+    end
+  end
+  
   if !Rails.env.development?
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
     rescue_from ActionController::RoutingError,   with: :render_404

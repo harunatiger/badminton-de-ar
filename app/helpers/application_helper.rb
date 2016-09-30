@@ -143,6 +143,10 @@ module ApplicationHelper
   def user_id_to_profile_id(user_id)
     User.find(user_id).profile.id
   end
+  
+  def user_id_to_profile(user_id)
+    User.find(user_id).profile
+  end
 
   def review_count_of_host(host_id)
     results = Listing.mine(host_id).pluck('review_count')
@@ -559,14 +563,6 @@ module ApplicationHelper
     FavoriteListing.where(listing_id: listing_id).without_soft_destroyed.count
   end
 
-  def favorite_listing_set(listing, user)
-    FavoriteListing.find_by(listing: listing, user: user)
-  end
-
-  def favorite_user_set(to_user_id, from_user_id)
-    FavoriteUser.find_by(to_user_id: to_user_id, from_user_id: from_user_id)
-  end
-
   def space_options
     ['space_rental']
   end
@@ -894,5 +890,36 @@ module ApplicationHelper
   
   def languages
     [Settings.laguages.ja, Settings.laguages.en]
+  end
+  
+  def spot_to_pickup(spot)
+    return false if spot.pickup_id.blank?
+    pickup = Pickup.find_by_id(spot.pickup_id)
+    return false if pickup.blank?
+    return pickup
+  end
+  
+  def spot_image(spot)
+    spot_image = SpotImage.find_by_spot_id(spot.id)
+    return false if spot_image.blank? || spot_image.image.blank?
+    spot_image.image
+  end
+  
+  def spot_image_thumb(spot)
+    spot_image = SpotImage.find_by_spot_id(spot.id)
+    return false if spot_image.blank? || spot_image.image.blank?
+    spot_image.image.thumb
+  end
+  
+  def language_id_to_short_name(language_id)
+    language = Language.find_by_id(language_id)
+    return '' if language.blank?
+    return 'EN' if language.name == 'English'
+    return 'ZH' if language.name == 'Chinese'
+    return 'DE' if language.name == 'German'
+    return 'FR' if language.name == 'French'
+    return 'ES' if language.name == 'Spanish'
+    return 'JA' if language.name == 'Japanese'
+    ''
   end
 end
