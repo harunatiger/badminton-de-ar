@@ -112,6 +112,7 @@ class Listing < ActiveRecord::Base
   scope :mine, -> user_id { where(user_id: user_id) }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
   scope :order_by_created_at_desc, -> { order('created_at desc') }
+  scope :order_for_search, -> { order('ave_total desc, updated_at desc') }
   scope :opened, -> { where(open: true) }
   scope :not_opened, -> { where(open: false) }
   scope :search_location, -> location_sel { where(location_sel) }
@@ -192,6 +193,7 @@ class Listing < ActiveRecord::Base
           listings = listings.joins(:listing_detail).merge(ListingDetail.available_time_required(duration_min, duration_max))
         end
         
+        search_params["language_ids"] = search_params["language_ids"].reject(&:blank?)
         if search_params["language_ids"].present?
           search_params["language_ids"].push(Language.where(name: 'English').first.id).uniq
           user_ids = Profile.where(user_id: listings.pluck(:user_id)).joins(:profile_languages).merge(ProfileLanguage.where(language_id: search_params["language_ids"])).pluck(:user_id)
@@ -223,7 +225,7 @@ class Listing < ActiveRecord::Base
           listing_id_array.push(listing_destination.listing_id)
         end
       end
-      Listing.where(id: listing_id_array)
+      Listing.where(id: listing_id_array).order_for_search
     end
     
     

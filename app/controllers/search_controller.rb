@@ -6,7 +6,9 @@ class SearchController < ApplicationController
     gon.locations = []
     if search_params['sort_by'].blank? || search_params['sort_by'] == 'Tour'
       listings = Listing.search(search_params)
-      @new_listings = listings.created_new.order_by_created_at_desc.limit(4)
+      if params[:page].blank?
+        @new_listings = listings.created_new.order_by_created_at_desc.limit(4) if listings.present?
+      end
       gon.locations += ListingDestination.where(listing_id: listings.ids) if listings.present?
       @results += listings if listings.present?
       @hit_count += listings.count if listings.present?
@@ -15,10 +17,15 @@ class SearchController < ApplicationController
     if search_params['sort_by'].blank? || search_params['sort_by'] == 'Spot'
       spots = Spot.search(search_params)
       gon.locations += spots if spots.present?
-      @results += spots if spots.present?
-      @hit_count += spots.count if spots.present?
+      if @results.present?
+        @results = @results.zip(spots).flatten.compact if spots.present?
+      else
+        @results += spots if spots.present?
+      end
+      @hit_count += spots.length if spots.present?
     end
     
+    @results = Kaminari.paginate_array(@results).page(params[:page]).per(6)
     @conditions = search_params
   end
   

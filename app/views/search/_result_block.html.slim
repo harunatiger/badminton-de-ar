@@ -2,9 +2,10 @@
       .outer-listings-container.row-space-5.row-space-2-sm
         .row.listings-container
           = render partial: 'result_item', locals: { results: results }
-      .results-footer.text-center
-        /= paginate listings
-        ul.list-inline
+      - if results.num_pages > 1
+        .results-footer.text-center
+          = paginate results
+        /ul.list-inline
           li.active
             = link_to "1", "#"
           li
