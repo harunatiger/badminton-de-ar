@@ -394,18 +394,10 @@ $ ->
 
     google.maps.event.addDomListener window, 'load', initialize
     
-    ######
-    # set hidden_feild
-    ######
-    setHidden = ->
-      # sort by
-      $(document).on 'click', "a[data-toggle='tab']", ->
-        $('#search_sort_by').val $(this).text()
-        return
+    #set hidden_feild
+    $(document).on 'click', "a[data-toggle='tab']", ->
+      $('#search_sort_by').val $(this).text()
       return
-        
-    # activate setHidden
-    setHidden()
 
   # listings#search
   ###
