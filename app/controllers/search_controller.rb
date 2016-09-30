@@ -4,6 +4,9 @@ class SearchController < ApplicationController
     @results = []
     @new_listings = []
     gon.locations = []
+    session[:dummy_count] = nil if params[:page].blank?
+    
+    # search listings
     if search_params['sort_by'].blank? || search_params['sort_by'] == 'Tour'
       listings = Listing.search(search_params)
       if params[:page].blank?
@@ -14,6 +17,7 @@ class SearchController < ApplicationController
       @hit_count += listings.count if listings.present?
     end
     
+    # search spots
     if search_params['sort_by'].blank? || search_params['sort_by'] == 'Spot'
       spots = Spot.search(search_params)
       gon.locations += spots if spots.present?
@@ -25,7 +29,23 @@ class SearchController < ApplicationController
       @hit_count += spots.length if spots.present?
     end
     
-    @results = Kaminari.paginate_array(@results).page(params[:page]).per(6)
+    # set new tours and dummy for pagenation
+    if @new_listings.length > 0 && @results.length > Settings.search.display_count
+      session[:dummy_count] = @new_listings.length
+      session[:dummy_count] += 1 if !@new_listings.length.even?
+    elsif @results.length <= Settings.search.display_count
+      @new_listings = nil
+    end
+    
+    if session[:dummy_count].present?
+      dummy_start = Settings.search.display_count - session[:dummy_count]
+      session[:dummy_count].times do |i|
+        dummy_start + i
+        @results.insert(dummy_start + i, 'dummy')
+      end
+    end
+    
+    @results = Kaminari.paginate_array(@results).page(params[:page]).per(Settings.search.display_count)
     @conditions = search_params
   end
   

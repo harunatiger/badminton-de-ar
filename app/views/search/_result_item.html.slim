@@ -1,18 +1,19 @@
 - if results.present?
   - results.each do |result|
     .col-sm-12.col-md-6.row-space-4
-      - if result.model_name == 'Listing'
+      - if result == 'dummy'
+      - elsif result.model_name == 'Listing'
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(result), listing: result}
       - elsif result.model_name == 'Spot'
         = render partial: 'shared/spot_card', locals: { profile: user_id_to_profile(result.user_id), spot: result}
       
 
 /* New Tours
-- if @new_listings.present?
+- if new_listings.present?
   .col-sm-12.row-space-4
     .new-result-block.text-center
       span.h4.text-contrast New Tours
-  - @new_listings.each do |listing|
+  - new_listings.each do |listing|
     .col-sm-12.col-md-6.row-space-4
       = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
 

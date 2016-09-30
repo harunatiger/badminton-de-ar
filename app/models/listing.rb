@@ -173,10 +173,7 @@ class Listing < ActiveRecord::Base
       else
         listings = Listing.select('id, user_id').opened
         
-        category_ids = []
-        category_ids.push(search_params["category1"]) if search_params["category1"].present?
-        category_ids.push(search_params["category2"]) if search_params["category2"].present?
-        category_ids.push(search_params["category3"]) if search_params["category3"].present?
+        category_ids = [search_params["category1"],search_params["category2"],search_params["category3"]].reject(&:blank?)
         if category_ids.present?
           listings = listings.joins(:listing_images).merge(ListingImage.where(pickup_id: category_ids))
         end

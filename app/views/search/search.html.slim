@@ -22,7 +22,7 @@
               br
               | 条件を変えて検索してみましょう。
       - else
-        = render partial: 'result_block', locals: { results: @results, conditions: @conditions }
+        = render partial: 'result_block', locals: { results: @results, conditions: @conditions, new_listings: @new_listings }
     .map.hide--sp
       - if @results.blank?
         .no-listings-map

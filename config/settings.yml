@@ -418,3 +418,4 @@ spot_image:
     blank: "Image can't be blank"
 search:
   distance: 10
+  display_count: 10
