@@ -17,8 +17,9 @@ section.recomended-guides.text-center.section
     .row
       .col-md-4.row-space-6
         - profile = Profile.where(id: 732).first
+        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
         .guide.text-center
-          = image_tag 'plan4U/kyoto/thumb001.jpg', class: "img-responsive"
+          = image_tag image, class: "img-responsive media-round"
           .name.spb.row-space-top-2.row-space-1 Akita
           .introduce
             p I like traveling and eating very much. I usually guide for students in Kyoto so I can introduce some nice place and restaurant! I am studying English but I like to speak very much!
@@ -30,8 +31,9 @@ section.recomended-guides.text-center.section
 
       .col-md-4.row-space-6
         - profile = Profile.where(id: 680).first
+        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
         .guide.text-center
-          = image_tag 'plan4U/kyoto/thumb002.jpg', class: "img-responsive"
+          = image_tag image, class: "img-responsive media-round"
           .name.spb.row-space-top-2.row-space-1 Orsolya
           .introduce
             p Hi! I'm from Hungary, but I'm living in Kyoto, studying classical Japanese literature, so I often visit historical places I read about in the books. I love Japanese food, especially udon. Let's explore Kyoto together!
@@ -42,8 +44,9 @@ section.recomended-guides.text-center.section
           = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
       .col-md-4.row-space-6
         - profile = Profile.where(id: 690).first
+        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
         .guide.text-center
-          = image_tag 'plan4U/kyoto/thumb003.jpg', class: "img-responsive"
+          = image_tag image, class: "img-responsive media-round"
           .name.spb.row-space-top-2.row-space-1 Hiraoka
           .introduce
             p My name is Shinya. I was traveling all around the world last year. During my travel, I was teaching Japanese language and Kyoto cultures at local school. I want to introduce my favorite place in Kyoto for you!!
@@ -60,8 +63,9 @@ section.recomended-guides.text-center.section
 
       .col-md-4.col-md-offset-2.row-space-6.hide-guest
         - profile = Profile.where(id: 681).first
+        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
         .guide.text-center
-          = image_tag 'plan4U/kyoto/thumb004.jpg', class: "img-responsive"
+          = image_tag image, class: "img-responsive media-round"
           .name.spb.row-space-top-2.row-space-1 Nagai
           .introduce
             p Hi everyone! my name is Emu. I love traveling so much. I've been to America, Canada, South America... I'm looking forward to show you my lovely country in Japan. If you are interested talk to me:)
@@ -72,8 +76,9 @@ section.recomended-guides.text-center.section
           = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
       .col-md-4.row-space-6.hide-guest
         - profile = Profile.where(id: 685).first
+        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
         .guide.text-center
-          = image_tag 'plan4U/kyoto/thumb005.jpg', class: "img-responsive"
+          = image_tag image, class: "img-responsive media-round"
           .name.spb.row-space-top-2.row-space-1 Junya
           .introduce
             p Hi, i'm junya! I live in Kyoto. I love touring a lot of places with my road bike. Also, I love exploring city, particularly traditional temples and shrines.Let's enjoy Japan together!
