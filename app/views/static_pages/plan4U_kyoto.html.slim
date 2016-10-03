@@ -1,0 +1,173 @@
+/ plan4U_kyoto
+.hero
+  .page-container
+    h1.text-center.text-plan4U
+      .va-container.va-container-wh
+        .va-middle
+          .spr To make the most of your trip,
+          .text-wf.cheer
+            | Try asking a local!
+h2.belt.text-center.text-contrast
+  .spb.h1 Try our free consultation service.
+section.recomended-guides.text-center.section
+  h2.row-space-8
+    .spsb.h1.row-space-4 Recommended Guides
+    .text-plan4U.text-wf.cheer \ feel free to talk to us! /
+  .page-container
+    .row
+      .col-md-4.row-space-6
+        - profile = Profile.where(id: 732).first
+        .guide.text-center
+          = image_tag 'plan4U/kyoto/thumb001.jpg', class: "img-responsive"
+          .name.spb.row-space-top-2.row-space-1 Akita
+          .introduce
+            p I like traveling and eating very much. I usually guide for students in Kyoto so I can introduce some nice place and restaurant! I am studying English but I like to speak very much!
+            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+        - if user_signed_in?
+          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+        - else
+          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+
+      .col-md-4.row-space-6
+        - profile = Profile.where(id: 680).first
+        .guide.text-center
+          = image_tag 'plan4U/kyoto/thumb002.jpg', class: "img-responsive"
+          .name.spb.row-space-top-2.row-space-1 Orsolya
+          .introduce
+            p Hi! I'm from Hungary, but I'm living in Kyoto, studying classical Japanese literature, so I often visit historical places I read about in the books. I love Japanese food, especially udon. Let's explore Kyoto together!
+            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+        - if user_signed_in?
+          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+        - else
+          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+      .col-md-4.row-space-6
+        - profile = Profile.where(id: 690).first
+        .guide.text-center
+          = image_tag 'plan4U/kyoto/thumb003.jpg', class: "img-responsive"
+          .name.spb.row-space-top-2.row-space-1 Hiraoka
+          .introduce
+            p My name is Shinya. I was traveling all around the world last year. During my travel, I was teaching Japanese language and Kyoto cultures at local school. I want to introduce my favorite place in Kyoto for you!!
+            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+        - if user_signed_in?
+          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+        - else
+          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+        
+      .col-md-12.moreguide-container.row-space-4
+        = link_to "#", id: "moreguide", class: "btn btn-large btn-more"
+          | See All
+          i.fa.fa-caret-down
+
+      .col-md-4.col-md-offset-2.row-space-6.hide-guest
+        - profile = Profile.where(id: 681).first
+        .guide.text-center
+          = image_tag 'plan4U/kyoto/thumb004.jpg', class: "img-responsive"
+          .name.spb.row-space-top-2.row-space-1 Nagai
+          .introduce
+            p Hi everyone! my name is Emu. I love traveling so much. I've been to America, Canada, South America... I'm looking forward to show you my lovely country in Japan. If you are interested talk to me:)
+            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+        - if user_signed_in?
+          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+        - else
+          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+      .col-md-4.row-space-6.hide-guest
+        - profile = Profile.where(id: 685).first
+        .guide.text-center
+          = image_tag 'plan4U/kyoto/thumb005.jpg', class: "img-responsive"
+          .name.spb.row-space-top-2.row-space-1 Junya
+          .introduce
+            p Hi, i'm junya! I live in Kyoto. I love touring a lot of places with my road bike. Also, I love exploring city, particularly traditional temples and shrines.Let's enjoy Japan together!
+            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+        - if user_signed_in?
+          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+        - else
+          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+
+section.howto.section
+  .page-container.text-center
+    h3.h1.spb.row-space-8 HOW TO USE
+    .howto-inner.row-space-8
+      .row
+        .col-md-4.row-space-8
+          = image_tag 'plan4U/howto-image001.png', class: "img-responsive"
+          .spb.h3.row-space-2.row-space-top-4 STEP 1
+          .spr.text-lg Making an account
+        .col-md-4.row-space-8
+          = image_tag 'plan4U/howto-image002.png', class: "img-responsive"
+          .spb.h3.row-space-2.row-space-top-4 STEP 2
+          .spr.text-lg Finding Guides to talk with
+        .col-md-4.row-space-8
+          = image_tag 'plan4U/howto-image003.png', class: "img-responsive"
+          .spb.h3.row-space-2.row-space-top-4 STEP 3
+          .spr.text-lg Discussing your tour plans
+      .h3.square.text-wf.text-contrast.row-space-top-8
+        span Free services
+    h4.thick-lined
+      span
+        span.spsb Advantages: 
+        span.spl Eliminate any worries about your trip and get local information
+  .additinal.text-center
+    .bg-arrow.text-wf.text-contrast PLUS!
+    h4.spr Your Guide can even join you on your trip! 
+
+section.popular-tours.section
+  h3.spb.text-center
+    .h1.row-space-2 Popular Tours
+    .spl Find unique tour plans here! 
+  .page-container
+    /- listings = feature_listings
+    .row.row-space-top-8.row-space-8
+      - feature_listing_ids = [451, 440, 437]
+      - feature_listing_ids.each do |id|
+        .col-md-6.col-lg-4.row-space-4
+          - if feature_listing(id).present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+          - else
+            .tour-listing-empty.text-center.text-brand.text-black
+      /.col-md-6.col-lg-4.row-space-4
+        - if listings[44].present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[44]), listing: listings[44]}
+        - else
+          .tour-listing-empty.text-center.text-brand.text-black
+      /.col-md-6.col-lg-4.row-space-4
+        - if listings[321].present?
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[321]), listing: listings[321]}
+        - else
+          .tour-listing-empty.text-center.text-brand.text-black
+
+section.guest-book.section
+  h3.spb.text-center.row-space-8
+    .h1.row-space-2 Guest Book
+    .spl Tour memories from our guests
+  .page-container
+    .row
+      .col-lg-6.row-space-4
+        .card.card-book
+          .media-cover-img
+            .book.book1
+          .card-body.text-center
+            .card-inner
+              .va-container.va-container-wh
+                .va-middle
+                  q
+                    | Excellent experience in Kamakura!  You don't have to worry what is the direction, what is the next stop, you don't have to see the map. Just enjoy the beautiful scenery. We recommend Huber for all the tourists from all over the world! 
+                  p – Nicola
+      .col-lg-6.row-space-4
+        .card.card-book
+          .media-cover-img
+            .book.book2
+          .card-body.text-center
+            .card-inner
+              .va-container.va-container-wh
+                .va-middle
+                  q
+                    | Thank you for the tour of Kamakura. We enjoyed your enthusiastic , friendly style . We had a great morning with you and really appreciated the local restaurant you took us to.
+                  p – Sue
+          
+section.please-visit.text-center.section
+  .page-container
+    = link_to root_path, class: "btn btn-primary btn-add-shadow btn-block text-center" do
+      = image_tag 'plan4U/some-btn-image.png', alt: "please visit the Huber. site!", class: "img-responsive"
+
+- unless user_signed_in?
+  = render partial: 'shared/modals/sign_up_form', locals: {to_user_id: 1}
