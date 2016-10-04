@@ -1,4 +1,5 @@
 class MessageThreadsController < ApplicationController
+  before_action :store_location, only: [:index, :show]
   before_action :authenticate_user!
   before_action :message_thread_user?, only: [:show, :update, :destroy, :what_talk_about, :start_planning]
   before_action :set_message_thread, only: [:show, :update, :destroy, :what_talk_about, :start_planning]
@@ -40,6 +41,7 @@ class MessageThreadsController < ApplicationController
         gon.watch.ngdates = Ngevent.get_ngdates_except_request(@reservation, @reservation.try('listing_id'))
         gon.watch.ngweeks = NgeventWeek.get_ngweeks_from_reservation(@reservation).pluck(:dow)
       end
+      @reservations = Reservation.where(host_id: @host_id, guest_id: @message_thread.counterpart_user(@host_id).id)
     elsif @message_thread.pair_guide_thread?
       @listing = Listing.find(@reservation.listing_id)
     end

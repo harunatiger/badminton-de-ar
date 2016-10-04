@@ -15,109 +15,83 @@ section.recomended-guides.text-center.section
     .text-plan4U.text-wf.cheer \ feel free to talk to us! /
   .page-container
     .row
-      .col-md-4.col-lg-3.row-space-6
-        - profile = Profile.where(id: 109).first
-        .guide.text-center
-          = image_tag 'plan4U/thumb001.jpg', class: "img-responsive"
-          .name.spb.row-space-top-2.row-space-1 Hotaru(Jade)
-          .introduce
-            p Hi, I’m Hotaru, Chinese who has been living in Japan for 5 years. I can speak 3 languages. I know area popular in young generation very well, such as Harajuku, Shibuya, Shimokitazawa…, please feel free to talk to me.
-            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
-        - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
-        - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
-      .col-md-4.col-lg-3.row-space-6
-        - profile = Profile.where(id: 12).first
-        .guide.text-center
-          = image_tag 'plan4U/thumb002.jpg', class: "img-responsive"
-          .name.spb.row-space-top-2.row-space-1 Tokoro
-          .introduce
-            p Hi! I'm from Tokyo. I love exploring city, photographs and enjoy coffee at cafe. Also, I love climbing mountains because I'm so in love with rock faces!  Let's explore Japan together!
-            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
-        - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
-        - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
-      .col-md-4.col-lg-3.row-space-6
-        - profile = Profile.where(id: 59).first
-        .guide.text-center
-          = image_tag 'plan4U/thumb003.jpg', class: "img-responsive"
-          .name.spb.row-space-top-2.row-space-1 Ayana
-          .introduce
-            p Hi! I love "Kawaii (cute)" products and places, so I often walking around town. I've lived in 8 prefectures, around Tokyo, Kyoto, and Kobe. I'm studying French and Indonesian.  I'm looking forward to seeing, and talking with you;D
-            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
-        - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
-        - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
-        
-      .col-md-12.moreguide-container.row-space-4
-        = link_to "#", id: "moreguide", class: "btn btn-large btn-more"
-          | See All
-          i.fa.fa-caret-down
-      .col-md-4.col-lg-3.row-space-6.hide-guest
-        - profile = Profile.where(id: 45).first
-        .guide.text-center
-          = image_tag 'plan4U/thumb004.jpg', class: "img-responsive"
-          .name.spb.row-space-top-2.row-space-1 Catharina
-          .introduce
-            p Hey, I’m looking forward to show you my Japan! Be prepared for good food, temples and walking. And of course the best ending with a good draft beer in the end.
-            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
-        - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
-        - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
-      .col-lg-2.center-boxes
-      .col-md-4.col-lg-3.row-space-6.hide-guest
-        - profile = Profile.where(id: 41).first
-        .guide.text-center
-          = image_tag 'plan4U/thumb005.jpg', class: "img-responsive"
-          .name.spb.row-space-top-2.row-space-1 Saki
-          .introduce
-            p Hi, I’m a university student. I study human relationship. I like eating, so I can take you to delicious restaurants! I like communicating with people!! Let’s enjoy a nice trip together!!
-            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
-        - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
-        - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
-      .col-md-4.col-lg-3.row-space-6.hide-guest
-        - profile = Profile.where(id: 116).first
-        .guide.text-center
-          = image_tag 'plan4U/thumb006.jpg', class: "img-responsive"
-          .name.spb.row-space-top-2.row-space-1 Kana
-          .introduce
-            p Hi I'm Kana. I'm a student in Yokohama, occasionally a singer, painter, boozer. I'd love to help you make the most of your time and feel comfortable in Japan (and maybe go out to drink with you!). Just give me a message!
-            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
-        - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
-        - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
-      /.col-md-4.col-lg-3.row-space-6.hide-guest
-        - profile = Profile.where(id: 80).first
-        .guide.text-center
-          = image_tag 'plan4U/thumb007.jpg', class: "img-responsive"
-          .name.spb.row-space-top-2.row-space-1 Yosuke
-          .introduce
-            p Hi! Do you like something fun? Do you like eating good food? If you like, let’s go and enjoy with me. I want to share the good experiences. Shall we start our amazing time!!
-            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
-        - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
-        - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
-      .col-md-4.col-lg-3.row-space-6.hide-guest
-        - profile = Profile.where(id: 39).first
-        .guide.text-center
-          = image_tag 'plan4U/thumb008.jpg', class: "img-responsive"
-          .name.spb.row-space-top-2.row-space-1 Wada
-          .introduce
-            p Hello, honestly speaking, I’m bad at English lol. But I’m confident that I can make you laugh a lot. Feel free to talk to me, by the way I like movie so much. 
-            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
-        - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
-        - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
-
+      - ids = [41,109,121]
+      - ids.each do |id|
+        - profile = Profile.find_by_id(id)
+        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
+        - name = profile ? profile.first_name : "this user doesn't exist"
+        .col-md-4.col-lg-3.row-space-6
+          .guide.text-center
+            = image_tag image, class: "img-responsive media-round"
+            .name.spb.row-space-top-2.row-space-1 #{name}
+            .introduce
+              - if id == 41
+                p Hi, I’m a university student. I study human relationship. I like eating, so I can take you to delicious restaurants! I like communicating with people!! Let’s enjoy a nice trip together!!
+              - elsif id == 109
+                p Hi, I’m Hotaru, Chinese who has been living in Japan for 5 years. I can speak 3 languages. I know area popular in young generation very well, such as Harajuku, Shibuya, Shimokitazawa…, please feel free to talk to me.
+              - elsif id == 121
+                p Hi ! I’m Takafumi! I love Japanese four seasons! I like cooking very much.Let’s make a Japanese breakfast with me! I want to talk about for your spacial trip. Please talk to me anything in Tokyo and Yokohama area!
+                
+              = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+          - if user_signed_in?
+            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+          - else
+            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+        - if id == 121
+          .col-md-12.moreguide-container.row-space-4
+            = link_to "#", id: "moreguide", class: "btn btn-large btn-more"
+              | See All
+              i.fa.fa-caret-down
+              
+      - ids = [511,59,257,39,116]
+      - ids.each do |id|
+        - profile = Profile.find_by_id(id)
+        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
+        - name = profile ? profile.first_name : "this user doesn't exist"
+        .col-md-4.col-lg-3.row-space-6.hide-guest
+          .guide.text-center
+            = image_tag image, class: "img-responsive media-round"
+            .name.spb.row-space-top-2.row-space-1 #{name}
+            .introduce
+              - if id == 511
+                small Hey, guys!! I'm Taiga. I study Marketing as a student of university. In the university, I'm not only a student but an assistant for professor in a class for exchange students because I like international communication and improving English skills. I love taking photos!!! So let's join us and become both you and me smile through fantastic experience in my guide!!!
+              - elsif id == 59
+                p Hi! I love "Kawaii (cute)" products and places, so I often walking around town. I've lived in 8 prefectures, around Tokyo, Kyoto, and Kobe. I'm studying French and Indonesian.  I'm looking forward to seeing, and talking with you;D
+              - elsif id == 257
+                p I’ m Daichi. I came back here from Vancouver so hopefully I can speak English. Anyway I’m always looking forward to seeing a new experience to be a good man. So don’t hesitate to talk and hang out with me. Have a good day sir.
+              - elsif id == 39
+                p Hello, honestly speaking, I’m bad at English lol. But I’m confident that I can make you laugh a lot. Feel free to talk to me, by the way I like movie so much.
+              - elsif id == 116
+                p Hi I'm Kana. I'm a student in Yokohama, occasionally a singer, painter, boozer. I'd love to help you make the most of your time and feel comfortable in Japan (and maybe go out to drink with you!). Just give me a message!
+                
+              = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+          - if user_signed_in?
+            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+          - else
+            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+            
+      - ids = [20,45]
+      - ids.each do |id|
+        - profile = Profile.find_by_id(id)
+        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
+        - name = profile ? profile.first_name : "this user doesn't exist"
+        .col-md-4.col-lg-3.col-lg-offset-2.row-space-6.hide-guest
+          .guide.text-center
+            = image_tag image, class: "img-responsive media-round"
+            .name.spb.row-space-top-2.row-space-1 #{name}
+            .introduce
+              - if id == 20
+                p Hi! Are you coming to TOKYO / KAMAKURA / KYOTO? I would happy to support your Japan Trip via online chat and/or meeting in person：D 
+                p I look forward to hearing from you! :）
+              - elsif id == 45
+                p Hey, I’m looking forward to show you my Japan! Be prepared for good food, temples and walking. And of course the best ending with a good draft beer in the end.
+                
+              = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+          - if user_signed_in?
+            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+          - else
+            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+            
 section.howto.section
   .page-container.text-center
     h3.h1.spb.row-space-8 HOW TO USE
@@ -152,23 +126,13 @@ section.popular-tours.section
   .page-container
     /- listings = feature_listings
     .row.row-space-top-8.row-space-8
-      - feature_listing_ids = [301, 44, 321]
+      - feature_listing_ids = [37, 401, 459]
       - feature_listing_ids.each do |id|
         .col-md-6.col-lg-4.row-space-4
           - if feature_listing(id).present?
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
           - else
             .tour-listing-empty.text-center.text-brand.text-black
-      /.col-md-6.col-lg-4.row-space-4
-        - if listings[44].present?
-          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[44]), listing: listings[44]}
-        - else
-          .tour-listing-empty.text-center.text-brand.text-black
-      /.col-md-6.col-lg-4.row-space-4
-        - if listings[321].present?
-          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[321]), listing: listings[321]}
-        - else
-          .tour-listing-empty.text-center.text-brand.text-black
 
 section.guest-book.section
   h3.spb.text-center.row-space-8
