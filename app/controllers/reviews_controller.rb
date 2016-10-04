@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+  before_action :store_location, only: [:for_guest, :for_guide]
   before_action :authenticate_user!
   before_action :regulate_user_for_guide!, only: [:for_guide, :create_guide]
   before_action :regulate_user_for_guest!, only: [:for_guest, :create_guest]
@@ -67,9 +68,6 @@ class ReviewsController < ApplicationController
   end
 
   private
-    #def set_review
-    #  @review = Review.find_by(reservation_id: params[:reservation_id])
-    #end
 
     def set_reservation
       @reservation = Reservation.find(params[:reservation_id])

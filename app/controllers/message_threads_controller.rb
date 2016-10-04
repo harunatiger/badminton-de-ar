@@ -1,4 +1,5 @@
 class MessageThreadsController < ApplicationController
+  before_action :store_location, only: [:index, :show]
   before_action :authenticate_user!
   before_action :message_thread_user?, only: [:show, :update, :destroy, :what_talk_about, :start_planning]
   before_action :set_message_thread, only: [:show, :update, :destroy, :what_talk_about, :start_planning]
