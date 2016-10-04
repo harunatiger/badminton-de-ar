@@ -1,5 +1,5 @@
 class ListingsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :search]
+  before_action :authenticate_user!, except: [:show, :search]
   #before_action :check_listing_status, only: [:index, :search]
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite_listing]
   before_action :set_listing_obj, only: [:publish, :unpublish, :copy, :preview]

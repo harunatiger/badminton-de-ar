@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+  before_action :store_location, only: [:self_introduction]
   before_action :authenticate_user!, except: [:show, :read_more_reviews]
   before_action :set_profile, only: [:show, :edit, :update, :destroy, :self_introduction, :favorite_user, :read_more_reviews, :upload_profile_video]
   #before_action :set_pair_guide, only: [:show]

@@ -35,6 +35,8 @@
             .col-sm-12.col-md-10.col-md-push-1
               .tab-content
                 = render partial: 'form'
+        - if @message_thread.guest_thread?
+          = render partial: 'review_block', locals: { reservations: @reservations}
         - @messages.each do |m|
           - if current_user.id == m.from_user_id
             = render partial: 'my_msg', locals: { m: m, my_profile_image: my_profile_image }

@@ -7,9 +7,9 @@ Rails.application.routes.draw do
       get 'contents'
     end
   end
-  
+
   resources :ga_campaign_tags, param: :short_url, path: 'cp', only: [:show]
-  
+
   mount Ckeditor::Engine => '/ckeditor'
 
   get 'static_pages/cancel_policy_en'
@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'static_pages/privacy_policy_jp'
   get 'static_pages/about'
   get 'static_pages/plan4U'
+  get 'static_pages/plan4U_kyoto', :path => 'static_pages/plan4U-kyoto'
   get 'static_pages/three_reasons'
   get 'static_pages/our_partners'
   
@@ -50,7 +51,7 @@ Rails.application.routes.draw do
     end
     resources :profile_banks
     resources :profile_identities, only: [:new, :edit, :create, :update, :destroy]
-    
+
     member do
       get 'self_introduction',    action: 'self_introduction'
       get 'read_more_reviews',    action: 'read_more_reviews'
@@ -59,7 +60,7 @@ Rails.application.routes.draw do
       delete 'delete_category',    action: 'delete_category'
     end
   end
-  
+
   resources :withdrawals, only: [:index] do
     post 'apply', on: :collection
   end
@@ -219,6 +220,6 @@ Rails.application.routes.draw do
   get "weekly_payment_report" => 'admin/payment#payment_weekly_report'
   get "payment_report_index" => 'admin/payment#index'
   root 'welcome#index'
-  
+
   get '*path', controller: 'application', action: 'render_404'
 end

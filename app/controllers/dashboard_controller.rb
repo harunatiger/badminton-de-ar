@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
+  before_action :store_location, only: [:host_reservation_manager, :guest_reservation_manager]
   before_action :authenticate_user!
   before_action :regulate_user, only: [:index]
   before_action :set_message_new_instance
