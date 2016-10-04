@@ -16,7 +16,7 @@ section.recomended-guides.text-center.section
   .page-container
     .row
       - ids = [41,109,121]
-      - ids.each do |id|
+      - ids.each_with_index do |id, index|
         - profile = Profile.find_by_id(id)
         - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
         - name = profile ? profile.first_name : "this user doesn't exist"
@@ -37,7 +37,7 @@ section.recomended-guides.text-center.section
             = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
           - else
             = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
-        - if id == 121
+        - if index == 2
           .col-md-12.moreguide-container.row-space-4
             = link_to "#", id: "moreguide", class: "btn btn-large btn-more"
               | See All
