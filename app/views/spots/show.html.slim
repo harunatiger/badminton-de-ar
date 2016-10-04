@@ -1,51 +1,73 @@
-= image_tag(spot_image(@spot))
-br
-= render partial: 'shared/favorite', locals: { user: current_user, target: @spot}
-br
-= link_to profile_path(user_id_to_profile_id(@spot.user_id)) do
-  .media-photo.media-round.media-avatar
-    .size68[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(@spot.user_id)}')"]
-  = user_id_to_firstname(@spot.user_id)
-br
-= @spot.title
-- if @spot.pickup.present?
-  br
-  .media-round.media-photo.media-avatar
-    .size28[style="background-image: url('#{asset_path @spot.pickup.icon_small}')"]
-  span
-    = @spot.pickup.short_name
-br
-= @spot.one_word
-
-h3
-  | Peaple Who Recommended Same Spots
-br
-- @spots.each do |spot|
-  = link_to image_tag(spot_image_thumb(spot)), spot_path(spot)
-
-br
-| このスポットを登録したガイドです。
-= render partial: 'shared/guide_information', locals: { user: @spot.user, message_thread: @message_thread}
-.row
-  .col-md-5
-    .location-container
-      #location
-
-- if @listings.present?
-  h3
-    | This Guide's Tour
-  .row
-    - @listings.each do |listing|
-      .col-md-4.row-space-4
-        = render partial: 'shared/listing_card', locals: { profile: user_id_to_profile(@spot.user_id), listing: listing}
+.page-container.row-space-top-6.row-space-8
   
-- if @near_spots.present?
-  h3
-    | This Area's Other Spots
+  /= link_to root_path, class: "back-link" do
+    i.fa.fa-angle-left
+    | Back
+
+  h1.spot-title.row-space-8
+    span.spsb = @spot.title
+  
+  .bg-contrast.spot-hero
+    .row.row-space-8
+      .col-md-6
+        .spot-hero-photo
+          .media-cover-img
+            div[style="background-image: url(#{asset_path spot_image(@spot)})"]
+          = render partial: 'shared/favorite', locals: { user: current_user, target: @spot}
+      .col-md-6
+        .va-container.va-container-wh.spot-hero-content
+          .va-middle
+            - if @spot.pickup.present?
+              .spot-hero-title.row-space-4.row-space-top-4
+                span.text-lead
+                  = @spot.pickup.short_name
+                .media-round.media-photo.media-avatar
+                  .size36[style="background-image: url('#{asset_path @spot.pickup.icon_small}')"]
+            .text-lead.row-space-6
+              = @spot.one_word
+            .text-center
+              h5.text-lead Share This Spot
+              .social-share-widget.row-space-4
+                /= link_to "javascript:void(0)", class: "share-btn share-envelope-btn", id: "share-via-email-trigger" do
+                  i.fa.fa-envelope-o.social-icon-size
+                = link_to "#", target: "_blank", class: "share-btn share-facebook-btn" do
+                  i.fa.fa-facebook-square
+                = link_to "#", class: "share-btn share-twitter-btn" do
+                  i.fa.fa-twitter
+                = link_to "LINE", "#", class: "share-btn share-envelope-btn sns-line-btn show--sp-ib"
+
+  /h3
+    | Peaple Who Recommended Same Spots
+  /- @spots.each do |spot|
+    = link_to image_tag(spot_image_thumb(spot)), spot_path(spot)
+
   .row
-    - @near_spots.each do |spot|
-      .col-md-4.row-space-4
-        = render partial: 'shared/spot_card', locals: { profile: user_id_to_profile(spot.user_id), spot: spot}
+    .col-md-7.row-space-top-4
+      h3.row-space-4 Guide Information
+      = render partial: 'shared/guide_information', locals: { user: @spot.user, message_thread: @message_thread}
+    .col-md-5.row-space-top-4
+      .location-container.spot-location-container
+        #location
+
+.bg-contrast
+  .page-container
+    - if @listings.present?
+      .text-center.row-space-top-8.row-space-8
+        h3.h2.spsb.row-space-6
+          | This Guide's Tour
+        .row
+          - @listings.each do |listing|
+            .col-md-4.row-space-4
+              = render partial: 'shared/listing_card', locals: { profile: user_id_to_profile(@spot.user_id), listing: listing}
         
+    - if @near_spots.present?
+      .text-center.row-space-top-8.row-space-8
+        h3.h2.spsb.row-space-6
+          | This Area's Other Spots
+        .row
+          - @near_spots.each do |spot|
+            .col-md-4.row-space-4
+              = render partial: 'shared/spot_card', locals: { profile: user_id_to_profile(spot.user_id), spot: spot}
+            
 - if !user_signed_in?
   = render partial: 'shared/modals/sign_up_form'
