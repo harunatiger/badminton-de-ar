@@ -1,0 +1,24 @@
+- reservations.each do |reservation|
+  - if current_user.guest? && reservation.review_for_guide_enabled?
+    .row.row-condensed.row-space-4
+      .col-sm-12.col-md-10.col-md-push-1
+        .card.accepted-box
+          .card-body
+            .row
+              .col-md-8.text-blue.text-center--sp.strong.row-space-top-1.row-space-1
+                strong
+                  | Please write a review for #{reservation_to_listing(reservation).title} (#{reservation.schedule}) planned by #{user_id_to_name(reservation.host_id)}
+              .col-md-4.text-center.row-space-top-1
+                = link_to "Review", for_guide_reservation_reviews_path(reservation), class: "btn btn-primary"
+  - elsif current_user.main_guide? && reservation.review_for_guest_enabled? and !reservation.review_writed?(current_user.id)
+    .row.row-condensed.row-space-4
+      .col-sm-12.col-md-10.col-md-push-1
+        .card.accepted-box
+          .card-body
+            .row
+              .col-md-8.text-blue.text-center--sp.strong.row-space-top-1.row-space-1
+                strong
+                  | Please write a review for #{user_id_to_name(reservation.guest_id)} from your tour #{reservation_to_listing(reservation).title} (#{reservation.schedule}) 
+              .col-md-4.text-center.row-space-top-1
+                = link_to "Review", for_guest_reservation_reviews_path(reservation), class: "btn btn-primary"
+        
