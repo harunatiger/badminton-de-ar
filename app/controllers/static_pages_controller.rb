@@ -28,10 +28,13 @@ class StaticPagesController < ApplicationController
 
   def plan4U
   end
-  
+
+  def plan4U_kyoto
+  end
+
   def three_reasons
   end
-  
+
   def our_partners
   end
 

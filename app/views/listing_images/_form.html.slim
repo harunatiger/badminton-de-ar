@@ -10,7 +10,7 @@
       .col-xs-6.add-listing-images-image
         = simple_form_for([@listing, ListingImage.new(listing_id: @listing.id)], html: { id: 'upload_image'}, remote: true) do |f|
           = f.hidden_field :listing_id, value: @listing.id
-          = f.file_field :image, as: :file, id: 'listing_image_new', multiple: true, accept: "image/*"
+          = f.file_field :image, as: :file, id: 'listing_image_new', multiple: true, accept: "image/jpg, image/jpeg, image/gif, image/png"
 
   .col-md-12
     = render partial: 'images_list', locals: { cover_video: @listing.cover_video, listing_images: @listing_images}

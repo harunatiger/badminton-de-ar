@@ -73,6 +73,8 @@
           = link_to Settings.page.help, "#", class: "link-reset menu-item", rel: "nofollow"
         li
           = link_to Settings.page.help, for_user_help_topics_path ,class: "link-reset menu-item", rel: "nofollow"
+        li
+          = link_to Settings.page.blog, Settings.blog.url ,class: "link-reset menu-item", rel: "nofollow"
         - if user_signed_in?
           li
             = link_to Settings.page.logout, destroy_user_session_path, method: :delete, class: "link-reset menu-item", rel: "nofollow"

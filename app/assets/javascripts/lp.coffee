@@ -1,5 +1,5 @@
 $ ->
-  if $('body').hasClass('static_pages plan4U')
+  if $('body').hasClass('static_pages plan4U') || $('body').hasClass('static_pages plan4U_kyoto')
     $(document).on 'click', '.sign_up_form', ->
       to_user_id = $(this).attr('user_id')
       if to_user_id
