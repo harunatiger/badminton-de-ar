@@ -24,6 +24,8 @@
 #
 
 class FavoriteListing < Favorite
+  soft_deletable dependent_associations: [:listing]
+  
   belongs_to :user, class_name: 'User', foreign_key: 'from_user_id'
   belongs_to :listing
 
