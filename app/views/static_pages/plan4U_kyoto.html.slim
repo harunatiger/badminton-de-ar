@@ -22,7 +22,8 @@ section.recomended-guides.text-center.section
           - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
           - name = profile ? profile.first_name : "this user doesn't exist"
           .guide.text-center
-            = image_tag image, class: "img-responsive media-round"
+            .media-round.media-photo.media-avatar
+              .size200[style="background-image: url('#{asset_path image}')"]
             .name.spb.row-space-top-2.row-space-1 #{name}
             .introduce
               - if id == 732
@@ -48,7 +49,8 @@ section.recomended-guides.text-center.section
         - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
         - name = profile ? profile.first_name : "this user doesn't exist"
         .guide.text-center
-          = image_tag image, class: "img-responsive media-round"
+          .media-round.media-photo.media-avatar
+            .size200[style="background-image: url('#{asset_path image}')"]
           .name.spb.row-space-top-2.row-space-1 #{name}
           .introduce
             p Hi everyone! my name is Emu. I love traveling so much. I've been to America, Canada, South America... I'm looking forward to show you my lovely country in Japan. If you are interested talk to me:)
@@ -63,7 +65,8 @@ section.recomended-guides.text-center.section
         - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
         - name = profile ? profile.first_name : "this user doesn't exist"
         .guide.text-center
-          = image_tag image, class: "img-responsive media-round"
+          .media-round.media-photo.media-avatar
+            .size200[style="background-image: url('#{asset_path image}')"]
           .name.spb.row-space-top-2.row-space-1 #{name}
           .introduce
             p Hi, i'm junya! I live in Kyoto. I love touring a lot of places with my road bike. Also, I love exploring city, particularly traditional temples and shrines.Let's enjoy Japan together!
