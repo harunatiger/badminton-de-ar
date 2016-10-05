@@ -106,12 +106,13 @@ $ ->
     # profile tour location
     initialize = ->
       bounds = new google.maps.LatLngBounds()
-      if gon.listing_destinations
+      if gon.listing_destinations[0]
         latitude = gon.listing_destinations[0].latitude
         longitude = gon.listing_destinations[0].longitude
       else
         latitude = 0
         longitude = 0
+        gon.listing_destinations[0] = {latitude: latitude, longitude: longitude}
 
       mapOptions =
         scrollwheel: false
