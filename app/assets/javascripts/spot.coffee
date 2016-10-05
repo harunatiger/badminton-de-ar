@@ -151,3 +151,49 @@ $ ->
       return
 
     google.maps.event.addDomListener window, 'load', initialize
+
+  # spots detail
+  if $('body').hasClass('spots show')
+
+    # Back button effect
+    ###
+    ans = undefined
+    bs = false
+    ref = document.referrer
+    domain = location.hostname
+    $(window).on 'unload beforeunload', ->
+      bs = true
+      return
+    re = new RegExp("^https?:\/\/" + domain, "i")
+    if ref.match(re)
+      ans = true
+    else
+      ans = false
+    $('.back-link').on 'click', (e) ->
+      that = this
+      if ans
+        history.back()
+        setTimeout (->
+          if !bs
+            location.href = $(that).attr('href')
+          return
+        ), 100
+      else
+        location.href = $(this).attr('href')
+      e.preventDefault()
+    ###
+
+  # social-share-widget
+  if('.social-share-widget').length
+    # facebook share
+    $('.share-facebook-btn').on 'click', ->
+      window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href), 'facebook-share-dialog', 'width=626, height=436, personalbar=0, toolbar=0, scrollbars=1, resizable=!')
+      return false
+    # twitter share
+    $('.share-twitter-btn').on 'click', ->
+      window.open('http://twitter.com/intent/tweet?text=' + 'Spot' + '&amp;url=' + encodeURIComponent(window.location.href) + '&amp;via=' + 'Huber.', 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1')
+      return false
+    # line share
+    $('.sns-line-btn').on 'click', ->
+      window.location = 'http://line.me/R/msg/text/?' + 'Recommend' + encodeURIComponent(window.location.href)
+      return false
