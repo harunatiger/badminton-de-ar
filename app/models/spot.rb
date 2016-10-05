@@ -2,16 +2,17 @@
 #
 # Table name: spots
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer          not null
-#  title      :string           not null
-#  one_word   :string           default("")
-#  pickup_id  :integer
-#  location   :string           default("")
-#  longitude  :decimal(9, 6)
-#  latitude   :decimal(9, 6)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                :integer          not null, primary key
+#  user_id           :integer          not null
+#  title             :string           not null
+#  one_word          :string           default("")
+#  pickup_id         :integer
+#  location          :string           default("")
+#  longitude         :decimal(9, 6)
+#  latitude          :decimal(9, 6)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  soft_destroyed_at :datetime
 #
 # Indexes
 #
@@ -21,6 +22,7 @@
 
 class Spot < ActiveRecord::Base
   include Search
+  soft_deletable dependent_associations: [:user]
   
   belongs_to :user
   belongs_to :pickup
@@ -47,7 +49,7 @@ class Spot < ActiveRecord::Base
   def near_spots
     list = []
     if self.longitude.present? && self.latitude.present?
-      Spot.where.not(id: self.id).order_by_updated_at_desc.each do |spot|
+      Spot.without_soft_destroyed.where.not(id: self.id).order_by_updated_at_desc.each do |spot|
         if spot.longitude.present? && spot.latitude.present?
           distance = Search.distance(self.longitude, self.latitude, spot.longitude, spot.latitude)
           if distance < Settings.search.distance
@@ -64,9 +66,9 @@ class Spot < ActiveRecord::Base
   def self.search(search_params)
     if search_params["longitude"].present? && search_params["latitude"].present?
       if search_params["spot_category"].present?
-        spots = Spot.where.not(latitude: nil, longitude: nil).where(pickup_id: search_params["spot_category"])
+        spots = Spot.where.without_soft_destroyed.not(latitude: nil, longitude: nil).where(pickup_id: search_params["spot_category"])
       else
-        spots = Spot.where.not(latitude: nil, longitude: nil)
+        spots = Spot.where.without_soft_destroyed.not(latitude: nil, longitude: nil)
       end
       spot_id_array = []
       spots.each do |spot|
