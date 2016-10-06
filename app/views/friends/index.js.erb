@@ -1,3 +1,4 @@
 <% if defined? @friends %>
   $('#friends_list').html($("<%=j render partial: 'friends_list', locals: { friends: @friends } %>").hide().fadeIn('slow'));
+  $("html,body").animate({scrollTop:0},'slow');
 <% end %>
