@@ -122,7 +122,6 @@
             = f.hidden_field :guests_cost, value: listing.listing_detail.guests_cost
             = f.hidden_field :included_guests_cost, value: listing.listing_detail.included_guests_cost
             = f.hidden_field :time_required, value: listing.listing_detail.time_required
-            = f.hidden_field :place, value: listing.listing_detail.place
             = f.hidden_field :place_memo, value: listing.listing_detail.place_memo
             /- space_options.each do |option|
               = f.hidden_field option, value: listing.listing_detail[option]

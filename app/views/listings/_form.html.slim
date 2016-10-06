@@ -125,10 +125,12 @@
   #map-wrapper.row.row-space-5.row-space-top-5
     .col-lg-12
       #map
-    /.row.row-space-5.row-space-top-5
+      
+  = f.simple_fields_for :listing_detail do |ff|
+    .row.row-space-5.row-space-top-5
       .col-lg-12.text-left
         .h4.row-space-2.text-light
-          | 集合場所の説明
+          | 集合場所や目印についての説明
       .col-lg-12
         = ff.input_field :place_memo,:class => 'imeoff', placeholder: "Eg. We will meet at the pharmacy next to the South Exit of the station. "
 

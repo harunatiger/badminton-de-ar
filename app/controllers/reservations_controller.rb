@@ -313,7 +313,7 @@ class ReservationsController < ApplicationController
       @reservation.price = listing.listing_detail.price
       @reservation.price_for_support = listing.listing_detail.price_for_support
       @reservation.price_for_both_guides = listing.listing_detail.price_for_both_guides
-      @reservation.place = listing.listing_detail.place
+      #@reservation.place = listing.listing_detail.place
       @reservation.place_memo = listing.listing_detail.place_memo
       #@reservation.space_option = listing.listing_detail.space_option
       @reservation.car_option = listing.listing_detail.car_option
