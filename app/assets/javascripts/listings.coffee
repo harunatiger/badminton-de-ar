@@ -1035,8 +1035,10 @@ $ ->
     markers = new Array()
     locations = $("input[name*='listing_destinations_attributes'][name*='location']")
     autocompletes = new Array()
+    location_values = new Array()
     locations.each (index) ->
       autocompletes[index] = new (google.maps.places.Autocomplete)(document.getElementById($(this).attr('id')))
+      location_values[index] = $(this).val()
     geocoder = new (google.maps.Geocoder)
     show = true
 
@@ -1045,7 +1047,6 @@ $ ->
     #---------------------------------------------------------------------
 
     initialize = ->
-      mark_count = 0
       bounds = new google.maps.LatLngBounds()
       locations.each (index) ->
         if $(this).val() != null && $(this).val() != ''
@@ -1054,7 +1055,6 @@ $ ->
           lat =  document.getElementById(lat_element.attr('id')).value
           lng =  document.getElementById(lng_element.attr('id')).value
           if lat && lng
-            mark_count += 1
             latlng = new google.maps.LatLng(lat,lng)
             mapOptions =
               center: latlng
@@ -1073,18 +1073,24 @@ $ ->
             google.maps.event.addListener markers[index], 'dragend', (e) ->
               geocodeLatLng e.latLng.lat(), e.latLng.lng(), index
               return
-
-        text = ''
-        $(this).focus ->
-          text = $(this).val()
-        $(this).blur ->
-          if text != $(this).val()
+            
+        $(this).keydown (e) ->
+          if e.keyCode == 13
+            e.preventDefault()
+            e.stopPropagation()
+          return
+        
+        $(this).keyup (e) ->
+          if location_values[index] != $(this).val()
+            $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).val ''
+            $("input[name*='listing_destinations_attributes'][name*='longitude']").eq(index).val ''
             deleteMark(index)
+          return
 
       if map
         setBounds()
 
-      if mark_count == 0
+      if markers.length == 0
         $('#map').parents('#map-wrapper').slideUp()
         $('#map').parents('#map-wrapper').removeClass('in')
         show = false
@@ -1156,11 +1162,14 @@ $ ->
     autoComplete = ->
       $.each autocompletes, (index) ->
         this.addListener 'place_changed', ->
+          if location_values[index] == $("input[name*='listing_destinations_attributes'][name*='location']").eq(index).val()
+            return
+          
           place = this.getPlace()
           if !place.geometry
             $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).empty()
             $("input[name*='listing_destinations_attributes'][name*='longitude']").eq(index).empty()
-            if show == true
+            if show == true && markers.length == 0
               $('#map').parents('#map-wrapper').slideUp()
               show = false
             return
@@ -1189,6 +1198,7 @@ $ ->
           $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).val place.geometry.location.lat()
           $("input[name*='listing_destinations_attributes'][name*='longitude']").eq(index).val place.geometry.location.lng()
           $("input[name*='listing_destinations_attributes'][name*='location']").eq(index).val place.name + ', ' +place.formatted_address
+          location_values[index] = place.name + ', ' +place.formatted_address
 
           google.maps.event.addListener markers[index], 'dragend', (e) ->
             geocodeLatLng e.latLng.lat(), e.latLng.lng(), index
