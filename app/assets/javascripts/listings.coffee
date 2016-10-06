@@ -813,17 +813,18 @@ $ ->
         $('.manage-listing-edit, .close-layer--sp').hide()
         $('.manage-listing-edit, .close-layer--sp').removeClass('show-off')
       return false
-
-  ###
+    
+  # store reservation params for sign_up_form
   if $('body').hasClass('listings show')
-    array_keywords = gon.keywords
-    if array_keywords.length != 0
-      keywords = []
-      rates = []
-
-      $.each array_keywords, (index, data) ->
-        keywords.push data.keyword
-        rates.push data.level
-        return
-      $('#canvas').Radarchart(keywords, rates)
-  ###
+    $(".listing_request[href='#sign_up_form']").on 'click', ->
+      params = "&reservation_params[listing_id]=" + $('#reservation_listing_id').val() + "&reservation_params[schedule_date]=" + $('#checkin').val() + "&reservation_params[num_of_people]=" + $('#reservation_num_of_people').val()
+      href = $("#sns_button").attr('href') + params
+      $("#sns_button").attr("href", href)
+      $('.facebook_link').attr("href", href)
+      #$("#new_user").attr("action", "/users?to_user_id=" + to_user_id)
+      return
+    
+    if $('#auto_submit').length
+      $('#new_reservation').submit()
+      return
+    return

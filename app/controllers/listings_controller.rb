@@ -35,7 +35,17 @@ class ListingsController < ApplicationController
     gon.ngdates = Ngevent.get_ngdates(@listing)
     gon.ngweeks = NgeventWeek.get_ngweeks_from_listing(@listing).pluck(:dow)
     gon.listing = @listing.listing_detail
+    
     @reservation = Reservation.new
+    if session[:reservation_params_after_sign_up].present?
+      # when sign_up call back
+      @reservation = Reservation.new(session[:reservation_params_after_sign_up])
+      session[:reservation_params_after_sign_up] = nil
+      @auto_submit = true
+    else
+      @reservation = Reservation.new
+      @auto_submit = false
+    end
     @profile_keyword = ProfileKeyword.where(user_id: @listing.user_id, profile_id: Profile.where(user_id: @listing.user_id).pluck(:id).first).keyword_limit
     gon.keywords = @profile_keyword
     @announcement = Announcement.display_at('listing').first

@@ -1,9 +1,11 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  
   def facebook
     @user = User.find_for_facebook_oauth(request.env["omniauth.auth"], current_user)
 
     if @user.persisted?
       if @user.unconfirmed?
+        session[:reservation_params] = nil
         flash[:notice] = I18n.t('devise.registrations.update_needs_confirmation')
         return redirect_to root_path
       end
@@ -14,14 +16,18 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         session["omniauth.auth"] = request.env["omniauth.auth"]
         return redirect_to new_user_registration_url
       end
-
+      session[:reservation_params] = nil
       session["devise.facebook_data"] = request.env["omniauth.auth"]
       redirect_to new_user_registration_url
     end
   end
   
   def after_sign_in_path_for(resource)
-    if session[:to_user_id]
+    if session[:reservation_params]
+      session[:reservation_params_after_sign_up] = session[:reservation_params]
+      session[:reservation_params] = nil
+      listing_path(session[:reservation_params_after_sign_up]['listing_id'])
+    elsif session[:to_user_id]
       if session[:previous_url].index('profiles') && !resource.guest?
         session[:what_talk_about] = true unless current_user.main_guide?
         message_thread_id = DefaultThread.get_message_thread_id(session[:to_user_id], current_user.id)
@@ -35,5 +41,4 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       session[:previous_url] || root_path
     end
   end
- 
 end
