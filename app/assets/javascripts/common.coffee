@@ -595,22 +595,6 @@ $ ->
     ), 1
     return
 
-  # ga setting
-  if $('body').hasClass('profiles show')
-    #$('.profile_message').on 'click', ->
-    #  if typeof ga != 'undefined'
-    #    ga('send', 'event', 'reservation','profile page', 'Talk to me')
-    #return
-
-    $('.sign_up_form').on 'click', ->
-      $('#sign_in_form').modal('hide')
-      return
-
-    $('.sign_in_form').on 'click', ->
-      $('.sns-buttons-sign-in').addClass('show')
-      $('#sign_up_form').modal('hide')
-      return
-
   if $('body').hasClass('listings show')
     $('#new_user').submit ->
       targetForm = $(this).closest('form')
@@ -619,29 +603,19 @@ $ ->
       $('.btn-frame > .btn', targetForm).addClass('text-disappear')
       return
 
-    #$('.listing_request').on 'click', ->
-    #  if typeof ga != 'undefined'
-    #    ga('send', 'event', 'reservation','listing page', 'Request Booking')
-    #  return
-
-    #$('.listing_message').on 'click', ->
-    #  if typeof ga != 'undefined'
-    #    ga('send', 'event', 'reservation','listing page', 'Talk to me')
-    #  return
-
-    $('.sign_up_form').on 'click', ->
-      $('#sign_in_form').modal('hide')
-      return
-
-    $('.sign_in_form').on 'click', ->
-      $('.sns-buttons-sign-in').addClass('show')
-      $('#sign_up_form').modal('hide')
-      return
-
   if $('body').hasClass('plan4U') || $('body').hasClass('plan4U_kyoto')
     $('#moreguide').on 'click', ->
       $(this).remove()
       $('.hide-guest').removeClass('hide-guest')
+      return false
+    
+    $(document).on 'click', '.sign_up_form', ->
+      to_user_id = $(this).attr('user_id')
+      if to_user_id
+        $("#sns_button").attr("href", "/users/before_omniauth?to_user_id=" + to_user_id)
+        $('.facebook_link').attr("href", "/users/before_omniauth?to_user_id=" + to_user_id)
+        $("#new_user").attr("action", "/users?to_user_id=" + to_user_id)
+        $('#sign_up_form').modal()
       return false
 
   $('.facebook_button').on 'click', ->
