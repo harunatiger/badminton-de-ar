@@ -28,6 +28,7 @@ $ ->
     autocomplete = new (google.maps.places.Autocomplete)(location)
     geocoder = new (google.maps.Geocoder)
     show = true
+    location_value = $('#spot_location').val()
     #---------------------------------------------------------------------
     # Create MapCanvas
     #---------------------------------------------------------------------
@@ -63,11 +64,17 @@ $ ->
         $('#map').parents('#map-wrapper').slideUp()
         $('#map').parents('#map-wrapper').removeClass('in')
         show = false
-
-      $('#spot_location').blur ->
-        if jQuery.trim($(this).val()) == ''
-          $('#spot_latitude').val 0.0
-          $('#spot_longitude').val 0.0
+      
+      $('#spot_location').keydown (e) ->
+        if e.keyCode == 13
+          e.preventDefault()
+          e.stopPropagation()
+        return
+      
+      $('#spot_location').keyup (e) ->
+        if location_value != $(this).val()
+          $('#spot_latitude').val ''
+          $('#spot_longitude').val ''
           $('#map').parents('#map-wrapper').slideUp()
           $('#map').parents('#map-wrapper').removeClass('in')
           show = false
@@ -92,6 +99,9 @@ $ ->
     # Place Change Event
     #---------------------------------------------------------------------
     autocomplete.addListener 'place_changed', ->
+      if location_value == $('#spot_location').val()
+        return
+      
       place = autocomplete.getPlace()
       if !place.geometry
         $('#spot_latitude').empty()
@@ -127,6 +137,8 @@ $ ->
       $('#spot_latitude').val place.geometry.location.lat()
       $('#spot_longitude').val place.geometry.location.lng()
       $('#spot_location').val place.name + ', ' +place.formatted_address
+      location_value = $('#spot_location').val()
+      
       google.maps.event.addListener marker, 'dragend', (e) ->
         geocodeLatLng e.latLng.lat(), e.latLng.lng()
         return
