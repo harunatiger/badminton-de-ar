@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   end
   
   def log_access
-    if !request.fullpath.index('admin')
+    if !request.fullpath.index('admin') && !request.env["HTTP_USER_AGENT"].index('ELB-HealthChecker')
       if session[:country].blank?
         remoteaddr = ''
         if request.env['HTTP_X_FORWARDED_FOR']
