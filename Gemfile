@@ -166,6 +166,9 @@ gem "google_visualr", "2.5.1"
 # get language from http header
 gem 'http_accept_language', '2.0.5'
 
+# locale from ip
+gem 'geoip'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '4.0.3'

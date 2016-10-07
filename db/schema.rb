@@ -15,6 +15,22 @@ ActiveRecord::Schema.define(version: 20161005063356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  
+  create_table "accesses", force: :cascade do |t|
+    t.string   "session_id"
+    t.integer  "user_id"
+    t.string   "method"
+    t.string   "page"
+    t.string   "referer"
+    t.string   "country"
+    t.string   "devise"
+    t.datetime "accessed_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "accesses", ["session_id"], name: "index_accesses_on_session_id", using: :btree
+  add_index "accesses", ["user_id"], name: "index_accesses_on_user_id", using: :btree
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
