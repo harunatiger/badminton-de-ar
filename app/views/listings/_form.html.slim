@@ -112,7 +112,7 @@
             .col-10.row-space-1.row-space-top-1
               = ff.hidden_field :longitude
               = ff.hidden_field :latitude
-              = ff.input_field :location, :class => 'imeoff', placeholder: "Googleマップから検索できます"
+              = ff.input_field :location, placeholder: "Googleマップから検索できます"
             .col-2.row-space-1.row-space-top-1
               = ff.link_to_remove do
                 span.location-remove.balloon[title="この目的地を削除"]
@@ -125,10 +125,12 @@
   #map-wrapper.row.row-space-5.row-space-top-5
     .col-lg-12
       #map
-    /.row.row-space-5.row-space-top-5
+      
+  = f.simple_fields_for :listing_detail do |ff|
+    .row.row-space-5.row-space-top-5
       .col-lg-12.text-left
         .h4.row-space-2.text-light
-          | 集合場所の説明
+          | 集合場所や目印についての説明
       .col-lg-12
         = ff.input_field :place_memo,:class => 'imeoff', placeholder: "Eg. We will meet at the pharmacy next to the South Exit of the station. "
 

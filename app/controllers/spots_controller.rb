@@ -2,11 +2,12 @@ class SpotsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :set_spot, only: [:show, :edit, :update, :destroy]
   before_action :regulate_user, only: [:edit, :update, :destroy]
+  before_action :deleted_check, only: [:show, :edit, :update, :destroy]
   
   # GET /spots
   # GET /spots.json
   def index
-    @spots = current_user.spots.includes(:spot_image).order_by_updated_at_desc
+    @spots = current_user.spots.without_soft_destroyed.includes(:spot_image).order_by_updated_at_desc
   end
 
   # GET /spots/1
@@ -68,9 +69,9 @@ class SpotsController < ApplicationController
   # DELETE /spots/1
   # DELETE /spots/1.json
   def destroy
-    @spot.spot_image.remove_image!
-    @spot.spot_image.destroy
-    @spot.destroy
+    @spot.spot_image.remove_image! if @spot.spot_image.present?
+    @spot.spot_image.destroy if @spot.spot_image.present?
+    @spot.soft_destroy!
     respond_to do |format|
       format.html { redirect_to spots_url, notice: 'Spot was successfully destroyed.' }
       format.json { head :no_content }
@@ -90,5 +91,9 @@ class SpotsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def spot_params
       params.require(:spot).permit(:title, :one_word, :pickup_id, :location, :longitude, :latitude, spot_image_attributes: [ :id, :image, :image_cache ])
+    end
+  
+    def deleted_check
+      return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.spot.error.deleted if @spot.soft_destroyed?
     end
 end

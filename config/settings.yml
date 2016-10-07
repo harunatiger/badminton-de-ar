@@ -417,6 +417,9 @@ laguages:
   en: 'EN'
 response_rate:
   begining_date: '2016/8/1 00:00:00'
+spot:
+  error:
+    deleted: "This spot has been deleted"
 spot_image:
   save:
     blank: "Image can't be blank"

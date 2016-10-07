@@ -9,7 +9,7 @@
         ul
           - listing_destinations.each do |listing_destination|
             li= listing_destination.location
-    /- if listing_detail.place_memo.present?
+    - if listing_detail.place_memo.present?
       .card-body
         .h6.row-space-1 Note about meeting up
         .text-muted.overflow

@@ -55,7 +55,7 @@ $ ->
         type: 'DELETE'
         url: '/favorites/' + favorite_id
       ).done (data) ->
-        parent.html(data)
+        parent.replaceWith(data)
         setBtn()
       return false
     
@@ -75,7 +75,7 @@ $ ->
           user_id: user_id
         }
       ).done (data) ->
-        parent.html(data)
+        parent.replaceWith(data)
         setBtn()
       return false
     

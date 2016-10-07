@@ -28,6 +28,7 @@ $ ->
     autocomplete = new (google.maps.places.Autocomplete)(location)
     geocoder = new (google.maps.Geocoder)
     show = true
+    location_value = $('#spot_location').val()
     #---------------------------------------------------------------------
     # Create MapCanvas
     #---------------------------------------------------------------------
@@ -63,11 +64,17 @@ $ ->
         $('#map').parents('#map-wrapper').slideUp()
         $('#map').parents('#map-wrapper').removeClass('in')
         show = false
-
-      $('#spot_location').blur ->
-        if jQuery.trim($(this).val()) == ''
-          $('#spot_latitude').val 0.0
-          $('#spot_longitude').val 0.0
+      
+      $('#spot_location').keydown (e) ->
+        if e.keyCode == 13
+          e.preventDefault()
+          e.stopPropagation()
+        return
+      
+      $('#spot_location').keyup (e) ->
+        if location_value != $(this).val()
+          $('#spot_latitude').val ''
+          $('#spot_longitude').val ''
           $('#map').parents('#map-wrapper').slideUp()
           $('#map').parents('#map-wrapper').removeClass('in')
           show = false
@@ -92,6 +99,9 @@ $ ->
     # Place Change Event
     #---------------------------------------------------------------------
     autocomplete.addListener 'place_changed', ->
+      if location_value == $('#spot_location').val()
+        return
+      
       place = autocomplete.getPlace()
       if !place.geometry
         $('#spot_latitude').empty()
@@ -127,6 +137,8 @@ $ ->
       $('#spot_latitude').val place.geometry.location.lat()
       $('#spot_longitude').val place.geometry.location.lng()
       $('#spot_location').val place.name + ', ' +place.formatted_address
+      location_value = $('#spot_location').val()
+      
       google.maps.event.addListener marker, 'dragend', (e) ->
         geocodeLatLng e.latLng.lat(), e.latLng.lng()
         return
@@ -151,3 +163,49 @@ $ ->
       return
 
     google.maps.event.addDomListener window, 'load', initialize
+
+  # spots detail
+  if $('body').hasClass('spots show')
+
+    # Back button effect
+    ###
+    ans = undefined
+    bs = false
+    ref = document.referrer
+    domain = location.hostname
+    $(window).on 'unload beforeunload', ->
+      bs = true
+      return
+    re = new RegExp("^https?:\/\/" + domain, "i")
+    if ref.match(re)
+      ans = true
+    else
+      ans = false
+    $('.back-link').on 'click', (e) ->
+      that = this
+      if ans
+        history.back()
+        setTimeout (->
+          if !bs
+            location.href = $(that).attr('href')
+          return
+        ), 100
+      else
+        location.href = $(this).attr('href')
+      e.preventDefault()
+    ###
+
+  # social-share-widget
+  if('.social-share-widget').length
+    # facebook share
+    $('.share-facebook-btn').on 'click', ->
+      window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href), 'facebook-share-dialog', 'width=626, height=436, personalbar=0, toolbar=0, scrollbars=1, resizable=!')
+      return false
+    # twitter share
+    $('.share-twitter-btn').on 'click', ->
+      window.open('http://twitter.com/intent/tweet?text=' + 'Spot' + '&amp;url=' + encodeURIComponent(window.location.href) + '&amp;via=' + 'Huber.', 'tweetwindow', 'width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=1')
+      return false
+    # line share
+    $('.sns-line-btn').on 'click', ->
+      window.location = 'http://line.me/R/msg/text/?' + 'Recommend' + encodeURIComponent(window.location.href)
+      return false
