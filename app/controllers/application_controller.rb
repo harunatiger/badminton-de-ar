@@ -6,12 +6,13 @@ class ApplicationController < ActionController::Base
 
   #http_basic_authenticate_with name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD'] unless Rails.env.development?
   before_action :set_locale
+  before_action :log_access
+  after_action  :store_location
  
   def set_locale
     I18n.locale = :en
   end
   
-  after_action  :store_location
   def store_location
     if (request.fullpath != "/users/sign_in" &&
         request.fullpath != "/users/sign_up" &&
@@ -33,5 +34,32 @@ class ApplicationController < ActionController::Base
   def render_404(e = nil)
     logger.info "Rendering 404 with exception: #{e.message}" if e
     render template: 'errors/error_404', status: 404, layout: 'application', content_type: 'text/html'
+  end
+  
+  def log_access
+    if !request.fullpath.index('admin') && !request.env["HTTP_USER_AGENT"].index('ELB-HealthChecker')
+      if session[:country].blank?
+        remoteaddr = ''
+        if request.env['HTTP_X_FORWARDED_FOR']
+          remoteaddr = request.env['HTTP_X_FORWARDED_FOR'].split(",")[0]
+        else		
+          remoteaddr = request.env['REMOTE_ADDR'] if request.env['REMOTE_ADDR']
+        end
+        geoip = GeoIP.new(Rails.root + "db/GeoIP.dat").country(remoteaddr)
+        session[:country] = geoip.country_code2
+      end
+
+      access_params = {
+        session_id: session[:session_id],
+        user_id: user_signed_in? ? current_user.id : nil,
+        method: request.method,
+        page: request.fullpath,
+        referer: request.referer,
+        country: session[:country],
+        devise: request.env["HTTP_USER_AGENT"],
+        accessed_at: Time.zone.now
+        }
+      Access.insert_record(access_params)
+    end
   end
 end
