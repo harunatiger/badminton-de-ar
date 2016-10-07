@@ -587,14 +587,17 @@ class Reservation < ActiveRecord::Base
   def create_pair_guide_review
     if self.pg_completion?
       main_review = ReviewForGuide.where(reservation_id: self.id, host_id: self.host_id).first
-      pair_guide_review = main_review.dup
-      if main_review.tour_image.present?
-        pair_guide_review.image_blank_ok = true
-        pair_guide_review.tour_image = main_review.tour_image.file
-      end
-      pair_guide_review.host_id = self.pair_guide_id
-      if pair_guide_review.save
-        pair_guide_review.re_calc_ave_of_profile
+      pair_guide_review = ReviewForGuide.where(reservation_id: self.id, host_id: self.pair_guide_id).first
+      if pair_guide_review.blank?
+        pair_guide_review = main_review.dup
+        if main_review.tour_image.present?
+          pair_guide_review.image_blank_ok = true
+          pair_guide_review.tour_image = main_review.tour_image.file
+        end
+        pair_guide_review.host_id = self.pair_guide_id
+        if pair_guide_review.save
+          pair_guide_review.re_calc_ave_of_profile
+        end
       end
     end
   end
