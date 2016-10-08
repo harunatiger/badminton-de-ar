@@ -5,6 +5,7 @@
 #  id          :integer          not null, primary key
 #  session_id  :string
 #  user_id     :integer
+#  method      :string
 #  page        :string
 #  referer     :string
 #  country     :string

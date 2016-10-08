@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921022000) do
+ActiveRecord::Schema.define(version: 20161006054323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  
+
   create_table "accesses", force: :cascade do |t|
     t.string   "session_id"
     t.integer  "user_id"
@@ -178,43 +178,6 @@ ActiveRecord::Schema.define(version: 20160921022000) do
   add_index "emergencies", ["profile_id"], name: "index_emergencies_on_profile_id", using: :btree
   add_index "emergencies", ["user_id"], name: "index_emergencies_on_user_id", using: :btree
 
-  create_table "favorite_histories", force: :cascade do |t|
-    t.integer  "from_user_id", null: false
-    t.integer  "to_user_id"
-    t.integer  "listing_id"
-    t.datetime "read_at"
-    t.string   "type",         null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "favorite_histories", ["from_user_id"], name: "index_favorite_histories_on_from_user_id", using: :btree
-  add_index "favorite_histories", ["listing_id"], name: "index_favorite_histories_on_listing_id", using: :btree
-  add_index "favorite_histories", ["to_user_id"], name: "index_favorite_histories_on_to_user_id", using: :btree
-  add_index "favorite_histories", ["type"], name: "index_favorite_histories_on_type", using: :btree
-
-  create_table "favorite_listings", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "listing_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "read_at"
-  end
-
-  add_index "favorite_listings", ["listing_id"], name: "index_favorite_listings_on_listing_id", using: :btree
-  add_index "favorite_listings", ["user_id"], name: "index_favorite_listings_on_user_id", using: :btree
-
-  create_table "favorite_users", force: :cascade do |t|
-    t.integer  "from_user_id", null: false
-    t.integer  "to_user_id",   null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.datetime "read_at"
-  end
-
-  add_index "favorite_users", ["from_user_id"], name: "index_favorite_users_on_from_user_id", using: :btree
-  add_index "favorite_users", ["to_user_id"], name: "index_favorite_users_on_to_user_id", using: :btree
-
   create_table "favorites", force: :cascade do |t|
     t.integer  "from_user_id",      null: false
     t.integer  "to_user_id"
@@ -224,11 +187,13 @@ ActiveRecord::Schema.define(version: 20160921022000) do
     t.datetime "soft_destroyed_at"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "spot_id"
   end
 
   add_index "favorites", ["from_user_id"], name: "index_favorites_on_from_user_id", using: :btree
   add_index "favorites", ["listing_id"], name: "index_favorites_on_listing_id", using: :btree
   add_index "favorites", ["soft_destroyed_at"], name: "index_favorites_on_soft_destroyed_at", using: :btree
+  add_index "favorites", ["spot_id"], name: "index_favorites_on_spot_id", using: :btree
   add_index "favorites", ["to_user_id"], name: "index_favorites_on_to_user_id", using: :btree
   add_index "favorites", ["type"], name: "index_favorites_on_type", using: :btree
 
@@ -312,6 +277,17 @@ ActiveRecord::Schema.define(version: 20160921022000) do
 
   add_index "listing_categories", ["category_id"], name: "index_listing_categories_on_category_id", using: :btree
   add_index "listing_categories", ["listing_id"], name: "index_listing_categories_on_listing_id", using: :btree
+
+  create_table "listing_destinations", force: :cascade do |t|
+    t.integer  "listing_id",                         null: false
+    t.string   "location",                           null: false
+    t.decimal  "longitude",  precision: 9, scale: 6
+    t.decimal  "latitude",   precision: 9, scale: 6
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "listing_destinations", ["listing_id"], name: "index_listing_destinations_on_listing_id", using: :btree
 
   create_table "listing_details", force: :cascade do |t|
     t.integer  "listing_id"
@@ -890,6 +866,30 @@ ActiveRecord::Schema.define(version: 20160921022000) do
   add_index "reviews", ["listing_id"], name: "index_reviews_on_listing_id", using: :btree
   add_index "reviews", ["reservation_id"], name: "index_reviews_on_reservation_id", using: :btree
 
+  create_table "spot_images", force: :cascade do |t|
+    t.integer  "spot_id",    null: false
+    t.string   "image",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "spot_images", ["spot_id"], name: "index_spot_images_on_spot_id", using: :btree
+
+  create_table "spots", force: :cascade do |t|
+    t.integer  "user_id",                                         null: false
+    t.string   "title",                                           null: false
+    t.string   "one_word",                           default: ""
+    t.integer  "pickup_id"
+    t.string   "location",                           default: ""
+    t.decimal  "longitude",  precision: 9, scale: 6
+    t.decimal  "latitude",   precision: 9, scale: 6
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+  end
+
+  add_index "spots", ["pickup_id"], name: "index_spots_on_pickup_id", using: :btree
+  add_index "spots", ["user_id"], name: "index_spots_on_user_id", using: :btree
+
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -959,6 +959,7 @@ ActiveRecord::Schema.define(version: 20160921022000) do
     t.string   "email_before_closed",    default: ""
     t.text     "reason",                 default: ""
     t.integer  "user_type",              default: 0
+    t.date     "last_access_date"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
@@ -998,18 +999,13 @@ ActiveRecord::Schema.define(version: 20160921022000) do
   add_foreign_key "dress_codes", "listings"
   add_foreign_key "emergencies", "profiles"
   add_foreign_key "emergencies", "users"
-  add_foreign_key "favorite_histories", "listings"
-  add_foreign_key "favorite_histories", "users", column: "from_user_id"
-  add_foreign_key "favorite_histories", "users", column: "to_user_id"
-  add_foreign_key "favorite_listings", "listings"
-  add_foreign_key "favorite_listings", "users"
-  add_foreign_key "favorite_users", "users", column: "from_user_id"
-  add_foreign_key "favorite_users", "users", column: "to_user_id"
   add_foreign_key "favorites", "listings"
+  add_foreign_key "favorites", "spots"
   add_foreign_key "favorites", "users", column: "from_user_id"
   add_foreign_key "favorites", "users", column: "to_user_id"
   add_foreign_key "listing_categories", "categories"
   add_foreign_key "listing_categories", "listings"
+  add_foreign_key "listing_destinations", "listings"
   add_foreign_key "listing_details", "listings"
   add_foreign_key "listing_images", "listings"
   add_foreign_key "listing_images", "pickups"
@@ -1060,6 +1056,9 @@ ActiveRecord::Schema.define(version: 20160921022000) do
   add_foreign_key "reviews", "reservations"
   add_foreign_key "reviews", "users", column: "guest_id"
   add_foreign_key "reviews", "users", column: "host_id"
+  add_foreign_key "spot_images", "spots"
+  add_foreign_key "spots", "pickups"
+  add_foreign_key "spots", "users"
   add_foreign_key "tools", "listings"
   add_foreign_key "user_campaigns", "campaigns"
   add_foreign_key "user_campaigns", "users"
