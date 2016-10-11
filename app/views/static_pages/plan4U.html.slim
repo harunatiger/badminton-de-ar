@@ -1,5 +1,5 @@
 / plan4U
-= render file: Rails.root.join('public/s3_contents/plan4U_header.html')
+= raw @s3_header
 /.hero
   .page-container
     h1.text-center.text-plan4U
@@ -96,7 +96,7 @@ section.recomended-guides.text-center.section
           - else
             = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
   
-= render file: Rails.root.join('public/s3_contents/plan4U_middle.html')
+= raw @s3_middle
 /section.howto.section
   .page-container.text-center
     h3.h1.spb.row-space-8 HOW TO USE
@@ -139,7 +139,7 @@ section.popular-tours.section
           - else
             .tour-listing-empty.text-center.text-brand.text-black
 
-= render file: Rails.root.join('public/s3_contents/plan4U_footer.html')
+= raw @s3_footer
 /section.guest-book.section
   h3.spb.text-center.row-space-8
     .h1.row-space-2 Guest Book
