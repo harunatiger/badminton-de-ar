@@ -30,6 +30,7 @@
 //= require lib/megapix-image
 //= require lib/exif
 //= require lib/bootstrap-slider.min
+//= require lib/instafeed.min.js
 
 //= require common
 //= require dashboard
