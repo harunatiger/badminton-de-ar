@@ -5,6 +5,7 @@
 #  id          :integer          not null, primary key
 #  session_id  :string
 #  user_id     :integer
+#  method      :string
 #  page        :string
 #  referer     :string
 #  country     :string
@@ -30,5 +31,9 @@ class Access < ActiveRecord::Base
       country: access_params[:country].presence || '',
       devise: access_params[:devise].presence || '',
       accessed_at: access_params[:accessed_at].presence || '')
+  end
+  
+  def display_name
+    "Access ##{id}"
   end
 end

@@ -18,6 +18,20 @@ $ ->
   # TMP edit
   # $('#request_withdrawal').modal('show')
 
+  # footer instagram widget
+  feed = new Instafeed(
+    target: 'instafeed'
+    get: 'user'
+    userId: '3126102602'
+    clientId: 'd35c9e83f88c456487e7779d3c9d5f93'
+    accessToken: '205858901.d35c9e8.6eb2ad8197614e169dfd9f3903171ce2'
+    resolution: 'standard_resolution'
+    links: true
+    limit: 6
+    template: '<li><a href="{{link}}" target="_blank"><div style="background-image: url({{image}})"></div></a></li>'
+  )
+  feed.run()
+
   # sns lazyload
   if $('#fb-widget').length
     loadAPI = ->
@@ -608,7 +622,7 @@ $ ->
       $(this).remove()
       $('.hide-guest').removeClass('hide-guest')
       return false
-    
+
     $(document).on 'click', '.sign_up_form', ->
       to_user_id = $(this).attr('user_id')
       if to_user_id
