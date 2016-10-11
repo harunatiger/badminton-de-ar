@@ -32,4 +32,8 @@ class Access < ActiveRecord::Base
       devise: access_params[:devise].presence || '',
       accessed_at: access_params[:accessed_at].presence || '')
   end
+  
+  def display_name
+    "Access ##{id}"
+  end
 end
