@@ -88,3 +88,6 @@ bower.json
 
 .env
 .envrc
+
+# s3contents
+public/s3_contents/*

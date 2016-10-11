@@ -1,4 +1,6 @@
 class StaticPagesController < ApplicationController
+  before_action :set_html, only: [:plan4U, :plan4U_kyoto]
+  
   def cancel_policy_en
   end
 
@@ -36,6 +38,13 @@ class StaticPagesController < ApplicationController
   end
 
   def our_partners
+  end
+  
+  private
+  def set_html
+    @s3_header = File.read(Rails.root.join('public/s3_contents/plan4U_header.html'))
+    @s3_middle = File.read(Rails.root.join('public/s3_contents/plan4U_middle.html'))
+    @s3_footer = File.read(Rails.root.join('public/s3_contents/plan4U_footer.html'))
   end
 
 end
