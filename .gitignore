@@ -90,4 +90,4 @@ bower.json
 .envrc
 
 # s3contents
-public/s3-contents
+public/s3_contents/*
