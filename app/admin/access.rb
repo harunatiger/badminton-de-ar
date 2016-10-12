@@ -5,4 +5,10 @@ ActiveAdmin.register Access do
     end
     actions
   end
+  
+  csv :force_quotes => false do
+    Access.column_names.each do |col|
+      column col
+    end
+  end
 end
