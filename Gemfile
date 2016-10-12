@@ -163,11 +163,11 @@ gem 'nested_form', '0.3.2'
 # chart
 gem "google_visualr", "2.5.1"
 
-# get language from http header
-gem 'http_accept_language', '2.0.5'
-
 # locale from ip
 gem 'geoip'
+
+# get language from http header
+gem 'http_accept_language', '2.0.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

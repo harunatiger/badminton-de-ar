@@ -426,3 +426,13 @@ spot_image:
 search:
   distance: 10
   display_count: 10
+plan4U:
+  s3_content_path:
+    header: 'public/s3_contents/plan4U_header.html'
+    middle: 'public/s3_contents/plan4U_middle.html'
+    footer: 'public/s3_contents/plan4U_footer.html'
+plan4U_kyoto:
+  s3_content_path:
+    header: 'public/s3_contents/plan4U_kyoto_header.html'
+    middle: 'public/s3_contents/plan4U_kyoto_middle.html'
+    footer: 'public/s3_contents/plan4U_kyoto_footer.html'
