@@ -639,6 +639,17 @@ $ ->
   $('.facebook_link').on 'click', ->
     $(this).hide()
     return
+  
+  $('#currency_code').on 'change', ->
+    currency_code = $('#currency_code option:selected').text()
+    $.ajax(
+        type: 'POST'
+        url: '/currencies/change_currency'
+        data: {
+          currency_code: currency_code
+        }
+     ).done (data) ->
+      location.reload()
 
   ###
     # circle map

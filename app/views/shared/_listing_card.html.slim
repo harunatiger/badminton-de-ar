@@ -4,8 +4,8 @@
       .tour-cover[style="background-image:url(#{asset_path listing_cover_image_thumb_url(listing.id)})" data-original="#{asset_path listing_cover_image_thumb_url(listing.id)}"]
     .card-overlay-bottom-left.flush-left.card-overlay-label
       .h3
-        | ¥&nbsp;
-        = listing.listing_detail.display_amount if listing.listing_detail.present?
+        | #{currency_sign}&nbsp;
+        = exchanged_amount(listing.listing_detail.display_amount) if listing.listing_detail.present?
         | /Group
     - if user_signed_in?
       = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do

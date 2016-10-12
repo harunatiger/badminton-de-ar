@@ -15,7 +15,7 @@
 ■雨天の場合は中止する
   <%= @listing_detail.stop_if_rain? ? '有' : '無'%>
 ■決済料金:
-  <%= @payment.present? ? @payment.amount : @reservation.amount_for_campaign %>円
+  <%= @reservation.amount_for_campaign %>円
 ■あなたの収入:
   <%= @reservation.price %>円
 ■サポートメンバーの収入:

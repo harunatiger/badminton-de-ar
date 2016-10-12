@@ -6,34 +6,27 @@ module Payments
 
   def set_checkout(reservation)
     setup_response = self.gateway.setup_authorization(
-            reservation.paypal_amount,
+            reservation.paypal_amount(session[:currency_code], session[:rate]),
             :ip => request.remote_ip,
             :return_url => confirm_payment_reservations_url,
             :cancel_return_url => cancel_payment_reservations_url,
-            :currency => 'JPY',
+            :currency => session[:currency_code],
             description: reservation.listing.title,
             no_shipping: 1,
             items: item_params(reservation))
   end
 
   def item_params(reservation)
-    if reservation.campaign.present?
-      [{name: reservation.listing.title,
-        amount: reservation.paypal_sub_total},
-        {name: 'Service commission',
-        amount: reservation.paypal_handling_cost},
-        {name: 'Travel insurance',
-        amount: reservation.paypal_travel_insurance},
-        {name: 'Discount',
-          amount: reservation.paypal_campaign_discount}]
-    else
-      [{name: reservation.listing.title,
-        amount: reservation.paypal_sub_total},
-        {name: 'Service commission',
-        amount: reservation.paypal_handling_cost},
-        {name: 'Travel insurance',
-        amount: reservation.paypal_travel_insurance}]
-    end
+    currency_code = session[:currency_code]
+    rate = session[:rate]
+    
+    params_array = 
+      [{name: reservation.listing.title, amount: reservation.paypal_sub_total(currency_code, rate)},
+       {name: 'Service commission', amount: reservation.paypal_handling_cost(currency_code, rate)},
+       {name: 'Travel insurance', amount: reservation.paypal_travel_insurance(currency_code, rate)}]
+    
+    params_array.push({name: 'Exchange Fee', amount: reservation.paypal_exchange_fee(currency_code, rate)}) if session[:currency_code] != 'JPY'
+    params_array.push({name: 'Discount', amount: reservation.paypal_campaign_discount(currency_code, rate)}) if reservation.campaign.present?
   end
 
   def do_purchase(payment)
@@ -53,11 +46,11 @@ module Payments
   end
 
   def refund_full(payment)
-    response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: 'JPY'} )
+    response = self.gateway.refund(nil, payment.transaction_id, {refund_type: 'Full', currency: payment.currency_code} )
   end
   
   def refund_partial(payment, percentage)
-    response = self.gateway.refund(payment.refund_amount_for_paypal(percentage), payment.transaction_id, {refund_type: 'Partial', currency: 'JPY'} )
+    response = self.gateway.refund(payment.refund_amount_for_paypal(percentage), payment.transaction_id, {refund_type: 'Partial', currency: payment.currency_code} )
   end
 
   def set_details(token)
@@ -74,7 +67,7 @@ module Payments
     {
       :ip => request.remote_ip,
       :token => payment.token,
-      :currency => 'JPY',
+      :currency => session[:currency_code],
       :payer_id => payment.payer_id
     }
   end

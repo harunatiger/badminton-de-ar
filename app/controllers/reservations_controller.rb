@@ -135,7 +135,7 @@ class ReservationsController < ApplicationController
 
     # if @reservation.amount_for_campaign <= 0
     UserCampaign.create(user_id: current_user.id, campaign_id: @campaign.id) if @campaign.present?
-    Payment.create(reservation_id: @reservation.id) if @reservation.payment.blank?
+    Payment.create(reservation_id: @reservation.id, currency_code: session[:currency_code], exchange_rate: session[:rate]) if @reservation.payment.blank?
     session[:campaign_id] = nil
 
     respond_to do |format|
@@ -246,7 +246,7 @@ class ReservationsController < ApplicationController
     session[:reservation_id] = nil
     details = set_details(params[:token])
     if details.success?
-      @payment = @reservation.set_details(details)
+      @payment = @reservation.set_details(details, session[:rate])
       @listing = Listing.find(@reservation.listing_id)
     else
       respond_to do |format|

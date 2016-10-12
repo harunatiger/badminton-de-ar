@@ -94,7 +94,7 @@
                   | ペアガイド未確定
 
     .collapse-body
-      = render partial: 'shared/reservation_block', locals: { reservation: r , count: i.to_s}
+      = render partial: 'reservation_block_as_guest', locals: { reservation: r , count: i.to_s}
 
 
     = render partial: '/shared/modals/include_what', locals: { included_guests_cost: r.included_guests_cost, count: i.to_s }
