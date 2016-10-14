@@ -6,14 +6,14 @@
           = link_to "", "#{asset_path review.tour_image}", class: "review-pic", style: "background-image: url('#{asset_path review.tour_image}')"
           /.review-pic[style="background-image: url('#{asset_path review.tour_image}')"]
           /= image_tag(review.tour_image, class: "review-pic hide")
-    = link_to profile_path(user_id_to_profile_id(review.guest_id))
+    = link_to profile_path(user_id_to_profile_id(review.guest_id)), target: '_blank'
       .col-md-3.text-center.row-space-2
         .media-photo.media-round.media-avatar.text-center
-          = link_to profile_path(user_id_to_profile_id(review.guest_id)) do
+          = link_to profile_path(user_id_to_profile_id(review.guest_id)), target: '_blank' do
             .size68[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(review.guest_id)}')"]
         .name
           .text-muted.link-reset.text-truncate
-            = link_to profile_path(user_id_to_profile_id(review.guest_id)), class: "text-muted" do
+            = link_to profile_path(user_id_to_profile_id(review.guest_id)), class: "text-muted", target: '_blank' do
               = user_id_to_firstname(review.guest_id)
     .col-md-9
       .row-space-2

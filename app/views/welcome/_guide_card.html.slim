@@ -1,5 +1,5 @@
 .col-lg-4.col-md-6.col-sm-12.row-space-4
-  = link_to profile_path(profile), class: "guide-card" do
+  = link_to profile_path(profile), class: "guide-card", target: '_blank' do
     .guide-card-background[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')" data-original="#{asset_path profile_to_image_thumb(profile)}"]
     .guide-card-content.text-contrast.text-left
       .card-body
