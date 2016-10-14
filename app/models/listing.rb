@@ -166,7 +166,7 @@ class Listing < ActiveRecord::Base
     hash
   end
 
-  def self.search(search_params)
+  def self.search(search_params, max_distance=Settings.search.distance)
     if search_params["longitude"].present? && search_params["latitude"].present?
       if search_params["sort_by"].blank?
         listings = Listing.opened
@@ -215,14 +215,16 @@ class Listing < ActiveRecord::Base
       
       listing_destinations = ListingDestination.where(listing_id: listings.ids).where.not(latitude: nil, longitude: nil)
       listing_id_array = []
+      listing_destination_id_array = []
       listing_destinations.each do |listing_destination|
         distance = Search.distance(search_params["longitude"].to_f, search_params["latitude"].to_f, listing_destination.longitude, listing_destination.latitude)
         
-        if distance <= Settings.search.distance
+        if distance <= max_distance
           listing_id_array.push(listing_destination.listing_id)
+          listing_destination_id_array.push(listing_destination.id)
         end
       end
-      listings = Listing.where(id: listing_id_array)
+      [listing_id_array, listing_destination_id_array]
     end
   end
     
@@ -230,8 +232,18 @@ class Listing < ActiveRecord::Base
     active_listing_ids = self.joins(:user).merge(User.active_users).order_by_ave_and_updated_at_desc.pluck(:id)
     not_active_listing_ids = self.where.not(id: active_listing_ids).order_by_ave_and_updated_at_desc.pluck(:id)
     ids = active_listing_ids.concat(not_active_listing_ids).uniq
-    listings = self.where(id: ids).sort_by{|c| ids.map(&:to_i).index(c.id)}
+    listings = self.where(id: ids).order_by_ids(ids)
   end
+    
+  def self.order_by_ids(ids)
+    order_by = ["case"]
+    ids.each_with_index.map do |id, index|
+      order_by << "WHEN id='#{id}' THEN #{index}"
+    end
+    order_by << "end"
+    order(order_by.join(" "))
+  end
+
 
   def current_user_bookmarked?(user_id)
     Favorite.exists?(user_id: user_id, listing_id: self.id)
