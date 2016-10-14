@@ -1,39 +1,28 @@
 class SearchController < ApplicationController
   def search
-    @hit_count = 0
-    @results = []
-    @new_listings = []
-    gon.locations = []
     session[:dummy_count] = nil if params[:page].blank?
     
-    # search listings
-    if search_params['sort_by'].blank? || search_params['sort_by'] == 'Tour'
-      listings = Listing.search(search_params)
-      if params[:page].blank?
-        @new_listings = listings.created_new.order_by_created_at_desc.limit(4) if listings.present?
-      end
-      gon.locations += ListingDestination.where(listing_id: listings.ids) if listings.present?
-      
-      # sort
-      if listings.present?
-        listings = listings.sort_for_search
-      end
-      
-      @results += listings if listings.present?
-      @hit_count += listings.count if listings.present?
+    search_result = Search.search_listings_and_spots(search_params)
+    @new_listings = []
+    
+    max_distance = Settings.search.distance
+    while search_result[:results].blank? or search_result[:results].length < Settings.search.display_count
+      max_distance += Settings.search.distance
+      search_result = Search.search_listings_and_spots(search_params, max_distance)
+      search_result[:results] = search_result[:results].take(10) if search_result[:results].present?
+      break if max_distance == Settings.search.distance * 10
     end
     
-    # search spots
-    if search_params['sort_by'].blank? || search_params['sort_by'] == 'Spot'
-      spots = Spot.search(search_params)
-      gon.locations += spots if spots.present?
+    if search_result[:results].present?
+      @results = search_result[:results]
+      gon.locations = search_result[:gon_locations]
       
-      if @results.present?
-        @results = @results.zip(spots).flatten.compact if spots.present?
-      else
-        @results += spots if spots.present?
+      if params[:page].blank? and search_result[:listings].present?
+        @new_listings = search_result[:listings].created_new.order_by_created_at_desc.limit(4)
       end
-      @hit_count += spots.length if spots.present?
+    else
+      @results = []
+      gon.locations = []
     end
     
     # set new tours and dummy for pagenation
@@ -48,7 +37,7 @@ class SearchController < ApplicationController
       dummy_start = Settings.search.display_count - session[:dummy_count]
       session[:dummy_count].times do |i|
         dummy_start + i
-        @results.insert(dummy_start + i, 'dummy')
+        @results.insert(dummy_start + i, 'dummy' + i.to_s)
       end
     end
     

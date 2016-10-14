@@ -35,7 +35,7 @@ class Spot < ActiveRecord::Base
   
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
   scope :order_by_favorite_count_desc, -> { select("spots.*, count(favorites.id) AS favorites_count").
-                                joins("LEFT JOIN favorites ON spots.id = favorites.spot_id").
+                                joins("LEFT JOIN favorites ON spots.id = favorites.spot_id and favorites.soft_destroyed_at is null").
                                 group("spots.id").
                                 order("favorites_count DESC, spots.updated_at DESC")}
   scope :mine, -> user_id { where(user_id: user_id) }
@@ -63,22 +63,38 @@ class Spot < ActiveRecord::Base
     end
   end
   
-  def self.search(search_params)
+  def self.search(search_params, max_distance=Settings.search.distance)
     if search_params["longitude"].present? && search_params["latitude"].present?
       if search_params["spot_category"].present?
-        spots = Spot.where.without_soft_destroyed.not(latitude: nil, longitude: nil).where(pickup_id: search_params["spot_category"])
+        spots = Spot.without_soft_destroyed.where.not(latitude: nil, longitude: nil).where(pickup_id: search_params["spot_category"])
       else
-        spots = Spot.where.without_soft_destroyed.not(latitude: nil, longitude: nil)
+        spots = Spot.without_soft_destroyed.where.not(latitude: nil, longitude: nil)
       end
       spot_id_array = []
       spots.each do |spot|
         distance = Search.distance(search_params["longitude"].to_f, search_params["latitude"].to_f, spot.longitude, spot.latitude)
         
-        if distance <= Settings.search.distance
+        if distance <= max_distance
           spot_id_array.push(spot.id)
         end
       end
-      spots = Spot.where(id: spot_id_array).order_by_favorite_count_desc
+      spots = Spot.where(id: spot_id_array)
     end
+  end
+  
+  def self.sort_for_search
+    active_spot_ids = self.joins(:user).merge(User.active_users).order_by_favorite_count_desc.map(&:id)
+    not_active_spot_ids = self.where.not(id: active_spot_ids).order_by_favorite_count_desc.map(&:id)
+    ids = active_spot_ids.concat(not_active_spot_ids).uniq
+    spots = self.where(id: ids).order_by_ids(ids)
+  end
+  
+  def self.order_by_ids(ids)
+    order_by = ["case"]
+    ids.each_with_index.map do |id, index|
+      order_by << "WHEN id='#{id}' THEN #{index}"
+    end
+    order_by << "end"
+    order(order_by.join(" "))
   end
 end
