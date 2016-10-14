@@ -6,9 +6,10 @@ class SearchController < ApplicationController
     @new_listings = []
     
     max_distance = Settings.search.distance
-    while search_result[:results].blank? or search_result[:results].length < Settings.search.distance
+    while search_result[:results].blank? or search_result[:results].length < Settings.search.display_count
       max_distance += Settings.search.distance
       search_result = Search.search_listings_and_spots(search_params, max_distance)
+      search_result[:results] = search_result[:results].take(10) if search_result[:results].present?
       break if max_distance == Settings.search.distance * 10
     end
     
@@ -16,7 +17,7 @@ class SearchController < ApplicationController
       @results = search_result[:results]
       gon.locations = search_result[:gon_locations]
       
-      if search_result[:listings].present?
+      if params[:page].blank? and search_result[:listings].present?
         @new_listings = search_result[:listings].created_new.order_by_created_at_desc.limit(4)
       end
     else
@@ -36,7 +37,7 @@ class SearchController < ApplicationController
       dummy_start = Settings.search.display_count - session[:dummy_count]
       session[:dummy_count].times do |i|
         dummy_start + i
-        @results.insert(dummy_start + i, 'dummy')
+        @results.insert(dummy_start + i, 'dummy' + i.to_s)
       end
     end
     

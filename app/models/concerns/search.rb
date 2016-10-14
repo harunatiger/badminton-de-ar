@@ -29,8 +29,14 @@ module Search
       if spots.present?
         gon_locations += spots
 
+        # sort
+        spots = spots.sort_for_search
+        
         if results.present?
           results = results.zip(spots).flatten.compact
+          spots.each do |spot|
+            results.push(spot) unless results.include?(spot)
+          end
         else
           results += spots
         end
