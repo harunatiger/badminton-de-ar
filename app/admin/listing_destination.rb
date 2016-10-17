@@ -9,14 +9,17 @@ ActiveAdmin.register ListingDestination do
   
   form do |f|
     f.inputs do
-      f.input :listing_id,
-              :as => :select,
-              :include_blank => false,
-              :collection => Listing.all
+      f.input :listing_id
       f.input :location
       f.input :latitude
       f.input :longitude
     end
     actions
+  end
+  
+  csv :force_quotes => false do
+    ListingDestination.column_names.each do |col|
+      column col
+    end
   end
 end
