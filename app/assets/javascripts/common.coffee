@@ -664,6 +664,51 @@ $ ->
         }
      ).done (data) ->
       location.reload()
+    
+  # record access log for tag event
+  $('.js-google-tag-manager').on 'click', ->
+    tag_event = ''
+    if $(this).hasClass('listing_message')
+      tag_event = 'Tour-Talk to me'
+    else if $(this).hasClass('listing_request')
+      tag_event = 'Tour-Request Booking'
+    else if $(this).hasClass('profile_message')
+      tag_event = 'Profile-Talk to me'
+    else if $(this).hasClass('complete_payment')
+      tag_event = 'Reservation'
+    else if $(this).hasClass('plan4U_message')
+      tag_event = 'Plan4U-Talk to me'
+    else if $(this).hasClass('login_email')
+      tag_event = 'Login-Email'
+    else if $(this).hasClass('login_facebook')
+      tag_event = 'Login-Facebook'
+    else if $(this).hasClass('signup_email')
+      tag_event = 'Signup-Email'
+    else if $(this).hasClass('signup_email_register')
+      tag_event = 'Signup-EmailRegister'
+    else if $(this).hasClass('signup_facebook')
+      tag_event = 'Signup-Facebook'
+    else if $(this).hasClass('profiles_signup_email')
+      tag_event = 'Profile-Signup-Email'
+    else if $(this).hasClass('profiles_signup_email_register')
+      tag_event = 'Profile-Signup-EmailRegister'
+    else if $(this).hasClass('profiles_signup_facebook')
+      tag_event = 'Profile-Signup-Facebook'
+    else if $(this).hasClass('listings_signup_email')
+      tag_event = 'Tour-Signup-Email'
+    else if $(this).hasClass('listings_signup_email_register')
+      tag_event = 'Tour-Signup-EmailRegister'
+    else if $(this).hasClass('listings_signup_facebook')
+      tag_event = 'Tour-Signup-Facebook'
+      
+    $.ajax(
+        type: 'POST'
+        url: '/tag_events'
+        data: {
+          tag_event: tag_event
+        }
+     )
+    return
 
   # search edit 20160913
   if $('body').hasClass('welcome index')

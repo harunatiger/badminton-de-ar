@@ -36,9 +36,9 @@ section.recomended-guides.text-center.section
                 
               = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
           - if user_signed_in?
-            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
           - else
-            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
         - if index == 2
           .col-md-12.moreguide-container.row-space-4
             = link_to "#", id: "moreguide", class: "btn btn-large btn-more"
@@ -69,9 +69,9 @@ section.recomended-guides.text-center.section
                 
               = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
           - if user_signed_in?
-            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
           - else
-            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
             
       - ids = [20,45]
       - ids.each do |id|
@@ -92,9 +92,9 @@ section.recomended-guides.text-center.section
                 
               = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
           - if user_signed_in?
-            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
           - else
-            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
   
 = raw @s3_middle
 /section.howto.section

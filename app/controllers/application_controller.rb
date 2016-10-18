@@ -76,7 +76,8 @@ class ApplicationController < ActionController::Base
         geoip = GeoIP.new(Rails.root + "db/GeoIP.dat").country(remoteaddr)
         session[:country] = geoip.country_code2
       end
-
+      
+      tag_event = params[:tag_event].presence || ''
       access_params = {
         session_id: session[:session_id],
         user_id: user_signed_in? ? current_user.id : nil,
@@ -85,6 +86,7 @@ class ApplicationController < ActionController::Base
         referer: request.referer,
         country: session[:country],
         devise: request.env["HTTP_USER_AGENT"],
+        tag_event: tag_event,
         accessed_at: Time.zone.now
         }
       Access.insert_record(access_params)
