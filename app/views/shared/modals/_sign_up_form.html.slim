@@ -7,18 +7,18 @@
           .card-body
             .sns-buttons
               - User.omniauth_providers.each do |provider|
-                = link_to users_before_omniauth_path(to_user_id: to_user_id), method: :POST, class: 'btn btn-fb btn-large btn-block facebook_button', id: 'sns_button' do
+                = link_to users_before_omniauth_path(to_user_id: to_user_id), method: :POST, class: "btn btn-fb btn-large btn-block facebook_button #{controller_name}_signup_facebook js-google-tag-manager", id: 'sns_button' do
                   i.fa.fa-facebook
                   | Sign up with Facebook account
             .text-center.social-links.hide
               - User.omniauth_providers.each do |provider|
-                = link_to "Sign up with Facebook account", users_before_omniauth_path(to_user_id: to_user_id), method: :POST, class: 'facebook_link'
+                = link_to "Sign up with Facebook account", users_before_omniauth_path(to_user_id: to_user_id), method: :POST, class: "facebook_link #{controller_name}_signup_facebook js-google-tag-manager"
             .textInclude-separator
               h6.text
                 | or
               hr
             .text-center
-              = link_to "#", id: "to-signup-form", class: 'btn btn-primary btn-large btn-block' do
+              = link_to "#", id: "to-signup-form", class: "btn btn-primary btn-large btn-block #{controller_name}_signup_email js-google-tag-manager" do
                 i.fa.fa-envelope-o
                 | Sign up with your email address
             = simple_form_for(User.new, as: :user, url: user_registration_path(to_user_id: to_user_id), remote: true) do |f|
@@ -46,7 +46,7 @@
                     | , 
                     = link_to "and special commercial code.", static_pages_specific_commercial_transactions_en_path
                 .form-actions
-                  = f.button :submit, "Register", class: "btn btn-primary btn-large btn-block"
+                  = f.button :submit, "Register", class: "btn btn-primary btn-large btn-block #{controller_name}_signup_email_register js-google-tag-manager"
             .policy-wrapper.row-space-top-2
               small
                 | By registering with Huber, you agree to 

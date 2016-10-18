@@ -35,9 +35,9 @@ section.recomended-guides.text-center.section
                 p My name is Shinya. I was traveling all around the world last year. During my travel, I was teaching Japanese language and Kyoto cultures at local school. I want to introduce my favorite place in Kyoto for you!!
               = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
           - if user_signed_in?
-            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
           - else
-            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
             
         - if index == 2
           .col-md-12.moreguide-container.row-space-4
@@ -57,9 +57,9 @@ section.recomended-guides.text-center.section
             p Hi everyone! my name is Emu. I love traveling so much. I've been to America, Canada, South America... I'm looking forward to show you my lovely country in Japan. If you are interested talk to me:)
             = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
         - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
         - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
           
       .col-md-4.row-space-6.hide-guest
         - profile = Profile.where(id: 685).first
@@ -73,9 +73,9 @@ section.recomended-guides.text-center.section
             p Hi, i'm junya! I live in Kyoto. I love touring a lot of places with my road bike. Also, I love exploring city, particularly traditional temples and shrines.Let's enjoy Japan together!
             = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
         - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
         - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
 
 = raw @s3_middle
 /section.howto.section

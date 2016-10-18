@@ -13,6 +13,7 @@
 #  accessed_at :datetime
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  tag_event   :string           default("")
 #
 # Indexes
 #
@@ -30,6 +31,7 @@ class Access < ActiveRecord::Base
       referer: access_params[:referer].presence || '',
       country: access_params[:country].presence || '',
       devise: access_params[:devise].presence || '',
+      tag_event: access_params[:tag_event].presence || '',
       accessed_at: access_params[:accessed_at].presence || '')
   end
   

@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
   resources :announcements, param: :page_url, only: [:show, :index]
   resources :reports, only: [:create]
+  resources :tag_events, only: [:create]
 
   resources :profiles do
     resources :profile_images, only: [:show, :create, :update, :destroy] do

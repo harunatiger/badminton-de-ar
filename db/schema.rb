@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006054323) do
+ActiveRecord::Schema.define(version: 20161018111038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,8 +25,9 @@ ActiveRecord::Schema.define(version: 20161006054323) do
     t.string   "country"
     t.string   "devise"
     t.datetime "accessed_at"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "tag_event",   default: ""
   end
 
   add_index "accesses", ["session_id"], name: "index_accesses_on_session_id", using: :btree
@@ -876,15 +877,16 @@ ActiveRecord::Schema.define(version: 20161006054323) do
   add_index "spot_images", ["spot_id"], name: "index_spot_images_on_spot_id", using: :btree
 
   create_table "spots", force: :cascade do |t|
-    t.integer  "user_id",                                         null: false
-    t.string   "title",                                           null: false
-    t.string   "one_word",                           default: ""
+    t.integer  "user_id",                                                null: false
+    t.string   "title",                                                  null: false
+    t.string   "one_word",                                  default: ""
     t.integer  "pickup_id"
-    t.string   "location",                           default: ""
-    t.decimal  "longitude",  precision: 9, scale: 6
-    t.decimal  "latitude",   precision: 9, scale: 6
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.string   "location",                                  default: ""
+    t.decimal  "longitude",         precision: 9, scale: 6
+    t.decimal  "latitude",          precision: 9, scale: 6
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.datetime "soft_destroyed_at"
   end
 
   add_index "spots", ["pickup_id"], name: "index_spots_on_pickup_id", using: :btree

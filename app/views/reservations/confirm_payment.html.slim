@@ -103,8 +103,8 @@
           .text-center
             .btn-wrapper
               - if Rails.env.production?
-                = f.submit "Complete payment", name: 'purchase', class: "btn btn-primary", onclick: "ga('send', 'event', 'reservation','accept');"
+                = f.submit "Complete payment", name: 'purchase', class: "btn btn-primary complete_payment js-google-tag-manager", onclick: "ga('send', 'event', 'reservation','accept');"
               - else
-                = f.submit "Complete payment", name: 'purchase', class: "btn btn-primary"
+                = f.submit "Complete payment", name: 'purchase', class: "btn btn-primary complete_payment js-google-tag-manager"
               = f.submit "Cancel payment", name: 'cancel_payment', class: "btn"
 = render partial: '/shared/modals/travel_insurance'

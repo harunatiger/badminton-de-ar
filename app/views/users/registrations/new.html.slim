@@ -7,18 +7,18 @@
         .card-body
           .sns-buttons
             - resource_class.omniauth_providers.each do |provider|
-              = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-large btn-block facebook_button' do
+              = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-large btn-block facebook_button signup_facebook js-google-tag-manager' do
                 i.fa.fa-facebook
                 | Sign up with Facebook account
           .text-center.social-links.hide
             - resource_class.omniauth_providers.each do |provider|
-              = link_to "Sign up with Facebook account", omniauth_authorize_path(resource_name, provider), class: 'facebook_link'
+              = link_to "Sign up with Facebook account", omniauth_authorize_path(resource_name, provider), class: 'facebook_link signup_facebook js-google-tag-manager'
           .textInclude-separator
             h6.text
               | or
             hr
           .text-center
-            = link_to "#", id: "to-signup-form", class: 'btn btn-primary btn-large btn-block' do
+            = link_to "#", id: "to-signup-form", class: 'btn btn-primary btn-large btn-block signup_email js-google-tag-manager' do
               i.fa.fa-envelope-o
               | Sign up with your email address
           = simple_form_for(resource, as: resource_name, url: user_registration_path) do |f|
@@ -41,7 +41,7 @@
                   | , 
                   = link_to "and special commercial code.", static_pages_specific_commercial_transactions_en_path
               .form-actions
-                = f.button :submit, "Register", class: "btn btn-primary btn-large btn-block"
+                = f.button :submit, "Register", class: "btn btn-primary btn-large btn-block signup_email_register js-google-tag-manager"
           .policy-wrapper.row-space-top-2
             small
               | By registering with Huber, you agree to 
