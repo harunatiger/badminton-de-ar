@@ -3,18 +3,16 @@
     .modal-cell
       .modal-content
         .card-body.text-center
-          .row-space-1.strong.text-muted
-            p
-              | Before you continue....
-            p
-              | Do you have a discount code?
-          .row-space-1.strong.text-muted
-            p
-              | If not, continue to payment page.
-            p
-              | If you have one, enter the dicount code.
+          p.h3.text-primary.row-space-3
+            | Before you continue....
+            br
+            | Do you have a discount code?
+          p.text-muted
+            | If not, continue to payment page.
+            br
+            | If you have one, enter the dicount code.
           .row-space-3
-            = f.input_field :campaign_code, placeholder: "Enter discount code"
+            = f.input_field :campaign_code, placeholder: "Enter discount code here"
           - if reservation.amount_for_campaign < 1
             = f.submit 'Continue', name: 'confirm', class: 'btn btn-primary', data: {confirm: "Are you sure you want to approve this tour?"}
           - else
