@@ -170,10 +170,11 @@
             - if @reservation.requested?
               = simple_form_for(@reservation) do |f|
                 = f.hidden_field :message_thread_id, value: @message_thread.id
-                .row-space-1.strong.text-muted
+                /.row-space-1.strong.text-muted
                   | Discount code
-                .row-space-3
+                /.row-space-3
                   = f.input_field :campaign_code, placeholder: "Enter discount code"
+                = render partial: 'campaign_code_form', locals: { f: f, reservation: @reservation}
                 .text-right.row-space-2
                   - if @counterpart.soft_destroyed?
                     = f.submit 'Confirm', name: 'confirm', class: 'btn btn-primary disabled'
@@ -181,9 +182,8 @@
                   - else
                     - if exist_profile_blank?
                       = link_to 'Confirm', '#', class: 'btn btn-primary profile_alert_link'
-                    - elsif @reservation.amount_for_campaign < 1
-                      = f.submit 'Confirm', name: 'confirm', class: 'btn btn-primary', data: {confirm: "Are you sure you want to approve this tour?"}
                     - else
-                      = f.submit 'Confirm', name: 'confirm', class: 'btn btn-primary'
+                      /= f.submit 'Confirm', name: 'confirm', class: 'btn btn-primary'
+                      = link_to 'Confirm', '#campaign_code_form', class: 'btn btn-primary', data: { toggle: "modal" }
                     = f.submit 'Cancel', name: 'cancel', class: 'btn'
 = render partial: '/shared/modals/include_what', locals: { included_guests_cost: @reservation.included_guests_cost }
