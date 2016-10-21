@@ -12,7 +12,7 @@
         = render partial: 'review_block', locals: { listing: @listing, reviews: @reviews, host_info: @host_info, host_image: @host_image }
       .col-lg-4.col-right
         = render partial: 'request_block', locals: { listing: @listing }
-        = render partial: 'option_info', locals: { listing_detail: @listing.listing_detail }
+        = render partial: 'option_info', locals: { listing_detail: @listing.listing_detail, listing_destinations: @listing.listing_destinations }
 
 .page-container.show--sp
   .row

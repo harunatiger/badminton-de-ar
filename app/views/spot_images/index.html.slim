@@ -1,0 +1,19 @@
+h1 Listing spot_images
+
+table
+  thead
+    tr
+      th
+      th
+      th
+
+  tbody
+    - @spot_images.each do |spot_image|
+      tr
+        td = link_to 'Show', spot_image
+        td = link_to 'Edit', edit_spot_image_path(spot_image)
+        td = link_to 'Destroy', spot_image, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Spot image', new_spot_image_path

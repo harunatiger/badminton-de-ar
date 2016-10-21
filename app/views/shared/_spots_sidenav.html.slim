@@ -1,0 +1,5 @@
+ul.sidenav-list
+  li
+    = link_to "Spot list", spots_path, aria: {selected: "true"}, class: "sidenav-item row-space-2"
+  li
+    = link_to "Create a new spot", new_spot_path, aria: {selected: "false"}, class: "btn btn-block btn-primary"

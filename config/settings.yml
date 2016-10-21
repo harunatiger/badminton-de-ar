@@ -258,6 +258,7 @@ user:
     success: |-
       The process for deleting your account has been completed.Thank you for using Huber.
       退会が完了しました。Huber.をご利用頂き誠にありがとうございました。
+  active_period: 14
 image:
   noimage:
     url: 'no-image-1024x640.gif'
@@ -274,7 +275,8 @@ page:
   host_reservation_manager: 'Your Bookings'
   guest_reservation_manager: 'Your Trips'
   listing_new: 'Become a guide'
-  listings: 'Tour Page'
+  listings: 'Tours'
+  spots: 'Spots'
   messages: 'Message'
   wishlists: 'Favorite'
   profile: 'Profile'
@@ -415,6 +417,15 @@ laguages:
   en: 'EN'
 response_rate:
   begining_date: '2016/8/1 00:00:00'
+spot:
+  error:
+    deleted: "This spot has been deleted"
+spot_image:
+  save:
+    blank: "Image can't be blank"
+search:
+  distance: 10
+  display_count: 10
 plan4U:
   s3_content_path:
     header: 'public/s3_contents/plan4U_header.html'

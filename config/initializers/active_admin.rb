@@ -246,4 +246,5 @@ ActiveAdmin.setup do |config|
   
   # To load a javascript file:
   config.register_javascript 'ckeditor/init.js'
+  config.register_javascript 'https://maps.googleapis.com/maps/api/js?libraries=places&language=en&key=AIzaSyBhUm161adQoCVdLiPUdfnKTNuKzyFZ0wk&acync=acync'
 end

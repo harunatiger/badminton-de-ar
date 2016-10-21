@@ -17,7 +17,9 @@ ActiveAdmin.register Listing do
         column col
       end
     end
-    actions
+    actions defaults: true do |listing|
+      item 'create destination', new_admin_listing_destination_path(:listing_destination => { :listing_id => listing.id }), class: 'view_link member_link'
+    end
   end
   
   csv :force_quotes => false do

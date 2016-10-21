@@ -1,0 +1,32 @@
+= render 'shared/subnav'
+.page-container.row-space-top-4.row-space-4
+  .row
+    .col-md-3
+      = render partial: "shared/spots_sidenav"
+    
+    - if @spots.blank?
+      .col-md-9
+        .card
+          .card-body.text-center
+            .row-space-4.row-space-top-4
+              h3 まだ穴場の登録がないようです。
+              .h4 おすすめできる穴場を登録して、あなたのガイドの価値を高めましょう！
+    - else
+      .col-md-9
+        .row.row-condensed
+          - @spots.each do |spot|
+            .col-md-6.col-lg-4.row-space-2
+              .card.spots-index-card
+                .card-body
+                  .media-cover-img
+                    div[style="background-image: url(#{asset_path spot.spot_image.image.thumb})"]
+                  .row.row-condensed.row-space-top-2
+                    .col-9.text-left
+                      = link_to spot_path(spot) do
+                        .text-lead.row-space-top-2.text-truncate = spot.title
+                    .col-3.text-center
+                      = link_to edit_spot_path(spot), class: "" do
+                        i.fa.fa-edit.fa-size-1
+                        .text-center Edit
+                  = link_to spot_path(spot), method: 'delete', class: "styled-fa-btn", data: {confirm: 'Are you sure you want to delete this spot?'} do
+                    i.fa.fa-times

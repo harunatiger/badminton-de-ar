@@ -29,6 +29,7 @@ class Favorite < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'from_user_id'
   belongs_to :user, class_name: 'User', foreign_key: 'to_user_id'
   belongs_to :listing
+  belongs_to :spot
   
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
@@ -40,5 +41,29 @@ class Favorite < ActiveRecord::Base
   
   def favorite_user?
     self.type == 'FavoriteUser'
+  end
+  
+  def favorite_spot?
+    self.type == 'FavoriteSpot'
+  end
+  
+  def target
+    if self.favorite_listing?
+      return Listing.find(self.listing_id)
+    elsif self.favorite_user?
+      return User.find(self.to_user_id)
+    elsif self.favorite_spot?
+      return Spot.find(self.spot_id)
+    end
+  end
+  
+  def old
+    if self.favorite_listing?
+      FavoriteListing.only_soft_destroyed.where(from_user_id: self.from_user_id, listing_id: self.listing_id).first
+    elsif self.favorite_user?
+      FavoriteUser.only_soft_destroyed.where(from_user_id: self.from_user_id, to_user_id: self.to_user_id).first
+    elsif self.favorite_spot?
+      FavoriteSpot.only_soft_destroyed.where(from_user_id: self.from_user_id, spot_id: self.spot_id).first
+    end
   end
 end

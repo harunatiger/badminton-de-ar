@@ -16,6 +16,11 @@
     .row
       .col-lg-8
         = render partial: '/profiles/show/tour_list', locals: { profile: @profile}
+.card-dark
+  .page-container.row-space-top-6.row-space-8
+    .row
+      .col-lg-8
+        = render partial: '/profiles/show/spot_list', locals: { profile: @profile, spots: @spots}
 
 .reviews.card
   = hidden_field_tag  :profile_id, @profile.id

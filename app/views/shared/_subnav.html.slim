@@ -22,6 +22,12 @@
         - else
           li
             = link_to Settings.page.listings, listings_path
+        - if controller_name =="spots"
+          li.active
+            = link_to Settings.page.spots, spots_path
+        - else
+          li
+            = link_to Settings.page.spots, spots_path
       - if !current_user.guest?
         - if action_name =="host_reservation_manager"
           li.active
@@ -37,12 +43,12 @@
         li
           = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path
 
-      - if controller_name =="favorite_listings" ||  controller_name =="favorite_users"
+      - if controller_name =="favorites" ||  controller_name =="favorites"
         li.active
-          = link_to Settings.page.favorites, favorite_listings_path
+          = link_to Settings.page.favorites, listings_favorites_path
       - else
         li
-          = link_to Settings.page.favorites, favorite_listings_path  
+          = link_to Settings.page.favorites, listings_favorites_path  
       - if !current_user.guest?
         - if controller_name =="friends"
           li.active

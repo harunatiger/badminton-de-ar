@@ -13,7 +13,7 @@
       - default_num_of_people = listing_detail.max_num_of_people > 1 ? 2 : 1
       .talk_to_me-container.card.row-space-2
         .card-body
-          = render partial: 'talk_to_me', locals: { listing: @listing, message_thread: @message_thread }
+          = render partial: 'shared/talk_to_me', locals: { user_id: @listing.user_id, message_thread: @message_thread }
           .row.row-condensed.row-space-top-2.hide--sp
             .col-3.text-center
               .media-photo.media-round.media-avatar
@@ -117,7 +117,6 @@
             = f.hidden_field :guests_cost, value: listing.listing_detail.guests_cost
             = f.hidden_field :included_guests_cost, value: listing.listing_detail.included_guests_cost
             = f.hidden_field :time_required, value: listing.listing_detail.time_required
-            = f.hidden_field :place, value: listing.listing_detail.place
             = f.hidden_field :place_memo, value: listing.listing_detail.place_memo
             /- space_options.each do |option|
               = f.hidden_field option, value: listing.listing_detail[option]

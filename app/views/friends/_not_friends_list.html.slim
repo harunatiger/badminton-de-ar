@@ -6,7 +6,7 @@
           - not_friends.each do |profile|
             - all_reviewed_count = Review.my_reviewed_count(profile.user_id)
             .col-lg-4.col-md-6.row-space-6
-              = render partial: 'guide_card', locals: { all_reviewed_count: all_reviewed_count, profile: profile }
+              = render partial: 'shared/guide_card', locals: { all_reviewed_count: all_reviewed_count, profile: profile }
               - if current_user.friend_requested?(profile.user_id)
                 = link_to '仲間申請が来ています', '#', class: 'btn btn-primary btn-large btn-block row-space-top-1 row-space-1 disabled'
               /- elsif current_user.friend_pending?(profile.user_id)

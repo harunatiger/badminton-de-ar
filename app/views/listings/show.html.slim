@@ -11,12 +11,16 @@
       .col-lg-8.col-left
         = render partial: 'col_left', locals: { listing: @listing, reviews: @reviews, profile_keyword: @profile_keyword}
         = render partial: 'review_block', locals: { listing: @listing, reviews: @reviews, host_info: @host_info, host_image: @host_image }
-        = render partial: 'guide_information', locals: { listing: @listing, profile: @host_info, message_thread: @message_thread}
+        hr
+        .row-space-4.row-space-top-4
+          h3.row-space-2
+            | Guide Information
+        = render partial: 'shared/guide_information', locals: { user: @listing.user, message_thread: @message_thread}
       .col-lg-4.col-right
         = render partial: 'request_block', locals: { listing: @listing }
         - if @listing.cover_video.blank? and @announcement.present?
           = render partial: 'banner_space', locals: { announcement: @announcement}
-        = render partial: 'option_info', locals: { listing_detail: @listing.listing_detail }
+        = render partial: 'option_info', locals: { listing_detail: @listing.listing_detail, listing_destinations: @listing.listing_destinations }
 
 .page-container.show--sp
   .row
@@ -30,7 +34,7 @@
           = render partial: 'similar_listings'
 
 .fixed-btn-container.show--sp
-  = render partial: 'talk_to_me', locals: { listing: @listing, message_thread: @message_thread }
+  = render partial: 'shared/talk_to_me', locals: { user_id: @listing.user_id, message_thread: @message_thread }
 - unless user_signed_in?
   = render partial: 'shared/modals/sign_up_form'
   /- if user_signed_in?

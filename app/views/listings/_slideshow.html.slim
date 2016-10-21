@@ -1,9 +1,5 @@
 /* listings#slideshow
-- favorite_count = favorite_listings_count(listing.id)
 - price = @listing.listing_detail.present? ? @listing.listing_detail.display_amount : 0
-
-/- listing_images.each do |listing_image|
-  = debug listing_image.caption
 
 .listing
   #slider-wrapper.with-photos.with-modal
@@ -27,43 +23,7 @@
                     img.sp-image[src="#{slider_image.image.url}" data-src="#{slider_image.image.url}"]
   .card-overlay-bottom-left.flush-left.card-overlay-label.show--sp
     .h3 ¥#{price}/Group
-  /#photos.with-photos.with-modal
-    = link_to "#", class:"galon-trigger", title:"#{listing.cover_image}" do
-      .cover-img-container
-        .cover-img[style="background-image:url(#{listing.try('cover_image') || ''})"]
-      i.fa.fa-angle-left
-      i.fa.fa-angle-right
-    .photo-box
-      = link_to "#{listing.cover_image}", class:"galon" do
-        | 写真
-      - count = 1
-      - listing_images.each do |listing_image|
-        = link_to "#{listing_image.image}", class:"galon" do
-          | 写真
-          = count
-        - count += 1
-    /.cover-img-container
-      | <div class="cover-img" style="background-image:url(#{@listing.try('cover_image') || ''})">
-
-
-  /* favorite-container-sp
+  
   .favorite-container-sp
     .page-container
-      - if user_signed_in?
-        = link_to favorite_listing_listing_path(listing), method: :post, remote: true, class: "favorite-btn" do
-          - if current_user.favorite_listing?(listing)
-            i.fa.fa-heart.favorited
-            i.fa.fa-heart.unfavorite.hide
-            i.fa.fa-heart-o.outline.hide.fav-balloon
-          - else
-            i.fa.fa-heart.favorited.hide
-            i.fa.fa-heart.unfavorite
-            i.fa.fa-heart-o.outline.fav-balloon
-          span.favorited-count
-            = favorite_count
-      - else
-        = link_to new_profile_path, class: "favorite-btn" do
-          i.fa.fa-heart.unfavorite
-          i.fa.fa-heart-o.outline.fav-balloon
-          span.favorited-count
-            = favorite_count
+      = render partial: 'shared/favorite', locals: { user: current_user, target: @listing}

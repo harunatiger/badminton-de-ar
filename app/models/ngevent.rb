@@ -37,6 +37,12 @@ class Ngevent < ActiveRecord::Base
   scope :listing_ngevents, -> (listing_id) { where('listing_id = ?', listing_id) }
   scope :mode, -> (mode) { where('mode = ?', mode) }
   scope :common_ngday, -> { where('mode = ? or mode = ? or mode = ?', 1, 2, 3) }
+  
+  # about mode
+  # 0 : setting_mode(ng single listing)
+  # 1 : reservation_mode(ng all listign)
+  # 2 : requet_mode(ng all listign)
+  # 3 : setting_mode(ng all listign)
 
   def self.set_date(reservation)
     ngevent_params = Hash[
