@@ -2,22 +2,25 @@
   = f.error_notification
   = f.hidden_field :user_id, value: current_user.id
   = f.hidden_field :profile_id, value: current_user.profile.id
-  - if !profile_identity_authorized?(current_user.id)
+  - if !profile_identity_exists?
     .row-space-1.text-red
       i.fa.fa-exclamation-circle.fa-exclamation-circle-alert
       | You cannot make a tour booking until your ID is confirmed.
   .card.row-space-4
-    .card-header "Please upload a scan of your drivers license, student ID or passport photo page."
+    - if !profile_identity_exists?
+      .card-header "Please upload a scan of your drivers license, student ID or passport photo page."
     .card-body
       - if profile_identity_exists?
         .row.row-condensed.row-space-4
           .text-center.row-space-top-2
             - if profile_identity_authorized?(current_user.id)
-              .h4
+              .h3.row-space-top-4.row-space-4.text-green
                 | Confirmed. Thank you for registering
             - else
-              .h4
+              .h3.text-yellow
                 | Processing, please wait
+              .h5.row-space-top-1.text-yellow
+                | We usually reply within two business days.
         /.row.row-condensed.row-space-4
           label.text-right.col-3
             | 現在のパスポート画像
@@ -31,11 +34,17 @@
               | To improve the credibility of your profile, please confirm your identity.
               br
               | We need a valid official ID document matching your account details in order to confirm your identity.
-      hr
-      .row.row-condensed
-        label.text-right.col-3.row-space-4
-          | Photo ID
-        .col-8
-          = f.file_field :image, class: "row-space-top-1-file", accept: "image/*"
-          .small2.text-red.row-space-top-1 Please upload a scan of your drivers license, student ID or passport photo page.
-  = f.button :submit, "Upload", class: "btn btn-primary btn-large row-space-4"
+      - if !profile_identity_authorized?(current_user.id)
+        hr
+        .row.row-condensed
+          label.text-right.col-3.row-space-4
+            | Photo ID
+          .col-8
+            = f.file_field :image, class: "row-space-top-1-file", accept: "image/*"
+            .small2.text-red.row-space-top-1
+              - if !profile_identity_exists?
+                | Please upload a scan of your drivers license, student ID or passport photo page.
+              - else
+                | If you upload wrong Photo ID, please upload right it again.
+  - if !profile_identity_authorized?(current_user.id)
+    = f.button :submit, "Upload", class: "btn btn-primary btn-large row-space-4"
