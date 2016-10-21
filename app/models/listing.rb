@@ -191,8 +191,8 @@ class Listing < ActiveRecord::Base
         end
         
         search_params["language_ids"] = search_params["language_ids"].reject(&:blank?)
-        if search_params["language_ids"].present?
-          search_params["language_ids"].push(Language.where(name: 'English').first.id).uniq
+        # When selected EN, it means containing all users
+        if search_params["language_ids"].present? and !search_params["language_ids"].index(Language.find_by_name('English').try('id').to_s)
           user_ids = Profile.where(user_id: listings.pluck(:user_id)).joins(:profile_languages).merge(ProfileLanguage.where(language_id: search_params["language_ids"])).pluck(:user_id)
           listings = listings.where(user_id: user_ids)
         end
