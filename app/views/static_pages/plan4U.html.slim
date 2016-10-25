@@ -1,7 +1,7 @@
 /! plan4U
-
+= raw @s3_header
 /! plan4U-navigation
-.plan4U-navigation.show--sp
+/.plan4U-navigation.show--sp
   .plan4U-navigation-inner.collapse
     ul.menu-group.list-unstyled
       li
@@ -9,8 +9,7 @@
       li
         = link_to "Talk to Guides", "#", class: "link-reset menu-item scroll-to-guides"  
 
-/= raw @s3_header
-.hero
+/.hero
   .page-container
     .title-plate  
       .va-container.va-container-wh
@@ -56,14 +55,14 @@ section#recommended-guides.recomended-guides.text-center.section
                 p Hi ! I’m Takafumi! I love Japanese four seasons! I like cooking very much.Let’s make a Japanese breakfast with me! I want to talk about for your spacial trip. Please talk to me anything in Tokyo and Yokohama area!
                 
               .links
-                = link_to profile ? profile_path(profile.id) : '#', target: "_blank" do
-                  i.fa.fa-comment-o
                 - if user_signed_in?
-                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plus-circle plan4U_message js-google-tag-manager" do
-                    i.fa.fa-plus
+                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
+                    i.fa.fa-comment-o
                 - else
                   = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
-                    i.fa.fa-plus
+                    i.fa.fa-comment-o
+                = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
+                  i.fa.fa-plus
           - if user_signed_in?
             = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
           - else
@@ -98,14 +97,14 @@ section#recommended-guides.recomended-guides.text-center.section
                 
               /= link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
               .links
-                = link_to profile ? profile_path(profile.id) : '#', target: "_blank" do
-                  i.fa.fa-comment-o
                 - if user_signed_in?
-                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plus-circle plan4U_message js-google-tag-manager" do
-                    i.fa.fa-plus
+                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
+                    i.fa.fa-comment-o
                 - else
                   = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
-                    i.fa.fa-plus
+                    i.fa.fa-comment-o
+                = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
+                  i.fa.fa-plus
           - if user_signed_in?
             = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
           - else
@@ -130,21 +129,21 @@ section#recommended-guides.recomended-guides.text-center.section
                 
               /= link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
               .links
-                = link_to profile ? profile_path(profile.id) : '#', target: "_blank" do
-                  i.fa.fa-comment-o
                 - if user_signed_in?
-                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plus-circle plan4U_message js-google-tag-manager" do
-                    i.fa.fa-plus
+                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
+                    i.fa.fa-comment-o
                 - else
                   = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
-                    i.fa.fa-plus
+                    i.fa.fa-comment-o
+                = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
+                  i.fa.fa-plus
           - if user_signed_in?
             = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
           - else
             = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
   
-/= raw @s3_middle
-section#howtouse.howto.section
+= raw @s3_footer
+/section#howtouse.howto.section
   .page-container.text-center
     h3.h1.spb.row-space-8 HOW TO USE
     .howto-inner.row-space-8
@@ -176,7 +175,7 @@ section#howtouse.howto.section
     .bg-arrow.text-wf.text-contrast PLUS!
     h4.spr Your Guide can even join you on your trip! 
 
-section.sample-itineraly.section
+/section.sample-itineraly.section
   .page-container
     h3.h1.spb.row-space-8.text-center SAMPLE ITINERARY
     .sample-itineraly-inner
@@ -264,7 +263,7 @@ section.sample-itineraly.section
           - else
             .tour-listing-empty.text-center.text-brand.text-black
 
-= raw @s3_footer
+/= raw @s3_footer
 /section.guest-book.section
   h3.spb.text-center.row-space-8
     .h1.row-space-2 Guest Book
