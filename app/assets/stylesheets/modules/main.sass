@@ -3651,7 +3651,22 @@ h3.center-lined
   .modal-content
     border-radius: 0
     border: 2px solid #999
+    position: relative
+  .campaign-image
+    width: 100%
+    height: auto
   .card-body
     padding: 40px 40px 30px
+    @media (min-width: 767px)
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      margin: auto
+      width: 85%
+      max-height: 300px
+      background-color: #ffffff
+      border: 1px solid silver
   .h3
     font-weight: 700
