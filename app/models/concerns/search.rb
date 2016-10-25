@@ -32,16 +32,28 @@ module Search
         # sort
         spots = spots.sort_for_search
         
-        if results.present?
-          results = results.zip(spots).flatten.compact
-          spots.each do |spot|
-            results.push(spot) unless results.include?(spot)
-          end
-        else
-          results += spots
-        end
+        results += spots
       end
     end
+    
+    # =========sort by (uniq user) and (in alternate)=========
+    if results.present?
+      uniq_results = results.uniq {|e| e.model_name.to_s + e.user_id.to_s }
+      duplicated_results = results - uniq_results
+      results_buf = uniq_results.concat(duplicated_results).partition{|r| r.model_name == 'Listing' }
+
+      #results_buf[0] == listings array, results_buf[1] == spots array
+      if results_buf[0].present? && results_buf[1].present?
+        results = results_buf[0].zip(results_buf[1]).flatten.compact
+        results_buf[1].each do |spot|
+          results.push(spot) unless results.include?(spot)
+        end
+      else
+        results = results_buf[0] if results_buf[0].present?
+        results = results_buf[1] if results_buf[1].present?
+      end
+    end
+    # ===========================================================
     
     if results.present?
       if listings.present?
