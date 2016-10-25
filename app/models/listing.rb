@@ -78,6 +78,7 @@ class Listing < ActiveRecord::Base
   has_one :dress_code, dependent: :destroy
   has_one :listing_detail, dependent: :destroy
   has_many :reservations
+  has_many :unscheduled_tours
   has_many :reviews
   has_many :listing_categories, dependent: :destroy
   has_many :categories, :through => :listing_categories, dependent: :destroy
@@ -126,10 +127,6 @@ class Listing < ActiveRecord::Base
     self.listing_destinations.each do |listing_destination|
       self.listing_destinations.delete(listing_destination) if listing_destination.location.blank?
     end
-  end
-  
-  def open_reviews_count
-    self.reviews.where(type: 'ReviewForGuide', host_id: self.user_id).joins(:reservation).merge(Reservation.review_open?).count
   end
 
   def set_lon_lat

@@ -1,15 +1,5 @@
 $ ->
   if $('body').hasClass('friends')
-    #$("#not_friends_list").hide()
-    #$(document).on 'change', '#search_friends_or_not', ->
-    #  if $("#search_friends_or_not").val() == 'friends'
-    #    $("#not_friends_list").hide()
-    #    $("#friends_list").show()
-    #  else
-    #    $("#not_friends_list").show()
-    #    $("#friends_list").hide()
-    #  return
-
     #modal for friends request message
     guide_index = 0
     $(document).on 'click', '.message_to_pair_guide_link', ->
@@ -19,6 +9,7 @@ $ ->
       )
       return false
 
+  if $('body').hasClass('friends') || $('body').hasClass('unscheduled_tours new')
     #select guide
     guide_index = 0
     $(document).on 'click', '.select_friend_link', ->

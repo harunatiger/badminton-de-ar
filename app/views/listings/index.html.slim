@@ -85,15 +85,19 @@
                         .listing-criteria-header.activation-notification
                           .listing-criteria-header-message
                             .row
-                              .col-4
+                              .col-3
                                 = link_to edit_listing_path(listing), class: "edit-listing" do
                                   i.fa.fa-edit
                                   .text-center Edit
-                              .col-4
+                              .col-3
                                 = link_to listing_copy_path(listing), class: "copy-listing", method: 'POST' do
                                   i.fa.fa-copy
                                   .text-center Copy
-                              .col-4
+                              .col-3.show--sp
+                                = link_to new_listing_unscheduled_tour_path(listing), class: "copy-listing" do
+                                  i.fa.fa-copy
+                                  .text-center Review
+                              .col-3
                                 .favorite-listing
                                   i.fa.fa-heart
                                   .text-center = favorite_listings_count(listing.id)

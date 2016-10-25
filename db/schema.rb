@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018111038) do
+ActiveRecord::Schema.define(version: 20161024071540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -848,24 +848,26 @@ ActiveRecord::Schema.define(version: 20161018111038) do
     t.integer  "host_id"
     t.integer  "reservation_id"
     t.integer  "listing_id"
-    t.integer  "accuracy",         default: 0
-    t.integer  "communication",    default: 0
-    t.integer  "clearliness",      default: 0
-    t.integer  "location",         default: 0
-    t.integer  "check_in",         default: 0
-    t.integer  "cost_performance", default: 0
-    t.integer  "total",            default: 0
-    t.text     "msg",              default: ""
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.string   "type",                          null: false
-    t.string   "tour_image",       default: ""
+    t.integer  "accuracy",            default: 0
+    t.integer  "communication",       default: 0
+    t.integer  "clearliness",         default: 0
+    t.integer  "location",            default: 0
+    t.integer  "check_in",            default: 0
+    t.integer  "cost_performance",    default: 0
+    t.integer  "total",               default: 0
+    t.text     "msg",                 default: ""
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "type",                             null: false
+    t.string   "tour_image",          default: ""
+    t.integer  "unscheduled_tour_id"
   end
 
   add_index "reviews", ["guest_id"], name: "index_reviews_on_guest_id", using: :btree
   add_index "reviews", ["host_id"], name: "index_reviews_on_host_id", using: :btree
   add_index "reviews", ["listing_id"], name: "index_reviews_on_listing_id", using: :btree
   add_index "reviews", ["reservation_id"], name: "index_reviews_on_reservation_id", using: :btree
+  add_index "reviews", ["unscheduled_tour_id"], name: "index_reviews_on_unscheduled_tour_id", using: :btree
 
   create_table "spot_images", force: :cascade do |t|
     t.integer  "spot_id",    null: false
@@ -923,6 +925,27 @@ ActiveRecord::Schema.define(version: 20161018111038) do
 
   add_index "tools", ["listing_id", "name"], name: "index_tools_on_listing_id_and_name", unique: true, using: :btree
   add_index "tools", ["listing_id"], name: "index_tools_on_listing_id", using: :btree
+
+  create_table "unscheduled_tour_guides", force: :cascade do |t|
+    t.integer  "unscheduled_tour_id"
+    t.integer  "pair_guide_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "unscheduled_tour_guides", ["pair_guide_id"], name: "index_unscheduled_tour_guides_on_pair_guide_id", using: :btree
+  add_index "unscheduled_tour_guides", ["unscheduled_tour_id"], name: "index_unscheduled_tour_guides_on_unscheduled_tour_id", using: :btree
+
+  create_table "unscheduled_tours", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.integer  "guide_id"
+    t.string   "uuid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "unscheduled_tours", ["guide_id"], name: "index_unscheduled_tours_on_guide_id", using: :btree
+  add_index "unscheduled_tours", ["listing_id"], name: "index_unscheduled_tours_on_listing_id", using: :btree
 
   create_table "user_campaigns", force: :cascade do |t|
     t.integer  "user_id"
@@ -1056,12 +1079,17 @@ ActiveRecord::Schema.define(version: 20161018111038) do
   add_foreign_key "review_replies", "reviews"
   add_foreign_key "reviews", "listings"
   add_foreign_key "reviews", "reservations"
+  add_foreign_key "reviews", "unscheduled_tours"
   add_foreign_key "reviews", "users", column: "guest_id"
   add_foreign_key "reviews", "users", column: "host_id"
   add_foreign_key "spot_images", "spots"
   add_foreign_key "spots", "pickups"
   add_foreign_key "spots", "users"
   add_foreign_key "tools", "listings"
+  add_foreign_key "unscheduled_tour_guides", "unscheduled_tours"
+  add_foreign_key "unscheduled_tour_guides", "users", column: "pair_guide_id"
+  add_foreign_key "unscheduled_tours", "listings"
+  add_foreign_key "unscheduled_tours", "users", column: "guide_id"
   add_foreign_key "user_campaigns", "campaigns"
   add_foreign_key "user_campaigns", "users"
   add_foreign_key "wishlists", "users"

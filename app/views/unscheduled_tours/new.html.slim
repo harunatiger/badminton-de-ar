@@ -1,0 +1,6 @@
+/ only sp
+= render partial: 'shared/subnav'
+= render partial: 'shared/friends_search_form', locals: { listing: @listing, friends: @friends}
+.text-center.row-space-8
+  = simple_form_for([@listing, @unscheduled_tour]) do
+    = submit_tag 'レビューURLを発行する', class: "btn btn-primary btn-large"

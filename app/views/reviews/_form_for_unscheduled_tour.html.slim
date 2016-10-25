@@ -1,0 +1,35 @@
+= simple_form_for([unscheduled_tour.listing, unscheduled_tour, review], url: listing_unscheduled_tour_reviews_path(unscheduled_tour.listing, unscheduled_tour, review), method: :POST) do |f|
+  .card-body
+      = f.hidden_field :guest_id, value: current_user.id
+      = f.hidden_field :host_id, value: unscheduled_tour.guide_id
+      = f.hidden_field :unscheduled_tour_id, value: unscheduled_tour.id
+      = f.hidden_field :listing_id, value: unscheduled_tour.listing_id
+      = f.hidden_field :accuracy, value: 0
+      = f.hidden_field :communication, value: 0
+      = f.hidden_field :clearliness, value: 0
+      = f.hidden_field :location, value: 0
+      = f.hidden_field :check_in, value: 0
+      = f.hidden_field :cost_performance, value: 0
+      = f.hidden_field :type, value: review.type
+      .row.row-space-5
+        label.col-12
+          .h5
+            | Rating
+            small
+              ' 　Please rate your guide out of five stars
+        .col-12
+          fieldset.rating
+            = f.input_field :total, as: :radio_buttons, required: true, boolean_style: :inline, collection: [["5", "5"], ["4", "4"], ["3", "3"], ["2", "2"], ["1", "1"]], label_method: :last, item_wrapper_tag: false
+      .row.row-space-2
+        .col-12
+          = f.input_field :msg, required: true, rows: "7", placeholder: "Eg. Thank you for the tour the other day!I had a really great day!"
+      .row.row-space-5
+        .col-12
+          = f.file_field :tour_image, as: :file, class: "row-space-1"
+          .tour-image-thumb.row-space-1.hide
+          | Please choose a photo to upload with a memory of your trip! It will be displayed publically on the tour page with your review.
+          | Show the appeal of 
+          = user_id_to_firstname(unscheduled_tour.guide_id)
+          | ’s tour! 
+  .card-footer
+    = f.submit "Send this feedback", class: "btn btn-primary"

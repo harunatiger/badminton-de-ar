@@ -11,4 +11,4 @@
           = render partial: 'shared/stars', locals: { rate: listing.ave_total }
     .review-content
       = render partial: 'review_item', locals: { reviews: reviews, host_info: host_info, host_image: host_image }
-      = paginate reviews
+      /= paginate reviews
