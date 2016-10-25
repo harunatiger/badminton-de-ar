@@ -329,7 +329,7 @@
     font-size: 20px
 
 /* pickup
- ================================================== */
+  ================================================== */
 .pickup
 
 .pickup-hero
@@ -2135,7 +2135,8 @@ h3.center-lined
   .hero
     position: relative
     height: 740px
-    background-image: image-url('plan4U/header_bg--pc.png')
+    //background-image: image-url('plan4U/header_bg--pc.png')
+    background-image: image-url('plan4U/second/top_image.png')
     background-size: 100% auto
     background-repeat: no-repeat
     background-position: center
@@ -2157,23 +2158,100 @@ h3.center-lined
       height: 400px
     @media (max-width: 899px)
       height: 360px
-    @media (max-width: 799px)
-      height: 310px
-    @media (max-width: 699px)
-      height: 270px
-    @media (max-width: 599px)
-      height: 240px
-    @media (max-width: 540px)
+    @media (max-width: 767px)
       height: 520px
-      background-image: image-url('plan4U/header_bg--sp.png')
+      background-image: image-url('plan4U/second/top_image_sp.png')
       background-size: 105% auto
-    @media (max-width: 420px)
+    @media (max-width: 550px)
+      height: 480px
+    @media (max-width: 490px)
       height: 440px
-    @media (max-width: 370px)
-      height: 400px
-    @media (max-width: 320px)
+    @media (max-width: 445px)
+      height: 380px
+    @media (max-width: 380px)
       height: 360px
-      background-size: 101% auto
+    @media (max-width: 360px)
+      height: 340px
+    @media (max-width: 340px)
+      height: 330px
+    @media (max-width: 330px)
+      height: 320px
+    @media (max-width: 320px)
+      height: 310px
+
+  .plan4U-navigation
+    position: absolute
+    top: 47px
+    left: 0
+    right: 0
+    width: 100%
+    z-index: 1
+    .plan4U-navigation-inner
+      background-color: #2B2D2D
+      li
+        line-height: 46px
+      a
+        display: block
+        padding: 0 20px
+        color: white
+
+  .title-plate
+    position: absolute
+    top: 0
+    left: 50%
+    bottom: 0
+    width: 600px
+    margin-left: -300px
+    padding: 0 40px
+    background-color: $plan4U-theme2
+    .split-line
+      border-top: 6px solid white
+    h1
+      line-height: 1.25
+      font-size: 45px
+    .fa-title-split
+      position: relative
+      .fa
+        color: white
+        font-size: 70px
+      &:before, &:after
+        content: ''
+        position: absolute
+        top: 50%
+        width: 37%
+        margin-top: -3px
+        border-top: 6px solid white
+      &:before
+        left: 0
+      &:after
+        right: 0
+    .btn-primary
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .25)
+    @media (max-width: 1099px)
+      h1
+        font-size: 32px
+    @media (max-width: 767px)
+      top: auto
+      left: 0
+      right: 0
+      bottom: 30px
+      width: 100%
+      margin: 0
+      .split-line
+        margin-top: 20px
+        border-top-width: 2px
+      h1
+        margin-top: 10px
+        margin-bottom: 0
+        font-size: 22px
+      .fa-title-split
+        margin-bottom: 15px
+        .fa
+          font-size: 28px
+        &:before, &:after
+          width: 37%
+          margin-top: -1px
+          border-top-width: 2px
 
   .cheer
     display: inline-block
@@ -2315,7 +2393,7 @@ h3.center-lined
       left: 0
       right: 0
       bottom: 0
-      padding: 10px
+      padding: 8px
       background-color: rgba(0, 0, 0, .75)
       transition: transform .3s ease-in-out, opacity .3s ease-in-out
       transform: translateY(-100%)
@@ -2326,17 +2404,33 @@ h3.center-lined
         text-align: center
       small
         color: white
-        font-size: 13px
+        font-size: 12px
         text-align: center
-      a
+      .links
         position: absolute
-        right: 10px
+        left: 0
+        right: 0
         bottom: 10px
-        color: white
-        border-bottom: 2px solid white
-        &:hover
+        width: 100%
+        a
+          display: inline-block
+          margin: 0 5px
+          color: white
+          font-size: 20px
+          width: 22px
+          height: 22px
+          line-height: 18px
+          vertical-align: middle
           text-decoration: none
-          border-bottom-color: $plan4U-theme
+          &.plus-circle
+            border-radius: 50%
+            border: 1px solid white
+            i.fa
+              font-size: 12px
+          &:hover
+            color: $skyblue3
+            &.plus-circle
+              border: 1px solid $skyblue3
     &:hover
       .introduce
         transform: translateY(0)
@@ -2359,13 +2453,13 @@ h3.center-lined
     background-color: $bg6
   .howto-inner
     position: relative
-    padding: 80px 40px
-    border: 4px solid $plan4U-theme
+    //padding: 80px 40px
+    //border: 4px solid $plan4U-theme
     border-radius: 4px
     .img-responsive
-      max-width: 230px
+      max-width: 200px
       margin: 0 auto
-    &:after
+    //&:after
       content: ''
       display: block
       position: absolute
@@ -2479,6 +2573,198 @@ h3.center-lined
         margin-right: 0
   .center-boxes
     margin: 0 -8% 0 4%
+
+  /* second edition ==============================
+  .sample-itineraly
+    background-color: $bg1
+    .btn-block
+      padding: 10px 21px
+      font-size: 32px
+      @media (max-width: 1099px)
+        font-size: 24px
+  .sample-itineraly-inner
+    background-image: image-url('plan4U/second/static_bg_lg.png')
+    background-repeat: no-repeat
+    background-size: 100% auto
+    @media (max-width: 1099px)
+      background-image: none
+  .reverse-container
+    position: relative
+  .reverse-container-left
+    position: absolute
+    .img-responsive
+      margin-left: auto
+      margin-right: auto
+    @media (max-width: 1099px)
+      position: relative
+      top: auto
+      left: auto
+  .card-quote
+    background-color: $lightblue1
+    border-radius: 10px
+    &:after
+      border-right-color: $lightblue1
+    @media (max-width: 767px)
+      padding: 0
+      font-size: 12px
+  .card-quote.card-quote-right
+    &:after
+      border-left-color: $lightblue1
+  .head-itineraly-container
+    padding: 50px 60px 30px 55%
+    .img-responsive
+      max-width: 70px
+    @media (max-width: 1099px)
+      padding: 20px 20px 60px
+      text-align: center
+      background-color: white
+      border-radius: 10px
+      .reverse-container-right
+        margin: 0 0 20px
+    .reverse-container-left
+      top: 50px
+      left: 60px
+      right: 55%
+      @media (max-width: 1099px)
+        top: auto
+        left: auto
+        right: auto
+  .body-itineraly-container
+    position: relative
+    padding: 100px 50px 50px
+    .h4
+      font-size: 34px
+      @media (max-width: 767px)
+        font-size: 26px
+    .h5
+      font-size: 26px
+    @media (max-width: 1099px)
+      padding: 20px 20px 20px
+      margin-top: 22px
+      margin-bottom: 25px
+      text-align: center
+      background-color: white
+      border-radius: 10px
+      > .row
+        margin-top: 0
+      &:after
+        content: ''
+        position: absolute
+        top: -41px
+        left: 50%
+        width: 79px
+        height: 62px
+        margin-left: -40px
+        background-image: image-url('plan4U/second/sp-bridge.png')
+        background-repeat: no-repeat
+        background-position: center
+        background-size: 100% auto
+  .body-itineraly-container1, .body-itineraly-container2
+    padding-left: 240px
+    .reverse-container-left
+      top: 0
+      left: 0
+    img
+      max-width: 220px
+    @media (max-width: 1099px)
+      padding-left: 0
+      .reverse-container-left
+        top: auto
+        left: auto
+      img
+        max-width: 220px
+  .body-itineraly-container1
+    padding-bottom: 80px
+    background-repeat: no-repeat
+    background-image: image-url('plan4U/second/bg-arrow001.png')
+    background-position: right bottom
+    @media (max-width: 1099px)
+      padding-bottom: 10px
+      background-image: none
+    @media (max-width: 767px)
+      margin-bottom: 20px
+  .body-itineraly-container2
+    padding-bottom: 120px
+    background-repeat: no-repeat
+    background-image: image-url('plan4U/second/bg-arrow002.png')
+    background-position: right bottom
+    @media (max-width: 1099px)
+      padding-bottom: 10px
+      background-image: none
+  .body-itineraly-container3
+    padding-left: 480px
+    p.text-lead
+      font-size: 18px
+      line-height: 1.65
+      @media (max-width: 767px)
+        font-size: 15px
+    .reverse-container-left
+      top: 0
+      left: 0
+      img
+        max-width: 450px
+    .reverse-container-right
+    @media (max-width: 1099px)
+      padding-left: 0
+      .reverse-container-left
+        top: auto
+        left: auto
+  .body-itineraly-container4
+    padding-left: 500px
+    background-image: image-url('plan4U/second/bg-spot.png')
+    background-repeat: no-repeat
+    background-position: right top
+    .reverse-container-left
+      top: 70px
+      left: 0
+      z-index: 0
+      img
+        max-width: 480px
+    .reverse-container-right
+      position: relative
+      padding-top: 40px
+      z-index: 1
+      .h2.text-wf
+        padding: 40px 80px 0 0
+        transform: rotate(7deg)
+        @media (max-width: 767px)
+          font-size: 26px
+      p.text-lead
+        height: 280px
+        padding: 70px 50px 0
+        margin-left: -55px
+        line-height: 1.65
+        font-size: 17px
+        background-image: image-url('plan4U/second/bg-comment.png')
+        background-position: center
+        background-repeat: no-repeat
+        background-size: 100% auto
+    @media (max-width: 1099px)
+      padding-left: 0
+      background-image: none
+      .reverse-container-left
+        top: auto
+        left: auto
+      .reverse-container-right
+        padding-top: 0
+        .h2.text-wf
+          padding: 20px 0 0 0
+          transform: rotate(0deg)
+        p.text-lead
+          height: auto
+          padding: 20px
+          margin-left: 0
+          line-height: 1.65
+          font-size: 17px
+          background-image: none
+      p.h2.row-space-3
+        font-size: 24px
+    @media (max-width: 767px)
+      .reverse-container-right
+        p.text-lead
+          padding: 0 0 20px
+          margin: 0
+          font-size: 15px
 
 /* guest book ============================================================ * /
 .guest-book
