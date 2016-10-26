@@ -211,11 +211,14 @@ $ ->
   if $('.header--sp').css('display') == 'block'
     # sidenav switch
     $('a.burger--sp').on 'click', ->
-      $('body').addClass('slideout')
-      if $('.nav-content--sp').hasClass('logged-in')
-        nav_content_height = $('.nav-content--sp').height()
-        nav_header_height = $('.nav-header').height()
-        $('.nav-menu-wrapper').css('height', nav_content_height - nav_header_height+'px')
+      if $('body').hasClass('plan4U')
+        $('.plan4U-navigation-inner').collapse('toggle')
+      else
+        $('body').addClass('slideout')
+        if $('.nav-content--sp').hasClass('logged-in')
+          nav_content_height = $('.nav-content--sp').height()
+          nav_header_height = $('.nav-header').height()
+          $('.nav-menu-wrapper').css('height', nav_content_height - nav_header_height+'px')
 
     $('.nav-mask--sp').on 'click', ->
       $('body').removeClass('slideout')
@@ -637,14 +640,28 @@ $ ->
       $('.hide-guest').removeClass('hide-guest')
       return false
 
-    $(document).on 'click', '.sign_up_form', ->
+    $(document).on 'click', '.sign_up_form', (e) ->
       to_user_id = $(this).attr('user_id')
       if to_user_id
         $("#sns_button").attr("href", "/users/before_omniauth?to_user_id=" + to_user_id)
         $('.facebook_link').attr("href", "/users/before_omniauth?to_user_id=" + to_user_id)
         $("#new_user").attr("action", "/users?to_user_id=" + to_user_id)
         $('#sign_up_form').modal()
-      return false
+      e.preventDefault()
+
+    # scroll to howto
+    $('.scroll-to-howtouse').on 'click', (e) ->
+      position = $('#howtouse').offset().top
+      $('html,body').animate { scrollTop: position }
+      $('.plan4U-navigation-inner').collapse('hide')
+      e.preventDefault()
+
+    # scroll to guides
+    $('.scroll-to-guides').on 'click', (e) ->
+      position = $('#recommended-guides').offset().top
+      $('html,body').animate { scrollTop: position }
+      $('.plan4U-navigation-inner').collapse('hide')
+      e.preventDefault()
 
   $('.facebook_button').on 'click', ->
     $(this).addClass("disabled")
@@ -653,7 +670,7 @@ $ ->
   $('.facebook_link').on 'click', ->
     $(this).hide()
     return
-  
+
   $('#currency_code').on 'change', ->
     currency_code = $('#currency_code option:selected').text()
     $.ajax(
@@ -664,7 +681,7 @@ $ ->
         }
      ).done (data) ->
       location.reload()
-    
+
   # record access log for tag event
   $('.js-google-tag-manager').on 'click', ->
     tag_event = ''
@@ -700,7 +717,7 @@ $ ->
       tag_event = 'Tour-Signup-EmailRegister'
     else if $(this).hasClass('listings_signup_facebook')
       tag_event = 'Tour-Signup-Facebook'
-      
+
     $.ajax(
         type: 'POST'
         url: '/tag_events'
