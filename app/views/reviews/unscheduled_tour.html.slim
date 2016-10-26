@@ -1,11 +1,13 @@
 - if !user_signed_in?
-  | FBログインして#{user_id_to_name(@unscheduled_tour.guide_id)}さんにレビューをお願いします！
-  .sns-buttons
-    = link_to omniauth_authorize_path(User, 'facebook'), class: 'btn btn-fb btn-large btn-block facebook_button' do
-      i.fa.fa-facebook
-      | Log in with 
-      br
-      |your Facebook account
+  .page-container.row-space-top-4.row-space-4
+    p.row-space-4
+      | FBログインして#{user_id_to_name(@unscheduled_tour.guide_id)}さんにレビューをお願いします！
+    .sns-buttons
+      = link_to omniauth_authorize_path(User, 'facebook'), class: 'btn btn-fb btn-large btn-block facebook_button' do
+        i.fa.fa-facebook
+        | Log in with 
+        br
+        | your Facebook account
 - else
   = out_put_error(@review)
   .page-container.row-space-top-6.row-space-8
