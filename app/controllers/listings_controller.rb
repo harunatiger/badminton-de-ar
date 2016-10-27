@@ -1,7 +1,7 @@
 class ListingsController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :search]
+  before_action :authenticate_user!, except: [:show, :search, :read_more_reviews]
   #before_action :check_listing_status, only: [:index, :search]
-  before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite_listing]
+  before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite_listing, :read_more_reviews]
   before_action :set_listing_obj, only: [:publish, :unpublish, :copy, :preview]
   before_action :set_listing_related_data, only: [:show, :edit, :preview]
   before_action :set_message_thread, only: [:show]
@@ -25,8 +25,7 @@ class ListingsController < ApplicationController
     BrowsingHistory.insert_record(user_id, @listing.id)
     ListingPv.add_count(@listing.id)
     @active_reservation = Reservation.active_reservation(user_id, @listing.user_id)
-    @reviews = Review.this_listing(@listing).limit(Settings.profile.review_display_count).order_by_created_at_desc
-    #TODO read more. not pagenate
+    @reviews = Review.this_listing(@listing).limit(Settings.listings.review_display_count).order_by_created_at_desc
     @all_reviewed_count = Review.my_reviewed_count(@listing.user_id)
     @host_info = Profile.find_by(user_id: @listing.user_id)
     @host_image = ProfileImage.find_by(user_id: @listing.user_id)
@@ -41,6 +40,15 @@ class ListingsController < ApplicationController
     gon.keywords = @profile_keyword
     gon.currency = {currency_code: session[:currency_code], rate: session[:rate], exhange_fee_rate: Settings.reservation.exchange_rate}
     @announcement = Announcement.display_at('listing').first
+  end
+  
+  def read_more_reviews
+    if request.xhr?
+      count = params[:current_count].to_i + Settings.listings.review_display_count
+      reviewed = Review.this_listing(@listing)
+      @reviewed = reviewed.order_by_created_at_desc.limit(count)
+      return render partial: '/listings/review_item', locals: { reviews: @reviewed, reviewed_count: reviewed.count }
+    end
   end
 
   def new

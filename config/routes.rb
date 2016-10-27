@@ -117,10 +117,15 @@ Rails.application.routes.draw do
     resources :listing_details, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
     end
+    
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
     get 'preview'
     post 'copy', action: 'copy', as: 'copy'
+    member do
+      get 'read_more_reviews',    action: 'read_more_reviews'
+    end
+    
     resources :ngevents, only: [:create] do
       get 'listing_ngdays', on: :collection
       get 'listing_reservation_ngdays', on: :collection
