@@ -7,3 +7,5 @@
         | 本日はありがとうございました。良かったら以下のURLからアクセスして今日のガイドについてのレビューをお願いします。
       p
         = link_to listing_unscheduled_tour_reviews_url(@listing, @unscheduled_tour), listing_unscheduled_tour_reviews_path(@listing, @unscheduled_tour)
+
+= render partial: "button_link"

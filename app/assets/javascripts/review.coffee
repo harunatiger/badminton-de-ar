@@ -16,4 +16,3 @@ $ ->
 
       reader.readAsDataURL file
       return
-    return

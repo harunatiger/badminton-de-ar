@@ -7,6 +7,7 @@ class UnscheduledToursController < ApplicationController
 
   # GET /unscheduled_tours/new
   def new
+    session[:guide_ids] = nil
     @unscheduled_tour = UnscheduledTour.new
     @friends = current_user.friends_profiles.order_by_created_at_asc.page(params[:page]).per(Settings.friend.page_count)
     respond_to do |format|
