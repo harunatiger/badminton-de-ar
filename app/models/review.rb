@@ -121,8 +121,7 @@ class Review < ActiveRecord::Base
   def re_calc_ave_of_listing
     l = Listing.find(self.listing_id)
     if self.host_id == l.user_id
-      listing_reviews = ReviewForGuide.where(listing_id: l.id, host_id: l.user_id).joins(:reservation).merge(Reservation.review_open?)
-      listing_reviews += ReviewOfUnscheduledTour.where(listing_id: l.id, host_id: l.user_id)
+      listing_reviews = Review.this_listing(l)
       r_count = listing_reviews.count
     
       if r_count == 1
@@ -130,7 +129,7 @@ class Review < ActiveRecord::Base
       else
         ave_total = 0
         listing_reviews.each do |review|
-          ave_total += self.total
+          ave_total += review.total
         end
         ave_total = ave_total.quo(r_count)
       end
