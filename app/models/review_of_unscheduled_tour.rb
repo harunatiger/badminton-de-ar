@@ -30,9 +30,9 @@
 #  index_reviews_on_unscheduled_tour_id  (unscheduled_tour_id)
 #
 
-class ReviewForGuide < Review
-  validates :reservation_id, presence: true
-
+class ReviewOfUnscheduledTour < Review
+  validates :unscheduled_tour_id, presence: true
+  
   mount_uploader :tour_image, DefaultImageUploader
   attr_accessor :image_blank_ok
 end

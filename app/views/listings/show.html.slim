@@ -10,7 +10,7 @@
     .row.row-space-top-4
       .col-lg-8.col-left
         = render partial: 'col_left', locals: { listing: @listing, reviews: @reviews, profile_keyword: @profile_keyword}
-        = render partial: 'review_block', locals: { listing: @listing, reviews: @reviews, host_info: @host_info, host_image: @host_image }
+        = render partial: 'review_block', locals: { listing: @listing, reviews: @reviews, reviewed_count: Review.this_listing(@listing).count }
         hr
         .row-space-4.row-space-top-4
           h3.row-space-2

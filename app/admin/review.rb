@@ -21,6 +21,7 @@ ActiveAdmin.register Review do
       link_to profile.id, profile_path(profile), target: '_blank' if profile.present?
     end
     column :reservation_id
+    column :unscheduled_tour_id
     column :listing_id do |review|
       link_to review.listing_id, listing_path(review.listing_id), target: '_blank' if review.listing_id.present?
     end
@@ -48,6 +49,7 @@ ActiveAdmin.register Review do
     column("guest_prof") { |review| Profile.find_by_user_id(review.guest_id).try('id') }
     column("host_prof") { |review| Profile.find_by_user_id(review.host_id).try('id') }
     column :reservation_id
+    column :unscheduled_tour_id
     column :listing_id
     column :total
     column :msg

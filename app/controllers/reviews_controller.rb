@@ -1,9 +1,11 @@
 class ReviewsController < ApplicationController
   before_action :store_location, only: [:for_guest, :for_guide]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:unscheduled_tour]
   before_action :regulate_user_for_guide!, only: [:for_guide, :create_guide]
   before_action :regulate_user_for_guest!, only: [:for_guest, :create_guest]
-  before_action :set_reservation
+  before_action :set_reservation, except: [:unscheduled_tour, :create_unscheduled_tour]
+  before_action :set_unscheduled_tour, only: [:unscheduled_tour, :create_unscheduled_tour]
+  before_action :regulate_user_for_unscheduled_tour!, only: [:create_unscheduled_tour]
   #before_action :set_review
 
   def for_guest
@@ -12,6 +14,10 @@ class ReviewsController < ApplicationController
 
   def for_guide
     @review = ReviewForGuide.new
+  end
+  
+  def unscheduled_tour
+    @review = ReviewOfUnscheduledTour.new
   end
 
   def create_guest
@@ -66,6 +72,24 @@ class ReviewsController < ApplicationController
       end
     end
   end
+  
+  def create_unscheduled_tour
+    @review = Review.new(review_params)
+    if @review.valid?
+      @review.save
+      @review.re_calc_average
+      @unscheduled_tour.users.each do |suport_guide|
+        suport_guide_review = Review.new(review_params)
+        suport_guide_review.host_id = suport_guide.id
+        suport_guide_review.save
+        suport_guide_review.re_calc_average
+      end
+      # TODO URL is not good
+      redirect_to listing_unscheduled_tours_path(@unscheduled_tour.listing_id), notice: Settings.review.unscheduled_tour.opened
+    else
+      render 'unscheduled_tour'
+    end
+  end
 
   private
 
@@ -108,8 +132,17 @@ class ReviewsController < ApplicationController
         redirect_to root_path, alert: Settings.regulate_user.reservation_id.failure
       end
     end
+  
+    def set_unscheduled_tour
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure unless @unscheduled_tour = UnscheduledTour.find_by_uuid(params[:unscheduled_tour_uuid])
+    end
+  
+    def regulate_user_for_unscheduled_tour!
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @unscheduled_tour.guide_id == current_user.id || @unscheduled_tour.users.exists?(current_user) || ReviewOfUnscheduledTour.exists?(unscheduled_tour_id: @unscheduled_tour.id, guest_id: current_user.id)
+    end
 
     def review_params
-      params.require(params[:review_for_guide].present? ? :review_for_guide : :review_for_guest).permit(:host_id, :guest_id, :listing_id, :reservation_id, :accuracy, :communication, :clearliness, :location, :check_in, :cost_performance, :total, :msg, :type, :tour_image)
+      review_type = params[:review_for_guest].present? ? :review_for_guest : params[:review_for_guide].present? ? :review_for_guide : :review_of_unscheduled_tour
+      params.require(review_type).permit(:host_id, :guest_id, :listing_id, :reservation_id, :unscheduled_tour_id, :accuracy, :communication, :clearliness, :location, :check_in, :cost_performance, :total, :msg, :type, :tour_image)
     end
 end

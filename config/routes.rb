@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  
+
   resources :listing_destinations
 
   resources :features, only: [:index] do
@@ -99,6 +101,12 @@ Rails.application.routes.draw do
   end
   
   resources :listings do
+    resources :unscheduled_tours, only: [:new, :create, :show, :index], param: :uuid do
+      resource :reviews, only: [:create] do
+        get '/', action: :unscheduled_tour
+        post '/', action: :create_unscheduled_tour
+      end
+    end
     resources :listing_images, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
       post 'upload_video_cover_image', on: :collection
@@ -109,10 +117,15 @@ Rails.application.routes.draw do
     resources :listing_details, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
     end
+    
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
     get 'preview'
     post 'copy', action: 'copy', as: 'copy'
+    member do
+      get 'read_more_reviews',    action: 'read_more_reviews'
+    end
+    
     resources :ngevents, only: [:create] do
       get 'listing_ngdays', on: :collection
       get 'listing_reservation_ngdays', on: :collection
@@ -151,7 +164,7 @@ Rails.application.routes.draw do
       post 'set_selected_guides'
     end
   end
-
+  
   resources :reservations, only: [:create, :update] do
     resource :reviews, only: [:create] do
       collection do

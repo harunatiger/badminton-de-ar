@@ -1,0 +1,12 @@
+.client
+.page-container
+  p.row-space-top-4.row-space-2
+    | 以下の文章を長押しでコピーしてFBメッセンジャーにペーストし、ゲストに送信してください。
+  .card.row-space-4
+    .card-body
+      p
+        | 本日はありがとうございました。良かったら以下のURLからアクセスして今日のガイドについてのレビューをお願いします。
+      p
+        = link_to listing_unscheduled_tour_reviews_url(@listing, @unscheduled_tour), listing_unscheduled_tour_reviews_path(@listing, @unscheduled_tour)
+
+= render partial: "button_link"
