@@ -1,5 +1,12 @@
 <% if @user.persisted? %>
-  <% if session[:previous_url].index('profiles') && !current_user.guest? %>
+  <% if session[:reservation_params].present? %>
+    <% session[:reservation_params_after_sign_up] = session[:reservation_params] %>
+    <% session[:reservation_params] = nil %>
+    <% listing = Listing.find_by_id(session[:reservation_params_after_sign_up]['listing_id']) %>
+    <% message_thread_id = GuestThread.get_message_thread_id(listing.try('user_id'), current_user.id) %>
+    <% message_thread_id ? message_thread_path(message_thread_id) : root_path %>
+    window.location.href = "<%=message_thread_id ? message_thread_path(message_thread_id) : root_path %>";
+  <% elsif session[:previous_url].index('profiles') && !current_user.guest? %>
     <% session[:what_talk_about] = true unless current_user.main_guide? %>
     window.location.href = "<%=message_thread_path(DefaultThread.get_message_thread_id(session[:to_user_id], current_user.id)) %>";
   <% else %>

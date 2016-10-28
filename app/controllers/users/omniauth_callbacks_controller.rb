@@ -23,10 +23,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
   
   def after_sign_in_path_for(resource)
-    if session[:reservation_params]
+    if session[:reservation_params].present?
       session[:reservation_params_after_sign_up] = session[:reservation_params]
       session[:reservation_params] = nil
-      listing_path(session[:reservation_params_after_sign_up]['listing_id'])
+      listing = Listing.find_by_id(session[:reservation_params_after_sign_up]['listing_id'])
+      message_thread_id = GuestThread.get_message_thread_id(listing.try('user_id'), current_user.id)
+      message_thread_id ? message_thread_path(message_thread_id) : root_path
     elsif session[:to_user_id]
       if session[:previous_url].index('profiles') && !resource.guest?
         session[:what_talk_about] = true unless current_user.main_guide?

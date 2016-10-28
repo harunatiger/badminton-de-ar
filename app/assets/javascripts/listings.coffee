@@ -1058,17 +1058,17 @@ $ ->
   # store reservation params for sign_up_form
   if $('body').hasClass('listings show')
     $(".listing_request[href='#sign_up_form']").on 'click', ->
-      params = "&reservation_params[listing_id]=" + $('#reservation_listing_id').val() + "&reservation_params[schedule_date]=" + $('#checkin').val() + "&reservation_params[num_of_people]=" + $('#reservation_num_of_people').val()
+      params = "&reservation_params[listing_id]=" + $('#reservation_listing_id').val() + "&reservation_params[schedule_date]=" + $('#checkin').val() + "&reservation_params[num_of_people]=" + $('#reservation_num_of_people').val() + "&reservation_params[guest_id]=" + $('#reservation_guest_id').val()
+      
+      # facebook
       href = $("#sns_button").attr('href') + params
       $("#sns_button").attr("href", href)
       $('.facebook_link').attr("href", href)
-      #$("#new_user").attr("action", "/users?to_user_id=" + to_user_id)
+      
+      # email
+      href = $("#new_user").attr('action') + params
+      $("#new_user").attr("action", href)
       return
-    
-    if $('#auto_submit').length
-      $('#new_reservation').submit()
-      return
-    return
   
   if $('body').hasClass('listings new') || $('body').hasClass('listings edit') || $('body').hasClass('listings create') || $('body').hasClass('listings update')
 

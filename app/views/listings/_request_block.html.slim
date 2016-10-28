@@ -99,16 +99,14 @@
                       = exchange_fee(listing_detail.display_amount)
 
           = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
-            - if @auto_submit
-              #auto_submit
             - user_id = 0
             - user_id = current_user.id if user_signed_in?
-            = f.hidden_field :host_id, value: @listing.user_id
+            /= f.hidden_field :host_id, value: @listing.user_id
             = f.hidden_field :guest_id, value: user_id
             = f.hidden_field :listing_id, value: @listing.id
-            = f.hidden_field :progress, value: 'under_construction'
-            = f.hidden_field :schedule_hour, value: 00
-            = f.hidden_field :schedule_minute, value: 00
+            /= f.hidden_field :progress, value: 'under_construction'
+            /= f.hidden_field :schedule_hour, value: 00
+            /= f.hidden_field :schedule_minute, value: 00
             = f.hidden_field :price, value: listing.listing_detail.price
             = f.hidden_field :price_for_support, value: listing.listing_detail.price_for_support
             = f.hidden_field :price_for_both_guides, value: listing.listing_detail.price_for_both_guides
