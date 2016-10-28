@@ -400,6 +400,8 @@ review:
       success: "Your review has been posted succesfully. Please wait for a reply from your guest"
       failure: "Failed to post review"
   opened: "Your review has been sent successfully. This review will be seen on your public page."
+  unscheduled_tour:
+    opened: "Your review has been sent successfully. This review will be seen on guide's public page."
   expiration_date: 14
   timing_of_sending_notification: [3,7,13]
 chart_data:

@@ -101,7 +101,7 @@ Rails.application.routes.draw do
   end
   
   resources :listings do
-    resources :unscheduled_tours, only: [:new, :create, :show], param: :uuid do
+    resources :unscheduled_tours, only: [:new, :create, :show, :index], param: :uuid do
       resource :reviews, only: [:create] do
         get '/', action: :unscheduled_tour
         post '/', action: :create_unscheduled_tour

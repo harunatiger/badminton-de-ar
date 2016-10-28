@@ -84,7 +84,8 @@ class ReviewsController < ApplicationController
         suport_guide_review.save
         suport_guide_review.re_calc_average
       end
-      redirect_to root_path, notice: Settings.review.opened
+      # TODO URL is not good
+      redirect_to listing_unscheduled_tours_path(@unscheduled_tour.listing_id), notice: Settings.review.unscheduled_tour.opened
     else
       render 'unscheduled_tour'
     end

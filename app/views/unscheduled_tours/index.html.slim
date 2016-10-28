@@ -1,19 +1,2 @@
-h1 Listing unscheduled_tours
-
-table
-  thead
-    tr
-      th
-      th
-      th
-
-  tbody
-    - @unscheduled_tours.each do |unscheduled_tour|
-      tr
-        td = link_to 'Show', unscheduled_tour
-        td = link_to 'Edit', edit_unscheduled_tour_path(unscheduled_tour)
-        td = link_to 'Destroy', unscheduled_tour, data: {:confirm => 'Are you sure?'}, :method => :delete
-
-br
-
-= link_to 'New Unscheduled tour', new_unscheduled_tour_path
+h1
+  | Huber.紹介ページ

@@ -3,7 +3,10 @@ class UnscheduledToursController < ApplicationController
   before_action :authenticate_user!
   before_action :set_unscheduled_tour, only: [:show]
   before_action :set_listing
-  before_action :regulate_user
+  before_action :regulate_user, except: [:index]
+  
+  def index
+  end
 
   # GET /unscheduled_tours/new
   def new
