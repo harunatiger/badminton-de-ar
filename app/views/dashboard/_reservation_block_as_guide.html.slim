@@ -1,0 +1,133 @@
+/* shared#reservation_block
+.reservation-collapse-toggle-container
+  .reservation-collapse-toggle.collapsed[data-toggle="collapse" data-target="#{"#reservation_block" + count}"]
+    .row
+      .col-md-7.tour-title
+      .col-md-5.tour-subject.text-right
+        span Tour Information
+  .resrvation-tour-info
+    /.row
+      /.col-md-7.tour-title
+    .text-truncate
+      /* define var listing
+      - listing = reservation_to_listing(reservation)
+      = link_to listing_path(reservation.listing_id), target: '_blank' do
+        = listing.title
+    .small1
+      | Meeting at 
+      = reservation.schedule.to_s
+- id_name = 'reservation_block' + count
+.collapse[id=id_name]
+  .reservation-collapse.collapse-inner
+    .row.row-condensed
+      .col-md-4.text-left.text-muted
+        | Date :
+      .col-md-8.strong
+        = "#{schedule_span(reservation)}" if reservation.schedule.present?
+        /= "#{schedule_span(reservation)}(#{format_time_required(reservation.time_required.to_s, 'hours')})" if reservation.schedule.present?
+    .row.row-condensed
+      .col-md-4.col-sm-6.text-left.text-muted
+        | Number of people :
+      .col-md-8.col-sm-6.strong
+        = reservation.num_of_people
+        |  People
+    .row.row-condensed.row-large-spaced
+      .col-md-4.col-sm-6.text-left.text-muted
+        .h4.normal GUIDE PRICE :
+      .col-md-8.col-sm-6
+        .h3.strong
+          | ¥
+          = reservation.amount
+    .row.row-condensed
+      .col-xs-11.col-offset-10px
+        .row.row-condensed
+          .col-md-4.col-sm-6.text-left.text-muted
+            | Basic Price :
+          .col-md-8.col-sm-6
+            |¥
+            = reservation.guide_price
+        - if reservation.option_amount > 0
+          .row.row-condensed
+            .col-md-4.col-sm-6.text-left.text-muted
+              | Optional Price :
+            .col-md-8.col-sm-6
+              |¥
+              = reservation.option_amount
+        - if reservation.car_option
+          - car_options.each do |option|
+            - if reservation[option] > 0
+              .row.row-condensed
+                .col-xs-11.col-offset-10px
+                  .row.row-condensed
+                    .col-md-4.col-sm-6.text-left.text-muted
+                      small= I18n.t('option_price_en.' + option)
+                    .col-md-8.col-sm-6
+                      small
+                        |¥
+                        = reservation[option]
+        - if reservation.bicycle_option
+          - num_of_people = reservation.num_of_people
+          - bicycle_options.each do |option|
+            - if reservation[option] > 0
+              .row.row-condensed
+                .col-xs-11.col-offset-10px
+                  .row.row-condensed
+                    .col-md-4.col-sm-6.text-left.text-muted
+                      small= I18n.t('option_price_en.' + option)
+                    .col-md-8.col-sm-6
+                      small
+                        |¥
+                        = reservation[option] * num_of_people
+        - if reservation.other_option
+          - other_options.each do |option|
+            - if reservation[option] > 0
+              .row.row-condensed
+                .col-xs-11.col-offset-10px
+                  .row.row-condensed
+                    .col-md-4.col-sm-6.text-left.text-muted
+                      small= I18n.t('option_price_en.' + option)
+                    .col-md-8.col-sm-6
+                      small
+                        |¥
+                        = reservation[option]
+        .row.row-condensed
+          .col-md-4.col-sm-6.text-left.text-muted
+            | Service Commission :
+          .col-md-8.col-sm-6
+            | ¥
+            = reservation.service_fee
+        .row.row-condensed
+          .col-md-4.col-sm-6.text-left.text-muted
+            = link_to 'Travel insurance:', "#travel_insurance", class: "travel_insurance link-bordered", data: { toggle: "modal" }
+          .col-md-8.col-sm-6
+            | ¥
+            = reservation.insurance_fee
+            | (#{reservation.insurance_people_str})
+    .row.row-condensed
+      .col-md-4.col-sm-6.text-left.text-muted
+        | Not included :
+      .col-md-8.col-sm-6.text-muted
+        | ¥
+        = reservation.guests_cost
+        = link_to "#", class: "include_what_trigger_for_dashboard small1 strong text-red" do
+          |  ※ Invoice
+    .row.row-condensed
+      .col-md-4.text-left.text-muted
+        | Meeting at :
+      .col-md-8
+        = reservation.place
+    .row.row-condensed
+      .col-md-4.text-left.text-muted
+        | Detail on meeting place :
+      .col-md-8
+        = reservation.place_memo
+    .row.row-condensed
+      .col-md-4.text-left.text-muted
+        | Meeting time :
+      .col-md-8
+        = meeting_at(reservation)
+    .row.row-condensed
+      .col-md-4.text-left.text-muted
+        | Note :
+      .col-md-8
+        = simple_format(reservation.description)

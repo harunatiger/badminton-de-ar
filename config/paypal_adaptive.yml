@@ -1,0 +1,31 @@
+development:
+  environment: "sandbox"
+  username: <%= ENV["PAYPAL_EXPRESS_USER_NAME"] %>
+  password: <%= ENV["PAYPAL_EXPRESS_USER_PASSWORD"] %>
+  signature: <%= ENV["PAYPAL_EXPRESS_SIGNATURE"] %>
+  application_id: <%= ENV["PAYPAL_EXPRESS_APP_ID"] %>
+  api_cert_file:
+
+develop:
+  environment: "sandbox"
+  username: <%= ENV["PAYPAL_EXPRESS_USER_NAME"] %>
+  password: <%= ENV["PAYPAL_EXPRESS_USER_PASSWORD"] %>
+  signature: <%= ENV["PAYPAL_EXPRESS_SIGNATURE"] %>
+  application_id: <%= ENV["PAYPAL_EXPRESS_APP_ID"] %>
+  api_cert_file:
+  
+staging:
+  environment: "sandbox"
+  username: <%= ENV["PAYPAL_EXPRESS_USER_NAME"] %>
+  password: <%= ENV["PAYPAL_EXPRESS_USER_PASSWORD"] %>
+  signature: <%= ENV["PAYPAL_EXPRESS_SIGNATURE"] %>
+  application_id: <%= ENV["PAYPAL_EXPRESS_APP_ID"] %>
+  api_cert_file:
+
+production:
+  environment: "production"
+  username: <%= ENV["PAYPAL_EXPRESS_USER_NAME"] %>
+  password: <%= ENV["PAYPAL_EXPRESS_USER_PASSWORD"] %>
+  signature: <%= ENV["PAYPAL_EXPRESS_SIGNATURE"] %>
+  application_id: <%= ENV["PAYPAL_EXPRESS_APP_ID"] %>
+  api_cert_file:

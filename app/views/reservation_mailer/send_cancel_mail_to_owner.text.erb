@@ -22,9 +22,9 @@
 ■Paypalでのキャンセル処理
   <%= @payment.status.present? ? @payment.status : 'なし'%>
 ■支払い金額
-  <%= @payment.amount.present? ? @payment.amount : @reservation.amount_for_campaign %>円
+  <%= @reservation.amount_for_campaign %>円
 ■ガイドに返金すべき金額
-  <%= @reservation.guide? ? 0 : @reservation.cancellation_fee_for_dashboard %>円
+  <%= @reservation.guide? ? 0 : @reservation.cancellation_fee_for_owner_mail %>円
 ■ゲストに返金すべき金額
   0  円
 ■キャンセル理由

@@ -19,7 +19,7 @@
                         .review-img-cover[style="background-image: url(#{asset_path r.tour_image})"]
                   .col-md-2.col-sm-12.row-space-2
                     .avatar-wrapper.text-center
-                      = link_to profile_path(user_id_to_profile_id(r.guest_id)), class: "text-muted" do
+                      = link_to profile_path(user_id_to_profile_id(r.guest_id)), class: "text-muted", target: '_blank' do
                         .media-photo.media-round.media-avatar.text-center
                           .size68[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(r.guest_id)}')"]
                         .text-center.profile-name.text-wrap.text-truncate
@@ -49,7 +49,7 @@
                       - l = listing_id_to_listing_obj(r.listing_id)
                       /= reserv.schedule
                     .listing-name.text-center--sp.row-space-top-2
-                      = link_to listing_path(l.id)
+                      = link_to listing_path(l.id), target: '_blank'
                         = l.title
                 .row.row-space-2.line-separation
                   .col-10.col-offset-2

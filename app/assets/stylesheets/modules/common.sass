@@ -685,8 +685,11 @@ select
 .text-gray, .text-color-light, .fa-gray
   color: $gray1
 
-.text-brand
+.text-brand, .fa-brand
   color: $brand-theme
+
+.text-yellow
+  color: $yellow1
 
 .text-brand-dark
   color: $brand-theme-dark
@@ -777,6 +780,9 @@ select
 /* fontawesome styling */
 .fa-c-heart
   color: $host-theme
+
+.fa-size-1
+  font-size: 1.6em
 
 .fa-size-2
   font-size: 2.4em
@@ -2124,7 +2130,7 @@ a.alert-warning
 .size120
   width: 120px
   height: 120px
-  
+
 .size200
   width: 200px
   height: 200px
@@ -2325,7 +2331,7 @@ a.alert-warning
         color: $brand-theme
     .alert-sign--sp
       right: 6px
-      line-height: 24px
+      line-height: 32px
       background-color: white
       transition: opacity .25s
       .fa
@@ -2788,6 +2794,8 @@ footer
   padding: 50px 0
   color: white
   background: $bg3
+  // chamo display-bug fix
+  margin-bottom: -20px
   hr
     height: 0
     margin: 50px 0 40px

@@ -1,13 +1,14 @@
 / listings/option_info
 #tour-option-info.card.row-space-8
-  - if listing_detail.present?
-    - if listing_detail.place.present?
-      .location-container
-        #location
-      .card-body
-        .h6.row-space-1 Meeting at
-        .text-muted.overflow
-          = listing_detail.place
+  .location-container
+    #location
+  - if listing_destinations.present?
+    .card-body
+      .h6.row-space-1 目的地
+      .text-muted.overflow
+        ul
+          - listing_destinations.each do |listing_destination|
+            li= listing_destination.location
     - if listing_detail.place_memo.present?
       .card-body
         .h6.row-space-1 Note about meeting up

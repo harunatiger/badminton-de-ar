@@ -1,5 +1,6 @@
 /- provide(:title, "Huber.")
 /- provide(:description, "Huber. | Let's Travel with TOMODACHI GUIDE!!")
+= render partial: 'headroom'
 - if @announcement.present?
   .announcement_belt.text-center
     = link_to @announcement.title.html_safe, announcement_path(@announcement.page_url)
@@ -22,15 +23,21 @@
   .hero-contents.text-center
     .va-container.va-container-wh
       .hero-inner
-        h1#tagline.text-contrast.row-space-1.spsb Dive into the real Japan
+        /h1#tagline.text-contrast.row-space-1.spsb Dive into the real Japan
+        h1#tagline.text-contrast.row-space-1.spsb Take a Walk Off the Beaten Tracks
         #subtitle.text-contrast.row-space-5
-          .spr Locals will have the pleasure to show you around
-        = link_to "How to use", "#", class: "guest-flow-trigger btn btn-large btn-transparent spsb"
+          /.spr Locals will have the pleasure to show you around
+          .spr TOMODACHI GUIDE: Customize Your Tour of Japan's Best Kept Secrets
+        = link_to "How to use", "#", class: "row-space-5 guest-flow-trigger btn btn-large btn-transparent spsb"
+        /.hide--sp
+        = render partial: 'form'
+        
 
 = render partial: 'features'
 = render partial: 'guide_list'
 = render partial: 'hot_news'
 = render partial: 'discovery'
+/= render partial: 'how_to_use'
 = render partial: 'guest_book'
 /= render partial: 'difference'
 /= render partial: 'charmer'

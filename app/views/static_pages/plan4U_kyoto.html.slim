@@ -1,5 +1,6 @@
 / plan4U_kyoto
-.hero
+= raw @s3_header
+/.hero
   .page-container
     h1.text-center.text-plan4U
       .va-container.va-container-wh
@@ -34,9 +35,9 @@ section.recomended-guides.text-center.section
                 p My name is Shinya. I was traveling all around the world last year. During my travel, I was teaching Japanese language and Kyoto cultures at local school. I want to introduce my favorite place in Kyoto for you!!
               = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
           - if user_signed_in?
-            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
           - else
-            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
             
         - if index == 2
           .col-md-12.moreguide-container.row-space-4
@@ -56,9 +57,9 @@ section.recomended-guides.text-center.section
             p Hi everyone! my name is Emu. I love traveling so much. I've been to America, Canada, South America... I'm looking forward to show you my lovely country in Japan. If you are interested talk to me:)
             = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
         - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
         - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
           
       .col-md-4.row-space-6.hide-guest
         - profile = Profile.where(id: 685).first
@@ -72,11 +73,12 @@ section.recomended-guides.text-center.section
             p Hi, i'm junya! I live in Kyoto. I love touring a lot of places with my road bike. Also, I love exploring city, particularly traditional temples and shrines.Let's enjoy Japan together!
             = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
         - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1"
+          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
         - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form", user_id: profile ? profile.user_id : ''
+          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
 
-section.howto.section
+= raw @s3_middle
+/section.howto.section
   .page-container.text-center
     h3.h1.spb.row-space-8 HOW TO USE
     .howto-inner.row-space-8
@@ -128,7 +130,8 @@ section.popular-tours.section
         - else
           .tour-listing-empty.text-center.text-brand.text-black
 
-section.guest-book.section
+= raw @s3_footer
+/section.guest-book.section
   h3.spb.text-center.row-space-8
     .h1.row-space-2 Guest Book
     .spl Tour memories from our guests
@@ -157,7 +160,7 @@ section.guest-book.section
                     | Thank you for the tour of Kamakura. We enjoyed your enthusiastic , friendly style . We had a great morning with you and really appreciated the local restaurant you took us to.
                   p – Sue
           
-section.please-visit.text-center.section
+/section.please-visit.text-center.section
   .page-container
     = link_to root_path, class: "btn btn-primary btn-add-shadow btn-block text-center" do
       = image_tag 'plan4U/some-btn-image.png', alt: "please visit the Huber. site!", class: "img-responsive"

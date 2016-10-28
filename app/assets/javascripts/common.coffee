@@ -18,6 +18,20 @@ $ ->
   # TMP edit
   # $('#request_withdrawal').modal('show')
 
+  # footer instagram widget
+  feed = new Instafeed(
+    target: 'instafeed'
+    get: 'user'
+    userId: '3126102602'
+    clientId: 'd35c9e83f88c456487e7779d3c9d5f93'
+    accessToken: '205858901.d35c9e8.6eb2ad8197614e169dfd9f3903171ce2'
+    resolution: 'standard_resolution'
+    links: true
+    limit: 6
+    template: '<li><a href="{{link}}" target="_blank"><div style="background-image: url({{image}})"></div></a></li>'
+  )
+  feed.run()
+
   # sns lazyload
   if $('#fb-widget').length
     loadAPI = ->
@@ -101,27 +115,38 @@ $ ->
       return
 
   # profile#show
-  if $('body').hasClass('profiles show')
+  if $('body').hasClass('profiles show') || $('body').hasClass('listings show') || $('body').hasClass('listings preview')
 
     # profile tour location
     initialize = ->
       bounds = new google.maps.LatLngBounds()
+      if gon.listing_destinations[0]
+        latitude = gon.listing_destinations[0].latitude
+        longitude = gon.listing_destinations[0].longitude
+      else
+        latitude = 0
+        longitude = 0
+        gon.listing_destinations[0] = {latitude: latitude, longitude: longitude}
+
       mapOptions =
         scrollwheel: false
         zoom: 13
-        center: new (google.maps.LatLng)(gon.listings[0].place_latitude, gon.listings[0].place_longitude)
+        center: new (google.maps.LatLng)(latitude, longitude)
         mapTypeId: google.maps.MapTypeId.TERRAIN
 
-      map = new (google.maps.Map)(document.getElementById('tour-map'), mapOptions)
+      if $('body').hasClass('profiles show')
+        map = new (google.maps.Map)(document.getElementById('tour-map'), mapOptions)
+      else if $('body').hasClass('listings')
+        map = new (google.maps.Map)(document.getElementById('location'), mapOptions)
 
       # Multiple Markers
       # Info Window Content
       markers = new Array()
       # infoWindowContent = new Array()
-      gon.listings.map (l) ->
+      gon.listing_destinations.map (l) ->
         tmp_marker = new Array()
         #tmp_info = new Array()
-        tmp_marker.push(l.title, l.place_latitude, l.place_longitude)
+        tmp_marker.push(l.title, l.latitude, l.longitude)
         markers.push(tmp_marker)
         #tmp_info.push('<div class="info_content">aaa<h3>' + l.title + '</h3><p>' + l.description  + '</p></div>')
         #infoWindowContent.push(tmp_info)
@@ -186,11 +211,14 @@ $ ->
   if $('.header--sp').css('display') == 'block'
     # sidenav switch
     $('a.burger--sp').on 'click', ->
-      $('body').addClass('slideout')
-      if $('.nav-content--sp').hasClass('logged-in')
-        nav_content_height = $('.nav-content--sp').height()
-        nav_header_height = $('.nav-header').height()
-        $('.nav-menu-wrapper').css('height', nav_content_height - nav_header_height+'px')
+      if $('body').hasClass('plan4U')
+        $('.plan4U-navigation-inner').collapse('toggle')
+      else
+        $('body').addClass('slideout')
+        if $('.nav-content--sp').hasClass('logged-in')
+          nav_content_height = $('.nav-content--sp').height()
+          nav_header_height = $('.nav-header').height()
+          $('.nav-menu-wrapper').css('height', nav_content_height - nav_header_height+'px')
 
     $('.nav-mask--sp').on 'click', ->
       $('body').removeClass('slideout')
@@ -409,9 +437,8 @@ $ ->
           $('.sp-slide:last').addClass('sp-prev')
         return
 
-
-    # lazyload image
-    $('.discovery-card, .tour-cover, .youtube-container > div, .huber-card-background, .media-cover-img > div, .img-lazyload').lazyload
+    # lazyload
+    $('.discovery-card, .tour-cover, .youtube-container > div, .guide-card-background, .media-cover-img > div, .img-lazyload').lazyload
       effect: 'fadeIn'
 
     if $('.announcement_belt').length
@@ -485,7 +512,7 @@ $ ->
       return false
 
   # registrations#new & registrations#create
-  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show') || $('body').hasClass('static_pages plan4U') || $('body').hasClass('static_pages plan4U_kyoto')
+  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show') || $('body').hasClass('static_pages plan4U') || $('body').hasClass('static_pages plan4U_kyoto') || $('body').hasClass('spots show')
 
     loginReady = ->
       $('.sns-buttons').addClass('hide')
@@ -568,6 +595,10 @@ $ ->
         return
       if $(this).attr('data-dismiss') == "modal"
         return
+      if $(this).attr('href') == "#"
+        return
+      if $(this).attr('href') == "javascript:void(0)"
+        return
       else
         handleClick($(this),$(this).attr('href'))
     $('#form_change_confirm #pagemove').on 'click', -> modalyesClick()
@@ -608,15 +639,29 @@ $ ->
       $(this).remove()
       $('.hide-guest').removeClass('hide-guest')
       return false
-    
-    $(document).on 'click', '.sign_up_form', ->
+
+    $(document).on 'click', '.sign_up_form', (e) ->
       to_user_id = $(this).attr('user_id')
       if to_user_id
         $("#sns_button").attr("href", "/users/before_omniauth?to_user_id=" + to_user_id)
         $('.facebook_link').attr("href", "/users/before_omniauth?to_user_id=" + to_user_id)
         $("#new_user").attr("action", "/users?to_user_id=" + to_user_id)
         $('#sign_up_form').modal()
-      return false
+      e.preventDefault()
+
+    # scroll to howto
+    $('.scroll-to-howtouse').on 'click', (e) ->
+      position = $('#howtouse').offset().top
+      $('html,body').animate { scrollTop: position }
+      $('.plan4U-navigation-inner').collapse('hide')
+      e.preventDefault()
+
+    # scroll to guides
+    $('.scroll-to-guides').on 'click', (e) ->
+      position = $('#recommended-guides').offset().top
+      $('html,body').animate { scrollTop: position }
+      $('.plan4U-navigation-inner').collapse('hide')
+      e.preventDefault()
 
   $('.facebook_button').on 'click', ->
     $(this).addClass("disabled")
@@ -625,6 +670,147 @@ $ ->
   $('.facebook_link').on 'click', ->
     $(this).hide()
     return
+
+  $('#currency_code').on 'change', ->
+    currency_code = $('#currency_code option:selected').text()
+    $.ajax(
+        type: 'POST'
+        url: '/currencies/change_currency'
+        data: {
+          currency_code: currency_code
+        }
+     ).done (data) ->
+      location.reload()
+
+  # record access log for tag event
+  $('.js-google-tag-manager').on 'click', ->
+    tag_event = ''
+    if $(this).hasClass('listing_message')
+      tag_event = 'Tour-Talk to me'
+    else if $(this).hasClass('listing_request')
+      tag_event = 'Tour-Request Booking'
+    else if $(this).hasClass('profile_message')
+      tag_event = 'Profile-Talk to me'
+    else if $(this).hasClass('complete_payment')
+      tag_event = 'Reservation'
+    else if $(this).hasClass('plan4U_message')
+      tag_event = 'Plan4U-Talk to me'
+    else if $(this).hasClass('login_email')
+      tag_event = 'Login-Email'
+    else if $(this).hasClass('login_facebook')
+      tag_event = 'Login-Facebook'
+    else if $(this).hasClass('signup_email')
+      tag_event = 'Signup-Email'
+    else if $(this).hasClass('signup_email_register')
+      tag_event = 'Signup-EmailRegister'
+    else if $(this).hasClass('signup_facebook')
+      tag_event = 'Signup-Facebook'
+    else if $(this).hasClass('profiles_signup_email')
+      tag_event = 'Profile-Signup-Email'
+    else if $(this).hasClass('profiles_signup_email_register')
+      tag_event = 'Profile-Signup-EmailRegister'
+    else if $(this).hasClass('profiles_signup_facebook')
+      tag_event = 'Profile-Signup-Facebook'
+    else if $(this).hasClass('listings_signup_email')
+      tag_event = 'Tour-Signup-Email'
+    else if $(this).hasClass('listings_signup_email_register')
+      tag_event = 'Tour-Signup-EmailRegister'
+    else if $(this).hasClass('listings_signup_facebook')
+      tag_event = 'Tour-Signup-Facebook'
+
+    $.ajax(
+        type: 'POST'
+        url: '/tag_events'
+        data: {
+          tag_event: tag_event
+        }
+     )
+    return
+
+  # search edit 20160913
+  if $('body').hasClass('welcome index')
+    # headroom
+    currentOffset = 0
+    $(window).scroll ->
+      scrolltop = $(this).scrollTop()
+      if scrolltop > 150 and scrolltop > currentOffset
+        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
+      else if scrolltop < 150
+        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
+      else
+        $('#headroom-header').addClass('headroom--pinned').removeClass 'headroom--unpinned'
+      currentOffset = scrolltop
+      return
+
+    #! auto complete
+    initPAC = ->
+      input = document.getElementById('location-search')
+      options = {
+        #types: [ '(cities)' ],
+        componentRestrictions: {
+          country: "jp"
+        }
+      }
+      autocomplete = new (google.maps.places.Autocomplete)(input, options)
+      location_being_changed = undefined
+
+      google.maps.event.addListener autocomplete, 'place_changed', ->
+        place = this.getPlace()
+        if place.geometry
+          $('#search_form').find('#search_latitude').val place.geometry.location.lat()
+          $('#search_form').find('#search_longitude').val　place.geometry.location.lng()
+        location_being_changed = false
+        return
+
+      $('#location-search').keydown (e) ->
+        if e.keyCode == 13
+          if location_being_changed
+            e.preventDefault()
+            e.stopPropagation()
+        else
+          $('#search_form').find('#search_latitude').val ''
+          $('#search_form').find('#search_longitude').val　''
+          location_being_changed = true
+        return
+      return
+    #! auto complete activate
+    initPAC()
+
+    #! header auto complete
+    initHeaderPAC = ->
+      input = document.getElementById('header-location-search')
+      options = {
+        #types: [ '(cities)' ],
+        componentRestrictions: {
+          country: "jp"
+        }
+      }
+      autocomplete = new (google.maps.places.Autocomplete)(input, options)
+      location_being_changed = undefined
+
+      google.maps.event.addListener autocomplete, 'place_changed', ->
+        place = this.getPlace()
+        if place.geometry
+          $('#headroom-header').find('#search_latitude').val place.geometry.location.lat()
+          $('#headroom-header').find('#search_longitude').val　place.geometry.location.lng()
+        location_being_changed = false
+        return
+
+      $('#header-location-search').keydown (e) ->
+        if e.keyCode == 13
+          if location_being_changed
+            e.preventDefault()
+            e.stopPropagation()
+        else
+          $('#headroom-header').find('#search_latitude').val ''
+          $('#headroom-header').find('#search_longitude').val　''
+          location_being_changed = true
+        return
+      return
+    #! header auto complete activate
+    initHeaderPAC()
+
+    # search edit 20160914
 
   ###
     # circle map

@@ -1,0 +1,189 @@
+.row.row-condensed.row-space-4
+  .col-sm-12.col-md-10.col-md-push-1
+    .collapse-box
+      = link_to "#reservation_block",  data: { toggle:"collapse" }, class: "#{@reservation.listing.present? ? 'reservation_collapse link-reset' :'reservation_collapse link-reset collapsed'}" do
+        | Tour
+        |  Info
+        span rmation
+        .state-container
+          - unless @reservation.accepted?
+            span.state-label
+              | State:
+          - if @reservation.requested?
+            - unless @counterpart.soft_destroyed?
+              .state.state-primary
+                = @reservation.string_of_progress_english
+          - elsif @reservation.canceled? or @reservation.canceled_after_accepted?
+            .state.state-danger
+              = @reservation.string_of_progress_english
+          - elsif @reservation.under_construction?
+            - unless @counterpart.soft_destroyed?
+              .state.state-alert
+                = @reservation.string_of_progress_english
+          /- elsif @reservation.accepted?
+            .state.state-success
+              = @reservation.string_of_progress_english
+          - elsif @reservation.rejected?
+            .state.state-alert
+              = @reservation.string_of_progress_english
+          - elsif @reservation.listing_closed?
+            .state.state-normal
+              = @reservation.string_of_progress_english
+
+      #reservation_block[class="#{@reservation.listing.present? ? 'collapse in' :'collapse'}"]
+        .reservation-collapse.collapse-inner
+          .small1.text-muted.row-space-3
+            | #{user_id_to_name(@host_id)} edites the contents of the tour and shares it.
+            br
+            | Let's make the plan of a special trip with #{user_id_to_name(@host_id)} .
+          #reservation_block-info
+            .row.row-condensed
+              .col-md-4.text-left.text-muted
+                | Tour :
+              .col-md-8.strong
+                = link_to @reservation.listing.title, listing_path(@reservation.listing), class: "link-bordered", target: '_blank' if @reservation.listing.present?
+            .row.row-condensed
+              .col-md-4.text-left.text-muted
+                | Date :
+              .col-md-8.strong
+                = "#{schedule_span(@reservation)}" if @reservation.schedule.present?
+                  /= "#{schedule_span(@reservation)}(#{format_time_required(@reservation.time_required.to_s)})"
+            .row.row-condensed
+              .col-md-4.col-sm-6.text-left.text-muted
+                | Number of people :
+              .col-md-8.col-sm-6.strong
+                = @reservation.num_of_people
+                |  People
+            .row.row-condensed.row-large-spaced
+              .col-md-4.col-sm-6.text-left.text-muted
+                .h4.normal GUIDE PRICE :
+              .col-md-8.col-sm-6
+                .h3.strong
+                  | #{currency_sign}
+                  = exchanged_display_amount(@reservation.amount_for_campaign)
+            .row.row-condensed
+              .col-xs-11.col-offset-10px
+                .row.row-condensed
+                  .col-md-4.col-sm-6.text-left.text-muted
+                    | Basic Price :
+                  .col-md-8.col-sm-6
+                    | #{currency_sign}
+                    = exchanged_amount(@reservation.guide_price)
+                - if @reservation.option_amount > 0
+                  .row.row-condensed
+                    .col-md-4.col-sm-6.text-left.text-muted
+                      | Optional Price :
+                    .col-md-8.col-sm-6
+                      | #{currency_sign}
+                      = exchanged_amount(@reservation.option_amount)
+                - if @reservation.car_option
+                  - car_options.each do |option|
+                    - if @reservation[option] > 0
+                      .row.row-condensed
+                        .col-xs-11.col-offset-10px
+                          .row.row-condensed
+                            .col-md-4.col-sm-6.text-left.text-muted
+                              small
+                                = I18n.t('option_price_en.' + option)
+                                |  :
+                            .col-md-8.col-sm-6
+                              small
+                                | #{currency_sign}
+                                = exchanged_amount(@reservation[option])
+                - if @reservation.bicycle_option
+                  - num_of_people = @reservation.num_of_people
+                  - bicycle_options.each do |option|
+                    - if @reservation[option] > 0
+                      .row.row-condensed
+                        .col-xs-11.col-offset-10px
+                          .row.row-condensed
+                            .col-md-4.col-sm-6.text-left.text-muted
+                              = I18n.t('option_price_en.' + option)
+                              |  :
+                            .col-md-8.col-sm-6
+                              | #{currency_sign}
+                              = exchanged_amount(@reservation[option] * num_of_people)
+                - if @reservation.other_option
+                  - other_options.each do |option|
+                    - if @reservation[option] > 0
+                      .row.row-condensed
+                        .col-xs-11.col-offset-10px
+                          .row.row-condensed
+                            .col-md-4.col-sm-6.text-left.text-muted
+                              small
+                                = I18n.t('option_price_en.' + option)
+                                |  :
+                            .col-md-8.col-sm-6
+                              small
+                                | #{currency_sign}
+                                = exchanged_amount(@reservation[option])
+                .row.row-condensed
+                  .col-md-4.col-sm-6.text-left.text-muted
+                    | Service Commission :
+                  .col-md-8.col-sm-6
+                    | #{currency_sign}
+                    = exchanged_amount(@reservation.service_fee)
+                .row.row-condensed
+                  .col-md-4.col-sm-6.text-left.text-muted
+                    = link_to 'Travel insurance:', "#travel_insurance", class: "travel_insurance link-bordered", data: { toggle: "modal" }
+                  .col-md-8.col-sm-6
+                    | #{currency_sign}
+                    = exchanged_amount(@reservation.insurance_fee)
+                    | (#{@reservation.insurance_people_str})
+                - if session[:currency_code] != 'JPY'
+                  .row.row-condensed
+                    .col-md-4.col-sm-6.text-left.text-muted
+                      | Exchange Fee :
+                    .col-md-8.col-sm-6
+                      | #{currency_sign}
+                      = exchange_fee(@reservation.amount_for_campaign)
+            .row.row-condensed
+              .col-md-4.col-sm-6.text-left.text-muted
+                | Not included :
+              .col-md-8.col-sm-6
+                span.text-muted
+                  | #{currency_sign}
+                  = exchanged_amount(@reservation.guests_cost)
+                = link_to "#", class: "include_what_trigger strong text-red" do
+                  |  ※ Invoice
+            .row.row-condensed
+              .col-md-4.text-left.text-muted
+                | Meeting at :
+              .col-md-8
+                = @reservation.place
+            .row.row-condensed
+              .col-md-4.text-left.text-muted.small1
+                | Detail on meeting place ： 
+              .col-md-8
+                = @reservation.place_memo
+            .row.row-condensed
+              .col-md-4.text-left.text-muted
+                | Meeting time :
+              .col-md-8
+                = meeting_at(@reservation)
+            .row.row-condensed.row-space-2
+              .col-md-4.text-left.text-muted
+                | Note :
+              .col-md-8
+                = simple_format(@reservation.description)
+            
+            - if @reservation.requested?
+              = simple_form_for(@reservation) do |f|
+                = f.hidden_field :message_thread_id, value: @message_thread.id
+                /.row-space-1.strong.text-muted
+                  | Discount code
+                /.row-space-3
+                  = f.input_field :campaign_code, placeholder: "Enter discount code"
+                = render partial: 'campaign_code_form', locals: { f: f, reservation: @reservation}
+                .text-right.row-space-2
+                  - if @counterpart.soft_destroyed?
+                    = f.submit 'Confirm', name: 'confirm', class: 'btn btn-primary disabled'
+                    = f.submit 'Cancel', name: 'cancel', class: 'btn disabled'
+                  - else
+                    - if exist_profile_blank?
+                      = link_to 'Confirm', '#', class: 'btn btn-primary profile_alert_link'
+                    - else
+                      /= f.submit 'Confirm', name: 'confirm', class: 'btn btn-primary'
+                      = link_to 'Confirm', '#campaign_code_form', class: 'btn btn-primary', data: { toggle: "modal" }
+                    = f.submit 'Cancel', name: 'cancel', class: 'btn'
+= render partial: '/shared/modals/include_what', locals: { included_guests_cost: @reservation.included_guests_cost }

@@ -1,0 +1,55 @@
+/! guide_information
+-profile = user.profile
+/hr
+#guide-info-container
+  #guide-info 
+    /.row-space-4.row-space-top-4
+      h3.row-space-2
+        | Guide Information
+    .row
+      .col-md-3.text-center
+        .media-photo.media-round.media-avatar
+          .size68[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(user.id)}')"]
+      .col-md-9
+        .profile-name.row-space-top-2.row-space-1
+          span
+            = profile.first_name
+          small.text-muted
+            = "Registerd #{profile.created_at.strftime("%Y/%m")}"
+        .profile-area.row-space-1
+          i.fa.fa-map-marker
+          ' 
+          = profile.location
+        .row-space-2
+          .expandable
+            .expandable-trigger-more
+              .expandable-content
+                .expandable-inner
+                  p
+                    = simple_format(profile.try('self_introduction') || '')
+                  .expandable-indicator
+            = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
+              | read more
+        .clearfix.lang-list-wrapper.clear-both.row-space-2
+          = render partial: 'shared/language_list', locals: { profile: profile}
+        .profile-rating.row-space-2.clear-both
+          .star-rating
+            = render partial: 'shared/stars', locals: { rate: profile.ave_total }
+          span.badge-pill-count.small1
+            | review
+            |(
+            b
+              = Review.my_reviewed_count(user.id)
+            |)
+        .talk_to_me-wrapper
+          = render partial: 'shared/talk_to_me', locals: { user_id: user.id, message_thread: message_thread }
+        .row-space-4.row-space-top-2
+          i.fa.fa-reply
+          ' 
+          | Response rate
+          ' 
+          = link_to "#about_response_rate", data: { toggle: "modal" } do
+            i.fa.fa-question-circle
+          ' 
+          = user.message_return_rate
+        

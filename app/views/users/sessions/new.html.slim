@@ -6,7 +6,7 @@
         .card-body
           .sns-buttons
             - resource_class.omniauth_providers.each do |provider|
-              = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-large btn-block facebook_button' do
+              = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-large btn-block facebook_button login_facebook js-google-tag-manager' do
                 i.fa.fa-facebook
                 | Log in with 
                 br
@@ -29,7 +29,7 @@
                   | Do you want your computer to remember your login ID?
                 = link_to "Forgot your password?", new_password_path(resource_name), class: "pull-right row-space-top-2"
               .form-actions
-                = f.button :submit, "Log in", class: "btn btn-primary btn-large btn-block"
+                = f.button :submit, "Log in", class: "btn btn-primary btn-large btn-block login_email js-google-tag-manager"
         .card-body
           p.small1.row-space-2
             | Don't have an acount? 

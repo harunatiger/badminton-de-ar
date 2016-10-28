@@ -50,6 +50,10 @@ class Payment < ActiveRecord::Base
   end
 
   def refund_amount_for_paypal(percentage)
-    (self.amount / (100 / percentage)) * 100
+    if ['JPY', 'HUF', 'TWD'].index(self.currency_code).present?
+      (self.amount - (self.amount / (100 / percentage)).ceil.to_i) * 100
+    else
+      (self.amount - (self.amount / (100 / percentage)).round(2)) * 100
+    end
   end
 end

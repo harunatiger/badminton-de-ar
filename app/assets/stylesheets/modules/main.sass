@@ -329,7 +329,7 @@
     font-size: 20px
 
 /* pickup
- ================================================== */
+  ================================================== */
 .pickup
 
 .pickup-hero
@@ -759,10 +759,10 @@ a.delete
   padding-top: 12.5px
 
 /* search */
-.listings.search
+.search
   .map
     position: fixed
-    top: 47px
+    top: 51px
     right: 0
     left: auto
     bottom: 0
@@ -771,8 +771,6 @@ a.delete
     .filters
       left: 0
       display: none
-      .card-header.show--sp
-        background-color: $bg1
     .sidebar-header
       display: none
     &.filters-open
@@ -815,21 +813,25 @@ a.delete
   .outer-listings-container
     overflow-x: hidden
 
-  .breadcrumbs
-    float: right
-    clear: right
-    font-size: 14px
-
-  .breadcrumbs,.breadcrumbs a
-    color: #999
-
-  .breadcrumb-spacer
-    margin: 0 5px 0 7px
-    font-size: 16px
-
   .results-footer
+    padding: 10px 0 40px
     overflow: hidden
-    padding: 20px
+    @media (max-width: 767px)
+      padding: 0px 0 60px
+    ul
+      li
+        margin: 0 1px
+        a
+          display: inline-block
+          min-width: 20px
+          color: $gray1
+          font-size: 16px
+          text-decoration: none
+          &:hover
+            color: $brand-theme
+        &.active
+          a
+            border-bottom: 1px solid #999
 
   .results_count
     margin: 0px 0px 5px 2px
@@ -841,15 +843,9 @@ a.delete
     width: 240px
 
   @media (min-width: 768px)
-    .map-search
-      position: absolute
-      top: 47px
-      bottom: 0
-      left: 0
-      right: 0
     .sidebar
       position: fixed
-      top: 47px
+      top: 51px
       left: 0
       bottom: 0
       width: 60%
@@ -872,27 +868,26 @@ a.delete
         box-shadow: inset -1px 0 1px rgba(0,0,0,0.3)
         z-index: 2
     .filters
-      position: fixed
-      z-index: 11
-      top: 47px
-      left: 0
-      right: 40%
-      bottom: 0
-      overflow-y: scroll
-      overflow-x: hidden
+      position: static
+      padding-bottom: 0
       background-color: white
-      &.collapse
-        overflow: hidden
-        position: static
-        padding-bottom: 0
-        .filters-section, .filters-footer
-          display: none
-        .filters-section.intro-filter
-          display: block
-    .sidebar-header-placeholder
-      height: 66px
-      width: 100%
-      display: none
+      overflow: hidden
+      z-index: 11
+      .filters-section.intro-filter
+        display: block
+      .filters-show, .filter-buttons
+        display: block
+        border-top: 0
+      .tab-pane.active
+        position: relative
+      .filter-buttons:before, .tab-pane.active:before
+        content: ""
+        position: absolute
+        top: -1px
+        height: 1px
+        left: 20px
+        right: 20px
+        border-top: 1px solid $border1
     .sidebar-header
       padding-top: 15px
       padding-bottom: 15px
@@ -900,10 +895,12 @@ a.delete
       &.transparent
         z-index: 0 !important
         transition: opacity 0.2s, z-index 0 ease 0.2s
+    .search-results
+      background-color: white
     .outer-listings-container
-      padding: 0 20px
+      padding: 20px 20px 0
 
-  &.stuck
+  //&.stuck
     .sidebar-header
       position: fixed
       top: 47px
@@ -921,9 +918,9 @@ a.delete
     height: 21px !important
     overflow: hidden
 
-  footer
+  footer, .instagram-widget
     display: none
-    @media (max-width: 767px)
+    //@media (max-width: 767px)
       display: block
 
 /* manage */
@@ -1118,7 +1115,7 @@ a.delete
   overflow-x: hidden
 
 .listings.edit, .listing_images, .confections, .tools, .dress_codes, .calendar, .listing_details
-  footer
+  footer, .instagram-widget
     display: none
 
 .hide-this-listing
@@ -2138,7 +2135,8 @@ h3.center-lined
   .hero
     position: relative
     height: 740px
-    background-image: image-url('plan4U/header_bg--pc.png')
+    //background-image: image-url('plan4U/header_bg--pc.png')
+    background-image: image-url('plan4U/second/top_image.png')
     background-size: 100% auto
     background-repeat: no-repeat
     background-position: center
@@ -2160,23 +2158,100 @@ h3.center-lined
       height: 400px
     @media (max-width: 899px)
       height: 360px
-    @media (max-width: 799px)
-      height: 310px
-    @media (max-width: 699px)
-      height: 270px
-    @media (max-width: 599px)
-      height: 240px
-    @media (max-width: 540px)
+    @media (max-width: 767px)
       height: 520px
-      background-image: image-url('plan4U/header_bg--sp.png')
+      background-image: image-url('plan4U/second/top_image_sp.png')
       background-size: 105% auto
-    @media (max-width: 420px)
+    @media (max-width: 550px)
+      height: 480px
+    @media (max-width: 490px)
       height: 440px
-    @media (max-width: 370px)
-      height: 400px
-    @media (max-width: 320px)
+    @media (max-width: 445px)
+      height: 380px
+    @media (max-width: 380px)
       height: 360px
-      background-size: 101% auto
+    @media (max-width: 360px)
+      height: 340px
+    @media (max-width: 340px)
+      height: 330px
+    @media (max-width: 330px)
+      height: 320px
+    @media (max-width: 320px)
+      height: 310px
+
+  .plan4U-navigation
+    position: absolute
+    top: 47px
+    left: 0
+    right: 0
+    width: 100%
+    z-index: 1
+    .plan4U-navigation-inner
+      background-color: #2B2D2D
+      li
+        line-height: 46px
+      a
+        display: block
+        padding: 0 20px
+        color: white
+
+  .title-plate
+    position: absolute
+    top: 0
+    left: 50%
+    bottom: 0
+    width: 600px
+    margin-left: -300px
+    padding: 0 40px
+    background-color: $plan4U-theme2
+    .split-line
+      border-top: 6px solid white
+    h1
+      line-height: 1.25
+      font-size: 45px
+    .fa-title-split
+      position: relative
+      .fa
+        color: white
+        font-size: 70px
+      &:before, &:after
+        content: ''
+        position: absolute
+        top: 50%
+        width: 37%
+        margin-top: -3px
+        border-top: 6px solid white
+      &:before
+        left: 0
+      &:after
+        right: 0
+    .btn-primary
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .25)
+    @media (max-width: 1099px)
+      h1
+        font-size: 32px
+    @media (max-width: 767px)
+      top: auto
+      left: 0
+      right: 0
+      bottom: 30px
+      width: 100%
+      margin: 0
+      .split-line
+        margin-top: 20px
+        border-top-width: 2px
+      h1
+        margin-top: 10px
+        margin-bottom: 0
+        font-size: 22px
+      .fa-title-split
+        margin-bottom: 15px
+        .fa
+          font-size: 28px
+        &:before, &:after
+          width: 37%
+          margin-top: -1px
+          border-top-width: 2px
 
   .cheer
     display: inline-block
@@ -2318,7 +2393,7 @@ h3.center-lined
       left: 0
       right: 0
       bottom: 0
-      padding: 10px
+      padding: 8px
       background-color: rgba(0, 0, 0, .75)
       transition: transform .3s ease-in-out, opacity .3s ease-in-out
       transform: translateY(-100%)
@@ -2329,17 +2404,33 @@ h3.center-lined
         text-align: center
       small
         color: white
-        font-size: 13px
+        font-size: 12px
         text-align: center
-      a
+      .links
         position: absolute
-        right: 10px
+        left: 0
+        right: 0
         bottom: 10px
-        color: white
-        border-bottom: 2px solid white
-        &:hover
+        width: 100%
+        a
+          display: inline-block
+          margin: 0 5px
+          color: white
+          font-size: 20px
+          width: 22px
+          height: 22px
+          line-height: 18px
+          vertical-align: middle
           text-decoration: none
-          border-bottom-color: $plan4U-theme
+          &.plus-circle
+            border-radius: 50%
+            border: 1px solid white
+            i.fa
+              font-size: 12px
+          &:hover
+            color: $skyblue3
+            &.plus-circle
+              border: 1px solid $skyblue3
     &:hover
       .introduce
         transform: translateY(0)
@@ -2362,13 +2453,13 @@ h3.center-lined
     background-color: $bg6
   .howto-inner
     position: relative
-    padding: 80px 40px
-    border: 4px solid $plan4U-theme
+    //padding: 80px 40px
+    //border: 4px solid $plan4U-theme
     border-radius: 4px
     .img-responsive
-      max-width: 230px
+      max-width: 200px
       margin: 0 auto
-    &:after
+    //&:after
       content: ''
       display: block
       position: absolute
@@ -2482,6 +2573,198 @@ h3.center-lined
         margin-right: 0
   .center-boxes
     margin: 0 -8% 0 4%
+
+  /* second edition ==============================
+  .sample-itineraly
+    background-color: $bg1
+    .btn-block
+      padding: 10px 21px
+      font-size: 32px
+      @media (max-width: 1099px)
+        font-size: 24px
+  .sample-itineraly-inner
+    background-image: image-url('plan4U/second/static_bg_lg.png')
+    background-repeat: no-repeat
+    background-size: 100% auto
+    @media (max-width: 1099px)
+      background-image: none
+  .reverse-container
+    position: relative
+  .reverse-container-left
+    position: absolute
+    .img-responsive
+      margin-left: auto
+      margin-right: auto
+    @media (max-width: 1099px)
+      position: relative
+      top: auto
+      left: auto
+  .card-quote
+    background-color: $lightblue1
+    border-radius: 10px
+    &:after
+      border-right-color: $lightblue1
+    @media (max-width: 767px)
+      padding: 0
+      font-size: 12px
+  .card-quote.card-quote-right
+    &:after
+      border-left-color: $lightblue1
+  .head-itineraly-container
+    padding: 50px 60px 30px 55%
+    .img-responsive
+      max-width: 70px
+    @media (max-width: 1099px)
+      padding: 20px 20px 60px
+      text-align: center
+      background-color: white
+      border-radius: 10px
+      .reverse-container-right
+        margin: 0 0 20px
+    .reverse-container-left
+      top: 50px
+      left: 60px
+      right: 55%
+      @media (max-width: 1099px)
+        top: auto
+        left: auto
+        right: auto
+  .body-itineraly-container
+    position: relative
+    padding: 100px 50px 50px
+    .h4
+      font-size: 34px
+      @media (max-width: 767px)
+        font-size: 26px
+    .h5
+      font-size: 26px
+    @media (max-width: 1099px)
+      padding: 20px 20px 20px
+      margin-top: 22px
+      margin-bottom: 25px
+      text-align: center
+      background-color: white
+      border-radius: 10px
+      > .row
+        margin-top: 0
+      &:after
+        content: ''
+        position: absolute
+        top: -41px
+        left: 50%
+        width: 79px
+        height: 62px
+        margin-left: -40px
+        background-image: image-url('plan4U/second/sp-bridge.png')
+        background-repeat: no-repeat
+        background-position: center
+        background-size: 100% auto
+  .body-itineraly-container1, .body-itineraly-container2
+    padding-left: 240px
+    .reverse-container-left
+      top: 0
+      left: 0
+    img
+      max-width: 220px
+    @media (max-width: 1099px)
+      padding-left: 0
+      .reverse-container-left
+        top: auto
+        left: auto
+      img
+        max-width: 220px
+  .body-itineraly-container1
+    padding-bottom: 80px
+    background-repeat: no-repeat
+    background-image: image-url('plan4U/second/bg-arrow001.png')
+    background-position: right bottom
+    @media (max-width: 1099px)
+      padding-bottom: 10px
+      background-image: none
+    @media (max-width: 767px)
+      margin-bottom: 20px
+  .body-itineraly-container2
+    padding-bottom: 120px
+    background-repeat: no-repeat
+    background-image: image-url('plan4U/second/bg-arrow002.png')
+    background-position: right bottom
+    @media (max-width: 1099px)
+      padding-bottom: 10px
+      background-image: none
+  .body-itineraly-container3
+    padding-left: 480px
+    p.text-lead
+      font-size: 18px
+      line-height: 1.65
+      @media (max-width: 767px)
+        font-size: 15px
+    .reverse-container-left
+      top: 0
+      left: 0
+      img
+        max-width: 450px
+    .reverse-container-right
+    @media (max-width: 1099px)
+      padding-left: 0
+      .reverse-container-left
+        top: auto
+        left: auto
+  .body-itineraly-container4
+    padding-left: 500px
+    background-image: image-url('plan4U/second/bg-spot.png')
+    background-repeat: no-repeat
+    background-position: right top
+    .reverse-container-left
+      top: 70px
+      left: 0
+      z-index: 0
+      img
+        max-width: 480px
+    .reverse-container-right
+      position: relative
+      padding-top: 40px
+      z-index: 1
+      .h2.text-wf
+        padding: 40px 80px 0 0
+        transform: rotate(7deg)
+        @media (max-width: 767px)
+          font-size: 26px
+      p.text-lead
+        height: 280px
+        padding: 70px 50px 0
+        margin-left: -55px
+        line-height: 1.65
+        font-size: 17px
+        background-image: image-url('plan4U/second/bg-comment.png')
+        background-position: center
+        background-repeat: no-repeat
+        background-size: 100% auto
+    @media (max-width: 1099px)
+      padding-left: 0
+      background-image: none
+      .reverse-container-left
+        top: auto
+        left: auto
+      .reverse-container-right
+        padding-top: 0
+        .h2.text-wf
+          padding: 20px 0 0 0
+          transform: rotate(0deg)
+        p.text-lead
+          height: auto
+          padding: 20px
+          margin-left: 0
+          line-height: 1.65
+          font-size: 17px
+          background-image: none
+      p.h2.row-space-3
+        font-size: 24px
+    @media (max-width: 767px)
+      .reverse-container-right
+        p.text-lead
+          padding: 0 0 20px
+          margin: 0
+          font-size: 15px
 
 /* guest book ============================================================ * /
 .guest-book
@@ -2599,6 +2882,10 @@ h3.center-lined
   .col-md-4
     width: auto !important
     font-size: 13px
+
+/* ================================================================================
+   additinal edit
+   ================================================================================ */
 
 /* profile edit 20160714
 .sidenav-list-profile
@@ -2846,7 +3133,6 @@ h3.center-lined
   .country-info
     margin-right: 7px
 
-
 /* feature carousel edit 20160924
 #feature-carousel
   .sp-slide
@@ -2894,3 +3180,779 @@ h3.center-lined
       height: 300px
     @media (max-width: 543px)
       height: 200px
+
+/* search/* edit 20160913
+.hero-searchForm
+  max-width: 420px
+  margin-left: auto
+  margin-right: auto
+  @media (max-width: 767px)
+    max-width: 90%
+    .location-wrapper
+      &:after
+        display: none
+      input
+        padding: 0 12px
+.location-wrapper
+  float: left
+  position: relative
+  width: 75%
+  padding: 0
+  background-color: rgba(255, 255, 255, .75)
+  &:after
+    content: '\f002'
+    display: block
+    position: absolute
+    top: 5px
+    left: 10px
+    color: #888
+    font-size: 22px
+    font-family: 'fontAwesome'
+  input
+    display: block
+    width: 100%
+    height: 44px
+    font-size: 16px
+    padding: 0 12px 0 40px
+    background: none
+    border: 0
+    -webkit-appearance: none
+#submit_location
+  float: left
+  width: 25%
+  height: 44px
+  border-top-left-radius: 0
+  border-bottom-left-radius: 0
+  i.fa
+    margin: 0 auto
+
+/* headroom edit 20160913
+.headroom
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  padding: 7px 20px
+  background-color: rgba(255, 255, 255, .95)
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .125)
+  transition: transform .25s ease-in-out
+  will-change: transform
+  z-index: 1001
+  @media (max-width: 767px)
+    display: none !important
+  .header-logo
+    display: block
+    width: 90px
+    height: 32px
+    margin: 2px auto 0
+    background: image-url('logo.png') 0 0 no-repeat
+    background-size: 90px auto
+  .additional-text
+    margin: 13px 0 0 4px
+  .location-wrapper
+    float: none
+    width: 280px
+    border: 1px solid $border1
+    background-color: white
+    border-radius: 3px
+    &:after
+      top: 2px
+      left: 10px
+      font-size: 22px
+    input
+      height: 36px
+.headroom--pinned
+  transform: translateY(0)
+.headroom--unpinned
+  transform: translateY(-100%)
+
+/* welcome/index style fix 20160914
+.guide-card
+  display: block
+  position: relative
+  .guide-card-background
+    height: 310px
+    background-repeat: no-repeat
+    background-position: 0 50%
+    background-size: cover
+  .guide-card-content
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    background-color: rgba(0, 0, 0, .5)
+  .language
+    span
+      display: inline-block
+      height: 24px
+      line-height: 22px
+      padding: 0 10px
+      margin: 0 5px 0 0
+      color: white
+      font-size: 13px
+      border: 1px solid white
+      border-radius: 2px
+  &:hover
+    .guide-card-background
+      opacity: .75
+
+.feature-carousel
+  position: relative
+  display: table
+  width: 100%
+  padding-bottom: 80px
+  > a
+    display: table-cell
+    width: 1045px
+    vertical-align: middle
+  .feature-carousel-before, .feature-carousel-after
+    display: table-cell
+    padding: 0 20px
+    color: white
+    font-size: 30px
+    font-weight: 700
+    text-align: center
+    vertical-align: middle
+    border-top: 25px solid white
+    border-bottom: 25px solid white
+    background-color: $gray3
+    z-index: 0
+  img
+    position: relative
+    max-width: 1045px
+    margin: 0 auto
+    z-index: 1
+  @media (max-width: 767px)
+    .feature-carousel-before, .feature-carousel-after
+      display: none
+
+.tour-tag
+  display: block
+  position: absolute
+  top: -8px
+  left: 25px
+  padding: 4px 20px
+  color: white
+  font-size: 16px
+  font-weight: 700
+  background-color: $brand-theme
+  z-index: 1
+  &.spot-tag
+    background-color: $yellow3
+  //@media (max-width: 767px)
+    top: 10px
+
+
+/* search style fix 20160927 ================================================================================
+
+.tour-listing
+  .card-image, .tour-cover, .media-cover, #favorite, .card-overlay-bottom-left, .tour-tag
+    /* chrome bug fix
+    transform: translate3d(0, 0, 0)
+.search
+  .card-body + .card-body:before
+    border-top-color: $border1
+  //input[type="text"]
+  [type="text"], [type="number"], [type="date"], [type="password"], [type="search"], [type="email"], [type="url"], [type="tel"], textarea, select, .input-prefix, .input-suffix
+    //font-size: 16px
+    padding: 9px 10px
+  .intro-filter
+    .fa-search
+      margin: 7px 5px 0 0
+    .location
+      border: 0
+      appearance: none
+  .col-subject
+    span
+      display: inline-block
+      padding: 9px 15px 0
+  .nav-tabs
+    border: 0
+    > li
+      > a
+        margin: 0
+        padding: 9px 40px
+        color: $gray1
+        border: 1px solid $border1
+        border-radius: 0 2px 2px 0
+        &:hover, &:focus, &:active
+          border: 1px solid $border1
+        @media (max-width: 767px)
+          padding: 9px 25px
+      &:first-child
+        > a
+          border-right: 0
+          border-radius: 2px 0 0 2px
+      &.active
+        > a
+          background-color: $skyblue5
+  .datepicker
+    @media (max-width: 1099px)
+      margin-bottom: 15px
+  .new-result-block
+    padding: 10px
+    background-color: $brand-theme
+
+/* category selector */
+.category-select
+  position: relative
+  height: 40px
+  line-height: 40px
+  border: 1px solid $border1
+  border-radius: 2px
+  @media (max-width: 1099px)
+    margin-bottom: 15px
+    &.last
+      margin-bottom: 0
+  .category-selected, .category-default
+    position: relative
+    padding: 0 10px
+    background-repeat: no-repeat
+    background-position: 3px center
+    background-size: 24px auto
+    &.category-selected-icon
+      font-size: 12px
+      padding: 0 10px 0 34px
+    &::after
+      content: '\f107'
+      position: absolute
+      top: 0
+      right: 5px
+      font-family: 'fontAwesome'
+      font-size: 20px
+  .category-radio
+    display: none
+    position: absolute
+    top: -5px
+    left: -5px
+    right: -5px
+    max-height: 220px
+    background-color: white
+    border: 1px solid $border1
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .15)
+    overflow-y: scroll
+    z-index: 3001
+    label
+      padding: 0 10px 0 34px
+      font-size: 12px
+      border-top: 1px solid $border1
+      background-repeat: no-repeat
+      background-position: 3px center
+      background-size: 24px auto
+      &:first-child
+        padding: 0 10px
+        border: 0
+      &:hover
+        background-color: $skyblue5
+        cursor: pointer
+      input
+        position: absolute
+        width: 1px
+        height: 1px
+        top: -9999px
+        left: -9999px
+
+#tab-spot
+  .category-select
+    .category-radio
+      top: auto
+      left: -5px
+      right: -5px
+      bottom: -50px
+
+.category-filters
+  @media (max-width: 767px)
+    .col-subject
+      span
+        display: block
+        padding-bottom: 9px
+        background: $bg1
+        border: 1px solid $border1
+    .category-filters-inner
+      border: 1px solid $border1
+      border-top: 0
+    .category-select
+      height: 85px
+      line-height: 20px
+      margin-bottom: 0
+      padding: 10px 0
+      border: 0
+      border-radius: 0
+      &:after
+        content: ''
+        position: absolute
+        top: 10px
+        bottom: 10px
+        right: -8px
+        border-right: 1px solid $border1
+      &.last:after
+        display: none
+    .category-selected, .category-default
+      text-align: center
+      &::after
+        content: '\f067'
+        position: relative
+        top: auto
+        right: auto
+        display: inline-block
+        width: 18px
+        height: 18px
+        line-height: 18px
+        margin-top: 5px
+        color: #ccc
+        font-size: 12px
+        font-family: 'fontAwesome'
+        border: 1px solid #ccc
+        border-radius: 50%
+      &.category-selected-icon
+        height: 70px
+        background-position: center
+        background-size: 70px auto
+        text-indent: -9999px
+        overflow: hidden
+        &::after
+          display: none
+    .category-selected
+      span
+        display: block
+    .category-radio
+      position: fixed
+      top: 10px
+      left: 10px
+      right: 10px
+      bottom: 10px
+      max-height: 2000px
+      label
+        padding: 10px 10px 10px 44px
+        font-size: 15px
+        border-top: 1px solid $border1
+        background-repeat: no-repeat
+        background-position: 3px center
+        background-size: 32px auto
+        &:first-child
+          padding: 10px
+          border: 0
+
+/* range slider */
+#duration-range
+  height: 10px
+  opacity: 0
+.slider
+  margin-top: 7px
+  &.slider-horizontal
+    width: 100%
+    height: 20px
+    .slider-track
+      height: 14px
+      width: 100%
+      margin-top: -5px
+      top: 50%
+      left: 0
+    .slider-selection
+      height: auto
+      top: 5px
+      bottom: 5px
+    .slider-track-low, .slider-track-high
+      height: auto
+      top: 6px
+      bottom: 6px
+    .slider-handle
+      margin-left: -10px
+      margin-top: -3px
+    .slider-handle.triangle
+      border-width: 0 10px 10px 10px
+      width: 0
+      height: 0
+      border-bottom-color: #0480be
+      margin-top: 0
+  input
+    display: none
+  .tooltip.top
+    margin-top: -36px
+  .tooltip-inner
+    font-size:  16px
+    font-family: 'SofiaProRegular'
+    background-color: $brand-theme
+    white-space: nowrap
+    &:after
+      content: 'h'
+  .tooltip.top
+    .tooltip-arrow
+      border-top-color: $brand-theme
+  .tooltip.bottom
+    .tooltip-arrow
+      border-bottom-color: $brand-theme
+  .hide
+    display: none
+.slider-track
+  position: absolute
+  background: white
+  box-shadow: none
+  border-radius: 0
+  cursor: pointer
+.slider-selection
+  position: absolute
+  background: $brand-theme
+  box-shadow: none
+  box-sizing: border-box
+  border-radius: 0
+.slider-track-low, .slider-track-high
+  position: absolute
+  background: transparent
+  box-sizing: border-box
+  background-color: #aaa
+  border-radius: 0
+.slider-handle
+  width: 20px
+  height: 20px
+  background: #eee
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .2)
+  border: 1px solid $brand-theme
+
+.language-select
+  label
+    position: relative
+    display: inline-block
+    padding: 0
+    margin-right: 5px
+    overflow: hidden
+    cursor: pointer
+    &:hover
+      background-color: $bg1
+    span
+      display: inline-block
+      padding: 5px 15px
+      color: $brand-theme
+      border: 1px solid $skyblue2
+      border-radius: 2px
+    input
+      position: absolute
+      top: -32px
+      left: -32px
+      width: 1px
+      height: 1px
+      appearance: none
+      &:checked ~ span
+        border-color: $brand-theme
+        background-color: $skyblue5
+
+.sort-filter
+  display: none
+
+.apply-buttons
+  display: none
+
+.filter-buttons
+  .btn
+    width: 160px
+    margin-left: 10px
+
+.search
+  @media (max-width: 767px)
+    #chamo-window
+      z-index: 999
+    .common-header
+      position: fixed
+      top: 0
+      left: 0
+      right: 0
+      z-index: 2
+    .sidebar-header-placeholder
+      width: 100%
+      height: 90px
+    .search-trigger--sp
+      position: fixed
+      top: 46px
+      left: 0
+      right: 0
+      height: 44px
+      background-color: white
+      border-bottom: 1px solid $border1
+      z-index: 2
+      form
+        position: relative
+      input[type="text"]
+        padding: 4px 10px 4px 28px
+        font-size: 16px
+      .fa-search
+        position: absolute
+        top: 7px
+        left: 12px
+        font-size: 16px
+        z-index: 1
+      .btn
+        padding: 6px
+    .listings-container
+      padding-top: 20px
+    .sidebar
+      .filters
+        position: fixed
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        background-color: white
+        overflow-x: hidden
+        overflow-y: scroll
+        z-index: 901
+      .card-header
+        color: white
+        font-size: 16px
+        background-color: $brand-theme
+      .modal-close
+        color: white
+      .filters-section
+        padding-top: 10px
+        padding-bottom: 10px
+      .intro-filter, .duration-filter, .laguage-filter
+        display: none
+      .location-filter
+        .form
+          position: relative
+        input[type="text"]
+          padding: 9px 10px 9px 34px
+          font-size: 16px
+        .fa-search
+          position: absolute
+          top: 10px
+          left: 10px
+          font-size: 18px
+          z-index: 1
+      .sort-filter
+        display: block
+        padding-top: 20px
+      #tab-tour
+        position: relative
+      .category-filters
+        margin-top: 105px
+      .date-filters
+        position: absolute
+        top: 58px
+        width: 100%
+      .date-filters:before, .category-filters:before
+        display: none
+      .filter-buttons
+        border: 0
+        text-align: center
+        .btn
+          width: 45%
+          padding-left: 5px
+          padding-right: 5px
+          margin-left: 5px
+          margin-right: 5px
+
+/* spots style edit 20160929
+.profile-category-container
+  .media-photo
+    overflow: visible
+.set_category_container_title
+  b
+    display: block
+    overflow: hidden
+    text-overflow: ellipsis
+.select_spot_category
+  display: block
+.location-remove
+  display: inline-block
+  margin: 6px 0 0
+.spots-index-card
+  .card-body
+    padding-bottom: 10px
+  .media-cover-img > div
+    height: 120px
+  .text-truncate
+    color: $gray1
+    &:hover
+      color: $brand-theme
+  .styled-fa-btn
+    position: absolute
+    top: 5px
+    right: 10px
+.styled-fa-btn
+  display: inline-block
+  width: 32px
+  height: 32px
+  line-height: 32px
+  color: $border1
+  font-size: 18px
+  text-align: center
+  background-color: white
+  border: 1px solid $border1
+  border-radius: 50%
+  &:hover
+    color: $brand-theme
+    border-color: $brand-theme
+
+/* spot detail style edit 20161004
+.back-link
+  color: $gray1
+  i.fa
+    margin-right: 5px
+.spot-title
+  position: relative
+  padding-bottom: 5px
+  font-size: 44px
+  span
+    position: relative
+    z-index: 1
+  &:before
+    content: ''
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    height: 18px
+    background-color: $spots-theme01
+    z-index: 0
+  @media (max-width: 767px)
+    margin-left: 10px
+    margin-right: 10px
+    padding-bottom: 25px
+    font-size: 24px
+    text-align: center
+    &:before
+      height: 12px
+.bg-contrast
+  background-color: white
+.spot-hero
+  .media-cover-img
+    div
+      height: 320px
+  .va-container
+    height: 320px
+    @media (max-width: 767px)
+      height: auto
+  @media (max-width: 767px)
+    .col-md-6
+      padding: 0
+      background-color: white
+.spot-hero-photo
+  position: relative
+  padding: 18px
+  background-color: $spots-theme01
+  &:after
+    content: ''
+    position: absolute
+    top: 50%
+    right: -30px
+    margin-top: -15px
+    border-top: 30px solid transparent
+    border-left: 30px solid $spots-theme01
+    border-bottom: 30px solid transparent
+  @media (max-width: 767px)
+    padding: 0
+    &:after
+      display: none
+  #favorite
+    position: absolute
+    top: 25px
+    right: 30px
+.spot-hero-title
+  display: inline-block
+  line-height: 36px
+  padding-bottom: 8px
+  border-bottom: 1px solid $gray1
+  .media-round
+    margin-left: 5px
+    border: 1px solid $brand-theme
+.spot-hero-content
+  @media (max-width: 767px)
+    text-align: center
+  .va-middle
+    padding-left: 20px
+  h5.text-lead
+    display: inline-block
+    position: relative
+    padding: 0 20px
+    font-weight: 400
+    white-space: nowrap
+    &:before, &:after
+      content: ''
+      display: block
+      position: absolute
+      top: -3px
+      bottom: 0
+    &:before
+      left: 0
+      border-left: 1px solid $gray1
+      transform: rotate(-45deg)
+    &:after
+      right: 0
+      border-right: 1px solid $gray1
+      transform: rotate(45deg)
+  .social-share-widget
+    a
+      display: inline-block
+      color: $spots-theme02
+      vertical-align: middle
+      i.fa
+        font-size: 38px
+    .sns-line-btn
+      height: 38px
+      line-height: 38px
+      padding: 0 10px
+      margin-right: 0
+      color: white
+      font-weight: 700
+      background-color: $spots-theme02
+      border-radius: 4px
+.spot-location-container
+  #location
+    height: 420px
+    @media (max-width: 767px)
+      height: 320px
+
+/* footer instagram widget edit 20161008
+#instafeed
+  list-style: none
+  margin: 0
+  padding: 0
+  overflow: hidden
+  li
+    float: left
+    width: 16.6666%
+    padding: 0
+    a
+      display: block
+      transition: opacity .2s
+      div
+        height: 214px
+        background-size: cover
+        background-repeat: no-repeat
+        background-position: center
+      &:hover
+        opacity: .8
+    @media (max-width: 1099px)
+      a
+        div
+          height: 160px
+    @media (max-width: 767px)
+      width: 33.3333%
+      a
+        div
+          height: 100px
+
+/* discount_code edit 20161019
+#campaign_code_form
+  .modal-content
+    border-radius: 0
+    border: 2px solid #999
+    position: relative
+  .campaign-image
+    width: 100%
+    height: auto
+  .card-body
+    padding: 40px 40px 30px
+    @media (min-width: 767px)
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      margin: auto
+      width: 85%
+      max-height: 300px
+      background-color: #ffffff
+      border: 1px solid silver
+  .h3
+    font-weight: 700

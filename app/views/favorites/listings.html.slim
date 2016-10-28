@@ -1,0 +1,8 @@
+= render partial: 'shared/subnav'
+.page-container.row-space-top-4.row-space-8
+  .row
+    .col-lg-3
+      = render partial: 'shared/favorites_sidenav'
+    .col-lg-9
+      .card.row-space-4
+        = render partial: 'tour_list', locals: { favorite_listings: @favorite_listings}

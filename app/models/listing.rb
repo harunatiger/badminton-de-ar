@@ -52,6 +52,10 @@
 #
 
 class Listing < ActiveRecord::Base
+  include Search
+  
+  before_validation :fix_destination
+  
   soft_deletable
   soft_deletable dependent_associations: [:user]
 =begin
@@ -83,6 +87,7 @@ class Listing < ActiveRecord::Base
   has_many :listing_pickups, dependent: :destroy
   has_many :pickups, :through =>  :listing_pickups
   has_many :favorites, dependent: :destroy
+  has_many :listing_destinations, dependent: :destroy
 
   mount_uploader :cover_image, DefaultImageUploader
   mount_uploader :cover_video, ListingVideoUploader
@@ -90,17 +95,12 @@ class Listing < ActiveRecord::Base
   attr_accessor :not_valid_ok
 
   accepts_nested_attributes_for :listing_detail
+  accepts_nested_attributes_for :listing_destinations, allow_destroy: true
 
   validates :user_id, presence: true
-  #validates :location, presence: true
-  #validates :longitude, presence: true
-  #validates :latitude, presence: true
-  #validates :price, presence: true
   validates :title, presence: true
   validates :overview, presence: true
   validates :interview1, :interview2, :interview3, presence: true, unless: :not_valid_ok
-  #validates :description, presence: true
-  #validates :capacity, presence: true
   validates_each :cover_video do |record, attr, value|
     if value.present? and value.file.size.to_f > UPLOAD_VIDEO_LIMIT_SIZE.megabytes.to_f
       #record.errors.add(attr, "You cannot upload a file greater than #{UPLOAD_VIDEO_LIMIT_SIZE}MB")
@@ -111,6 +111,8 @@ class Listing < ActiveRecord::Base
 
   scope :mine, -> user_id { where(user_id: user_id) }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
+  scope :order_by_created_at_desc, -> { order('created_at desc') }
+  scope :order_by_ave_and_updated_at_desc, -> { order('listings.ave_total desc, listings.updated_at desc') }
   scope :opened, -> { where(open: true) }
   scope :not_opened, -> { where(open: false) }
   scope :search_location, -> location_sel { where(location_sel) }
@@ -118,6 +120,13 @@ class Listing < ActiveRecord::Base
   scope :available_num_of_guest?, -> num_of_guest { where("capacity >= ?", num_of_guest) }
   scope :available_price_min?, -> price_min { where("price >= ?", price_min) }
   scope :available_price_max?, -> price_max { where("price <= ?", price_max) }
+  scope :created_new, -> { where("created_at > ?", (Time.zone.today - 1.month).beginning_of_day) }
+  
+  def fix_destination
+    self.listing_destinations.each do |listing_destination|
+      self.listing_destinations.delete(listing_destination) if listing_destination.location.blank?
+    end
+  end
   
   def open_reviews_count
     self.reviews.where(type: 'ReviewForGuide', host_id: self.user_id).joins(:reservation).merge(Reservation.review_open?).count
@@ -157,35 +166,83 @@ class Listing < ActiveRecord::Base
     hash
   end
 
-  def self.search(search_params)
-    location = Listing.arel_table['location']
-    location_sel = location.matches("\%#{search_params["location"]}\%")
-    if search_params['where'] == 'top' || search_params['where'] == 'header'
-      Listing.search_location(location_sel).available_num_of_guest?(search_params['num_of_guest'])
-    elsif search_params['where'] == 'listing_search'
-      # tba: schedule
-      price = search_params['price'].split(',')
-      price_min = price[0].to_i
-      price_max = price[1].to_i
-      keywords = Listing.arel_table['description']
-      keywords_sel = keywords.matches("\%#{search_params["keywords"]}\%")
-      if search_params['wafuku'].present?
-        Listing.search_location(location_sel)
-               .available_num_of_guest?(search_params['num_of_guest'])
-               .available_price_min?(price_min)
-               .available_price_max?(price_max)
-               .joins{ dress_code.outer }.where{ (dress_code.wafuku == search_params['wafuku']) }
-               .search_keywords(keywords_sel)
+  def self.search(search_params, max_distance=Settings.search.distance)
+    if search_params["longitude"].present? && search_params["latitude"].present?
+      if search_params["sort_by"].blank?
+        listings = Listing.opened
       else
-        Listing.search_location(location_sel)
-               .available_num_of_guest?(search_params['num_of_guest'])
-               .available_price_min?(price_min)
-               .available_price_max?(price_max)
-               .search_keywords(keywords_sel)
+        listings = Listing.select('id, user_id').opened
+        
+        category_ids = [search_params["category1"],search_params["category2"],search_params["category3"]].reject(&:blank?)
+        if category_ids.present?
+          listings = listings.joins(:listing_images).merge(ListingImage.where(pickup_id: category_ids))
+        end
+        
+        if search_params["num_of_people"].present?
+          num_of_people = search_params["num_of_people"].to_i
+          listings = listings.joins(:listing_detail).merge(ListingDetail.available_num_of_people(num_of_people))
+        end
+        
+        if search_params["duration_range"].present?
+          duration = search_params['duration_range'].split(',')
+          duration_min = duration[0].to_i
+          duration_max = duration[1].to_i
+          listings = listings.joins(:listing_detail).merge(ListingDetail.available_time_required(duration_min, duration_max))
+        end
+        
+        search_params["language_ids"] = search_params["language_ids"].reject(&:blank?)
+        # When selected EN, it means containing all users
+        if search_params["language_ids"].present? and !search_params["language_ids"].index(Language.find_by_name('English').try('id').to_s)
+          user_ids = Profile.where(user_id: listings.pluck(:user_id)).joins(:profile_languages).merge(ProfileLanguage.where(language_id: search_params["language_ids"])).pluck(:user_id)
+          listings = listings.where(user_id: user_ids)
+        end
+        
+        if search_params["schedule"].present?
+          date = Date.strptime(search_params["schedule"], "%m/%d/%Y")
+          wday = date.wday
+ 
+          # ngevent_week
+          ng_user_ids = NgeventWeek.where(dow: wday, mode: 1).pluck(:user_id)
+          ng_listing_ids = NgeventWeek.where(listing_id: listings.ids, dow: wday, mode: 0).where.not(user_id: ng_user_ids).pluck(:listing_id)
+          listings = listings.where.not(user_id: ng_user_ids).where.not(id: ng_listing_ids)
+          
+          # ng_event
+          ng_user_ids = Ngevent.where.not(mode: 0).where('start <= ? and ? <= ngevents.end', date, date).pluck(:user_id)
+          ng_listing_ids = Ngevent.where(listing_id: listings.ids, mode: 0).where('start <= ? and ? <= ngevents.end', date, date).pluck(:listing_id)
+          listings = listings.where.not(user_id: ng_user_ids).where.not(id: ng_listing_ids)
+        end
       end
+      
+      listing_destinations = ListingDestination.where(listing_id: listings.ids).where.not(latitude: nil, longitude: nil)
+      listing_id_array = []
+      listing_destination_id_array = []
+      listing_destinations.each do |listing_destination|
+        distance = Search.distance(search_params["longitude"].to_f, search_params["latitude"].to_f, listing_destination.longitude, listing_destination.latitude)
+        
+        if distance <= max_distance
+          listing_id_array.push(listing_destination.listing_id)
+          listing_destination_id_array.push(listing_destination.id)
+        end
+      end
+      [listing_id_array, listing_destination_id_array]
     end
   end
-
+    
+  def self.sort_for_search
+    active_listing_ids = self.joins(:user).merge(User.active_users).order_by_ave_and_updated_at_desc.pluck(:id)
+    not_active_listing_ids = self.where.not(id: active_listing_ids).order_by_ave_and_updated_at_desc.pluck(:id)
+    ids = active_listing_ids.concat(not_active_listing_ids).uniq
+    listings = self.where(id: ids).order_by_ids(ids)
+  end
+    
+  def self.order_by_ids(ids)
+    order_by = ["case"]
+    ids.each_with_index.map do |id, index|
+      order_by << "WHEN id='#{id}' THEN #{index}"
+    end
+    order_by << "end"
+    order(order_by.join(" "))
+  end
 
 
   def current_user_bookmarked?(user_id)

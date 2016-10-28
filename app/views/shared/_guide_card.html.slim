@@ -1,0 +1,40 @@
+div
+  = link_to profile_path(profile), class: 'huber-card', target: '_blank' do
+    .huber-card-background[style="background-image: url('#{asset_path profile_to_cover_image_thumb(profile)}')"]
+    .huber-card-content
+      .row.row-condensed
+        .col-5
+          .huber-card-face
+            div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
+        .col-7.text-left
+          .huber-inner
+            .name.text-truncate
+              = profile.first_name
+            .profile-rating.row-space-2
+              .star-rating.star-rating-fit
+                = render partial: 'shared/stars', locals: { rate: profile.ave_total }
+              span.badge-pill-count.small1
+                | review
+                |(
+                b
+                  = all_reviewed_count
+                |)
+        .col-12
+          .area.text-truncate
+            = profile.location
+      .capability
+        - profile.pickups.order_by_created_at_asc.each do |pickup_tag|
+          .media-round.media-photo.media-avatar
+            .size28[style="background-image: url('#{asset_path pickup_tag.icon_small}')"]
+      .language
+        span.balloon(title="English") EN
+        - if language_zh?(profile)
+          span.balloon(title="Chinese") ZH
+        - if language_de?(profile)
+          span.balloon(title="German") DE
+        - if language_fr?(profile)
+          span.balloon(title="French") FR
+        - if language_es?(profile)
+          span.balloon(title="Spanish") ES
+        - if language_ja?(profile)
+          span.balloon(title="Japanese") JA

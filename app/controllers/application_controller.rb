@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
 
   #http_basic_authenticate_with name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD'] unless Rails.env.development?
-  before_action :set_locale
+  before_action :set_locale, :set_locale_from_remote_addr
   before_action :log_access
   after_action  :store_location
  
@@ -26,6 +26,16 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  after_action  :set_last_access_date
+  def set_last_access_date
+    if user_signed_in?
+      if current_user.last_access_date.blank? || current_user.last_access_date < Time.zone.today
+        current_user.profile.enable_strict_validation = false
+        current_user.update(last_access_date: Time.zone.today)
+      end
+    end
+  end
+  
   if !Rails.env.development?
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
     rescue_from ActionController::RoutingError,   with: :render_404
@@ -36,6 +46,24 @@ class ApplicationController < ActionController::Base
     render template: 'errors/error_404', status: 404, layout: 'application', content_type: 'text/html'
   end
   
+  private
+
+  TIMEOUT = 1.hour
+  def set_locale_from_remote_addr
+    return check_currency_rate if session[:currency_code].present?
+    language = http_accept_language.preferred_language_from(Currency.available_locales)
+    session[:currency_code] = Currency.language_to_currency_code(language)
+    session[:rate] = session[:currency_code] != 'JPY' ? Currency.get_rate(session[:currency_code]) : 0
+    session[:latest_rate_get_time] = Time.current
+  end
+    
+  def check_currency_rate
+    if session[:latest_rate_get_time] <= TIMEOUT.ago
+      session[:rate] = session[:currency_code] != 'JPY' ? Currency.get_rate(session[:currency_code]) : 0
+      session[:latest_rate_get_time] = Time.current
+    end
+  end
+
   def log_access
     if !request.fullpath.index('admin') && !request.env["HTTP_USER_AGENT"].index('ELB-HealthChecker')
       if session[:country].blank?
@@ -48,7 +76,8 @@ class ApplicationController < ActionController::Base
         geoip = GeoIP.new(Rails.root + "db/GeoIP.dat").country(remoteaddr)
         session[:country] = geoip.country_code2
       end
-
+      
+      tag_event = params[:tag_event].presence || ''
       access_params = {
         session_id: session[:session_id],
         user_id: user_signed_in? ? current_user.id : nil,
@@ -57,6 +86,7 @@ class ApplicationController < ActionController::Base
         referer: request.referer,
         country: session[:country],
         devise: request.env["HTTP_USER_AGENT"],
+        tag_event: tag_event,
         accessed_at: Time.zone.now
         }
       Access.insert_record(access_params)

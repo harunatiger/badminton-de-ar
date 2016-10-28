@@ -286,20 +286,42 @@ class Reservation < ActiveRecord::Base
   
   def support_guide_payment
     if self.pg_completion? and self.default?
-      return self.price_for_support - (self.service_fee / 2).ceil
+      return self.support_guide_payment_default
     else
       return 0
     end
   end
-
-  def paypal_amount
-    result = self.basic_amount + handling_cost + self.insurance_fee
-    result = result - self.campaign.discount if self.campaign.present?
-    return result * 100
+  
+  def support_guide_payment_default
+    self.price_for_support - (self.service_fee / 2).ceil
   end
 
-  def paypal_sub_total
-    self.basic_amount * 100
+  def paypal_amount(currency_code, rate)
+    result = self.basic_amount + handling_cost + self.insurance_fee
+    result = result - self.campaign.discount if self.campaign.present?
+    
+    if currency_code == 'JPY'
+      return result * 100
+    else
+      if currency_code == 'HUF' or currency_code == 'TWD'
+        result = (BigDecimal(result.to_s) * BigDecimal(rate.to_s)).ceil
+      else
+        result = (BigDecimal(result.to_s) * BigDecimal(rate.to_s)).round(2)
+      end
+      return (result * 100) + paypal_exchange_fee(currency_code, rate)
+    end
+  end
+
+  def paypal_sub_total(currency_code, rate)
+    result = self.basic_amount
+    return result * 100 if currency_code == 'JPY'
+    
+    if currency_code == 'HUF' or currency_code == 'TWD'
+      result = (BigDecimal(self.basic_amount.to_s) * BigDecimal(rate.to_s)).ceil
+    else
+      result = (BigDecimal(self.basic_amount.to_s) * BigDecimal(rate.to_s)).round(2)
+    end
+    result * 100
   end
 
   def handling_cost
@@ -307,20 +329,72 @@ class Reservation < ActiveRecord::Base
     (basic_amount * Settings.reservation.service_rate).ceil
   end
 
-  def paypal_handling_cost
+  def paypal_handling_cost(currency_code, rate)
     #basic_amount < 2000 ? 50000 : (basic_amount * 0.145).ceil * 100
-    (basic_amount * Settings.reservation.service_rate).ceil * 100
+    result = (BigDecimal(basic_amount.to_s) * BigDecimal(Settings.reservation.service_rate.to_s)).ceil
+    return result * 100 if currency_code == 'JPY'
+    
+    if currency_code == 'HUF' or currency_code == 'TWD'
+      result = (BigDecimal(result.to_s) * BigDecimal(rate.to_s)).ceil
+    else
+      result = (BigDecimal(result.to_s) * BigDecimal(rate.to_s)).round(2)
+    end
+    result * 100
   end
   
-  def paypal_travel_insurance
-    self.insurance_fee * 100
+  def paypal_travel_insurance(currency_code, rate)
+    result = self.insurance_fee
+    return result * 100 if currency_code == 'JPY'
+    
+    if currency_code == 'HUF' or currency_code == 'TWD'
+      result = (BigDecimal(result.to_s) * BigDecimal(rate.to_s)).ceil
+    else
+      result = (BigDecimal(result.to_s) * BigDecimal(rate.to_s)).round(2)
+    end
+    result * 100
+  end
+  
+  def paypal_exchange_fee(currency_code, rate)
+    total = self.basic_amount + handling_cost + self.insurance_fee
+    total = total - self.campaign.discount if self.campaign.present?
+    result = (BigDecimal(total.to_s) * BigDecimal(Settings.reservation.exchange_rate.to_s)).ceil
+    
+    if currency_code == 'HUF' or currency_code == 'TWD'
+      result = (BigDecimal(result.to_s) * BigDecimal(rate.to_s)).ceil
+    else
+      result = (BigDecimal(result.to_s) * BigDecimal(rate.to_s)).round(2)
+    end
+    result * 100
   end
 
-  def paypal_campaign_discount
-    0 - self.campaign.discount * 100
+  def paypal_campaign_discount(currency_code, rate)
+    result = 0 - (self.campaign.discount)
+    return result * 100 if currency_code == 'JPY'
+    
+    if currency_code == 'HUF' or currency_code == 'TWD'
+      result = (BigDecimal(result.to_s) * BigDecimal(rate.to_s)).ceil
+    else
+      result = (BigDecimal(result.to_s) * BigDecimal(rate.to_s)).round(2)
+    end
+    result * 100
   end
 
   def cancellation_fee_for_dashboard
+    if self.before_weeks? or self.amount_for_campaign <= 0
+      0
+    elsif self.before_days?
+      #self.amount_for_campaign - (self.amount_for_campaign / 2)
+      if ['JPY', 'HUF', 'TWD'].index(self.payment.try('currency_code')).present?
+        (self.payment.amount / 2).ceil.to_i
+      else
+        (self.payment.amount / 2).round(2)
+      end
+    else
+      self.payment.amount
+    end
+  end
+  
+  def cancellation_fee_for_owner_mail
     if self.before_weeks? or self.amount_for_campaign <= 0
       0
     elsif self.before_days?
@@ -423,19 +497,20 @@ class Reservation < ActiveRecord::Base
     !self.under_construction?
   end
 
-  def set_details(details)
+  def set_details(details, rate)
     payment = self.payment.present? ? self.payment : Payment.create(reservation_id: self.id)
     payment.update(
         token: details.token,
         payer_id: details.payer_id,
         payers_status: details.params['payer_status'],
-        amount: details.params['order_total'],
+        amount: BigDecimal(details.params['order_total']),
         currency_code: details.params['order_total_currency_id'],
         email: details.params['payer'],
         first_name: details.params['first_name'],
         last_name: details.params['last_name'],
         country_code: details.params['country'],
-        status: 'confirmed'
+        status: 'confirmed',
+        exchange_rate: BigDecimal(rate.to_s)
       )
     payment
   end
@@ -516,14 +591,17 @@ class Reservation < ActiveRecord::Base
   def create_pair_guide_review
     if self.pg_completion?
       main_review = ReviewForGuide.where(reservation_id: self.id, host_id: self.host_id).first
-      pair_guide_review = main_review.dup
-      if main_review.tour_image.present?
-        pair_guide_review.image_blank_ok = true
-        pair_guide_review.tour_image = main_review.tour_image.file
-      end
-      pair_guide_review.host_id = self.pair_guide_id
-      if pair_guide_review.save
-        pair_guide_review.re_calc_ave_of_profile
+      pair_guide_review = ReviewForGuide.where(reservation_id: self.id, host_id: self.pair_guide_id).first
+      if pair_guide_review.blank?
+        pair_guide_review = main_review.dup
+        if main_review.tour_image.present?
+          pair_guide_review.image_blank_ok = true
+          pair_guide_review.tour_image = main_review.tour_image.file
+        end
+        pair_guide_review.host_id = self.pair_guide_id
+        if pair_guide_review.save
+          pair_guide_review.re_calc_ave_of_profile
+        end
       end
     end
   end

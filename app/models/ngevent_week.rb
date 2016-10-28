@@ -26,6 +26,9 @@ class NgeventWeek < ActiveRecord::Base
   scope :user_ngweeks, -> (user_id) { where('user_id = ?', user_id) }
   scope :mode, -> (mode) { where('mode = ?', mode) }
 
+  # about mode
+  # 0 : single listing
+  # 1 : all listign
 
   def self.select_ngweeks(user_id, arry_ngweek)
     ngweeks_fixed = []

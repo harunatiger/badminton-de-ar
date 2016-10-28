@@ -1,0 +1,209 @@
+.filters
+  .card-header.filters-section.show--sp.text-center
+    = link_to "", "#", class: "modal-close js-small-filters-close"
+    | Search
+  
+  .intro-filter.filters-section.card-body
+    .row.row-condensed
+      .col-sm-3.col-md-1.row-space-1--sp.text-right
+        i.fa.fa-search.fa-brand.fa-size-1
+      .col-sm-9.col-md-10
+        input.location#location-search[type="text" placeholder="location" value=@conditions['location'] name="search[location]"]
+  .sort-filter.filters-section.card-body
+    .row
+      .col-sm-4.col-md-3.text-left.col-subject
+        span Sort by
+      .col-sm-8.col-md-9
+        ul.nav.nav-tabs
+          li
+            = link_to "Tour", "#tab-tour", data: {toggle: "tab"}, class: 'tour_tab'
+          li
+            = link_to "Spot", "#tab-spot", data: {toggle: "tab"}, class: 'spot_tab'
+  .tab-content
+    #tab-tour.tab-pane
+      .location-filter.filters-section.card-body.show--sp
+        .form
+          input#location-search-filter-sp[type="text" placeholder="location" value=@conditions['location'] name="search[location]"]
+          i.fa.fa-search.fa-brand
+      .category-filters.filters-section.card-body
+        .row
+          .col-sm-12.col-md-3.text-left.col-subject
+            span Category
+          .col-sm-12.col-md-9
+            .category-filters-inner
+              .row.row-condensed
+                .col-sm-4.col-md-6.col-lg-4
+                  .category-select
+                    .category-selected
+                      span Choose Category
+                    .category-radio
+                      label.category-default
+                        | Choose Category
+                        input[name="search[category1]" type="radio" value=""]
+                      - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
+                        - checked = @conditions['category1'].to_i == pickup_tag.id
+                        label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
+                          span = pickup_tag.short_name
+                          input#search_category1[name="search[category1]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
+
+                .col-sm-4.col-md-6.col-lg-4
+                  .category-select
+                    .category-selected
+                      span Choose Category
+                    .category-radio
+                      label.category-default
+                        | Choose Category
+                        input[name="search[category2]" type="radio" value=""]
+                      - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
+                        - checked = @conditions['category2'].to_i == pickup_tag.id
+                        label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
+                          span = pickup_tag.short_name
+                          input#search_category2[name="search[category2]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
+
+                .col-sm-4.col-md-6.col-lg-4
+                  .category-select.last
+                    .category-selected
+                      span Choose Category
+                    .category-radio
+                      label.category-default
+                        | Choose Category
+                        input[name="search[category3]" type="radio" value=""]
+                      - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
+                        - checked = @conditions['category3'].to_i == pickup_tag.id
+                        label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
+                          span = pickup_tag.short_name
+                          input#search_category3[name="search[category3]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
+
+      .date-filters.filters-section.card-body
+        .row
+          .col-md-3.text-left.col-subject.hide--sp
+            span Date
+          .col-sm-12.col-md-9
+            .row
+              .col-md-12.col-lg-5
+                = f.input_field :schedule, placeholder: "MM/DD/YY", class: "datepicker", value: @conditions['schedule']
+              .col-md-12.col-lg-5
+                .select.select-block
+                  = f.input_field :num_of_people, as: :select, collection: 1..20, selected: [@conditions['num_of_people']], include_blank: "people"
+      .duration-filter.filters-section.card-body
+        .row
+          .col-sm-6.col-md-3.text-left.col-subject
+            span Duration
+          .col-sm-12.col-md-8
+            .row-space-top-4.row-space-2
+              input#duration-range[name="search[duration_range]" value=@conditions['duration_range'] ]
+      .laguage-filter.filters-section.card-body
+        .row
+          .col-sm-6.col-md-3.text-left.col-subject
+            span Language
+          .col-sm-12.col-md-9
+            .language-select
+              = collection_check_boxes(:search, :language_ids, Language.ordered, :id, :name, checked: @conditions['language_ids']) do |l|
+                label
+                  = l.check_box
+                  span #{language_id_to_short_name(l.value)}
+
+    #tab-spot.tab-pane
+      /.location-filter.filters-section.card-body.show--sp
+        .form
+          input#location-search-filter-sp[type="text" placeholder="location" value=@conditions['location'] name="search[location]"]
+          i.fa.fa-search.fa-brand
+      .filters-section.card-body
+        .row
+          .col-sm-4.col-md-3.text-left.col-subject
+            span Category
+          .col-sm-8.col-md-9
+            .row.row-condensed
+              .col-sm-12.col-md-6.col-lg-4
+                .category-select
+                  .category-selected
+                    | Choose Category
+                  .category-radio
+                    label.category-default
+                      | Choose Category
+                      input[name="search[spot_category]" type="radio" value='' ]
+                    - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
+                      - checked = @conditions['spot_category'].to_i == pickup_tag.id
+                      label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
+                        span = pickup_tag.short_name
+                        input#search_spot_category[name="search[spot_category]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
+
+  .filter-buttons.filters-section.card-body.text-right.row-space-6
+    .default-buttons.hide--sp
+      = link_to "#", class: "btn btn-primary show-sort-filter" do
+        span.text-more-filters MORE FILTERS
+    .apply-buttons
+      = link_to "#", class: "btn cancel-filter" do
+        span.text-more-filters CANCEL
+      = f.button :submit, "APPLY FILTERS", class: "btn btn-primary"
+
+
+
+
+
+
+
+
+
+
+    /! old version ================================================================================
+    /.filters-section.intro-filter.card-body
+      .row
+        .col-lg-2.col-md-12.text-center-sm.text-center-md.filter-label
+          label 価格帯
+        .col-lg-9.col-md-12
+          = f.input_field :price, id: "price-range"
+    /.checkbox-group.hosting_amenities.filters-section.card-body
+      .row
+        .col-lg-2.col-md-12.filter-label
+          label お菓子の記述あり（オプション1）
+        .col-lg-9.col-md-11
+          .row.row-condensed.filters-columns
+            .col-md-4
+              label.media.checkbox.text-truncate title="オプション1"
+                = f.input_field :confection, as: :boolean, boolean_style: :inline, class: "pull-left"
+                | お菓子（オプション1）の情報があるものだけ表示
+    /.checkbox-group.hosting_amenities.filters-section.card-body
+      .row
+        .col-lg-2.col-md-12.filter-label
+          label お道具（オプション2）
+        .col-lg-9.col-md-11
+          .row.row-condensed.filters-columns
+            .col-md-4
+              label.media.checkbox.text-truncate title="オプション2"
+                = f.input_field :tool, as: :boolean, boolean_style: :inline, class: "pull-left"
+                | お道具（オプション2）の情報があるものだけ表示
+    /.checkbox-group.property_type_id.filters-section.card-body
+      .row
+        .col-lg-2.col-md-12.filter-label
+          label 服装（オプション3）
+        .col-lg-9.col-md-11
+          .row.row-condensed.filters-columns
+            .col-md-4
+              label.media.checkbox.text-truncate title="オプション3"
+                = f.input_field :wafuku, as: :boolean, boolean_style: :inline, class: "pull-left"
+                | 和服のみ（オプション3）
+    /.keywords.filters-section.card-body
+      .row
+        .col-lg-2.col-md-12.filter-label
+          label その他
+        .col-lg-9
+          .row.row-condensed
+            .col-md-12
+              = f.input_field :keywords, placeholder: "キーワード情報", class: "input-block"
+    /.filters-footer.card-btn--sp
+      = f.button :submit, "ガイドページを表示", class: "btn btn-block btn-large btn-primary search-button row-space-4--sp"
+  /.filters-placeholder.hide.hide--sp
+
+
+  /.sidebar-header.card-body.card-bg-medium.hide--sp.clearfix
+    = link_to "#", class: "btn show-filters pull-left" do
+      span.text-more-filters 検索条件を追加
+    = f.button :submit, "再検索する", class: "btn btn-primary pull-left"
+
+    /.results-count-item.pull-right.text-right
+      h1.results-count.h5
+        = hit_count
+        |件
+        |·
+        = conditions['location']

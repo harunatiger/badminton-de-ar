@@ -64,40 +64,47 @@
             .col-md-4.text-muted.strong.text-right.text-left--sp
               | Price:
             .col-md-8
-              | ¥&nbsp;
-              = @reservation.basic_amount
+              | #{currency_sign}&nbsp;
+              = exchanged_amount(@reservation.basic_amount)
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
               | Service commission:
             .col-md-8
-              | ¥&nbsp;
-              = @reservation.handling_cost
+              | #{currency_sign}&nbsp;
+              = exchanged_amount(@reservation.handling_cost)
           .row.row-condensed.row-space-2.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
               = link_to 'Travel insurance:', "#travel_insurance", class: "travel_insurance", data: { toggle: "modal" }
             .col-md-8
-              | ¥&nbsp;
-              = @reservation.insurance_fee
+              | #{currency_sign}&nbsp;
+              = exchanged_amount(@reservation.insurance_fee)
               | (#{@reservation.insurance_people_str})
+          - if session[:currency_code] != 'JPY'
+            .row.row-condensed.row-space-2.row-space-top-3
+              .col-md-4.text-muted.strong.text-right.text-left--sp
+                | Exchange Fee:
+              .col-md-8
+                | #{currency_sign}&nbsp;
+                = exchange_fee(@reservation.amount_for_campaign)
           - if @reservation.campaign.present?
             .row.row-condensed.row-space-2.row-space-top-3
               .col-md-4.text-muted.strong.text-right.text-left--sp
                 | Discount:
               .col-md-8
-                | ¥&nbsp;
-                = 0 - @reservation.campaign.discount
+                | #{currency_sign}&nbsp;
+                = 0 - exchanged_amount(@reservation.campaign.discount)
           .row.row-condensed.row-space-6.row-space-top-3
             .col-md-4.text-muted.strong.text-right.text-left--sp
               | Total:
             .col-md-8
-              | ¥&nbsp;
-              = @payment.amount
+              | #{currency_sign}&nbsp;
+              = ['JPY', 'HUF', 'TWD'].index(session[:currency_code]).present? ? @payment.amount.to_i : @payment.amount
         .card-footer
           .text-center
             .btn-wrapper
               - if Rails.env.production?
-                = f.submit "Complete payment", name: 'purchase', class: "btn btn-primary", onclick: "ga('send', 'event', 'reservation','accept');"
+                = f.submit "Complete payment", name: 'purchase', class: "btn btn-primary complete_payment js-google-tag-manager", onclick: "ga('send', 'event', 'reservation','accept');"
               - else
-                = f.submit "Complete payment", name: 'purchase', class: "btn btn-primary"
+                = f.submit "Complete payment", name: 'purchase', class: "btn btn-primary complete_payment js-google-tag-manager"
               = f.submit "Cancel payment", name: 'cancel_payment', class: "btn"
 = render partial: '/shared/modals/travel_insurance'

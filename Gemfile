@@ -108,6 +108,7 @@ gem 'google-analytics-rails', '1.1.0'
 
 #paypal payment
 gem 'activemerchant', '1.57.0'
+gem 'paypal_adaptive', '0.3.10'
 
 # dotenv
 gem 'dotenv-rails'
@@ -164,6 +165,9 @@ gem "google_visualr", "2.5.1"
 
 # locale from ip
 gem 'geoip'
+
+# get language from http header
+gem 'http_accept_language', '2.0.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

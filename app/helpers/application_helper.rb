@@ -143,6 +143,10 @@ module ApplicationHelper
   def user_id_to_profile_id(user_id)
     User.find(user_id).profile.id
   end
+  
+  def user_id_to_profile(user_id)
+    User.find(user_id).profile
+  end
 
   def review_count_of_host(host_id)
     results = Listing.mine(host_id).pluck('review_count')
@@ -559,14 +563,6 @@ module ApplicationHelper
     FavoriteListing.where(listing_id: listing_id).without_soft_destroyed.count
   end
 
-  def favorite_listing_set(listing, user)
-    FavoriteListing.find_by(listing: listing, user: user)
-  end
-
-  def favorite_user_set(to_user_id, from_user_id)
-    FavoriteUser.find_by(to_user_id: to_user_id, from_user_id: from_user_id)
-  end
-
   def space_options
     ['space_rental']
   end
@@ -821,7 +817,109 @@ module ApplicationHelper
     ListingImage.where(listing_id: listing.id)
   end
   
+  def currency_sign
+    sign = Currency.currency_code_and_sign_hash[session[:currency_code]]
+    sign.present? ? sign : '¥'
+  end
+  
+  def currency_sign_by_payment(payment)
+    return '¥' if payment.blank?
+    sign = Currency.currency_code_and_sign_hash[payment.currency_code]
+    sign.present? ? sign : '¥'
+  end
+  
+  def exchanged_amount(amount)
+    return amount if session[:currency_code] == 'JPY'
+    result = (BigDecimal(amount.to_s) * BigDecimal(session[:rate].to_s))
+    return result.ceil if session[:currency_code] == 'HUF' or session[:currency_code] == 'TWD'
+    result.round(2)
+  end
+  
+  def exchanged_amount_by_payment(payment, amount)
+    return amount if payment.blank? or payment.currency_code.blank?
+    currency_code = payment.currency_code
+    rate = payment.exchange_rate
+    
+    return amount if currency_code == 'JPY'
+    
+    result = (BigDecimal(amount.to_s) * BigDecimal(rate.to_s))
+    return result.ceil if currency_code == 'HUF' or currency_code == 'TWD'
+    result.round(2)
+  end
+  
+  def exchanged_display_amount(amount)
+    return amount if session[:currency_code] == 'JPY'
+    
+    result = ((BigDecimal(amount.to_s) * BigDecimal(session[:rate].to_s)) + exchange_fee(amount))
+    return result.ceil if session[:currency_code] == 'HUF' or session[:currency_code] == 'TWD'  
+    result.round(2)
+  end
+  
+  def exchanged_display_amount_by_payment(payment, amount)
+    return amount if payment.blank? or payment.currency_code.blank?
+    currency_code = payment.currency_code
+    rate = payment.exchange_rate
+    
+    return amount if currency_code == 'JPY'
+    
+    result = ((BigDecimal(amount.to_s) * BigDecimal(rate.to_s)) + exchange_fee_by_payment(payment, amount))
+    return result.ceil if currency_code == 'HUF' or currency_code == 'TWD'  
+    result.round(2)
+  end
+  
+  def exchange_fee(amount)
+    return 0 if session[:currency_code] == 'JPY'
+    amount = (BigDecimal(amount.to_s) * BigDecimal(Settings.reservation.exchange_rate.to_s)).ceil
+    result = (BigDecimal(amount.to_s) * BigDecimal(session[:rate].to_s))
+    return result.ceil if session[:currency_code] == 'HUF' or session[:currency_code] == 'TWD'  
+    result.round(2)
+  end
+  
+  def exchange_fee_by_payment(payment, amount)
+    return 0 if payment.blank? or payment.currency_code.blank?
+    currency_code = payment.currency_code
+    rate = payment.exchange_rate
+    
+    return 0 if currency_code == 'JPY'
+    
+    amount = (BigDecimal(amount.to_s) * BigDecimal(Settings.reservation.exchange_rate.to_s)).ceil
+    result = (BigDecimal(amount.to_s) * BigDecimal(rate.to_s))
+    return result.ceil if currency_code == 'HUF' or currency_code == 'TWD'  
+    result.round(2)
+  end
+  
   def languages
     [Settings.laguages.ja, Settings.laguages.en]
+  end
+  
+  def spot_to_pickup(spot)
+    return false if spot.pickup_id.blank?
+    pickup = Pickup.find_by_id(spot.pickup_id)
+    return false if pickup.blank?
+    return pickup
+  end
+  
+  def spot_image(spot)
+    spot_image = SpotImage.find_by_spot_id(spot.id)
+    return false if spot_image.blank? || spot_image.image.blank?
+    spot_image.image
+  end
+  
+  def spot_image_thumb(spot)
+    spot_image = SpotImage.find_by_spot_id(spot.id)
+    return false if spot_image.blank? || spot_image.image.blank?
+    spot_image.image.thumb
+  end
+  
+  def language_id_to_short_name(language_id)
+    language = Language.find_by_id(language_id)
+    return '' if language.blank?
+    return 'EN' if language.name == 'English'
+    return 'ZH' if language.name == 'Chinese'
+    return 'DE' if language.name == 'German'
+    return 'FR' if language.name == 'French'
+    return 'ES' if language.name == 'Spanish'
+    return 'JA' if language.name == 'Japanese'
+    ''
   end
 end
