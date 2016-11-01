@@ -28,6 +28,8 @@ class Spot < ActiveRecord::Base
   belongs_to :pickup
   has_many :favorites
   has_one :spot_image
+  has_many :spot_areas, dependent: :destroy
+  has_many :pickups, :through =>  :spot_areas
   
   validates :title, presence: true
   validates :one_word, presence: true

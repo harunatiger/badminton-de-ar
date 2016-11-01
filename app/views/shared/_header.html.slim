@@ -120,7 +120,7 @@
             - if current_user.main_guide?
               li
                 = link_to Settings.page.listings, listings_path, rel: "nofollow"
-              li
+              /li
                 = link_to Settings.page.spots, spots_path, rel: "nofollow"
             - if !current_user.guest?
               li

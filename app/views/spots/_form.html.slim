@@ -40,6 +40,26 @@
             .text-center.set_category_container_title
               small
                 b = pickup_tag.short_name
+  .row.row-space-4.row-space-top-5.row-table
+    label.text-right.text-left--sp.col-md-4
+      | エリア
+    .col-md-7
+      button.btn.btn-primary.row-space-4.listing-manager-area[type="button"] 追加する
+      .listing-manager-area-container
+
+  #listing_area.modal[role="dialog" aria-hidden="true"]
+    .modal-table
+      .modal-cell
+        .modal-content
+          .card-header
+            = link_to "", "#", class: "modal-close", data: {dismiss: "modal"}
+            | ツアーのエリアを選択してください
+          .card-body
+            .row
+              = collection_check_boxes(:spot, :pickup_ids, @areas, :id, :short_name) do |b|
+                = b.label(class: "col-lg-4, col-xs-6") { b.check_box + b.text }
+          .card-footer
+            button.btn.btn-primary.listing-manager-area-submit[type="button"] OK
   .row.row-space-6
     label.text-right.text-left--sp.col-md-4
       | スポットの場所

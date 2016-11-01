@@ -2,17 +2,24 @@
 .page-container.row-space-top-4.row-space-4
   .row
     .col-md-3
-      = render partial: "shared/spots_sidenav"
-    
-    - if @spots.blank?
-      .col-md-9
-        .card
-          .card-body.text-center
-            .row-space-4.row-space-top-4
-              h3 まだ穴場の登録がないようです。
-              .h4 おすすめできる穴場を登録して、あなたのガイドの価値を高めましょう！
-    - else
-      .col-md-9
+      = render partial: "shared/profile_sidenav"
+    .col-md-9
+      .row.row-condensed.row-space-4
+        h3
+          | 案内したいスポット
+        p
+          | 行きつけのレストランや眺めの良い公園など、あなたが案内したい場所を登録しましょう。あなたの個性を表す場所を登録すると、ゲストの興味を引くことができます。
+      .row
+        .col-md-4.row-space-4
+          = link_to "Create a new spot", new_spot_path, class: "btn btn-block btn-primary"
+      - if @spots.blank?
+        .row
+          .card
+            .card-body.text-center
+              .row-space-4.row-space-top-4
+                h3 まだ穴場の登録がないようです。
+                .h4 おすすめできる穴場を登録して、あなたのガイドの価値を高めましょう！
+      - else
         .row.row-condensed
           - @spots.each do |spot|
             .col-md-6.col-lg-4.row-space-2

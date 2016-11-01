@@ -1,7 +1,9 @@
 = render partial: 'shared/error_message', locals: { target: @spot} if @spot.present?
 = render 'shared/subnav'
-.page-container
-  .text-center.row-space-top-6.row-space-6
-    h2 穴場の登録
-    .h5 簡潔に穴場の魅力が分かるようにすると効果的です。
+.page-container.row-space-top-4.row-space-4
+  .row
+    .col-md-3
+      = render partial: "shared/profile_sidenav"
+    h2.text-center 穴場の登録
+    .h5.text-center 簡潔に穴場の魅力が分かるようにすると効果的です。
   = render 'form'
