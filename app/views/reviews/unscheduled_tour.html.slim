@@ -1,68 +1,132 @@
 - if !user_signed_in?
-  .page-container.row-space-top-4.row-space-4
-    p.row-space-4
-      | FBログインして#{user_id_to_name(@unscheduled_tour.guide_id)}さんにレビューをお願いします！
-    .sns-buttons
-      = link_to omniauth_authorize_path(User, 'facebook'), class: 'btn btn-fb btn-large btn-block facebook_button' do
-        i.fa.fa-facebook
-        | Log in with 
-        br
-        | your Facebook account
+  .card.row-space-4
+    = image_tag "unscheduled/unscheduled-sp-header.png", class: "img-responsive", slt: "Thank You"
+    .page-container.row-space-top-4.row-space-4
+      .text-center
+        p.row-space-2
+          | Thank you for meeting TOMODACHI GUIDE. Rate us with Facebook!
+        p.row-space-4
+          | - 
+          = user_id_to_firstname(@unscheduled_tour.guide_id)
+          - @unscheduled_tour.users.each_with_index do |suport_guide, index|
+            - if index == @unscheduled_tour.users.size - 1
+              |  and 
+            - else
+              | , 
+            = user_id_to_firstname(suport_guide.id)
+          |  -
+      .sns-buttons
+        = link_to omniauth_authorize_path(User, 'facebook'), class: 'btn btn-fb btn-large btn-block facebook_button' do
+          i.fa.fa-facebook
+          | Log in with 
+          br
+          | your Facebook account
+      hr
+      .h4.text-brand.text-center.row-space-top-4.row-space-4
+        | Just 2 steps for review 
+      .row.row-space-2
+        .col-5.text-center
+          = image_tag "unscheduled/unscheduled-sp-illust01.png"
+        .col-7
+          p.text-brand.row-space-top-2 Step 1
+          p Login with your facebook account for your review.
+      .row.row-space-2
+        .col-5.text-center
+          = image_tag "unscheduled/unscheduled-sp-illust02.png"
+        .col-7
+          p.text-brand.row-space-top-2 Step 2
+          / !!!! ここにもガイドとサポートガイド名あります！
+          p
+            | Rate and write your review about 
+            = user_id_to_firstname(@unscheduled_tour.guide_id)
+            - @unscheduled_tour.users.each_with_index do |suport_guide, index|
+              - if index == @unscheduled_tour.users.size - 1
+                |  and 
+              - else
+                | , 
+              = user_id_to_firstname(suport_guide.id)
+      hr
+      p.row-space-3.text-center They will be really happy if you give them your review about today.
+      .sns-buttons.row-space-2
+        = link_to omniauth_authorize_path(User, 'facebook'), class: 'btn btn-fb btn-large btn-block facebook_button' do
+          i.fa.fa-facebook
+          | Log in with 
+          br
+          | your Facebook account
+    .bg-lightblue1.row-space-4.text-center
+      .page-container
+        p.row-space-top-4.row-space-2 Huber users log in below using your registered email address.
+        = link_to "Log in with email", new_user_session_path, class: 'btn btn-primary btn-large btn-block row-space-4'
+    p.h4.text-brand.row-space-4.text-center Thank you for your cooperation.
+    .row-space-4
+      = image_tag "unscheduled/unscheduled-sp-footer.png", class: "img-responsive"
+
 - else
   = out_put_error(@review)
-  .page-container.row-space-top-6.row-space-8
-    .row
-      .col-lg-4.col-md-12
-        .h3.row-space-4.show--sp
-          | Send feedback to 
-          = link_to profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id))
-             = user_id_to_firstname(@unscheduled_tour.guide_id)
-          - @unscheduled_tour.users.each do |suport_guide|
-            |  and 
-            = link_to profile_path(user_id_to_profile_id(suport_guide.id))
-             = user_id_to_firstname(suport_guide.id)
-        .row.row-condensed
-          .col-xs-6.col-lg-12.row-space-4
-            .media.media-cover-img.dashboard-profile-photo.panel-image
-              = link_to "", profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id)), style: "background-image: url(#{asset_path user_id_to_profile_image_thumb(@unscheduled_tour.guide_id)})", class: "thumbnail-review-edit"
-                /= image_tag(, class: 'img-responsive')
-            h4.text-center.row-space-4.row-space-top-2
-              = user_id_to_firstname(@unscheduled_tour.guide_id)
-          - @unscheduled_tour.users.each do |suport_guide|
-            .col-xs-6.col-lg-12.row-space-4
-              .media.media-cover-img.dashboard-profile-photo.panel-image
-                = link_to "", profile_path(user_id_to_profile_id(suport_guide.id)), style: "background-image: url(#{ asset_path user_id_to_profile_image_thumb(suport_guide.id)})", class: "thumbnail-review-edit"
-              h4.text-center.row-space-4.row-space-top-2
-                = user_id_to_firstname(suport_guide.id)
-        .card.row-space-4.host_n_listing-info-box
-          .col-md-8.col-lg-12
-            .card-body.card-body-condensed
-              .row.row-condensed
-                .col-md-3.hide--sp
-                  = link_to image_tag(listing_cover_image_thumb_url(@unscheduled_tour.listing_id), class: "img-responsive"), listing_path(@unscheduled_tour.listing_id)
-                .col-md-9
-                  = link_to listing_name(@unscheduled_tour.listing_id), listing_path(@unscheduled_tour.listing_id)
-
-      .col-lg-8.col-md-12
-        .row-space-4
-          .h3.row-space-2.hide--sp
-            | Send feedback to 
+  .card.card-naked.row-space-4
+    .page-container.row-space-8
+      .row.row-space-top-6
+        .col-lg-4.col-md-12
+          .h3.text-bold.row-space-4.text-center.text-brand.show--sp
+            | Hi, we are 
             = link_to profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id))
                = user_id_to_firstname(@unscheduled_tour.guide_id)
-            - @unscheduled_tour.users.each do |suport_guide|
-              |  and 
+            - @unscheduled_tour.users.each_with_index do |suport_guide, index|
+              - if index == @unscheduled_tour.users.size - 1
+                |  and 
+              - else
+                | , 
               = link_to profile_path(user_id_to_profile_id(suport_guide.id))
                = user_id_to_firstname(suport_guide.id)
-          p.row-space-3
-            | You can send your thoughts and comments about your recent tour to your guide.
+            | !
             br
-            | Give your honest feelings, thanks, and any advice to help your guide improve future tours.
-          p.row-space-3.text-red
-            strong
-              | ＊ You can send a review during the two weeks after the end of your tour.
+            | Please rate us!
+          .row.row-condensed
+            .col-xs-6.col-lg-12.row-space-4
+              .media.media-cover-img.dashboard-profile-photo.panel-image
+                = link_to "", profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id)), style: "background-image: url(#{asset_path user_id_to_profile_image_thumb(@unscheduled_tour.guide_id)})", class: "thumbnail-review-edit"
+                  /= image_tag(, class: 'img-responsive')
+              h4.text-center.row-space-4.row-space-top-2
+                = user_id_to_firstname(@unscheduled_tour.guide_id)
+            - @unscheduled_tour.users.each do |suport_guide|
+              .col-xs-6.col-lg-12.row-space-4
+                .media.media-cover-img.dashboard-profile-photo.panel-image
+                  = link_to "", profile_path(user_id_to_profile_id(suport_guide.id)), style: "background-image: url(#{ asset_path user_id_to_profile_image_thumb(suport_guide.id)})", class: "thumbnail-review-edit"
+                h4.text-center.row-space-4.row-space-top-2
+                  = user_id_to_firstname(suport_guide.id)
+          .card.row-space-4.host_n_listing-info-box.hide--sp
+            .col-md-8.col-lg-12
+              .card-body.card-body-condensed
+                .row.row-condensed
+                  .col-md-3.hide--sp
+                    = link_to image_tag(listing_cover_image_thumb_url(@unscheduled_tour.listing_id), class: "img-responsive"), listing_path(@unscheduled_tour.listing_id)
+                  .col-md-9
+                    = link_to listing_name(@unscheduled_tour.listing_id), listing_path(@unscheduled_tour.listing_id)
+
+        .col-lg-8.col-md-12
+          .row-space-4
+            .h3.row-space-2.hide--sp
+              | Send feedback to 
+              = link_to profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id))
+                 = user_id_to_firstname(@unscheduled_tour.guide_id)
+              - @unscheduled_tour.users.each do |suport_guide|
+                |  and 
+                = link_to profile_path(user_id_to_profile_id(suport_guide.id))
+                 = user_id_to_firstname(suport_guide.id)
+            p.row-space-3.hide--sp
+              | You can send your thoughts and comments about your recent tour to your guide.
               br
-              | ＊ The review will be published on your page as soon as both the guide and guest have sent their reviews.
-              br
-              | ＊ Reviews will be published at the end of the two weeks even if one side hasn’t sent a review.
-          .card.card-bald
-            = render partial: "form_for_unscheduled_tour", locals: {unscheduled_tour: @unscheduled_tour, review: @review}
+              | Give your honest feelings, thanks, and any advice to help your guide improve future tours.
+            p.row-space-3.text-center.show--sp
+              | Your humble opinion will be our greatest reward.
+            .row-space-3.text-center.show--sp
+              = image_tag "unscheduled/unscheduled-sp-arrow-down.png"
+            p.row-space-3.text-red.hide--sp
+              strong
+                | ＊ You can send a review during the two weeks after the end of your tour.
+                br
+                | ＊ The review will be published on your page as soon as both the guide and guest have sent their reviews.
+                br
+                | ＊ Reviews will be published at the end of the two weeks even if one side hasn’t sent a review.
+            .card.card-bald
+              = render partial: "form_for_unscheduled_tour", locals: {unscheduled_tour: @unscheduled_tour, review: @review}

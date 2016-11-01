@@ -24,6 +24,8 @@
 class Pickup < ActiveRecord::Base
   has_many :listing_pickups, dependent: :destroy
   has_many :listings, through: :listing_pickups
+  has_many :spot_areas, dependent: :destroy
+  has_many :spots, through: :spot_areas
   has_many :profile_pickups, dependent: :destroy
   has_many :profiles, through: :profile_pickups
 
