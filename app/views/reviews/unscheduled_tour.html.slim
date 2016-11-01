@@ -8,8 +8,11 @@
         p.row-space-4
           | - 
           = user_id_to_firstname(@unscheduled_tour.guide_id)
-          - @unscheduled_tour.users.each do |suport_guide|
-            |  and 
+          - @unscheduled_tour.users.each_with_index do |suport_guide, index|
+            - if index == @unscheduled_tour.users.size - 1
+              |  and 
+            - else
+              | , 
             = user_id_to_firstname(suport_guide.id)
           |  -
       .sns-buttons
@@ -36,8 +39,11 @@
           p
             | Rate and write your review about 
             = user_id_to_firstname(@unscheduled_tour.guide_id)
-            - @unscheduled_tour.users.each do |suport_guide|
-              |  and 
+            - @unscheduled_tour.users.each_with_index do |suport_guide, index|
+              - if index == @unscheduled_tour.users.size - 1
+                |  and 
+              - else
+                | , 
               = user_id_to_firstname(suport_guide.id)
       hr
       p.row-space-3.text-center They will be really happy if you give them your review about today.
@@ -65,8 +71,11 @@
             | Hi, we are 
             = link_to profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id))
                = user_id_to_firstname(@unscheduled_tour.guide_id)
-            - @unscheduled_tour.users.each do |suport_guide|
-              |  and 
+            - @unscheduled_tour.users.each_with_index do |suport_guide, index|
+              - if index == @unscheduled_tour.users.size - 1
+                |  and 
+              - else
+                | , 
               = link_to profile_path(user_id_to_profile_id(suport_guide.id))
                = user_id_to_firstname(suport_guide.id)
             | !

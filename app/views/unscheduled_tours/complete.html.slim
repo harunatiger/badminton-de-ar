@@ -1,0 +1,22 @@
+/! inscheduled_tours/index
+= image_tag "unscheduled/unscheduled-sp-thanks-image.png", class: "img-responsive"
+.page-container.text-center
+  p.row-space-top-4.row-space-4
+    | Find what you are looking for in your trip with locals. We try to make trips for meeting new friends through TOMODACH GUIDE.
+  hr
+  .h3.text-brand.text-bold.row-space-4
+    | Let’s plan another trip in Japan with them!!
+  .row.row-condensed
+    .col-xs-6.row-space-4
+      .media.media-cover-img.dashboard-profile-photo.panel-image
+        = link_to "", profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id)), style: "background-image: url(#{asset_path user_id_to_profile_image_thumb(@unscheduled_tour.guide_id)})", class: "thumbnail-review-edit"
+      h4.text-center.row-space-4.row-space-top-2
+        = link_to profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id)), class: "btn btn-primary" do
+          = user_id_to_firstname(@unscheduled_tour.guide_id)
+    - @unscheduled_tour.users.each do |suport_guide|
+      .col-xs-6.row-space-4
+        .media.media-cover-img.dashboard-profile-photo.panel-image
+          = link_to "", profile_path(user_id_to_profile_id(suport_guide.id)), style: "background-image: url(#{asset_path user_id_to_profile_image_thumb(suport_guide.id)})", class: "thumbnail-review-edit"
+      h4.text-center.row-space-4.row-space-top-2
+        = link_to profile_path(user_id_to_profile_id(suport_guide.id)), class: "btn btn-primary" do
+          = user_id_to_firstname(suport_guide.id)
