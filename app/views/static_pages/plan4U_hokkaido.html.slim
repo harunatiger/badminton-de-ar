@@ -1,4 +1,4 @@
-/! plan4U_kyoto
+/! plan4U_hokkaido
 = raw @s3_header
 /! plan4U-navigation
 /.plan4U-navigation.show--sp
@@ -36,66 +36,36 @@ section#recommended-guides.recomended-guides.text-center.section
     | - HOKKAIDO AREA -
   .page-container
     .row
-      - ids = [732,680,690]
-      - ids.each_with_index do |id, index|
-        .col-md-4.row-space-6
-          - profile = Profile.find_by_id(id)
-          - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
-          - name = profile ? profile.first_name : "this user doesn't exist"
+      - ids = [360,1007]
+      - ids.each do |id|
+        - profile = Profile.find_by_id(id)
+        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
+        - name = profile ? profile.first_name : "this user doesn't exist"
+        .col-md-4.col-lg-3.col-lg-offset-2.row-space-6.hide-guest
           .guide.text-center
             .media-round.media-photo.media-avatar
               .size200[style="background-image: url('#{asset_path image}')"]
             .name.spb.row-space-top-2.row-space-1 #{name}
             .introduce
-              - if id == 732
-                p When Maki is eating delicious food, she is always laughing. She especially loves sushi and Japanese confectionery. She know hidden local restaurant at Kyoto. If you want to eat delicious foods in Kyoto, you should contact with her!!
-              - elsif id == 680
-                p Orsi loves Kyoto more than anyone else. You can ask anything from her, she will probably know the answer. She plays karuta (a japanese sport), loves to drink with her friends and music is part of her life.
-              - elsif id == 690
-                p Shinya’s trademark is Ocarina and bicycle. He has a sense of humor. He can be a both straight man and funny man so he always makes lough his friends. I trust him because he do something with much determination and energy. Because he is always laughing, he is loved by everyone.
-              = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+              - if id == 360
+                p I have one little boy □ If you hope,I want to make you enjoy with my son through local experience in Hokkaido
+              - elsif id == 1007
+                p I am sure that I make you feel more happy and fun during our tour!!
+
+              /= link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+              .links
+                - if user_signed_in?
+                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
+                    i.fa.fa-comment-o
+                - else
+                  = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
+                    i.fa.fa-comment-o
+                = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
+                  i.fa.fa-plus
           - if user_signed_in?
             = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
           - else
             = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
-            
-        - if index == 2
-          .col-md-12.moreguide-container.row-space-4
-            = link_to "#", id: "moreguide", class: "btn btn-large btn-more"
-              | See All
-              i.fa.fa-caret-down
-
-      .col-md-4.col-md-offset-2.row-space-6.hide-guest
-        - profile = Profile.where(id: 681).first
-        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
-        - name = profile ? profile.first_name : "this user doesn't exist"
-        .guide.text-center
-          .media-round.media-photo.media-avatar
-            .size200[style="background-image: url('#{asset_path image}')"]
-          .name.spb.row-space-top-2.row-space-1 #{name}
-          .introduce
-            p When I first met with Emu, we were able to talk as we were friends from ages. She is a kind of girl who treats you as her best friend from the start. She loves to travel both abroad and in Japan, and go out t odrink with her friends.
-            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
-        - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
-        - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
-          
-      .col-md-4.row-space-6.hide-guest
-        - profile = Profile.where(id: 685).first
-        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
-        - name = profile ? profile.first_name : "this user doesn't exist"
-        .guide.text-center
-          .media-round.media-photo.media-avatar
-            .size200[style="background-image: url('#{asset_path image}')"]
-          .name.spb.row-space-top-2.row-space-1 #{name}
-          .introduce
-            p If you want to feel Kyoto from experience, you should contact with Junya. He works at Kimono rental shop and Japanese tea caffe. He can teach how to wear Kimono and how to make Japanese traditional tea. Why don’t you wear the Kimono and walk around the Kyoto?
-            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
-        - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
-        - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
 
 = raw @s3_footer
 /section#howtouse.howto.section
@@ -124,11 +94,11 @@ section#recommended-guides.recomended-guides.text-center.section
         span Free services
     /h4.thick-lined
       span
-        span.spsb Advantages: 
+        span.spsb Advantages:
         span.spl Eliminate any worries about your trip and get local information
   /.additinal.text-center
     .bg-arrow.text-wf.text-contrast PLUS!
-    h4.spr Your Guide can even join you on your trip! 
+    h4.spr Your Guide can even join you on your trip!
 
 /section.sample-itineraly.section
   .page-container
@@ -206,11 +176,11 @@ section#recommended-guides.recomended-guides.text-center.section
 /section.popular-tours.section
   h3.spb.text-center
     .h1.row-space-2 Popular Tours
-    .spl Find unique tour plans here! 
+    .spl Find unique tour plans here!
   .page-container
     /- listings = feature_listings
     .row.row-space-top-8.row-space-8
-      - feature_listing_ids = [451, 440, 437]
+      - feature_listing_ids = [37, 401, 459]
       - feature_listing_ids.each do |id|
         .col-md-6.col-lg-4.row-space-4
           - if feature_listing(id).present?
@@ -234,7 +204,7 @@ section#recommended-guides.recomended-guides.text-center.section
               .va-container.va-container-wh
                 .va-middle
                   q
-                    | Excellent experience in Kamakura!  You don't have to worry what is the direction, what is the next stop, you don't have to see the map. Just enjoy the beautiful scenery. We recommend Huber for all the tourists from all over the world! 
+                    | Excellent experience in Kamakura!  You don't have to worry what is the direction, what is the next stop, you don't have to see the map. Just enjoy the beautiful scenery. We recommend Huber for all the tourists from all over the world!
                   p – Nicola
       .col-lg-6.row-space-4
         .card.card-book
@@ -247,7 +217,7 @@ section#recommended-guides.recomended-guides.text-center.section
                   q
                     | Thank you for the tour of Kamakura. We enjoyed your enthusiastic , friendly style . We had a great morning with you and really appreciated the local restaurant you took us to.
                   p – Sue
-          
+
 /section.please-visit.text-center.section
   .page-container
     = link_to root_path, class: "btn btn-primary btn-add-shadow btn-block text-center" do
