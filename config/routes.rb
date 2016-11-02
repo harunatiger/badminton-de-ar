@@ -64,9 +64,9 @@ Rails.application.routes.draw do
     end
   end
   
-  #resources :withdrawals, only: [:index] do
-  #  post 'apply', on: :collection
-  #end
+  resources :withdrawals, only: [:index] do
+   post 'apply', on: :collection
+  end
 
   get 'dashboard'                           => 'dashboard#index'
   get 'dashboard/host_reservation_manager'  => 'dashboard#host_reservation_manager'
