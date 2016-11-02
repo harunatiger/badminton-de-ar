@@ -69,14 +69,14 @@
         .col-lg-4.col-md-12
           .h3.text-bold.row-space-4.text-center.text-brand.show--sp
             | Hi, we are 
-            = link_to profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id))
+            = link_to profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id)), target: '_blank'
                = user_id_to_firstname(@unscheduled_tour.guide_id)
             - @unscheduled_tour.users.each_with_index do |suport_guide, index|
               - if index == @unscheduled_tour.users.size - 1
                 |  and 
               - else
                 | , 
-              = link_to profile_path(user_id_to_profile_id(suport_guide.id))
+              = link_to profile_path(user_id_to_profile_id(suport_guide.id)), target: '_blank'
                = user_id_to_firstname(suport_guide.id)
             | !
             br
@@ -84,14 +84,14 @@
           .row.row-condensed
             .col-xs-6.col-lg-12.row-space-4
               .media.media-cover-img.dashboard-profile-photo.panel-image
-                = link_to "", profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id)), style: "background-image: url(#{asset_path user_id_to_profile_image_thumb(@unscheduled_tour.guide_id)})", class: "thumbnail-review-edit"
+                = link_to "", profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id)), style: "background-image: url(#{asset_path user_id_to_profile_image_thumb(@unscheduled_tour.guide_id)})", class: "thumbnail-review-edit", target: '_blank'
                   /= image_tag(, class: 'img-responsive')
               h4.text-center.row-space-4.row-space-top-2
                 = user_id_to_firstname(@unscheduled_tour.guide_id)
             - @unscheduled_tour.users.each do |suport_guide|
               .col-xs-6.col-lg-12.row-space-4
                 .media.media-cover-img.dashboard-profile-photo.panel-image
-                  = link_to "", profile_path(user_id_to_profile_id(suport_guide.id)), style: "background-image: url(#{ asset_path user_id_to_profile_image_thumb(suport_guide.id)})", class: "thumbnail-review-edit"
+                  = link_to "", profile_path(user_id_to_profile_id(suport_guide.id)), style: "background-image: url(#{ asset_path user_id_to_profile_image_thumb(suport_guide.id)})", class: "thumbnail-review-edit", target: '_blank'
                 h4.text-center.row-space-4.row-space-top-2
                   = user_id_to_firstname(suport_guide.id)
           .card.row-space-4.host_n_listing-info-box.hide--sp
