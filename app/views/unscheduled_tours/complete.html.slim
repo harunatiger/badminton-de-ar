@@ -9,14 +9,14 @@
   .row.row-condensed
     .col-xs-6.row-space-4
       .media.media-cover-img.dashboard-profile-photo.panel-image
-        = link_to "", profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id)), style: "background-image: url(#{asset_path user_id_to_profile_image_thumb(@unscheduled_tour.guide_id)})", class: "thumbnail-review-edit"
+        = link_to "", profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id)), style: "background-image: url(#{asset_path user_id_to_profile_image_thumb(@unscheduled_tour.guide_id)})", class: "thumbnail-review-edit", target: '_blank'
       h4.text-center.row-space-4.row-space-top-2
-        = link_to profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id)), class: "btn btn-primary" do
+        = link_to profile_path(user_id_to_profile_id(@unscheduled_tour.guide_id)), class: "btn btn-primary", target: '_blank' do
           = user_id_to_firstname(@unscheduled_tour.guide_id)
     - @unscheduled_tour.users.each do |suport_guide|
       .col-xs-6.row-space-4
         .media.media-cover-img.dashboard-profile-photo.panel-image
-          = link_to "", profile_path(user_id_to_profile_id(suport_guide.id)), style: "background-image: url(#{asset_path user_id_to_profile_image_thumb(suport_guide.id)})", class: "thumbnail-review-edit"
+          = link_to "", profile_path(user_id_to_profile_id(suport_guide.id)), style: "background-image: url(#{asset_path user_id_to_profile_image_thumb(suport_guide.id)})", class: "thumbnail-review-edit", target: '_blank'
         h4.text-center.row-space-4.row-space-top-2
-          = link_to profile_path(user_id_to_profile_id(suport_guide.id)), class: "btn btn-primary" do
+          = link_to profile_path(user_id_to_profile_id(suport_guide.id)), class: "btn btn-primary", target: '_blank' do
             = user_id_to_firstname(suport_guide.id)
