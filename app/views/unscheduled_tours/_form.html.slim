@@ -1,0 +1,9 @@
+= form_for @unscheduled_tour do |f|
+  - if @unscheduled_tour.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@unscheduled_tour.errors.count, "error")} prohibited this unscheduled_tour from being saved:"
+      ul
+        - @unscheduled_tour.errors.full_messages.each do |message|
+          li = message
+
+  .actions = f.submit

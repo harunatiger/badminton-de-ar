@@ -6,9 +6,9 @@
         | Review
         ' 
         small.text-muted
-          = reviews.count
+          = reviewed_count
         .star-rating
           = render partial: 'shared/stars', locals: { rate: listing.ave_total }
     .review-content
-      = render partial: 'review_item', locals: { reviews: reviews, host_info: host_info, host_image: host_image }
-      = paginate reviews
+      = render partial: 'review_item', locals: { reviews: reviews, reviewed_count: reviewed_count }
+      /= paginate reviews

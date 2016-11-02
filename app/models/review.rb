@@ -2,30 +2,32 @@
 #
 # Table name: reviews
 #
-#  id               :integer          not null, primary key
-#  guest_id         :integer
-#  host_id          :integer
-#  reservation_id   :integer
-#  listing_id       :integer
-#  accuracy         :integer          default(0)
-#  communication    :integer          default(0)
-#  clearliness      :integer          default(0)
-#  location         :integer          default(0)
-#  check_in         :integer          default(0)
-#  cost_performance :integer          default(0)
-#  total            :integer          default(0)
-#  msg              :text             default("")
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  type             :string           not null
-#  tour_image       :string           default("")
+#  id                  :integer          not null, primary key
+#  guest_id            :integer
+#  host_id             :integer
+#  reservation_id      :integer
+#  listing_id          :integer
+#  accuracy            :integer          default(0)
+#  communication       :integer          default(0)
+#  clearliness         :integer          default(0)
+#  location            :integer          default(0)
+#  check_in            :integer          default(0)
+#  cost_performance    :integer          default(0)
+#  total               :integer          default(0)
+#  msg                 :text             default("")
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  type                :string           not null
+#  tour_image          :string           default("")
+#  unscheduled_tour_id :integer
 #
 # Indexes
 #
-#  index_reviews_on_guest_id        (guest_id)
-#  index_reviews_on_host_id         (host_id)
-#  index_reviews_on_listing_id      (listing_id)
-#  index_reviews_on_reservation_id  (reservation_id)
+#  index_reviews_on_guest_id             (guest_id)
+#  index_reviews_on_host_id              (host_id)
+#  index_reviews_on_listing_id           (listing_id)
+#  index_reviews_on_reservation_id       (reservation_id)
+#  index_reviews_on_unscheduled_tour_id  (unscheduled_tour_id)
 #
 
 class Review < ActiveRecord::Base
@@ -33,10 +35,11 @@ class Review < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'guest_id'
   belongs_to :listing
   belongs_to :reservation
+  belongs_to :unscheduled_tour
 
   validates :guest_id, presence: true
   validates :host_id, presence: true
-  validates :reservation_id, presence: true
+  #validates :reservation_id, presence: true
   validates :listing_id, presence: true
   validates :msg, presence: true
   validates :accuracy, presence: true
@@ -117,13 +120,12 @@ class Review < ActiveRecord::Base
   
   def re_calc_ave_of_listing
     l = Listing.find(self.listing_id)
-    review = ReviewForGuide.where(reservation_id: self.reservation_id, host_id: l.user_id).first
-    if review.present?
-      listing_reviews = ReviewForGuide.where(listing_id: l.id, host_id: l.user_id).joins(:reservation).merge(Reservation.review_open?)
+    if self.host_id == l.user_id
+      listing_reviews = Review.this_listing(l)
       r_count = listing_reviews.count
     
       if r_count == 1
-        ave_total = review.total
+        ave_total = self.total
       else
         ave_total = 0
         listing_reviews.each do |review|
@@ -137,46 +139,28 @@ class Review < ActiveRecord::Base
   end
 
   def re_calc_ave_of_profile
-    review_for_guide = ReviewForGuide.where(reservation_id: self.reservation_id, host_id: self.host_id).first
-    review_for_guest = ReviewForGuest.where(reservation_id: self.reservation_id).first
-    host = User.find(self.host_id)
-    guest = User.find(self.guest_id)
-
-    if review_for_guide.present?
-      prof = Profile.find(host.profile.id)
-      reviews = Review.mine(self.host_id)
-      r_count = reviews.count
-      if r_count == 1
-        ave_total = review_for_guide.total
-      else
-        ave_total = 0
-        reviews.each do |review|
-          ave_total += review.total
-        end
-        ave_total = ave_total.quo(r_count)
-      end
-      prof.ave_total = ave_total
-      prof.enable_strict_validation = false
-      prof.save
+    if self.for_guide?
+      prof = Profile.find_by_user_id(self.host_id)
+    elsif self.for_guest?
+      prof = Profile.find_by_user_id(self.guest_id)
+    elsif self.for_unscheduled_tour?
+      prof = Profile.find_by_user_id(self.host_id)
     end
-
-    if review_for_guest.present?
-      prof = Profile.find(guest.profile.id)
-      reviews = Review.mine(self.guest_id)
-      r_count = reviews.count
-      if r_count == 1
-        ave_total = review_for_guest.total
-      else
-        ave_total = 0
-        reviews.each do |review|
-          ave_total += review.total
-        end
-        ave_total = ave_total.quo(r_count)
+    
+    reviews = Review.mine(prof.user_id)
+    r_count = reviews.count
+    if r_count == 1
+      ave_total = self.total
+    else
+      ave_total = 0
+      reviews.each do |review|
+        ave_total += review.total
       end
-      prof.ave_total = ave_total
-      prof.enable_strict_validation = false
-      prof.save
+      ave_total = ave_total.quo(r_count)
     end
+    prof.ave_total = ave_total
+    prof.enable_strict_validation = false
+    prof.save
   end
 
   def for_guide?
@@ -187,13 +171,17 @@ class Review < ActiveRecord::Base
     self.type == 'ReviewForGuest'
   end
   
+  def for_unscheduled_tour?
+    self.type == 'ReviewOfUnscheduledTour'
+  end
+  
   def self.mine(user_id)
     self.reviewed_as_guest(user_id) + self.reviewed_as_guide(user_id)
   end
 
   def self.my_reviewed_count(user_id)
-    reviewed_as_guide_count = ReviewForGuide.where(host_id: user_id).joins(:reservation).merge(Reservation.review_open?).count
-    review_for_guest_count = ReviewForGuest.where(guest_id: user_id).joins(:reservation).merge(Reservation.review_open?).count
+    reviewed_as_guide_count = ReviewForGuide.reviewed_as_guide(user_id).count
+    review_for_guest_count = ReviewForGuest.reviewed_as_guest(user_id).count
     reviewed_as_guide_count + review_for_guest_count
   end
 
@@ -202,11 +190,15 @@ class Review < ActiveRecord::Base
   end
 
   def self.reviewed_as_guide(user_id)
-    ReviewForGuide.where(host_id: user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
+    review_for_guide_ids = ReviewForGuide.where(host_id: user_id).joins(:reservation).merge(Reservation.review_open?).pluck(:id)
+    review_for_unscheduled_tour_ids = ReviewOfUnscheduledTour.where(host_id: user_id).pluck(:id)
+    Review.where(id: review_for_guide_ids.concat(review_for_unscheduled_tour_ids)).order_by_updated_at_desc
   end
 
   def self.this_listing(listing)
-    ReviewForGuide.where(listing_id: listing.id, host_id: listing.user_id).joins(:reservation).merge(Reservation.review_open?).order_by_updated_at_desc
+    review_for_guide_ids = ReviewForGuide.where(listing_id: listing.id, host_id: listing.user_id).joins(:reservation).merge(Reservation.review_open?).pluck(:id)
+    review_for_unscheduled_tour_ids = ReviewOfUnscheduledTour.where(listing_id: listing.id, host_id: listing.user_id).pluck(:id)
+    Review.where(id: review_for_guide_ids.concat(review_for_unscheduled_tour_ids)).order_by_updated_at_desc
   end
   
   def set_total

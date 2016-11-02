@@ -286,10 +286,14 @@ class Reservation < ActiveRecord::Base
   
   def support_guide_payment
     if self.pg_completion? and self.default?
-      return self.price_for_support - (self.service_fee / 2).ceil
+      return self.support_guide_payment_default
     else
       return 0
     end
+  end
+  
+  def support_guide_payment_default
+    self.price_for_support - (self.service_fee / 2).ceil
   end
 
   def paypal_amount(currency_code, rate)

@@ -101,12 +101,12 @@
           = simple_form_for(@reservation, html: {class: 'info new-o2-form-inline'}) do |f|
             - user_id = 0
             - user_id = current_user.id if user_signed_in?
-            = f.hidden_field :host_id, value: @listing.user_id
+            /= f.hidden_field :host_id, value: @listing.user_id
             = f.hidden_field :guest_id, value: user_id
             = f.hidden_field :listing_id, value: @listing.id
-            = f.hidden_field :progress, value: 'under_construction'
-            = f.hidden_field :schedule_hour, value: 00
-            = f.hidden_field :schedule_minute, value: 00
+            /= f.hidden_field :progress, value: 'under_construction'
+            /= f.hidden_field :schedule_hour, value: 00
+            /= f.hidden_field :schedule_minute, value: 00
             = f.hidden_field :price, value: listing.listing_detail.price
             = f.hidden_field :price_for_support, value: listing.listing_detail.price_for_support
             = f.hidden_field :price_for_both_guides, value: listing.listing_detail.price_for_both_guides
@@ -130,13 +130,13 @@
               .col-md-12
                 label[for="checkin"]
                   |  Date
-                input#checkin.checkin.datepicker[name="reservation[schedule_date]" type="text" readonly="readonly" placeholder="MM/DD/YYYY"]
+                input#checkin.checkin.datepicker[name="reservation[schedule_date]" type="text" readonly="readonly" placeholder="MM/DD/YYYY", value=@reservation.schedule_date ]
               .col-md-12
                 label[for="reservation_num_of_people"]
                   |  People
                   | (MAX #{listing_detail.max_num_of_people}people)
                 .select.select-block#num-of-people
-                  = f.input_field :num_of_people, as: :select, collection: listing_detail.min_num_of_people..listing_detail.max_num_of_people, selected: default_num_of_people
+                  = f.input_field :num_of_people, as: :select, collection: listing_detail.min_num_of_people..listing_detail.max_num_of_people, selected: @reservation.num_of_people_changed? ? @reservation.num_of_people : default_num_of_people
             .row-space-2
               - if user_signed_in?
                 - if current_user.id == @listing.user_id or @active_reservation
@@ -150,7 +150,7 @@
                 - else
                   = f.submit 'Request Booking', id: 'book_it_button', class: "btn btn-large btn-block btn-primary listing_request js-google-tag-manager"
               - else
-                = link_to '#sign_up_form', class: 'btn btn-large btn-block btn-primary listing_request js-google-tag-manager', data: { toggle: "modal" } do
+                = link_to '#sign_up_form', id: 'book_it_button', class: 'btn btn-large btn-block btn-primary listing_request js-google-tag-manager', data: { toggle: "modal" } do
                   | Request Booking
           .tour-price-others.row-space-top-2
             .row

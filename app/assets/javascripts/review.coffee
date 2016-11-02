@@ -1,5 +1,5 @@
 $ ->
-  if $('body').hasClass('reviews for_guide') || $('body').hasClass('reviews create_guide') ||  $('body').hasClass('reviews for_guest') || $('body').hasClass('reviews create_guest')
+  if $('body').hasClass('reviews for_guide') || $('body').hasClass('reviews create_guide') ||  $('body').hasClass('reviews for_guest') || $('body').hasClass('reviews create_guest') || $('body').hasClass('unscheduled_tour') || $('body').hasClass('create_unscheduled_tour')
     $('input[type=file]').change ->
       file = $(this).prop('files')[0]
       if !file.type.match('image.*')
@@ -16,4 +16,3 @@ $ ->
 
       reader.readAsDataURL file
       return
-    return

@@ -1,8 +1,14 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters
+  
+  def new
+    session[:reservation_params] = nil
+    super
+  end
 
   def create
     if request.xhr?
+      session[:reservation_params] = params[:reservation_params] if params[:reservation_params].present?
       session[:to_user_id] = params[:to_user_id]
       super
     else
@@ -13,6 +19,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   def before_omniauth
     session[:to_user_id] = params[:to_user_id]
+    session[:reservation_params] = params[:reservation_params] if params[:reservation_params].present?
     redirect_to omniauth_authorize_path(:user, 'facebook')
   end
   

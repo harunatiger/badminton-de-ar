@@ -4,37 +4,16 @@ class ReservationsController < ApplicationController
   before_action :check_profile_identity, only: [:update]
   before_action :check_campaign_code, only: [:update]
   include Payments
+  include RequestBooking
 
   # request button of the listing view (guest)
   def create
     return save if params[:save]
     return offer if params[:offer]
 
-    para = reservation_params
-    para['schedule_date'] = Date.strptime(para['schedule_date'], '%m/%d/%Y').to_s
-    para['schedule_end'] = para['schedule_date']
-
-    reservation_before = Reservation.latest_reservation(reservation_params['guest_id'], reservation_params['host_id'])
-    if reservation_before and reservation_before.canceled?
-      @reservation = reservation_before
-      result = @reservation.update(para)
-    else
-      @reservation = Reservation.new(para)
-      result = @reservation.save
-    end
-
     respond_to do |format|
-      if result
-        Ngevent.set_date(@reservation)
-        ReservationMailer.send_new_reservation_notification(@reservation).deliver_now!
-        ReservationMailer.send_new_reservation_notification_to_admin(@reservation).deliver_now!
-        message = Message.send_request_message(@reservation)
-
-        if message
-          format.html { redirect_to message_thread_path(message.message_thread_id), notice: Settings.reservation.save.success }
-        else
-          format.html { redirect_to listing_path(@reservation.listing_id), alert: Settings.reservation.save.failure.no_date }
-        end
+      if message = RequestBooking.request_booking(reservation_params)
+        format.html { redirect_to message_thread_path(message.message_thread_id), notice: Settings.reservation.save.success }
       else
         format.html { redirect_to listing_path(@reservation.listing_id), alert: Settings.reservation.save.failure.no_date }
       end

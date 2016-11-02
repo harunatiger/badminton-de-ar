@@ -7,6 +7,8 @@ class MessageThreadsController < ApplicationController
   before_action :set_reservation, only: [:show]
   before_action :set_create_user, only: [:show]
   before_action :set_language, only: [:show]
+  
+  include RequestBooking
 
   # GET /message_threads
   # GET /message_threads.json
@@ -132,7 +134,15 @@ class MessageThreadsController < ApplicationController
     def set_reservation
       @guest_id = @message_thread.counterpart_user(@message_thread.host_id).id
       @host_id = @message_thread.pair_guide_thread? ? @message_thread.reservation.host_id : @message_thread.host_id
-      @reservation = @message_thread.pair_guide_thread? ? @message_thread.reservation : Reservation.for_message_thread(@guest_id, @host_id)
+      # when sign_up call back
+      if session[:reservation_params_after_sign_up].present?
+        session[:reservation_params_after_sign_up][:guest_id] = current_user.id
+        message = RequestBooking.request_booking(session[:reservation_params_after_sign_up])
+        @reservation = Reservation.find_by_id(message.reservation_id)
+        session[:reservation_params_after_sign_up] = nil
+      else
+        @reservation = @message_thread.pair_guide_thread? ? @message_thread.reservation : Reservation.for_message_thread(@guest_id, @host_id)
+      end
       @reservation.message_thread_id = @message_thread.id
     end
 

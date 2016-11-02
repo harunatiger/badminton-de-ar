@@ -1,0 +1,24 @@
+.row-space-top-4
+  h3.text-center.row-space-2 仲間から探す
+  p.text-center.row-space-6
+    | プラン : #{link_to listing.try('title'), listing_path(listing.id)}
+    - if pickup_area_from_listing(listing).present?
+      br
+      | エリア : 
+      - pickup_area_from_listing(listing).each do |area|
+        => link_to pickup_path( area.id ) do
+          = area.short_name
+.page-container.row-space-top-4
+  .row
+    .col-md-12
+      .card.row-space-4
+        .card-header
+          = form_tag(search_friends_friends_path, method: :get, remote: true, id: 'friends_search') do
+            .row.row-condensed
+              /label.col-md-2.col-lg-1.col-lg-offset-2.text-right.hide--sp
+                | 名前
+              .col-xs-8.col-md-6.fieldset
+                = text_field 'search', 'keyword', placeholder: "名前で検索"
+              .col-xs-4.col-md-2.fieldset
+                = submit_tag '検索', class: "btn btn-primary btn-block btn-friend-search", name: 'friends_search'
+        = render partial: 'friends/friends_list', locals: { friends: friends }

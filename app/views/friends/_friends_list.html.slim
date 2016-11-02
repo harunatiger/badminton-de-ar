@@ -15,7 +15,7 @@
                     = button_tag(type: "submit", class: "favorite-btn-large btn btn-large btn-block") do
                       i.fa.fa-times
                       | 仲間からはずす
-                - elsif action_name == 'friends_list' or action_name == 'search_friends'
+                - elsif action_name == 'friends_list' or action_name == 'search_friends' or controller_name == 'unscheduled_tours'
                   = hidden_field_tag :guide_id, profile.user_id, class: 'guide_id'
                   - if session[:guide_ids].present? and session[:guide_ids].include?(profile.user_id.to_s)
                     = link_to '選択中', '#', class: "btn btn-primary btn-large btn-block row-space-top-1 row-space-1 select_friend_link", id: 'select_friend_link'

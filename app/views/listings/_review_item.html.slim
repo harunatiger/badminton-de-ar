@@ -1,33 +1,38 @@
-- reviews.each do |review|
-  .row
-    - if review.tour_image.present?
-      .col-md-12.row-space-4
-        .media-cover-img
-          = link_to "", "#{asset_path review.tour_image}", class: "review-pic", style: "background-image: url('#{asset_path review.tour_image}')"
-          /.review-pic[style="background-image: url('#{asset_path review.tour_image}')"]
-          /= image_tag(review.tour_image, class: "review-pic hide")
-    = link_to profile_path(user_id_to_profile_id(review.guest_id)), target: '_blank'
-      .col-md-3.text-center.row-space-2
-        .media-photo.media-round.media-avatar.text-center
-          = link_to profile_path(user_id_to_profile_id(review.guest_id)), target: '_blank' do
-            .size68[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(review.guest_id)}')"]
-        .name
-          .text-muted.link-reset.text-truncate
-            = link_to profile_path(user_id_to_profile_id(review.guest_id)), class: "text-muted", target: '_blank' do
-              = user_id_to_firstname(review.guest_id)
-    .col-md-9
-      .row-space-2
-        .expandable
-          .expandable-trigger-more
-            .expandable-content
-              .expandable-inner
-                p
-                  = simple_format(h(review.msg))
-                .expandable-indicator
-          = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
-            | read more
-  .row.row-space-2
-      .col-md-9.col-md-push-3
-        .small1.text-right.text-muted
-          = review.try('created_at').strftime("%m/%d %H:%M") || ''
-        hr.row-space-top-1
+#listing_reviews
+  - reviews.each do |review|
+    .row
+      - if review.tour_image.present?
+        .col-md-12.row-space-4
+          .media-cover-img
+            = link_to "", "#{asset_path review.tour_image}", class: "review-pic", style: "background-image: url('#{asset_path review.tour_image}')"
+            /.review-pic[style="background-image: url('#{asset_path review.tour_image}')"]
+            /= image_tag(review.tour_image, class: "review-pic hide")
+      = link_to profile_path(user_id_to_profile_id(review.guest_id)), target: '_blank'
+        .col-md-3.text-center.row-space-2
+          .media-photo.media-round.media-avatar.text-center
+            = link_to profile_path(user_id_to_profile_id(review.guest_id)), target: '_blank' do
+              .size68[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(review.guest_id)}')"]
+          .name
+            .text-muted.link-reset.text-truncate
+              = link_to profile_path(user_id_to_profile_id(review.guest_id)), class: "text-muted", target: '_blank' do
+                = user_id_to_firstname(review.guest_id)
+      .col-md-9
+        .row-space-2
+          .expandable
+            .expandable-trigger-more
+              .expandable-content
+                .expandable-inner
+                  p
+                    = simple_format(h(review.msg))
+                  .expandable-indicator
+            = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
+              | read more
+    .row.row-space-2
+        .col-md-9.col-md-push-3
+          .small1.text-right.text-muted
+            = review.try('created_at').strftime("%m/%d %H:%M") || ''
+          hr.row-space-top-1
+
+  - if reviewed_count > reviews.count
+    .row.text-center
+      = link_to 'Read more reviews', '#', class: 'btn btn-default read_reviews_link', current_count: reviews.count, reviewed_as: 'guide'
