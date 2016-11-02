@@ -53,12 +53,19 @@ section#recommended-guides.recomended-guides.text-center.section
                 p Orsi loves Kyoto more than anyone else. You can ask anything from her, she will probably know the answer. She plays karuta (a japanese sport), loves to drink with her friends and music is part of her life.
               - elsif id == 690
                 p Shinya’s trademark is Ocarina and bicycle. He has a sense of humor. He can be a both straight man and funny man so he always makes lough his friends. I trust him because he do something with much determination and energy. Because he is always laughing, he is loved by everyone.
-              = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+              .links
+                - if user_signed_in?
+                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
+                    i.fa.fa-comment-o
+                - else
+                  = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
+                    i.fa.fa-comment-o
+                = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
+                  i.fa.fa-plus
           - if user_signed_in?
             = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
           - else
             = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
-            
         - if index == 2
           .col-md-12.moreguide-container.row-space-4
             = link_to "#", id: "moreguide", class: "btn btn-large btn-more"
@@ -75,8 +82,17 @@ section#recommended-guides.recomended-guides.text-center.section
           .name.spb.row-space-top-2.row-space-1 #{name}
           .introduce
             p When I first met with Emu, we were able to talk as we were friends from ages. She is a kind of girl who treats you as her best friend from the start. She loves to travel both abroad and in Japan, and go out t odrink with her friends.
-            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+            /= link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+            .links
         - if user_signed_in?
+                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
+                    i.fa.fa-comment-o
+                - else
+                  = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
+                    i.fa.fa-comment-o
+                = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
+                  i.fa.fa-plus
+          - if user_signed_in?
           = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
         - else
           = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
@@ -91,7 +107,16 @@ section#recommended-guides.recomended-guides.text-center.section
           .name.spb.row-space-top-2.row-space-1 #{name}
           .introduce
             p If you want to feel Kyoto from experience, you should contact with Junya. He works at Kimono rental shop and Japanese tea caffe. He can teach how to wear Kimono and how to make Japanese traditional tea. Why don’t you wear the Kimono and walk around the Kyoto?
-            = link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+            /= link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+            .links
+                - if user_signed_in?
+                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
+                    i.fa.fa-comment-o
+                - else
+                  = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
+                    i.fa.fa-comment-o
+                = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
+                  i.fa.fa-plus
         - if user_signed_in?
           = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
         - else
