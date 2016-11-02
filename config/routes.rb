@@ -25,9 +25,10 @@ Rails.application.routes.draw do
   get 'static_pages/about'
   get 'static_pages/plan4U'
   get 'static_pages/plan4U_kyoto', :path => 'static_pages/plan4U-kyoto'
+  get 'static_pages/plan4U_hokkaido', :path => 'static_pages/plan4U-hokkaido'
   get 'static_pages/three_reasons'
   get 'static_pages/our_partners'
-  
+
   post 'currencies/change_currency'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -93,13 +94,13 @@ Rails.application.routes.draw do
   end
 
   resources :pre_mails, only: [:create]
-  
+
   namespace :search do
     get '/', action: :search
     get 'search_result', action: 'search_result'
     #get 'page/:page',    action: 'index'
   end
-  
+
   resources :listings do
     resources :unscheduled_tours, only: [:new, :create, :show], param: :uuid do
       member do
@@ -142,7 +143,7 @@ Rails.application.routes.draw do
     end
     resources :calendar
   end
-  
+
   resources :spots
 
   resources :favorites, only: [:create, :destroy] do
@@ -152,7 +153,7 @@ Rails.application.routes.draw do
       get :spots
     end
   end
-  
+
   resources :pickups, only: [:show]
   resources :friends, only: [:index, :destroy] do
     member do

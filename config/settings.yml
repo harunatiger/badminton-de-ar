@@ -439,3 +439,8 @@ plan4U_kyoto:
     header: 'public/s3_contents/plan4U_kyoto_header.html'
     middle: 'public/s3_contents/plan4U_kyoto_middle.html'
     footer: 'public/s3_contents/plan4U_kyoto_footer.html'
+plan4U_hokkaido:
+  s3_content_path:
+    header: 'public/s3_contents/plan4U_hokkaido_header.html'
+    middle: 'public/s3_contents/plan4U_hokkaido_middle.html'
+    footer: 'public/s3_contents/plan4U_hokkaido_footer.html'
