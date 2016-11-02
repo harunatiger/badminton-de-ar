@@ -84,7 +84,7 @@ section#recommended-guides.recomended-guides.text-center.section
             p When I first met with Emu, we were able to talk as we were friends from ages. She is a kind of girl who treats you as her best friend from the start. She loves to travel both abroad and in Japan, and go out t odrink with her friends.
             /= link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
             .links
-        - if user_signed_in?
+                - if user_signed_in?
                   = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
                     i.fa.fa-comment-o
                 - else
@@ -93,9 +93,9 @@ section#recommended-guides.recomended-guides.text-center.section
                 = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
                   i.fa.fa-plus
           - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
-        - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
+            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
+          - else
+            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
           
       .col-md-4.row-space-6.hide-guest
         - profile = Profile.where(id: 685).first
