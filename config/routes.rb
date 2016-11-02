@@ -96,6 +96,7 @@ Rails.application.routes.draw do
   
   namespace :search do
     get '/', action: :search
+    get 'get_information', action: 'get_information'
     get 'search_result', action: 'search_result'
     #get 'page/:page',    action: 'index'
   end

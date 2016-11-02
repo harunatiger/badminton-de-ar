@@ -361,33 +361,52 @@ $ ->
         # Multiple Markers
         # Info Window Content
         markers = new Array()
-        infoWindowContent = new Array()
         gon.locations.map (l) ->
           tmp_marker = new Array()
-          tmp_info = new Array()
-          tmp_marker.push(l.title, l.latitude, l.longitude)
+          tmp_marker.push(l.title, l.latitude, l.longitude, l.id, l.listing_id)
           markers.push(tmp_marker)
-#           tmp_info.push('<div class="info_content"><img src="' + l.cover_image.thumb.url + '"><h3>' + l.title + '</h3><p>' + l.description  + '</p></div>')
-#           infoWindowContent.push(tmp_info)
-
+          
         # Display multiple markers on a map
-        infoWindow = new google.maps.InfoWindow()
-
+        infoWindow = new google.maps.InfoWindow({maxWidth: 1580})
         # Loop through our array of markers & place each one on the map
         i = 0
         while i < markers.length
           position = new (google.maps.LatLng)(markers[i][1], markers[i][2])
           bounds.extend position
+          if markers[i][4]
+            icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+          else
+            icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
           marker = new (google.maps.Marker)(
             position: position
             map: map
-            title: markers[i][0])
+            icon: icon
+            title: markers[i][0]
+            id: markers[i][3]
+            listing_id: markers[i][4])
+            
           # Allow each marker to have an info window
-          google.maps.event.addListener marker, 'click', do (marker, i) ->
-            ->
-             infoWindow.setContent infoWindowContent[i][0]
-             infoWindow.open map, marker
-             return
+          google.maps.event.addListener marker, 'click', ->
+            clicked_marker = this
+            target = ''
+            id = ''
+            if clicked_marker.listing_id
+              target = 'listings'
+              id = clicked_marker.listing_id
+            else
+              target = 'spots'
+              id = clicked_marker.id
+
+            $.ajax(
+              type: 'GET'
+              url: '/search/get_information'
+              data: {id: id, target: target}
+            ).done (data) ->
+              data = data.replace(/<div class="card tour-listing">/g,"<div class='card tour-listing' style='width:300px;height:320px;'>")
+              data = data.replace(/<div class="card tour-listing card-spot">/g,"<div class='card tour-listing card-spot' style='width:300px;height:300px;'>")
+              infoWindow.setContent data
+              infoWindow.open map, clicked_marker
+            return
           # Automatically center the map fitting all markers on the screen
           map.fitBounds bounds
           i++
