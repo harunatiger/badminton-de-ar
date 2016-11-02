@@ -6,7 +6,7 @@ ActiveAdmin.register Withdrawal do
     column :user_id
     column :prof_id do |withdrawal|
       profile = Profile.find_by_user_id(withdrawal.user_id)
-      link_to withdrawal.id, profile_path(profile), target: '_blank'
+      link_to profile.id, profile_path(profile), target: '_blank' if profile.present?
     end
     column :amount
     column :requested_at
@@ -20,6 +20,20 @@ ActiveAdmin.register Withdrawal do
         item 'mark as paid', mark_as_paid_admin_withdrawal_path(withdrawal), method: :PATCH, class: 'view_link member_link', data: {confirm: 'ステータスを出金完了にします。よろしいですか？'}
       end
     end
+  end
+  
+  csv :force_quotes => false do
+    column :id
+    column :user_id
+    column :prof_id do |withdrawal|
+      profile = Profile.find_by_user_id(withdrawal.user_id)
+      profile.id if profile.present?
+    end
+    column :amount
+    column :requested_at
+    column :paid_at
+    column :created_at
+    column :updated_at
   end
   
   member_action :mark_as_paid, method: :patch do
