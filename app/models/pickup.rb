@@ -37,6 +37,7 @@ class Pickup < ActiveRecord::Base
   mount_uploader :icon_small, PickupImageUploader
   
   scope :order_by_created_at_asc, -> { order('created_at asc') }
+  scope :areas, -> { where(type: 'PickupArea') }
 
   def self.pickup_obj_by_order_number(order_number)
     self.where(order_number: order_number).where.not(selected_listing: nil).first
