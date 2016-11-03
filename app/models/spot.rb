@@ -13,6 +13,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  soft_destroyed_at :datetime
+#  admin_closed_at   :datetime
 #
 # Indexes
 #
@@ -41,6 +42,7 @@ class Spot < ActiveRecord::Base
                                 group("spots.id").
                                 order("favorites_count DESC, spots.updated_at DESC")}
   scope :mine, -> user_id { where(user_id: user_id) }
+  scope :opened, -> { where(admin_closed_at: nil) }
   
   accepts_nested_attributes_for :spot_image
   
@@ -51,7 +53,7 @@ class Spot < ActiveRecord::Base
   def near_spots
     list = []
     if self.longitude.present? && self.latitude.present?
-      Spot.without_soft_destroyed.where.not(id: self.id).order_by_updated_at_desc.each do |spot|
+      Spot.without_soft_destroyed.opened.where.not(id: self.id).order_by_updated_at_desc.each do |spot|
         if spot.longitude.present? && spot.latitude.present?
           distance = Search.distance(self.longitude, self.latitude, spot.longitude, spot.latitude)
           if distance < Settings.search.distance
@@ -68,9 +70,9 @@ class Spot < ActiveRecord::Base
   def self.search(search_params, max_distance=Settings.search.distance)
     if search_params["longitude"].present? && search_params["latitude"].present?
       if search_params["spot_category"].present?
-        spots = Spot.without_soft_destroyed.where.not(latitude: nil, longitude: nil).where(pickup_id: search_params["spot_category"])
+        spots = Spot.without_soft_destroyed.opened.where.not(latitude: nil, longitude: nil).where(pickup_id: search_params["spot_category"])
       else
-        spots = Spot.without_soft_destroyed.where.not(latitude: nil, longitude: nil)
+        spots = Spot.without_soft_destroyed.opened.where.not(latitude: nil, longitude: nil)
       end
       spot_id_array = []
       spots.each do |spot|

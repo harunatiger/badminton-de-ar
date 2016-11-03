@@ -22,7 +22,7 @@ class ProfilesController < ApplicationController
 
     locations = []
     locations += ListingDestination.select('longitude, latitude, listing_id').where(listing_id: @listings.map{|l| l.id}).where.not('longitude is null or latitude is null')
-    @spots = Spot.without_soft_destroyed.where(user_id: @profile.user_id).order_by_updated_at_desc
+    @spots = Spot.without_soft_destroyed.opened.where(user_id: @profile.user_id).order_by_updated_at_desc
     locations += @spots.select('longitude, latitude, id')
     gon.listing_destinations = locations
     @profile_keyword = ProfileKeyword.where(user_id: @profile.user_id, profile_id: @profile.id).keyword_limit

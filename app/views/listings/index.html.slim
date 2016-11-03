@@ -71,7 +71,13 @@
                           div[style="height: 63px; background-image: url(#{asset_path listing_cover_image_thumb_url(listing.id)})"]
                     .col-xs-8.col-lg-6
                       .actions.row-space-1
-                        - if listing.open?
+                        - if listing.admin_closed_at.present?
+                          .state.state-danger
+                            | Withdrawal(
+                            small
+                              = mail_to 'guide_support@m.huber.co.jp', 'contact us', class: 'text-red'
+                            |)
+                        - elsif listing.open?
                           .state.state-primary
                             | Published
                         - else

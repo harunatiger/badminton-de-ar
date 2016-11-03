@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101072814) do
+ActiveRecord::Schema.define(version: 20161103065916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -428,6 +428,7 @@ ActiveRecord::Schema.define(version: 20161101072814) do
     t.string   "interview1",                                      default: ""
     t.string   "interview2",                                      default: ""
     t.string   "interview3",                                      default: ""
+    t.datetime "admin_closed_at"
   end
 
   add_index "listings", ["capacity"], name: "index_listings_on_capacity", using: :btree
@@ -899,6 +900,7 @@ ActiveRecord::Schema.define(version: 20161101072814) do
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.datetime "soft_destroyed_at"
+    t.datetime "admin_closed_at"
   end
 
   add_index "spots", ["pickup_id"], name: "index_spots_on_pickup_id", using: :btree

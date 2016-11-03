@@ -117,6 +117,7 @@ class ListingsController < ApplicationController
 
   def publish
     return redirect_to new_profile_path unless Profile.exists?(user_id: @listing.user_id)
+    return redirect_to listings_path, alert: Settings.listings.publish.closed_by_admin if @listing.admin_closed_at.present?
     respond_to do |format|
       if @listing.publish
         format.html { redirect_to listings_path(current_user), notice: Settings.listings.publish.success }
