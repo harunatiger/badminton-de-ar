@@ -33,7 +33,7 @@ section#recommended-guides.recomended-guides.text-center.section
     .spsb.h1.row-space-3 RECOMMENDED GUIDES
     .spr.text-brand-add Ask your question by clicking “Talk to me”
   h3.text-brand-add.row-space-4
-    | - HOKKAIDO AREA -
+    | - KYOTO AREA -
   .page-container
     .row
       - ids = [732,680,690]
@@ -96,7 +96,7 @@ section#recommended-guides.recomended-guides.text-center.section
             = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
           - else
             = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
-          
+
       .col-md-4.row-space-6.hide-guest
         - profile = Profile.where(id: 685).first
         - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
@@ -149,11 +149,11 @@ section#recommended-guides.recomended-guides.text-center.section
         span Free services
     /h4.thick-lined
       span
-        span.spsb Advantages: 
+        span.spsb Advantages:
         span.spl Eliminate any worries about your trip and get local information
   /.additinal.text-center
     .bg-arrow.text-wf.text-contrast PLUS!
-    h4.spr Your Guide can even join you on your trip! 
+    h4.spr Your Guide can even join you on your trip!
 
 /section.sample-itineraly.section
   .page-container
@@ -231,7 +231,7 @@ section#recommended-guides.recomended-guides.text-center.section
 /section.popular-tours.section
   h3.spb.text-center
     .h1.row-space-2 Popular Tours
-    .spl Find unique tour plans here! 
+    .spl Find unique tour plans here!
   .page-container
     /- listings = feature_listings
     .row.row-space-top-8.row-space-8
@@ -259,7 +259,7 @@ section#recommended-guides.recomended-guides.text-center.section
               .va-container.va-container-wh
                 .va-middle
                   q
-                    | Excellent experience in Kamakura!  You don't have to worry what is the direction, what is the next stop, you don't have to see the map. Just enjoy the beautiful scenery. We recommend Huber for all the tourists from all over the world! 
+                    | Excellent experience in Kamakura!  You don't have to worry what is the direction, what is the next stop, you don't have to see the map. Just enjoy the beautiful scenery. We recommend Huber for all the tourists from all over the world!
                   p – Nicola
       .col-lg-6.row-space-4
         .card.card-book
@@ -272,7 +272,7 @@ section#recommended-guides.recomended-guides.text-center.section
                   q
                     | Thank you for the tour of Kamakura. We enjoyed your enthusiastic , friendly style . We had a great morning with you and really appreciated the local restaurant you took us to.
                   p – Sue
-          
+
 /section.please-visit.text-center.section
   .page-container
     = link_to root_path, class: "btn btn-primary btn-add-shadow btn-block text-center" do
