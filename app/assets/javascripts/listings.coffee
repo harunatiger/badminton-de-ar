@@ -367,16 +367,16 @@ $ ->
           markers.push(tmp_marker)
           
         # Display multiple markers on a map
-        infoWindow = new google.maps.InfoWindow({maxWidth: 1580})
+        infoWindow = new google.maps.InfoWindow()
         # Loop through our array of markers & place each one on the map
         i = 0
         while i < markers.length
           position = new (google.maps.LatLng)(markers[i][1], markers[i][2])
           bounds.extend position
           if markers[i][4]
-            icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+            icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|00D9FF'
           else
-            icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+            icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FFD000'
           marker = new (google.maps.Marker)(
             position: position
             map: map
@@ -402,11 +402,10 @@ $ ->
               url: '/search/get_information'
               data: {id: id, target: target}
             ).done (data) ->
-              data = data.replace(/<div class="card tour-listing">/g,"<div class='card tour-listing' style='width:300px;height:320px;'>")
-              data = data.replace(/<div class="card tour-listing card-spot">/g,"<div class='card tour-listing card-spot' style='width:300px;height:300px;'>")
               infoWindow.setContent data
               infoWindow.open map, clicked_marker
             return
+      
           # Automatically center the map fitting all markers on the screen
           map.fitBounds bounds
           i++

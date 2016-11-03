@@ -52,10 +52,10 @@ class SearchController < ApplicationController
     if request.xhr?
       if params[:target] == 'listings'
         listing = Listing.find_by_id(params[:id])
-        return render partial: 'shared/listing_card', locals: { profile: Profile.find_by_user_id(listing.user_id), listing: listing}
+        return render partial: 'shared/info_window', locals: { target: listing}
       else
         spot = Spot.find_by_id(params[:id])
-        return render partial: 'shared/spot_card', locals: { profile: Profile.find_by_user_id(spot.user_id), spot: spot}
+        return render partial: 'shared/info_window', locals: { target: spot}
       end
     end
   end

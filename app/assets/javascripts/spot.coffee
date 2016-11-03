@@ -191,7 +191,8 @@ $ ->
 
       marker = new (google.maps.Marker)(
         position:  new (google.maps.LatLng)(gon.spot.latitude, gon.spot.longitude)
-        map: map )
+        map: map
+        icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FFD000')
       return
 
     google.maps.event.addDomListener window, 'load', initialize

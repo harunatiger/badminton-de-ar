@@ -34,7 +34,7 @@ class ListingsController < ApplicationController
     #@wishlists = Wishlist.mine(current_user).order_by_created_at_desc
     gon.ngdates = Ngevent.get_ngdates(@listing)
     gon.ngweeks = NgeventWeek.get_ngweeks_from_listing(@listing).pluck(:dow)
-    gon.listing_destinations = ListingDestination.select('longitude, latitude').where(listing_id: @listing.id).where.not('longitude is null or latitude is null')
+    gon.listing_destinations = ListingDestination.select('longitude, latitude, listing_id').where(listing_id: @listing.id).where.not('longitude is null or latitude is null')
     @reservation = Reservation.new
     @profile_keyword = ProfileKeyword.where(user_id: @listing.user_id, profile_id: Profile.where(user_id: @listing.user_id).pluck(:id).first).keyword_limit
     gon.keywords = @profile_keyword
