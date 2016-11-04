@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161103065916) do
+ActiveRecord::Schema.define(version: 20161104062420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -649,6 +649,7 @@ ActiveRecord::Schema.define(version: 20161103065916) do
     t.boolean  "authorized", default: false, null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "status"
   end
 
   add_index "profile_identities", ["profile_id"], name: "index_profile_identities_on_profile_id", using: :btree

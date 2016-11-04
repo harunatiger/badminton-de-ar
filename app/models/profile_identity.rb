@@ -10,6 +10,7 @@
 #  authorized :boolean          default(FALSE), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  status     :integer
 #
 # Indexes
 #
@@ -28,6 +29,8 @@ class ProfileIdentity < ActiveRecord::Base
   validates :image, presence: true
   validates :profile_id, uniqueness: true
   
+  enum status: { uploaded: 0, authorized: 1, holded: 2, unauthorized: 3}
+
   scope :mine, -> user_id { where( user_id: user_id ) }
 
 end
