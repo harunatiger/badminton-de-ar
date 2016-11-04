@@ -11,7 +11,7 @@ module Search
         listing_ids = result_array[0]
         listing_destination_ids = result_array[1]
 
-        gon_locations += ListingDestination.select('longitude, latitude').where(id: listing_destination_ids)
+        gon_locations += ListingDestination.select('longitude, latitude, listing_id').where(id: listing_destination_ids)
         listings = Listing.where(id: listing_ids)
 
         # sort
@@ -27,7 +27,7 @@ module Search
     if search_params['sort_by'].blank? || search_params['sort_by'] == 'Spot'
       spots = Spot.search(search_params, max_distance)
       if spots.present?
-        gon_locations += spots
+        gon_locations += spots.select('longitude, latitude, id')
 
         # sort
         spots = spots.sort_for_search

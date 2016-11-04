@@ -30,7 +30,13 @@
                   .row.row-condensed.row-space-top-2
                     .col-9.text-left
                       = link_to spot_path(spot) do
-                        .text-lead.row-space-top-2.text-truncate = spot.title
+                        .text-lead.text-truncate = spot.title
+                      - if spot.admin_closed_at.present?
+                        .state.state-danger
+                          | Withdrawal(
+                          small
+                            = mail_to 'guide_support@m.huber.co.jp', 'contact us', class: 'text-red'
+                          |)
                     .col-3.text-center
                       = link_to edit_spot_path(spot), class: "" do
                         i.fa.fa-edit.fa-size-1

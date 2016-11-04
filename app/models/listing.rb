@@ -38,6 +38,7 @@
 #  interview1              :string           default("")
 #  interview2              :string           default("")
 #  interview3              :string           default("")
+#  admin_closed_at         :datetime
 #
 # Indexes
 #

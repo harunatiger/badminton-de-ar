@@ -48,6 +48,18 @@ class SearchController < ApplicationController
   def search_result
   end
   
+  def get_information
+    if request.xhr?
+      if params[:target] == 'listings'
+        listing = Listing.find_by_id(params[:id])
+        return render partial: 'shared/info_window', locals: { target: listing}
+      else
+        spot = Spot.find_by_id(params[:id])
+        return render partial: 'shared/info_window', locals: { target: spot}
+      end
+    end
+  end
+  
   private
   def search_params
     params.require(:search).permit(:location, :latitude, :longitude, :sort_by, :spot_category, :category1, :category2, :category3, :schedule, :num_of_people, :duration_range, language_ids: [])

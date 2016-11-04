@@ -1,6 +1,6 @@
 ActiveAdmin.register ProfileIdentity do
 
-  permit_params :user_id, :profile_id, :image, :caption, :authorized
+  permit_params :user_id, :profile_id, :image, :caption, :authorized, :status
   preserve_default_filters!
   filter :user, :as => :select, :collection => User.all.map{|u| ["#{u.profile.last_name} #{u.profile.first_name}", u.id]}
 
@@ -15,6 +15,7 @@ ActiveAdmin.register ProfileIdentity do
     end
     column :image
     column :authorized
+    column :status
     column :created_at
     column :updated_at
     actions
@@ -30,18 +31,31 @@ ActiveAdmin.register ProfileIdentity do
       end
       row :caption
       row :authorized
+      row :status
     end
     active_admin_comments
+  end
+  
+  form do |f|
+    f.inputs do
+      f.input :status,
+              :as => :select,
+              :collection => ProfileIdentity.statuses.keys,
+              :include_blank => false
+    end
+    f.actions
   end
 
   controller do
     def update
       identity = params[:profile_identity]
+      authorized = identity[:status] == 'authorized' ? true : false
+      params[:profile_identity][:authorized] = authorized
       super do |format|
         if identity.present?
-          @profile_identity = ProfileIdentity.find_by(user_id: identity[:user_id].to_i)
+          @profile_identity = ProfileIdentity.find_by_id(params[:id])
           if @profile_identity.present?
-            ProfileIdentityMailer.send_id_authentication_complete_notification_to_user(@profile_identity).deliver_now! if identity[:authorized].to_i == 1
+            ProfileIdentityMailer.send_id_authentication_complete_notification_to_user(@profile_identity).deliver_now! if identity[:status] == 'authorized'
           end
         end
       end
