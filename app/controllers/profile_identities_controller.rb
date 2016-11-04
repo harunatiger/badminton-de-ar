@@ -81,6 +81,6 @@ class ProfileIdentitiesController < ApplicationController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_identity_params
-      params.require(:profile_identity).permit(:user_id, :profile_id, :image, :caption)
+      params.require(:profile_identity).permit(:user_id, :profile_id, :image, :caption, :status)
     end
 end
