@@ -24,7 +24,7 @@ module ApplicationHelper
     if controller_name == 'profiles' and action_name == 'show'
       user = User.find_by_id(@profile.user_id)
       if user.present? and user.main_guide?
-        "See #{@profile.first_name} who is a local tour guide #{@profile.prefecture.present? ? 'in ' + @profile.prefecture : ''} #{@profile.country.present? ? 'in ' + @profile.country : ''} - TOMODACHI GUIDE"
+        "See #{@profile.first_name} who is a local tour guide #{@profile.prefecture.present? ? 'in ' + @profile.prefecture : ''} #{@profile.country_name.present? ? 'in ' + @profile.country_name : ''} - TOMODACHI GUIDE"
       else
         "Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
       end
