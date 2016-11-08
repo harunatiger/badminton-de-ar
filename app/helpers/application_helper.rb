@@ -35,11 +35,7 @@ module ApplicationHelper
       area = @spot.pickups.areas.first.try('short_name')
       "#{@spot.title} #{area.present? ? 'in ' + area : ''} - TOMODACHI GUIDE"
     elsif controller_name == 'pickups' and action_name == 'show'
-      if @pickup.pickup_area?
-        "Find a favorite local tour in #{@pickup.try('short_name')} - TOMODACHI GUIDE"
-      else
-        "Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
-      end
+      "Find a favorite local tour in #{@pickup.try('short_name')} - TOMODACHI GUIDE"
     elsif controller_name == 'help_topics'
       "Help and support center - TOMODACHI GUIDE"
     elsif controller_name == 'static_pages' and action_name.index('service_agreement')
