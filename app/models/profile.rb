@@ -213,7 +213,11 @@ class Profile < ActiveRecord::Base
   end
   
   def country_name
-    tmp_country = ISO3166::Country[country]
-    tmp_country.translations[I18n.locale.to_s] || tmp_country.name
+    if country.present?
+      tmp_country = ISO3166::Country[country]
+      tmp_country.translations[I18n.locale.to_s] || tmp_country.name
+    else
+      ''
+    end
   end
 end
