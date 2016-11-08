@@ -16,12 +16,12 @@
       = link_to listing_path(listing), class: "text-normal", target: '_blank' do
         h5.row-space-1.overflow
           = truncate(listing.title, length: 40)
-      .text-center
-        .star-rating
+      .text-left
+        .star-rating.star-rating-fit
           = render partial: 'shared/stars', locals: { rate: listing.ave_total }
         | review(#{Review.this_listing(listing).count})
       - if pickup_area_from_listing(listing).present?
-        .listing-area.text-center.text-truncate
+        .listing-area.text-left.text-truncate
           i.fa.fa-map-marker
           ' 
           - pickup_area_from_listing(listing).each do |area|
@@ -29,11 +29,11 @@
               = area.short_name
               ' 
       - if listing.listing_detail.present?
-        .listing-area.text-center.text-truncate
+        .listing-area.text-left.text-truncate
           i.fa.fa-clock-o
           ' 
           span.text-brand #{listing.listing_detail.time_required}h
-      .text-center
+      .text-left
         - image_categories_limited_six(listing).each do |pickup_tag|
           .media-round.media-photo.media-avatar
             .size28[style="background-image: url('#{asset_path pickup_tag.icon_small}')"]

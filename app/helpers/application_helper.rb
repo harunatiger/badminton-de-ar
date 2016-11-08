@@ -24,7 +24,7 @@ module ApplicationHelper
     if controller_name == 'profiles' and action_name == 'show'
       user = User.find_by_id(@profile.user_id)
       if user.present? and user.main_guide?
-        "See #{@profile.first_name} who is a local tour guide #{@profile.prefecture.present? ? 'in ' + @profile.prefecture : ''} #{@profile.country.present? ? 'in ' + @profile.country : ''} - TOMODACHI GUIDE"
+        "See #{@profile.first_name} who is a local tour guide #{@profile.prefecture.present? ? 'in ' + @profile.prefecture : ''} #{@profile.country_name.present? ? 'in ' + @profile.country_name : ''} - TOMODACHI GUIDE"
       else
         "Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
       end
@@ -35,11 +35,7 @@ module ApplicationHelper
       area = @spot.pickups.areas.first.try('short_name')
       "#{@spot.title} #{area.present? ? 'in ' + area : ''} - TOMODACHI GUIDE"
     elsif controller_name == 'pickups' and action_name == 'show'
-      if @pickup.pickup_area?
-        "Find a favorite local tour in #{@pickup.try('short_name')} - TOMODACHI GUIDE"
-      else
-        "Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
-      end
+      "Find a favorite local tour in #{@pickup.try('short_name')} - TOMODACHI GUIDE"
     elsif controller_name == 'help_topics'
       "Help and support center - TOMODACHI GUIDE"
     elsif controller_name == 'static_pages' and action_name.index('service_agreement')

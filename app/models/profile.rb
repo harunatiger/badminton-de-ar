@@ -211,4 +211,9 @@ class Profile < ActiveRecord::Base
       self.profile_countries.delete(profile_country) if profile_country.country.blank?
     end
   end
+  
+  def country_name
+    tmp_country = ISO3166::Country[country]
+    tmp_country.translations[I18n.locale.to_s] || tmp_country.name
+  end
 end
