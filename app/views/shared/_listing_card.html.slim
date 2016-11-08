@@ -17,7 +17,7 @@
         h5.row-space-1.overflow
           = truncate(listing.title, length: 40)
       .text-left
-        .star-rating
+        .star-rating.star-rating-fit
           = render partial: 'shared/stars', locals: { rate: listing.ave_total }
         | review(#{Review.this_listing(listing).count})
       - if pickup_area_from_listing(listing).present?
