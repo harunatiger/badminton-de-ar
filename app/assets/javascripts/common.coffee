@@ -748,87 +748,87 @@ $ ->
     return
 
   # search edit 20160913
-#   if $('body').hasClass('welcome index')
-#     # headroom
-#     currentOffset = 0
-#     $(window).scroll ->
-#       scrolltop = $(this).scrollTop()
-#       if scrolltop > 150 and scrolltop > currentOffset
-#         $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
-#       else if scrolltop < 150
-#         $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
-#       else
-#         $('#headroom-header').addClass('headroom--pinned').removeClass 'headroom--unpinned'
-#       currentOffset = scrolltop
-#       return
+  if $('body').hasClass('welcome index')
+    # headroom
+    currentOffset = 0
+    $(window).scroll ->
+      scrolltop = $(this).scrollTop()
+      if scrolltop > 150 and scrolltop > currentOffset
+        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
+      else if scrolltop < 150
+        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
+      else
+        $('#headroom-header').addClass('headroom--pinned').removeClass 'headroom--unpinned'
+      currentOffset = scrolltop
+      return
 
-#     #! auto complete
-#     initPAC = ->
-#       input = document.getElementById('location-search')
-#       options = {
-#         #types: [ '(cities)' ],
-#         componentRestrictions: {
-#           country: "jp"
-#         }
-#       }
-#       autocomplete = new (google.maps.places.Autocomplete)(input, options)
-#       location_being_changed = undefined
+    #! auto complete
+    initPAC = ->
+      input = document.getElementById('location-search')
+      options = {
+        #types: [ '(cities)' ],
+        componentRestrictions: {
+          country: "jp"
+        }
+      }
+      autocomplete = new (google.maps.places.Autocomplete)(input, options)
+      location_being_changed = undefined
 
-#       google.maps.event.addListener autocomplete, 'place_changed', ->
-#         place = this.getPlace()
-#         if place.geometry
-#           $('#search_form').find('#search_latitude').val place.geometry.location.lat()
-#           $('#search_form').find('#search_longitude').val　place.geometry.location.lng()
-#         location_being_changed = false
-#         return
+      google.maps.event.addListener autocomplete, 'place_changed', ->
+        place = this.getPlace()
+        if place.geometry
+          $('#search_form').find('#search_latitude').val place.geometry.location.lat()
+          $('#search_form').find('#search_longitude').val　place.geometry.location.lng()
+        location_being_changed = false
+        return
 
-#       $('#location-search').keydown (e) ->
-#         if e.keyCode == 13
-#           if location_being_changed
-#             e.preventDefault()
-#             e.stopPropagation()
-#         else
-#           $('#search_form').find('#search_latitude').val ''
-#           $('#search_form').find('#search_longitude').val　''
-#           location_being_changed = true
-#         return
-#       return
-#     #! auto complete activate
-#     initPAC()
+      $('#location-search').keydown (e) ->
+        if e.keyCode == 13
+          if location_being_changed
+            e.preventDefault()
+            e.stopPropagation()
+        else
+          $('#search_form').find('#search_latitude').val ''
+          $('#search_form').find('#search_longitude').val　''
+          location_being_changed = true
+        return
+      return
+    #! auto complete activate
+    initPAC()
 
-#     #! header auto complete
-#     initHeaderPAC = ->
-#       input = document.getElementById('header-location-search')
-#       options = {
-#         #types: [ '(cities)' ],
-#         componentRestrictions: {
-#           country: "jp"
-#         }
-#       }
-#       autocomplete = new (google.maps.places.Autocomplete)(input, options)
-#       location_being_changed = undefined
+    #! header auto complete
+    initHeaderPAC = ->
+      input = document.getElementById('header-location-search')
+      options = {
+        #types: [ '(cities)' ],
+        componentRestrictions: {
+          country: "jp"
+        }
+      }
+      autocomplete = new (google.maps.places.Autocomplete)(input, options)
+      location_being_changed = undefined
 
-#       google.maps.event.addListener autocomplete, 'place_changed', ->
-#         place = this.getPlace()
-#         if place.geometry
-#           $('#headroom-header').find('#search_latitude').val place.geometry.location.lat()
-#           $('#headroom-header').find('#search_longitude').val　place.geometry.location.lng()
-#         location_being_changed = false
-#         return
+      google.maps.event.addListener autocomplete, 'place_changed', ->
+        place = this.getPlace()
+        if place.geometry
+          $('#headroom-header').find('#search_latitude').val place.geometry.location.lat()
+          $('#headroom-header').find('#search_longitude').val　place.geometry.location.lng()
+        location_being_changed = false
+        return
 
-#       $('#header-location-search').keydown (e) ->
-#         if e.keyCode == 13
-#           if location_being_changed
-#             e.preventDefault()
-#             e.stopPropagation()
-#         else
-#           $('#headroom-header').find('#search_latitude').val ''
-#           $('#headroom-header').find('#search_longitude').val　''
-#           location_being_changed = true
-#         return
-#       return
-#     #! header auto complete activate
-#     initHeaderPAC()
+      $('#header-location-search').keydown (e) ->
+        if e.keyCode == 13
+          if location_being_changed
+            e.preventDefault()
+            e.stopPropagation()
+        else
+          $('#headroom-header').find('#search_latitude').val ''
+          $('#headroom-header').find('#search_longitude').val　''
+          location_being_changed = true
+        return
+      return
+    #! header auto complete activate
+    initHeaderPAC()
 
     # search edit 20160914
 
