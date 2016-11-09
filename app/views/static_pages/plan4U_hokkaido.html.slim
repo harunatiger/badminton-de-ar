@@ -36,20 +36,28 @@ section#recommended-guides.recomended-guides.text-center.section
     | - HOKKAIDO AREA -
   .page-container
     .row
-      - ids = [360,1007]
-      - ids.each do |id|
-        - profile = Profile.find_by_id(id)
-        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
-        - name = profile ? profile.first_name : "this user doesn't exist"
-        .col-md-4.col-lg-3.col-lg-offset-2.row-space-6
+      - ids = [360,1007,1011]
+      - ids.each do |id, index|
+        .col-md-4.row-space-6
+          - profile = Profile.find_by_id(id)
+          - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
+          - name = profile ? profile.first_name : "this user doesn't exist"
           .guide.text-center
             .media-round.media-photo.media-avatar
               .size200[style="background-image: url('#{asset_path image}')"]
             .name.spb.row-space-top-2.row-space-1 #{name}
             .introduce
               - if id == 360
-                p I have one little boy :) If you hope,I want to make you enjoy with my son through local experience in Hokkaido
+                p Sapporo, Otaru, Toya, Hakodate
+                p Antique buildings around canal in Otaru, Hokkaido museum, Curve market in Sapporo, Moiwa mountain, Hakodate mountain, Tengu mountain, Toya lake, Shiroi-koibito-park
+                p I have one little boy □ If you hope,I want to make you enjoy with my son through local experience in Hokkaido
               - elsif id == 1007
+                p Sapporo, Otaru
+                p Curve market in Sapporo, Hokkaido Shrine, Shiroi-koibito-park, JR tower, Hokkaido museum, Moiwa mountain, Tengu mountain,  Antique buildings around canal in Otaru,
+                p I am sure that I make you feel more happy and fun during our tour!!
+              - elsif id == 1011
+                p Sapporo,Otaru,Nakafurano,Biei
+                p Farm Tomita,Blue pond,Shinsen swamp,Kamui Cape
                 p I am sure that I make you feel more happy and fun during our tour!!
 
               /= link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
