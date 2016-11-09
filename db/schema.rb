@@ -428,6 +428,7 @@ ActiveRecord::Schema.define(version: 20161104062420) do
     t.string   "interview1",                                      default: ""
     t.string   "interview2",                                      default: ""
     t.string   "interview3",                                      default: ""
+    t.datetime "admin_closed_at"
   end
 
   add_index "listings", ["capacity"], name: "index_listings_on_capacity", using: :btree
@@ -870,6 +871,16 @@ ActiveRecord::Schema.define(version: 20161104062420) do
   add_index "reviews", ["reservation_id"], name: "index_reviews_on_reservation_id", using: :btree
   add_index "reviews", ["unscheduled_tour_id"], name: "index_reviews_on_unscheduled_tour_id", using: :btree
 
+  create_table "spot_areas", force: :cascade do |t|
+    t.integer  "spot_id"
+    t.integer  "pickup_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "spot_areas", ["pickup_id"], name: "index_spot_areas_on_pickup_id", using: :btree
+  add_index "spot_areas", ["spot_id"], name: "index_spot_areas_on_spot_id", using: :btree
+
   create_table "spot_images", force: :cascade do |t|
     t.integer  "spot_id",    null: false
     t.string   "image",      null: false
@@ -890,6 +901,7 @@ ActiveRecord::Schema.define(version: 20161104062420) do
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.datetime "soft_destroyed_at"
+    t.datetime "admin_closed_at"
   end
 
   add_index "spots", ["pickup_id"], name: "index_spots_on_pickup_id", using: :btree
@@ -1083,6 +1095,8 @@ ActiveRecord::Schema.define(version: 20161104062420) do
   add_foreign_key "reviews", "unscheduled_tours"
   add_foreign_key "reviews", "users", column: "guest_id"
   add_foreign_key "reviews", "users", column: "host_id"
+  add_foreign_key "spot_areas", "pickups"
+  add_foreign_key "spot_areas", "spots"
   add_foreign_key "spot_images", "spots"
   add_foreign_key "spots", "pickups"
   add_foreign_key "spots", "users"

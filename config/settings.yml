@@ -65,6 +65,7 @@ listings:
   publish:
     success: "You've updated your tour-page"
     failure: "More steps needed to finish your tour-page"
+    closed_by_admin: "This tour can't be published.Pleas contact us.(guide_support@m.huber.co.jp)"
   unpublish:
     success: "Tour page hidden"
     failure: "Failed to set your tour page to hidden"
@@ -277,7 +278,7 @@ page:
   guest_reservation_manager: 'Your Trips'
   listing_new: 'Become a guide'
   listings: 'Tours'
-  spots: 'Spots'
+  spots: 'Spot list'
   messages: 'Message'
   wishlists: 'Favorite'
   profile: 'Profile'
@@ -423,6 +424,7 @@ response_rate:
 spot:
   error:
     deleted: "This spot has been deleted"
+    closed: "This spot has been closed"
 spot_image:
   save:
     blank: "Image can't be blank"

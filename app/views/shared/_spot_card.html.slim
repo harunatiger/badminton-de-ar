@@ -12,7 +12,7 @@
         h5.row-space-1.overflow.text-truncate
           = truncate(spot.title, length: 30)
       - if pickup = spot_to_pickup(spot)
-        .text-center
+        .text-left
           .media-round.media-photo.media-avatar
             .size28[style="background-image: url('#{asset_path pickup.icon_small}')"]
   .tour-tag.spot-tag Spot

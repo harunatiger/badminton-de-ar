@@ -145,11 +145,8 @@ $ ->
       # infoWindowContent = new Array()
       gon.listing_destinations.map (l) ->
         tmp_marker = new Array()
-        #tmp_info = new Array()
-        tmp_marker.push(l.title, l.latitude, l.longitude)
+        tmp_marker.push(l.title, l.latitude, l.longitude, l.id, l.listing_id)
         markers.push(tmp_marker)
-        #tmp_info.push('<div class="info_content">aaa<h3>' + l.title + '</h3><p>' + l.description  + '</p></div>')
-        #infoWindowContent.push(tmp_info)
 
       # Display multiple markers on a map
       infoWindow = new google.maps.InfoWindow()
@@ -159,18 +156,41 @@ $ ->
       while i < markers.length
         position = new (google.maps.LatLng)(markers[i][1], markers[i][2])
         bounds.extend position
+        if markers[i][4]
+          icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|00D9FF'
+        else
+          icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FFD000'
+            
         marker = new (google.maps.Marker)(
           position: position
           map: map
-          title: markers[i][0])
+          icon: icon
+          title: markers[i][0]
+          id: markers[i][3]
+          listing_id: markers[i][4])
+        
         # Allow each marker to have an info window
-        ###
-        google.maps.event.addListener marker, 'click', do (marker, i) ->
-          ->
-           infoWindow.setContent infoWindowContent[i][0]
-           infoWindow.open map, marker
-           return
-        ###
+        if $('body').hasClass('profiles show')
+          google.maps.event.addListener marker, 'click', ->
+            clicked_marker = this
+            target = ''
+            id = ''
+            if clicked_marker.listing_id
+              target = 'listings'
+              id = clicked_marker.listing_id
+            else
+              target = 'spots'
+              id = clicked_marker.id
+
+            $.ajax(
+              type: 'GET'
+              url: '/search/get_information'
+              data: {id: id, target: target}
+            ).done (data) ->
+              infoWindow.setContent data
+              infoWindow.open map, clicked_marker
+            return
+      
         # Automatically center the map fitting all markers on the screen
         map.fitBounds bounds
         i++

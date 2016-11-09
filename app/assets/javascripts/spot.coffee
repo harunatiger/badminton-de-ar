@@ -143,7 +143,39 @@ $ ->
         geocodeLatLng e.latLng.lat(), e.latLng.lng()
         return
       return
-    return
+    
+    #---------------------------------------------------------------------
+    # area setting
+    #---------------------------------------------------------------------
+    $('.listing-manager-area-container').text('')
+    areas = []
+    $('[name="spot[pickup_ids][]"]:checked').each ->
+      areas.push $(this).parent().text()
+    if areas.length > 0
+      $('.listing-manager-area-container').text('')
+      $.each areas, (index, elem) ->
+        $('.listing-manager-area-container').append('<span class="listing-area-item">' + elem + '</span>')
+
+
+    #---------------------------------------------------------------------
+    # open listing_area
+    #---------------------------------------------------------------------
+    $('.listing-manager-area').on 'click', (e) ->
+      $('#listing_area').modal()
+      e.preventDefault()
+      e.stopPropagation()
+      return false
+
+    $('.listing-manager-area-submit').on 'click', (e) ->
+      $('.listing-manager-area-container').text('')
+      areas = []
+      $('[name="spot[pickup_ids][]"]:checked').each ->
+        areas.push $(this).parent().text()
+      if areas.length > 0
+        $('.listing-manager-area-container').text('')
+        $.each areas, (index, elem) ->
+          $('.listing-manager-area-container').append('<span class="listing-area-item">' + elem + '</span>')
+      $('#listing_area').modal('hide')
 
   if $('body').hasClass('spots show')
     # show location
@@ -159,7 +191,8 @@ $ ->
 
       marker = new (google.maps.Marker)(
         position:  new (google.maps.LatLng)(gon.spot.latitude, gon.spot.longitude)
-        map: map )
+        map: map
+        icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FFD000')
       return
 
     google.maps.event.addDomListener window, 'load', initialize

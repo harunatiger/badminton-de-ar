@@ -1,0 +1,8 @@
+- if target.present?
+  .search
+    .info-window-container
+      .col-sm-12.col-md-12
+        - if target.model_name == 'Listing'
+          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(target), listing: target}
+        - elsif target.model_name == 'Spot'
+          = render partial: 'shared/spot_card', locals: { profile: user_id_to_profile(target.user_id), spot: target}

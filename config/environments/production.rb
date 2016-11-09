@@ -103,13 +103,13 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => ENV['ELB_DOMAIN'] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :user_name      => ENV['SENDGRID_USERNAME'],
-    :password       => ENV['SENDGRID_PASSWORD'],
-    :domain         => "heroku.com",
-    :address        => "smtp.sendgrid.net",
+    :user_name      => Rails.application.secrets.action_mailer_user_name,
+    :password       => Rails.application.secrets.action_mailer_password,
+    :domain         => 'ec2-52-69-224-99.ap-northeast-1.compute.amazonaws.com',
+    :address        => 'ec2-52-69-224-99.ap-northeast-1.compute.amazonaws.com',
     :port           => 587, # ssl:587, plain:25
     :authentication => :plain,
-    :enable_starttls_auto => true
+    :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE
   }
 
   GA.tracker = ENV['GA_TRACKER']

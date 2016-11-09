@@ -19,6 +19,39 @@ module ApplicationHelper
       "#{page_description}"
     end
   end
+  
+  def page_title
+    if controller_name == 'profiles' and action_name == 'show'
+      user = User.find_by_id(@profile.user_id)
+      if user.present? and user.main_guide?
+        "See #{@profile.first_name} who is a local tour guide #{@profile.prefecture.present? ? 'in ' + @profile.prefecture : ''} #{@profile.country_name.present? ? 'in ' + @profile.country_name : ''} - TOMODACHI GUIDE"
+      else
+        "Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
+      end
+    elsif controller_name == 'listings' and action_name == 'show'
+      area = @listing.pickups.areas.first.try('short_name')
+      "#{@listing.title} #{area.present? ? 'in ' + area : ''} - TOMODACHI GUIDE"
+    elsif controller_name == 'spots' and action_name == 'show'
+      area = @spot.pickups.areas.first.try('short_name')
+      "#{@spot.title} #{area.present? ? 'in ' + area : ''} - TOMODACHI GUIDE"
+    elsif controller_name == 'pickups' and action_name == 'show'
+      "Find a favorite local tour in #{@pickup.try('short_name')} - TOMODACHI GUIDE"
+    elsif controller_name == 'help_topics'
+      "Help and support center - TOMODACHI GUIDE"
+    elsif controller_name == 'static_pages' and action_name.index('service_agreement')
+      "Terms of Use - TOMODACHI GUIDE"
+    elsif controller_name == 'static_pages' and action_name.index('specific_commercial_transactions')
+      "Description based on Specified Commercial Transactions Act - TOMODACHI GUIDE"
+    elsif controller_name == 'static_pages' and action_name.index('privacy_policy')
+      "Privacy Policy - TOMODACHI GUIDE"
+    elsif controller_name == 'static_pages' and action_name == 'our_partners'
+      "Our Partners - TOMODACHI GUIDE"
+    elsif controller_name == 'features'
+      "Get the Information of Kamakura in Japan - TOMODACHI GUIDE"
+    else
+      "Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
+    end
+  end
 
   def full_words(page_words)
     base_words = Settings.site_info.base_words

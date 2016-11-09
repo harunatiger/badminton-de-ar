@@ -24,6 +24,8 @@
 class Pickup < ActiveRecord::Base
   has_many :listing_pickups, dependent: :destroy
   has_many :listings, through: :listing_pickups
+  has_many :spot_areas, dependent: :destroy
+  has_many :spots, through: :spot_areas
   has_many :profile_pickups, dependent: :destroy
   has_many :profiles, through: :profile_pickups
 
@@ -35,6 +37,7 @@ class Pickup < ActiveRecord::Base
   mount_uploader :icon_small, PickupImageUploader
   
   scope :order_by_created_at_asc, -> { order('created_at asc') }
+  scope :areas, -> { where(type: 'PickupArea') }
 
   def self.pickup_obj_by_order_number(order_number)
     self.where(order_number: order_number).where.not(selected_listing: nil).first

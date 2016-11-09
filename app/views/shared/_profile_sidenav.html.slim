@@ -1,3 +1,4 @@
+- @profile = current_user.profile if @profile.blank?
 .sidenav-list-profile
   ul.sidenav-list[class=("sidenav-list-guest" if current_user.guest?)]
     - current_user.profile.enable_strict_validation = true
@@ -76,6 +77,15 @@
             - else
               | Profile picture
     /- if !current_user.guest?
+    - if current_user.main_guide?
+      - if controller_name == 'spots'
+        li
+          = link_to spots_path, class: "sidenav-item", aria: {selected: "true"} do
+            = Settings.page.spots
+      - else
+        li
+          = link_to spots_path, class: "sidenav-item", aria: {selected: "false"} do
+            = Settings.page.spots
     - if controller_name == 'profile_identities'
       li
         = link_to "#{profile_identity_link}", class: "sidenav-item", aria: {selected: "true"} do

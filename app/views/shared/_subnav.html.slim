@@ -22,10 +22,10 @@
         - else
           li
             = link_to Settings.page.listings, listings_path
-        - if controller_name =="spots"
+        /- if controller_name =="spots"
           li.active
             = link_to Settings.page.spots, spots_path
-        - else
+        /- else
           li
             = link_to Settings.page.spots, spots_path
       - if !current_user.guest?
@@ -56,7 +56,7 @@
         - else
           li
             = link_to Settings.page.friends, friends_path
-      - if controller_name =="profiles" || action_name == "review" || controller_name == 'profile_images' || controller_name == 'profile_identities'
+      - if controller_name =="profiles" || action_name == "review" || controller_name == 'profile_images' || controller_name == 'profile_identities' || controller_name == 'spots'
         li.active
           = link_to Settings.page.profile, edit_profile_path(current_user.profile.id)
       - else

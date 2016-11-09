@@ -1,8 +1,9 @@
 class SpotsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :set_spot, only: [:show, :edit, :update, :destroy]
-  before_action :regulate_user, only: [:edit, :update, :destroy]
-  before_action :deleted_check, only: [:show, :edit, :update, :destroy]
+  before_action :regulate_user, only: [:new, :edit, :update, :destroy]
+  before_action :deleted_or_open_check, only: [:show, :edit, :update, :destroy]
+  before_action :set_pickup_area, only: [:new, :edit, :create, :update]
   
   # GET /spots
   # GET /spots.json
@@ -85,15 +86,23 @@ class SpotsController < ApplicationController
     end
   
     def regulate_user
-      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @spot.user_id != current_user.id
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if !current_user.main_guide?
+      if action_name != 'new'
+        return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @spot.user_id != current_user.id
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def spot_params
-      params.require(:spot).permit(:title, :one_word, :pickup_id, :location, :longitude, :latitude, spot_image_attributes: [ :id, :image, :image_cache ])
+      params.require(:spot).permit(:title, :one_word, :pickup_id, :location, :longitude, :latitude, spot_image_attributes: [ :id, :image, :image_cache ], pickup_ids: [])
     end
   
-    def deleted_check
+    def deleted_or_open_check
       return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.spot.error.deleted if @spot.soft_destroyed?
+      return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.spot.error.closed if @spot.admin_closed_at.present? and (!user_signed_in? or @spot.user_id != current_user.id)
+    end
+  
+    def set_pickup_area
+      @areas = PickupArea.all
     end
 end
