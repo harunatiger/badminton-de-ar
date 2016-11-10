@@ -18,9 +18,7 @@
         .no-listings-block
           div
             p
-              | 条件に該当がないようです。
-              br
-              | 条件を変えて検索してみましょう。
+              | There aren't any results matching your search terms. Please change your search terms and try again.
       - else
         = render partial: 'result_block', locals: { results: @results, conditions: @conditions, new_listings: @new_listings }
     .map.hide--sp
@@ -29,7 +27,7 @@
           div
             i.fa.fa-map-marker
             p
-              | 該当がありません。
+              | There aren't any results matching your search terms.
       - else
         #map.map-canvas
         .map-refresh-controls.Google
