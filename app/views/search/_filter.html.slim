@@ -129,6 +129,8 @@
                         input#search_spot_category[name="search[spot_category]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
 
   .filter-buttons.filters-section.card-body.text-right.row-space-6
+    .filter-text.text-center[style="display: none"]
+      p.text-muted Please select Tour or Spot to display additional filters.
     .default-buttons.hide--sp
       = link_to "#", class: "btn btn-primary show-sort-filter" do
         span.text-more-filters MORE FILTERS
