@@ -266,6 +266,12 @@ $ ->
       startDate: '+1d',
       language: 'en',
       orientation: 'top auto'
+    # for touch devices
+    if $('html').hasClass('touch')
+      $('.datepicker').attr('readonly', 'readonly')
+      $('.datepicker').on 'touchstart', (e) ->
+        $(this).datepicker('show')
+        e.preventDefault()
 
     # duration range
     if $("#duration-range").val()
