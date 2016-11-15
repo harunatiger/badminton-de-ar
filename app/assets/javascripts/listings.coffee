@@ -261,11 +261,14 @@ $ ->
       return
 
     # bootstrap datepicker
-    $('.datepicker').datepicker
-      autoclose: true,
-      startDate: '+1d',
-      language: 'en',
-      orientation: 'top auto'
+    $('.datepicker')
+      .datepicker
+        autoclose: true,
+        startDate: '+1d',
+        language: 'en',
+        orientation: 'top auto'
+      .on 'show', (e) ->
+        $('#search_schedule').blur()
     # for touch devices
     if $('html').hasClass('touch')
       $('.datepicker').attr('readonly', 'readonly')
