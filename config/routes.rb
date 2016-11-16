@@ -7,7 +7,14 @@ Rails.application.routes.draw do
   resources :features, only: [:index] do
     collection do
       get 'contents'
-      get 'kyoto'
+      resources :kyoto, :controller => 'features', only: [] do
+        collection do
+          get '/' => 'features#kyoto'
+        end
+        member do
+          get '/' => 'features#contents_kyoto'
+        end
+      end
     end
   end
 

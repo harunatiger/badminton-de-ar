@@ -12,6 +12,11 @@ class FeaturesController < ApplicationController
   def kyoto
   end
   
+  def contents_kyoto
+    @content_id = params[:id].to_i
+    redirect_to root_path if @content_id > 9
+  end
+  
   def contents
     if request.xhr?
       render partial: "features/#{params[:device]}/#{params[:content_name]}"
