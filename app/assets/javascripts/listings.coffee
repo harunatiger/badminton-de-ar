@@ -261,11 +261,20 @@ $ ->
       return
 
     # bootstrap datepicker
-    $('.datepicker').datepicker
-      autoclose: true,
-      startDate: '+1d',
-      language: 'en',
-      orientation: 'top auto'
+    $('.datepicker')
+      .datepicker
+        autoclose: true,
+        startDate: '+1d',
+        language: 'en',
+        orientation: 'top auto'
+      .on 'show', (e) ->
+        $('#search_schedule').blur()
+    # for touch devices
+    if $('html').hasClass('touch')
+      $('.datepicker').attr('readonly', 'readonly')
+      $('.datepicker').on 'touchstart', (e) ->
+        $(this).datepicker('show')
+        e.preventDefault()
 
     # duration range
     if $("#duration-range").val()
@@ -287,6 +296,7 @@ $ ->
     $('.show-sort-filter').on 'click', (e) ->
       $('.default-buttons').hide()
       $('.sort-filter, .apply-buttons').show()
+      $('.filter-text').show()
       if $('#search_sort_by').val() == 'Tour'
         $(".sort-filter a[class='tour_tab']").tab('show')
       else if $('#search_sort_by').val() == 'Spot'
@@ -304,6 +314,7 @@ $ ->
         $('.sort-filter, .apply-buttons').hide()
         $('#tab-spot, #tab-tour').removeClass('active')
         $('.sort-filter li').removeClass('active')
+        $('.filter-text').hide()
 
       # clear search params
       $('#search_sort_by').val ''
@@ -329,6 +340,7 @@ $ ->
     $('.sort-filter a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
       if $('.filters').css('position') == 'fixed'
         $('.apply-buttons').show()
+      $('.filter-text').hide()
       return
 
     # sp filter show/hide
@@ -336,6 +348,8 @@ $ ->
       $('.filters').show()
       # clear duration range
       $('#duration-range').val ''
+      if !$('.sort-filter .nav-tabs li').hasClass('active')
+        $('.filter-text').show()
 
       if $('#search_sort_by').val() == 'Tour'
         $(".sort-filter a[class='tour_tab']").tab('show')
@@ -365,7 +379,7 @@ $ ->
           tmp_marker = new Array()
           tmp_marker.push(l.title, l.latitude, l.longitude, l.id, l.listing_id)
           markers.push(tmp_marker)
-          
+
         # Display multiple markers on a map
         infoWindow = new google.maps.InfoWindow()
         # Loop through our array of markers & place each one on the map
@@ -384,7 +398,7 @@ $ ->
             title: markers[i][0]
             id: markers[i][3]
             listing_id: markers[i][4])
-            
+
           # Allow each marker to have an info window
           google.maps.event.addListener marker, 'click', ->
             clicked_marker = this
@@ -405,7 +419,7 @@ $ ->
               infoWindow.setContent data
               infoWindow.open map, clicked_marker
             return
-      
+
           # Automatically center the map fitting all markers on the screen
           map.fitBounds bounds
           i++
@@ -650,7 +664,7 @@ $ ->
         return Math.ceil(amount * rate)
       else
         return (amount * rate).toFixed(2)
-      
+
 #     calcExchagedPriceWithFee = (amount)->
 #       currency_code = gon.currency.currency_code
 #       rate = gon.currency.rate
@@ -662,20 +676,20 @@ $ ->
 #       else
 #         exchange_fee = calcExchangeFee(amount)
 #         return (amount * rate + parseFloat(exchange_fee)).toFixed(2)
-      
+
     calcExchangeFee = (amount)->
       currency_code = gon.currency.currency_code
       rate = gon.currency.rate
       exhange_fee_rate = gon.currency.exhange_fee_rate
-      
+
       result = Math.ceil(amount * exhange_fee_rate)
       result = result * rate
-      
+
       if currency_code == 'HUF' or currency_code == 'TWD'
         return Math.ceil(result)
       else
         return result.toFixed(2)
-      
+
     $('#reservation_num_of_people').on 'change', ->
       numOfPeople = Number($('#reservation_num_of_people option:selected').text())
 
@@ -691,7 +705,7 @@ $ ->
       #$('#tour-basic-amount').text(calcExchagedPriceWithFee(basicPrice))
       #if currency_code != 'JPY'
       #  $('#exchange-fee').text(calcExchangeFee(basicPrice))
-        
+
     $('#request--sp').on 'click', ->
       $('#tour-action').show()
 
@@ -1072,22 +1086,22 @@ $ ->
         $('.manage-listing-edit, .close-layer--sp').hide()
         $('.manage-listing-edit, .close-layer--sp').removeClass('show-off')
       return false
-    
+
   # store reservation params for sign_up_form
   if $('body').hasClass('listings show')
     $(".listing_request[href='#sign_up_form']").on 'click', ->
       params = "&reservation_params[listing_id]=" + $('#reservation_listing_id').val() + "&reservation_params[schedule_date]=" + $('#checkin').val() + "&reservation_params[num_of_people]=" + $('#reservation_num_of_people').val() + "&reservation_params[guest_id]=" + $('#reservation_guest_id').val()
-      
+
       # facebook
       href = $("#sns_button").attr('href') + params
       $("#sns_button").attr("href", href)
       $('.facebook_link').attr("href", href)
-      
+
       # email
       href = $("#new_user").attr('action') + params
       $("#new_user").attr("action", href)
       return
-  
+
   if $('body').hasClass('listings new') || $('body').hasClass('listings edit') || $('body').hasClass('listings create') || $('body').hasClass('listings update')
 
     #---------------------------------------------------------------------
@@ -1144,13 +1158,13 @@ $ ->
             google.maps.event.addListener markers[index], 'dragend', (e) ->
               geocodeLatLng e.latLng.lat(), e.latLng.lng(), index
               return
-            
+
         $(this).keydown (e) ->
           if e.keyCode == 13
             e.preventDefault()
             e.stopPropagation()
           return
-        
+
         $(this).keyup (e) ->
           if location_values[index] != $(this).val()
             $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).val ''
@@ -1235,7 +1249,7 @@ $ ->
         this.addListener 'place_changed', ->
           if location_values[index] == $("input[name*='listing_destinations_attributes'][name*='location']").eq(index).val()
             return
-          
+
           place = this.getPlace()
           if !place.geometry
             $("input[name*='listing_destinations_attributes'][name*='latitude']").eq(index).empty()
@@ -1305,7 +1319,7 @@ $ ->
       initialize()
       autoComplete()
       return
-    
+
   # reviews
   if $('body').hasClass('listings show')
     # read more reviews
@@ -1323,7 +1337,7 @@ $ ->
         error: ->
           return false
       return false
-    
+
   # content expand (same with common.......)
   setReadMore = ->
     if $('.expandable').length
