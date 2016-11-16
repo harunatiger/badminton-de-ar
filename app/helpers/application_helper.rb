@@ -955,4 +955,26 @@ module ApplicationHelper
     return 'JA' if language.name == 'Japanese'
     ''
   end
+  
+  def feature_kyoto_top_image(content_id)
+    if content_id == 1
+      'no-image-50x50.gif'
+    elsif content_id == 2
+      'no-image-50x50.gif'
+    elsif content_id == 3
+      'no-image-50x50.gif'
+    elsif content_id == 4
+      'no-image-50x50.gif'
+    elsif content_id == 5
+      'no-image-50x50.gif'
+    elsif content_id == 6
+      'no-image-50x50.gif'
+    elsif content_id == 7
+      'no-image-50x50.gif'
+    elsif content_id == 8
+      'no-image-50x50.gif'
+    elsif content_id == 9
+      'no-image-50x50.gif'
+    end
+  end
 end
