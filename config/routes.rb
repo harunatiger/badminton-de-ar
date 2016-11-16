@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :features, only: [:index] do
     collection do
       get 'contents'
+      get 'kyoto'
     end
   end
 

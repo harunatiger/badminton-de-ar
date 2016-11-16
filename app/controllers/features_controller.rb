@@ -3,8 +3,13 @@ class FeaturesController < ApplicationController
 
   # GET /features
   # GET /features.json
+  
+  # kamakura
   def index
-    @features = Feature.all
+  end
+  
+  # kyoto
+  def kyoto
   end
   
   def contents
