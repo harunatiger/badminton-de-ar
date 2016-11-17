@@ -19,7 +19,7 @@ module ApplicationHelper
       "#{page_description}"
     end
   end
-  
+
   def page_title
     if controller_name == 'profiles' and action_name == 'show'
       user = User.find_by_id(@profile.user_id)
@@ -176,7 +176,7 @@ module ApplicationHelper
   def user_id_to_profile_id(user_id)
     User.find(user_id).profile.id
   end
-  
+
   def user_id_to_profile(user_id)
     User.find(user_id).profile
   end
@@ -816,15 +816,15 @@ module ApplicationHelper
       talk_to_me_message_thread_path(id, what_talk_about: true)
     end
   end
-  
+
   def disabled_language_id
     Language.where(name: 'English').first.id
   end
-  
+
   def checked_language_ids(profile)
     profile.language_ids.index(disabled_language_id) ? @profile.language_ids : @profile.language_ids.push(disabled_language_id)
   end
-  
+
   def what_talk_about_contents
     [
       {name: 'Spots', image: 'what_talk_about/ttm_spots.png'},
@@ -833,7 +833,7 @@ module ApplicationHelper
       {name: 'Others', image: 'what_talk_about/ttm_others.png'}
     ]
   end
-  
+
   def what_talk_about_message?(message)
     what_talk_about_contents.each do |content|
       return true if message == Settings.message.what_talk_about.to_guide + content[:name].downcase! + '.'
@@ -845,105 +845,105 @@ module ApplicationHelper
   def report_reasons
     ['Spam/advertising.', 'They are using TOMODACHI GUIDE as a dating site.', 'They are causing trouble.', 'Other']
   end
-  
+
   def listing_to_listing_images(listing)
     ListingImage.where(listing_id: listing.id)
   end
-  
+
   def currency_sign
     sign = Currency.currency_code_and_sign_hash[session[:currency_code]]
     sign.present? ? sign : '¥'
   end
-  
+
   def currency_sign_by_payment(payment)
     return '¥' if payment.blank?
     sign = Currency.currency_code_and_sign_hash[payment.currency_code]
     sign.present? ? sign : '¥'
   end
-  
+
   def exchanged_amount(amount)
     return amount if session[:currency_code] == 'JPY'
     result = (BigDecimal(amount.to_s) * BigDecimal(session[:rate].to_s))
     return result.ceil if session[:currency_code] == 'HUF' or session[:currency_code] == 'TWD'
     result.round(2)
   end
-  
+
   def exchanged_amount_by_payment(payment, amount)
     return amount if payment.blank? or payment.currency_code.blank?
     currency_code = payment.currency_code
     rate = payment.exchange_rate
-    
+
     return amount if currency_code == 'JPY'
-    
+
     result = (BigDecimal(amount.to_s) * BigDecimal(rate.to_s))
     return result.ceil if currency_code == 'HUF' or currency_code == 'TWD'
     result.round(2)
   end
-  
+
   def exchanged_display_amount(amount)
     return amount if session[:currency_code] == 'JPY'
-    
+
     result = ((BigDecimal(amount.to_s) * BigDecimal(session[:rate].to_s)) + exchange_fee(amount))
-    return result.ceil if session[:currency_code] == 'HUF' or session[:currency_code] == 'TWD'  
+    return result.ceil if session[:currency_code] == 'HUF' or session[:currency_code] == 'TWD'
     result.round(2)
   end
-  
+
   def exchanged_display_amount_by_payment(payment, amount)
     return amount if payment.blank? or payment.currency_code.blank?
     currency_code = payment.currency_code
     rate = payment.exchange_rate
-    
+
     return amount if currency_code == 'JPY'
-    
+
     result = ((BigDecimal(amount.to_s) * BigDecimal(rate.to_s)) + exchange_fee_by_payment(payment, amount))
-    return result.ceil if currency_code == 'HUF' or currency_code == 'TWD'  
+    return result.ceil if currency_code == 'HUF' or currency_code == 'TWD'
     result.round(2)
   end
-  
+
   def exchange_fee(amount)
     return 0 if session[:currency_code] == 'JPY'
     amount = (BigDecimal(amount.to_s) * BigDecimal(Settings.reservation.exchange_rate.to_s)).ceil
     result = (BigDecimal(amount.to_s) * BigDecimal(session[:rate].to_s))
-    return result.ceil if session[:currency_code] == 'HUF' or session[:currency_code] == 'TWD'  
+    return result.ceil if session[:currency_code] == 'HUF' or session[:currency_code] == 'TWD'
     result.round(2)
   end
-  
+
   def exchange_fee_by_payment(payment, amount)
     return 0 if payment.blank? or payment.currency_code.blank?
     currency_code = payment.currency_code
     rate = payment.exchange_rate
-    
+
     return 0 if currency_code == 'JPY'
-    
+
     amount = (BigDecimal(amount.to_s) * BigDecimal(Settings.reservation.exchange_rate.to_s)).ceil
     result = (BigDecimal(amount.to_s) * BigDecimal(rate.to_s))
-    return result.ceil if currency_code == 'HUF' or currency_code == 'TWD'  
+    return result.ceil if currency_code == 'HUF' or currency_code == 'TWD'
     result.round(2)
   end
-  
+
   def languages
     [Settings.laguages.ja, Settings.laguages.en]
   end
-  
+
   def spot_to_pickup(spot)
     return false if spot.pickup_id.blank?
     pickup = Pickup.find_by_id(spot.pickup_id)
     return false if pickup.blank?
     return pickup
   end
-  
+
   def spot_image(spot)
     spot_image = SpotImage.find_by_spot_id(spot.id)
     return false if spot_image.blank? || spot_image.image.blank?
     spot_image.image
   end
-  
+
   def spot_image_thumb(spot)
     spot_image = SpotImage.find_by_spot_id(spot.id)
     return false if spot_image.blank? || spot_image.image.blank?
     spot_image.image.thumb
   end
-  
+
   def language_id_to_short_name(language_id)
     language = Language.find_by_id(language_id)
     return '' if language.blank?
@@ -955,26 +955,26 @@ module ApplicationHelper
     return 'JA' if language.name == 'Japanese'
     ''
   end
-  
+
   def feature_kyoto_top_image(content_id)
     if content_id == 1
-      'no-image-50x50.gif'
+      'feature_kyoto/01/hero_bg.jpg'
     elsif content_id == 2
-      'no-image-50x50.gif'
+      'feature_kyoto/02/hero_bg.jpg'
     elsif content_id == 3
-      'no-image-50x50.gif'
+      'feature_kyoto/03/hero_bg.jpg'
     elsif content_id == 4
-      'no-image-50x50.gif'
+      'feature_kyoto/04/hero_bg.jpg'
     elsif content_id == 5
-      'no-image-50x50.gif'
+      'feature_kyoto/05/hero_bg.jpg'
     elsif content_id == 6
-      'no-image-50x50.gif'
+      'feature_kyoto/06/hero_bg.jpg'
     elsif content_id == 7
-      'no-image-50x50.gif'
+      'feature_kyoto/07/hero_bg.jpg'
     elsif content_id == 8
-      'no-image-50x50.gif'
+      'feature_kyoto/08/hero_bg.jpg'
     elsif content_id == 9
-      'no-image-50x50.gif'
+      'feature_kyoto/09/hero_bg.jpg'
     end
   end
 end

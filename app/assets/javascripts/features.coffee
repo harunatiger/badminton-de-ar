@@ -76,8 +76,15 @@ featureResponsive = ->
 
 # onload
 $ ->
-  # if features#index
+  # if features
   if $('body').hasClass('features')
+
+    # lazyload background-images
+    $('.img-bg, .tour-cover').lazyload
+      effect: 'fadeIn'
+
+  # if features#index
+  if $('body').hasClass('features') && !$('body').hasClass('kyoto') && !$('body').hasClass('contents_kyoto')
 
     setTimeout (->
       # Responsive
@@ -128,10 +135,6 @@ $ ->
         return false
     ), 100
 
-    # lazyload background-images
-    $('.img-bg, .tour-cover').lazyload
-      effect: 'fadeIn'
-
     # window resize
     timer = false
     $(window).resize ->
@@ -143,3 +146,11 @@ $ ->
         return
       ), 200)
       return
+
+  # if features#kyoto or features#contents_kyoto
+  if $('body').hasClass('features kyoto') || $('body').hasClass('features contents_kyoto')
+    # read more
+    $('.js-read-more').on 'click', (e) ->
+      $('.js-fk-hide').removeClass('hide--sp')
+      $(this).hide()
+      e.preventDefault()
