@@ -83,6 +83,7 @@ class User < ActiveRecord::Base
 
   scope :mine, -> user_id { where(id: user_id) }
   scope :active_users, -> { where.not(last_access_date: nil).where('last_access_date > ?', Time.zone.today - Settings.user.active_period.days) }
+  scope :open, -> { without_soft_destroyed.where(admin_closed_at: nil) }
   
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil, create_email=false)
     unless user = User.where(provider: auth.provider, uid: auth.uid).first
@@ -313,7 +314,7 @@ class User < ActiveRecord::Base
   end
   
   def friends_profiles
-    users = self.friends
+    users = self.friends.open
     Profile.where(user_id: users.ids)
   end
   
@@ -343,7 +344,7 @@ class User < ActiveRecord::Base
   end
   
   def search_friends(search_params)
-    users = self.friends.joins(:profile).merge(Profile.contains?(search_params[:keyword]))
+    users = self.friends.open.joins(:profile).merge(Profile.contains?(search_params[:keyword]))
     Profile.where(user_id: users.ids).order_by_created_at_asc
   end
   
