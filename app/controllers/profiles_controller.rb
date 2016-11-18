@@ -166,7 +166,8 @@ class ProfilesController < ApplicationController
     end
 
     def deleted_check
-      return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.profile.deleted_profile_id if @profile.soft_destroyed?
+      user = User.find(@profile.user_id)
+      return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.profile.deleted_profile_id if @profile.soft_destroyed? || user.admin_closed_at.present?
     end
   
     def set_reviews

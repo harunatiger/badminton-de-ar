@@ -23,12 +23,15 @@
                     = credit
                     | 円
                 .col-md-5.text-center.col-middle
-                  - if credit >= 5000
+                  - if credit >= 5000 && @bank_setted
                     = link_to '出金依頼', '#request_withdrawal', class: 'btn btn-primary', data: { toggle: "modal" }
                   - else
                     = link_to '出金依頼', '#', class: 'btn btn-primary disabled', data: { toggle: "modal" }
                   .small1.text-red.row-space-top-1
                     | ※ 5,000円以上から出金依頼できます。
+                    - if !@bank_setted
+                      .small1.text-red.row-space-top-1
+                        | ※ Bank Detailsの登録をお願いします。
 
           - if @requests.present?
             .card.card-danger
