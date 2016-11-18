@@ -977,4 +977,27 @@ module ApplicationHelper
       'feature_kyoto/09/hero_bg.jpg'
     end
   end
+
+  def feature_kyoto_top_image_sp(content_id)
+    if content_id == 1
+      'feature_kyoto/card_bg01.jpg'
+    elsif content_id == 2
+      'feature_kyoto/card_bg02.jpg'
+    elsif content_id == 3
+      'feature_kyoto/card_bg03.jpg'
+    elsif content_id == 4
+      'feature_kyoto/card_bg04.jpg'
+    elsif content_id == 5
+      'feature_kyoto/card_bg05.jpg'
+    elsif content_id == 6
+      'feature_kyoto/card_bg06.jpg'
+    elsif content_id == 7
+      'feature_kyoto/card_bg07.jpg'
+    elsif content_id == 8
+      'feature_kyoto/card_bg08.jpg'
+    elsif content_id == 9
+      'feature_kyoto/card_bg09.jpg'
+    end
+  end
+
 end

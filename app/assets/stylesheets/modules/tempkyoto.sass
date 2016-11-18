@@ -39,8 +39,16 @@
   background-size: cover
 
 .features.contents_kyoto
+  .page-container
+    @media (max-width: 767px)
+      > .row-space-top-8
+        margin-top: 25px
+      .row-space-top-6.js-fk-hide
+        margin-top: 10px
   .features-kyoto-header
     position: relative
+    @media (max-width: 767px)
+      margin-bottom: 0
     .img-content
       position: absolute
       top: 0
@@ -59,11 +67,29 @@
       .text
         line-height: 60px
         font-size: 60px
-        @media (max-width: 767px)
+      @media (max-width: 1099px)
+        .num
+          line-height: 80px
+          font-size: 80px
+        .sub
+          line-height: 15px
+          font-size: 15px
+        .text
+          line-height: 40px
+          font-size: 40px
+      @media (max-width: 767px)
+        .text
+          text-align: center
+          line-height: 28px
+          font-size: 20px
+          font-weight: 800
+      @media (max-width: 380px)
+        .text
           font-size: 18px
-          font-weight: 700
   .text-readable
     font-size: 16px
+    @media (max-width: 767px)
+      text-align: center
   #area-section
     padding: 20px
     margin-left: -15px
