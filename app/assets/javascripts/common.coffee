@@ -435,7 +435,7 @@ $ ->
           height: 340
         767:
           width: '100%'
-          height: 350
+          autoHeight: true
           visibleSize: 'auto'
           forceSize: 'none'
       # scale class
