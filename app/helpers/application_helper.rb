@@ -47,7 +47,32 @@ module ApplicationHelper
     elsif controller_name == 'static_pages' and action_name == 'our_partners'
       "Our Partners - TOMODACHI GUIDE"
     elsif controller_name == 'features'
-      "Get the Information of Kamakura in Japan - TOMODACHI GUIDE"
+      if action_name == 'kyoto'
+        "Get the Information of Kyoto in Japan - TOMODACHI GUIDE"
+      elsif action_name != 'contents_kyoto'
+        "Get the Information of Kamakura in Japan - TOMODACHI GUIDE"
+      else
+        if @content_id == 1
+          "Get the Information of Fushimi Inari Shrine in Kyoto - TOMODACHI GUIDE"
+        elsif @content_id == 2
+          "Get the Information of Kinkakuji, Ryoanji, Ninnaji in Kyoto - TOMODACHI GUIDE"
+        elsif @content_id == 3
+          "Get the Information of Nanzenji Ginkakuji, Eikando in Kyoto - TOMODACHI GUIDE"
+        elsif @content_id == 4
+          "Get the Information of Kiyomizudera, Yasaka Shrine, Gion in Kyoto - TOMODACHI GUIDE"
+        elsif @content_id == 5
+          "Get the Information of Arashiyama Bamboo, Togetsukyo Bridge, Tenryuji in Kyoto - TOMODACHI GUIDE"
+        elsif @content_id == 6
+          "Get the Information of Jojakkoji, Atago Shrine in Kyoto - TOMODACHI GUIDE"
+        elsif @content_id == 7
+          "Get the Information of Kifune Shrine, Kuramadera in Kyoto - TOMODACHI GUIDE"
+        elsif @content_id == 8
+          "Get the Information of Miyamacho, Amanohashidate, Ine Town in Kyoto - TOMODACHI GUIDE"
+        elsif @content_id == 9
+          "Get the Information of Cherry Blossoms, Festivals, Autumn Leaves, Snow in Kyoto - TOMODACHI GUIDE"
+        else
+        end
+      end
     else
       "Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
     end
