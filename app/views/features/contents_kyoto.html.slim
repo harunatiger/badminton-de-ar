@@ -1,0 +1,363 @@
+/! features/contents_kyoto
+- if @content_id == 1
+  - provide(:description, "Don’t Stop at the Entrance - Fushimi Inari Shrine. Most travelers who come to see the famous senbon torii (the thousand gates) never go beyond the postcard shot. Yet there is so much more to see—the torii are only the entrance.")
+  .features-kyoto-header.row-space-4
+    = image_tag(feature_kyoto_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_kyoto_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 01.
+              .sub.text-light.row-space-2.hide--sp Don’t stop at the entrance!
+              .text.text-light Fushimi Inari Shrine
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Fushimi Inari Shrine
+        .row-space-4.text-readable
+          p Throughout the 8th century to the 18th century, Kyoto was the center of Japanese culture, so it goes without saying that it’s a destination with a particularly rich and vibrant history. The city is bursting with so many famous sightseeing spots that you could find them even with your eyes closed! This may lead you to think you can full enjoy and appreciate Kyoto travelling by yourselves—in this case, you came across the right article.
+          p.hide--sp.js-fk-hide As the country’s former capital, Kyoto dominated Japan’s culture for 1,000 years, so wouldn’t it be a shame to only get a superficial look and miss out on all its subtleties and hidden treasures? Just like going to a concert for the hits only, and overlooking a band’s fascinating yet overlooked back catalog. In Japanese, this would be called “mottainai”—a wasted opportunity. Here, we will show you some of the hidden culture spots in Kyoto, places and activities that are just waiting to be discovered by visitors from around the world. Kinkakuji may symbolize Kyoto, but the old capital has so much more to offer—Let us take you to the real Kyoto.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+    .row.row-space-top-8
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/01/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/01/photo2.jpg", class: "img-responsive"
+
+- elsif @content_id == 2
+  - provide(:description, "Take the Back Streets to Visit the Most Popular Temples - Kingakuji, Ryoanji & Ninnaji. If you want to visit Kyoto's ultra-famous temples, the back streets are the way to go. Most people take the bus, but those who are familiar with the area know that these hotspots are only a 15-minute walk from one another.")
+  .features-kyoto-header.row-space-4
+    = image_tag(feature_kyoto_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_kyoto_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 02.
+              .sub.text-light.row-space-2.hide--sp Take the Back Streets to Visit the Most Popular Temples
+              .text.text-light Kingakuji, Ryoanji & Ninnaji
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Kingakuji, Ryoanji and Ninnaji
+        .row-space-4.text-readable
+          p If you want to visit Kyoto's ultra-famous temples, the back streets are the way to go. Most people take the bus, but those who are familiar with the area know that these hotspots are only a 15-minute walk from one another. As you wander down the old stone streets, there are bound to be plenty of things you will be desperate to learn about.
+          p.hide--sp.js-fk-hide Indeed, there Is a host of secret traditions that aren't yet known overseas, hidden away on these back streets where you could easily get lost without a guide (although 15 minutes may not be enough if you visit with a guide). Then, if you take the train home, why not stop by a shopping street popular with local residents? That way you'll feel like a true Kyotoite, and get once in a lifetime opportunities to take pictures from the perfect angles.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+    .row.row-space-top-6
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/02/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/02/photo2.jpg", class: "img-responsive"
+    .row.row-space-top-6.hide--sp.js-fk-hide
+      .col-md-10.col-md-offset-1.text-readable.text-center
+        p At Ryoanji, home to one of the most popular stone gardens in Japan, you can try Buddhist vegetarian cuisine—gastronomy based on the Buddhist precept of not taking life. Strictly speaking, you shouldn't leave any food, but if there's something you really can't eat, you can always give it to your guide!
+    .row.row-space-top-8.hide--sp.js-fk-hide
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/02/photo3.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/02/photo4.jpg", class: "img-responsive"
+
+- elsif @content_id == 3
+  - provide(:description, "Be Cleansed by the Water and the Forest - Nanzenji, Ginkakuji & Eikando The west side of Kyoto connects to the Biwako Lake, and has long been one of the main sources of water for Kyoto. This is why the waterways here are kept so clean.")
+  .features-kyoto-header.row-space-4
+    = image_tag(feature_kyoto_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_kyoto_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 03.
+              .sub.text-light.row-space-2.hide--sp Be Cleansed by the Water and the Forest
+              .text.text-light Nanzenji, Ginkakuji & Eikando
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Nanzenji, Ginkakuji and Eikando
+        .row-space-4.text-readable
+          p The west side of Kyoto connects to the Biwako Lake, and has long been one of the main sources of water for Kyoto. This is why the waterways here are kept so clean. We particularly recommend the Philosopher's Walk, where famous thinkers of old used to saunter. Beautiful trees grow along the riverside, offering a new scenery for each season. 
+          p.hide--sp.js-fk-hide The red-brick aqueduct that crosses Nanzenji was built in the 19th century, and used to play an important role in keeping the water of Kyoto clean.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+    .row.row-space-top-6
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/03/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/03/photo2.jpg", class: "img-responsive"
+    .row.row-space-top-6.hide--sp.js-fk-hide
+      .col-md-10.col-md-offset-1.text-readable.text-center
+        p Walking around this area with a TOMODACHI GUIDE will give you a deep understand of the harmony that can be found between nature and people by looking after the water. And later, when drinking udon soup at the nearby Ginkakuji or eating tofu made from the fresh water at Nanzenji, your stomach will understand too!
+    .row.row-space-top-8.hide--sp.js-fk-hide
+      .col-md-12.row-space-4
+        = image_tag "feature_kyoto/03/photo3.jpg", class: "img-responsive"
+
+- elsif @content_id == 4
+  - provide(:description, "Take a Stroll in Kimono - Kiyomizudera, Yasaka Shrine & Gion (Kodaiji) The Higashiyama district has long been the heart of Kyoto's downtown, with historic streets stretching all the way from Gion to Kiyomizudera. So, wouldn't this the best place to take a stroll in traditional kimono?")
+  .features-kyoto-header.row-space-4
+    = image_tag(feature_kyoto_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_kyoto_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 04.
+              .sub.text-light.row-space-2.hide--sp Take a Stroll in Kimono
+              .text.text-light Kiyomizudera, Yasaka Shrine & Gion
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Kiyomizudera, Yasaka Shrine and Gion
+        .row-space-4.text-readable
+          p The Higashiyama district has long been the heart of Kyoto's downtown, with historic streets stretching all the way from Gion to Kiyomizudera. So, wouldn't this the best place to take a stroll in traditional kimono? Our guides know plenty of food stalls tucked away down the cobbled side paths that offer delicious street food. 
+          p.hide--sp.js-fk-hide Be careful though, because those who aren't used to wearing a kimono might get into embarrassing situations like the obi—the belt—coming loose! You might even get mistaken for a real maiko or geiko in Gion. Walking in kimono with your TOMODACHI GUIDE, you will feel as if you've been transported hundreds of years back in time.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+    .row.row-space-top-6
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/04/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/04/photo2.jpg", class: "img-responsive"
+    .row.row-space-top-6.hide--sp.js-fk-hide
+      .col-md-10.col-md-offset-1.text-readable.text-center
+        p After spending a day in this dream, climbing up to the top of the beautiful Kiyomizudera Temple to look over the balcony at the city below, and walking around in the stunning gardens of Kodaiji, you might even forget that you ever wore Western clothes!
+    .row.row-space-top-8.hide--sp.js-fk-hide
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/04/photo3.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/04/photo4.jpg", class: "img-responsive"
+
+- elsif @content_id == 5
+  - provide(:description, "Respect for Nature - Bamboo Forest, Togetsukyo Bridge & Tenryuji This area, 30 minutes by train from the center of Kyoto, is where the city meets the mountains that border the west side of Kyoto.")
+  .features-kyoto-header.row-space-4
+    = image_tag(feature_kyoto_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_kyoto_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 05.
+              .sub.text-light.row-space-2.hide--sp Respect for Nature
+              .text.text-light
+                | Bamboo Forest,
+                br
+                | Togetsukyo Bridge & Tenryuji
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Bamboo Forest, 
+          br
+          | Togetsukyo Bridge and Tenryuji
+        .row-space-4.text-readable
+          p This area, 30 minutes by train from the center of Kyoto, is where the city meets the mountains that border the west side of Kyoto. It is home to many places that embody Japan's respect for nature—the stunning bamboo forest, the Togetsukyo Bridge spanning the length of the wide river, and Tenryuji, which passes down the teachings of Zen Buddhism. 
+          p.hide--sp.js-fk-hide After spending a day with your TOMODACHI GUIDE, taking a boat onto the Katsura River for a closer look at the Togetsukyo Bridge, or walking through the bamboo forest to let your thoughts wander, you are sure to gain great insights into the Japanese way of thinking.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+    .row.row-space-top-8
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/05/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/05/photo2.jpg", class: "img-responsive"
+
+- elsif @content_id == 6
+  - provide(:description, "Deeper into Nature - Jojakkoji & Atago Shrine. Take the Torokko train through this riverside forest to experience truly Japanese nature, or ride on the fast-flowing rapids of Hozugawa River for a thrilling journey.")
+  .features-kyoto-header.row-space-4
+    = image_tag(feature_kyoto_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_kyoto_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 06.
+              .sub.text-light.row-space-2.hide--sp Deeper into Nature
+              .text.text-light Jojakkoji & Atago Shrine
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Jojakkoji and Atago Shrine
+        .row-space-4.text-readable
+          p Take the Torokko train through this riverside forest to experience truly Japanese nature, or ride on the fast-flowing rapids of Hozugawa River for a thrilling journey. Once you arrive, there are many interesting places to visit such as Jojakkoji, a popular shrine with the locals. 
+          p.hide--sp.js-fk-hide Naturally, the elaborate temples, shrines, and gardens built by the Imperial family in the center of Kyoto are appealing sights, but places like this—embodying ancient Japanese customs born from the worship of nature—hold a kind of spiritual power. During your trip, you can also trek up to the Atago Shrine, located on a mountain 900 meters above sea level. Finally, as you wander up the path and reflect on the foundations of Japanese spiritual beliefs, you can gain a new insight into the Japanese way of thinking.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+    .row.row-space-top-8
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/06/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/06/photo2.jpg", class: "img-responsive"
+
+- elsif @content_id == 7
+  - provide(:description, "1,300 Years Hidden Away from the Outside World - Kifune Shrine & Kuramadera. We can't help but wonder if there isn't some kind of conspiracy to keep the town of Kifune a secret from foreign travelers, as very few travelers from overseas ever come to visit here.")
+  .features-kyoto-header.row-space-4
+    = image_tag(feature_kyoto_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_kyoto_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 07.
+              .sub.text-light.row-space-2.hide--sp 1,300 Years Hidden Away from the Outside World
+              .text.text-light Kifune Shrine & Kuramadera
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Kifune Shrine and Kuramadera
+        .row-space-4.text-readable
+          p We can't help but wonder if there isn't some kind of conspiracy to keep the town of Kifune a secret from foreign travelers, as very few travelers from overseas ever come to visit here. The town is home to Kifune Shrine  and is a mere one-hour train ride away from Kyoto. This shrine, known for its "water divination," has a distinct Japanese style, seamlessly merging with the nature that surrounds it. 
+          p.hide--sp.js-fk-hide It holds many hidden details that might elude you without a guide, among which the huge trees that are thought to be deities. Also, if you happen to visit in summer, try going up to the kawadoko restaurants situated on balcony-like structures above the river for a uniquely Kyoto dining experience. This area is also known for its several onsen hot springs, making it an ideal place to stay overnight.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+    .row.row-space-top-8
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/07/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/07/photo2.jpg", class: "img-responsive"
+
+- elsif @content_id == 8
+  - provide(:description, "From a Forest Village to a Seaside Town - Miyamacho, Amanohashidate & Ine. If you feel like diving even deeper into Japanese culture, go by car to stretch your legs by the ocean. On the way is the town of Miyamacho, just an hour and a half from Kyoto.")
+  .features-kyoto-header.row-space-4
+    = image_tag(feature_kyoto_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_kyoto_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 08.
+              .sub.text-light.row-space-2.hide--sp From a Forest Village to a Seaside Town
+              .text.text-light Miyamacho, Amanohashidate & Ine
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Miyamacho, Amanohashidate and Ine
+        .row-space-4.text-readable
+          p If you feel like diving even deeper into Japanese culture, go by car to stretch your legs by the ocean. On the way is the town of Miyamacho, just an hour and a half from Kyoto. This town is known as "Kyoto by the forest," and features distinctive beautiful thatched roof houses. Here, the Japanese rural way of life continues today. 
+          p.hide--sp.js-fk-hide Locals have musical gatherings under the thatched roofs—listening to the traditional music is a mesmerizing experience unlike any other. From here, you can visit Ashiu Forest, an ancient untouched woodland that is completely different from others which have experienced much human activity as places of worship.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+    .row.row-space-top-6
+      .col-md-12.row-space-4
+        = image_tag "feature_kyoto/08/photo1.jpg", class: "img-responsive"
+    .row.row-space-top-6.hide--sp.js-fk-hide
+      .col-md-10.col-md-offset-1.text-readable.text-center
+        p After Miyamacho, it's another hour's drive to the Sea of Japan. Take a look at Amanohashidate—the "Bridge in the Heavens" (also known as "Kyoto by the sea")—, home to one of the Three Views of Japan; then go to Ine, a town virtually unknown even to most Japanese, where fishing houses called funaya line up along the seafront, with boats moored underneath. These distinctive lined streets are deserving of a Michelin star.
+    .row.row-space-top-8.hide--sp.js-fk-hide
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/08/photo2.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/08/photo3.jpg", class: "img-responsive"
+
+- elsif @content_id == 9
+  - provide(:description, "Something to Enjoy in Every Season - Cherry Blossoms, Festivals, Autumn Leaves, & Snow. There is something different to enjoy in each of the four seasons in Japan, but in Kyoto, these distinctions stand out even more. In spring, you can take a stroll down Philosopher's Walk and be surrounded by blooming cherry blossoms, from up above to the river flowing below.")
+  .features-kyoto-header.row-space-4
+    = image_tag(feature_kyoto_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_kyoto_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 09.
+              .sub.text-light.row-space-2.hide--sp Something to Enjoy in Every Season
+              .text.text-light
+                | Cherry Blossoms, Festivals,
+                br
+                | Autumn Leaves, & Snow
+  .page-container
+    .row.row-space-top-8
+      .col-md-12.text-center
+        .h3.text-brand.row-space-2.hide--sp
+          | Cherry Blossoms, Festivals, Autumn Leaves, & Snow
+        .row-space-4.text-readable
+          p There is something different to enjoy in each of the four seasons in Japan, but in Kyoto, these distinctions stand out even more. In spring, you can take a stroll down Philosopher's Walk and be surrounded by blooming cherry blossoms, from up above to the river flowing below. In summer, the amazing Gion Matsuri takes place, with geiko and maiko joining in the festival in the streets. 
+          p.hide--sp.js-fk-hide Then at night, huge kanji ideograms are set alight on the mountains that neighbor each side of the city. Later, as the autumn leaves start to change color, the trees of Kyoto welcome fall with a splendid burst of scarlet hues. Last, winter in Kyoto is known for being particularly cold, and often snowy. So seize the chance of seeing the usually golden Kinkakuji cloaked in white: it's a sight to behold. So with a good guide, you can make lasting memories no matter the season!
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+    .row.row-space-top-8
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/09/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_kyoto/09/photo2.jpg", class: "img-responsive"
+
+.page-container
+  #area-section.row-space-8.show--sp
+    = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+
+  .features-tourlist
+    .row.row-space-top-8.row-space-4
+      .col-md-12
+        h3.text-black.center-lined
+          span
+            | 0
+            = @content_id
+            |.  Recommended Tours
+    .row.row-space-8
+      - if @content_id == 1
+        - feature_listing_ids = [516, 492, 388]
+      - elsif @content_id == 2
+        - feature_listing_ids = [513, 526, 392]
+      - elsif @content_id == 3
+        - feature_listing_ids = [493, 467, 406]
+      - elsif @content_id == 4
+        - feature_listing_ids = [514, 450, '']
+      - elsif @content_id == 5
+        - feature_listing_ids = [451, 377, '']
+      - elsif @content_id == 6
+        - feature_listing_ids = [525, 535, '']
+      - elsif @content_id == 7
+        - feature_listing_ids = [515, 534, '']
+      - elsif @content_id == 8
+        - feature_listing_ids = [527, '', '']
+      - elsif @content_id == 9
+        - feature_listing_ids = [494, 385, '']
+      - feature_listing_ids.each do |id|
+        .col-md-6.col-lg-4.row-space-4
+          - if feature_listing(id).present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+          - else
+            .tour-listing-empty.text-black.text-brand.text-center
+
+.row-space-4
+  = render partial: "cards_kyoto"

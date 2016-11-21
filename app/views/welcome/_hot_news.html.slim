@@ -13,17 +13,20 @@
               .sp-slide.sp-next
                 = link_to root_url + feature.url, class: "" do
                   .carousel-img.hide--sp[style="background-image: url(#{feature.image})" alt="#{feature.title}"]
-                  .carousel-img.show--sp[style="background-image: url(#{feature.image_sp})" alt="#{feature.title}"]
+                  /.carousel-img.show--sp[style="background-image: url(#{feature.image_sp})" alt="#{feature.title}"]
+                  = image_tag feature.image_sp, class: "show--sp img-responsive", alt: feature.title
             - elsif num.size - 1
               .sp-slide.sp-prev
                 = link_to root_url + feature.url, class: "" do
                   .carousel-img.hide--sp[style="background-image: url(#{feature.image})" alt="#{feature.title}"]
-                  .carousel-img.show--sp[style="background-image: url(#{feature.image_sp})" alt="#{feature.title}"]
+                  /.carousel-img.show--sp[style="background-image: url(#{feature.image_sp})" alt="#{feature.title}"]
+                  = image_tag feature.image_sp, class: "show--sp img-responsive", alt: feature.title
             - else
               .sp-slide
                 = link_to root_url + feature.url, class: "" do
                   .carousel-img.hide--sp[style="background-image: url(#{feature.image})" alt="#{feature.title}"]
-                  .carousel-img.show--sp[style="background-image: url(#{feature.image_sp})" alt="#{feature.title}"]
+                  /.carousel-img.show--sp[style="background-image: url(#{feature.image_sp})" alt="#{feature.title}"]
+                  = image_tag feature.image_sp, class: "show--sp img-responsive", alt: feature.title
             - num += 1
 
   /.test
