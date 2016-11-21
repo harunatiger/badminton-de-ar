@@ -23,4 +23,6 @@ class Feature < ActiveRecord::Base
   
   mount_uploader :image, FeatureUploader
   mount_uploader :image_sp, FeatureUploader
+  
+  scope :order_by_order_number_asc, -> { order('order_number asc') }
 end
