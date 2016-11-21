@@ -11,9 +11,9 @@ class PickupsController < ApplicationController
   # GET /pickups/1.json
   def show
     unless @pickup.type == 'PickupTag'
-      @listings = @pickup.listings.opened.includes(:listing_detail)
+      @listings = @pickup.listings.opened.includes(:listing_detail).order_by_updated_at_desc
     else
-      @listings = @pickup.listings_by_listing_images.includes(:listing_detail)
+      @listings = @pickup.listings_by_listing_images.includes(:listing_detail).order_by_updated_at_desc
     end
     @pickups = Pickup.where.not(id: @pickup.id).where.not(selected_listing: nil)
     @announcement = Announcement.display_at('pickup').first
