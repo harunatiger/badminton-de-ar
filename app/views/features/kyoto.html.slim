@@ -1,0 +1,99 @@
+/! features#kyoto
+/! content link examples
+/= link_to 'content01', kyoto_path(1)
+/= link_to 'content02', kyoto_path(2)
+/= link_to 'content03', kyoto_path(3)
+- provide(:description, "Throughout the 8th century to the 18th century, Kyoto was the center of Japanese culture, so it goes without saying that it’s a destination with a particularly rich and vibrant history. The city is bursting with so many famous sightseeing spots that you could find them even with your eyes closed!")
+#features
+  .features-header
+    = image_tag 'feature_kyoto/hero-image.png', class: "img-responsive hide--sp"
+    = image_tag 'feature_kyoto/hero-image--sp.png', class: "img-responsive show--sp"
+    /.img-bg
+      .img-bg-content
+        .va-container.va-container-wh
+          .va-middle.text-center
+            .features-header-inner.text-left
+              h1
+                = image_tag 'feature/title_header.png', alt: "鎌倉"
+              h2.text-contrast
+                | A town bursting with Japanese sights,
+                br
+                | only an hour from Tokyo
+
+  .features-intro
+    .page-container
+      .row.row-space-top-8.row-space-8
+        .col-md-12.text-readable.row-space-top-8.text-center
+          h2.text-brand.text-black.row-space-8 
+            | What is Kyoto like ?
+          .row-space-4
+            p Throughout the 8th century to the 18th century, Kyoto was the center of Japanese culture, so it goes without saying that it’s a destination with a particularly rich and vibrant history. The city is bursting with so many famous sightseeing spots that you could find them even with your eyes closed! This may lead you to think you can full enjoy and appreciate Kyoto travelling by yourselves—in this case, you came across the right article.
+            p.hide--sp As the country’s former capital, Kyoto dominated Japan’s culture for 1,000 years, so wouldn’t it be a shame to only get a superficial look and miss out on all its subtleties and hidden treasures? Just like going to a concert for the hits only, and overlooking a band’s fascinating yet overlooked back catalog. In Japanese, this would be called “mottainai”—a wasted opportunity. Here, we will show you some of the hidden culture spots in Kyoto, places and activities that are just waiting to be discovered by visitors from around the world. Kinkakuji may symbolize Kyoto, but the old capital has so much more to offer—Let us take you to the real Kyoto.
+          .text-center.row-space-8.show--sp
+            = link_to "#", class: "btn btn-primary js-read-more" do
+              | Read more
+
+  = render partial: "cards_kyoto"
+
+  /#features-section01.features-section.hide--sp
+    .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section001.jpg'}"]
+      .img-bg-content
+        .va-container.va-container-wh
+          .va-middle.text-center
+            .section-title.text-left.text-contrast
+              .num.text-black 01.
+              .text.text-light Great Buddha of Kamakura
+
+    .section-content.page-container.text-center.row-space-6
+      .fore-text.row-space-top-8
+        | The Great Buddha in Kamakura is the second biggest in Japan, after the one in Nara. As the Great Buddha in Nara is housed inside a building, visitors can only look up at it from below, but the Great Buddha in Kamakura can be seen in detail from every angle.
+      /#section-content01--pc.collapse
+      #content01_pc.collapse
+        /= render partial: 'features/pc/content01'
+      = link_to "#content01_pc", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8", content_name: 'content01' do
+        span.text Read more
+    .features-tourlist.page-container
+      .row.row-space-top-8.row-space-4
+        .col-md-12
+          h3.text-black.center-lined
+            span 01. Recommended Tours
+      .row.row-space-8
+        - feature_listing_ids = [158, 321, 312]
+        - feature_listing_ids.each do |id|
+          .col-md-6.col-lg-4.row-space-4
+            - if feature_listing(id).present?
+              = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+            - else
+              .tour-listing-empty.text-black.text-brand.text-center
+
+        /.col-md-6.col-lg-4.row-space-4
+          - if feature_listing(321).present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(321)), listing: feature_listing(321)}
+          - else
+            .tour-listing-empty.text-black.text-brand.text-center
+
+        /.col-md-6.col-lg-4.row-space-4
+          - if feature_listing(312).present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(312)), listing: feature_listing(312)}
+          - else
+            .tour-listing-empty.text-black.text-brand.text-center
+
+#area-section.features-section.row-space-4
+  .page-container.row-space-top-4
+    .row.row-space-top-8.row-space-4
+      .col-md-12
+        h3.text-black.text-primary.center-lined
+          span KYOTO MAP
+    .row.row-space-8
+      .col-md-10.col-md-offset-1.row-space-4
+        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+
+#access-section.features-section.row-space-4
+  .page-container.row-space-top-4
+    .row.row-space-top-8.row-space-4
+      .col-md-12
+        h3.text-black.text-primary.center-lined
+          span ACCESS
+    .row.row-space-8
+      .col-md-12.row-space-4
+        = image_tag 'feature_kyoto/map_access.png', class: "img-responsive", alt: "ACCESS"

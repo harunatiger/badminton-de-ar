@@ -160,7 +160,7 @@ $ ->
           icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|00D9FF'
         else
           icon = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FFD000'
-            
+
         marker = new (google.maps.Marker)(
           position: position
           map: map
@@ -168,7 +168,7 @@ $ ->
           title: markers[i][0]
           id: markers[i][3]
           listing_id: markers[i][4])
-        
+
         # Allow each marker to have an info window
         if $('body').hasClass('profiles show')
           google.maps.event.addListener marker, 'click', ->
@@ -190,7 +190,7 @@ $ ->
               infoWindow.setContent data
               infoWindow.open map, clicked_marker
             return
-      
+
         # Automatically center the map fitting all markers on the screen
         map.fitBounds bounds
         i++
@@ -435,12 +435,7 @@ $ ->
           height: 340
         767:
           width: '100%'
-          height: 300
-          visibleSize: 'auto'
-          forceSize: 'none'
-        543:
-          width: '100%'
-          height: 200
+          autoHeight: true
           visibleSize: 'auto'
           forceSize: 'none'
       # scale class
