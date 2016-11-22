@@ -36,13 +36,13 @@ class Spot < ActiveRecord::Base
   validates :one_word, presence: true
   validate :has_spot_image?
   
-  scope :order_by_updated_at_desc, -> { order('updated_at desc') }
+  scope :order_by_updated_at_desc, -> { order('spots.updated_at desc') }
   scope :order_by_favorite_count_desc, -> { select("spots.*, count(favorites.id) AS favorites_count").
                                 joins("LEFT JOIN favorites ON spots.id = favorites.spot_id and favorites.soft_destroyed_at is null").
                                 group("spots.id").
                                 order("favorites_count DESC, spots.updated_at DESC")}
   scope :mine, -> user_id { where(user_id: user_id) }
-  scope :opened, -> { where(admin_closed_at: nil) }
+  scope :opened, -> { where(admin_closed_at: nil).joins(:user).merge(User.open) }
   
   accepts_nested_attributes_for :spot_image
   
@@ -100,5 +100,10 @@ class Spot < ActiveRecord::Base
     end
     order_by << "end"
     order(order_by.join(" "))
+  end
+  
+  def closed?
+    return true if self.admin_closed_at.present? or self.user.admin_closed_at.present?
+    false
   end
 end

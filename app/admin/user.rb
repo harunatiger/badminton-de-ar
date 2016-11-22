@@ -131,12 +131,7 @@ ActiveAdmin.register User do
       if user.admin_closed_at.present? && params[:user][:admin_closed_at] == '1'
         params[:user][:admin_closed_at] = user.admin_closed_at
       elsif params[:user][:admin_closed_at] == '1'
-        now = Time.zone.now
-        listings = user.listings
-        listings.update_all(open: false, admin_closed_at: now)
-        spots = user.spots
-        spots.update_all(admin_closed_at: now)
-        params[:user][:admin_closed_at] = now
+        params[:user][:admin_closed_at] = Time.zone.now
       else
         params[:user][:admin_closed_at] = ''
       end
