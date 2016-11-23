@@ -115,7 +115,7 @@ class Listing < ActiveRecord::Base
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :order_by_ave_and_updated_at_desc, -> { order('listings.ave_total desc, listings.updated_at desc') }
-  scope :opened, -> { where(open: true) }
+  scope :opened, -> { where(open: true).joins(:user).merge(User.open) }
   scope :not_opened, -> { where(open: false) }
   scope :search_location, -> location_sel { where(location_sel) }
   scope :search_keywords, -> keywords_sel { where(keywords_sel) }
@@ -427,5 +427,10 @@ class Listing < ActiveRecord::Base
       total_sales += reservation.main_guide_payment
     end
     total_sales
+  end
+  
+  def closed?
+    return true if !self.open or self.admin_closed_at.present? or self.user.admin_closed_at.present?
+    false
   end
 end

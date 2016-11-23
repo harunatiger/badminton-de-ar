@@ -3,8 +3,18 @@ class FeaturesController < ApplicationController
 
   # GET /features
   # GET /features.json
+  
+  # kamakura
   def index
-    @features = Feature.all
+  end
+  
+  # kyoto
+  def kyoto
+  end
+  
+  def contents_kyoto
+    @content_id = params[:id].to_i
+    redirect_to root_path if @content_id > 9
   end
   
   def contents

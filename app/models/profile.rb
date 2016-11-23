@@ -115,12 +115,12 @@ class Profile < ActiveRecord::Base
 
   def self.guides
     user_ids = Listing.where(open: true).pluck(:user_id).uniq
-    users = User.where(id: user_ids).without_soft_destroyed
+    users = User.where(id: user_ids).open
     Profile.where(user_id: users.ids)
   end
   
   def self.main_and_support_guides
-    user_ids = User.main_guide.without_soft_destroyed + User.support_guide.without_soft_destroyed
+    user_ids = User.main_guide.open + User.support_guide.open
     users = User.where(id: user_ids)
     Profile.where(user_id: users.ids)
   end

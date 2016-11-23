@@ -8,6 +8,7 @@ class WithdrawalsController < ApplicationController
     @histories = withdrawals.histories.order_by_created_at_desc
     @paid_in_two_weeks = @histories.paid_in_two_weeks.order_by_paid_at_desc
     @histories = @histories.where.not(id: @paid_in_two_weeks.ids) if @paid_in_two_weeks.present?
+    @bank_setted = current_user.profile_bank.present? && current_user.profile_bank.valid?
   end
   
   def apply

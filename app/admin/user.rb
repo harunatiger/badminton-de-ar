@@ -37,13 +37,19 @@ ActiveAdmin.register User do
                 :soft_destroyed_at,
                 :email_before_closed,
                 :reason,
-                :user_type
+                :user_type,
+                :remarks,
+                :star_guide,
+                :admin_closed_at
   form do |f|
     f.inputs do
       f.input :user_type,
               :as => :select,
               :include_blank => false,
               :collection => User.user_types.keys
+      f.input :admin_closed_at, label: 'Close', as: :boolean
+      f.input :star_guide
+      f.input :remarks
     end
     f.actions
   end
@@ -118,4 +124,18 @@ ActiveAdmin.register User do
   filter :soft_destroyed_at
   filter :email_before_closed
   filter :reason
+  
+  controller do
+    def update
+      user = User.find(params[:id].to_i)
+      if user.admin_closed_at.present? && params[:user][:admin_closed_at] == '1'
+        params[:user][:admin_closed_at] = user.admin_closed_at
+      elsif params[:user][:admin_closed_at] == '1'
+        params[:user][:admin_closed_at] = Time.zone.now
+      else
+        params[:user][:admin_closed_at] = ''
+      end
+      super
+    end
+  end
 end

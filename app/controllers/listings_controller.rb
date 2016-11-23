@@ -194,7 +194,7 @@ class ListingsController < ApplicationController
 
     def deleted_or_open_check
       return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.listings.error.deleted_listing_id if @listing.soft_destroyed?
-      return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.listings.error.closed if !@listing.open and (!user_signed_in? or @listing.user_id != current_user.id)
+      return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.listings.error.closed if @listing.closed? and (!user_signed_in? or @listing.user_id != current_user.id)
     end
 
     #def set_favorite

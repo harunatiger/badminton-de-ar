@@ -39,6 +39,8 @@ en:
         phone: 'Phone number'
         free_field: 'Introduction field'
       profile_bank:
+        name: '銀行名'
+        branch_name: '支店名'
         user_name: '口座名義'
         number: '口座番号'
       profile_identity:

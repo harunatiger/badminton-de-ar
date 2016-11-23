@@ -99,7 +99,7 @@ class SpotsController < ApplicationController
   
     def deleted_or_open_check
       return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.spot.error.deleted if @spot.soft_destroyed?
-      return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.spot.error.closed if @spot.admin_closed_at.present? and (!user_signed_in? or @spot.user_id != current_user.id)
+      return redirect_to session[:previous_url].present? ? session[:previous_url] : root_path, alert: Settings.spot.error.closed if @spot.closed? and (!user_signed_in? or @spot.user_id != current_user.id)
     end
   
     def set_pickup_area
