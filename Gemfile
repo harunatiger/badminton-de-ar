@@ -19,8 +19,6 @@ gem 'rails-flog', '1.3.2'
 
 gem 'rails-i18n', '4.0.4'
 
-gem 'rb-readline'
-
 # Use slim
 # gem for convert .html or .erb to .slim
 # gem 'html2slim'
