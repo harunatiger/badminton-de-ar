@@ -24,7 +24,7 @@
           = link_to "#", class: "btn btn-primary js-read-more" do
             | Read more
       .col-md-6.row-space-4.hide--sp
-        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+        = image_tag 'feature_kyoto/01/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
     .row.row-space-top-8
       .col-md-6.row-space-4
         = image_tag "feature_kyoto/01/photo1.jpg", class: "img-responsive"
@@ -56,7 +56,7 @@
           = link_to "#", class: "btn btn-primary js-read-more" do
             | Read more
       .col-md-6.row-space-4.hide--sp
-        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+        = image_tag 'feature_kyoto/02/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
     .row.row-space-top-6
       .col-md-6.row-space-4
         = image_tag "feature_kyoto/02/photo1.jpg", class: "img-responsive"
@@ -96,7 +96,7 @@
           = link_to "#", class: "btn btn-primary js-read-more" do
             | Read more
       .col-md-6.row-space-4.hide--sp
-        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+        = image_tag 'feature_kyoto/03/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
     .row.row-space-top-6
       .col-md-6.row-space-4
         = image_tag "feature_kyoto/03/photo1.jpg", class: "img-responsive"
@@ -134,7 +134,7 @@
           = link_to "#", class: "btn btn-primary js-read-more" do
             | Read more
       .col-md-6.row-space-4.hide--sp
-        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+        = image_tag 'feature_kyoto/04/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
     .row.row-space-top-6
       .col-md-6.row-space-4
         = image_tag "feature_kyoto/04/photo1.jpg", class: "img-responsive"
@@ -179,7 +179,7 @@
           = link_to "#", class: "btn btn-primary js-read-more" do
             | Read more
       .col-md-6.row-space-4.hide--sp
-        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+        = image_tag 'feature_kyoto/05/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
     .row.row-space-top-8
       .col-md-6.row-space-4
         = image_tag "feature_kyoto/05/photo1.jpg", class: "img-responsive"
@@ -211,7 +211,7 @@
           = link_to "#", class: "btn btn-primary js-read-more" do
             | Read more
       .col-md-6.row-space-4.hide--sp
-        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+        = image_tag 'feature_kyoto/06/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
     .row.row-space-top-8
       .col-md-6.row-space-4
         = image_tag "feature_kyoto/06/photo1.jpg", class: "img-responsive"
@@ -243,7 +243,7 @@
           = link_to "#", class: "btn btn-primary js-read-more" do
             | Read more
       .col-md-6.row-space-4.hide--sp
-        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+        = image_tag 'feature_kyoto/07/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
     .row.row-space-top-8
       .col-md-6.row-space-4
         = image_tag "feature_kyoto/07/photo1.jpg", class: "img-responsive"
@@ -275,7 +275,7 @@
           = link_to "#", class: "btn btn-primary js-read-more" do
             | Read more
       .col-md-6.row-space-4.hide--sp
-        = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+        = image_tag 'feature_kyoto/08/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
     .row.row-space-top-6
       .col-md-12.row-space-4
         = image_tag "feature_kyoto/08/photo1.jpg", class: "img-responsive"
@@ -322,8 +322,25 @@
         = image_tag "feature_kyoto/09/photo2.jpg", class: "img-responsive"
 
 .page-container
-  #area-section.row-space-8.show--sp
-    = image_tag 'feature_kyoto/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+  - unless @content_id == 9
+    #area-section.row-space-8.show--sp
+      - if @content_id == 1
+        = image_tag 'feature_kyoto/01/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+      - elsif @content_id == 2
+        = image_tag 'feature_kyoto/02/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+      - elsif @content_id == 3
+        = image_tag 'feature_kyoto/03/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+      - elsif @content_id == 4
+        = image_tag 'feature_kyoto/04/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+      - elsif @content_id == 5
+        = image_tag 'feature_kyoto/05/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+      - elsif @content_id == 6
+        = image_tag 'feature_kyoto/06/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+      - elsif @content_id == 7
+        = image_tag 'feature_kyoto/07/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+      - elsif @content_id == 8
+        = image_tag 'feature_kyoto/08/map_area.png', class: "img-responsive", alt: "KYOTO AREA MAP"
+      - else
 
   .features-tourlist
     .row.row-space-top-8.row-space-4

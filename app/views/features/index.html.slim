@@ -1,7 +1,9 @@
 /* features#index */
 #features
   .features-header
-    .img-bg.img-bg-overlay
+    = image_tag 'feature/hero-image.jpg', class: "img-responsive hide--sp"
+    = image_tag 'feature/hero-image--sp.jpg', class: "img-responsive show--sp"
+    /.img-bg.img-bg-overlay
       .img-bg-content
         .va-container.va-container-wh
           .va-middle.text-center
