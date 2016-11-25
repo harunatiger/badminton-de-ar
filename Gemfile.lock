@@ -755,9 +755,3 @@ DEPENDENCIES
   view_source_map (= 0.1.0)
   web-console (~> 2.0)
   whenever (= 0.9.4)
-
-RUBY VERSION
-   ruby 2.2.1p85
-
-BUNDLED WITH
-   1.13.6
