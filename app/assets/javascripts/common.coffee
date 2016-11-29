@@ -748,12 +748,10 @@ $ ->
     currentOffset = 0
     $(window).scroll ->
       scrolltop = $(this).scrollTop()
-      if scrolltop > 150 and scrolltop > currentOffset
-        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
-      else if scrolltop < 150
-        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
-      else
+      if scrolltop > 650
         $('#headroom-header').addClass('headroom--pinned').removeClass 'headroom--unpinned'
+      else if scrolltop < 350
+        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
       currentOffset = scrolltop
       return
 
