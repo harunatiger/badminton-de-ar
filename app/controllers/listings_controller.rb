@@ -1,5 +1,5 @@
 class ListingsController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :search, :read_more_reviews]
+  before_action :authenticate_user!, except: [:show, :preview, :search, :read_more_reviews]
   #before_action :check_listing_status, only: [:index, :search]
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite_listing, :read_more_reviews]
   before_action :set_listing_obj, only: [:publish, :unpublish, :copy, :preview]
@@ -185,6 +185,9 @@ class ListingsController < ApplicationController
     end
 
     def regulate_user
+      if action_name == 'preview'
+        return redirect_to listing_path(@listing) if !user_signed_in? || @listing.user_id != current_user.id
+      end
       return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id
     end
   

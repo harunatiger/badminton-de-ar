@@ -88,7 +88,7 @@ module ApplicationHelper
   end
 
   def og_description
-    if controller_name == 'listings' and action_name == 'show'
+    if controller_name == 'listings' and (action_name == 'show' || action_name == 'preview')
       "#{@listing.title}！Make Friend, Start Trip!"
     elsif controller_name == 'profiles' and action_name == 'show'
       "#{@profile.try('first_name')}'s self-Introduction！Make Friend, Start Trip!"
@@ -98,7 +98,7 @@ module ApplicationHelper
   end
 
   def og_image
-    if controller_name == 'listings' and action_name == 'show'
+    if controller_name == 'listings' and (action_name == 'show' || action_name == 'preview')
       if Rails.env.development?
         @listing.listing_images.present? and @listing.listing_images.first.image.present? ? "#{request.host + @listing.listing_images.first.image.url}" : "http://huber-japan.com/assets/og.png"
       else
