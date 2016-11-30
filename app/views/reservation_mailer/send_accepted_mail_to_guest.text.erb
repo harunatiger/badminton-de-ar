@@ -1,0 +1,47 @@
+Thanks for your payment to Huber. TOMODACHI GUIDE.
+Your payment information appears below. Please print this out as your
+receipt and allow this e-mail to serve as our receipt. 
+
+BOOKING INFORMATION
+NAME: <%= user_id_to_firstname(@guest.id) %>
+E-mail Address: <%= @guest.email %>
+Booking Date: <%= @payment.transaction_date %>
+
+[Trip Date]
+<%= @reservation.schedule %>
+
+[Your Host]
+<%= user_id_to_name(@host.id) %>
+URL <%= profile_url(@host.profile.id) %>
+
+[Trip Title]
+<%= @listing.title %>
+URL <%= listing_url(@listing) %>
+
+[Canceled in case of rain]
+<%= @listing_detail.stop_if_rain ? 'Yes' : 'No' %>
+
+[Payment Total]
+<%= currency_sign_by_payment(@payment) %><%= ['JPY', 'HUF', 'TWD'].index(@payment.currency_code).present? ? @payment.amount.to_i : @payment.amount %>
+
+-Price: 
+<%= currency_sign_by_payment(@payment) %><%= exchanged_amount_by_payment(@payment, @reservation.basic_amount) %>
+-Service commission: 
+<%= currency_sign_by_payment(@payment) %><%= exchanged_amount_by_payment(@payment, @reservation.handling_cost) %>
+-Travel insurance: 
+<%= currency_sign_by_payment(@payment) %><%= exchanged_amount_by_payment(@payment, @reservation.insurance_fee) %>
+<% if @payment.currency_code != 'JPY' %>
+-Exchange Fee: 
+<%= currency_sign_by_payment(@payment) %><%= exchange_fee_by_payment(@payment, @reservation.amount_for_campaign) %>
+<% end %>
+<% if @reservation.campaign.present? %>
+-Discount: 
+- <%= currency_sign_by_payment(@payment) %><%= exchanged_amount_by_payment(@payment, @reservation.campaign.discount) %>
+<% end %>
+————————————————————————————
+
+Got a question or need to speak to someone at Huber. TOMODACHI GUIDE? Please email (support@m.huber.co.jp) or chat online to our team - they're real people and always happy to help.
+
+Have a great and memorable experience!
+The Huber. TOMODACHI GUIDE Team
+https://huber-japan.com

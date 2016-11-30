@@ -164,6 +164,7 @@ class ReservationsController < ApplicationController
     Ngevent.accept(@reservation)
     ReservationMailer.send_update_reservation_notification(@reservation, @reservation.guest_id).deliver_now!
     ReservationMailer.send_accepted_mail_to_owner(@reservation).deliver_now!
+    ReservationMailer.send_accepted_mail_to_guest(@reservation).deliver_now!
     message = Message.send_reservation_message_to_host(@reservation, Settings.reservation.msg.accepted, false)
     respond_to do |format|
       format.html { redirect_to message_thread_path(@reservation.message_thread_id), notice: Settings.reservation.update.success }

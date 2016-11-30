@@ -156,6 +156,22 @@ class ReservationMailer < ApplicationMailer
       format.text
     end
   end
+  
+  def send_accepted_mail_to_guest(reservation)
+    @host = User.find(reservation.host_id)
+    @guest = User.find(reservation.guest_id)
+    @reservation = reservation
+    @listing = Listing.find_by_id(reservation.listing_id)
+    @listing_detail = ListingDetail.where(listing_id: @reservation.listing.id).first
+    @payment = reservation.try('payment')
+
+    mail(
+      to:      @guest.email,
+      subject: Settings.mailer.send_accepted_mail_to_guest.subject
+    ) do |format|
+      format.text
+    end
+  end
 
   def send_requested_mail_to_owner(reservation)
     @host = User.find(reservation.host_id)
