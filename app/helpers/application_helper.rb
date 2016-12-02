@@ -24,13 +24,17 @@ module ApplicationHelper
     if controller_name == 'profiles' and action_name == 'show'
       user = User.find_by_id(@profile.user_id)
       if user.present? and user.main_guide?
-        "See #{@profile.first_name} who is a local tour guide #{@profile.prefecture.present? ? 'in ' + @profile.prefecture : ''} #{@profile.country_name.present? ? 'in ' + @profile.country_name : ''} - TOMODACHI GUIDE"
+        "See #{@profile.first_name} who is a local tour guide #{@profile.prefecture.present? ? 'in ' + @profile.prefecture : ''} #{@profile.country_name.present? ? 'in ' + @profile.country_name : ''} - Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
       else
         "Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
       end
     elsif controller_name == 'listings' and action_name == 'show'
-      area = @listing.pickups.areas.first.try('short_name')
-      "#{@listing.title} #{area.present? ? 'in ' + area : ''} - TOMODACHI GUIDE"
+      profile = Profile.find_by_user_id(@listing.user_id)
+      if profile.present?
+        "See #{profile.first_name} who is a local tour guide #{profile.prefecture.present? ? 'in ' + profile.prefecture : ''} #{profile.country_name.present? ? 'in ' + profile.country_name : ''} - Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
+      else
+        "Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
+      end
     elsif controller_name == 'spots' and action_name == 'show'
       area = @spot.pickups.areas.first.try('short_name')
       "#{@spot.title} #{area.present? ? 'in ' + area : ''} - TOMODACHI GUIDE"
