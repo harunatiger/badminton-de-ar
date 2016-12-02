@@ -91,3 +91,7 @@ bower.json
 
 # s3contents
 public/s3_contents/*
+
+Gemfile
+
+Gemfile.lock
