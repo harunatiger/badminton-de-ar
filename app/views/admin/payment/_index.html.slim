@@ -160,9 +160,9 @@
                   td
                     = (fixed_amount * Settings.reservation.service_rate).ceil
                   td
-                    = (support_guide.present? and payment.reservation.default?) ? (payment.reservation.price + payment.reservation.option_amount) - ((fixed_amount * Settings.reservation.service_rate) / 2).ceil : fixed_amount - (fixed_amount * Settings.reservation.service_rate).ceil
+                    = (support_guide.present? and payment.reservation.default?) ? (payment.reservation.price + payment.reservation.option_amount) - ((fixed_amount * Settings.reservation.service_rate).ceil / 2).ceil : fixed_amount - (fixed_amount * Settings.reservation.service_rate).ceil
                   td
-                    = (support_guide.present? and payment.reservation.default?) ? payment.reservation.price_for_support - ((fixed_amount * Settings.reservation.service_rate) / 2).ceil : ''
+                    = (support_guide.present? and payment.reservation.default?) ? payment.reservation.price_for_support - ((fixed_amount * Settings.reservation.service_rate).ceil / 2).ceil : ''
                   td
                     - if payment.reservation.default?
                       = settlement_amount * 0
