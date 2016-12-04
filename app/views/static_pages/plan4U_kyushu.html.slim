@@ -75,7 +75,7 @@ section#recommended-guides.recomended-guides.text-center.section
               | See All
               i.fa.fa-caret-down
 
-      - ids = [1267,406,407]
+      - ids = [404,1219,1188]
       - ids.each_with_index do |id, index|
         .col-md-4.row-space-6.hide-guest
           - profile = Profile.find_by_id(id)
@@ -86,15 +86,15 @@ section#recommended-guides.recomended-guides.text-center.section
               .size200[style="background-image: url('#{asset_path image}')"]
             .name.spb.row-space-top-2.row-space-1 #{name}
             .introduce
-              - if id == 1267
-                p Beppu Onsen(Hot spring),Beach
-                p My university has a lot of students from other countries (almost 80 countries) so I am good at communicate with people from different countries and also I understand other cultures.
-              - elsif id == 406
-                p Kaimonji Onsen, Hana Beppu, Kamesho
-                p I am an official Onsen Master! Since I used to live in the US and NZ, I speak English fluently and I also speak a bit of Thai! I know a lot of Hot Springs in Beppu so please contact me if you want to visit Hot Springs in Beppu!!!
-              - elsif id == 407
-                p Beppu park, Aoyama coffee, Kenkou Hoyou land, Seven diner
-                p One of merits is taking picture. I have been working photo shop for 1 year in my part time job, so I feel confident that taking picture. I’m willing to take memorable shot for you. If you join my guide, you can be one of the local person in Beppu:)
+              - if id == 404
+                p Mendo Kaori(Ramen restaurant), Gelato shop, Kaimonji Onsen, Furosen
+                p I have experience of guiding since high school, and I like finding new interesting and unique spots! I also like getting more experiences and making new friends from all around the world since I am studying at international university.
+              - elsif id == 1219
+                p Cycling, Tanoura beach, Kaimonji hot spring, Hit parade
+                p 1. I am flexible My tour plan will adapt your plan, your schedule so let’s make our tour plan special. 2. I am curious about anything I like learning something. So we can share about it and I would like to learn something from you.
+              - elsif id == 1188
+                p SUSHI, Cooking Activity, Japanese Food
+                p Since I've beent to Australia and America, i can speak English fluently :) I really like traveling All over the world (Especially Asian countries), so i think can guess what you want to do in your distination. Let's have a fun together!!!!
               .links
                 - if user_signed_in?
                   = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
@@ -108,11 +108,6 @@ section#recommended-guides.recomended-guides.text-center.section
             = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
           - else
             = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
-        - if index == 2
-          .col-md-12.moreguide-container.row-space-4
-            = link_to "#", id: "moreguide", class: "btn btn-large btn-more"
-              | See All
-              i.fa.fa-caret-down
 
 
 = raw @s3_footer
