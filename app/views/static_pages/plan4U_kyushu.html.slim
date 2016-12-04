@@ -1,0 +1,275 @@
+/! plan4U_kyushu
+= raw @s3_header
+/! plan4U-navigation
+/.plan4U-navigation.show--sp
+  .plan4U-navigation-inner.collapse
+    ul.menu-group.list-unstyled
+      li
+        = link_to "How to Use", "#", class: "link-reset menu-item scroll-to-howtouse"
+      li
+        = link_to "Talk to Guides", "#", class: "link-reset menu-item scroll-to-guides"
+
+/.hero
+  .page-container
+    .title-plate
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .split-line.row-space-top-6
+          h1.spsb.text-contrast
+            | Plan Your Very Own Trip
+            br
+            | in  Japan with Locals
+          .fa-title-split
+            i.fa.fa-comment-o
+          .row-space-top-6.row-space-4.hide--sp
+            = link_to "How to use", "#", class: "btn btn-primary btn-lg scroll-to-howtouse"
+
+/h2.belt.text-center.text-contrast
+  .spb.h1 Try our free consultation service.
+
+section#recommended-guides.recomended-guides.text-center.section
+  h2.row-space-8
+    /.spsb.h1.row-space-4 Recommended Guides
+    .spsb.h1.row-space-3 RECOMMENDED GUIDES
+    .spr.text-brand-add Ask your question by clicking “Talk to me”
+  h3.text-brand-add.row-space-4
+    | - KYUSHU AREA -
+  .page-container
+    .row
+      - ids = [1267,406,407]
+      - ids.each_with_index do |id, index|
+        .col-md-4.row-space-6
+          - profile = Profile.find_by_id(id)
+          - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
+          - name = profile ? profile.first_name : "this user doesn't exist"
+          .guide.text-center
+            .media-round.media-photo.media-avatar
+              .size200[style="background-image: url('#{asset_path image}')"]
+            .name.spb.row-space-top-2.row-space-1 #{name}
+            .introduce
+              - if id == 1267
+                p Beppu Onsen(Hot spring),Beach
+                p My university has a lot of students from other countries (almost 80 countries) so I am good at communicate with people from different countries and also I understand other cultures.
+              - elsif id == 406
+                p Kaimonji Onsen, Hana Beppu, Kamesho
+                p I am an official Onsen Master! Since I used to live in the US and NZ, I speak English fluently and I also speak a bit of Thai! I know a lot of Hot Springs in Beppu so please contact me if you want to visit Hot Springs in Beppu!!!
+              - elsif id == 407
+                p Beppu park, Aoyama coffee, Kenkou Hoyou land, Seven diner
+                p One of merits is taking picture. I have been working photo shop for 1 year in my part time job, so I feel confident that taking picture. I’m willing to take memorable shot for you. If you join my guide, you can be one of the local person in Beppu:)
+              .links
+                - if user_signed_in?
+                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
+                    i.fa.fa-comment-o
+                - else
+                  = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
+                    i.fa.fa-comment-o
+                = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
+                  i.fa.fa-plus
+          - if user_signed_in?
+            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
+          - else
+            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
+        - if index == 2
+          .col-md-12.moreguide-container.row-space-4
+            = link_to "#", id: "moreguide", class: "btn btn-large btn-more"
+              | See All
+              i.fa.fa-caret-down
+
+      - ids = [1267,406,407]
+      - ids.each_with_index do |id, index|
+        .col-md-4.row-space-6.hide-guest
+          - profile = Profile.find_by_id(id)
+          - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
+          - name = profile ? profile.first_name : "this user doesn't exist"
+          .guide.text-center
+            .media-round.media-photo.media-avatar
+              .size200[style="background-image: url('#{asset_path image}')"]
+            .name.spb.row-space-top-2.row-space-1 #{name}
+            .introduce
+              - if id == 1267
+                p Beppu Onsen(Hot spring),Beach
+                p My university has a lot of students from other countries (almost 80 countries) so I am good at communicate with people from different countries and also I understand other cultures.
+              - elsif id == 406
+                p Kaimonji Onsen, Hana Beppu, Kamesho
+                p I am an official Onsen Master! Since I used to live in the US and NZ, I speak English fluently and I also speak a bit of Thai! I know a lot of Hot Springs in Beppu so please contact me if you want to visit Hot Springs in Beppu!!!
+              - elsif id == 407
+                p Beppu park, Aoyama coffee, Kenkou Hoyou land, Seven diner
+                p One of merits is taking picture. I have been working photo shop for 1 year in my part time job, so I feel confident that taking picture. I’m willing to take memorable shot for you. If you join my guide, you can be one of the local person in Beppu:)
+              .links
+                - if user_signed_in?
+                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
+                    i.fa.fa-comment-o
+                - else
+                  = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
+                    i.fa.fa-comment-o
+                = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
+                  i.fa.fa-plus
+          - if user_signed_in?
+            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
+          - else
+            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
+        - if index == 2
+          .col-md-12.moreguide-container.row-space-4
+            = link_to "#", id: "moreguide", class: "btn btn-large btn-more"
+              | See All
+              i.fa.fa-caret-down
+
+
+= raw @s3_footer
+/section#howtouse.howto.section
+  .page-container.text-center
+    h3.h1.spb.row-space-8 HOW TO USE
+    .howto-inner.row-space-8
+      .row
+        .col-md-4.row-space-8
+          = image_tag 'plan4U/second/illust001.png', class: "img-responsive"
+          .spb.h3.row-space-2.row-space-top-4 STEP 1
+          .spr.text-lg Clicking “Talk to me” button
+        .col-md-4.row-space-8
+          = image_tag 'plan4U/second/illust002.png', class: "img-responsive"
+          .spb.h3.row-space-2.row-space-top-4 STEP 2
+          .spr.text-lg
+            | Making an account.
+            br
+            | Registration and consultation
+            br
+            | is FREE!
+        .col-md-4.row-space-8
+          = image_tag 'plan4U/second/illust003.png', class: "img-responsive"
+          .spb.h3.row-space-2.row-space-top-4 STEP 3
+          .spr.text-lg Discussing your tour plans
+      /.h3.square.text-wf.text-contrast.row-space-top-8
+        span Free services
+    /h4.thick-lined
+      span
+        span.spsb Advantages:
+        span.spl Eliminate any worries about your trip and get local information
+  /.additinal.text-center
+    .bg-arrow.text-wf.text-contrast PLUS!
+    h4.spr Your Guide can even join you on your trip!
+
+/section.sample-itineraly.section
+  .page-container
+    h3.h1.spb.row-space-8.text-center SAMPLE ITINERARY
+    .sample-itineraly-inner
+      .reverse-container.head-itineraly-container
+        .reverse-container-right.row-space-8.row-space-top-4
+          h4.h3.text-wf.row-space-2 Planning
+          p.text-lead Discuss your interests with the guide of your choice, so they can cook up an itinerary custom-made for you!
+        .reverse-container-left
+          .row.text-center.row-space-4
+            .col-3
+              = image_tag "plan4U/second/thumb_guest001.jpg", class: "img-responsive"
+            .col-9
+              .card.card-quote.card-quote-flush
+                .card-body.text-center
+                  | I want my wife to try on a kimono!
+          .row.text-center
+            .col-9
+              .card.card-quote.card-quote-right.card-quote-flush
+                .card-body
+                  | Sure! I’ll add it to the plan!
+            .col-3
+              = image_tag "plan4U/second/thumb_guide001.jpg", class: "img-responsive"
+      .body-itineraly-container
+        .row.row-space-4.row-space-top-8
+          .col-md-6
+            .reverse-container.body-itineraly-container1
+              .reverse-container-right
+                .h5.text-wf.text-brand-add.row-space-2 10:00AM
+                .h5.text-wf Meet up with your guide and start the trip!
+              .reverse-container-left
+                = image_tag "plan4U/second/photo-md001.png"
+          .col-md-6
+            .reverse-container.body-itineraly-container2
+              .reverse-container-right
+                .h5.text-wf.text-brand-add.row-space-2 11:00AM
+                .h5.text-wf.row-space-2 Take a walk around Tsukiji
+                p Time for a strawberry daifuku snack!
+              .reverse-container-left
+                = image_tag "plan4U/second/photo-md002.png"
+        .row.row-space-4
+          .col-md-12
+            .reverse-container.body-itineraly-container3
+              .reverse-container-right
+                .h4.text-wf.text-brand-add.row-space-2 14:00AM
+                .h4.text-wf.row-space-6 Go for a Stroll around Asakusa in traditional kimono!
+                p.text-lead.row-space-3
+                  | Let us help you capture these precious moments with your friends, partners or family. You can make the day extra special by visiting when the cherry blossoms are in full bloom!
+                p.text-lead.row-space-4
+                  | With TOMODACHI GUIDE, enjoy your trip with no constraints, as we flexibly adapt to your whims and stop to take photos wherever catches your eye.
+              .reverse-container-left
+                = image_tag "plan4U/second/photo-group001.png", class: "img-responsive"
+        .row.row-space-6
+          .col-md-12
+            .reverse-container.body-itineraly-container4
+              .reverse-container-right
+                .h2.text-wf.text-center
+                  | TAKE A GROUP PHOTO
+                  br
+                  | TO END THE DAY!
+                p.show--sp.row-space-top-4 -- Review from our guest --
+                p.text-lead
+                  | Timo is a very nice person, cheerful and attentive. She even learnt my language before meeting me. She helped me a lot and gave me all information needed for a tourist. Definitely recommended!
+              .reverse-container-left
+                = image_tag "plan4U/second/photo-lg001.png", class: "img-responsive"
+
+  .page-container
+    .row
+      .col-md-8.col-md-offset-2.text-center
+        p.h2.row-space-3
+          | Let’s plan your trip with our guides !
+        = link_to "Talk to Guides", "#", class: "btn btn-primary btn-lg btn-block scroll-to-guides"
+
+/section.popular-tours.section
+  h3.spb.text-center
+    .h1.row-space-2 Popular Tours
+    .spl Find unique tour plans here!
+  .page-container
+    /- listings = feature_listings
+    .row.row-space-top-8.row-space-8
+      - feature_listing_ids = [451, 440, 437]
+      - feature_listing_ids.each do |id|
+        .col-md-6.col-lg-4.row-space-4
+          - if feature_listing(id).present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+          - else
+            .tour-listing-empty.text-center.text-brand.text-black
+
+/= raw @s3_footer
+/section.guest-book.section
+  h3.spb.text-center.row-space-8
+    .h1.row-space-2 Guest Book
+    .spl Tour memories from our guests
+  .page-container
+    .row
+      .col-lg-6.row-space-4
+        .card.card-book
+          .media-cover-img
+            .book.book1
+          .card-body.text-center
+            .card-inner
+              .va-container.va-container-wh
+                .va-middle
+                  q
+                    | Excellent experience in Kamakura!  You don't have to worry what is the direction, what is the next stop, you don't have to see the map. Just enjoy the beautiful scenery. We recommend Huber for all the tourists from all over the world!
+                  p – Nicola
+      .col-lg-6.row-space-4
+        .card.card-book
+          .media-cover-img
+            .book.book2
+          .card-body.text-center
+            .card-inner
+              .va-container.va-container-wh
+                .va-middle
+                  q
+                    | Thank you for the tour of Kamakura. We enjoyed your enthusiastic , friendly style . We had a great morning with you and really appreciated the local restaurant you took us to.
+                  p – Sue
+
+/section.please-visit.text-center.section
+  .page-container
+    = link_to root_path, class: "btn btn-primary btn-add-shadow btn-block text-center" do
+      = image_tag 'plan4U/some-btn-image.png', alt: "please visit the Huber. site!", class: "img-responsive"
+
+- unless user_signed_in?
+  = render partial: 'shared/modals/sign_up_form', locals: {to_user_id: 1}

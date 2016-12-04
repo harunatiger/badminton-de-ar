@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  
+
 
   resources :listing_destinations
 
@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   get 'static_pages/plan4U'
   get 'static_pages/plan4U_kyoto', :path => 'static_pages/plan4U-kyoto'
   get 'static_pages/plan4U_hokkaido', :path => 'static_pages/plan4U-hokkaido'
+  get 'static_pages/plan4U_kyushu', :path => 'static_pages/plan4U-kyushu'
   get 'static_pages/three_reasons'
   get 'static_pages/our_partners'
 
@@ -130,7 +131,7 @@ Rails.application.routes.draw do
     resources :listing_details, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
     end
-    
+
     get 'publish',   action: 'publish',   as: 'publish'
     get 'unpublish', action: 'unpublish', as: 'unpublish'
     get 'preview'
@@ -138,7 +139,7 @@ Rails.application.routes.draw do
     member do
       get 'read_more_reviews',    action: 'read_more_reviews'
     end
-    
+
     resources :ngevents, only: [:create] do
       get 'listing_ngdays', on: :collection
       get 'listing_reservation_ngdays', on: :collection
@@ -177,7 +178,7 @@ Rails.application.routes.draw do
       post 'set_selected_guides'
     end
   end
-  
+
   resources :reservations, only: [:create, :update] do
     resource :reviews, only: [:create] do
       collection do

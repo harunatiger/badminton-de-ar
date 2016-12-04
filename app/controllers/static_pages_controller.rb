@@ -60,6 +60,17 @@ class StaticPagesController < ApplicationController
     @s3_footer = File.exist?(file_path) ? File.read(file_path) : ''
   end
 
+  def plan4U_kyushu
+    file_path = Rails.root.join(Settings.plan4U_kyushu.s3_content_path.header)
+    @s3_header = File.exist?(file_path) ? File.read(file_path) : ''
+
+    file_path = Rails.root.join(Settings.plan4U_kyushu.s3_content_path.middle)
+    @s3_middle = File.exist?(file_path) ? File.read(file_path) : ''
+
+    file_path = Rails.root.join(Settings.plan4U_kyushu.s3_content_path.footer)
+    @s3_footer = File.exist?(file_path) ? File.read(file_path) : ''
+  end
+
   def three_reasons
   end
 
