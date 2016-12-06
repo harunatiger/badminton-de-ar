@@ -23,7 +23,7 @@ class BrowsingHistory < ActiveRecord::Base
   validates :user_id, presence: true
   validates :listing_id, presence: true
   
-  scope :viewed_when, -> from, to { where('viewed_at >= ? AND viewed_at <= ?', from.in_time_zone('UTC'), to.in_time_zone('UTC')) }
+  scope :viewed_when, -> from, to { where('created_at >= ? AND created_at <= ?', from.in_time_zone('UTC'), to.in_time_zone('UTC')) }
 
   def self.insert_record(user_id, listing_id)
     BrowsingHistory.create(
