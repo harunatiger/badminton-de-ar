@@ -30,7 +30,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       message_thread_id = GuestThread.get_message_thread_id(listing.try('user_id'), current_user.id)
       message_thread_id ? message_thread_path(message_thread_id) : root_path
     elsif session[:to_user_id]
-      if session[:previous_url].index('profiles') && !resource.guest?
+      if session[:to_user_id].to_i == resource.id
+        message_thread_id = nil
+      elsif session[:previous_url].index('profiles') && !resource.guest?
         session[:what_talk_about] = true unless current_user.main_guide?
         message_thread_id = DefaultThread.get_message_thread_id(session[:to_user_id], current_user.id)
       else
