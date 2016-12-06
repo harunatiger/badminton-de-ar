@@ -37,7 +37,7 @@ section#recommended-guides.recomended-guides.text-center.section
   .page-container
     .row
       - ids = [360,1007,1011]
-      - ids.each do |id, index|
+      - ids.each_with_index do |id, index|
         .col-md-4.row-space-6
           - profile = Profile.find_by_id(id)
           - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
@@ -80,7 +80,7 @@ section#recommended-guides.recomended-guides.text-center.section
               | See All
               i.fa.fa-caret-down
 
-      .col-md-4.col-md-offset-4.row-space-6.hide-guest
+      .col-md-4.col-md-offset-2.row-space-6.hide-guest
         - profile = Profile.where(id: 1236).first
         - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
         - name = profile ? profile.first_name : "this user doesn't exist"
@@ -94,14 +94,41 @@ section#recommended-guides.recomended-guides.text-center.section
             p I have a lot of experiences having been abroad. I can understand any of you and your cultures.
             /= link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
             .links
-              - if user_signed_in?
-                = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
-                  i.fa.fa-comment-o
-              - else
-                = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
-                  i.fa.fa-comment-o
-              = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
-                i.fa.fa-plus
+                - if user_signed_in?
+                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
+                    i.fa.fa-comment-o
+                - else
+                  = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
+                    i.fa.fa-comment-o
+                = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
+                  i.fa.fa-plus
+          - if user_signed_in?
+            = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
+          - else
+            = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
+
+      .col-md-4.row-space-6.hide-guest
+        - profile = Profile.where(id: 1258).first
+        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
+        - name = profile ? profile.first_name : "this user doesn't exist"
+        .guide.text-center
+          .media-round.media-photo.media-avatar
+            .size200[style="background-image: url('#{asset_path image}')"]
+          .name.spb.row-space-top-2.row-space-1 #{name}
+          .introduce
+            p Sapporo,Lake Shikotsu,Ashahikawa,Niseko
+            p Lake Shikotsu, Mt.Tarumae,Daisetsuzan,Annupri
+            p People are very polite, respectful, trustworthy,kindness and honest. Lots of nature.
+            /= link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+            .links
+                - if user_signed_in?
+                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
+                    i.fa.fa-comment-o
+                - else
+                  = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
+                    i.fa.fa-comment-o
+                = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
+                  i.fa.fa-plus
         - if user_signed_in?
           = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
         - else
