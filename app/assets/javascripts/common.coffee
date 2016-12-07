@@ -231,7 +231,7 @@ $ ->
   if $('.header--sp').css('display') == 'block'
     # sidenav switch
     $('a.burger--sp').on 'click', ->
-      if $('body').hasClass('plan4U') || $('body').hasClass('plan4U_kyoto') || $('body').hasClass('plan4U_hokkaido')
+      if $('body').hasClass('plan4U') || $('body').hasClass('plan4U_kyoto') || $('body').hasClass('plan4U_hokkaido') || $('body').hasClass('plan4U_kyushu')
         $('.plan4U-navigation-inner').collapse('toggle')
       else
         $('body').addClass('slideout')
@@ -527,7 +527,7 @@ $ ->
       return false
 
   # registrations#new & registrations#create
-  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show') || $('body').hasClass('static_pages plan4U') || $('body').hasClass('static_pages plan4U_kyoto') || $('body').hasClass('static_pages plan4U_hokkaido') || $('body').hasClass('spots show')
+  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show') || $('body').hasClass('static_pages plan4U') || $('body').hasClass('static_pages plan4U_kyoto') || $('body').hasClass('static_pages plan4U_hokkaido') || $('body').hasClass('static_pages plan4U_kyushu') || $('body').hasClass('spots show')
 
     loginReady = ->
       $('.sns-buttons').addClass('hide')
@@ -649,7 +649,7 @@ $ ->
       $('.btn-frame > .btn', targetForm).addClass('text-disappear')
       return
 
-  if $('body').hasClass('plan4U') || $('body').hasClass('plan4U_kyoto') || $('body').hasClass('plan4U_hokkaido')
+  if $('body').hasClass('plan4U') || $('body').hasClass('plan4U_kyoto') || $('body').hasClass('plan4U_hokkaido')|| $('body').hasClass('plan4U_kyushu')
     $('#moreguide').on 'click', ->
       $(this).remove()
       $('.hide-guest').removeClass('hide-guest')
@@ -748,12 +748,10 @@ $ ->
     currentOffset = 0
     $(window).scroll ->
       scrolltop = $(this).scrollTop()
-      if scrolltop > 150 and scrolltop > currentOffset
-        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
-      else if scrolltop < 150
-        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
-      else
+      if scrolltop > 650
         $('#headroom-header').addClass('headroom--pinned').removeClass 'headroom--unpinned'
+      else if scrolltop < 350
+        $('#headroom-header').addClass('headroom--unpinned').removeClass 'headroom--pinned'
       currentOffset = scrolltop
       return
 

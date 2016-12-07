@@ -1,4 +1,4 @@
-/! plan4U_hokkaido
+/! plan4U_kyushu
 = raw @s3_header
 /! plan4U-navigation
 /.plan4U-navigation.show--sp
@@ -33,10 +33,10 @@ section#recommended-guides.recomended-guides.text-center.section
     .spsb.h1.row-space-3 RECOMMENDED GUIDES
     .spr.text-brand-add Ask your question by clicking “Talk to me”
   h3.text-brand-add.row-space-4
-    | - HOKKAIDO AREA -
+    | - KYUSHU AREA -
   .page-container
     .row
-      - ids = [360,1007,1011]
+      - ids = [1267,406,407]
       - ids.each_with_index do |id, index|
         .col-md-4.row-space-6
           - profile = Profile.find_by_id(id)
@@ -47,20 +47,15 @@ section#recommended-guides.recomended-guides.text-center.section
               .size200[style="background-image: url('#{asset_path image}')"]
             .name.spb.row-space-top-2.row-space-1 #{name}
             .introduce
-              - if id == 360
-                p Sapporo, Otaru, Toya, Hakodate
-                p Antique buildings around canal in Otaru, Hokkaido museum, Curve market in Sapporo, Moiwa mountain, Hakodate mountain, Tengu mountain, Toya lake, Shiroi-koibito-park
-                p I have one little boy □ If you hope,I want to make you enjoy with my son through local experience in Hokkaido
-              - elsif id == 1007
-                p Sapporo, Otaru
-                p Curve market in Sapporo, Hokkaido Shrine, Shiroi-koibito-park, JR tower, Hokkaido museum, Moiwa mountain, Tengu mountain,  Antique buildings around canal in Otaru,
-                p I am sure that I make you feel more happy and fun during our tour!!
-              - elsif id == 1011
-                p Sapporo,Otaru,Nakafurano,Biei
-                p Farm Tomita,Blue pond,Shinsen swamp,Kamui Cape
-                p I am sure that I make you feel more happy and fun during our tour!!
-
-              /= link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
+              - if id == 1267
+                p Beppu Onsen(Hot spring),Beach
+                p My university has a lot of students from other countries (almost 80 countries) so I am good at communicate with people from different countries and also I understand other cultures.
+              - elsif id == 406
+                p Kaimonji Onsen, Hana Beppu, Kamesho
+                p I am an official Onsen Master! Since I used to live in the US and NZ, I speak English fluently and I also speak a bit of Thai! I know a lot of Hot Springs in Beppu so please contact me if you want to visit Hot Springs in Beppu!!!
+              - elsif id == 407
+                p Beppu park, Aoyama coffee, Kenkou Hoyou land, Seven diner
+                p One of merits is taking picture. I have been working photo shop for 1 year in my part time job, so I feel confident that taking picture. I’m willing to take memorable shot for you. If you join my guide, you can be one of the local person in Beppu:)
               .links
                 - if user_signed_in?
                   = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
@@ -80,20 +75,27 @@ section#recommended-guides.recomended-guides.text-center.section
               | See All
               i.fa.fa-caret-down
 
-      .col-md-4.col-md-offset-2.row-space-6.hide-guest
-        - profile = Profile.where(id: 1236).first
-        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
-        - name = profile ? profile.first_name : "this user doesn't exist"
-        .guide.text-center
-          .media-round.media-photo.media-avatar
-            .size200[style="background-image: url('#{asset_path image}')"]
-          .name.spb.row-space-top-2.row-space-1 #{name}
-          .introduce
-            p Anywhere in Hokkaido, Tokyo
-            p Historical village of Hokkaido, Hokkaido museum, Biei patch work field, Sounkyo, Kushiro marsh land, fruit picking at Yoichi
-            p I have a lot of experiences having been abroad. I can understand any of you and your cultures.
-            /= link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
-            .links
+      - ids = [404,1219,1188]
+      - ids.each_with_index do |id, index|
+        .col-md-4.row-space-6.hide-guest
+          - profile = Profile.find_by_id(id)
+          - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
+          - name = profile ? profile.first_name : "this user doesn't exist"
+          .guide.text-center
+            .media-round.media-photo.media-avatar
+              .size200[style="background-image: url('#{asset_path image}')"]
+            .name.spb.row-space-top-2.row-space-1 #{name}
+            .introduce
+              - if id == 404
+                p Mendo Kaori(Ramen restaurant), Gelato shop, Kaimonji Onsen, Furosen
+                p I have experience of guiding since high school, and I like finding new interesting and unique spots! I also like getting more experiences and making new friends from all around the world since I am studying at international university.
+              - elsif id == 1219
+                p Cycling, Tanoura beach, Kaimonji hot spring, Hit parade
+                p 1. I am flexible My tour plan will adapt your plan, your schedule so let’s make our tour plan special. 2. I am curious about anything I like learning something. So we can share about it and I would like to learn something from you.
+              - elsif id == 1188
+                p SUSHI, Cooking Activity, Japanese Food
+                p Since I've beent to Australia and America, i can speak English fluently :) I really like traveling All over the world (Especially Asian countries), so i think can guess what you want to do in your distination. Let's have a fun together!!!!
+              .links
                 - if user_signed_in?
                   = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
                     i.fa.fa-comment-o
@@ -107,32 +109,6 @@ section#recommended-guides.recomended-guides.text-center.section
           - else
             = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
 
-      .col-md-4.row-space-6.hide-guest
-        - profile = Profile.where(id: 1258).first
-        - image = profile ? profile_to_image_thumb(profile) : Settings.image.noimage2.url
-        - name = profile ? profile.first_name : "this user doesn't exist"
-        .guide.text-center
-          .media-round.media-photo.media-avatar
-            .size200[style="background-image: url('#{asset_path image}')"]
-          .name.spb.row-space-top-2.row-space-1 #{name}
-          .introduce
-            p Sapporo,Lake Shikotsu,Ashahikawa,Niseko
-            p Lake Shikotsu, Mt.Tarumae,Daisetsuzan,Annupri
-            p People are very polite, respectful, trustworthy,kindness and honest. Lots of nature.
-            /= link_to "More Info", profile ? profile_path(profile.id) : '#', target: "_blank"
-            .links
-                - if user_signed_in?
-                  = link_to profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "plan4U_message js-google-tag-manager" do
-                    i.fa.fa-comment-o
-                - else
-                  = link_to '#', class: "sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : '' do
-                    i.fa.fa-comment-o
-                = link_to profile ? profile_path(profile.id) : '#', target: "_blank", class: 'plus-circle' do
-                  i.fa.fa-plus
-        - if user_signed_in?
-          = link_to "Talk to me", profile ? message_thread_link(profile.user_id, current_user.id) : '#', class: "spb btn-tlk2me text-contrast row-space-top-1 plan4U_message js-google-tag-manager"
-        - else
-          = link_to "Talk to me", '#', class: "spb btn-tlk2me text-contrast row-space-top-1 sign_up_form plan4U_message js-google-tag-manager", user_id: profile ? profile.user_id : ''
 
 = raw @s3_footer
 /section#howtouse.howto.section
@@ -247,7 +223,7 @@ section#recommended-guides.recomended-guides.text-center.section
   .page-container
     /- listings = feature_listings
     .row.row-space-top-8.row-space-8
-      - feature_listing_ids = [37, 401, 459]
+      - feature_listing_ids = [451, 440, 437]
       - feature_listing_ids.each do |id|
         .col-md-6.col-lg-4.row-space-4
           - if feature_listing(id).present?

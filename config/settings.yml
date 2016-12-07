@@ -358,6 +358,8 @@ mailer:
     subject: "ガイドがツアーをキャンセルしました。"
   send_accepted_mail_to_owner:
     subject: "ツアー予約が確定しました。"
+  send_accepted_mail_to_guest:
+    subject: "Payment Confirmation | Huber. TOMODACHI GUIDE"
   send_requested_mail_to_owner:
     subject: "オファーが行われました。"
   pre_mail:
@@ -446,3 +448,8 @@ plan4U_hokkaido:
     header: 'public/s3_contents/plan4U_hokkaido_header.html'
     middle: 'public/s3_contents/plan4U_hokkaido_middle.html'
     footer: 'public/s3_contents/plan4U_hokkaido_footer.html'
+plan4U_kyushu:
+  s3_content_path:
+    header: 'public/s3_contents/plan4U_kyushu_header.html'
+    middle: 'public/s3_contents/plan4U_kyushu_middle.html'
+    footer: 'public/s3_contents/plan4U_kyushu_footer.html'

@@ -19,7 +19,7 @@
     .page-container
       .row.row-space-top-8.row-space-8
         .col-md-12.text-readable.row-space-top-8.text-center
-          h2.text-brand.text-black.row-space-8 
+          h2.text-brand.text-black.row-space-8
             | What is Kamakura like ?
           p.row-space-8
             | Tokyo was the last place that samurai held political power, and Kamakura was the first. The reason that Kamakura was chosen by the first samurai to be the capital during the time known as the "Kamakura period,” in the 12th century, was because it was a natural fortress surrounded by mountains, and had a strong capability for defense. Even 800 years later, Kamakura is still surrounded by mountains and ocean, and the buildings from that time, along with traditions and culture, continue on today. Only an hour’s travel away from Tokyo, it is a town with one of the most places to see.
@@ -97,7 +97,7 @@
             .text.text-light Enoshima
           i.fa.fa-angle-down.tile-arrow.show--sp
       #content09_sp.collapse.text-center
- 
+
   #features-section01.features-section.hide--sp
     .img-bg.img-bg-overlay[data-original="#{asset_path 'feature/bg_section001.jpg'}"]
       .img-bg-content
@@ -121,7 +121,7 @@
           h3.text-black.center-lined
             span 01. Recommended Tours
       .row.row-space-8
-        - feature_listing_ids = [158, 321, 312]
+        - feature_listing_ids = [320, 537, 158]
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -162,7 +162,7 @@
           h3.text-black.center-lined
             span 02. Recommended Tours
       .row.row-space-8
-        - feature_listing_ids = [265, 149, 96]
+        - feature_listing_ids = [96, 265, 544]
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -203,7 +203,7 @@
           h3.text-black.center-lined
             span 03. Recommended Tours
       .row.row-space-8
-        - feature_listing_ids = [31, 321, 306]
+        - feature_listing_ids = [321, 288, 312]
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -244,7 +244,7 @@
           h3.text-black.center-lined
             span 04. Ten-en Hiking Course
       .row.row-space-8
-        - feature_listing_ids = [312, 198, 308]
+        - feature_listing_ids = [333, 292, 410]
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -290,7 +290,7 @@
           h3.text-black.center-lined
             span 05. Food in Kamakura
       .row.row-space-8
-        - feature_listing_ids = [141, 282, 292]
+        - feature_listing_ids = [211, 141, 282]
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -326,7 +326,7 @@
 
     .section-content.page-container.text-center.row-space-6
       .fore-text.row-space-top-8
-        | These two huge temples capture the essence of Kamakura, and are about a ten-minute walk from each other. Among the oldest are a group of wooden buildings built over 700 years ago, and they embody the samurai sense of beauty with the strength and natural beauty of unlacquered wood. 
+        | These two huge temples capture the essence of Kamakura, and are about a ten-minute walk from each other. Among the oldest are a group of wooden buildings built over 700 years ago, and they embody the samurai sense of beauty with the strength and natural beauty of unlacquered wood.
       #content06_pc.collpase
       = link_to "#content06_pc", class: "btn btn-primary btn-lg-ds btn-feature-readmore text-light row-space-top-8", content_name: 'content06' do
         span.text Read more
@@ -336,7 +336,7 @@
           h3.text-black.center-lined
             span 06. Enkaku-ji & Kencho-ji Temple
       .row.row-space-8
-        - feature_listing_ids = [149, 321, 324]
+        - feature_listing_ids = [313, 317, 324]
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -428,7 +428,7 @@
           h3.text-black.center-lined
             span 08. Kamakura and the Ocean
       .row.row-space-8
-        - feature_listing_ids = [31, 158, 320]
+        - feature_listing_ids = [339, 372, 188]
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -474,7 +474,7 @@
           h3.text-black.center-lined
             span 09. Enoshima
       .row.row-space-8
-        - feature_listing_ids = [315, 95, 67]
+        - feature_listing_ids = [315, 212, 95]
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -498,7 +498,7 @@
             = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listings[67]), listing: listings[67]}
           - else
             .tour-listing-empty.text-black.text-brand.text-center
-              
+
 #access-section.features-section
   .card
     .page-container.row-space-top-4
