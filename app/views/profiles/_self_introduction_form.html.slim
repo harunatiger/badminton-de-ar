@@ -56,7 +56,21 @@
             span.input_categories_space_end
             
           hr.row-space-4
-          
+          .row.row-condensed.row-space-4.row-table
+            .col-xs-12.row-space-4
+              | Would you like to make totally customized tours for your guests?
+            .col-xs-12.col-xs-offset-1.row-space-2
+              = f.radio_button :planning_for_you, true
+              | Yes
+              span<
+              = f.radio_button :planning_for_you, false
+              | No
+            .col-xs-12.col-xs-offset-1
+              | If you click “Yes” you will be listed in “Planning for you”
+              br
+              = link_to 'Go to “Planning for you”', root_url + '#planning_for_you'
+            
+          hr.row-space-4
           .row.row-condensed.row-space-4.row-table
             label.text-right.col-3.col-middle[for="user_self_introduction"]
               | Languages
