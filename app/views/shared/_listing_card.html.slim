@@ -3,6 +3,55 @@
     = link_to listing_path(listing), class: "media-photo-block media-cover", target: '_blank' do
       .tour-cover[style="background-image:url(#{asset_path listing_cover_image_thumb_url(listing.id)})" data-original="#{asset_path listing_cover_image_thumb_url(listing.id)}"]
     .card-overlay-bottom-left.flush-left.card-overlay-label
+      = link_to listing_path(listing), class: "text-normal", target: '_blank' do
+        = truncate(listing.title, length: 40)
+    - if controller_name != 'favorites'
+      = render partial: 'shared/favorite', locals: { user: current_user, target: listing}
+  .card-body
+    .row
+      .pull-left.media-container
+        .media
+          = link_to profile_path(profile), class: "media-photo media-round card-profile-picture", target: '_blank' do
+            div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')" title="#{user_id_to_name(profile.user_id)}"]
+      .pull-left
+        .text-left
+          .star-rating.star-rating-fit
+            = render partial: 'shared/stars', locals: { rate: listing.ave_total }
+          small review(#{Review.this_listing(listing).count})
+
+        - if pickup_area_from_listing(listing).present?
+          .listing-area.text-left.text-truncate
+            i.fa.fa-map-marker
+            ' 
+            - pickup_area_from_listing(listing).each do |area|
+              = link_to pickup_path( area.id ), target: '_blank' do
+                = area.short_name
+                ' 
+        - if listing.listing_detail.present?
+          .listing-area.text-left.text-truncate
+            i.fa.fa-clock-o
+            ' 
+            span.text-brand #{listing.listing_detail.time_required}h
+
+      .pull-right.text-right
+        .text-lead
+          | #{currency_sign}&nbsp;
+          = exchanged_amount(listing.listing_detail.display_amount) if listing.listing_detail.present?
+        .small
+          | /Group
+        div
+          - image_categories_limited_six(listing).each do |pickup_tag|
+            .media-round.media-photo.media-avatar
+              .size22[style="background-image: url('#{asset_path pickup_tag.icon_small}')"]
+  /.tour-tag Tour
+
+
+/! old type
+/.card.tour-listing
+  .card-image
+    = link_to listing_path(listing), class: "media-photo-block media-cover", target: '_blank' do
+      .tour-cover[style="background-image:url(#{asset_path listing_cover_image_thumb_url(listing.id)})" data-original="#{asset_path listing_cover_image_thumb_url(listing.id)}"]
+    .card-overlay-bottom-left.flush-left.card-overlay-label
       .h3
         | #{currency_sign}&nbsp;
         = exchanged_amount(listing.listing_detail.display_amount) if listing.listing_detail.present?

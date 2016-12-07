@@ -412,7 +412,8 @@ ul.card-body, ol.card-body
 
 .card-image
   position: relative
-  min-height: 196px
+  //min-height: 196px
+  min-height: 256px
   .favorite-btn
     position: absolute
     top: 10px
@@ -455,15 +456,16 @@ a.card-image
   left: 0
   padding: 7px 10px
 
+/* 20161207
 .card-profile-picture
-  width: 60px
-  height: 60px
+  width: 50px
+  height: 50px
   img
-    width: 56px
-    height: 56px
+    width: 46px
+    height: 46px
   > div
-    width: 56px
-    height: 56px
+    width: 46px
+    height: 46px
     background-repeat: no-repeat
     background-position: center top
     background-size: cover
@@ -1144,10 +1146,17 @@ body.paper
     padding: 18px
   h5
     line-height: 1.4
-  .listing-area
-    a
-      //display: inline-block
-      //padding-right: 5px
+  .row
+    > div
+      padding-left: 4px
+      padding-right: 4px
+      &.media-container
+        padding-left: 0
+  .media-round.media-photo.media-avatar
+    float: right
+    margin: 2px 0 0 2px
+    border: 0
+
 .additional-comment
   height: 164px
   padding: 12px
@@ -1166,17 +1175,6 @@ body.paper
   color: $border1
   .fa
     font-size: 100px
-
-//#features-tour-list
-  .card-profile-picture-offset
-    padding: 0
-    margin-left: 0
-  a.text-normal
-    h5
-      font-size: 15px
-  .size28
-    width: 24px
-    height: 24px
 
 .feature-banner
   @media (max-width: 767px)
