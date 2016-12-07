@@ -247,6 +247,19 @@ input[type="checkbox"]:checked
     text-align: center
     width: 1.25em
     color: $brand-theme
+    
+input[type="radio"]:checked
+  border-color: $brand-theme
+  &:before
+    content: "\f00c"
+    font-family: 'FontAwesome'
+    position: absolute
+    font-size: 1em
+    top: 2px
+    left: 1px
+    text-align: center
+    width: 1.25em
+    color: $brand-theme
 
 input[type="file"]
   max-width: 100%
