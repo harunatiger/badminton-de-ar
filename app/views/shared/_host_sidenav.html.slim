@@ -1,12 +1,12 @@
 ul.sidenav-list
   li[class="#{ 'active' if action_name == 'index'}"]
     = link_to listings_path, aria: {selected: "false"}, class: "sidenav-item row-space-2" do
-      i.fa.fa-user.fa-lg
-      |  My Activities
+      span.img-icon.img-icon-user-o
+      | My Activities
   li
     = link_to "#", aria: {selected: "false"}, class: "sidenav-item row-space-2" do
-      i.fa.fa-search.fa-lg
-      |  Search Activities
+      span.img-icon.img-icon-search-o
+      | Search Activities
 
   /- if action_name == "host_reservation_manager"
     li
