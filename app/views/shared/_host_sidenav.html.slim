@@ -1,11 +1,9 @@
 ul.sidenav-list
-  - if action_name == "host_reservation_manager"
-    li
-      = link_to "My Activities", listings_path, aria: {selected: "false"}, class: "sidenav-item row-space-2"
-    li
-      = link_to "Search Activities", new_listing_path, aria: {selected: "false"}, class: "sidenav-item row-space-2"
-  - else
-    li
-      = link_to "My Activities", listings_path, aria: {selected: "true"}, class: "sidenav-item row-space-2"
-    li
-      = link_to "Search Activities", new_listing_path, aria: {selected: "false"}, class: "sidenav-item row-space-2"
+  li[class="#{ 'active' if action_name == 'index'}"]
+    = link_to listings_path, aria: {selected: "false"}, class: "sidenav-item row-space-2" do
+      i.fa.fa-user.fa-lg
+      |  My Activities
+  li
+    = link_to "#", aria: {selected: "false"}, class: "sidenav-item row-space-2" do
+      i.fa.fa-search.fa-lg
+      |  Search Activities
