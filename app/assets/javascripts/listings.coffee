@@ -1360,3 +1360,9 @@ $ ->
           if tempP.is('a')
             return false
         return
+   
+  # cancel member request      
+  if $('body').hasClass('listings show')
+    $('#cancel_member_request').on 'click', ->
+      $('.preview_link').hide("slow")
+      return

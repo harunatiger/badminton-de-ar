@@ -1028,5 +1028,8 @@ module ApplicationHelper
       'feature_kyoto/card_bg09.jpg'
     end
   end
-
+  
+  def show_leader_contents?(user, listing)
+    ListingUser.is_receptionist?(user.id, listing.id) || listing.user_id == user.id
+  end
 end

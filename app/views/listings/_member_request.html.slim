@@ -1,0 +1,16 @@
+#member_request.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        = simple_form_for(ListingUser.new, url: listing_listing_users_path(@listing), method: :post) do |f|
+          = f.hidden_field :user_id, value: current_user.id
+          = f.hidden_field :listing_id, value: @listing.id
+          = f.hidden_field :user_status, value: 'pending'
+          .card-header
+            strong
+              | Write a message
+          .card-body
+            = f.input_field :request_message, rows: 6, placeholder: "Hi! I'm Kiwako.I would like to join this activity because...Thank you!"
+            .card-footer
+              = f.submit "Apply to join activity", class: "btn btn-primary"
+              = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

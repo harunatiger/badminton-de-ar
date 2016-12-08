@@ -1,0 +1,71 @@
+= render 'shared/subnav'
+.page-container.row-space-top-4.row-space-4
+  .row
+    .col-md-3
+      = render partial: "shared/host_sidenav"
+    .col-md-9
+      = image_tag(listing_cover_image_url(@listing.id))
+      = @listing.title
+      h2.text-center
+        | Members
+      br
+      
+      / pending member
+      - if show_leader_contents?(current_user, @listing)
+        - @pending_listing_users.each do |pending_listing_user|
+          - profile = user_id_to_profile(pending_listing_user.user_id)
+          .row
+            .col-md-3.text-center
+              .media-photo.media-round.media-avatar
+                .size68[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
+            .col-md-6
+              .profile-name.row-space-top-2.row-space-1
+                span
+                  = profile.first_name
+                small.text-muted
+                  = "Registerd #{profile.created_at.strftime("%Y/%m")}"
+              .expandable
+                .expandable-trigger-more
+                  .expandable-content
+                    .expandable-inner
+                      p
+                        = simple_format(profile.try('self_introduction') || '')
+                      .expandable-indicator
+                = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
+                  | read more
+              .talk_to_me-wrapper
+                = render partial: 'shared/talk_to_member', locals: { user_id: profile.user_id }
+            .col-md-3
+              = pending_listing_user.request_message
+          .row.text-center
+            = link_to 'Accept', accept_listing_listing_user_path(@listing,pending_listing_user), class: 'btn btn-primary', method: :POST
+            = link_to 'Reject', listing_listing_user_path(@listing,pending_listing_user), class: 'btn bg-gray', method: :DELETE
+            
+      / accepted member
+      - @accepted_listing_users.each do |accepted_listing_user|
+        - profile = user_id_to_profile(accepted_listing_user.user_id)
+        .row
+          .col-md-3.text-center
+            .media-photo.media-round.media-avatar
+              .size68[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
+          .col-md-9
+            .profile-name.row-space-top-2.row-space-1
+              span
+                = profile.first_name
+              small.text-muted
+                = "Registerd #{profile.created_at.strftime("%Y/%m")}"
+            .profile-rating.row-space-2.clear-both
+              .star-rating
+                = render partial: 'shared/stars', locals: { rate: profile.ave_total }
+              span.badge-pill-count.small1
+                | review
+                |(
+                b
+                  = Review.my_reviewed_count(profile.user_id)
+                |)
+            .talk_to_me-wrapper
+              = render partial: 'shared/talk_to_member', locals: { user_id: profile.user_id }
+      
+      / invite friends
+      - if show_leader_contents?(current_user, @listing)
+        

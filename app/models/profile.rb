@@ -37,6 +37,7 @@
 #  other_address        :string           default("")
 #  soft_destroyed_at    :datetime
 #  free_field           :text             default("")
+#  planning_for_you     :boolean
 #
 # Indexes
 #

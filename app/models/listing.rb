@@ -90,6 +90,8 @@ class Listing < ActiveRecord::Base
   has_many :pickups, :through =>  :listing_pickups
   has_many :favorites, dependent: :destroy
   has_many :listing_destinations, dependent: :destroy
+  has_many :listing_users, dependent: :destroy
+  has_many :users, :through => :listing_users, dependent: :destroy
 
   mount_uploader :cover_image, DefaultImageUploader
   mount_uploader :cover_video, ListingVideoUploader
@@ -430,7 +432,8 @@ class Listing < ActiveRecord::Base
   end
   
   def closed?
-    return true if !self.open or self.admin_closed_at.present? or self.user.admin_closed_at.present?
+    host = User.find_by_id(self.user_id)
+    return true if !self.open or self.admin_closed_at.present? or host.admin_closed_at.present?
     false
   end
 end

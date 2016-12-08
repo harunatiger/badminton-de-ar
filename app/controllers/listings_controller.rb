@@ -14,6 +14,7 @@ class ListingsController < ApplicationController
   # GET /listings.json
   def index
     @listings = Listing.mine(current_user.id).without_soft_destroyed.order_by_updated_at_desc
+    @listing_users = ListingUser.mine(current_user.id).opened.includes(:listing)
     @pre_mail = current_user.pre_mail
   end
 

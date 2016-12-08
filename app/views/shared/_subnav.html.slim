@@ -16,7 +16,7 @@
         li
           = link_to Settings.page.messages, message_threads_path
       - if current_user.main_guide?
-        - if controller_name =="listings" || controller_name =="listing_images" || controller_name =="calendar" || controller_name =="listing_details"
+        - if controller_name =="listings" || controller_name =="listing_images" || controller_name == "calendar" || controller_name =="listing_details" || controller_name =="listing_users"
           li.active
             = link_to Settings.page.listings, listings_path
         - else

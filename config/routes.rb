@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-
   resources :listing_destinations
 
   resources :features, only: [:index] do
@@ -121,6 +119,13 @@ Rails.application.routes.draw do
         post '/', action: :create_unscheduled_tour
       end
     end
+    
+    resources :listing_users, only: [:index, :create, :destroy] do
+      member do
+        post 'accept'
+      end
+    end
+    
     resources :listing_images, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
       post 'upload_video_cover_image', on: :collection
@@ -249,5 +254,5 @@ Rails.application.routes.draw do
   get "payment_report_index" => 'admin/payment#index'
   root 'welcome#index'
 
-  get '*path', controller: 'application', action: 'render_404'
+  #get '*path', controller: 'application', action: 'render_404'
 end

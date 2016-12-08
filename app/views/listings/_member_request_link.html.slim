@@ -1,0 +1,8 @@
+.preview_link
+  .row.row-space-top-2.row-space-2
+    .col-lg-12.text-center
+      p.text-lead.text-light.row-space-2
+        | このActivityのホストメンバーに参加したい場合は企画者の#{user_id_to_firstname(@listing.user_id)}さんに申請してください。
+      = link_to "Activityに参加申請する", '#', 'data-toggle' => "modal", 'data-target' => '#member_request', class: "btn btn-primary"
+      = link_to "キャンセル", '#', class: "btn btn-default", id: 'cancel_member_request'
+= render partial: "member_request"
