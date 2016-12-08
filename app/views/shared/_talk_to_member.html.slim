@@ -1,0 +1,8 @@
+-if message_thread = DefaultThread.exists_default_thread?(user_id, current_user.id)
+  = link_to message_thread_path(message_thread), class: 'btn btn-primary btn-large btn-block btn-relative' do
+    i.fa.fa-comments-o
+    | Talk to me
+- else
+  = link_to message_threads_path(message_thread: {type: 'DefaultThread', host_id: user_id}), method: 'POST', class: 'btn btn-primary btn-large btn-block btn-relative' do
+    i.fa.fa-comments-o
+    | Talk to me

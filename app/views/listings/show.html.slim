@@ -1,6 +1,9 @@
 .client
-- if user_signed_in? && @listing.user_id == current_user.id
-  = render partial: "edit_link"
+- if user_signed_in?
+  - if @listing.user_id == current_user.id
+    = render partial: "edit_link"
+  - elsif current_user.main_guide? && !@listing.users.exists?(current_user)
+    = render partial: "member_request_link"
 
 = render partial: "slideshow", locals: { listing_images: @listing_images, listing: @listing }
 = render partial: "title_section", locals: { listing_images: @listing_images, listing: @listing }

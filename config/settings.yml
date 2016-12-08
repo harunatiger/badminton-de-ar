@@ -81,6 +81,16 @@ listings:
     deleted_listing_id: "This tour has been deleted"
     closed: "This tour has been closed"
   review_display_count: 10
+listing_users:
+  save:
+    success: "Your request has been sent successfully."
+    failure: "Failed to send your request."
+  accept:
+    success: "Successfully accepted."
+    failure: "Failed to accept."
+  destroy:
+    success: "Successfully rejected."
+    failure: "Failed to reject."
 listing_images:
   save:
     success: "Successfully uploaded your photo/video"
