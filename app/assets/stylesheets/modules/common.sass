@@ -247,7 +247,7 @@ input[type="checkbox"]:checked
     text-align: center
     width: 1.25em
     color: $brand-theme
-    
+
 input[type="radio"]:checked
   border-color: $brand-theme
   &:before
@@ -617,6 +617,11 @@ select
 
 .list-layout,.subnav-list, .sidenav-list
   margin-bottom: 0
+
+.sidenav-list
+  li.active
+    a
+      color: $brand-theme
 
 .list-smooth
   li

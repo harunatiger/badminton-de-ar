@@ -42,21 +42,9 @@
             .row
               .col-sm-12.col-md-6
                 | Available Tours
+                i.fa.fa-user-plus
               .col-sm-12.col-md-6.text-right
                 = link_to 'カレンダーの設定', common_ngdays_calendar_index_path, class: "btn btn-primary"
-            /.row
-              .col-sm-7.col-md-6
-                /.select
-                  form#select-listings-filter[action=""]
-                    select#f[name="f"]
-                      option[value="all"]
-                        | 全てのリスティング
-                      option[value="active"]
-                        | 公開中のリスティング
-                      option[value="inactive"]
-                        | 非公開のリスティング
-              .col-sm-5.col-md-6.add-new
-                = link_to "追加", new_listing_path, class: "btn btn-host pull-right show--sp"
           .suspension-container
             ul.list-unstyled.list-layout
               - @listings.each do |listing|
