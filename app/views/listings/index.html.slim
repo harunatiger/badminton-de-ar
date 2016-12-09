@@ -1,12 +1,12 @@
 / listings#index
 = render 'shared/subnav'
-.page-container.row-space-top-4.row-space-4
+.page-container.row-space-top-8.row-space-4
   .row
-    .col-md-3
+    .col-lg-2
       = render partial: "shared/host_sidenav"
 
     - if @listings.blank? && @listing_users.blank?
-      .col-md-9
+      .col-lg-10
         .card
           .card-body
             h3
@@ -15,67 +15,74 @@
               | + を押すとはじめてアクティビティを作成する方への案内の後、アクティビティ作成画面が表示されます。
               br
               | アクティビティ登録は途中で保存することもできますので、まずは気軽に登録に進んでみましょう。
-          /new activity
-          = link_to new_listing_path do
-            | create activity
-            i.fa.fa-user-plus
+            /new activity
+            = link_to new_listing_path, class: "btn btn-primary btn-large" do
+              | Create Activity
     - else
-      .col-md-9
-        .card
-          .card-body
-            .row-space-8.guide_list-wrapper
-              .guide_list-tiles
-                .row
-                  / my activities
-                  - @listings.each do |listing|
-                    .col-md-4
-                      - if listing.closed?
-                        / unpublish
-                        = link_to listing_preview_path(listing) do
-                          = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
-                      - elsif left_step_count_and_elements(listing)[0] > 0
-                        / editing
-                        = link_to edit_listing_path(listing) do
-                          = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
-                      - elsif listing.open?
-                        / open
-                        = link_to listing_path(listing) do
-                          = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
-                        
-                      
-                      / actions
-                      = link_to edit_listing_path(listing), class: "edit-listing" do
-                        i.fa.fa-edit
-                      = link_to listing_copy_path(listing), class: "copy-listing", method: 'POST' do
-                        i.fa.fa-copy
-                      = link_to listing_listing_users_path(listing), class: "copy-listing" do
-                        i.fa.fa-users
-                      = link_to '#', class: "copy-listing" do
-                        i.fa.fa-comment-o
-                      /review
-                      /= link_to new_listing_unscheduled_tour_path(listing), class: "copy-listing" do
-                        i.fa.fa-copy
-                      
+      .col-lg-10
+        .row-space-8.guide_list-wrapper
+          .guide_list-tiles
+            h2.text-brand.row-space-6
+              span My Activities
+            .row
+              / my activities
+              - @listings.each do |listing|
+                .col-md-6.col-lg-4.row-space-4
+                  - if listing.closed?
+                    / unpublish
+                    .unpublish-card-container
+                      = link_to "", listing_preview_path(listing)
+                      = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
+                  - elsif left_step_count_and_elements(listing)[0] > 0
+                    / editing
+                    .editing-card-container
+                      = link_to "", edit_listing_path(listing)
+                      = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
+                  - elsif listing.open?
+                    / open
+                    /= link_to listing_path(listing) do
+                    = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
+                    
+                  .card-body.card-actions
+                    / actions
+                    = link_to '#', class: "copy-listing" do
+                      .img-icon.img-icon-commenting-o
+                      small Chat
+                    = link_to listing_listing_users_path(listing), class: "copy-listing" do
+                      .img-icon.img-icon-user-plus-o
+                      small Invite
+                    = link_to edit_listing_path(listing), class: "edit-listing" do
+                      .img-icon.img-icon-new-o
+                      small Edit
+                    = link_to listing_copy_path(listing), class: "copy-listing", method: 'POST' do
+                      .img-icon.img-icon-copy-o
+                      small Copy
+
+                  /review
+                  /= link_to new_listing_unscheduled_tour_path(listing), class: "copy-listing" do
+                    i.fa.fa-copy
                   
-                  / other guide's activities
-                  - @listing_users.each do |listing_user|
-                    - listing = listing_user.listing
-                    .col-md-4
-                      - if listing_user.pending?
-                        / pending
-                        = link_to listing_path(listing) do
-                          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
-                      - else
-                        / open
-                        = link_to listing_path(listing) do
-                          = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
-                      
-                      = link_to listing_listing_users_path(listing), class: "copy-listing" do
-                        i.fa.fa-users
-                      = link_to '#', class: "copy-listing" do
-                        i.fa.fa-comment-o
-                        
+              
+              / other guide's activities
+              - @listing_users.each do |listing_user|
+                - listing = listing_user.listing
+                .col-md-6.col-lg-4.row-space-4
+                  - if listing_user.pending?
+                    / pending
+                    .pending-card-container
+                      = link_to "", listing_path(listing)
+                      = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
+                  - else
+                    / open
+                    = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
                   
-                  /new activity
-                  = link_to new_listing_path do
-                    | create activity
+                  = link_to listing_listing_users_path(listing), class: "copy-listing" do
+                    i.fa.fa-users
+                  = link_to '#', class: "copy-listing" do
+                    i.fa.fa-comment-o
+                    
+              
+              /new activity
+              .col-md-6.col-lg-4.row-space-4
+                = link_to new_listing_path, class: "add-listing-block" do
+                  span.sr-only create activity

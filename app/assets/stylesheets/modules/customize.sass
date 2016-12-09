@@ -410,10 +410,14 @@ ul.card-body, ol.card-body
   &.flush-right
     padding-right: 20px
 
+.card-image-container
+  position: relative
+  padding: 12px
 .card-image
   position: relative
   //min-height: 196px
-  min-height: 256px
+  //min-height: 256px
+  min-height: 165px
   .favorite-btn
     position: absolute
     top: 10px
@@ -1134,6 +1138,7 @@ body.paper
 
 /* tour-listing */
 .tour-listing
+  border: 0
   .card-image
     .tour-cover
       width: 100%
@@ -1142,8 +1147,9 @@ body.paper
       background-position: center center
       background-repeat: no-repeat
   .card-body
-    height: 160px
-    padding: 18px
+    //height: 160px
+    padding: 0 12px 12px
+    border: 0
   h5
     line-height: 1.4
   .row
@@ -1156,7 +1162,46 @@ body.paper
     float: right
     margin: 2px 0 0 2px
     border: 0
-
+  .price-container
+    .small
+      font-size: 70%
+      margin-top: -5px
+  .second-container
+    width: 118px
+    margin-left: 4px
+    overflow: hidden
+  .star-rating
+    .fa
+      font-size: 12px
+      margin: 0 1px -2px 0
+  .categories-container
+    position: absolute
+    bottom: 12px
+    right: 12px
+.card-actions
+  text-align: center
+  padding: 10px
+  border: 0
+  border-top: 1px solid $border1
+  border-bottom: 5px solid $brand-theme
+  background-color: white
+  a
+    display: inline-block
+    width: 24.75%
+    .img-icon
+      display: block
+      margin: 0 auto
+      background-position: 0
+.add-listing-block
+  display: block
+  height: 325px
+  background-color: $brand-theme
+  background-image: image-url('icons/add-plus.png')
+  background-repeat: no-repeat
+  background-size: 74px auto
+  background-position: center
+  &:hover
+    background-color: $brand-theme-hover
 .additional-comment
   height: 164px
   padding: 12px
@@ -1331,6 +1376,8 @@ body.paper
   .card.tour-listing
     height: 358px
     overflow: hidden
+  .card-image
+    min-height: 260px
 
 @media (max-width: 1099px) and (min-width: 768px)
   .col-switch-pickup
