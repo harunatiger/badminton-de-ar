@@ -28,15 +28,15 @@
               / my activities
               - @listings.each do |listing|
                 .col-md-6.col-lg-4.row-space-4
-                  - if listing.closed?
-                    / unpublish
-                    .unpublish-card-container
-                      = link_to "", listing_preview_path(listing)
-                      = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
-                  - elsif left_step_count_and_elements(listing)[0] > 0
+                  - if left_step_count_and_elements(listing)[0] > 0
                     / editing
                     .editing-card-container
                       = link_to "", edit_listing_path(listing)
+                      = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
+                  - elsif listing.closed?
+                    / unpublish
+                    .unpublish-card-container
+                      = link_to "", listing_preview_path(listing)
                       = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
                   - elsif listing.open?
                     / open
