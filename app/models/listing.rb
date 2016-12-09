@@ -171,48 +171,31 @@ class Listing < ActiveRecord::Base
 
   def self.search(search_params, max_distance=Settings.search.distance)
     if search_params["longitude"].present? && search_params["latitude"].present?
-      if search_params["sort_by"].blank?
-        listings = Listing.opened
-      else
-        listings = Listing.select('id, user_id').opened
+      listings = Listing.select('id, user_id').opened
         
-        category_ids = [search_params["category1"],search_params["category2"],search_params["category3"]].reject(&:blank?)
-        if category_ids.present?
-          listings = listings.joins(:listing_images).merge(ListingImage.where(pickup_id: category_ids))
-        end
-        
-        if search_params["num_of_people"].present?
-          num_of_people = search_params["num_of_people"].to_i
-          listings = listings.joins(:listing_detail).merge(ListingDetail.available_num_of_people(num_of_people))
-        end
-        
-        if search_params["duration_range"].present?
-          duration = search_params['duration_range'].split(',')
-          duration_min = duration[0].to_i
-          duration_max = duration[1].to_i
-          listings = listings.joins(:listing_detail).merge(ListingDetail.available_time_required(duration_min, duration_max))
-        end
-        
+      category_ids = [search_params["category1"],search_params["category2"],search_params["category3"]].reject(&:blank?)
+      if category_ids.present?
+        listings = listings.joins(:listing_images).merge(ListingImage.where(pickup_id: category_ids))
+      end
+      
+      if search_params["num_of_people"].present?
+        num_of_people = search_params["num_of_people"].to_i
+        listings = listings.joins(:listing_detail).merge(ListingDetail.available_num_of_people(num_of_people))
+      end
+      
+      if search_params["duration_range"].present?
+        duration = search_params['duration_range'].split(',')
+        duration_min = duration[0].to_i
+        duration_max = duration[1].to_i
+        listings = listings.joins(:listing_detail).merge(ListingDetail.available_time_required(duration_min, duration_max))
+      end
+      
+      if search_params["language_ids"].present?
         search_params["language_ids"] = search_params["language_ids"].reject(&:blank?)
         # When selected EN, it means containing all users
         if search_params["language_ids"].present? and !search_params["language_ids"].index(Language.find_by_name('English').try('id').to_s)
           user_ids = Profile.where(user_id: listings.pluck(:user_id)).joins(:profile_languages).merge(ProfileLanguage.where(language_id: search_params["language_ids"])).pluck(:user_id)
           listings = listings.where(user_id: user_ids)
-        end
-        
-        if search_params["schedule"].present?
-          date = Date.strptime(search_params["schedule"], "%m/%d/%Y")
-          wday = date.wday
- 
-          # ngevent_week
-          ng_user_ids = NgeventWeek.where(dow: wday, mode: 1).pluck(:user_id)
-          ng_listing_ids = NgeventWeek.where(listing_id: listings.ids, dow: wday, mode: 0).where.not(user_id: ng_user_ids).pluck(:listing_id)
-          listings = listings.where.not(user_id: ng_user_ids).where.not(id: ng_listing_ids)
-          
-          # ng_event
-          ng_user_ids = Ngevent.where.not(mode: 0).where('start <= ? and ? <= ngevents.end', date, date).pluck(:user_id)
-          ng_listing_ids = Ngevent.where(listing_id: listings.ids, mode: 0).where('start <= ? and ? <= ngevents.end', date, date).pluck(:listing_id)
-          listings = listings.where.not(user_id: ng_user_ids).where.not(id: ng_listing_ids)
         end
       end
       

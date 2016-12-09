@@ -9,128 +9,79 @@
         i.fa.fa-search.fa-brand.fa-size-1
       .col-sm-9.col-md-10
         input.location#location-search[type="text" placeholder="location" value=@conditions['location'] name="search[location]"]
-  .sort-filter.filters-section.card-body
-    .row
-      .col-sm-4.col-md-3.text-left.col-subject
-        span Sort by
-      .col-sm-8.col-md-9
-        ul.nav.nav-tabs
-          li
-            = link_to "Tour", "#tab-tour", data: {toggle: "tab"}, class: 'tour_tab'
-          li
-            = link_to "Spot", "#tab-spot", data: {toggle: "tab"}, class: 'spot_tab'
-  .tab-content
-    #tab-tour.tab-pane
-      .location-filter.filters-section.card-body.show--sp
-        .form
-          input#location-search-filter-sp[type="text" placeholder="location" value=@conditions['location'] name="search[location]"]
-          i.fa.fa-search.fa-brand
-      .category-filters.filters-section.card-body
-        .row
-          .col-sm-12.col-md-3.text-left.col-subject
-            span Category
-          .col-sm-12.col-md-9
-            .category-filters-inner
-              .row.row-condensed
-                .col-sm-4.col-md-6.col-lg-4
-                  .category-select
-                    .category-selected
-                      span Choose Category
-                    .category-radio
-                      label.category-default
-                        | Choose Category
-                        input[name="search[category1]" type="radio" value=""]
-                      - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
-                        - checked = @conditions['category1'].to_i == pickup_tag.id
-                        label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
-                          span = pickup_tag.short_name
-                          input#search_category1[name="search[category1]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
-
-                .col-sm-4.col-md-6.col-lg-4
-                  .category-select
-                    .category-selected
-                      span Choose Category
-                    .category-radio
-                      label.category-default
-                        | Choose Category
-                        input[name="search[category2]" type="radio" value=""]
-                      - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
-                        - checked = @conditions['category2'].to_i == pickup_tag.id
-                        label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
-                          span = pickup_tag.short_name
-                          input#search_category2[name="search[category2]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
-
-                .col-sm-4.col-md-6.col-lg-4
-                  .category-select.last
-                    .category-selected
-                      span Choose Category
-                    .category-radio
-                      label.category-default
-                        | Choose Category
-                        input[name="search[category3]" type="radio" value=""]
-                      - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
-                        - checked = @conditions['category3'].to_i == pickup_tag.id
-                        label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
-                          span = pickup_tag.short_name
-                          input#search_category3[name="search[category3]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
-
-      .date-filters.filters-section.card-body
-        .row
-          .col-md-3.text-left.col-subject.hide--sp
-            span Date
-          .col-sm-12.col-md-9
-            .row
-              .col-md-12.col-lg-5
-                = f.input_field :schedule, placeholder: "MM/DD/YY", class: "datepicker", value: @conditions['schedule']
-              .col-md-12.col-lg-5
-                .select.select-block
-                  = f.input_field :num_of_people, as: :select, collection: 1..20, selected: [@conditions['num_of_people']], include_blank: "people"
-      .duration-filter.filters-section.card-body
-        .row
-          .col-sm-6.col-md-3.text-left.col-subject
-            span Duration
-          .col-sm-12.col-md-8
-            .row-space-top-4.row-space-2
-              input#duration-range[name="search[duration_range]" value=@conditions['duration_range'] ]
-      .laguage-filter.filters-section.card-body
-        .row
-          .col-sm-6.col-md-3.text-left.col-subject
-            span Language
-          .col-sm-12.col-md-9
-            .language-select
-              = collection_check_boxes(:search, :language_ids, Language.ordered, :id, :name, checked: @conditions['language_ids']) do |l|
-                label
-                  = l.check_box
-                  span #{language_id_to_short_name(l.value)}
-
-    #tab-spot.tab-pane
-      /.location-filter.filters-section.card-body.show--sp
-        .form
-          input#location-search-filter-sp[type="text" placeholder="location" value=@conditions['location'] name="search[location]"]
-          i.fa.fa-search.fa-brand
-      .filters-section.card-body
-        .row
-          .col-sm-4.col-md-3.text-left.col-subject
-            span Category
-          .col-sm-8.col-md-9
+  #tab-tour.hide
+    .location-filter.filters-section.card-body.show--sp
+      .form
+        input#location-search-filter-sp[type="text" placeholder="location" value=@conditions['location'] name="search[location]"]
+        i.fa.fa-search.fa-brand
+    .category-filters.filters-section.card-body
+      .row
+        .col-sm-12.col-md-3.text-left.col-subject
+          span Category
+        .col-sm-12.col-md-9
+          .category-filters-inner
             .row.row-condensed
-              .col-sm-12.col-md-6.col-lg-4
+              .col-sm-4.col-md-6.col-lg-4
                 .category-select
                   .category-selected
-                    | Choose Category
+                    span Choose Category
                   .category-radio
                     label.category-default
                       | Choose Category
-                      input[name="search[spot_category]" type="radio" value='' ]
+                      input[name="search[category1]" type="radio" value=""]
                     - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
-                      - checked = @conditions['spot_category'].to_i == pickup_tag.id
+                      - checked = @conditions['category1'].to_i == pickup_tag.id
                       label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
                         span = pickup_tag.short_name
-                        input#search_spot_category[name="search[spot_category]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
+                        input#search_category1[name="search[category1]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
+
+              .col-sm-4.col-md-6.col-lg-4
+                .category-select
+                  .category-selected
+                    span Choose Category
+                  .category-radio
+                    label.category-default
+                      | Choose Category
+                      input[name="search[category2]" type="radio" value=""]
+                    - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
+                      - checked = @conditions['category2'].to_i == pickup_tag.id
+                      label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
+                        span = pickup_tag.short_name
+                        input#search_category2[name="search[category2]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
+
+              .col-sm-4.col-md-6.col-lg-4
+                .category-select.last
+                  .category-selected
+                    span Choose Category
+                  .category-radio
+                    label.category-default
+                      | Choose Category
+                      input[name="search[category3]" type="radio" value=""]
+                    - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
+                      - checked = @conditions['category3'].to_i == pickup_tag.id
+                      label[style="background-image: url(#{ asset_path pickup_tag.icon })"]
+                        span = pickup_tag.short_name
+                        input#search_category3[name="search[category3]" type="radio" value="#{ pickup_tag.id }" checked=checked ]
+    .duration-filter.filters-section.card-body
+      .row
+        .col-sm-6.col-md-3.text-left.col-subject
+          span Duration
+        .col-sm-12.col-md-8
+          .row-space-top-4.row-space-2
+            input#duration-range[name="search[duration_range]" value=@conditions['duration_range'] ]
+    .laguage-filter.filters-section.card-body
+      .row
+        .col-sm-6.col-md-3.text-left.col-subject
+          span Language
+        .col-sm-12.col-md-9
+          .language-select
+            = collection_check_boxes(:search, :language_ids, Language.ordered, :id, :name, checked: @conditions['language_ids']) do |l|
+              label
+                = l.check_box
+                span #{language_id_to_short_name(l.value)}
+                
 
   .filter-buttons.filters-section.card-body.text-right.row-space-6
-    .filter-text.text-center[style="display: none"]
-      p.text-muted Please select Tour or Spot to display additional filters.
     .default-buttons.hide--sp
       = link_to "#", class: "btn btn-primary show-sort-filter" do
         span.text-more-filters MORE FILTERS

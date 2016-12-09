@@ -261,20 +261,20 @@ $ ->
       return
 
     # bootstrap datepicker
-    $('.datepicker')
-      .datepicker
-        autoclose: true,
-        startDate: '+1d',
-        language: 'en',
-        orientation: 'top auto'
-      .on 'show', (e) ->
-        $('#search_schedule').blur()
-    # for touch devices
-    if $('html').hasClass('touch')
-      $('.datepicker').attr('readonly', 'readonly')
-      $('.datepicker').on 'touchstart', (e) ->
-        $(this).datepicker('show')
-        e.preventDefault()
+    # $('.datepicker')
+    #   .datepicker
+    #     autoclose: true,
+    #     startDate: '+1d',
+    #     language: 'en',
+    #     orientation: 'top auto'
+    #   .on 'show', (e) ->
+    #     $('#search_schedule').blur()
+    # # for touch devices
+    # if $('html').hasClass('touch')
+    #   $('.datepicker').attr('readonly', 'readonly')
+    #   $('.datepicker').on 'touchstart', (e) ->
+    #     $(this).datepicker('show')
+    #     e.preventDefault()
 
     # duration range
     if $("#duration-range").val()
@@ -295,12 +295,8 @@ $ ->
     # show filetr
     $('.show-sort-filter').on 'click', (e) ->
       $('.default-buttons').hide()
-      $('.sort-filter, .apply-buttons').show()
-      $('.filter-text').show()
-      if $('#search_sort_by').val() == 'Tour'
-        $(".sort-filter a[class='tour_tab']").tab('show')
-      else if $('#search_sort_by').val() == 'Spot'
-        $(".sort-filter a[class='spot_tab']").tab('show')
+      $('.apply-buttons').show()
+      $("#tab-tour").removeClass('hide')
       e.preventDefault()
 
     # reset filetr
@@ -311,22 +307,15 @@ $ ->
       # pc
       else
         $('.default-buttons').show()
-        $('.sort-filter, .apply-buttons').hide()
-        $('#tab-spot, #tab-tour').removeClass('active')
-        $('.sort-filter li').removeClass('active')
-        $('.filter-text').hide()
+        $('.apply-buttons').hide()
 
       # clear search params
-      $('#search_sort_by').val ''
-      $('#search_spot_category').val ''
       $("input[name='search[category1]']").each ->
         $(this).attr('checked', false)
       $("input[name='search[category2]']").each ->
         $(this).attr('checked', false)
       $("input[name='search[category3]']").each ->
         $(this).attr('checked', false)
-      $('#search_schedule').val ''
-      $('#search_num_of_people').val ''
       $("#duration-range").val ''
       $("input[name*='search[language_ids]']").each ->
         $(this).attr('checked', false)
@@ -336,25 +325,14 @@ $ ->
       e.preventDefault()
       return false
 
-    # sp sort-tab toggle
-    $('.sort-filter a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
-      if $('.filters').css('position') == 'fixed'
-        $('.apply-buttons').show()
-      $('.filter-text').hide()
-      return
-
     # sp filter show/hide
     $('.js-small-filter-show').on 'click', (e) ->
       $('.filters').show()
       # clear duration range
       $('#duration-range').val ''
-      if !$('.sort-filter .nav-tabs li').hasClass('active')
-        $('.filter-text').show()
 
-      if $('#search_sort_by').val() == 'Tour'
-        $(".sort-filter a[class='tour_tab']").tab('show')
-      else if $('#search_sort_by').val() == 'Spot'
-        $(".sort-filter a[class='spot_tab']").tab('show')
+      $('.apply-buttons').show()
+      $("#tab-tour").removeClass('hide')
       e.preventDefault()
     $('.js-small-filters-close').on 'click', (e) ->
       $('.filters').hide()
