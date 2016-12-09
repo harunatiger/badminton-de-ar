@@ -189,6 +189,6 @@ class ProfilesController < ApplicationController
         :listing_count, :wishlist_count, :bookmark_count, :reviewed_count,
         :reservation_count,
         :ave_total, :ave_accuracy, :ave_communication, :ave_cleanliness, :ave_location,
-        :ave_check_in, :ave_cost_performance, :created_at, :updated_at, category_ids: [],language_ids: [], profile_pickups_attributes: [:id, :pickup_id, :tag_list => []], profile_countries_attributes: [:id, :country, :_destroy])
+        :ave_check_in, :ave_cost_performance, :created_at, :updated_at, :planning_for_you, category_ids: [],language_ids: [], profile_pickups_attributes: [:id, :pickup_id, :tag_list => []], profile_countries_attributes: [:id, :country, :_destroy])
     end
 end
