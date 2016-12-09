@@ -69,8 +69,8 @@
           / accepted member
           .accepted-activity-list
             .row.row-space-top-6
-              .col-md-6.row-space-4
-                - @accepted_listing_users.each do |accepted_listing_user|
+              - @accepted_listing_users.each do |accepted_listing_user|
+                .col-md-6.row-space-4
                   - profile = user_id_to_profile(accepted_listing_user.user_id)
                   .accepted-activity-container
                     .row
@@ -102,7 +102,7 @@
               / invite friends
               - if show_leader_contents?(current_user, @listing)
                 .col-md-6.row-space-4
-                  = link_to "", "#", class: ".add-listing-block"
+                  = link_to "", "#", class: "add-listing-block"
                   
 = render partial: 'shared/modals/about_activity_member'
 
