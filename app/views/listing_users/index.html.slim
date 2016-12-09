@@ -1,9 +1,9 @@
 = render 'shared/subnav'
-.page-container.row-space-top-4.row-space-4
+.page-container.row-space-top-8.row-space-4
   .row
-    .col-md-3
+    .col-lg-2
       = render partial: "shared/host_sidenav"
-    .col-md-9
+    .col-lg-10
       = image_tag(listing_cover_image_url(@listing.id))
       = @listing.title
       - if current_user.id == @listing.user_id

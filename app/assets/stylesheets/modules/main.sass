@@ -3339,7 +3339,17 @@ h3.center-lined
     background-color: $yellow3
   //@media (max-width: 767px)
     top: 10px
-
+.own-tag
+  display: block
+  position: absolute
+  top: -2px
+  left: 18px
+  width: 27px
+  height: 48px
+  background-image: image-url('illust/bookmark.png')
+  background-repeat: no-repeat
+  background-position: center
+  background-size: 27px 48px
 
 /* search style fix 20160927 ================================================================================
 
@@ -4002,6 +4012,54 @@ h3.center-lined
   padding-top: 10px
   margin-bottom: 15px
 
-/* 20161117--
-/* features kyoto
+/* 20161209--
+/* activity
   ================================================================================ */
+
+.guide_list-tiles
+  h2
+    position: relative
+    span
+      display: inline-block
+      position: relative
+      padding-right: 10px
+      background-color: $bg1
+      z-index: 1
+    &:after
+      content: ''
+      display: block
+      position: absolute
+      top: 50%
+      left: 10px
+      right: 0
+      border-bottom: 2px solid $brand-theme
+      z-index: 0
+
+.unpublish-card-container, .editing-card-container, .pending-card-container
+  position: relative
+  > a
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    background-repeat: no-repeat
+    background-size: 120px 70px
+    background-position: center
+    z-index: 1
+  > div
+    z-index: 0
+.unpublish-card-container
+  > a
+    bottom: 0
+    background-color: rgba(155, 155, 155, .65)
+    background-image: image-url('illust/bg-unpublish.png')
+.editing-card-container
+  > a
+    bottom: 0
+    background-color: rgba(248, 195, 28, .65)
+    background-image: image-url('illust/bg-editing.png')
+.pending-card-container
+  > a
+    bottom: -70px
+    background-color: rgba(69, 167, 216, .65)
+    background-image: image-url('illust/bg-pending.png')
