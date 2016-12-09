@@ -18,7 +18,7 @@ class ListingUsersController < ApplicationController
 
     respond_to do |format|
       if @listing_user.save
-        format.html { redirect_to listing_path(@listing), notice: Settings.listing_users.save.success }
+        format.html { redirect_to listings_path, notice: Settings.listing_users.save.success }
         format.json { render :show, status: :created, location: @listing_user }
       else
         format.html { redirect_to listing_path(@listing), alert: Settings.listing_users.save.failure }
