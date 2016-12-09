@@ -6,6 +6,9 @@
     .col-md-9
       = image_tag(listing_cover_image_url(@listing.id))
       = @listing.title
+      - if current_user.id == @listing.user_id
+        = simple_form_for(@listing, url: listing_change_authorized_user_status_path, method: :POST) do |f|
+          = f.select :authorized_user_status, [["Only Receptionists", "receptionists"], ["All Members", "members"]]
       h2.text-center
         | Members
       br

@@ -39,6 +39,7 @@
 #  interview2              :string           default("")
 #  interview3              :string           default("")
 #  admin_closed_at         :datetime
+#  authorized_user_status  :integer          default(0)
 #
 # Indexes
 #
@@ -112,6 +113,8 @@ class Listing < ActiveRecord::Base
     end
   end
   UPLOAD_VIDEO_LIMIT_SIZE = ENV["UPLOAD_VIDEO_LIMIT_SIZE"].to_i.freeze
+  
+  enum authorized_user_status: { receptionists: 0, members: 1}
 
   scope :mine, -> user_id { where(user_id: user_id) }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }

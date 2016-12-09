@@ -74,6 +74,9 @@ listings:
   copy:
     success: "Tour-page has been updated successfully. Continue with the following steps to complete your tour-page"
     failure: "Copying a tour failed"
+  change_authorized_user_status:
+    success: "Successfully changed settings."
+    failure: "Failed to change settings."
   delivery:
     ok: "出張可"
   error:

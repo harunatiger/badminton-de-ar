@@ -36,6 +36,7 @@
 //= require dashboard
 //= require message
 //= require listings
+//= require listing_users
 //= require reservation
 //= require listingdetails
 //= require profiles

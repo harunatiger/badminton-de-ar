@@ -2,7 +2,7 @@ class ListingsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :preview, :search, :read_more_reviews]
   #before_action :check_listing_status, only: [:index, :search]
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite_listing, :read_more_reviews]
-  before_action :set_listing_obj, only: [:publish, :unpublish, :copy, :preview]
+  before_action :set_listing_obj, only: [:publish, :unpublish, :copy, :preview, :change_authorized_user_status]
   before_action :set_listing_related_data, only: [:show, :edit, :preview]
   before_action :set_message_thread, only: [:show]
   before_action :regulate_user, except: [:new, :index, :create, :show, :search, :favorite_listing]
@@ -147,6 +147,16 @@ class ListingsController < ApplicationController
       redirect_to listings_path, alert: Settings.listings.copy.failure
     end
   end
+  
+  def change_authorized_user_status
+    respond_to do |format|
+      if @listing.update(listing_params)
+        format.html { redirect_to listing_listing_users_path(@listing), notice: Settings.listings.change_authorized_user_status.success }
+      else
+        format.html { redirect_to listing_listing_users_path(@listing), alert: Settings.listings.change_authorized_user_status.failure }
+      end
+    end
+  end
 
   def preview
     @reviews = Review.this_listing(@listing).page(params[:page])
@@ -215,7 +225,7 @@ class ListingsController < ApplicationController
         :description, :recommend1, :recommend2, :recommend3,
         :interview1, :interview2, :interview3, :overview, :notes,
         :title, :capacity, :direction, :schedule, :listing_images,
-        :cover_video, :cover_video_caption,
+        :cover_video, :cover_video_caption, :authorized_user_status,
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
         language_ids: [], pickup_ids: [],
         listing_detail_attributes: [:id, :place_memo, :condition, :stop_if_rain, :in_case_of_rain ],

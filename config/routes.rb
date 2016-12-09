@@ -141,6 +141,7 @@ Rails.application.routes.draw do
     get 'unpublish', action: 'unpublish', as: 'unpublish'
     get 'preview'
     post 'copy', action: 'copy', as: 'copy'
+    post 'change_authorized_user_status'
     member do
       get 'read_more_reviews',    action: 'read_more_reviews'
     end
