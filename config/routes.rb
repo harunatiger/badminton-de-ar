@@ -145,6 +145,9 @@ Rails.application.routes.draw do
     member do
       get 'read_more_reviews',    action: 'read_more_reviews'
     end
+    collection do
+      get 'search'
+    end
 
     resources :ngevents, only: [:create] do
       get 'listing_ngdays', on: :collection

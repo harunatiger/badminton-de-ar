@@ -1338,9 +1338,16 @@ $ ->
           if tempP.is('a')
             return false
         return
-   
+        
   # cancel member request      
   if $('body').hasClass('listings show')
     $('#cancel_member_request').on 'click', ->
       $('.preview_link').hide("slow")
       return
+      
+  # add params for member request link
+  if $('body').hasClass('listings search')
+    $("a[href^='/listings/']").each () ->
+      href = $(this).attr('href')
+      $(this).attr('href', href + '?member_request_link=true')
+    

@@ -1,5 +1,4 @@
 module Search
-  
   def self.search_listings_and_spots(search_params, max_distance=Settings.search.distance)
     results = []
     gon_locations = []

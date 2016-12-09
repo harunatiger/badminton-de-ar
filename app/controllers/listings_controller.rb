@@ -1,4 +1,4 @@
-class ListingsController < ApplicationController
+class ListingsController < CommonSearchController
   before_action :authenticate_user!, except: [:show, :preview, :search, :read_more_reviews]
   #before_action :check_listing_status, only: [:index, :search]
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite_listing, :read_more_reviews]
@@ -41,6 +41,7 @@ class ListingsController < ApplicationController
     gon.keywords = @profile_keyword
     gon.currency = {currency_code: session[:currency_code], rate: session[:rate], exhange_fee_rate: Settings.reservation.exchange_rate}
     @announcement = Announcement.display_at('listing').first
+    @member_request_link = true if params[:member_request_link].present?
   end
   
   def read_more_reviews
@@ -170,6 +171,10 @@ class ListingsController < ApplicationController
     @reservation = Reservation.new
     @profile_keyword = ProfileKeyword.where(user_id: @listing.user_id, profile_id: Profile.where(user_id: @listing.user_id).pluck(:id).first).keyword_limit
     gon.keywords = @profile_keyword
+  end
+  
+  def search
+    basic_search
   end
 
   private

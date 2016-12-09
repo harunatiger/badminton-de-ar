@@ -1,0 +1,9 @@
+/ listings#search
+= render 'shared/subnav'
+.page-container
+  .row
+    = link_to listings_path, aria: {selected: "false"}, class: "sidenav-item row-space-2" do
+      small
+        | < Activities
+        
+= render partial: 'search/form', locals: { path: search_listings_path }
