@@ -1,0 +1,18 @@
+/ modal about activity member
+#about_activity_member.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+          | Notice
+        form
+          .card-body
+            p ゲストからのメッセージへの応対ルールを設定します。「Receptionist Only」にすると、あなたとReceptionistに設定したメンバーだけが応対できます。「All members」にすると、全員が応対できます。
+
+            p Receptionistは下部のメンバー一覧にある切り替えボタンで設定できます。
+
+            p なお、メッセージがはじまった後も、必要なタイミングで必要なメンバーを参加させられます。
+
+          .card-footer
+            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

@@ -4063,3 +4063,184 @@ h3.center-lined
     bottom: -70px
     background-color: rgba(69, 167, 216, .65)
     background-image: image-url('illust/bg-pending.png')
+
+.listing_user-container
+  h2
+    position: relative
+    span
+      display: inline-block
+      position: relative
+      padding: 0 10px
+      background-color: white
+      z-index: 1
+    &:after
+      content: ''
+      display: block
+      position: absolute
+      top: 50%
+      left: 0
+      right: 0
+      border-bottom: 2px solid $brand-theme
+      z-index: 0
+  .media-cover-img
+    > div
+      position: relative
+    .va-container
+      display: table
+      height: 275px
+    .va-middle
+      display: table-cell
+  .media-cover-dark
+    z-index: 0
+  .select-listing-user
+    width: 200px
+    margin: 10px auto
+    .fa
+      position: absolute
+      top: -5px
+      right: -5px
+      width: 16px
+      height: 16px
+      line-height: 16px
+      color: white
+      background-color: $brand-theme
+      border-radius: 50%
+    select
+      color: white
+      background-color: rgba(0, 0, 0, .05)
+      border: 2px solid white
+      border-radius: 4px
+      -webkit-appearance: none
+      -moz-appearance: none
+      appearance: none
+      &:hover, &:active, &:focus
+        background-color: $brand-theme
+        border-color: $brand-theme
+    &:after
+      content: ''
+      position: absolute
+      top: 10px
+      right: 12px
+      bottom: 1px
+      width: 12px
+      height: 12px
+      border-bottom: 1px solid white
+      border-left: 1px solid white
+      text-align: center
+      pointer-events: none
+    &:after
+      transform: rotate(-45deg)
+
+.pending-activity-container
+  position: relative
+  background-color: white
+  border: 4.5px solid $brand-theme
+  border-radius: 8px
+  .fa-exclamation
+    position: absolute
+    top: -10px
+    left: 5px
+    width: 22px
+    height: 22px
+    line-height: 22px
+    color: white
+    text-align: center
+    background-color: $red1
+    border-radius: 50%
+  .media-avatar
+    > div
+      width: 74px
+      height: 74px
+  .pending-activity-inner
+    padding: 15px 15px 0
+    background-color: $bg1
+    border-radius: 8px 8px 0 0
+    overflow: hidden
+    .talk_to_me-wrapper
+      .btn
+        padding: 4px 5px
+        font-size: 12px
+        .fa
+          width: auto
+          margin-right: 1px
+          font-size: 12px
+  .pending-user-info-container
+    min-height: 110px
+    .expandable-content
+      height: 65px
+    .profile-name
+      @media (max-width: 767px)
+        text-align: center
+  .request-message-container
+    padding: 10px
+    min-height: 110px
+    background-color: white
+    border-radius: 4px
+    .expandable-content
+      height: 75px
+  .btn-container
+    padding: 10px 10px 0
+    .btn
+      min-width: 120px
+      margin: 0 10px 10px
+      border: 0
+
+.accepted-activity-container
+  position: relative
+  height: 110px
+  padding: 12px
+  background-color: $bg1
+  border-radius: 4px
+  overflow: hidden
+  @media (max-width: 1099px)
+    height: 130px
+  @media (max-width: 767px)
+    height: auto
+    text-align: center
+  .media-avatar
+    margin: 0 auto
+    > div
+      width: 74px
+      height: 74px
+  .talk_to_me-wrapper
+    .btn
+      padding: 4px 10px
+      font-size: 13px
+      .fa
+        width: auto
+        margin-right: 2px
+        font-size: 13px
+  .select-listing-user
+    position: absolute
+    top: 8px
+    right: 14px
+    width: 20px
+    margin: 0
+    select
+      color: white
+      background-color: transparent
+      border: 0
+      border-radius: 0
+      &:hover, &:active, &:focus
+        background-color: transparent
+    &:after
+      content: ''
+      position: absolute
+      top: 0
+      right: 0
+      bottom: auto
+      width: 12px
+      height: 12px
+      border-bottom: 1px solid #999
+      border-left: 1px solid #999
+      text-align: center
+      pointer-events: none
+    &:after
+      transform: rotate(-45deg)
+.accepted-activity-list
+  .add-listing-block
+    height: 110px
+    background-size: 44px auto
+    border-radius: 4px
+    @media (max-width: 1099px)
+      height: 130px
