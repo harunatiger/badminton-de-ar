@@ -760,9 +760,32 @@ a.delete
 
 /* search */
 .search
-  .map
+  .header-link
     position: fixed
     top: 51px
+    left: 0
+    right: 0
+    height: 44px
+    padding-left: 20px
+    padding-right: 20px
+    background-color: $bg1
+    z-index: 1
+    a
+      display: inline-block
+      margin-top: 4px
+      font-size: 13px
+      .fa
+        margin: 0 8px 3px 0
+        font-size: 20px
+        vertical-align: middle
+    @media (max-width: 767px)
+      top: 91px
+      border-bottom: 1px solid $border1
+      z-index: 5
+  .map
+    position: fixed
+    //top: 51px
+    top: 95px
     right: 0
     left: auto
     bottom: 0
@@ -845,7 +868,8 @@ a.delete
   @media (min-width: 768px)
     .sidebar
       position: fixed
-      top: 51px
+      //top: 51px
+      top: 95px
       left: 0
       bottom: 0
       width: 60%
