@@ -664,7 +664,9 @@ module ApplicationHelper
   def set_time_required
     time_required_hash = Hash.new()
     0.step(24.5,0.5) do |i|
-      if i == 24.5
+      if i == 0.0
+        next
+      elsif i == 24.5
         time_required_hash.store('24.0以上', i)
       else
         time_required_hash.store(i, i)
@@ -851,7 +853,11 @@ module ApplicationHelper
   end
 
   def checked_language_ids(profile)
-    profile.language_ids.index(disabled_language_id) ? @profile.language_ids : @profile.language_ids.push(disabled_language_id)
+    profile.language_ids.index(disabled_language_id) ? profile.language_ids : profile.language_ids.push(disabled_language_id)
+  end
+  
+  def checked_listing_language_ids(listing)
+    listing.language_ids.index(disabled_language_id) ? listing.language_ids : listing.language_ids.push(disabled_language_id)
   end
 
   def what_talk_about_contents

@@ -1350,4 +1350,13 @@ $ ->
     $("a[href^='/listings/']").each () ->
       href = $(this).attr('href')
       $(this).attr('href', href + '?member_request_link=true')
+      
+  # regulate categories count
+  if $('body').hasClass('listings new') || $('body').hasClass('listings edit') || $('body').hasClass('listings create') || $('body').hasClass('listings update')
+    $(".listing_pickuptag_checkbox input[type='checkbox']").on 'change', ->
+      if $(".listing_pickuptag_checkbox input[type='checkbox']:checked").length > 3
+        $(this).attr('checked', false)
+        alert 'You can register a maximum of 3 categories.'
+        return false
+      return
     

@@ -52,7 +52,7 @@ $ ->
 
     $('.listing-manager-area-container').text('')
     areas = []
-    $('[name="listing[pickup_ids][]"]:checked').each ->
+    $('#listing_area [name="listing[pickup_ids][]"]:checked').each ->
       areas.push $(this).parent().text()
     if areas.length > 0
       $('.listing-manager-area-container').text('')
@@ -72,7 +72,7 @@ $ ->
     $('.listing-manager-area-submit').on 'click', (e) ->
       $('.listing-manager-area-container').text('')
       areas = []
-      $('[name="listing[pickup_ids][]"]:checked').each ->
+      $('#listing_area [name="listing[pickup_ids][]"]:checked').each ->
         areas.push $(this).parent().text()
       if areas.length > 0
         $('.listing-manager-area-container').text('')

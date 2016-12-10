@@ -40,6 +40,7 @@
 #  interview3              :string           default("")
 #  admin_closed_at         :datetime
 #  authorized_user_status  :integer          default(0)
+#  title_2                 :string           default("")
 #
 # Indexes
 #

@@ -29,6 +29,8 @@ en:
       listing_image:
         image: 'photo'
         caption: 'コメント'
+      listing_detail:
+        time_required: 'time required'
       spot_image:
         image: 'image'
       pre_mail:

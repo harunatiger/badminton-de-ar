@@ -160,7 +160,7 @@ Rails.application.routes.draw do
       get 'listing_ngweeks', on: :collection
       put 'unset', on: :collection
     end
-    resources :calendar
+    #resources :calendar
   end
 
   resources :spots

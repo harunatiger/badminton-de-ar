@@ -15,7 +15,7 @@
               div[style="background-image: url(#{asset_path listing_image.image.thumb})"]
               = link_to listing_listing_image_path(listing_image.listing_id, listing_image), method: 'DELETE', class: "delete-image balloon", title: "削除する", data: {confirm: '本当に削除しますか？'} do
                 i.fa.fa-trash
-            .category-container.text-right
+            /.category-container.text-right
               - if pickup_tag.blank?
                 = link_to '#', class: 'set_listing_image_link small1', listing_image_id: listing_image.id do
                   i.fa.fa-question.media-round

@@ -57,13 +57,11 @@ class ListingsController < CommonSearchController
     @listing = Listing.new
     @listing.build_listing_detail
     @listing.listing_destinations.build
-    @areas = PickupArea.all
   end
 
   def edit
     @listing.build_listing_detail if @listing.listing_detail.blank?
     @listing.listing_destinations.build if @listing.listing_destinations.blank?
-    @areas = PickupArea.all
   end
 
   # POST /listings
@@ -71,21 +69,16 @@ class ListingsController < CommonSearchController
   def create
     @listing = Listing.new(listing_params)
     @listing.listing_detail.register_detail = false
-    #if @listing.set_lon_lat
     respond_to do |format|
       if @listing.save
         format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
       else
         #@categories = PickupCategory.all
         #@tags = PickupTag.all
-        @areas = PickupArea.all
         format.html { render :new}
         format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
     end
-    #else
-      #return render :new, notice: Settings.listings.set_lon_lat.error
-    #end
   end
 
   # PATCH/PUT /listings/1
@@ -229,11 +222,11 @@ class ListingsController < CommonSearchController
         :zipcode, :location, :longitude, :latitude, :delivery_flg, :price,
         :description, :recommend1, :recommend2, :recommend3,
         :interview1, :interview2, :interview3, :overview, :notes,
-        :title, :capacity, :direction, :schedule, :listing_images,
+        :title, :title_2, :capacity, :direction, :schedule, :listing_images,
         :cover_video, :cover_video_caption, :authorized_user_status,
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
         language_ids: [], pickup_ids: [],
-        listing_detail_attributes: [:id, :place_memo, :condition, :stop_if_rain, :in_case_of_rain ],
+        listing_detail_attributes: [:id, :place_memo, :condition, :stop_if_rain, :in_case_of_rain, :time_required, :min_num_of_people, :max_num_of_people ],
         listing_destinations_attributes: [:id, :location, :longitude, :latitude, :_destroy ]
         )
     end
