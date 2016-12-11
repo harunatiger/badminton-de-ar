@@ -16,12 +16,16 @@
     .col-lg-12.text-left
       .h4.row-space-2.text-light
         |  アクティビティのタイトル
-    .col-lg-12
+    .col-lg-8
       .required-container
-        = f.input_field :title, :class => 'imeoff', placeholder: "Eg. Kamakura vegetable food-fest for girls! "
+        = f.input_field :title, :class => 'imeoff', placeholder: "Eg. Kamakura vegetable", maxlength: 20
         i.fa.fa-asterisk.balloon[title="required"]
-    .col-lg-12.row-space-top-2
-      = f.input_field :title_2, :class => 'imeoff', placeholder: "Eg. Kamakura vegetable food-fest for girls! "
+    .col-lg-4.text-left
+      #title_counter
+    .col-lg-8.row-space-top-2
+      = f.input_field :title_2, :class => 'imeoff', placeholder: "Eg. food-fest for girls! ", maxlength: 20
+    .col-lg-4.text-left
+      #title_2_counter
   hr
   .row.row-space-5.row-space-top-5
     .col-lg-12.text-left.listing-manager-intaview

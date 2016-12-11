@@ -1359,4 +1359,12 @@ $ ->
         alert 'You can register a maximum of 3 categories.'
         return false
       return
+      
+    # title counter
+    $("#title_counter").text(20 - $("#listing_title").val().length)
+    $("#title_2_counter").text(20 - $("#listing_title_2").val().length)
+    $("#listing_title").on 'keyup', ->
+      $("#title_counter").text(20 - $(this).val().length)
+    $("#listing_title_2").on 'keyup', ->
+      $("#title_2_counter").text(20 - $(this).val().length)
     
