@@ -760,9 +760,15 @@ a.delete
 
 /* search */
 .search
-  .header-link
+  .subnav
     position: fixed
     top: 51px
+    left: 0
+    right: 0
+    z-index: 1
+  .header-link
+    position: fixed
+    top: 91px
     left: 0
     right: 0
     height: 44px
@@ -785,7 +791,7 @@ a.delete
   .map
     position: fixed
     //top: 51px
-    top: 95px
+    top: 135px
     right: 0
     left: auto
     bottom: 0
@@ -869,7 +875,7 @@ a.delete
     .sidebar
       position: fixed
       //top: 51px
-      top: 95px
+      top: 135px
       left: 0
       bottom: 0
       width: 60%
@@ -4268,7 +4274,7 @@ h3.center-lined
     border-radius: 4px
     @media (max-width: 1099px)
       height: 130px
-      
+
 .listing_pickuptag_checkbox input[type="checkbox"]
   -webkit-appearance: none
   position: relative
@@ -4276,5 +4282,5 @@ h3.center-lined
   width: 100px
   height: 100px
   background-size: contain
-  
+
 .listing_pickuptag_checkbox input[type="checkbox"]:checked
