@@ -423,4 +423,8 @@ class Listing < ActiveRecord::Base
     return true if !self.open or self.admin_closed_at.present? or host.admin_closed_at.present?
     false
   end
+  
+  def pickup_tags
+    self.pickups.where(type: 'PickupTag')
+  end
 end

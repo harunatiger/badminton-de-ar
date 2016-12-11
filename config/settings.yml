@@ -94,6 +94,9 @@ listing_users:
   destroy:
     success: "Successfully rejected."
     failure: "Failed to reject."
+  add_receptionist:
+    success: "Successfully changed settings."
+    failure: "Failed to change settings."
 listing_images:
   save:
     success: "Successfully uploaded your photo/video"

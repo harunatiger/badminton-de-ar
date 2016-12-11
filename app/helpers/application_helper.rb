@@ -521,28 +521,28 @@ module ApplicationHelper
     profile.categories.exists?(:name => Settings.categories.sport)
   end
 
-  def language_ja?(profile)
-    profile.languages.exists?(:name => Settings.languages.ja)
+  def language_ja?(target)
+    target.languages.exists?(:name => Settings.languages.ja)
   end
 
-  def language_en?(profile)
-    profile.languages.exists?(:name => Settings.languages.en)
+  def language_en?(target)
+    target.languages.exists?(:name => Settings.languages.en)
   end
 
-  def language_zh?(profile)
-    profile.languages.exists?(:name => Settings.languages.zh)
+  def language_zh?(target)
+    target.languages.exists?(:name => Settings.languages.zh)
   end
 
-  def language_de?(profile)
-    profile.languages.exists?(:name => Settings.languages.de)
+  def language_de?(target)
+    target.languages.exists?(:name => Settings.languages.de)
   end
 
-  def language_fr?(profile)
-    profile.languages.exists?(:name => Settings.languages.fr)
+  def language_fr?(target)
+    target.languages.exists?(:name => Settings.languages.fr)
   end
 
-  def language_es?(profile)
-    profile.languages.exists?(:name => Settings.languages.es)
+  def language_es?(target)
+    target.languages.exists?(:name => Settings.languages.es)
   end
 
   def out_put_error(target)
@@ -1037,5 +1037,9 @@ module ApplicationHelper
   
   def show_leader_contents?(user, listing)
     ListingUser.is_receptionist?(user.id, listing.id) || listing.user_id == user.id
+  end
+  
+  def member_section_guides(listing)
+    ListingUser.receptionist_members(listing.id) + ListingUser.nomal_members(listing.id)
   end
 end

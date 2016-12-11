@@ -76,10 +76,13 @@
                     / open
                     = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
                   
-                  = link_to listing_listing_users_path(listing), class: "copy-listing" do
-                    i.fa.fa-users
-                  = link_to '#', class: "copy-listing" do
-                    i.fa.fa-comment-o
+                  .card-body.card-actions
+                    = link_to '#', class: "copy-listing" do
+                      .img-icon.img-icon-commenting-o
+                      small Chat
+                    = link_to listing_listing_users_path(listing), class: "copy-listing" do
+                      .img-icon.img-icon-user-plus-o
+                      small Invite
                     
               
               /new activity

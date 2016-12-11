@@ -1,5 +1,5 @@
 /! guide_information
--profile = user.profile
+-profile = user_id_to_profile(user.id)
 /hr
 #guide-info-container
   #guide-info 
@@ -8,8 +8,9 @@
         | Guide Information
     .row
       .col-md-3.text-center
-        .media-photo.media-round.media-avatar
-          .size68[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(user.id)}')"]
+        = link_to profile_path(profile.id), target: '_blank' do
+          .media-photo.media-round.media-avatar
+            .size68[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(user.id)}')"]
       .col-md-9
         .profile-name.row-space-top-2.row-space-1
           span
@@ -31,7 +32,7 @@
             = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
               | read more
         .clearfix.lang-list-wrapper.clear-both.row-space-2
-          = render partial: 'shared/language_list', locals: { profile: profile}
+          = render partial: 'shared/language_list', locals: { target: profile}
         .profile-rating.row-space-2.clear-both
           .star-rating
             = render partial: 'shared/stars', locals: { rate: profile.ave_total }
@@ -41,9 +42,9 @@
             b
               = Review.my_reviewed_count(user.id)
             |)
-        .talk_to_me-wrapper
+        /.talk_to_me-wrapper
           = render partial: 'shared/talk_to_me', locals: { user_id: user.id, message_thread: message_thread }
-        .row-space-4.row-space-top-2
+        /.row-space-4.row-space-top-2
           i.fa.fa-reply
           ' 
           | Response rate

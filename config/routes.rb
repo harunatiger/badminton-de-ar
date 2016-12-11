@@ -123,6 +123,7 @@ Rails.application.routes.draw do
     resources :listing_users, only: [:index, :create, :destroy] do
       member do
         post 'accept'
+        patch 'add_receptionist'
       end
     end
     

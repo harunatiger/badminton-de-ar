@@ -17,7 +17,7 @@
         hr
         .row-space-4.row-space-top-4
           h3.row-space-2
-            | Guide Information
+            | 企画したホストの情報
         = render partial: 'shared/guide_information', locals: { user: @listing.user, message_thread: @message_thread}
       .col-lg-4.col-right
         = render partial: 'request_block', locals: { listing: @listing }
@@ -51,6 +51,6 @@
 /= render partial: '/shared/modals/about_price'
 /= render partial: '/shared/modals/include_price', locals: { listing_detail: @listing.listing_detail }
 = render partial: '/shared/modals/message_to_host', locals: { listing: @listing } if user_signed_in?
-= render partial: '/shared/modals/pair_guide_list', locals: { host_id: @listing.user_id }
+= render partial: '/shared/modals/member_list', locals: { listing: @listing }
 = render partial: 'shared/modals/about_support_guide'
 = render partial: 'shared/modals/about_response_rate'

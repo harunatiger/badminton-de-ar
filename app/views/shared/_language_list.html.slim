@@ -1,18 +1,18 @@
 ul
   li.balloon(title="English")
     span EN
-  - if language_zh?(profile)
+  - if language_zh?(target)
     li.balloon(title="Chinese")
       span ZH
-  - if language_de?(profile)
+  - if language_de?(target)
     li.balloon(title="German")
       span DE
-  - if language_fr?(profile)
+  - if language_fr?(target)
     li.balloon(title="French")
       span FR
-  - if language_es?(profile)
+  - if language_es?(target)
     li.balloon(title="Spanish")
       span ES
-  - if language_ja?(profile)
+  - if language_ja?(target)
     li.balloon(title="Japanese")
       span JA

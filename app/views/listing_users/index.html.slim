@@ -24,9 +24,9 @@
 
           / pending member
           - if show_leader_contents?(current_user, @listing)
-            .pending-activity-container
-              - @pending_listing_users.each do |pending_listing_user|
-                - profile = user_id_to_profile(pending_listing_user.user_id)
+            - @pending_members.each do |pending_listing_user|
+              - profile = user_id_to_profile(pending_listing_user.user_id)
+              .pending-activity-container.row-space-2
                 .pending-activity-inner
                   .row
                     .col-md-3.col-lg-2.text-center.row-space-3
@@ -65,39 +65,22 @@
                       = link_to 'Reject', listing_listing_user_path(@listing,pending_listing_user), class: 'btn bg-gray', method: :DELETE
                   i.fa.fa-exclamation
 
-
           / accepted member
           .accepted-activity-list
             .row.row-space-top-6
-              - @accepted_listing_users.each do |accepted_listing_user|
-                .col-md-6.row-space-4
-                  - profile = user_id_to_profile(accepted_listing_user.user_id)
-                  .accepted-activity-container
-                    .row
-                      .col-md-4.col-lg-3.text-center
-                        .media-photo.media-round.media-avatar
-                          div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
-                      .col-md-8.col-lg-9
-                        .profile-name.row-space-1
-                          span
-                            = profile.first_name
-                          small.text-muted
-                            = "Registerd #{profile.created_at.strftime("%Y/%m")}"
-                        .profile-rating.row-space-1.clear-both
-                          .star-rating
-                            = render partial: 'shared/stars', locals: { rate: profile.ave_total }
-                          span.badge-pill-count.small1
-                            | review
-                            |(
-                            b
-                              = Review.my_reviewed_count(profile.user_id)
-                            |)
-                        .talk_to_me-wrapper
-                          = render partial: 'shared/talk_to_member', locals: { user_id: profile.user_id }
-                    .select.select-listing-user
-                      select
-                        option Select as a receptionist
-                        option Remove from this group
+              / owner
+              - profile = user_id_to_profile(@listing.user_id)
+              = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: nil }
+              
+              / receptionists
+              - @receptionists.each do |receptionist|
+                - profile = user_id_to_profile(receptionist.user_id)
+                = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: receptionist }
+                
+              / member
+              - @nomal_members.each do |nomal_member|
+                - profile = user_id_to_profile(nomal_member.user_id)
+                = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: nomal_member }
 
               / invite friends
               - if show_leader_contents?(current_user, @listing)

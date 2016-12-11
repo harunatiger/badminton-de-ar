@@ -18,6 +18,8 @@
                 i.fa.fa-clock-o
                 ' 
                 span.text-brand #{@listing.listing_detail.time_required}h
+            .lang-list-wrapper
+              = render partial: 'shared/language_list', locals: { target: @listing}
           .col-md-1.text-center.favorite-container
             .va-container.va-container-wh
               .va-middle
@@ -25,7 +27,7 @@
           .col-md-12.category-list-container
             .tag-list-wrapper.tag-list-wrapper-bordered
               ul.clearfix
-                - image_categories_limited_six(@listing).each do |pickup_tag|
+                - @listing.pickup_tags.each do |pickup_tag|
                   li
                     .media-round.media-photo.media-avatar
                       .size28[style="background-image: url('#{asset_path pickup_tag.icon_small}')"]
@@ -48,8 +50,6 @@
                 span[itemprop="reviewCount"]
                   = @all_reviewed_count
                 | )
-              .lang-list-wrapper
-                = render partial: 'shared/language_list', locals: { profile: @host_info}
         .row.row-space-4.row-space-top-2
           .col-md-12
-            = render partial: 'shared/support_guide_section', locals: { user_id: @listing.user_id}
+            = render partial: 'shared/member_section', locals: { listing: @listing}

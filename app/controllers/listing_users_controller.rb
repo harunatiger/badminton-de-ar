@@ -1,14 +1,15 @@
 class ListingUsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_listing
-  before_action :set_listing_user, only: [:destroy, :accept]
+  before_action :set_listing_user, only: [:destroy, :accept, :add_receptionist]
   before_action :regulate_user, only: [:destroy]
 
   # GET /listing_users
   # GET /listing_users.json
   def index
-    @pending_listing_users = ListingUser.pending_member(@listing.id)
-    @accepted_listing_users = ListingUser.accepted_member(@listing.id)
+    @pending_members = ListingUser.pending_members(@listing.id)
+    @receptionists = ListingUser.receptionist_members(@listing.id)
+    @nomal_members = ListingUser.nomal_members(@listing.id)
   end
 
   # POST /listing_users
@@ -34,6 +35,18 @@ class ListingUsersController < ApplicationController
         format.json { render :show, status: :ok, location: @listing_user }
       else
         format.html { redirect_to listing_listing_users_path(@listing), alert: Settings.listing_users.accept.failure }
+        format.json { render json: @listing_user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  def add_receptionist
+    respond_to do |format|
+      if @listing_user.receptionist!
+        format.html { redirect_to listing_listing_users_path(@listing), notice: Settings.listing_users.add_receptionist.success }
+        format.json { render :show, status: :ok, location: @listing_user }
+      else
+        format.html { redirect_to listing_listing_users_path(@listing), alert: Settings.listing_users.add_receptionist.failure }
         format.json { render json: @listing_user.errors, status: :unprocessable_entity }
       end
     end
