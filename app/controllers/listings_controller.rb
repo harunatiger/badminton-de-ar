@@ -75,6 +75,7 @@ class ListingsController < CommonSearchController
       else
         #@categories = PickupCategory.all
         #@tags = PickupTag.all
+        @listing.listing_destinations.build if @listing.listing_destinations.blank?
         format.html { render :new}
         format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
@@ -91,6 +92,7 @@ class ListingsController < CommonSearchController
         @categories = PickupCategory.all
         @tags = PickupTag.all
         @areas = PickupArea.all
+        @listing.listing_destinations.build if @listing.listing_destinations.blank?
         format.html { render :edit}
       end
     end
