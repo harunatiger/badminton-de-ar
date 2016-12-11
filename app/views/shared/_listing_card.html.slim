@@ -40,7 +40,7 @@
       .small
         | /Group
     .categories-container
-      - image_categories_limited_six(listing).each do |pickup_tag|
+      - listing.pickup_tags.each do |pickup_tag|
         .media-round.media-photo.media-avatar
           .size18[style="background-image: url('#{asset_path pickup_tag.icon_small}')"]
   /.tour-tag Tour
