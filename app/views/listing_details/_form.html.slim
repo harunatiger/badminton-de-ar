@@ -1,4 +1,4 @@
-= simple_form_for([@listing,@listing_detail], html: {class: "form--rwd form--sp"}) do |f|
+= simple_nested_form_for([@listing,@listing_detail], html: {class: "form--rwd form--sp"}) do |f|
   = f.error_notification
   = f.hidden_field :listing_id, value: @listing.id
   -if false
@@ -13,97 +13,127 @@
         | アクティビティの料金は、ペアで行うガイドの料金と、アクティビティにかかる経費（自分たちの食事や交通費など）の合計額になります。サポートメンバーの収入にはガイドが集合場所にくるまでの費用も含みます。
         br
         | ガイド料金は０円から設定できます。国際交流を楽しみたい人や初心者の方は、低い金額での登録がおすすめです。
-
+  
   .fee-container
     .row.row-space-top-2
       .col-lg-12.text-left.col-middle
         .h4.text-light.required-container
-          | ガイド料金
-          i.fa.fa-asterisk.balloon[title="required"]
-    hr
-    .row.row-space-5.row-table
-      .col-lg-5.text-left.col-middle
+          | 合計金額
+          = @listing_detail.basic_amount
+          | 円 / Group
+    .row.row-space-top-2
+      .col-lg-12.text-left.col-middle
+        | 振込金額確認
+        hr
+        p
+          | メインガイド
+        p
+          | 振込金額:  #{@listing_detail.payment_amount_main}
+        p
+          | ガイド料  #{@listing_detail.price} 円
+        p
+          | 交通費  #{@listing_detail.transportation_cost_main} 円
+        p
+          | その他のお金  #{@listing_detail.option_amount} 円
+        p
+          | システム利用料  -#{@listing_detail.service_fee}円
+  
+        hr
+        p
+          | サポートガイド
+        p
+          | 振込金額:  #{@listing_detail.payment_amount_support}
+        p
+          | ガイド料  #{@listing_detail.price_for_support} 円
+        p
+          | 交通費  #{@listing_detail.transportation_cost_support} 円
+        p
+          | システム利用料  -#{@listing_detail.service_fee}円
+          
+  .fee-container
+    .row.row-space-top-2
+      .col-lg-12.text-left.col-middle
         .h4.text-light
-          | あなたの収入
-      .col-lg-7.fieldset.col-middle
+          | メインガイド料金
+    .row.row-space-5.row-table
+      .col-lg-3.text-left.col-middle
+        .h4.text-light.required-container
+          | ガイド料
+          i.fa.fa-asterisk.balloon[title="required"]
+      .col-lg-3.fieldset.col-middle
         .row
           .col-xs-11
-            .input-opt
+            .input-opt.balloon[title="目安は#{@listing_detail.recommended_main_price}円です！"]
               = f.input_field :price, class: "value_fragile", type: 'number', pattern: '[0-9]*'
               span 円
-    .row.row-space-5.row-space-top-2.row-table
-      .col-lg-5.text-left.col-middle
-        .h4.text-light
-          | サポートメンバーの収入
-      .col-lg-7.fieldset.col-middle
+      .col-lg-3.text-left.col-middle
+        .h4.text-light.required-container
+          | 交通費
+          i.fa.fa-asterisk.balloon[title="required"]
+      .col-lg-3.fieldset.col-middle
         .row
           .col-xs-11
             .input-opt
+              = f.input_field :transportation_cost_main, class: "value_fragile", type: 'number', pattern: '[0-9]*'
+              span 円
+    hr
+    .row.row-space-top-2
+      .col-lg-12.text-left.col-middle
+        .h4.text-light
+          | サポートガイド料金
+    .row.row-space-5.row-space-top-2.row-table
+      .col-lg-3.text-left.col-middle
+        .h4.text-light.required-container
+          | ガイド料
+          i.fa.fa-asterisk.balloon[title="required"]
+      .col-lg-3.fieldset.col-middle
+        .row
+          .col-xs-11
+            .input-opt.balloon[title="目安は#{@listing_detail.recommended_support_price}円です！"]
               = f.input_field :price_for_support, class: "value_fragile", type: 'number', pattern: '[0-9]*'
+              span 円
+      .col-lg-3.text-left.col-middle
+        .h4.text-light.required-container
+          | 交通費
+          i.fa.fa-asterisk.balloon[title="required"]
+      .col-lg-3.fieldset.col-middle
+        .row
+          .col-xs-11
+            .input-opt
+              = f.input_field :transportation_cost_support, class: "value_fragile", type: 'number', pattern: '[0-9]*'
               span 円
 
   .fee-container
     .row.row-space-top-2
       .col-lg-12.text-left.col-middle
         .h4.text-light
-          | アクティビティにかかる経費
-        p.text-center.row-space-2
-        | ガイドするために、自分たちに必要な経費を、下記から選んで入力してください。
-    hr
-    .row.row-space-5.row-table
-      .col-lg-12.fieldset.row-space-2
-        .collapse-panel.no-border
-          .collapse-heading.h5
-            = f.input_field :car_option, inline_label: "車両レンタルあり", class: "car_option-check price_option-check"
-          .collapse#car_options-container
-            .collapse-body
-              - car_options.each do |option|
-                .row.row-table
-                  .col-lg-4.text-right.col-middle
-                    .h5.text-light
-                      = I18n.t('option_price_ja.' + option)
-                  .col-lg-6.fieldset.col-middle
-                    .input-opt
-                      = f.input_field option, class: "value_fragile " + option, type: 'number', pattern: '[0-9]*'
-                      span 円
-                - if option == 'car_rental'
-                  .row
-                    .col-lg-12
-                      p.small1.text-right.text-muted ※車両代がかからない場合は０円と記入してください。
-      .col-lg-12.fieldset.row-space-2
-        .collapse-panel.no-border
-          .collapse-heading.h5
-            = f.input_field :bicycle_option, inline_label: "自転車レンタルあり", class: "bicycle_option-check price_option-check"
-          .collapse#car_options-container
-            .collapse-body
-              - bicycle_options.each do |option|
-                .row.row-table
-                  .col-lg-4.text-right.col-middle
-                    .h5.text-light
-                      = I18n.t('option_price_ja.' + option)
-                  .col-lg-6.fieldset.col-middle
-                    .input-opt
-                      = f.input_field option, class: "value_fragile " + option, type: 'number', pattern: '[0-9]*'
-                      span 円
-                .row
-                  .col-lg-12
-                    p.small1.text-right.text-muted ※レンタサイクル１台あたりの価格を記入してください。
-
-      .col-lg-12.fieldset
-        .collapse-panel.no-border
-          .collapse-heading.h5
-            = f.input_field :other_option, inline_label: "その他（交通費、飲食代、入館料、体験料、人件費など）", class: "other_option-check price_option-check"
-          .collapse#space_options-container
-            .collapse-body
-              - other_options.each do |option|
-                .row.row-table
-                  .col-lg-4.text-right.col-middle
-                    .h5.text-light
-                      /= I18n.t('option_price_ja.' + option)
-                  .col-lg-6.fieldset.col-middle
-                    .input-opt
-                      = f.input_field option, class: "value_fragile " + option, type: 'number', pattern: '[0-9]*'
-                      span 円
+          | ガイド料金以外にかかるお金と説明
+        p.text-center.text-red.row-space-2
+        | ＊事前に準備が必要なものを書きましょう。
+    .row.row-condensed
+      = f.simple_fields_for :listing_detail_extra_costs do |ff|
+        .col-3.row-space-1.row-space-top-1
+          = ff.input_field :description, placeholder: "ex) Car rental", class: 'imeoff'
+        .col-3.row-space-1.row-space-top-1
+          = ff.input_field :price, type: 'number', pattern: '[0-9]*'
+        .col-4.row-space-1.row-space-top-1
+          = ff.select :for_each, [['per group', 'team'], ['per person', 'person']], {include_blank: true}
+        .col-2.row-space-1.row-space-top-1
+          = ff.link_to_remove do
+            span.location-remove.balloon[title="この目的地を削除"]
+              i.fa.fa-times.fa-red.fa-size-1
+      = f.link_to_add :listing_detail_extra_costs, class: "" do
+        .col-lg-12
+          i.fa.fa-plus
+          ' 
+          | 項目を追加する
+    .row.row-condensed
+      .h4.text-light
+        | 小計
+        | #{@listing_detail.total_group_extra_cost} 円 / per group
+        br
+        | #{@listing_detail.total_person_extra_cost} 円 / per person
+        
 
   .row.row-space-2.row-space-top-8
     .col-lg-12.text-left

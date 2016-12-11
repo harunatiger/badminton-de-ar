@@ -106,6 +106,9 @@ listing_details:
   save:
     success: "Congratulations! You have successfully registered your tour"
     failure: "Choose a meeting place"
+listing_detail_extra_costs:
+  save:
+    blank: "extra costs need to be filled all of the fields."
 confections:
   save:
     success: "オプション1の情報を登録いたしました。"
@@ -196,6 +199,7 @@ reservation:
   insurance_fee: 300
   service_rate: 0.145
   exchange_rate: 0.04
+  service_fee: 1000
 payment:
   refunds:
     policy: '8日以上前のキャンセル  ：エスクロー分の全額返金、1日〜7日前のキャンセル：エスクロー分の50％返金、24時間以内のキャンセル：返金なし'

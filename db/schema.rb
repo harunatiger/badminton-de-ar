@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161210105433) do
+ActiveRecord::Schema.define(version: 20161210154740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -290,42 +290,55 @@ ActiveRecord::Schema.define(version: 20161210105433) do
 
   add_index "listing_destinations", ["listing_id"], name: "index_listing_destinations_on_listing_id", using: :btree
 
+  create_table "listing_detail_extra_costs", force: :cascade do |t|
+    t.integer  "listing_detail_id"
+    t.string   "description"
+    t.integer  "price",             default: 0
+    t.integer  "for_each"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "listing_detail_extra_costs", ["listing_detail_id"], name: "index_listing_detail_extra_costs_on_listing_detail_id", using: :btree
+
   create_table "listing_details", force: :cascade do |t|
     t.integer  "listing_id"
     t.string   "zipcode"
-    t.string   "location",                                      default: ""
-    t.string   "place",                                         default: ""
-    t.decimal  "longitude",             precision: 9, scale: 6, default: 0.0
-    t.decimal  "latitude",              precision: 9, scale: 6, default: 0.0
-    t.integer  "price",                                         default: 0
-    t.decimal  "time_required",         precision: 9, scale: 6, default: 0.0
-    t.integer  "max_num_of_people",                             default: 0
-    t.integer  "min_num_of_people",                             default: 0
-    t.text     "condition",                                     default: ""
-    t.text     "refund_policy",                                 default: ""
-    t.text     "in_case_of_rain",                               default: ""
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
-    t.text     "place_memo",                                    default: ""
-    t.decimal  "place_longitude",       precision: 9, scale: 6, default: 0.0
-    t.decimal  "place_latitude",        precision: 9, scale: 6, default: 0.0
-    t.integer  "price_for_support",                             default: 0
-    t.integer  "price_for_both_guides",                         default: 0
-    t.boolean  "space_option",                                  default: true
-    t.integer  "space_rental",                                  default: 0
-    t.boolean  "car_option",                                    default: true
-    t.integer  "car_rental",                                    default: 0
-    t.integer  "gas",                                           default: 0
-    t.integer  "highway",                                       default: 0
-    t.integer  "parking",                                       default: 0
-    t.integer  "guests_cost",                                   default: 0
-    t.text     "included_guests_cost",                          default: ""
-    t.boolean  "stop_if_rain",                                  default: false
-    t.boolean  "bicycle_option",                                default: false
-    t.integer  "bicycle_rental",                                default: 0
-    t.boolean  "other_option",                                  default: false
-    t.integer  "other_cost",                                    default: 0
-    t.boolean  "register_detail",                               default: false
+    t.string   "location",                                            default: ""
+    t.string   "place",                                               default: ""
+    t.decimal  "longitude",                   precision: 9, scale: 6, default: 0.0
+    t.decimal  "latitude",                    precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                               default: 0
+    t.decimal  "time_required",               precision: 9, scale: 6, default: 0.0
+    t.integer  "max_num_of_people",                                   default: 0
+    t.integer  "min_num_of_people",                                   default: 0
+    t.text     "condition",                                           default: ""
+    t.text     "refund_policy",                                       default: ""
+    t.text     "in_case_of_rain",                                     default: ""
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
+    t.text     "place_memo",                                          default: ""
+    t.decimal  "place_longitude",             precision: 9, scale: 6, default: 0.0
+    t.decimal  "place_latitude",              precision: 9, scale: 6, default: 0.0
+    t.integer  "price_for_support",                                   default: 0
+    t.integer  "price_for_both_guides",                               default: 0
+    t.boolean  "space_option",                                        default: true
+    t.integer  "space_rental",                                        default: 0
+    t.boolean  "car_option",                                          default: true
+    t.integer  "car_rental",                                          default: 0
+    t.integer  "gas",                                                 default: 0
+    t.integer  "highway",                                             default: 0
+    t.integer  "parking",                                             default: 0
+    t.integer  "guests_cost",                                         default: 0
+    t.text     "included_guests_cost",                                default: ""
+    t.boolean  "stop_if_rain",                                        default: false
+    t.boolean  "bicycle_option",                                      default: false
+    t.integer  "bicycle_rental",                                      default: 0
+    t.boolean  "other_option",                                        default: false
+    t.integer  "other_cost",                                          default: 0
+    t.boolean  "register_detail",                                     default: false
+    t.integer  "transportation_cost_main",                            default: 0
+    t.integer  "transportation_cost_support",                         default: 0
   end
 
   add_index "listing_details", ["latitude"], name: "index_listing_details_on_latitude", using: :btree
@@ -780,6 +793,17 @@ ActiveRecord::Schema.define(version: 20161210105433) do
   add_index "reports", ["from_user_id"], name: "index_reports_on_from_user_id", using: :btree
   add_index "reports", ["to_user_id"], name: "index_reports_on_to_user_id", using: :btree
 
+  create_table "reservation_extra_costs", force: :cascade do |t|
+    t.integer  "reservation_id"
+    t.string   "description"
+    t.integer  "price",          default: 0
+    t.integer  "for_each"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "reservation_extra_costs", ["reservation_id"], name: "index_reservation_extra_costs_on_reservation_id", using: :btree
+
   create_table "reservation_withdrawals", force: :cascade do |t|
     t.integer  "reservation_id", null: false
     t.integer  "withdrawal_id",  null: false
@@ -795,10 +819,10 @@ ActiveRecord::Schema.define(version: 20161210105433) do
     t.integer  "guest_id"
     t.integer  "listing_id"
     t.datetime "schedule"
-    t.integer  "num_of_people",                                  default: 0,     null: false
-    t.text     "msg",                                            default: ""
-    t.integer  "progress",                                       default: 0,     null: false
-    t.text     "reason",                                         default: ""
+    t.integer  "num_of_people",                                       default: 0,     null: false
+    t.text     "msg",                                                 default: ""
+    t.integer  "progress",                                            default: 0,     null: false
+    t.text     "reason",                                              default: ""
     t.datetime "review_mail_sent_at"
     t.datetime "review_expiration_date"
     t.datetime "review_landed_at"
@@ -807,35 +831,37 @@ ActiveRecord::Schema.define(version: 20161210105433) do
     t.datetime "reply_landed_at"
     t.datetime "replied_at"
     t.datetime "review_opened_at"
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
-    t.decimal  "time_required",          precision: 9, scale: 6, default: 0.0
-    t.integer  "price",                                          default: 0
-    t.string   "place",                                          default: ""
-    t.text     "description",                                    default: ""
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
+    t.decimal  "time_required",               precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                               default: 0
+    t.string   "place",                                               default: ""
+    t.text     "description",                                         default: ""
     t.date     "schedule_end"
-    t.text     "place_memo",                                     default: ""
+    t.text     "place_memo",                                          default: ""
     t.integer  "campaign_id"
-    t.integer  "refund_rate",                                    default: 0
-    t.integer  "price_for_support",                              default: 0
-    t.integer  "price_for_both_guides",                          default: 0
-    t.boolean  "space_option",                                   default: true
-    t.integer  "space_rental",                                   default: 0
-    t.boolean  "car_option",                                     default: true
-    t.integer  "car_rental",                                     default: 0
-    t.integer  "gas",                                            default: 0
-    t.integer  "highway",                                        default: 0
-    t.integer  "parking",                                        default: 0
-    t.integer  "guests_cost",                                    default: 0
-    t.text     "included_guests_cost",                           default: ""
-    t.integer  "cancel_by",                                      default: 0
+    t.integer  "refund_rate",                                         default: 0
+    t.integer  "price_for_support",                                   default: 0
+    t.integer  "price_for_both_guides",                               default: 0
+    t.boolean  "space_option",                                        default: true
+    t.integer  "space_rental",                                        default: 0
+    t.boolean  "car_option",                                          default: true
+    t.integer  "car_rental",                                          default: 0
+    t.integer  "gas",                                                 default: 0
+    t.integer  "highway",                                             default: 0
+    t.integer  "parking",                                             default: 0
+    t.integer  "guests_cost",                                         default: 0
+    t.text     "included_guests_cost",                                default: ""
+    t.integer  "cancel_by",                                           default: 0
     t.integer  "pair_guide_id"
-    t.integer  "pair_guide_status",                              default: 0
-    t.boolean  "bicycle_option",                                 default: false
-    t.integer  "bicycle_rental",                                 default: 0
-    t.boolean  "other_option",                                   default: false
-    t.integer  "other_cost",                                     default: 0
-    t.integer  "insurance_fee",                                  default: 0
+    t.integer  "pair_guide_status",                                   default: 0
+    t.boolean  "bicycle_option",                                      default: false
+    t.integer  "bicycle_rental",                                      default: 0
+    t.boolean  "other_option",                                        default: false
+    t.integer  "other_cost",                                          default: 0
+    t.integer  "insurance_fee",                                       default: 0
+    t.integer  "transportation_cost_main",                            default: 0
+    t.integer  "transportation_cost_support",                         default: 0
   end
 
   add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree
@@ -1065,6 +1091,7 @@ ActiveRecord::Schema.define(version: 20161210105433) do
   add_foreign_key "listing_categories", "categories"
   add_foreign_key "listing_categories", "listings"
   add_foreign_key "listing_destinations", "listings"
+  add_foreign_key "listing_detail_extra_costs", "listing_details"
   add_foreign_key "listing_details", "listings"
   add_foreign_key "listing_images", "listings"
   add_foreign_key "listing_images", "pickups"
@@ -1106,6 +1133,7 @@ ActiveRecord::Schema.define(version: 20161210105433) do
   add_foreign_key "profiles", "users"
   add_foreign_key "reports", "users", column: "from_user_id"
   add_foreign_key "reports", "users", column: "to_user_id"
+  add_foreign_key "reservation_extra_costs", "reservations"
   add_foreign_key "reservation_withdrawals", "reservations"
   add_foreign_key "reservation_withdrawals", "withdrawals"
   add_foreign_key "reservations", "listings"
