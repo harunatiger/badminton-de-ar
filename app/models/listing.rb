@@ -250,11 +250,11 @@ class Listing < ActiveRecord::Base
     else
       listing = Listing.find(self.id)
       listing_detail = ListingDetail.where(listing_id: self.id).first
-      result << Settings.left_steps.listing unless listing.valid?
+      if !listing.valid? || (listing_detail.present? && listing_detail.time_required == 0.0)
+        result << Settings.left_steps.listing
+      end
       result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_video.present?)
-      if listing_detail.present?
-        result << Settings.left_steps.listing_detail if listing_detail.time_required == 0.0
-      else
+      if listing_detail.blank?
         result << Settings.left_steps.listing_detail
       end
     end
