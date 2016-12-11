@@ -201,7 +201,8 @@ class User < ActiveRecord::Base
   end
   
   def bookmarked_histories
-    mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id) + FavoriteSpot.where(spot_id: self.spots.ids).includes(:spot)
+    #mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id) + FavoriteSpot.where(spot_id: self.spots.ids).includes(:spot)
+    mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id)
     mixed_array.sort{|f,s| s.created_at <=> f.created_at}
   end
   

@@ -77,7 +77,7 @@
             - else
               | Profile picture
     /- if !current_user.guest?
-    - if current_user.main_guide?
+    /- if current_user.main_guide?
       - if controller_name == 'spots'
         li
           = link_to spots_path, class: "sidenav-item", aria: {selected: "true"} do

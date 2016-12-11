@@ -163,13 +163,13 @@ Rails.application.routes.draw do
     #resources :calendar
   end
 
-  resources :spots
+  #resources :spots
 
   resources :favorites, only: [:create, :destroy] do
     collection do
       get :users
       get :listings
-      get :spots
+      #get :spots
     end
   end
 

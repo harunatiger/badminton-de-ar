@@ -50,7 +50,7 @@
                           = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id)), target: '_blank'
                           | さんがあなたをお気に入りに登録しました。
                         /*******bookmarked history of spots*******
-                        - elsif history.favorite_spot?
+                        /- elsif history.favorite_spot?
                           = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id)), target: '_blank'
                           | さんが
                           = link_to "#{history.spot.title}", spot_path(history.spot_id), target: '_blank'
