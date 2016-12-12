@@ -12,20 +12,26 @@
   -if false
     = f.input_field :longitude, as: :string, placeholder: "経度"
     = f.input_field :latitude, as: :string, placeholder: "緯度"
-  #tour-title.row.row-space-5.row-space-top-5
+  #tour-title.row.row-space-top-5
     .col-lg-12.text-left
       .h4.row-space-2.text-light
         |  アクティビティのタイトル
+  .row
     .col-lg-8
       .required-container
         = f.input_field :title, :class => 'imeoff', placeholder: "Eg. Kamakura vegetable", maxlength: 20
         i.fa.fa-asterisk.balloon[title="required"]
-    .col-lg-4.text-left
-      #title_counter
-    .col-lg-8.row-space-top-2
+    .col-lg-4.text-left.row-space-top-1
+      span 残り
+      b#title_counter
+      span 文字
+  .row.row-space-top-2
+    .col-lg-8
       = f.input_field :title_2, :class => 'imeoff', placeholder: "Eg. food-fest for girls! ", maxlength: 20
-    .col-lg-4.text-left
-      #title_2_counter
+    .col-lg-4.text-left.row-space-top-1
+      span 残り
+      b#title_2_counter
+      span 文字
   hr
   .row.row-space-5.row-space-top-5
     .col-lg-12.text-left.listing-manager-intaview
@@ -70,24 +76,24 @@
       .col-lg-12.text-left.listing-manager-intaview
         .h4.row-space-2.border-block.text-light
           | アクティビティの条件
-    .row.row-space-5.row-space-top-2.row-table
-      .col-lg-5.text-left.col-middle
-        .h4.row-space-2.text-light.required-container
+    .row.row-space-5.row-space-top-2
+      .col-lg-5.text-left.row-space-2
+        .h4.text-light.required-container
           | アクティビティの所要時間（目安）
           i.fa.fa-asterisk.balloon[title="required"]
-      .col-lg-7.fieldset.col-middle
+      .col-lg-7.fieldset
         .row
           .col-xs-11
             .select.select-opt.opt-double
               /= f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}, {}, {class: "value_fragile"}
               = ff.select :time_required, set_time_required , {}, {class: "value_fragile"}
               span 時間
-    .row.row-space-8.row-space-top-5.row-table
-      .col-lg-5.text-left.col-middle
+    .row.row-space-8.row-space-top-5
+      .col-lg-5.text-left.row-space-2
         .h4.text-light.required-container
           | アクティビティの参加者
           i.fa.fa-asterisk.balloon[title="required"]
-      .col-lg-7.fieldset.col-middle
+      .col-lg-7.fieldset
         .row
           .col-xs-11
             .select.select-opt
@@ -97,29 +103,29 @@
               = ff.select :max_num_of_people, [*(1..20)], {}, {class: ""}
               span 人まで
   hr
-  .row.row-space-5.row-space-top-5.row-table
+  .row.row-space-5.row-space-top-5
     .col-lg-12.text-left
       .h4.text-light
         | このアクティビティの対応言語
-    .col-lg-12.text-left
-      = collection_check_boxes(:listing, :language_ids, Language.ordered, :id, :name, checked: checked_listing_language_ids(@listing), disabled: disabled_language_id) do |l|
-        .col-xs-3
-          = l.label(class: "checkbox-inline") { l.check_box + l.text }
-    .col-xs-12.text-left  
-      small.text-red
+      .text-red.row-space-top-1.row-space-1
         | *You can't uncheck. English is required in Huber.
-  .row.row-space-5.row-space-top-5.row-table
+    .col-lg-12.text-left
+      .row
+        = collection_check_boxes(:listing, :language_ids, Language.ordered, :id, :name, checked: checked_listing_language_ids(@listing), disabled: disabled_language_id) do |l|
+          .col-xs-6.col-lg-3
+            = l.label(class: "checkbox-inline") { l.check_box + l.text }
+  .row.row-space-5.row-space-top-5
     .col-lg-12.text-left
       .h4.text-light
         | カテゴリ
-    p.text-lead
-      | Choose 
-      b three categories 
-      | that appeal to you the most. 
+      p.row-space-top-1
+        | Choose 
+        b three categories 
+        | that appeal to you the most. 
     .col-lg-12.text-left
       .listing_pickuptag_checkbox
         = collection_check_boxes(:listing, :pickup_ids, PickupTag.all, :id, :short_name) do |b|
-          = b.label(class: "col-lg-4, col-xs-6") { b.check_box(style: "background-image: url(#{asset_path b.object.icon})") + b.text}
+          = b.label(class: "col-xs-6 col-lg-3") { b.check_box(style: "background-image: url(#{asset_path b.object.icon})") + b.text}
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-12.text-left
       .h4.row-space-2.text-light

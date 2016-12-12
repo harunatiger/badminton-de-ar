@@ -2,54 +2,52 @@
 #
 # Table name: reservations
 #
-#  id                          :integer          not null, primary key
-#  host_id                     :integer
-#  guest_id                    :integer
-#  listing_id                  :integer
-#  schedule                    :datetime
-#  num_of_people               :integer          default(0), not null
-#  msg                         :text             default("")
-#  progress                    :integer          default(0), not null
-#  reason                      :text             default("")
-#  review_mail_sent_at         :datetime
-#  review_expiration_date      :datetime
-#  review_landed_at            :datetime
-#  reviewed_at                 :datetime
-#  reply_mail_sent_at          :datetime
-#  reply_landed_at             :datetime
-#  replied_at                  :datetime
-#  review_opened_at            :datetime
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  time_required               :decimal(9, 6)    default(0.0)
-#  price                       :integer          default(0)
-#  place                       :string           default("")
-#  description                 :text             default("")
-#  schedule_end                :date
-#  place_memo                  :text             default("")
-#  campaign_id                 :integer
-#  refund_rate                 :integer          default(0)
-#  price_for_support           :integer          default(0)
-#  price_for_both_guides       :integer          default(0)
-#  space_option                :boolean          default(TRUE)
-#  space_rental                :integer          default(0)
-#  car_option                  :boolean          default(TRUE)
-#  car_rental                  :integer          default(0)
-#  gas                         :integer          default(0)
-#  highway                     :integer          default(0)
-#  parking                     :integer          default(0)
-#  guests_cost                 :integer          default(0)
-#  included_guests_cost        :text             default("")
-#  cancel_by                   :integer          default(0)
-#  pair_guide_id               :integer
-#  pair_guide_status           :integer          default(0)
-#  bicycle_option              :boolean          default(FALSE)
-#  bicycle_rental              :integer          default(0)
-#  other_option                :boolean          default(FALSE)
-#  other_cost                  :integer          default(0)
-#  insurance_fee               :integer          default(0)
-#  transportation_cost_main    :integer          default(0)
-#  transportation_cost_support :integer          default(0)
+#  id                     :integer          not null, primary key
+#  host_id                :integer
+#  guest_id               :integer
+#  listing_id             :integer
+#  schedule               :datetime
+#  num_of_people          :integer          default(0), not null
+#  msg                    :text             default("")
+#  progress               :integer          default(0), not null
+#  reason                 :text             default("")
+#  review_mail_sent_at    :datetime
+#  review_expiration_date :datetime
+#  review_landed_at       :datetime
+#  reviewed_at            :datetime
+#  reply_mail_sent_at     :datetime
+#  reply_landed_at        :datetime
+#  replied_at             :datetime
+#  review_opened_at       :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  time_required          :decimal(9, 6)    default(0.0)
+#  price                  :integer          default(0)
+#  place                  :string           default("")
+#  description            :text             default("")
+#  schedule_end           :date
+#  place_memo             :text             default("")
+#  campaign_id            :integer
+#  refund_rate            :integer          default(0)
+#  price_for_support      :integer          default(0)
+#  price_for_both_guides  :integer          default(0)
+#  space_option           :boolean          default(TRUE)
+#  space_rental           :integer          default(0)
+#  car_option             :boolean          default(TRUE)
+#  car_rental             :integer          default(0)
+#  gas                    :integer          default(0)
+#  highway                :integer          default(0)
+#  parking                :integer          default(0)
+#  guests_cost            :integer          default(0)
+#  included_guests_cost   :text             default("")
+#  cancel_by              :integer          default(0)
+#  pair_guide_id          :integer
+#  pair_guide_status      :integer          default(0)
+#  bicycle_option         :boolean          default(FALSE)
+#  bicycle_rental         :integer          default(0)
+#  other_option           :boolean          default(FALSE)
+#  other_cost             :integer          default(0)
+#  insurance_fee          :integer          default(0)
 #
 # Indexes
 #

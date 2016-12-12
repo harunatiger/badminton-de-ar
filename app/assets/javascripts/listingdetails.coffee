@@ -93,6 +93,19 @@ $ ->
       e.stopPropagation()
       return false
 
+    #---------------------------------------------------------------------
+    # open about_transportation_fee
+    #---------------------------------------------------------------------
+    $('.js-modal-about_transportation_fee-trigger').on 'click', (e) ->
+      $('#about_transportation_fee').modal('show')
+      e.preventDefault()
+
+    #---------------------------------------------------------------------
+    # open about_system_fee
+    #---------------------------------------------------------------------
+    $('.js-modal-about_system_fee-trigger').on 'click', (e) ->
+      $('#about_system_fee').modal('show')
+      e.preventDefault()
 
 
   $('.calendar-description').on 'click', (e) ->
