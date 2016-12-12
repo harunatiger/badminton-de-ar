@@ -8,7 +8,7 @@
           = truncate(listing.title, length: 40)
       - if controller_name != 'favorites'
         = render partial: 'shared/favorite', locals: { user: current_user, target: listing}
-  .card-body.clearfix
+  .card-body.tour-listing-inner.clearfix
     .pull-left.media-container
       .media
         = link_to profile_path(profile), class: "media-photo media-round card-profile-picture", target: '_blank' do
