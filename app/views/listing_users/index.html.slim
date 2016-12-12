@@ -69,18 +69,21 @@
           .accepted-activity-list
             .row.row-space-top-6
               / owner
-              - profile = user_id_to_profile(@listing.user_id)
-              = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: nil }
-              
+              .col-md-6.row-space-4.accepted-activity-column
+                span.activity-icon.activity-icon-owner Owner
+                - profile = user_id_to_profile(@listing.user_id)
+                = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: nil }
               / receptionists
               - @receptionists.each do |receptionist|
-                - profile = user_id_to_profile(receptionist.user_id)
-                = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: receptionist }
-                
+                .col-md-6.row-space-4.accepted-activity-column
+                  span.activity-icon.activity-icon-receptionist Receptionist
+                  - profile = user_id_to_profile(receptionist.user_id)
+                  = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: receptionist }
               / member
               - @nomal_members.each do |nomal_member|
-                - profile = user_id_to_profile(nomal_member.user_id)
-                = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: nomal_member }
+                .col-md-6.row-space-4.accepted-activity-column
+                  - profile = user_id_to_profile(nomal_member.user_id)
+                  = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: nomal_member }
 
               / invite friends
               - if show_leader_contents?(current_user, @listing)
