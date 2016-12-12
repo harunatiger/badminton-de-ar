@@ -5,7 +5,9 @@
         .tour-cover[style="background-image:url(#{asset_path listing_cover_image_thumb_url(listing.id)})" data-original="#{asset_path listing_cover_image_thumb_url(listing.id)}"]
       .card-overlay-bottom-left.flush-left.card-overlay-label
         = link_to listing_path(listing), class: "text-normal", target: '_blank' do
-          = truncate(listing.title, length: 40)
+          = truncate(listing.title, length: 20)
+          br
+          = truncate(listing.title_2, length: 20)
       - if controller_name != 'favorites'
         = render partial: 'shared/favorite', locals: { user: current_user, target: listing}
   .card-body.tour-listing-inner.clearfix
