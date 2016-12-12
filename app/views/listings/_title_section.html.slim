@@ -5,9 +5,10 @@
       .col-md-7.col-md-offset-5.row-space-1.title-container
         .row
           .col-sm-12.col-md-11.text-center--md
-            h1#listing_name.row-space-2.overflow
+            h1#listing_name.overflow
               = @listing.title
-            #listing_area.row-space-2
+              .small.row-space-top-1.row-space-2 = @listing.title_2
+            #listing_area.row-space-1
               - if pickup_area_from_listing(listing).present?
                 i.fa.fa-map-marker
                 - pickup_area_from_listing(listing).each do |area|
@@ -18,7 +19,7 @@
                 i.fa.fa-clock-o
                 ' 
                 span.text-brand #{@listing.listing_detail.time_required}h
-            .lang-list-wrapper
+            .lang-list-wrapper.row-space-2
               = render partial: 'shared/language_list', locals: { target: @listing}
           .col-md-1.text-center.favorite-container
             .va-container.va-container-wh
@@ -35,14 +36,34 @@
                       = pickup_tag.short_name
 
       .col-md-5.guide-info-container.text-center
-        = link_to profile_path(@host_info.id), class: 'media-photo media-round media-avatar row-space-2' do
-          .size120[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
-        .guide-info-inner
+        .row
+          .col-md-5.col-lg-4
+            = link_to profile_path(@host_info.id), class: 'media-photo media-round media-avatar row-space-2' do
+              .size100[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
+            .h4.strong.text-truncate.row-space-1
+              = @host_info.first_name
+          .col-md-7.col-lg-8
+            = render partial: 'shared/member_section', locals: { listing: @listing}
+        .row.row-space-top-1
+          .col-md-12
+            .btn.row-space-1
+              i.fa.fa-comment-o
+              - if listing.receptionists?
+                | Receptionist Only
+              - else
+                | All Members
+            p
+              | このアクティビティを案内できるホスト(#{member_section_guides(listing).count})
+            p
+              b Supporting guide will join on the day! 
+              = link_to "#", class: "about-support-guide-trigger" do
+                i.fa.fa-question-circle
+        /.guide-info-inner
           .va-container-wh--sp
             .va-middle--sp
               .h4.strong.text-truncate.row-space-1
                 = @host_info.first_name
-              / div
+              div
                 = link_to "#reviews", class: "link-reset"
                 .star-rating.star-rating-large.star-rating-fit
                   = render partial: 'listings/stars', locals: { rate: @host_info.ave_total }
@@ -50,6 +71,3 @@
                 span[itemprop="reviewCount"]
                   = @all_reviewed_count
                 | )
-        .row.row-space-4.row-space-top-2
-          .col-md-12
-            = render partial: 'shared/member_section', locals: { listing: @listing}

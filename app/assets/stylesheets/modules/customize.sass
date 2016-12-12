@@ -280,11 +280,18 @@ label.error
 
 /* pair-guide-list-container
 .pair-guide-list-container
+  text-align: left
+  @media (max-width: 767px)
+    text-align: center
   .pair_guide_list-trigger
-    width: 54px
-    height: 54px
-    line-height: 50px
+    width: 60px
+    height: 60px
+    line-height: 60px
     color: white
+    @media (max-width: 1099px) and (min-width: 768px)
+      width: 44px
+      height: 44px
+      line-height: 44px
     &:hover
       text-decoration: none
       background-color: $brand-theme-hover
@@ -1546,17 +1553,13 @@ body.paper
       position: relative
     #listing_name
       padding: 0
-      margin-bottom: 12.5px
       color: $gray2
       font-size: 24px
       text-shadow: none
+      small
     #listing_area
-      margin-bottom: 12.5px
       font-size: 15px
       word-break: break-all
-      //overflow: hidden
-      //white-space: nowrap
-      //text-overflow: ellipsis
       a
         color: $brand-theme
         margin-right: 5px
@@ -1604,8 +1607,24 @@ body.paper
       clear: both
   .guide-info-container
     position: absolute
-    top: -80px
+    //top: -80px
+    top: 0
     left: 12.5px
+    p
+      margin-bottom: 3px
+    .size100
+      width: 110px
+      height: 110px
+      @media (max-width: 1099px)
+        width: 90px
+        height: 90px
+      @media (max-width: 767px)
+        width: 110px
+        height: 110px
+    .size60
+      @media (max-width: 1099px) and (min-width: 768px)
+        width: 44px
+        height: 44px
     @media (max-width: 767px)
       position: relative
       top: auto

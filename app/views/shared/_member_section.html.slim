@@ -3,17 +3,6 @@
     - member_section_guides(listing).each_with_index do |guide, i|
       - break if i == 5
       .media-photo.media-round.media-avatar
-        .size50[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(guide.user_id)}')"]
+        .size60[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(guide.user_id)}')"]
     = link_to "#", class: "pair_guide_list-trigger media-photo media-round text-center" do
       b more
-  p
-    - if listing.receptionists?
-      | Receptionist Only
-    - else
-      | All Members
-  p
-    | このアクティビティを案内できるホスト(#{member_section_guides(listing).count})
-  p
-    b Supporting guide will join on the day! 
-    = link_to "#", class: "about-support-guide-trigger" do
-      i.fa.fa-question-circle
