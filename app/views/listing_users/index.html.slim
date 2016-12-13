@@ -11,7 +11,9 @@
             /= image_tag(listing_cover_image_url(@listing.id))
             .va-container.va-container-wh
               .va-middle.text-center
-                .h1.text-contrast = @listing.title
+                .h1.text-contrast
+                  = @listing.title
+                  .small = @listing.title_2
                 - if current_user.id == @listing.user_id
                   = simple_form_for(@listing, url: listing_change_authorized_user_status_path, method: :POST) do |f|
                     .select.select-listing-user
