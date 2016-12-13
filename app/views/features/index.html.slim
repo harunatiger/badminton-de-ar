@@ -474,7 +474,7 @@
           h3.text-black.center-lined
             span 09. Enoshima
       .row.row-space-8
-        - feature_listing_ids =
+        - feature_listing_ids = @content09
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-@content09space-4
             - if feature_listing(id).present?
