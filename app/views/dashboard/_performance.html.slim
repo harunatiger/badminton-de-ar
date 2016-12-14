@@ -8,17 +8,22 @@
     = hidden_field_tag :user_id, user_id
     = f.hidden_field :day, value: data.day
     .row
-      .col-md-4.row-space-2
+      .col-md-3.row-space-2
+        .h5.row-space-1
+          | PERIOD
+        .select.select-block
+          = f.select :day, data.day_list(user_id), {selected: data.day.strftime("%B, %Y")}, {class: 'chart_submit'}
+      .col-md-3.row-space-2
         .h5.row-space-1
           | TOURS
         .select.select-block
           = f.select :tour, data.tours_list(listings), {}, {class: 'chart_submit', id: 'change_tour'}
-      .col-md-4.row-space-2
+      .col-md-3.row-space-2
         .h5.row-space-1
           | DATA
         .select.select-block
           = f.select :data, data.data_list, {}, {class: 'chart_submit'}
-      .col-md-4.row-space-2
+      .col-md-3.row-space-2
         .h5.row-space-1
           | BENCHMARKS
         .select.select-block
@@ -28,10 +33,14 @@
         #dashboard-chart-container
           #chart
             = render_chart(data.chart_data, 'chart')
-          = link_to '#', id: 'prev_month' do
-            i.fa.fa-caret-left.fa-2x
-          = link_to '#', id: 'next_month' do
-            i.fa.fa-caret-right.fa-2x
+          / add period to graph
+          = data.day.strftime("%B, %Y")
+          - if data.day_list(user_id).last != data.day.strftime("%B, %Y")
+            = link_to '#', id: 'prev_month' do
+              i.fa.fa-caret-left.fa-2x
+          - if data.day_list(user_id).first != data.day.strftime("%B, %Y")
+            = link_to '#', id: 'next_month' do
+              i.fa.fa-caret-right.fa-2x
             
     .table-container
       .row.row-table

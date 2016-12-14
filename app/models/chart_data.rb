@@ -1,16 +1,18 @@
 class ChartData
   include ActiveModel::Model
-  attr_accessor :day, :tour, :data, :benchmark, :chart_data
+  attr_accessor :day, :tour, :data, :benchmark, :chart_data, :reservation_date_list
   
   def set_chart_data(listings)
     if listings.present?
       result = []
       benchmark_result = []
+      self.reservation_date_list = []
       if self.tour == Settings.chart_data.tours.all
         if self.data == Settings.chart_data.data.pv
           (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
             pv = BrowsingHistory.listings_pv(listings).viewed_when(date.beginning_of_day, date.end_of_day).count
             result.push([date.day.to_s,pv, Reservation.count_on_the_day(listings, date)])
+            #self.reservation_date_list.push(date.day) if Reservation.count_on_the_day(listings, date)
           end
         elsif self.data == Settings.chart_data.data.favorites
           (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
@@ -87,11 +89,23 @@ class ChartData
     
     option = {hAxis: {title: 'Day'}, interpolateNulls: true, height: 400, legend: { position: 'top'}}
     if self.benchmark.present?
-      option.store("series", { 1 => { type: "scatter" }, 2 => { type: "line" } })
+      option.store("series", { 1 => { type: "scatter", tooltip: false }, 2 => { type: "line" } })
     else
-      option.store("series", { 1 => { type: "scatter" } })
+      option.store("series", { 1 => { type: "scatter", tooltip: false } })
     end
     self.chart_data = GoogleVisualr::Interactive::ColumnChart.new(data_table, option)
+  end
+  
+  def day_list(user_id)
+    start_month = User.find_by_id(user_id).try('created_at')
+    list = [Time.zone.today.strftime("%B, %Y")]
+    if start_month
+      while start_month.beginning_of_day < Time.zone.today.beginning_of_day
+        list.push(start_month.strftime("%B, %Y"))
+        start_month = start_month.next_month
+      end
+    end
+    list
   end
   
   def tours_list(listings)

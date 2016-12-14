@@ -40,6 +40,18 @@ $ ->
       $('#hidden-form-id').val(event.target.id)
       $('#listing-image-loading').modal()
       return
+      
+    # add reservation dot to date
+    # setTimeout (->
+    #   reservation_date_list = gon.reservation_date_list
+    #   if reservation_date_list.length > 0
+    #     $.each reservation_date_list, (index, elm) ->
+    #       $("g g g text:contains(" + elm + ")").each ->
+    #         if $(this).text() == elm.toString()
+    #           console.log 'this!!!!!'
+          
+    #   return
+    # ), 500
 
     # update chart when window resized
     $(window).resize ->
