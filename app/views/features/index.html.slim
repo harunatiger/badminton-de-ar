@@ -121,7 +121,7 @@
           h3.text-black.center-lined
             span 01. Recommended Tours
       .row.row-space-8
-        - feature_listing_ids = [320, 537, 158]
+        - feature_listing_ids = @content01
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -162,7 +162,7 @@
           h3.text-black.center-lined
             span 02. Recommended Tours
       .row.row-space-8
-        - feature_listing_ids = [96, 265, 544]
+        - feature_listing_ids = @content02
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -203,7 +203,7 @@
           h3.text-black.center-lined
             span 03. Recommended Tours
       .row.row-space-8
-        - feature_listing_ids = [321, 288, 312]
+        - feature_listing_ids = @content03
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -244,7 +244,7 @@
           h3.text-black.center-lined
             span 04. Ten-en Hiking Course
       .row.row-space-8
-        - feature_listing_ids = [333, 292, 410]
+        - feature_listing_ids = @content04
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -290,7 +290,7 @@
           h3.text-black.center-lined
             span 05. Food in Kamakura
       .row.row-space-8
-        - feature_listing_ids = [211, 141, 282]
+        - feature_listing_ids = @content05
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -336,7 +336,7 @@
           h3.text-black.center-lined
             span 06. Enkaku-ji & Kencho-ji Temple
       .row.row-space-8
-        - feature_listing_ids = [313, 317, 324]
+        - feature_listing_ids = @content06
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -382,7 +382,7 @@
           h3.text-black.center-lined
             span 07. Kumazawa Brewery
       .row.row-space-8
-        - feature_listing_ids = [145]
+        - feature_listing_ids = @content07
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -428,7 +428,7 @@
           h3.text-black.center-lined
             span 08. Kamakura and the Ocean
       .row.row-space-8
-        - feature_listing_ids = [339, 372, 188]
+        - feature_listing_ids = @content08
         - feature_listing_ids.each do |id|
           .col-md-6.col-lg-4.row-space-4
             - if feature_listing(id).present?
@@ -474,9 +474,9 @@
           h3.text-black.center-lined
             span 09. Enoshima
       .row.row-space-8
-        - feature_listing_ids = [315, 212, 95]
+        - feature_listing_ids = @content09
         - feature_listing_ids.each do |id|
-          .col-md-6.col-lg-4.row-space-4
+          .col-md-6.col-lg-4.row-@content09space-4
             - if feature_listing(id).present?
               = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
             - else
