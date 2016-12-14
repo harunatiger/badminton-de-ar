@@ -1,0 +1,52 @@
+/ Dachi's message
+- if their_msg
+  / Dachi's message
+  .row.row-condensed
+    .col-xs-2.col-md-1.text-center
+      /a.media-photo.media-round href="#"
+      = link_to '#', class: 'media-photo media-round media-avatar'
+        .size36[style="background-image: url('#{asset_path Settings.image.noimage.url}')"]
+    .col-xs-9.col-md-10
+      .row-space-4
+        .card.card-quote.card-quote-flush.round
+          .card-body
+            .message-text
+              p.trans
+                = simple_format(Settings.message.dachi)
+
+  / Tomo's message
+  .row.row-condensed
+    .col-xs-2.col-md-1.text-center
+      /a.media-photo.media-round href="#"
+      = link_to '#', class: 'media-photo media-round media-avatar'
+        .size36[style="background-image: url('#{asset_path Settings.image.noimage.url}')"]
+    .col-xs-9.col-md-10
+      .row-space-4
+        .card.card-quote.card-quote-flush.round
+          .card-body
+            .message-text
+              p.trans
+                = simple_format(Settings.message.tomo)
+- else
+  .row.row-condensed
+    .col-xs-9.col-xs-offset-1.col-md-10
+      .row-space-4
+        .card.card-quote.card-quote-flush.card-quote-right.round
+          .card-body
+            .message-text
+              p.trans
+                = simple_format(Settings.message.dachi)
+    .col-xs-2.col-md-1.text-center
+      = link_to '#', class: "media-photo media-round media-avatar"
+        .size36[style="background-image: url('#{asset_path Settings.image.noimage.url}')"]
+  .row.row-condensed
+    .col-xs-9.col-xs-offset-1.col-md-10
+      .row-space-4
+        .card.card-quote.card-quote-flush.card-quote-right.round
+          .card-body
+            .message-text
+              p.trans
+                = simple_format(Settings.message.tomo)
+    .col-xs-2.col-md-1.text-center
+      = link_to '#', class: "media-photo media-round media-avatar"
+        .size36[style="background-image: url('#{asset_path Settings.image.noimage.url}')"]

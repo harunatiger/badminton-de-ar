@@ -212,6 +212,16 @@ message_thread:
         placeholder: "Write a message"
   start_planning: 'You can start tour planning from this thread.'
 message:
+  tomo: |
+        Welcome! I'm Tomo, and I'm an official character of Huber.!
+        Let's have a great trip with Huber guide!
+  dachi: |
+        Hi! I’m Dachi! I’ll give you tips for making the best trip!
+        Tell your guide a little bit about yourself so they can recommend a plan perfectly suited for you!
+        
+        What do you like to do? What are you interested in?
+        Tell the guide about yourself!
+        You will get a response within 24 hours.
   save:
     success: "Your message has been sent"
     failure: "message delivery failed"

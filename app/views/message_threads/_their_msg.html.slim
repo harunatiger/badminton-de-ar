@@ -22,6 +22,11 @@ li.thread-list-item
                     | Sorry, Your request(Booking your tour) has been cancelled.
                     br
                     | Let’s try again!
+                    
+  / tomo and dachi messages
+  - if what_talk_about_message?(m.try('content'))
+    = render partial: 'tomo_and_dachi_messages', locals: { their_msg: true }
+  
   .row.row-condensed
     .col-xs-9.col-xs-offset-1.col-md-10
       .row-space-4
