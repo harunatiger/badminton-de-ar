@@ -4,7 +4,7 @@
     .col-md-4.col-lg-3
       #user-panel.card.row-space-4.card-bald
         .media.media-photo-block.dashboard-profile-photo.panel-image.hide--sp
-          = link_to profile_path(current_user.profile.id), target: '_blank'
+          = link_to profile_path(current_user.profile.id)
             = image_tag(profile_to_image_thumb(current_user.profile), class: 'img-responsive')
         .card-body
           h3.text-center
@@ -30,7 +30,7 @@
                   li
                     .row
                       .col-md-3.col-lg-2.text-center
-                        = link_to profile_path(user_id_to_profile_id(user.id)), target: '_blank' do
+                        = link_to profile_path(user_id_to_profile_id(user.id)) do
                           .media-avatar
                             - if user.guest?
                               .size60.media-round.media-avatar-bordered[style="background-image: url(#{asset_path user_id_to_profile_image_thumb(user.id)})"]
@@ -41,19 +41,19 @@
                           = history.created_at
                         /*******bookmarked history of listings*******
                         - if history.favorite_listing?
-                          = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id)), target: '_blank'
+                          = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
                           | さんが
-                          = link_to "#{listing_id_to_listing_obj(history.listing_id).title}", listing_path(history.listing_id), target: '_blank'
+                          = link_to "#{listing_id_to_listing_obj(history.listing_id).title}", listing_path(history.listing_id)
                           | をお気に入りに登録しました。
                         /*******bookmarked history of current_user*******
                         - elsif history.favorite_user?
-                          = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id)), target: '_blank'
+                          = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
                           | さんがあなたをお気に入りに登録しました。
                         /*******bookmarked history of spots*******
                         - elsif history.favorite_spot?
-                          = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id)), target: '_blank'
+                          = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
                           | さんが
-                          = link_to "#{history.spot.title}", spot_path(history.spot_id), target: '_blank'
+                          = link_to "#{history.spot.title}", spot_path(history.spot_id)
                           | をお気に入りに登録しました。
             - else
               .text-center
@@ -82,14 +82,15 @@
                       .card-body
                         .row
                           .col-md-4
-                            = link_to listing_path(listing.id), target: '_blank' do
+                            = link_to listing_path(listing.id) do
                               .media-cover-img
                                 div[style="background-image: url(#{asset_path listing_cover_image_thumb_url(listing.id)})"]
                           .col-md-6
-                            = link_to listing_path(listing.id), target: '_blank' do
+                            = link_to listing_path(listing.id) do
                               .multiple-ellipsis
                                 div
                                   b = listing.title
+                                  .small = listing.title_2
                           .col-md-2.text-center
                             = link_to '#', class: 'favorite_hitory', listing_id: listing.id do
                               .favorite-icon

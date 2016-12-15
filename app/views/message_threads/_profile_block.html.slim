@@ -2,11 +2,11 @@
   .card.row-space-2
     .mini-profile.va-container.media
       .va-top.pull-left
-        = link_to profile_path(counterpart.profile.id), class: "media-photo media-avatar", target: '_blank' do
+        = link_to profile_path(counterpart.profile.id), class: "media-photo media-avatar" do
           .size100[style="background-image: url('#{asset_path profile_to_image_thumb(counterpart.profile)}')"]
       .va-middle.msg-pic
         .h5.row-space-1
-          = link_to profile_path(counterpart.profile.id), class: 'text-normal', target: '_blank' do
+          = link_to profile_path(counterpart.profile.id), class: 'text-normal' do
             = user_id_to_name(counterpart.id)
         - if @message_thread.pair_guide_thread?
           span.user-type.user-guide
