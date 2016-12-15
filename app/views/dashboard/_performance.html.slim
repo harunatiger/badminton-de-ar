@@ -65,7 +65,7 @@
 
       - if data.tour == Settings.chart_data.tours.all
         / ********when TOURS == ALL***********
-        - listings.each do |listing|
+        - listings.includes(:pickups).each do |listing|
           .row.row-table
             .col-md-4.col-middle
               .text-lead.overflow
