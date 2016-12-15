@@ -11,12 +11,12 @@
                 i.fa.fa-envelope
             .row
               .col-md-4.text-center
-                = link_to profile_path(user_id_to_profile_id(r.guest_id)), class: "media-round media-photo media-avatar", target: '_blank' do
+                = link_to profile_path(user_id_to_profile_id(r.guest_id)), class: "media-round media-photo media-avatar" do
                   .size60.media-round[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(r.guest_id)}')"]
               .col-md-8.text-center--sp
                 .user-type.user-guest Guest
                 .h5.row-space-top-1.row-space-1
-                  = link_to profile_path(user_id_to_profile_id(r.guest_id)), target: '_blank' do
+                  = link_to profile_path(user_id_to_profile_id(r.guest_id)) do
                     = user_id_to_firstname(r.guest_id)
                 - phone = user_id_to_phone_number(r.guest_id)
                 - if phone.present? and !guest.soft_destroyed? and r.pair_guide_id != current_user.id
@@ -88,7 +88,7 @@
             .user-type.user-guide = guide_type_str(r)
           .col-md-5.col-lg-3.row-space-1.text-center--sp
             .h5.text-truncate
-              = link_to profile_path(user_id_to_profile_id(pair_user.id)), target: '_blank' do
+              = link_to profile_path(user_id_to_profile_id(pair_user.id)) do
                 = user_id_to_firstname(pair_user.id)
           .col-md-4.col-lg-4.text-center--sp
             i.fa.fa-phone
