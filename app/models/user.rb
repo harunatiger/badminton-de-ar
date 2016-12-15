@@ -30,6 +30,9 @@
 #  reason                 :text             default("")
 #  user_type              :integer          default(0)
 #  last_access_date       :date
+#  admin_closed_at        :datetime
+#  remarks                :text
+#  star_guide             :boolean          default(FALSE)
 #
 # Indexes
 #

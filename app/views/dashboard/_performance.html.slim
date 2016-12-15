@@ -28,13 +28,14 @@
           | BENCHMARKS
         .select.select-block
           = f.select :benchmark, data.benchmark_list, {include_blank: true}, {disabled: disabled, class: 'chart_submit'}
-    .row.row-space-2
+    .row
       .col-md-12
         #dashboard-chart-container
           #chart
             = render_chart(data.chart_data, 'chart')
           / add period to graph
-          = data.day.strftime("%B, %Y")
+          #chart-datetime
+            = data.day.strftime("%B, %Y")
           - if data.day_list(user_id).last != data.day.strftime("%B, %Y")
             = link_to '#', id: 'prev_month' do
               i.fa.fa-caret-left.fa-2x
@@ -42,7 +43,7 @@
             = link_to '#', id: 'next_month' do
               i.fa.fa-caret-right.fa-2x
             
-    .table-container
+    .table-container.card.card-bald.card-waxing
       .row.row-table
         .col-md-4.col-middle.date-col
           .h4
@@ -59,7 +60,7 @@
               i.fa.fa-book[data-toggle="tooltip" data-placement="top" title="total reservations"]
               b = data.reservations_monthly_count(listings)
             .col-xs-3
-              i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="total salse"]
+              i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="total sales"]
               b = data.sales_monthly_amount(listings)
 
       - if data.tour == Settings.chart_data.tours.all
@@ -86,9 +87,10 @@
                   i.fa.fa-book[data-toggle="tooltip" data-placement="top" title="reservations"]
                   b = listing.reservations_monthly_count(data)
                 .col-xs-3
-                  i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="salse"]
+                  i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="sales"]
                   b = listing.sales_monthly_amount(data)
 
+    .table-container.row-space-top-2
       .row.row-table
         .col-md-4.col-middle.period-col
           .h4
@@ -134,5 +136,5 @@
                   i.fa.fa-book[data-toggle="tooltip" data-placement="top" title="reservations"]
                   b = listing.reservations_whole_count
                 .col-xs-3
-                  i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="salse"]
+                  i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="sales"]
                   b = listing.sales_whole_amount

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207110150) do
+ActiveRecord::Schema.define(version: 20161210154740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -290,42 +290,55 @@ ActiveRecord::Schema.define(version: 20161207110150) do
 
   add_index "listing_destinations", ["listing_id"], name: "index_listing_destinations_on_listing_id", using: :btree
 
+  create_table "listing_detail_extra_costs", force: :cascade do |t|
+    t.integer  "listing_detail_id"
+    t.string   "description"
+    t.integer  "price",             default: 0
+    t.integer  "for_each"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "listing_detail_extra_costs", ["listing_detail_id"], name: "index_listing_detail_extra_costs_on_listing_detail_id", using: :btree
+
   create_table "listing_details", force: :cascade do |t|
     t.integer  "listing_id"
     t.string   "zipcode"
-    t.string   "location",                                      default: ""
-    t.string   "place",                                         default: ""
-    t.decimal  "longitude",             precision: 9, scale: 6, default: 0.0
-    t.decimal  "latitude",              precision: 9, scale: 6, default: 0.0
-    t.integer  "price",                                         default: 0
-    t.decimal  "time_required",         precision: 9, scale: 6, default: 0.0
-    t.integer  "max_num_of_people",                             default: 0
-    t.integer  "min_num_of_people",                             default: 0
-    t.text     "condition",                                     default: ""
-    t.text     "refund_policy",                                 default: ""
-    t.text     "in_case_of_rain",                               default: ""
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
-    t.text     "place_memo",                                    default: ""
-    t.decimal  "place_longitude",       precision: 9, scale: 6, default: 0.0
-    t.decimal  "place_latitude",        precision: 9, scale: 6, default: 0.0
-    t.integer  "price_for_support",                             default: 0
-    t.integer  "price_for_both_guides",                         default: 0
-    t.boolean  "space_option",                                  default: true
-    t.integer  "space_rental",                                  default: 0
-    t.boolean  "car_option",                                    default: true
-    t.integer  "car_rental",                                    default: 0
-    t.integer  "gas",                                           default: 0
-    t.integer  "highway",                                       default: 0
-    t.integer  "parking",                                       default: 0
-    t.integer  "guests_cost",                                   default: 0
-    t.text     "included_guests_cost",                          default: ""
-    t.boolean  "stop_if_rain",                                  default: false
-    t.boolean  "bicycle_option",                                default: false
-    t.integer  "bicycle_rental",                                default: 0
-    t.boolean  "other_option",                                  default: false
-    t.integer  "other_cost",                                    default: 0
-    t.boolean  "register_detail",                               default: false
+    t.string   "location",                                            default: ""
+    t.string   "place",                                               default: ""
+    t.decimal  "longitude",                   precision: 9, scale: 6, default: 0.0
+    t.decimal  "latitude",                    precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                               default: 0
+    t.decimal  "time_required",               precision: 9, scale: 6, default: 0.0
+    t.integer  "max_num_of_people",                                   default: 0
+    t.integer  "min_num_of_people",                                   default: 0
+    t.text     "condition",                                           default: ""
+    t.text     "refund_policy",                                       default: ""
+    t.text     "in_case_of_rain",                                     default: ""
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
+    t.text     "place_memo",                                          default: ""
+    t.decimal  "place_longitude",             precision: 9, scale: 6, default: 0.0
+    t.decimal  "place_latitude",              precision: 9, scale: 6, default: 0.0
+    t.integer  "price_for_support",                                   default: 0
+    t.integer  "price_for_both_guides",                               default: 0
+    t.boolean  "space_option",                                        default: true
+    t.integer  "space_rental",                                        default: 0
+    t.boolean  "car_option",                                          default: true
+    t.integer  "car_rental",                                          default: 0
+    t.integer  "gas",                                                 default: 0
+    t.integer  "highway",                                             default: 0
+    t.integer  "parking",                                             default: 0
+    t.integer  "guests_cost",                                         default: 0
+    t.text     "included_guests_cost",                                default: ""
+    t.boolean  "stop_if_rain",                                        default: false
+    t.boolean  "bicycle_option",                                      default: false
+    t.integer  "bicycle_rental",                                      default: 0
+    t.boolean  "other_option",                                        default: false
+    t.integer  "other_cost",                                          default: 0
+    t.boolean  "register_detail",                                     default: false
+    t.integer  "transportation_cost_main",                            default: 0
+    t.integer  "transportation_cost_support",                         default: 0
   end
 
   add_index "listing_details", ["latitude"], name: "index_listing_details_on_latitude", using: :btree
@@ -381,6 +394,18 @@ ActiveRecord::Schema.define(version: 20161207110150) do
   add_index "listing_pvs", ["listing_id"], name: "index_listing_pvs_on_listing_id", using: :btree
   add_index "listing_pvs", ["viewed_at", "listing_id"], name: "index_listing_pvs_on_viewed_at_and_listing_id", unique: true, using: :btree
 
+  create_table "listing_users", force: :cascade do |t|
+    t.integer  "listing_id"
+    t.integer  "user_id"
+    t.integer  "user_status"
+    t.text     "request_message"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "listing_users", ["listing_id"], name: "index_listing_users_on_listing_id", using: :btree
+  add_index "listing_users", ["user_id"], name: "index_listing_users_on_user_id", using: :btree
+
   create_table "listing_videos", force: :cascade do |t|
     t.integer  "listing_id"
     t.string   "video",      default: ""
@@ -429,6 +454,8 @@ ActiveRecord::Schema.define(version: 20161207110150) do
     t.string   "interview2",                                      default: ""
     t.string   "interview3",                                      default: ""
     t.datetime "admin_closed_at"
+    t.integer  "authorized_user_status",                          default: 0
+    t.string   "title_2",                                         default: ""
   end
 
   add_index "listings", ["capacity"], name: "index_listings_on_capacity", using: :btree
@@ -766,6 +793,17 @@ ActiveRecord::Schema.define(version: 20161207110150) do
   add_index "reports", ["from_user_id"], name: "index_reports_on_from_user_id", using: :btree
   add_index "reports", ["to_user_id"], name: "index_reports_on_to_user_id", using: :btree
 
+  create_table "reservation_extra_costs", force: :cascade do |t|
+    t.integer  "reservation_id"
+    t.string   "description"
+    t.integer  "price",          default: 0
+    t.integer  "for_each"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "reservation_extra_costs", ["reservation_id"], name: "index_reservation_extra_costs_on_reservation_id", using: :btree
+
   create_table "reservation_withdrawals", force: :cascade do |t|
     t.integer  "reservation_id", null: false
     t.integer  "withdrawal_id",  null: false
@@ -781,10 +819,10 @@ ActiveRecord::Schema.define(version: 20161207110150) do
     t.integer  "guest_id"
     t.integer  "listing_id"
     t.datetime "schedule"
-    t.integer  "num_of_people",                                  default: 0,     null: false
-    t.text     "msg",                                            default: ""
-    t.integer  "progress",                                       default: 0,     null: false
-    t.text     "reason",                                         default: ""
+    t.integer  "num_of_people",                                       default: 0,     null: false
+    t.text     "msg",                                                 default: ""
+    t.integer  "progress",                                            default: 0,     null: false
+    t.text     "reason",                                              default: ""
     t.datetime "review_mail_sent_at"
     t.datetime "review_expiration_date"
     t.datetime "review_landed_at"
@@ -793,35 +831,37 @@ ActiveRecord::Schema.define(version: 20161207110150) do
     t.datetime "reply_landed_at"
     t.datetime "replied_at"
     t.datetime "review_opened_at"
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
-    t.decimal  "time_required",          precision: 9, scale: 6, default: 0.0
-    t.integer  "price",                                          default: 0
-    t.string   "place",                                          default: ""
-    t.text     "description",                                    default: ""
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
+    t.decimal  "time_required",               precision: 9, scale: 6, default: 0.0
+    t.integer  "price",                                               default: 0
+    t.string   "place",                                               default: ""
+    t.text     "description",                                         default: ""
     t.date     "schedule_end"
-    t.text     "place_memo",                                     default: ""
+    t.text     "place_memo",                                          default: ""
     t.integer  "campaign_id"
-    t.integer  "refund_rate",                                    default: 0
-    t.integer  "price_for_support",                              default: 0
-    t.integer  "price_for_both_guides",                          default: 0
-    t.boolean  "space_option",                                   default: true
-    t.integer  "space_rental",                                   default: 0
-    t.boolean  "car_option",                                     default: true
-    t.integer  "car_rental",                                     default: 0
-    t.integer  "gas",                                            default: 0
-    t.integer  "highway",                                        default: 0
-    t.integer  "parking",                                        default: 0
-    t.integer  "guests_cost",                                    default: 0
-    t.text     "included_guests_cost",                           default: ""
-    t.integer  "cancel_by",                                      default: 0
+    t.integer  "refund_rate",                                         default: 0
+    t.integer  "price_for_support",                                   default: 0
+    t.integer  "price_for_both_guides",                               default: 0
+    t.boolean  "space_option",                                        default: true
+    t.integer  "space_rental",                                        default: 0
+    t.boolean  "car_option",                                          default: true
+    t.integer  "car_rental",                                          default: 0
+    t.integer  "gas",                                                 default: 0
+    t.integer  "highway",                                             default: 0
+    t.integer  "parking",                                             default: 0
+    t.integer  "guests_cost",                                         default: 0
+    t.text     "included_guests_cost",                                default: ""
+    t.integer  "cancel_by",                                           default: 0
     t.integer  "pair_guide_id"
-    t.integer  "pair_guide_status",                              default: 0
-    t.boolean  "bicycle_option",                                 default: false
-    t.integer  "bicycle_rental",                                 default: 0
-    t.boolean  "other_option",                                   default: false
-    t.integer  "other_cost",                                     default: 0
-    t.integer  "insurance_fee",                                  default: 0
+    t.integer  "pair_guide_status",                                   default: 0
+    t.boolean  "bicycle_option",                                      default: false
+    t.integer  "bicycle_rental",                                      default: 0
+    t.boolean  "other_option",                                        default: false
+    t.integer  "other_cost",                                          default: 0
+    t.integer  "insurance_fee",                                       default: 0
+    t.integer  "transportation_cost_main",                            default: 0
+    t.integer  "transportation_cost_support",                         default: 0
   end
 
   add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree
@@ -972,12 +1012,12 @@ ActiveRecord::Schema.define(version: 20161207110150) do
   add_index "user_campaigns", ["user_id"], name: "index_user_campaigns_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                   default: "",    null: false
-    t.string   "encrypted_password",      default: "",    null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",           default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -986,25 +1026,22 @@ ActiveRecord::Schema.define(version: 20161207110150) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",         default: 0,     null: false
+    t.integer  "failed_attempts",        default: 0,     null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "uid",                     default: "",    null: false
-    t.string   "provider",                default: "",    null: false
+    t.string   "uid",                    default: "",    null: false
+    t.string   "provider",               default: "",    null: false
     t.string   "username"
     t.datetime "soft_destroyed_at"
-    t.string   "email_before_closed",     default: ""
-    t.text     "reason",                  default: ""
-    t.integer  "user_type",               default: 0
+    t.string   "email_before_closed",    default: ""
+    t.text     "reason",                 default: ""
+    t.integer  "user_type",              default: 0
     t.date     "last_access_date"
     t.datetime "admin_closed_at"
     t.text     "remarks"
-    t.boolean  "star_guide",              default: false
-    t.uuid     "uuid"
-    t.string   "access_token"
-    t.string   "access_token_expires_at"
+    t.boolean  "star_guide",             default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
@@ -1051,12 +1088,15 @@ ActiveRecord::Schema.define(version: 20161207110150) do
   add_foreign_key "listing_categories", "categories"
   add_foreign_key "listing_categories", "listings"
   add_foreign_key "listing_destinations", "listings"
+  add_foreign_key "listing_detail_extra_costs", "listing_details"
   add_foreign_key "listing_details", "listings"
   add_foreign_key "listing_images", "listings"
   add_foreign_key "listing_images", "pickups"
   add_foreign_key "listing_languages", "languages"
   add_foreign_key "listing_languages", "listings"
   add_foreign_key "listing_pvs", "listings"
+  add_foreign_key "listing_users", "listings"
+  add_foreign_key "listing_users", "users"
   add_foreign_key "listing_videos", "listings"
   add_foreign_key "listings", "users"
   add_foreign_key "message_thread_users", "message_threads"
@@ -1090,6 +1130,7 @@ ActiveRecord::Schema.define(version: 20161207110150) do
   add_foreign_key "profiles", "users"
   add_foreign_key "reports", "users", column: "from_user_id"
   add_foreign_key "reports", "users", column: "to_user_id"
+  add_foreign_key "reservation_extra_costs", "reservations"
   add_foreign_key "reservation_withdrawals", "reservations"
   add_foreign_key "reservation_withdrawals", "withdrawals"
   add_foreign_key "reservations", "listings"

@@ -2,8 +2,8 @@
 .page-container.row-space-top-4.row-space-8
   .row
     .col-md-4.col-lg-3
-      #user-panel.card.row-space-4
-        .media.media-photo-block.dashboard-profile-photo.panel-image
+      #user-panel.card.row-space-4.card-bald
+        .media.media-photo-block.dashboard-profile-photo.panel-image.hide--sp
           = link_to profile_path(current_user.profile.id), target: '_blank'
             = image_tag(profile_to_image_thumb(current_user.profile), class: 'img-responsive')
         .card-body
@@ -62,38 +62,43 @@
   .row
     .col-md-12
       #tour-panel.row-space-4
-        /.card-header あなたのツアー
-        = link_to "#tour-panel-collpase", class: "collapse-header text-lead row-space-4 collapsed", data: { toggle: "collapse" } do
-          b あなたのツアー
-        #tour-panel-collpase.collapse
-          .row
-            - if @listings.present?
-              - @listings.each do |listing|
-                .col-lg-6.row-space-4
-                  .card
-                    .card-body
-                      .row
-                        .col-md-4
-                          = link_to listing_path(listing.id), target: '_blank' do
-                            .media-cover-img
-                              div[style="background-image: url(#{asset_path listing_cover_image_thumb_url(listing.id)})"]
-                        .col-md-6
-                          = link_to listing_path(listing.id), target: '_blank' do
-                            .multiple-ellipsis
+        ul.nav.nav-tabs
+          li.active
+            = link_to "#tab-performance", class: "", data: { toggle: "tab" } do
+              b Performance
+          li
+            = link_to "#tab-activity", class: "", data: { toggle: "tab" } do
+              b Your Activities
+        .tab-content
+          #tab-performance.tab-pane.fade.in.active
+            - if @chart_data.present?
+              = render partial: 'performance', locals: { data: @chart_data, listings: @listings, user_id: current_user.id}
+          #tab-activity.tab-pane.fade
+            .row.row-space-top-4
+              - if @listings.present?
+                - @listings.each do |listing|
+                  .col-lg-6.row-space-4
+                    .card
+                      .card-body
+                        .row
+                          .col-md-4
+                            = link_to listing_path(listing.id), target: '_blank' do
+                              .media-cover-img
+                                div[style="background-image: url(#{asset_path listing_cover_image_thumb_url(listing.id)})"]
+                          .col-md-6
+                            = link_to listing_path(listing.id), target: '_blank' do
+                              .multiple-ellipsis
+                                div
+                                  b = listing.title
+                          .col-md-2.text-center
+                            = link_to '#', class: 'favorite_hitory', listing_id: listing.id do
+                              .favorite-icon
+                                i.fa.fa-heart
                               div
-                                b = listing.title
-                        .col-md-2.text-center
-                          = link_to '#', class: 'favorite_hitory', listing_id: listing.id do
-                            .favorite-icon
-                              i.fa.fa-heart
-                            div
-                              = favorite_listings_count(listing.id)
-            - else
-              .col-md-12.text-center
-                .h4 ツアーが登録されていません。
-  
-  - if @chart_data.present?
-    hr
-    = render partial: 'performance', locals: { data: @chart_data, listings: @listings, user_id: current_user.id}
+                                = favorite_listings_count(listing.id)
+              - else
+                .col-md-12.text-center
+                  .h4 ツアーが登録されていません。
+    
 = render partial: 'shared/modals/listing_image_loading'
 #hidden-form-id

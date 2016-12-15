@@ -2,42 +2,44 @@
 #
 # Table name: listing_details
 #
-#  id                    :integer          not null, primary key
-#  listing_id            :integer
-#  zipcode               :string
-#  location              :string           default("")
-#  place                 :string           default("")
-#  longitude             :decimal(9, 6)    default(0.0)
-#  latitude              :decimal(9, 6)    default(0.0)
-#  price                 :integer          default(0)
-#  time_required         :decimal(9, 6)    default(0.0)
-#  max_num_of_people     :integer          default(0)
-#  min_num_of_people     :integer          default(0)
-#  condition             :text             default("")
-#  refund_policy         :text             default("")
-#  in_case_of_rain       :text             default("")
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  place_memo            :text             default("")
-#  place_longitude       :decimal(9, 6)    default(0.0)
-#  place_latitude        :decimal(9, 6)    default(0.0)
-#  price_for_support     :integer          default(0)
-#  price_for_both_guides :integer          default(0)
-#  space_option          :boolean          default(TRUE)
-#  space_rental          :integer          default(0)
-#  car_option            :boolean          default(TRUE)
-#  car_rental            :integer          default(0)
-#  gas                   :integer          default(0)
-#  highway               :integer          default(0)
-#  parking               :integer          default(0)
-#  guests_cost           :integer          default(0)
-#  included_guests_cost  :text             default("")
-#  stop_if_rain          :boolean          default(FALSE)
-#  bicycle_option        :boolean          default(FALSE)
-#  bicycle_rental        :integer          default(0)
-#  other_option          :boolean          default(FALSE)
-#  other_cost            :integer          default(0)
-#  register_detail       :boolean          default(FALSE)
+#  id                          :integer          not null, primary key
+#  listing_id                  :integer
+#  zipcode                     :string
+#  location                    :string           default("")
+#  place                       :string           default("")
+#  longitude                   :decimal(9, 6)    default(0.0)
+#  latitude                    :decimal(9, 6)    default(0.0)
+#  price                       :integer          default(0)
+#  time_required               :decimal(9, 6)    default(0.0)
+#  max_num_of_people           :integer          default(0)
+#  min_num_of_people           :integer          default(0)
+#  condition                   :text             default("")
+#  refund_policy               :text             default("")
+#  in_case_of_rain             :text             default("")
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  place_memo                  :text             default("")
+#  place_longitude             :decimal(9, 6)    default(0.0)
+#  place_latitude              :decimal(9, 6)    default(0.0)
+#  price_for_support           :integer          default(0)
+#  price_for_both_guides       :integer          default(0)
+#  space_option                :boolean          default(TRUE)
+#  space_rental                :integer          default(0)
+#  car_option                  :boolean          default(TRUE)
+#  car_rental                  :integer          default(0)
+#  gas                         :integer          default(0)
+#  highway                     :integer          default(0)
+#  parking                     :integer          default(0)
+#  guests_cost                 :integer          default(0)
+#  included_guests_cost        :text             default("")
+#  stop_if_rain                :boolean          default(FALSE)
+#  bicycle_option              :boolean          default(FALSE)
+#  bicycle_rental              :integer          default(0)
+#  other_option                :boolean          default(FALSE)
+#  other_cost                  :integer          default(0)
+#  register_detail             :boolean          default(FALSE)
+#  transportation_cost_main    :integer          default(0)
+#  transportation_cost_support :integer          default(0)
 #
 # Indexes
 #
