@@ -106,11 +106,12 @@ class ChartData
   
   def day_list(user_id)
     start_month = User.find_by_id(user_id).try('created_at')
-    list = [Time.zone.today.strftime("%B, %Y")]
+    list = []
     if start_month
-      while start_month.beginning_of_day < Time.zone.today.beginning_of_day
-        list.push(start_month.strftime("%B, %Y"))
-        start_month = start_month.next_month
+      current_date = Time.zone.today.beginning_of_day
+      while current_date >= start_month.beginning_of_day
+        list.push(current_date.strftime("%B, %Y"))
+        current_date = current_date.prev_month
       end
     end
     list
