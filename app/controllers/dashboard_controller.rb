@@ -10,7 +10,6 @@ class DashboardController < ApplicationController
     @listings = current_user.active_listings
     @chart_data = ChartData.new(day: Time.zone.today, tour: Settings.chart_data.tours.all, data: Settings.chart_data.data.pv)
     @chart_data.set_chart_data(@listings)
-    #gon.reservation_date_list = @chart_data.reservation_date_list
   end
 
   def host_reservation_manager

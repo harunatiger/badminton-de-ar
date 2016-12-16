@@ -1,7 +1,31 @@
 # dashboard.coffee
 
+#add reservation dot to date
+SetReservationDot = ->
+  setTimeout (->
+    reservation_date_list = $("#reservation_date_list").attr('list').split(',')
+    if reservation_date_list.length > 0
+      $(".reservation-dot").each ->
+        $(this).remove()
+        
+      $.each reservation_date_list, (index, elm) ->
+        $("g g g text:contains(" + elm + ")").each ->
+          if $(this).text() == elm.toString()
+            id = "reservation-dot-" + elm
+            html = "<div id='" + id + "' class='reservation-dot'><i class='fa fa-circle'></i></div>"
+            top = $(this).offset().top + 10
+            left = $(this).offset().left
+            if elm >= 10
+              left = left + 5
+            
+            $("#chart").after(html)
+            $("#" + id).offset({ top: top, left: left })
+            return false
+  ), 500
+
 $ ->
   if $('body').hasClass('dashboard index')
+    
     $(document).on 'click', '.favorite_hitory', ->
       $.ajax(
         type: 'GET'
@@ -41,19 +65,14 @@ $ ->
       $('#listing-image-loading').modal()
       return
       
-    # add reservation dot to date
-    # setTimeout (->
-    #   reservation_date_list = gon.reservation_date_list
-    #   if reservation_date_list.length > 0
-    #     $.each reservation_date_list, (index, elm) ->
-    #       $("g g g text:contains(" + elm + ")").each ->
-    #         if $(this).text() == elm.toString()
-    #           console.log 'this!!!!!'
-          
-    #   return
-    # ), 500
+    $(document).ajaxSuccess (e) ->
+      SetReservationDot()
+      return
 
     # update chart when window resized
     $(window).resize ->
       draw_chart()
+      SetReservationDot()
       return
+    
+    SetReservationDot()
