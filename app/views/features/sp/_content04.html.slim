@@ -12,7 +12,7 @@
       h3.text-black
         span 04. Recommended Tours
   .row.row-space-8
-    - feature_listing_ids = [312, 198, 308]
+    - feature_listing_ids = @content04
     - feature_listing_ids.each do |id|
       .col-md-6.col-lg-4.row-space-4
         - if feature_listing(id).present?

@@ -53,7 +53,7 @@
 /! old type
 /.card.tour-listing
   .card-image
-    = link_to listing_path(listing), class: "media-photo-block media-cover", target: '_blank' do
+    = link_to listing_path(listing), class: "media-photo-block media-cover" do
       .tour-cover[style="background-image:url(#{asset_path listing_cover_image_thumb_url(listing.id)})" data-original="#{asset_path listing_cover_image_thumb_url(listing.id)}"]
     .card-overlay-bottom-left.flush-left.card-overlay-label
       .h3
@@ -64,9 +64,9 @@
       = render partial: 'shared/favorite', locals: { user: current_user, target: listing}
   .card-body
     .media
-      = link_to profile_path(profile), class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset", target: '_blank' do
+      = link_to profile_path(profile), class: "pull-right media-photo media-round card-profile-picture card-profile-picture-offset" do
         div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')" title="#{user_id_to_name(profile.user_id)}"]
-      = link_to listing_path(listing), class: "text-normal", target: '_blank' do
+      = link_to listing_path(listing), class: "text-normal" do
         h5.row-space-1.overflow
           = truncate(listing.title, length: 40)
       .text-left
@@ -78,7 +78,7 @@
           i.fa.fa-map-marker
           ' 
           - pickup_area_from_listing(listing).each do |area|
-            = link_to pickup_path( area.id ), target: '_blank' do
+            = link_to pickup_path( area.id ) do
               = area.short_name
               ' 
       - if listing.listing_detail.present?

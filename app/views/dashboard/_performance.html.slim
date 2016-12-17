@@ -1,4 +1,5 @@
 #performance
+  span(id="reservation_date_list" list=@chart_data.reservation_date_list.join(","))
   - disabled = data.tour == Settings.chart_data.tours.all
   .row.row-space-4.row-space-top-4
     .col-md-12.text-center
@@ -8,32 +9,42 @@
     = hidden_field_tag :user_id, user_id
     = f.hidden_field :day, value: data.day
     .row
-      .col-md-4.row-space-2
+      .col-md-3.row-space-2
+        .h5.row-space-1
+          | PERIOD
+        .select.select-block
+          = f.select :day, data.day_list(user_id), {selected: data.day.strftime("%B, %Y")}, {class: 'chart_submit'}
+      .col-md-3.row-space-2
         .h5.row-space-1
           | TOURS
         .select.select-block
           = f.select :tour, data.tours_list(listings), {}, {class: 'chart_submit', id: 'change_tour'}
-      .col-md-4.row-space-2
+      .col-md-3.row-space-2
         .h5.row-space-1
           | DATA
         .select.select-block
           = f.select :data, data.data_list, {}, {class: 'chart_submit'}
-      .col-md-4.row-space-2
+      .col-md-3.row-space-2
         .h5.row-space-1
           | BENCHMARKS
         .select.select-block
           = f.select :benchmark, data.benchmark_list, {include_blank: true}, {disabled: disabled, class: 'chart_submit'}
-    .row.row-space-2
+    .row
       .col-md-12
         #dashboard-chart-container
           #chart
             = render_chart(data.chart_data, 'chart')
-          = link_to '#', id: 'prev_month' do
-            i.fa.fa-caret-left.fa-2x
-          = link_to '#', id: 'next_month' do
-            i.fa.fa-caret-right.fa-2x
+          / add period to graph
+          #chart-datetime
+            = data.day.strftime("%B, %Y")
+          - if data.day_list(user_id).last != data.day.strftime("%B, %Y")
+            = link_to '#', id: 'prev_month' do
+              i.fa.fa-caret-left.fa-2x
+          - if data.day_list(user_id).first != data.day.strftime("%B, %Y")
+            = link_to '#', id: 'next_month' do
+              i.fa.fa-caret-right.fa-2x
             
-    .table-container
+    .table-container.card.card-bald.card-waxing
       .row.row-table
         .col-md-4.col-middle.date-col
           .h4
@@ -50,12 +61,12 @@
               i.fa.fa-book[data-toggle="tooltip" data-placement="top" title="total reservations"]
               b = data.reservations_monthly_count(listings)
             .col-xs-3
-              i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="total salse"]
+              i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="total sales"]
               b = data.sales_monthly_amount(listings)
 
       - if data.tour == Settings.chart_data.tours.all
         / ********when TOURS == ALL***********
-        - listings.each do |listing|
+        - listings.includes(:pickups).each do |listing|
           .row.row-table
             .col-md-4.col-middle
               .text-lead.overflow
@@ -77,9 +88,10 @@
                   i.fa.fa-book[data-toggle="tooltip" data-placement="top" title="reservations"]
                   b = listing.reservations_monthly_count(data)
                 .col-xs-3
-                  i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="salse"]
+                  i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="sales"]
                   b = listing.sales_monthly_amount(data)
 
+    .table-container.row-space-top-2
       .row.row-table
         .col-md-4.col-middle.period-col
           .h4
@@ -125,5 +137,5 @@
                   i.fa.fa-book[data-toggle="tooltip" data-placement="top" title="reservations"]
                   b = listing.reservations_whole_count
                 .col-xs-3
-                  i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="salse"]
+                  i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="sales"]
                   b = listing.sales_whole_amount
