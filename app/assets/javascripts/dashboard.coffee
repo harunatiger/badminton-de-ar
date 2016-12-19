@@ -28,6 +28,7 @@ $ ->
 
     $(document).on 'shown.bs.tab', '.tab-chart', (e) ->
       draw_chart()
+      SetReservationDot()
       e.preventDefault()
 
     $(document).on 'click', '.favorite_hitory', ->

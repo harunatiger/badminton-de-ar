@@ -370,11 +370,11 @@ class Listing < ActiveRecord::Base
   end
     
   def pv_monthly_count(data)
-    BrowsingHistory.where(listing_id: self.id).viewed_when(data.day.beginning_of_month, data.day.end_of_month).count
+    BrowsingHistory.where(listing_id: self.id).viewed_when(data.day.beginning_of_month.beginning_of_day, data.day.end_of_month.end_of_day).count
   end
     
   def favorites_monthly_count(data)
-    FavoriteListing.where(listing_id: self.id).created_when(data.day.beginning_of_month, data.day.end_of_month).count
+    FavoriteListing.where(listing_id: self.id).created_when(data.day.beginning_of_month.beginning_of_day, data.day.end_of_month.end_of_day).count
   end
     
   def reservations_monthly_count(data)
