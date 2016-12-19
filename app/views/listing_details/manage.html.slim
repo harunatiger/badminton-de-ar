@@ -11,7 +11,7 @@
     = render partial: 'shared/manage_listing_nav'
 = render partial: 'shared/modals/form_change_confirm'
 = render partial: 'shared/modals/include_what_ja', locals: { included_guests_cost: @listing_detail.included_guests_cost }
-= render partial: 'shared/modals/about_transportation_fee'
+/= render partial: 'shared/modals/about_transportation_fee'
 = render partial: 'shared/modals/about_system_fee'
 .listing-help-sp-wrapper
   = link_to "#", class: "price--sp ignore_form_change" do

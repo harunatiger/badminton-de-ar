@@ -2,7 +2,7 @@
 .subnav.hide--sp[data-sticky="true"]
   .page-container
     ul.subnav-list.list-unstyled
-      - if current_user.main_guide?
+      - if current_user.has_listing_admin_authority?
         - if action_name !="guest_reservation_manager" && action_name !="host_reservation_manager" && controller_name =="dashboard"
           li.active
             = link_to Settings.page.dashboard, dashboard_path
@@ -15,7 +15,7 @@
       - else
         li
           = link_to Settings.page.messages, message_threads_path
-      - if current_user.main_guide?
+      - if current_user.has_listing_admin_authority?
         - if controller_name =="listings" || controller_name =="listing_images" || controller_name == "calendar" || controller_name =="listing_details" || controller_name =="listing_users"
           li.active
             = link_to Settings.page.listings, listings_path

@@ -14,117 +14,20 @@
         br
         | ガイド料金は０円から設定できます。国際交流を楽しみたい人や初心者の方は、低い金額での登録がおすすめです。
   
-  .fee-container
-    .text-center.row-space-top-2
-      span.text-muted 合計金額 
-      span.h2
-        = @listing_detail.basic_amount
-      | 円 / Group
-    .row.row-space-top-2
-      .col-lg-12
-        = link_to "振込金額確認", "#fee-data", class: "js-fee-data-toggle btn btn-block collapsed", data: {toggle: "collapse"}
-        #fee-data.collapse
-          .row-space-top-4.row-space-4
-            .text-center.row-space-2
-              span.h4.row-space-1 メインガイド 
-              span.text-lead
-                span.text-muted 振込金額:
-                span.h4 = @listing_detail.payment_amount_main
-                | 円
-            .row.row-space-1
-              .col-xs-7.col-md-6.text-right.text-muted ガイド料
-              .col-xs-5.col-md-6
-                b = @listing_detail.price
-                | 円
-            .row.row-space-1
-              .col-xs-7.col-md-6.text-right.text-muted 交通費
-              .col-xs-5.col-md-6
-                b = @listing_detail.transportation_cost_main
-                | 円
-            .row.row-space-1
-              .col-xs-7.col-md-6.text-right.text-muted その他のお金
-              .col-xs-5.col-md-6
-                b = @listing_detail.option_amount
-                | 円
-            .row.row-space-1
-              .col-xs-7.col-md-6.text-right.text-muted
-                | システム利用料 
-                span.fa.fa-question-circle.js-modal-about_system_fee-trigger.fa-brand
-              .col-xs-5.col-md-6
-                b -
-                b = @listing_detail.service_fee
-                | 円
-            hr
-            .text-center.row-space-2
-              span.h4.row-space-1 サポートガイド 
-              span.text-lead
-                span.text-muted 振込金額:
-                span.h4 = @listing_detail.payment_amount_support
-                | 円
-            .row.row-space-1
-              .col-xs-7.col-md-6.text-right.text-muted ガイド料
-              .col-xs-5.col-md-6
-                b = @listing_detail.price_for_support
-                | 円
-            .row.row-space-1
-              .col-xs-7.col-md-6.text-right.text-muted 交通費
-              .col-xs-5.col-md-6
-                b = @listing_detail.transportation_cost_support
-                | 円
-            .row.row-space-1
-              .col-xs-7.col-md-6.text-right.text-muted
-                | システム利用料 
-                span.fa.fa-question-circle.js-modal-about_system_fee-trigger.fa-brand
-              .col-xs-5.col-md-6
-                b -
-                b = @listing_detail.service_fee
-                | 円
-            
-  .fee-container
-    .h4.text-light.row-space-3
-      b メインガイド料金
-    .row.row-table
-      .col-lg-3.text-right.text-left--md.col-middle
-        .h4.text-light.required-container
-          | ガイド料
-          i.fa.fa-asterisk.balloon[title="required"]
-      .col-lg-3.fieldset.col-middle.row-space-4
-        .input-opt.balloon[title="目安は#{@listing_detail.recommended_main_price}円です！"]
-          = f.input_field :price, class: "value_fragile", type: 'number', pattern: '[0-9]*'
-          span 円
-      .col-lg-3.text-right.text-left--md.col-middle
-        .h4.text-light.required-container
-          | 交通費 
-          span.fa.fa-question-circle.js-modal-about_transportation_fee-trigger.fa-brand
-          i.fa.fa-asterisk.balloon[title="required"]
-      .col-lg-3.fieldset.col-middle.row-space-4
-        .input-opt
-          = f.input_field :transportation_cost_main, class: "value_fragile", type: 'number', pattern: '[0-9]*'
-          span 円
-    hr
-    .h4.text-light.row-space-3
-      b サポートガイド料金
-    .row.row-table
-      .col-lg-3.text-right.text-left--md.col-middle
-        .h4.text-light.required-container
-          | ガイド料
-          i.fa.fa-asterisk.balloon[title="required"]
-      .col-lg-3.fieldset.col-middle.row-space-4
-        .input-opt.balloon[title="目安は#{@listing_detail.recommended_support_price}円です！"]
-          = f.input_field :price_for_support, class: "value_fragile", type: 'number', pattern: '[0-9]*'
-          span 円
-      .col-lg-3.text-right.text-left--md.col-middle
-        .h4.text-light.required-container
-          | 交通費 
-          span.fa.fa-question-circle.js-modal-about_transportation_fee-trigger.fa-brand
-          i.fa.fa-asterisk.balloon[title="required"]
-      .col-lg-3.fieldset.col-middle.row-space-4
-        .input-opt
-          = f.input_field :transportation_cost_support, class: "value_fragile", type: 'number', pattern: '[0-9]*'
-          span 円
-
-  .fee-container
-    .h4.text-light.row-space-1
+  .fee-container#tour-guidefee-height
+    = render partial: 'shared/credit', locals: { target: @listing_detail, option_amount: @listing_detail.option_amount}
+    .h4.text-light.row-space-top-4.row-space-1
+      b ガイド料金
+    p.text-red.row-space-2
+      | ＊ガイド料金と集合までの交通費は設定不要です。
+    p
+      | 半日お任せ：　メイン   6,000円　 サポート 2,800円
+    p
+      | １日お任せ：　メイン 12,000円　 サポート 5,600円
+    p
+      | 集合場所までの交通費： 1人あたり1,500円
+  
+    .h4.text-light.row-space-top-4.row-space-1#tour-optionfee-height
       b ガイド料金以外にかかるお金と説明
     p.text-red.row-space-2
       | ＊事前に準備が必要なものを書きましょう。
@@ -167,7 +70,7 @@
 
   .row.row-space-2.row-space-top-8
     .col-lg-12.text-left
-      .h4.border-block.text-light
+      .h4.border-block.text-light#tour-guests_cost-height
         | ゲストが当日負担する費用
       p.text-center
       span.text-red Huber.では、食事や交通費、体験費など、個別に発生する費用についてはゲストが当日自己負担します。

@@ -6,7 +6,7 @@
         - if user_signed_in?
           li
             = link_to Settings.page.home, root_path, class: "link-reset menu-item", rel: "nofollow"
-          - if current_user.main_guide?
+          - if current_user.has_listing_admin_authority?
             li
               = link_to dashboard_path, class: "link-reset menu-item", rel: "nofollow" do
                 = Settings.page.dashboard
@@ -19,7 +19,7 @@
               |  （Unread:
               = unread_messages
               | ）
-          -if current_user.main_guide?
+          -if current_user.has_listing_admin_authority?
             li
               = link_to Settings.page.listings, listings_path, class: "link-reset menu-item", rel: "nofollow"
             /li

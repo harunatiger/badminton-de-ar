@@ -125,7 +125,7 @@
     .col-lg-12.text-left
       .listing_pickuptag_checkbox
         = collection_check_boxes(:listing, :pickup_ids, PickupTag.all, :id, :short_name) do |b|
-          = b.label(class: "col-xs-6 col-lg-3") { b.check_box(style: "background-image: url(#{asset_path b.object.icon})") + b.text}
+          = b.label(class: "col-xs-6 col-lg-3 small2 row-space-2") { b.check_box(style: "background-image: url(#{asset_path b.object.icon})") + b.text}
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-12.text-left
       .h4.row-space-2.text-light
@@ -181,9 +181,9 @@
       .col-lg-12
         = ff.input_field :place_memo,:class => 'imeoff', placeholder: "Eg. We will meet at the pharmacy next to the South Exit of the station. "
 
-  #tour-notes.row.row-space-5.row-space-top-5
+  .row.row-space-5.row-space-top-5
     .col-lg-12.text-left
-      .h4.row-space-2.text-light
+      .h4.row-space-2.text-light#tour-notes
         | もちもの・注意事項
     .col-lg-12
       = f.input_field :notes, :class => 'imeoff', placeholder: "", rows: "12"

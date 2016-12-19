@@ -5,7 +5,7 @@ class ListingsController < CommonSearchController
   before_action :set_listing_obj, only: [:publish, :unpublish, :copy, :preview, :change_authorized_user_status]
   before_action :set_listing_related_data, only: [:show, :edit, :preview]
   before_action :set_message_thread, only: [:show]
-  before_action :regulate_user, except: [:new, :index, :create, :show, :search, :favorite_listing]
+  before_action :regulate_user, except: [:new, :create, :show, :search, :favorite_listing]
   before_action :deleted_or_open_check, only: [:show, :edit]
   before_action :only_main_guide, only: [:new, :edit, :create, :update, :destroy, :publish, :unpublish, :copy]
   #before_action :set_favorite,  only: [:destroy]
@@ -117,7 +117,7 @@ class ListingsController < CommonSearchController
     return redirect_to listings_path, alert: Settings.listings.publish.closed_by_admin if @listing.admin_closed_at.present?
     respond_to do |format|
       if @listing.publish
-        format.html { redirect_to listings_path(current_user), notice: Settings.listings.publish.success }
+        format.html { redirect_to listings_path, notice: Settings.listings.publish.success }
       else
         format.html { redirect_to edit_listing_path(@listing), notice: Settings.listings.publush.failure }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -196,14 +196,17 @@ class ListingsController < CommonSearchController
     end
 
     def regulate_user
-      if action_name == 'preview'
+      if action_name == 'index'
+        return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if !current_user.has_listing_admin_authority?
+      elsif action_name == 'preview'
         return redirect_to listing_path(@listing) if !user_signed_in? || @listing.user_id != current_user.id
+      else
+        return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id
       end
-      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id
     end
   
     def only_main_guide
-      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure unless current_user.main_guide?
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure unless current_user.has_listing_admin_authority?
     end
 
     def deleted_or_open_check

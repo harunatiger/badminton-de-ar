@@ -1,4 +1,19 @@
 #listings.coffee
+helpScrollEdit = (plasa) ->
+  titleTop = $('#tour-title').offset().top
+  overviewTop = $('#tour-overview').offset().top
+  notesTop = $('#tour-notes').offset().top
+  conditionTop = $('#tour-condition').offset().top
+  
+  titleHelp = $('.listing_help_block #tour-title-help')
+  overviewHelp = $('.listing_help_block #tour-overview-help')
+  notesHelp = $('.listing_help_block #tour-notes-help')
+  conditionHelp = $('.listing_help_block #tour-condition-help')
+
+  titleHelp.offset(top: titleTop)
+  overviewHelp.offset(top: overviewTop)
+  notesHelp.offset(top: notesTop + plasa)
+  conditionHelp.offset(top: conditionTop + plasa)
 $ ->
 
   # listings#new
@@ -595,53 +610,53 @@ $ ->
   if $('body').hasClass('listings show') || $('body').hasClass('listing_details manage') || $('body').hasClass('listings preview')
 
     # price calc
-    tourPriceSingleContainer = $('#tour-price-single')
-    tourPriceSingle = 0
-    tourPriceBase = Number($('#tour-price-base').text())
-    tourPriceOption = Number($('#tour-price-option').text())
-    tourPriceOptionSingle = Number($('#tour-price-option-single').text())
+    # tourPriceSingleContainer = $('#tour-price-single')
+    # tourPriceSingle = 0
+    # tourPriceBase = Number($('#tour-price-base').text())
+    # tourPriceOption = Number($('#tour-price-option').text())
+    # tourPriceOptionSingle = Number($('#tour-price-option-single').text())
 
-    tourMemberCalcedContainer = $('#tour-member_calced')
-    tourPriceBaseCalcedContainer = $('#tour-price-base_calced')
-    tourPriceOptionCalcedContainer = $('#tour-price-option_calced')
-    tourPriceOptionSingleCalcedContainer = $('#tour-price-option-single_calced')
-    serviceCostCalcedContainer = $('#service-cost_calced')
-    tourPriceResultCalcedContainer = $('#tour-price-result_calced')
+    # tourMemberCalcedContainer = $('#tour-member_calced')
+    # tourPriceBaseCalcedContainer = $('#tour-price-base_calced')
+    # tourPriceOptionCalcedContainer = $('#tour-price-option_calced')
+    # tourPriceOptionSingleCalcedContainer = $('#tour-price-option-single_calced')
+    # serviceCostCalcedContainer = $('#service-cost_calced')
+    # tourPriceResultCalcedContainer = $('#tour-price-result_calced')
 
-    tourPriceSingle = tourPriceBase + tourPriceOption + tourPriceOptionSingle
-    tourPriceSingleContainer.text(tourPriceSingle)
+    # tourPriceSingle = tourPriceBase + tourPriceOption + tourPriceOptionSingle
+    # tourPriceSingleContainer.text(tourPriceSingle)
 
-    priceCulc = ->
-      $('#culc-container').show()
-      numOfPeople = Number($('#num-of-people option:selected').text())
-      tourPriceBaseCalcedContainer.text(tourPriceBase)
-      tourMemberCalcedContainer.text(numOfPeople)
-      tourPriceOptionCalcedContainer.text(tourPriceOption)
-      tourPriceOptionSingleCalced = tourPriceOptionSingle * numOfPeople
-      tourPriceOptionSingleCalcedContainer.text(tourPriceOptionSingleCalced)
-      if tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced < 2000
-        serviceCostCalced = 500
-      else
-        serviceCostCalced = Math.ceil((tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced) * 0.145)
-      serviceCostCalcedContainer.text(serviceCostCalced)
-      tourPriceResultCalcedContainer.text(tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced + serviceCostCalced)
-      return
+    # priceCulc = ->
+    #   $('#culc-container').show()
+    #   numOfPeople = Number($('#num-of-people option:selected').text())
+    #   tourPriceBaseCalcedContainer.text(tourPriceBase)
+    #   tourMemberCalcedContainer.text(numOfPeople)
+    #   tourPriceOptionCalcedContainer.text(tourPriceOption)
+    #   tourPriceOptionSingleCalced = tourPriceOptionSingle * numOfPeople
+    #   tourPriceOptionSingleCalcedContainer.text(tourPriceOptionSingleCalced)
+    #   if tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced < 2000
+    #     serviceCostCalced = 500
+    #   else
+    #     serviceCostCalced = Math.ceil((tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced) * 0.145)
+    #   serviceCostCalcedContainer.text(serviceCostCalced)
+    #   tourPriceResultCalcedContainer.text(tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced + serviceCostCalced)
+    #   return
 
-    $('#num-of-people select').on 'change', ->
-      priceCulc()
+    # $('#num-of-people select').on 'change', ->
+    #   priceCulc()
 
-    $('#checkin').on 'changeDate', ->
-      priceCulc()
+    # $('#checkin').on 'changeDate', ->
+    #   priceCulc()
 
-    calcExchagedPrice = (amount)->
-      currency_code = gon.currency.currency_code
-      rate = gon.currency.rate
-      if currency_code == 'JPY'
-        return amount
-      else if currency_code == 'HUF' or currency_code == 'TWD'
-        return Math.ceil(amount * rate)
-      else
-        return (amount * rate).toFixed(2)
+    # calcExchagedPrice = (amount)->
+    #   currency_code = gon.currency.currency_code
+    #   rate = gon.currency.rate
+    #   if currency_code == 'JPY'
+    #     return amount
+    #   else if currency_code == 'HUF' or currency_code == 'TWD'
+    #     return Math.ceil(amount * rate)
+    #   else
+    #     return (amount * rate).toFixed(2)
 
 #     calcExchagedPriceWithFee = (amount)->
 #       currency_code = gon.currency.currency_code
@@ -655,31 +670,31 @@ $ ->
 #         exchange_fee = calcExchangeFee(amount)
 #         return (amount * rate + parseFloat(exchange_fee)).toFixed(2)
 
-    calcExchangeFee = (amount)->
-      currency_code = gon.currency.currency_code
-      rate = gon.currency.rate
-      exhange_fee_rate = gon.currency.exhange_fee_rate
+    # calcExchangeFee = (amount)->
+    #   currency_code = gon.currency.currency_code
+    #   rate = gon.currency.rate
+    #   exhange_fee_rate = gon.currency.exhange_fee_rate
 
-      result = Math.ceil(amount * exhange_fee_rate)
-      result = result * rate
+    #   result = Math.ceil(amount * exhange_fee_rate)
+    #   result = result * rate
 
-      if currency_code == 'HUF' or currency_code == 'TWD'
-        return Math.ceil(result)
-      else
-        return result.toFixed(2)
+    #   if currency_code == 'HUF' or currency_code == 'TWD'
+    #     return Math.ceil(result)
+    #   else
+    #     return result.toFixed(2)
 
-    $('#reservation_num_of_people').on 'change', ->
-      numOfPeople = Number($('#reservation_num_of_people option:selected').text())
+    # $('#reservation_num_of_people').on 'change', ->
+    #   numOfPeople = Number($('#reservation_num_of_people option:selected').text())
 
-      basicPrice = Number($('#reservation_price').val()) + Number($('#reservation_price_for_support').val())
-      bycycleCost = Number($('#reservation_bicycle_rental').val()) * numOfPeople
-      carCost = Number($('#reservation_car_rental').val()) + Number($('#reservation_gas').val()) + Number($('#reservation_highway').val()) + Number($('#reservation_parking').val())
-      otherCost = Number($('#reservation_other_cost').val())
-      optionAmount = carCost + bycycleCost + otherCost
-      basicPrice = basicPrice + optionAmount
-      $('#tour-option-bicycle').text(calcExchagedPrice(bycycleCost))
-      $('#tour-option-amount').text(calcExchagedPrice(optionAmount))
-      $('#tour-basic-amount').text(calcExchagedPrice(basicPrice))
+    #   basicPrice = Number($('#reservation_price').val()) + Number($('#reservation_price_for_support').val())
+    #   bycycleCost = Number($('#reservation_bicycle_rental').val()) * numOfPeople
+    #   carCost = Number($('#reservation_car_rental').val()) + Number($('#reservation_gas').val()) + Number($('#reservation_highway').val()) + Number($('#reservation_parking').val())
+    #   otherCost = Number($('#reservation_other_cost').val())
+    #   optionAmount = carCost + bycycleCost + otherCost
+    #   basicPrice = basicPrice + optionAmount
+    #   $('#tour-option-bicycle').text(calcExchagedPrice(bycycleCost))
+    #   $('#tour-option-amount').text(calcExchagedPrice(optionAmount))
+    #   $('#tour-basic-amount').text(calcExchagedPrice(basicPrice))
       #$('#tour-basic-amount').text(calcExchagedPriceWithFee(basicPrice))
       #if currency_code != 'JPY'
       #  $('#exchange-fee').text(calcExchangeFee(basicPrice))
@@ -1156,11 +1171,13 @@ $ ->
       if markers.length == 0
         $('#map').parents('#map-wrapper').slideUp()
         $('#map').parents('#map-wrapper').removeClass('in')
+        helpScrollEdit(-500)
         show = false
       else
         $('#map').parents('#map-wrapper').slideDown()
         $('#map').parents('#map-wrapper').addClass('in')
         $('#map').css 'height', '300px'
+        helpScrollEdit(0)
         show = true
 
     google.maps.event.addDomListener window, 'load', initialize
@@ -1265,6 +1282,7 @@ $ ->
 
           google.maps.event.addListener markers[index], 'dragend', (e) ->
             geocodeLatLng e.latLng.lat(), e.latLng.lng(), index
+          
       return
 
     autoComplete()

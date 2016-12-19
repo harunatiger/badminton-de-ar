@@ -46,8 +46,10 @@
         .media-round.media-photo.media-avatar
           .size18[style="background-image: url('#{asset_path pickup_tag.icon_small}')"]
   /.tour-tag Tour
-  - if user_signed_in? && current_user.id == listing.user_id
-    .own-tag
+  - if user_signed_in?
+    - if current_user.official_account?
+    - elsif user_signed_in? && current_user.id == listing.user_id
+      .own-tag
 
 
 /! old type

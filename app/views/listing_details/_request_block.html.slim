@@ -3,14 +3,14 @@
 .request-block.text-muted
   h3.listing-help-sp-header.text-center
     | 登録のヒント
-  #tour-preview-help.panel.manage-listing-help-panel
+  /#tour-preview-help.panel.manage-listing-help-panel
     .listing-help-icon-container.text-center
       span.listing-help-icon
     .panel-body
       p
         | プレビューで実際の表示を確認しましょう。
 
-  #tour-action-preview
+  /#tour-action-preview
     .tour-price.row-space-1
       h3.h4.strong.row-space-2 料金
       .h3.row-space-2
@@ -119,7 +119,7 @@
           = link_to "#", class: "include_what_trigger_ja small1 ignore_form_change" do
             | ＊内訳説明
 
-  #tour-people-help.panel.manage-listing-help-panel
+  /#tour-people-help.panel.manage-listing-help-panel
     .listing-help-icon-container.text-center
       span.listing-help-icon
     .panel-body
@@ -133,12 +133,20 @@
     .panel-body
       h4.text-center ガイド料金
       p
-        | 料金は、ゲストの人数にかかわらず一定です。
+        | 料金は、ゲストから依頼される期間（半日or1日）により決定しますので、特に設定する必要はありません。集合場所までの交通費は1人あたり一律1,500円が支給されます。
 
   #tour-optionfee-help.panel.manage-listing-help-panel
     .listing-help-icon-container.text-center
       span.listing-help-icon
     .panel-body
-      h4.text-center アクティビティにかかる経費
+      h4.text-center アクティビティにかかる経費（要予約）
       p
-        | 古民家を借りて一緒に料理をしたり、会場を借りてワークショップを企画したり、車や自転車で遠くへ行く際に設定してください。
+        | 古民家を借りての料理体験、人気の美術館に行くなど、なんらか予約が必要なものに関しては、ガイド料金とは別途各項目毎に設定してください。
+  
+  #tour-guests_cost-help.panel.manage-listing-help-panel
+    .listing-help-icon-container.text-center
+      span.listing-help-icon
+    .panel-body
+      h4.text-center その他の経費
+      p
+        | 集合場所からの移動で使う電車やバスなどの交通費や、お寺の入館料、レンタサイクル、食事など、当日支払いが発生する金額に関しては、アクティビティの説明の中に記載しておきましょう。ガイド2名分の費用も含めて当日ゲストに支払ってもらうことになります。

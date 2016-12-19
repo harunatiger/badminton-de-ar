@@ -115,11 +115,11 @@ class ListingDetail < ActiveRecord::Base
     
   def display_amount
     total = self.basic_amount
-    if self.max_num_of_people > 1
-      if self.bicycle_option
-        total += self.bicycle_rental
-      end
-    end
+    #if self.max_num_of_people > 1
+    #  if self.bicycle_option
+    #    total += self.bicycle_rental
+    #  end
+    #end
     total
   end
     
@@ -155,9 +155,9 @@ class ListingDetail < ActiveRecord::Base
     total
   end
 
-  def service_fee
+  def service_fee(amount)
     #basic_amount < 2000 ? 500 : (basic_amount * 0.145).ceil
-    Settings.reservation.service_fee
+    (Settings.reservation.service_rate * amount).ceil
   end
 
   def set_price
@@ -205,11 +205,13 @@ class ListingDetail < ActiveRecord::Base
   end
   
   def payment_amount_main
-    self.price + self.transportation_cost_main + self.option_amount - self.service_fee
+    #self.price + self.transportation_cost_main + self.option_amount - self.service_fee
+    Settings.listings.price.all.main + Settings.listings.price.transportation_cost + self.option_amount - self.service_fee(Settings.listings.price.all.main)
   end
   
   def payment_amount_support
-    self.price_for_support + self.transportation_cost_support - self.service_fee
+    #self.price_for_support + self.transportation_cost_support - self.service_fee
+    Settings.listings.price.all.support + Settings.listings.price.transportation_cost - self.service_fee(Settings.listings.price.all.support)
   end
   
   def recommended_main_price

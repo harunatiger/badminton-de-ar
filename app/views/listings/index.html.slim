@@ -45,44 +45,47 @@
                     
                   .card-body.card-actions
                     / actions
-                    = link_to '#', class: "copy-listing" do
+                    /= link_to '#', class: "copy-listing" do
                       .img-icon.img-icon-commenting-o
                       small Chat
-                    = link_to listing_listing_users_path(listing), class: "copy-listing" do
-                      .img-icon.img-icon-user-plus-o
-                      small Invite
                     = link_to edit_listing_path(listing), class: "edit-listing" do
                       .img-icon.img-icon-new-o
                       small Edit
                     = link_to listing_copy_path(listing), class: "copy-listing", method: 'POST' do
                       .img-icon.img-icon-copy-o
                       small Copy
-
-                  /review
-                  /= link_to new_listing_unscheduled_tour_path(listing), class: "copy-listing" do
-                    i.fa.fa-copy
+                    - if current_user.official_account?
+                      = link_to listing_listing_users_path(listing), class: "copy-listing" do
+                        .img-icon.img-icon-user-plus-o
+                        small Member
+                    - if current_user.main_guide?
+                      = link_to new_listing_unscheduled_tour_path(listing), class: "copy-listing show--sp" do
+                        .img-icon.img-icon-copy-o
+                        small Review
+                  
                   
               
-              / other guide's activities
+              / official activities
               - @listing_users.each do |listing_user|
                 - listing = listing_user.listing
                 .col-md-6.col-lg-4.row-space-4
-                  - if listing_user.pending?
+                  = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
+                  /- if listing_user.pending?
                     / pending
                     .pending-card-container
                       = link_to "", listing_path(listing)
                       = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
-                  - else
+                  /- else
                     / open
                     = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
                   
                   .card-body.card-actions
-                    = link_to '#', class: "copy-listing" do
+                    /= link_to '#', class: "copy-listing" do
                       .img-icon.img-icon-commenting-o
                       small Chat
                     = link_to listing_listing_users_path(listing), class: "copy-listing" do
                       .img-icon.img-icon-user-plus-o
-                      small Invite
+                      small Member
                     
               
               /new activity

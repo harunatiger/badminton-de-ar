@@ -84,6 +84,14 @@ listings:
     deleted_listing_id: "This tour has been deleted"
     closed: "This tour has been closed"
   review_display_count: 10
+  price:
+    half:
+      main: 6000
+      support: 2800
+    all:
+      main: 12000
+      support: 5600
+    transportation_cost: 1500
 listing_users:
   save:
     success: "Your request has been sent successfully."
@@ -202,7 +210,6 @@ reservation:
   insurance_fee: 300
   service_rate: 0.145
   exchange_rate: 0.04
-  service_fee: 1000
 payment:
   refunds:
     policy: '8日以上前のキャンセル  ：エスクロー分の全額返金、1日〜7日前のキャンセル：エスクロー分の50％返金、24時間以内のキャンセル：返金なし'
