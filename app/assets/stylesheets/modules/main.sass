@@ -3007,7 +3007,7 @@ h3.center-lined
       border: 0
       > li
         float: left
-        width: 50%
+        width: 33.33%
         margin: 0
         > a
           margin: 0
@@ -3016,12 +3016,18 @@ h3.center-lined
           font-size: 20px
           text-align: center
           border: 1px solid $brand-theme
-          border-radius: 0 4px 4px 0
+          border-radius: 0
           @media (max-width: 767px)
-            font-size: 14px
+            padding: 10px 4px
+            font-size: 12px
+        & + li > a
+          border-left: 0
         &:first-child
           > a
             border-radius: 4px 0 0 4px
+        &:last-child
+          > a
+            border-radius: 0 4px 4px 0
         &.active
           > a
             color: white
@@ -3132,7 +3138,7 @@ h3.center-lined
     .fa-circle
       font-size: 10px
       color: #DC3912
-    
+
 .table-container
   padding-left: 12.5px
   padding-right: 12.5px
