@@ -30,10 +30,15 @@ class MessageThreadsController < ApplicationController
   def show
     @what_talk_about = session[:what_talk_about]
     session[:what_talk_about] = nil
+    
     Message.make_all_read(@message_thread.id, current_user.id)
     @message = Message.new
     @counterpart = @message_thread.counterpart_user(current_user.id)
     flash.now[:alert] = Settings.profile.deleted_profile_id if @counterpart.soft_destroyed?
+    
+    gon.tomodachi_message = { message_thread_id: @message_thread.id, from_user_id: @counterpart.id, to_user_id: current_user.id} if session[:tomodachi_messages].present?
+    session[:tomodachi_messages] = nil
+    
     if @message_thread.guest_thread?
       @listings = User.find(@host_id).listings.opened.without_soft_destroyed
       if @reservation.try('id').nil?
@@ -59,6 +64,7 @@ class MessageThreadsController < ApplicationController
     if message_params = Message.send_what_talk_about(@message_thread, current_user.id, params[:content])
       MessageMailer.send_new_message_notification(@message_thread, message_params).deliver_now!
       MessageMailer.send_new_message_notification_to_admin(@message_thread, message_params).deliver_now! if mail_to_admin
+      session[:tomodachi_messages] = true
       redirect_to message_thread_path(@message_thread.id), notice: Settings.message.save.success
     else
       redirect_to message_thread_path(@message_thread.id), alert: Settings.message.save.failure
@@ -118,6 +124,15 @@ class MessageThreadsController < ApplicationController
     if request.xhr?
       session[:edit_language] = params[:language]
       return render text: 'success'
+    end
+  end
+  
+  def create_tomo_dachi_messages
+    if request.xhr?
+      message_thread = MessageThread.find_by_id(params[:id])
+      Message.send_tomodachi_message(message_thread, params[:to_user_id], params[:from_user_id])
+      messages = Message.message_thread(message_thread.id).order_by_created_at_desc
+      render partial: 'message_block', locals: { messages: messages }
     end
   end
 

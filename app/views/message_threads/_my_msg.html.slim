@@ -11,16 +11,12 @@ li.thread-list-item
                 | Please check Your Trips!
               .col-md-4.text-center.row-space-top-1
                 = link_to Settings.page.guest_reservation_manager, dashboard_guest_reservation_manager_path, class: "btn btn-primary"
-                
-  / tomo and dachi messages
-  - if what_talk_about_message?(m.try('content'))
-    = render partial: 'tomo_and_dachi_messages', locals: { their_msg: false }
     
   .row.row-condensed
     .col-xs-2.col-md-1.text-center
       /a.media-photo.media-round href="#"
       = link_to '#', class: 'media-photo media-round media-avatar'
-        .size36[style="background-image: url('#{asset_path my_profile_image}')"]
+        .size36[style="background-image: url('#{asset_path user_id_to_profile_image(current_user.id)}')"]
     .col-xs-9.col-md-10
       .row-space-4
         .card.card-quote.card-quote-flush.round

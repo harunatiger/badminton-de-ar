@@ -92,11 +92,11 @@ Rails.application.routes.draw do
     post 'what_talk_about', on: :member
     patch 'start_planning', on: :member
     get 'change_language', on: :collection
+    post 'create_tomo_dachi_messages', on: :member
   end
 
   resources :messages do
     collection do
-      post 'send_message'
       get 'show_preview'
       get 'download_attached_file'
     end

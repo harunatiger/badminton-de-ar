@@ -22,10 +22,6 @@ li.thread-list-item
                     | Sorry, Your request(Booking your tour) has been cancelled.
                     br
                     | Let’s try again!
-                    
-  / tomo and dachi messages
-  - if what_talk_about_message?(m.try('content'))
-    = render partial: 'tomo_and_dachi_messages', locals: { their_msg: true }
   
   .row.row-condensed
     .col-xs-9.col-xs-offset-1.col-md-10
@@ -102,5 +98,5 @@ li.thread-list-item
           small.time
             = m.try('created_at').strftime("%m/%d %H:%M") || ''
     .col-xs-2.col-md-1.text-center
-      = link_to profile_path(counterpart.profile.id), class: "media-photo media-round media-avatar"
-        .size36[style="background-image: url('#{asset_path their_profile_image}')"]
+      = link_to profile_path(user_id_to_profile_id(m.from_user_id)), class: "media-photo media-round media-avatar"
+        .size36[style="background-image: url('#{asset_path user_id_to_profile_image(m.from_user_id)}')"]

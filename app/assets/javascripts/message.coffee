@@ -72,6 +72,33 @@ $ ->
       $("#offer_comment").wrap("<div class='col-md-6'></div>");
       $('#offer_comment').text('＊If you want to remake the tour plan to change the content of the tour, please inform your guest before withdrawing the offer.')
 
+    # send tomo and dachi messages
+    if gon.tomodachi_message
+      message_thread_id = gon.tomodachi_message.message_thread_id
+      to_user_id = gon.tomodachi_message.to_user_id
+      from_user_id = gon.tomodachi_message.from_user_id
+      setTimeout (->
+        $.ajax(
+          type: 'POST'
+          url: '/message_threads/' + message_thread_id + '/create_tomo_dachi_messages'
+          data: {
+            to_user_id: to_user_id,
+            from_user_id: from_user_id
+          }
+        ).done (data,status) ->
+          if status == 'success'
+            $('#message_block').html(data)
+            $('.fa-envelope-o').each ->
+              if $(this).next().hasClass('alert-count')
+                count = Number($(this).next().text()) + 2
+                $(this).next().text(count)
+              else
+                $(this).after("<i class='alert-count'>2</i>")
+            return false
+          else
+            return false
+      ), 3000
+      return
 
   # loader preset
   $.fn.spin.presets.flower =
