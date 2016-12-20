@@ -7,7 +7,7 @@ SetReservationDot = ->
     if reservation_date_list.length > 0
       $(".reservation-dot").each ->
         $(this).remove()
-        
+
       $.each reservation_date_list, (index, elm) ->
         $("g g g text:contains(" + elm + ")").each ->
           if $(this).text() == elm.toString()
@@ -17,7 +17,7 @@ SetReservationDot = ->
             left = $(this).offset().left
             if elm >= 10
               left = left + 5
-            
+
             $("#chart").after(html)
             $("#" + id).offset({ top: top, left: left })
             return false
@@ -25,7 +25,12 @@ SetReservationDot = ->
 
 $ ->
   if $('body').hasClass('dashboard index')
-    
+
+    $(document).on 'shown.bs.tab', '.tab-chart', (e) ->
+      draw_chart()
+      SetReservationDot()
+      e.preventDefault()
+
     $(document).on 'click', '.favorite_hitory', ->
       $.ajax(
         type: 'GET'
@@ -64,7 +69,7 @@ $ ->
       $('#hidden-form-id').val(event.target.id)
       $('#listing-image-loading').modal()
       return
-      
+
     $(document).ajaxSuccess (e) ->
       SetReservationDot()
       return
@@ -74,5 +79,5 @@ $ ->
       draw_chart()
       SetReservationDot()
       return
-    
+
     SetReservationDot()
