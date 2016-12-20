@@ -17,6 +17,7 @@
 #  attached_extension :string
 #  attached_name      :string
 #  friends_request    :boolean          default(FALSE)
+#  character          :integer          default(0)
 #
 # Indexes
 #
@@ -50,6 +51,8 @@ class Message < ActiveRecord::Base
   scope :order_by_created_at_desc, -> { order('created_at desc') }
   scope :order_by_created_at_asc, -> { order('created_at asc') }
   scope :reservation, -> reservation_id { where(reservation_id: reservation_id) }
+  
+  enum character: { nothing: 0, tomo: 1, dachi: 2 }
   
   def content_or_file_needed
     if self.content.blank? and self.attached_file.blank?
@@ -252,6 +255,27 @@ class Message < ActiveRecord::Base
     else
       return false
     end
+  end
+  
+  def self.send_tomodachi_message(message_thread, to_user_id, from_user_id)
+    # tomo's message
+    Message.create(
+      message_thread_id: message_thread.id,
+      content: Settings.message.tomo,
+      read: false,
+      from_user_id: from_user_id,
+      to_user_id: to_user_id,
+      character: 'tomo'
+    )
+    
+    Message.create(
+      message_thread_id: message_thread.id,
+      content: Settings.message.dachi,
+      read: false,
+      from_user_id: from_user_id,
+      to_user_id: to_user_id,
+      character: 'dachi'
+    )
   end
 
   def english_content
