@@ -1,4 +1,8 @@
--if message_thread = DefaultThread.exists_default_thread?(user_id, current_user.id)
+- if user_id == current_user.id
+  = link_to "#", class: 'btn btn-primary btn-large btn-block btn-relative disabled' do
+    i.fa.fa-comments-o
+    | Talk to me
+- elsif message_thread = DefaultThread.exists_default_thread?(user_id, current_user.id)
   = link_to message_thread_path(message_thread), class: 'btn btn-primary btn-large btn-block btn-relative' do
     i.fa.fa-comments-o
     | Talk to me

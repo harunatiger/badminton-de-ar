@@ -14,7 +14,7 @@
                 .h1.text-contrast
                   = @listing.title
                   .small = @listing.title_2
-                - if current_user.id == @listing.user_id
+                /- if current_user.id == @listing.user_id
                   = simple_form_for(@listing, url: listing_change_authorized_user_status_path, method: :POST) do |f|
                     .select.select-listing-user
                       = f.select :authorized_user_status, [["Only Receptionists", "receptionists"], ["All Members", "members"]]
@@ -25,7 +25,7 @@
             span Members
 
           / pending member
-          - if show_leader_contents?(current_user, @listing)
+          /- if show_leader_contents?(current_user, @listing)
             - @pending_members.each do |pending_listing_user|
               - profile = user_id_to_profile(pending_listing_user.user_id)
               .pending-activity-container.row-space-2
@@ -76,19 +76,19 @@
                 - profile = user_id_to_profile(@listing.user_id)
                 = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: nil }
               / receptionists
-              - @receptionists.each do |receptionist|
+              /- @receptionists.each do |receptionist|
                 .col-md-6.row-space-4.accepted-activity-column
                   span.activity-icon.activity-icon-receptionist Receptionist
                   - profile = user_id_to_profile(receptionist.user_id)
                   = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: receptionist }
               / member
-              - @nomal_members.each do |nomal_member|
+              - @members.each do |member|
                 .col-md-6.row-space-4.accepted-activity-column
-                  - profile = user_id_to_profile(nomal_member.user_id)
-                  = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: nomal_member }
+                  - profile = user_id_to_profile(member.user_id)
+                  = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: member }
 
               / invite friends
-              - if show_leader_contents?(current_user, @listing)
+              /- if show_leader_contents?(current_user, @listing)
                 .col-md-6.row-space-4
                   = link_to "", "#", class: "add-listing-block"
                   

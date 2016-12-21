@@ -7,9 +7,9 @@ class ListingUsersController < ApplicationController
   # GET /listing_users
   # GET /listing_users.json
   def index
-    @pending_members = ListingUser.pending_members(@listing.id)
-    @receptionists = ListingUser.receptionist_members(@listing.id)
-    @nomal_members = ListingUser.nomal_members(@listing.id)
+    #@pending_members = ListingUser.pending_members(@listing.id)
+    #@receptionists = ListingUser.receptionist_members(@listing.id)
+    @members = ListingUser.members(@listing.id)
   end
 
   # POST /listing_users

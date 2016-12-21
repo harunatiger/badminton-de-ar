@@ -94,8 +94,8 @@ listings:
     transportation_cost: 1500
 listing_users:
   save:
-    success: "Your request has been sent successfully."
-    failure: "Failed to send your request."
+    success: "案内するActivityに追加しました。"
+    failure: "Failed to add this activity."
   accept:
     success: "Successfully accepted."
     failure: "Failed to accept."

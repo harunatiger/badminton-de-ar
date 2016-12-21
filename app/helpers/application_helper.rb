@@ -1040,6 +1040,6 @@ module ApplicationHelper
   end
   
   def member_section_guides(listing)
-    ListingUser.receptionist_members(listing.id) + ListingUser.nomal_members(listing.id)
+    ListingUser.members(listing.id)
   end
 end

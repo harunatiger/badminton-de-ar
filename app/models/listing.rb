@@ -173,6 +173,9 @@ class Listing < ActiveRecord::Base
   def self.search(search_params, max_distance=Settings.search.distance)
     if search_params["longitude"].present? && search_params["latitude"].present?
       listings = Listing.select('id, user_id').opened
+      if search_params["official"].present?
+        listings = listings.where(user_id: User.official_account.ids)
+      end
         
       category_ids = [search_params["category1"],search_params["category2"],search_params["category3"]].reject(&:blank?)
       if category_ids.present?

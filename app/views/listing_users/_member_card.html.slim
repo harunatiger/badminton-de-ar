@@ -21,7 +21,7 @@
           |)
       .talk_to_me-wrapper
         = render partial: 'shared/talk_to_member', locals: { user_id: profile.user_id }
-  - if show_leader_contents?(current_user, listing) && listing_user.present?
+  /- if show_leader_contents?(current_user, listing) && listing_user.present?
     .select.select-listing-user
       select.js-change-member-status-trigger
         option(value=0)

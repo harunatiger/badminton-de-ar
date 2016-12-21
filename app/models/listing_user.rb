@@ -31,7 +31,7 @@ class ListingUser < ActiveRecord::Base
   scope :opened, -> { joins(:listing).merge(Listing.opened) }
   scope :pending_members, -> listing_id { pending.where(listing_id: listing_id) }
   scope :receptionist_members, -> listing_id { receptionist.where(listing_id: listing_id) }
-  scope :nomal_members, -> listing_id { member.where(listing_id: listing_id) }
+  scope :members, -> listing_id { member.where(listing_id: listing_id) }
   scope :accepted_members, -> listing_id { where.not(user_status: 0).where(listing_id: listing_id) }
 
   def self.is_receptionist?(user_id, listing_id)

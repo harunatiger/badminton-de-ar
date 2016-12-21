@@ -4,7 +4,7 @@ ul.sidenav-list
       span.img-icon.img-icon-user-o
       | My Activities
   li
-    = link_to search_listings_path(search: {location: nil}), aria: {selected: "false"}, class: "sidenav-item row-space-2" do
+    = link_to search_listings_path(search: {location: nil, official: true}), aria: {selected: "false"}, class: "sidenav-item row-space-2" do
       span.img-icon.img-icon-search-o
       small Search Activities
 

@@ -47,7 +47,7 @@ class CommonSearchController < ApplicationController
   
   private
   def search_params
-    params.require(:search).permit(:location, :latitude, :longitude, :sort_by, :spot_category, :category1, :category2, :category3, :schedule, :num_of_people, :duration_range, language_ids: [])
+    params.require(:search).permit(:location, :latitude, :longitude, :sort_by, :spot_category, :category1, :category2, :category3, :schedule, :num_of_people, :duration_range, :official, language_ids: [])
   end
     
 end
