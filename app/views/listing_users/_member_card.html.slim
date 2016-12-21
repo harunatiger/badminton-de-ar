@@ -2,8 +2,9 @@
 .accepted-activity-container
   .row
     .col-md-4.col-lg-3.text-center
-      .media-photo.media-round.media-avatar
-        div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
+      = link_to profile_path(profile) do
+        .media-photo.media-round.media-avatar
+          div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
     .col-md-8.col-lg-9
       .profile-name.row-space-1
         span

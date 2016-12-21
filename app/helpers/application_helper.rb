@@ -1040,6 +1040,6 @@ module ApplicationHelper
   end
   
   def member_section_guides(listing)
-    ListingUser.members(listing.id)
+    ListingUser.members(listing.id).order("RANDOM()")
   end
 end

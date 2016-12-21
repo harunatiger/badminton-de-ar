@@ -11,16 +11,17 @@
     - listing_detail = listing.listing_detail if listing.listing_detail.present?
     - if listing_detail.present?
       - default_num_of_people = listing_detail.max_num_of_people > 1 ? 2 : 1
-      .talk_to_me-container.card.row-space-2
-        .card-body
-          = render partial: 'shared/talk_to_me', locals: { user_id: @listing.user_id, message_thread: @message_thread, member_thread: true }
-          .row.row-condensed.row-space-top-2.hide--sp
-            /.col-3.text-center
-              .media-photo.media-round.media-avatar
-                .size60[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
-            .col-12
-              p
-                | You can discuss anything, including the place, price, and timing.
+      - unless @listing.official?
+        .talk_to_me-container.card.row-space-2
+          .card-body
+            = render partial: 'shared/talk_to_me', locals: { user_id: @listing.user_id, message_thread: @message_thread }
+            .row.row-condensed.row-space-top-2.hide--sp
+              .col-3.text-center
+                .media-photo.media-round.media-avatar
+                  .size60[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(listing.user_id)}')"]
+              .col-9
+                p
+                  | You can discuss anything, including the place, price, and timing.
         .card-footer.text-left
           i.fa.fa-reply
           ' 

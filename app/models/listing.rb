@@ -430,4 +430,8 @@ class Listing < ActiveRecord::Base
   def pickup_tags
     self.pickups.where(type: 'PickupTag')
   end
+  
+  def official?
+    User.find(self.user_id).official_account?
+  end
 end

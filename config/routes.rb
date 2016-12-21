@@ -122,10 +122,10 @@ Rails.application.routes.draw do
     end
     
     resources :listing_users, only: [:index, :create, :destroy] do
-      member do
-        post 'accept'
-        patch 'add_receptionist'
-      end
+      # member do
+      #   post 'accept'
+      #   patch 'add_receptionist'
+      # end
     end
     
     resources :listing_images, only: [:show, :create, :update, :destroy] do

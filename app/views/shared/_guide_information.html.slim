@@ -31,26 +31,27 @@
                   .expandable-indicator
             = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
               | read more
-        .clearfix.lang-list-wrapper.clear-both.row-space-2
-          = render partial: 'shared/language_list', locals: { target: profile}
-        .profile-rating.row-space-2.clear-both
-          .star-rating
-            = render partial: 'shared/stars', locals: { rate: profile.ave_total }
-          span.badge-pill-count.small1
-            | review
-            |(
-            b
-              = Review.my_reviewed_count(user.id)
-            |)
-        /.talk_to_me-wrapper
-          = render partial: 'shared/talk_to_me', locals: { user_id: user.id, message_thread: message_thread }
-        /.row-space-4.row-space-top-2
-          i.fa.fa-reply
-          ' 
-          | Response rate
-          ' 
-          = link_to "#about_response_rate", data: { toggle: "modal" } do
-            i.fa.fa-question-circle
-          ' 
-          = user.message_return_rate
+        - unless user.official_account?
+          .clearfix.lang-list-wrapper.clear-both.row-space-2
+            = render partial: 'shared/language_list', locals: { target: profile}
+          .profile-rating.row-space-2.clear-both
+            .star-rating
+              = render partial: 'shared/stars', locals: { rate: profile.ave_total }
+            span.badge-pill-count.small1
+              | review
+              |(
+              b
+                = Review.my_reviewed_count(user.id)
+              |)
+          .talk_to_me-wrapper
+            = render partial: 'shared/talk_to_me', locals: { user_id: user.id, message_thread: message_thread }
+          .row-space-4.row-space-top-2
+            i.fa.fa-reply
+            ' 
+            | Response rate
+            ' 
+            = link_to "#about_response_rate", data: { toggle: "modal" } do
+              i.fa.fa-question-circle
+            ' 
+            = user.message_return_rate
         
