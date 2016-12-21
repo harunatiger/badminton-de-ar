@@ -1,0 +1,12 @@
+#message_block
+  - messages.each do |m|
+    - if current_user.id == m.from_user_id
+      - if m.tomo? || m.dachi?
+        = render partial: 'tomo_and_dachi_messages', locals: { message: m, their_msg: false }
+      - else
+        = render partial: 'my_msg', locals: { m: m }
+    - else
+      - if m.tomo? || m.dachi?
+        = render partial: 'tomo_and_dachi_messages', locals: { message: m, their_msg: true }
+      - else
+        = render partial: 'their_msg', locals: { m: m }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161210154740) do
+ActiveRecord::Schema.define(version: 20161220135612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -509,6 +509,7 @@ ActiveRecord::Schema.define(version: 20161210154740) do
     t.string   "attached_extension"
     t.string   "attached_name"
     t.boolean  "friends_request",    default: false
+    t.integer  "character",          default: 0
   end
 
   add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id", using: :btree

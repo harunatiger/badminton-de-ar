@@ -37,11 +37,8 @@
                 = render partial: 'form'
         - if @message_thread.guest_thread?
           = render partial: 'review_block', locals: { reservations: @reservations}
-        - @messages.each do |m|
-          - if current_user.id == m.from_user_id
-            = render partial: 'my_msg', locals: { m: m, my_profile_image: my_profile_image }
-          - else
-            = render partial: 'their_msg', locals: { m: m, counterpart: @counterpart, their_profile_image: their_profile_image }
+        - if @messages.present?
+          = render partial: 'message_block', locals: { messages: @messages}
             
     = render partial: 'profile_block', locals: { counterpart: @counterpart }
     - if @message_thread.guest_thread? and @counterpart.main_guide?
