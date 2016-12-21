@@ -37,7 +37,7 @@ class ListingDetailsController < ApplicationController
     @listing_detail.set_lon_lat
     respond_to do |format|
       if @listing_detail.save
-        format.html { redirect_to manage_listing_listing_details_path(@listing_detail), notice: Settings.listing_details.save.success }
+        format.html { redirect_to manage_listing_listing_details_path(@listing), notice: Settings.listing_details.save.success }
         format.json { render :show, status: :created, location: @listing_detail }
       else
         flash.now[:alert] = Settings.listing_details.save.failure
@@ -55,7 +55,7 @@ class ListingDetailsController < ApplicationController
       @listing_detail.set_lon_lat
       @listing_detail.register_detail = true
       if @listing_detail.update(listing_detail_params)
-        format.html { redirect_to manage_listing_listing_details_path(@listing_detail), notice: Settings.listing_details.save.success }
+        format.html { redirect_to manage_listing_listing_details_path(@listing), notice: Settings.listing_details.save.success }
         format.json { render :show, status: :ok, location: @listing_detail }
       else
         flash.now[:alert] = @listing_detail.errors.full_messages[0]

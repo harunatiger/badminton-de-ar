@@ -295,6 +295,13 @@ class Listing < ActiveRecord::Base
     #  listing_copied.listing_images.build(image_blank_ok: true, order_num: listing_image.order_num, image: listing_image.image.file)
     #end
     listing_copied.pickup_ids = self.pickups.ids
+    listing_copied.language_ids = self.languages.ids
+    self.listing_destinations.each do |listing_destination|
+      listing_copied.listing_destinations.build(listing_destination.dup.attributes)
+    end
+    self.listing_detail.listing_detail_extra_costs.each do |extra_cost|
+      listing_copied.listing_detail.listing_detail_extra_costs.build(extra_cost.dup.attributes)
+    end
     listing_copied.open = false
     listing_copied.title = self.title + ' 2'
     listing_copied.not_valid_ok = true
@@ -311,6 +318,8 @@ class Listing < ActiveRecord::Base
     favorite_listings.destroy_all if favorite_listings.present?
     self.listing_detail.destroy if self.listing_detail.present?
     self.pickups.destroy_all if self.pickups.present?
+    self.languages.destroy_all if self.languages.present?
+    self.listing_destinations.destroy_all if self.listing_destinations.present?
     self.listing_images.each do |listing_image|
       listing_image.remove_image!
       listing_image.destroy

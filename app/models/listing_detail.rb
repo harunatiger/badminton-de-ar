@@ -53,7 +53,7 @@
 
 class ListingDetail < ActiveRecord::Base
   belongs_to :listing
-  has_many :listing_detail_extra_costs
+  has_many :listing_detail_extra_costs, dependent: :destroy
   
   before_save :set_price
   before_create :set_default_price
