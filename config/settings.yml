@@ -470,6 +470,8 @@ spot_image:
 search:
   distance: 10
   display_count: 10
+dashboard:
+  favorite_display_count: 20
 plan4U:
   s3_content_path:
     header: 'public/s3_contents/plan4U_header.html'

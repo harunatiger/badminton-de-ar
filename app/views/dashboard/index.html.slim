@@ -8,11 +8,11 @@
             = link_to "#tab-favorite", class: "", data: { toggle: "tab" } do
               b Favorite
           li
+            = link_to "#tab-activity", class: "", data: { toggle: "tab" } do
+              b Activity
+          li
             = link_to "#tab-performance", class: "tab-chart", data: { toggle: "tab" } do
               b Performance
-          li
-            = link_to "#tab-activity", class: "", data: { toggle: "tab" } do
-              b Your Activities
         .tab-content
           #tab-favorite.tab-pane.fade.in.active
             .row.row-space-top-4
@@ -38,41 +38,7 @@
                   .card-header お気に入り履歴
                   .scroll-container
                     .card-body
-                      - if @bookmarked_histories.present?
-                        ul.list-unstyled
-                          - @bookmarked_histories.each do |history|
-                            - user = user_id_to_user_obj(history.from_user_id)
-                            li
-                              .row
-                                .col-md-3.col-lg-2.text-center
-                                  = link_to profile_path(user_id_to_profile_id(user.id)) do
-                                    .media-avatar
-                                      - if user.guest?
-                                        .size60.media-round.media-avatar-bordered[style="background-image: url(#{asset_path user_id_to_profile_image_thumb(user.id)})"]
-                                      - else
-                                        .size60.media-round[style="background-image: url(#{asset_path user_id_to_profile_image_thumb(user.id)})"]
-                                .col-md-9.col-lg-10
-                                  .date.text-muted.row-space-1
-                                    = history.created_at
-                                  /*******bookmarked history of listings*******
-                                  - if history.favorite_listing?
-                                    = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
-                                    | さんが
-                                    = link_to "#{listing_id_to_listing_obj(history.listing_id).title}", listing_path(history.listing_id)
-                                    | をお気に入りに登録しました。
-                                  /*******bookmarked history of current_user*******
-                                  - elsif history.favorite_user?
-                                    = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
-                                    | さんがあなたをお気に入りに登録しました。
-                                  /*******bookmarked history of spots*******
-                                  /- elsif history.favorite_spot?
-                                    = link_to "#{user_id_to_firstname(user.id)}", profile_path(user_id_to_profile_id(user.id))
-                                    | さんが
-                                    = link_to "#{history.spot.title}", spot_path(history.spot_id)
-                                    | をお気に入りに登録しました。
-                      - else
-                        .text-center
-                          .h4 お気に入り履歴はありません。
+                      = render partial: 'favorites_list', locals: { bookmarked_histories: @bookmarked_histories.first(Settings.dashboard.favorite_display_count), all_count: @bookmarked_histories.count}
 
           #tab-performance.tab-pane.fade
             - if @chart_data.present?

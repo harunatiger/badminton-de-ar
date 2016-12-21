@@ -42,6 +42,13 @@ class DashboardController < ApplicationController
     end
   end
   
+  def read_more_favorites
+    if request.xhr?
+      @count = params[:current_count].to_i + Settings.dashboard.favorite_display_count
+      @bookmarked_histories = current_user.bookmarked_histories
+    end
+  end
+  
   def get_chart_data
     if request.xhr?
       @chart_data = ChartData.new(chart_data_params)
