@@ -902,7 +902,7 @@ a.delete
       position: static
       padding-bottom: 0
       background-color: white
-      overflow: hidden
+      //overflow: hidden
       z-index: 11
       .filters-section.intro-filter
         display: block
@@ -4414,3 +4414,36 @@ h3.center-lined
 .chara2-right
   div
     background-image: image-url('illust/chara02-right.png')
+    
+/* 20161223--
+/* search area suggest
+  ================================================================================ */
+.cb-wrapper
+  position: absolute
+  border: 1px solid #c2c2c2
+  background-color: white
+  max-height: 300px
+  overflow: scroll
+  padding: 0px
+  margin: 0px
+  z-index: 1000
+  
+.cb-wrapper li
+  list-style: none
+  height: 30px
+  padding: 5px 7px
+  margin: 1px
+  border-bottom: 1px solid #e6e6e6
+  text-align: left
+  -webkit-box-align: center
+  -moz-box-align: center
+  -o-box-align: center
+  -ms-box-align: center
+  box-align: center
+  
+.cb-wrapper li.active
+  font-size: 15px
+  font-weight: bold
+  background-color: #f0f8ff
+  outline: none !important
+

@@ -58,7 +58,7 @@
                       = link_to listing_listing_users_path(listing), class: "copy-listing" do
                         .img-icon.img-icon-user-plus-o
                         small Member
-                    - if current_user.main_guide?
+                    /- if current_user.main_guide?
                       = link_to new_listing_unscheduled_tour_path(listing), class: "copy-listing show--sp" do
                         .img-icon.img-icon-copy-o
                         small Review

@@ -7,6 +7,8 @@
           .col-sm-12.col-md-11.text-center--md
             h1#listing_name.row-space-2.overflow
               = @listing.title
+              br
+              = @listing.title_2
             #listing_area.row-space-2
               - if pickup_area_from_listing(listing).present?
                 i.fa.fa-map-marker

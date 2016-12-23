@@ -220,6 +220,7 @@
 
 	};
 	
+	var touchmove = false;
 	var suppressMouse = false; //supress mouse events when mouse is idle. Note: mouseenter is triggered even when mouse is untouched, but the page below the mouse is scrolled. 
 	$(document).click( function () {		
 		//Don't hide the combobox if the next click is inside the box or the same textbox
@@ -228,10 +229,19 @@
 				!$(document.activeElement).hasClass('cb-item') ) {
 			$('.cb-wrapper').hide();
 		}
-	}).on('click', '.cb-wrapper .cb-item', function (){ /* Upgrade this to use .on as you update the jQuery js*/
+	}).on('click touchend', '.cb-wrapper .cb-item', function (e){ /* Upgrade this to use .on as you update the jQuery js*/
 		var $this = $(this);
 		var $parentEl = $this.parent();
 		var $el = $('#' + $parentEl[0].id.replace('-cb', ''));
+		
+		if(e.type == 'touchend'){
+			if(touchmove){
+				touchmove = false;
+				return false;
+			}else{
+				$(this).addClass('active');
+			}
+		}
 
 		$el.val($this.text())
 		   .data('opt-value', $this.attr('data-value'));
@@ -239,7 +249,8 @@
 		$el[0].title = (this.title)?this.title:''; //set the title for the textbox if li had a title 
 		
 		$parentEl.hide().trigger('onSelect');
-
+	}).on('touchmove', '.cb-wrapper .cb-item', function (e){
+		touchmove = true;
 	}).delegate('.cb-item', 'keydown', function (e) {
 		e.preventDefault();
 		var $this = $(this);
