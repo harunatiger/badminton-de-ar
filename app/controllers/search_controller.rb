@@ -1,6 +1,7 @@
 class SearchController < CommonSearchController
   def search
     basic_search
+    gon.pickup_areas = PickupArea.list_for_gon
   end
   
   def search_result

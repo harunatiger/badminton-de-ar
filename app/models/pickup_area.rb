@@ -14,6 +14,8 @@
 #  long_name         :string           default("")
 #  icon              :string           default("")
 #  icon_small        :string           default("")
+#  longitude         :decimal(9, 6)
+#  latitude          :decimal(9, 6)
 #
 # Indexes
 #
@@ -26,4 +28,13 @@ class PickupArea < Pickup
   mount_uploader :cover_image_small, PickupImageUploader
   mount_uploader :icon, PickupImageUploader
   mount_uploader :icon_small, PickupImageUploader
+  
+  def self.list_for_gon
+    self.all.map{ |pickup_area| { 
+      key: pickup_area.short_name,
+      value: pickup_area.id,
+      lon: pickup_area.longitude,
+      lat: pickup_area.latitude
+    }}
+  end
 end

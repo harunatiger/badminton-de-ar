@@ -170,6 +170,7 @@ class ListingsController < CommonSearchController
   
   def search
     basic_search
+    gon.pickup_areas = PickupArea.list_for_gon
   end
 
   private

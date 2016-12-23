@@ -1,6 +1,6 @@
 ActiveAdmin.register Pickup do
 
-  permit_params :id, :short_name, :long_name, :cover_image, :cover_image_small, :selected_listing, :type, :icon, :icon_small
+  permit_params :id, :short_name, :long_name, :cover_image, :cover_image_small, :selected_listing, :type, :icon, :icon_small, :longitude, :latitude
 
   index do
     column 'ID', :id
@@ -11,6 +11,8 @@ ActiveAdmin.register Pickup do
     column 'Icon', :icon
     column 'IconSmall', :icon_small
     column 'Listing', :selected_listing
+    column 'Longitude', :longitude
+    column 'Latitude', :latitude
     column 'Type', :type
     actions
   end
@@ -28,6 +30,8 @@ ActiveAdmin.register Pickup do
               :label => "Select a Listing:",
               :as => :select,
               :collection =>  f.object.listing_list
+      f.input :longitude
+      f.input :latitude
       f.input :type,
               :as => :select,
               :collection => ['PickupCategory', 'PickupTag', 'PickupArea']
@@ -60,6 +64,12 @@ ActiveAdmin.register Pickup do
       end
       row 'Listing' do
         Listing.where(id: resource.selected_listing).all.pluck(:title).join(',')
+      end
+      row 'Longitude' do
+        resource.longitude
+      end
+      row 'Latitude' do
+        resource.latitude
       end
       row 'Type' do
         resource.type

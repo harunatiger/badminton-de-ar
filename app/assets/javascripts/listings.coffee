@@ -239,7 +239,23 @@ $ ->
           $('#search_latitude').val ''
           $('#search_longitude').val　''
         return
+        
+      # area list
+      inputs.combobox
+        data: gon.pickup_areas
+        height: 200
+        width: '100%'
+        filterType: 'blank'
+        onSelect: ->
+          active = $(".cb-wrapper li.active")
+          index = $(".cb-wrapper li").index(active)
+          inputs.each ->
+            $(this).val gon.pickup_areas[index].key
+          $('#search_form').find('#search_latitude').val gon.pickup_areas[index].lat
+          $('#search_form').find('#search_longitude').val　gon.pickup_areas[index].lon
+          $('#search_form').submit()
       return
+      
     #! auto complete activate
     initPAC()
 

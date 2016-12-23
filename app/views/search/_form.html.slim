@@ -12,6 +12,14 @@
             i.fa.fa-search.fa-brand
           .col-sm-4
             = link_to "FILTERS", "#", class: "js-small-filter-show btn btn-block btn-primary"
+        - if controller_name == 'listings'
+          .row
+            .col-sm-12
+              = link_to listings_path, aria: {selected: "false"}, class: "sidenav-item" do
+                small
+                  i.fa.fa-angle-left
+                  span<
+                  | Search Activities
 
       = render partial: 'search/filter', locals: { hit_count: @hit_count, conditions: @conditions, f: f }
       .sidebar-header-placeholder.show--sp

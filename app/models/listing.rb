@@ -179,7 +179,8 @@ class Listing < ActiveRecord::Base
         
       category_ids = [search_params["category1"],search_params["category2"],search_params["category3"]].reject(&:blank?)
       if category_ids.present?
-        listings = listings.joins(:listing_images).merge(ListingImage.where(pickup_id: category_ids))
+        #listings = listings.joins(:listing_images).merge(ListingImage.where(pickup_id: category_ids))
+        listings = listings.joins(:listing_pickups).merge(ListingPickup.where(pickup_id: category_ids))
       end
       
       if search_params["num_of_people"].present?
