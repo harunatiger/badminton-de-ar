@@ -16,16 +16,35 @@
   
   .fee-container#tour-guidefee-height
     = render partial: 'shared/credit', locals: { target: @listing_detail, option_amount: @listing_detail.option_amount}
-    .h4.text-light.row-space-top-4.row-space-1
+    .h4.text-light.row-space-top-2.row-space-1
       b ガイド料金
     p.text-red.row-space-2
       | ＊ガイド料金と集合までの交通費は設定不要です。
-    p
-      | 半日お任せ：　メイン   6,000円　 サポート 2,800円
-    p
-      | １日お任せ：　メイン 12,000円　 サポート 5,600円
-    p
-      | 集合場所までの交通費： 1人あたり1,500円
+    .row.row-condensed
+      .col-sm-11.col-offset-1.row-space-1.row-space-top-1
+        b
+          | 半日お任せ：
+    .row.row-condensed
+      .col-sm-10.col-offset-2.row-space-1.row-space-top-1
+        | メイン   6,000円
+        span<
+        | サポート 2,800円
+    .row.row-condensed
+      .col-sm-11.col-offset-1.row-space-1.row-space-top-1
+        b
+          | １日お任せ：
+    .row.row-condensed
+      .col-sm-10.col-offset-2.row-space-1.row-space-top-1
+        | メイン 12,000円
+        span<
+        | サポート 5,600円
+    .row.row-condensed
+      .col-sm-11.col-offset-1.row-space-1.row-space-top-1
+        b
+          | 集合場所までの交通費：
+    .row.row-condensed
+      .col-sm-10.col-offset-2.row-space-1.row-space-top-1
+        | 1人あたり1,500円
   
     .h4.text-light.row-space-top-4.row-space-1#tour-optionfee-height
       b ガイド料金以外にかかるお金と説明
