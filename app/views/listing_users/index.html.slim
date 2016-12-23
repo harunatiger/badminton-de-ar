@@ -1,0 +1,189 @@
+= render 'shared/subnav'
+.page-container.row-space-top-8.row-space-4
+  .row
+    .col-lg-2
+      = render partial: "shared/host_sidenav"
+    .col-lg-10.listing_user-container
+      .card.card-naked
+        .media-cover-img
+          div[style="background-image:url(#{asset_path listing_cover_image_url(@listing.id)})"]
+            .media-cover-dark
+            /= image_tag(listing_cover_image_url(@listing.id))
+            .va-container.va-container-wh
+              .va-middle.text-center
+                .h1.text-contrast
+                  = @listing.title
+                  .small = @listing.title_2
+                /- if current_user.id == @listing.user_id
+                  = simple_form_for(@listing, url: listing_change_authorized_user_status_path, method: :POST) do |f|
+                    .select.select-listing-user
+                      = f.select :authorized_user_status, [["Only Receptionists", "receptionists"], ["All Members", "members"]]
+                      = link_to "#", class: "js-modal-about_activity_member-trigger" do
+                        i.fa.fa-question
+        .card-body
+          h2.text-brand.text-center.row-space-6
+            span Members
+
+          / pending member
+          /- if show_leader_contents?(current_user, @listing)
+            - @pending_members.each do |pending_listing_user|
+              - profile = user_id_to_profile(pending_listing_user.user_id)
+              .pending-activity-container.row-space-2
+                .pending-activity-inner
+                  .row
+                    .col-md-3.col-lg-2.text-center.row-space-3
+                      .media-photo.media-round.media-avatar
+                        div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
+                      .talk_to_me-wrapper.row-space-top-2
+                        = render partial: 'shared/talk_to_member', locals: { user_id: profile.user_id }
+                    .col-md-9.col-lg-5.row-space-3
+                      .pending-user-info-container
+                        .profile-name.row-space-1
+                          span
+                            = profile.first_name
+                          small.text-muted
+                            = "Registerd #{profile.created_at.strftime("%Y/%m")}"
+                        .expandable
+                          .expandable-trigger-more
+                            .expandable-content
+                              .expandable-inner
+                                = simple_format(profile.try('self_introduction') || '')
+                                .expandable-indicator
+                          = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
+                            | read more
+                    .col-md-12.col-lg-5.row-space-3
+                      .request-message-container
+                        .expandable
+                          .expandable-trigger-more
+                            .expandable-content
+                              .expandable-inner
+                                = pending_listing_user.request_message
+                                .expandable-indicator.expandable-indicator-light
+                          = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
+                            | read more
+                  .row.text-center
+                    .btn-container
+                      = link_to 'Accept', accept_listing_listing_user_path(@listing,pending_listing_user), class: 'btn btn-primary row-space-3', method: :POST
+                      = link_to 'Reject', listing_listing_user_path(@listing,pending_listing_user), class: 'btn bg-gray', method: :DELETE
+                  i.fa.fa-exclamation
+
+          / accepted member
+          .accepted-activity-list
+            .row.row-space-top-6
+              / owner
+              .col-md-6.row-space-4.accepted-activity-column
+                span.activity-icon.activity-icon-owner Owner
+                - profile = user_id_to_profile(@listing.user_id)
+                = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: nil }
+              / receptionists
+              /- @receptionists.each do |receptionist|
+                .col-md-6.row-space-4.accepted-activity-column
+                  span.activity-icon.activity-icon-receptionist Receptionist
+                  - profile = user_id_to_profile(receptionist.user_id)
+                  = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: receptionist }
+              / member
+              - @members.each do |member|
+                .col-md-6.row-space-4.accepted-activity-column
+                  - profile = user_id_to_profile(member.user_id)
+                  = render partial: 'member_card', locals: { profile: profile, listing: @listing, listing_user: member }
+
+              / invite friends
+              /- if show_leader_contents?(current_user, @listing)
+                .col-md-6.row-space-4
+                  = link_to "", "#", class: "add-listing-block"
+                  
+= render partial: 'shared/modals/about_activity_member'
+
+
+/! dummy data ==================================================
+
+/.accepted-activity-list
+  .row.row-space-top-6
+    .col-md-6.row-space-4
+      .accepted-activity-container
+        .row
+          .col-md-4.col-lg-3.text-center
+            .media-photo.media-round.media-avatar
+              div[style="background-image: url('#{asset_path listing_cover_image_url(@listing.id)}')"]
+          .col-md-8.col-lg-9
+            .profile-name.row-space-1
+              span
+                | Princess Reia
+              small.text-muted
+                | Registerd 2016/09
+            .profile-rating.row-space-1.clear-both
+              .star-rating
+                .foreground
+                  i.fa.fa-star.fa-starlight
+                  i.fa.fa-star-half-o.fa-starlight
+                  i.fa.fa-star-o.fa-light-gray
+                  i.fa.fa-star-o.fa-light-gray
+                  i.fa.fa-star-o.fa-light-gray
+                .background
+                  i.fa.fa-star-o.fa-light-gray
+                  i.fa.fa-star-o.fa-light-gray
+                  i.fa.fa-star-o.fa-light-gray
+                  i.fa.fa-star-o.fa-light-gray
+                  i.fa.fa-star-o.fa-light-gray
+
+              span.badge-pill-count.small1
+                | review
+                |(
+                b
+                  | 6
+                |)
+            .talk_to_me-wrapper
+              = link_to "#", class: 'btn btn-primary btn-large btn-block btn-relative' do
+                i.fa.fa-comments-o
+                | Talk to me
+        .select.select-listing-user
+          select
+            option Select as a receptionist
+            option Remove from this group
+
+/.pending-activity-container
+  .pending-activity-inner
+    .row
+      .col-md-3.col-lg-2.text-center.row-space-3
+        .media-photo.media-round.media-avatar
+          div[style="background-image: url('#{asset_path listing_cover_image_url(@listing.id)}')"]
+        .talk_to_me-wrapper.row-space-top-2
+          = link_to "#", class: 'btn btn-primary btn-large btn-block btn-relative' do
+            i.fa.fa-comments-o
+            | Talk to me
+      .col-md-9.col-lg-5.row-space-3
+        .pending-user-info-container
+          .profile-name.row-space-1
+            span
+              | Luke
+            small.text-muted
+              /= "Registerd #{profile.created_at.strftime("%Y/%m")}"
+              | Registerd 2016/09
+          .expandable
+            .expandable-trigger-more
+              .expandable-content
+                .expandable-inner
+                  p Thank you for visiting my profile page :) 
+                  p It would be nice if you add me your favorites click the heart (♡on the right corner of the profile/tour photo) ! Happy to talk with you:D
+                  p It would be nice if you add me your favorites click the heart (♡on the right corner of the profile/tour photo) ! Happy to talk with you:D
+                  .expandable-indicator
+            = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
+              | read more
+      .col-md-12.col-lg-5.row-space-3
+        /= pending_listing_user.request_message
+        .request-message-container
+          .expandable
+            .expandable-trigger-more
+              .expandable-content
+                .expandable-inner
+                  p Thank you for visiting my profile page :) 
+                  p It would be nice if you add me your favorites click the heart (♡on the right corner of the profile/tour photo) ! Happy to talk with you:D
+                  p It would be nice if you add me your favorites click the heart (♡on the right corner of the profile/tour photo) ! Happy to talk with you:D
+                  .expandable-indicator.expandable-indicator-light
+            = link_to "#", class: "expandable-trigger-more expandable-trigger-more-text strong" do
+              | read more
+  .row.text-center
+    .btn-container
+      = link_to 'Accept',"#", class: 'btn btn-primary row-space-3', method: :POST
+      = link_to 'Reject', "#", class: 'btn bg-gray', method: :DELETE
+  i.fa.fa-exclamation

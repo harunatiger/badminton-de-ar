@@ -11,9 +11,9 @@ ul.sidenav-list
   - else
     li
       = link_to "Guide", users_favorites_path, class: "sidenav-item", aria: {selected: "false"}
-  - if controller_name == 'favorites' && action_name == 'spots'
+  /- if controller_name == 'favorites' && action_name == 'spots'
     li
       = link_to "Spot", spots_favorites_path, class: "sidenav-item", aria: {selected: "true"}
-  - else
+  /- else
     li
       = link_to "Spot", spots_favorites_path, class: "sidenav-item", aria: {selected: "false"}

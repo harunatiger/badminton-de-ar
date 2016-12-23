@@ -1,13 +1,22 @@
 ul.sidenav-list
-  - if action_name == "host_reservation_manager"
+  li[class="#{ 'active' if action_name == 'index'}"]
+    = link_to listings_path, aria: {selected: "false"}, class: "sidenav-item row-space-2" do
+      span.img-icon.img-icon-user-o
+      | My Activities
+  li
+    = link_to search_listings_path(search: {location: nil, official: true}), aria: {selected: "false"}, class: "sidenav-item row-space-2" do
+      span.img-icon.img-icon-search-o
+      small Search Activities
+
+  /- if action_name == "host_reservation_manager"
     li
-      = link_to "Tour list", listings_path, aria: {selected: "false"}, class: "sidenav-item row-space-2"
+      = link_to "Tour list", listings_path, aria: {selected: "false"}, class: "sidenav-item row-space-2"z
     li
       - if current_user.main_guide?
         = link_to "Create a new tour", new_listing_path, aria: {selected: "false"}, class: "btn btn-block btn-primary"
     /li
       = link_to "参加希望者", dashboard_host_reservation_manager_path, aria: {selected: "true"}, class: "sidenav-item"
-  - else
+  /- else
     li
       = link_to "Tour list", listings_path, aria: {selected: "true"}, class: "sidenav-item row-space-2"
     li

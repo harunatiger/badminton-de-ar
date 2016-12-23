@@ -126,7 +126,7 @@ class ListingImagesController < ApplicationController
     end
   
     def regulate_user
-      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id or !current_user.main_guide?
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id or !current_user.has_listing_admin_authority?
     end
 
 end

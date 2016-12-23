@@ -1,11 +1,11 @@
-class ListingsController < ApplicationController
+class ListingsController < CommonSearchController
   before_action :authenticate_user!, except: [:show, :preview, :search, :read_more_reviews]
   #before_action :check_listing_status, only: [:index, :search]
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :favorite_listing, :read_more_reviews]
-  before_action :set_listing_obj, only: [:publish, :unpublish, :copy, :preview]
+  before_action :set_listing_obj, only: [:publish, :unpublish, :copy, :preview, :change_authorized_user_status]
   before_action :set_listing_related_data, only: [:show, :edit, :preview]
   before_action :set_message_thread, only: [:show]
-  before_action :regulate_user, except: [:new, :index, :create, :show, :search, :favorite_listing]
+  before_action :regulate_user, except: [:new, :create, :show, :search, :favorite_listing]
   before_action :deleted_or_open_check, only: [:show, :edit]
   before_action :only_main_guide, only: [:new, :edit, :create, :update, :destroy, :publish, :unpublish, :copy]
   #before_action :set_favorite,  only: [:destroy]
@@ -14,6 +14,7 @@ class ListingsController < ApplicationController
   # GET /listings.json
   def index
     @listings = Listing.mine(current_user.id).without_soft_destroyed.order_by_updated_at_desc
+    @listing_users = ListingUser.mine(current_user.id).opened.includes(:listing)
     @pre_mail = current_user.pre_mail
   end
 
@@ -40,6 +41,7 @@ class ListingsController < ApplicationController
     gon.keywords = @profile_keyword
     gon.currency = {currency_code: session[:currency_code], rate: session[:rate], exhange_fee_rate: Settings.reservation.exchange_rate}
     @announcement = Announcement.display_at('listing').first
+    @member_request_link = true if params[:member_request_link].present?
   end
   
   def read_more_reviews
@@ -55,13 +57,11 @@ class ListingsController < ApplicationController
     @listing = Listing.new
     @listing.build_listing_detail
     @listing.listing_destinations.build
-    @areas = PickupArea.all
   end
 
   def edit
     @listing.build_listing_detail if @listing.listing_detail.blank?
     @listing.listing_destinations.build if @listing.listing_destinations.blank?
-    @areas = PickupArea.all
   end
 
   # POST /listings
@@ -69,22 +69,17 @@ class ListingsController < ApplicationController
   def create
     @listing = Listing.new(listing_params)
     @listing.listing_detail.register_detail = false
-    #if @listing.set_lon_lat
     respond_to do |format|
       if @listing.save
         format.html { redirect_to manage_listing_listing_images_path(@listing.id), notice: Settings.listings.save.success }
       else
         #@categories = PickupCategory.all
         #@tags = PickupTag.all
-        @areas = PickupArea.all
         @listing.listing_destinations.build if @listing.listing_destinations.blank?
         format.html { render :new}
         format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
     end
-    #else
-      #return render :new, notice: Settings.listings.set_lon_lat.error
-    #end
   end
 
   # PATCH/PUT /listings/1
@@ -122,7 +117,7 @@ class ListingsController < ApplicationController
     return redirect_to listings_path, alert: Settings.listings.publish.closed_by_admin if @listing.admin_closed_at.present?
     respond_to do |format|
       if @listing.publish
-        format.html { redirect_to listings_path(current_user), notice: Settings.listings.publish.success }
+        format.html { redirect_to listings_path, notice: Settings.listings.publish.success }
       else
         format.html { redirect_to edit_listing_path(@listing), notice: Settings.listings.publush.failure }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
@@ -148,6 +143,16 @@ class ListingsController < ApplicationController
       redirect_to listings_path, alert: Settings.listings.copy.failure
     end
   end
+  
+  def change_authorized_user_status
+    respond_to do |format|
+      if @listing.update(listing_params)
+        format.html { redirect_to listing_listing_users_path(@listing), notice: Settings.listings.change_authorized_user_status.success }
+      else
+        format.html { redirect_to listing_listing_users_path(@listing), alert: Settings.listings.change_authorized_user_status.failure }
+      end
+    end
+  end
 
   def preview
     @reviews = Review.this_listing(@listing).page(params[:page])
@@ -161,6 +166,11 @@ class ListingsController < ApplicationController
     @reservation = Reservation.new
     @profile_keyword = ProfileKeyword.where(user_id: @listing.user_id, profile_id: Profile.where(user_id: @listing.user_id).pluck(:id).first).keyword_limit
     gon.keywords = @profile_keyword
+  end
+  
+  def search
+    basic_search
+    gon.pickup_areas = PickupArea.list_for_gon
   end
 
   private
@@ -187,14 +197,17 @@ class ListingsController < ApplicationController
     end
 
     def regulate_user
-      if action_name == 'preview'
+      if action_name == 'index'
+        return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if !current_user.has_listing_admin_authority?
+      elsif action_name == 'preview'
         return redirect_to listing_path(@listing) if !user_signed_in? || @listing.user_id != current_user.id
+      else
+        return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id
       end
-      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure if @listing.user_id != current_user.id
     end
   
     def only_main_guide
-      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure unless current_user.main_guide?
+      return redirect_to root_path, alert: Settings.regulate_user.user_id.failure unless current_user.has_listing_admin_authority?
     end
 
     def deleted_or_open_check
@@ -215,11 +228,11 @@ class ListingsController < ApplicationController
         :zipcode, :location, :longitude, :latitude, :delivery_flg, :price,
         :description, :recommend1, :recommend2, :recommend3,
         :interview1, :interview2, :interview3, :overview, :notes,
-        :title, :capacity, :direction, :schedule, :listing_images,
-        :cover_video, :cover_video_caption,
+        :title, :title_2, :capacity, :direction, :schedule, :listing_images,
+        :cover_video, :cover_video_caption, :authorized_user_status,
         listing_image_attributes: [:listing_id, :image, :order, :capacity], category_ids: [],
         language_ids: [], pickup_ids: [],
-        listing_detail_attributes: [:id, :place_memo, :condition, :stop_if_rain, :in_case_of_rain ],
+        listing_detail_attributes: [:id, :place_memo, :condition, :stop_if_rain, :in_case_of_rain, :time_required, :min_num_of_people, :max_num_of_people ],
         listing_destinations_attributes: [:id, :location, :longitude, :latitude, :_destroy ]
         )
     end

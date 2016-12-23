@@ -74,6 +74,9 @@ listings:
   copy:
     success: "Tour-page has been updated successfully. Continue with the following steps to complete your tour-page"
     failure: "Copying a tour failed"
+  change_authorized_user_status:
+    success: "Successfully changed settings."
+    failure: "Failed to change settings."
   delivery:
     ok: "出張可"
   error:
@@ -81,6 +84,27 @@ listings:
     deleted_listing_id: "This tour has been deleted"
     closed: "This tour has been closed"
   review_display_count: 10
+  price:
+    half:
+      main: 6000
+      support: 2800
+    all:
+      main: 12000
+      support: 5600
+    transportation_cost: 1500
+listing_users:
+  save:
+    success: "案内するActivityに追加しました。"
+    failure: "Failed to add this activity."
+  accept:
+    success: "Successfully accepted."
+    failure: "Failed to accept."
+  destroy:
+    success: "Successfully rejected."
+    failure: "Failed to reject."
+  add_receptionist:
+    success: "Successfully changed settings."
+    failure: "Failed to change settings."
 listing_images:
   save:
     success: "Successfully uploaded your photo/video"
@@ -93,6 +117,9 @@ listing_details:
   save:
     success: "Congratulations! You have successfully registered your tour"
     failure: "Choose a meeting place"
+listing_detail_extra_costs:
+  save:
+    blank: "extra costs need to be filled all of the fields."
 confections:
   save:
     success: "オプション1の情報を登録いたしました。"
@@ -287,7 +314,7 @@ page:
   host_reservation_manager: 'Your Bookings'
   guest_reservation_manager: 'Your Trips'
   listing_new: 'Become a guide'
-  listings: 'Tours'
+  listings: 'Activities'
   spots: 'Spot list'
   messages: 'Message'
   wishlists: 'Favorite'

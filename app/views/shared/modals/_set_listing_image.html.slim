@@ -5,9 +5,9 @@
         .modal-content
           = simple_form_for([listing, listing_image], method: :patch, remote: true) do |f|
             .card-header
-              | 写真にカテゴリーと説明を設定して、良さを伝えましょう。
+              | 写真に説明を設定し良さを伝えましょう。
             .card-body
-              .row.row-space-4
+              /.row.row-space-4
                 - PickupTag.all.order_by_created_at_asc.each do |pickup_tag|
                   = hidden_field_tag  :pickup_id, pickup_tag.id
                   .col-sm-3.col-md-2.row-space-2

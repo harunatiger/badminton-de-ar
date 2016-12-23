@@ -92,6 +92,8 @@ class Listing < ActiveRecord::Base
   has_many :pickups, :through =>  :listing_pickups
   has_many :favorites, dependent: :destroy
   has_many :listing_destinations, dependent: :destroy
+  has_many :listing_users, dependent: :destroy
+  has_many :users, :through => :listing_users, dependent: :destroy
 
   mount_uploader :cover_image, DefaultImageUploader
   mount_uploader :cover_video, ListingVideoUploader
@@ -112,6 +114,8 @@ class Listing < ActiveRecord::Base
     end
   end
   UPLOAD_VIDEO_LIMIT_SIZE = ENV["UPLOAD_VIDEO_LIMIT_SIZE"].to_i.freeze
+  
+  enum authorized_user_status: { receptionists: 0, members: 1}
 
   scope :mine, -> user_id { where(user_id: user_id) }
   scope :order_by_updated_at_desc, -> { order('updated_at desc') }
@@ -168,48 +172,35 @@ class Listing < ActiveRecord::Base
 
   def self.search(search_params, max_distance=Settings.search.distance)
     if search_params["longitude"].present? && search_params["latitude"].present?
-      if search_params["sort_by"].blank?
-        listings = Listing.opened
-      else
-        listings = Listing.select('id, user_id').opened
+      listings = Listing.select('id, user_id').opened
+      if search_params["official"].present?
+        listings = listings.where(user_id: User.official_account.ids)
+      end
         
-        category_ids = [search_params["category1"],search_params["category2"],search_params["category3"]].reject(&:blank?)
-        if category_ids.present?
-          listings = listings.joins(:listing_images).merge(ListingImage.where(pickup_id: category_ids))
-        end
-        
-        if search_params["num_of_people"].present?
-          num_of_people = search_params["num_of_people"].to_i
-          listings = listings.joins(:listing_detail).merge(ListingDetail.available_num_of_people(num_of_people))
-        end
-        
-        if search_params["duration_range"].present?
-          duration = search_params['duration_range'].split(',')
-          duration_min = duration[0].to_i
-          duration_max = duration[1].to_i
-          listings = listings.joins(:listing_detail).merge(ListingDetail.available_time_required(duration_min, duration_max))
-        end
-        
+      category_ids = [search_params["category1"],search_params["category2"],search_params["category3"]].reject(&:blank?)
+      if category_ids.present?
+        #listings = listings.joins(:listing_images).merge(ListingImage.where(pickup_id: category_ids))
+        listings = listings.joins(:listing_pickups).merge(ListingPickup.where(pickup_id: category_ids))
+      end
+      
+      if search_params["num_of_people"].present?
+        num_of_people = search_params["num_of_people"].to_i
+        listings = listings.joins(:listing_detail).merge(ListingDetail.available_num_of_people(num_of_people))
+      end
+      
+      if search_params["duration_range"].present?
+        duration = search_params['duration_range'].split(',')
+        duration_min = duration[0].to_i
+        duration_max = duration[1].to_i
+        listings = listings.joins(:listing_detail).merge(ListingDetail.available_time_required(duration_min, duration_max))
+      end
+      
+      if search_params["language_ids"].present?
         search_params["language_ids"] = search_params["language_ids"].reject(&:blank?)
         # When selected EN, it means containing all users
         if search_params["language_ids"].present? and !search_params["language_ids"].index(Language.find_by_name('English').try('id').to_s)
           user_ids = Profile.where(user_id: listings.pluck(:user_id)).joins(:profile_languages).merge(ProfileLanguage.where(language_id: search_params["language_ids"])).pluck(:user_id)
           listings = listings.where(user_id: user_ids)
-        end
-        
-        if search_params["schedule"].present?
-          date = Date.strptime(search_params["schedule"], "%m/%d/%Y")
-          wday = date.wday
- 
-          # ngevent_week
-          ng_user_ids = NgeventWeek.where(dow: wday, mode: 1).pluck(:user_id)
-          ng_listing_ids = NgeventWeek.where(listing_id: listings.ids, dow: wday, mode: 0).where.not(user_id: ng_user_ids).pluck(:listing_id)
-          listings = listings.where.not(user_id: ng_user_ids).where.not(id: ng_listing_ids)
-          
-          # ng_event
-          ng_user_ids = Ngevent.where.not(mode: 0).where('start <= ? and ? <= ngevents.end', date, date).pluck(:user_id)
-          ng_listing_ids = Ngevent.where(listing_id: listings.ids, mode: 0).where('start <= ? and ? <= ngevents.end', date, date).pluck(:listing_id)
-          listings = listings.where.not(user_id: ng_user_ids).where.not(id: ng_listing_ids)
         end
       end
       
@@ -263,11 +254,11 @@ class Listing < ActiveRecord::Base
     else
       listing = Listing.find(self.id)
       listing_detail = ListingDetail.where(listing_id: self.id).first
-      result << Settings.left_steps.listing unless listing.valid?
+      if !listing.valid? || (listing_detail.present? && listing_detail.time_required == 0.0)
+        result << Settings.left_steps.listing
+      end
       result << Settings.left_steps.listing_image unless (self.listing_images.present? or self.cover_video.present?)
-      if listing_detail.present?
-        result << Settings.left_steps.listing_detail if listing_detail.time_required == 0.0
-      else
+      if listing_detail.blank?
         result << Settings.left_steps.listing_detail
       end
     end
@@ -305,6 +296,13 @@ class Listing < ActiveRecord::Base
     #  listing_copied.listing_images.build(image_blank_ok: true, order_num: listing_image.order_num, image: listing_image.image.file)
     #end
     listing_copied.pickup_ids = self.pickups.ids
+    listing_copied.language_ids = self.languages.ids
+    self.listing_destinations.each do |listing_destination|
+      listing_copied.listing_destinations.build(listing_destination.dup.attributes)
+    end
+    self.listing_detail.listing_detail_extra_costs.each do |extra_cost|
+      listing_copied.listing_detail.listing_detail_extra_costs.build(extra_cost.dup.attributes)
+    end
     listing_copied.open = false
     listing_copied.title = self.title + ' 2'
     listing_copied.not_valid_ok = true
@@ -321,6 +319,8 @@ class Listing < ActiveRecord::Base
     favorite_listings.destroy_all if favorite_listings.present?
     self.listing_detail.destroy if self.listing_detail.present?
     self.pickups.destroy_all if self.pickups.present?
+    self.languages.destroy_all if self.languages.present?
+    self.listing_destinations.destroy_all if self.listing_destinations.present?
     self.listing_images.each do |listing_image|
       listing_image.remove_image!
       listing_image.destroy
@@ -432,7 +432,16 @@ class Listing < ActiveRecord::Base
   end
   
   def closed?
-    return true if !self.open or self.admin_closed_at.present? or self.user.admin_closed_at.present?
+    host = User.find_by_id(self.user_id)
+    return true if !self.open or self.admin_closed_at.present? or host.admin_closed_at.present?
     false
+  end
+  
+  def pickup_tags
+    self.pickups.where(type: 'PickupTag')
+  end
+  
+  def official?
+    User.find(self.user_id).official_account?
   end
 end

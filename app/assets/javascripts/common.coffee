@@ -785,7 +785,21 @@ $ ->
           $('#search_form').find('#search_longitude').val　''
           location_being_changed = true
         return
+        
+      # area list
+      $('#location-search').combobox
+        data: gon.pickup_areas
+        height: 200
+        width: '100%'
+        filterType: 'blank'
+        onSelect: ->
+          active = $(".cb-wrapper li.active")
+          index = $(".cb-wrapper li").index(active)
+          $('#search_form').find('#search_latitude').val gon.pickup_areas[index].lat
+          $('#search_form').find('#search_longitude').val　gon.pickup_areas[index].lon
+          $('#search_form').submit()
       return
+      
     #! auto complete activate
     initPAC()
 
@@ -819,7 +833,21 @@ $ ->
           $('#headroom-header').find('#search_longitude').val　''
           location_being_changed = true
         return
+        
+      # area list
+      $('#header-location-search').combobox
+        data: gon.pickup_areas
+        height: 200
+        width: '100%'
+        filterType: 'blank'
+        onSelect: ->
+          active = $(".cb-wrapper li.active")
+          index = $(".cb-wrapper li").index(active)
+          $('#headroom-header').find('#search_latitude').val gon.pickup_areas[index].lat
+          $('#headroom-header').find('#search_longitude').val　gon.pickup_areas[index].lon
+          $('#header_search_form').submit()
       return
+      
     #! header auto complete activate
     initHeaderPAC()
 

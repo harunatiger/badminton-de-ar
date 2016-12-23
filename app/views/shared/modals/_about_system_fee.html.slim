@@ -1,0 +1,17 @@
+/ modal _about_system_fee
+#about_system_fee.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+          | システム利用料について
+        form
+          .card-body
+            p
+              | ホストのみなさまから1人あたり1,000円のシステム利用料を頂いております。
+            p
+              | Huber.では、これからもみなさまに快適に、そして安全にサービスをご利用いただくための運用サポート、サービス改善を心がけていきます。
+
+          .card-footer
+            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

@@ -7,6 +7,8 @@
           .col-sm-12.col-md-11.text-center--md
             h1#listing_name.row-space-2.overflow
               = @listing.title
+              br
+              = @listing.title_2
             #listing_area.row-space-2
               - if pickup_area_from_listing(listing).present?
                 i.fa.fa-map-marker
@@ -49,7 +51,10 @@
                   = @all_reviewed_count
                 | )
               .lang-list-wrapper
-                = render partial: 'shared/language_list', locals: { profile: @host_info}
+                = render partial: 'shared/language_list', locals: { target: @host_info}
         .row.row-space-4.row-space-top-2
           .col-md-12
-            = render partial: 'shared/support_guide_section', locals: { user_id: @listing.user_id}
+            - if @listing.official?
+              = render partial: 'shared/member_section', locals: { listing: @listing}
+            - else
+              = render partial: 'shared/support_guide_section', locals: { user_id: @listing.user_id}

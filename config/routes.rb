@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-
   resources :listing_destinations
 
   resources :features, only: [:index] do
@@ -122,6 +120,14 @@ Rails.application.routes.draw do
         post '/', action: :create_unscheduled_tour
       end
     end
+    
+    resources :listing_users, only: [:index, :create, :destroy] do
+      # member do
+      #   post 'accept'
+      #   patch 'add_receptionist'
+      # end
+    end
+    
     resources :listing_images, only: [:show, :create, :update, :destroy] do
       get 'manage', on: :collection
       post 'upload_video_cover_image', on: :collection
@@ -137,8 +143,12 @@ Rails.application.routes.draw do
     get 'unpublish', action: 'unpublish', as: 'unpublish'
     get 'preview'
     post 'copy', action: 'copy', as: 'copy'
+    post 'change_authorized_user_status'
     member do
       get 'read_more_reviews',    action: 'read_more_reviews'
+    end
+    collection do
+      get 'search'
     end
 
     resources :ngevents, only: [:create] do
@@ -152,16 +162,16 @@ Rails.application.routes.draw do
       get 'listing_ngweeks', on: :collection
       put 'unset', on: :collection
     end
-    resources :calendar
+    #resources :calendar
   end
 
-  resources :spots
+  #resources :spots
 
   resources :favorites, only: [:create, :destroy] do
     collection do
       get :users
       get :listings
-      get :spots
+      #get :spots
     end
   end
 

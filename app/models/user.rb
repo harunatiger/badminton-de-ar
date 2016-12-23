@@ -75,6 +75,8 @@ class User < ActiveRecord::Base
   has_many :campaigns, :through => :user_campaigns, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :withdrawals, dependent: :destroy
+  # has_many :listing_users, dependent: :destroy
+  # has_many :listings, :through => :listing_users, dependent: :destroy
   
   accepts_nested_attributes_for :profile
   #validates :email, presence: true
@@ -85,7 +87,7 @@ class User < ActiveRecord::Base
   #validates :password, presence: true
   #validates :password, length: 6..32
   
-  enum user_type: { guest: 0, main_guide: 1, support_guide: 2}
+  enum user_type: { guest: 0, main_guide: 1, support_guide: 2, official_account: 3}
 
   scope :mine, -> user_id { where(id: user_id) }
   scope :active_users, -> { where.not(last_access_date: nil).where('last_access_date > ?', Time.zone.today - Settings.user.active_period.days) }
@@ -202,7 +204,8 @@ class User < ActiveRecord::Base
   end
   
   def bookmarked_histories
-    mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id) + FavoriteSpot.where(spot_id: self.spots.ids)
+    #mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id) + FavoriteSpot.where(spot_id: self.spots.ids)
+    mixed_array = FavoriteListing.where(listing_id: self.listings.ids) + FavoriteUser.where(to_user_id: self.id)
     mixed_array.sort{|f,s| s.created_at <=> f.created_at}
   end
   
@@ -390,5 +393,9 @@ class User < ActiveRecord::Base
   
   def active?
     current_user.last_access_date.present? and current_user.last_access_date > Time.zone.today - Settings.user.active_period.days
+  end
+  
+  def has_listing_admin_authority?
+    self.main_guide? || self.official_account?
   end
 end

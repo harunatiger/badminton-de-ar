@@ -1,0 +1,17 @@
+/ modal _about_transportation_fee
+#about_transportation_fee.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          = link_to "", "#", data: { dismiss: "modal" }, class: "modal-close"
+          | 交通費について
+        form
+          .card-body
+            p
+              | 集合場所までの交通費や当日の移動で必要となる交通費を入力してください。
+            p
+              | サポートガイドの交通費がわからない場合は同じ金額を設定してください。
+
+          .card-footer
+            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

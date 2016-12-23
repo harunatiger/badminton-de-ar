@@ -110,14 +110,14 @@
                 = current_user.email
             i.fa.fa-caret-down
           ul.user-nav.dropdown-menu.dropdown-menu-top-right
-            - if current_user.main_guide?
+            - if current_user.has_listing_admin_authority?
               li
                 = link_to dashboard_path, rel: "nofollow" do
                   - if current_user.unread_bookmark_count != 0
                     i.alert-count.position-left
                       = current_user.unread_bookmark_count
                   = Settings.page.dashboard
-            - if current_user.main_guide?
+            - if current_user.has_listing_admin_authority?
               li
                 = link_to Settings.page.listings, listings_path, rel: "nofollow"
               /li

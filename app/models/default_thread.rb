@@ -22,6 +22,7 @@
 
 class DefaultThread < MessageThread
   def self.exists_default_thread?(user_id, user_id_2)
+    return false if user_id == user_id_2
     t_threads = User.find(user_id).message_threads.typed(self.model_name.name)
     f_threads = User.find(user_id_2).message_threads.typed(self.model_name.name)
     

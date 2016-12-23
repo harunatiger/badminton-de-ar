@@ -1,0 +1,85 @@
+- target_is_listing_detail = target.model_name == 'ListingDetail'
+.row.row-space-top-2
+  .col-lg-12
+    = link_to "振込金額確認", "#fee-data", class: "js-fee-data-toggle btn btn-block collapsed", data: {toggle: "collapse"}
+    #fee-data.collapse
+      .row-space-top-4.row-space-4
+        .text-center.row-space-2
+          span.h4.row-space-1 メインガイド 
+          span.text-lead
+            span.text-muted 振込金額:
+            span.h4
+              = target.payment_amount_main
+            | 円
+        .row.row-space-1
+          .col-xs-7.col-md-6.text-right.text-muted ガイド料
+          .col-xs-5.col-md-6
+            b
+              - if target_is_listing_detail
+                = Settings.listings.price.all.main
+              - else
+                = target.price
+            | 円
+        .row.row-space-1
+          .col-xs-7.col-md-6.text-right.text-muted 交通費
+          .col-xs-5.col-md-6
+            b
+              - if target_is_listing_detail
+                = Settings.listings.price.transportation_cost
+              - else
+                = target.transportation_cost_main
+            | 円
+        .row.row-space-1
+          .col-xs-7.col-md-6.text-right.text-muted その他のお金
+          .col-xs-5.col-md-6
+            b = option_amount
+            | 円
+        .row.row-space-1
+          .col-xs-7.col-md-6.text-right.text-muted
+            | システム利用料 
+            span.fa.fa-question-circle.js-modal-about_system_fee-trigger.fa-brand
+          .col-xs-5.col-md-6
+            b -
+            b
+              - if target_is_listing_detail
+                = target.service_fee(Settings.listings.price.all.main)
+              - else
+                = target.service_fee
+            | 円
+        hr
+        .text-center.row-space-2
+          span.h4.row-space-1 サポートガイド 
+          span.text-lead
+            span.text-muted 振込金額:
+            span.h4 = target.payment_amount_support
+            | 円
+        .row.row-space-1
+          .col-xs-7.col-md-6.text-right.text-muted ガイド料
+          .col-xs-5.col-md-6
+            b
+              - if target_is_listing_detail
+                = Settings.listings.price.all.support
+              - else
+                = target.price_for_support
+            | 円
+        .row.row-space-1
+          .col-xs-7.col-md-6.text-right.text-muted 交通費
+          .col-xs-5.col-md-6
+            b
+              - if target_is_listing_detail
+                = Settings.listings.price.transportation_cost
+              - else
+                = target.transportation_cost_support
+            | 円
+        .row.row-space-1
+          .col-xs-7.col-md-6.text-right.text-muted
+            | システム利用料 
+            span.fa.fa-question-circle.js-modal-about_system_fee-trigger.fa-brand
+          .col-xs-5.col-md-6
+            b -
+            b
+              - if target_is_listing_detail
+                = target.service_fee(Settings.listings.price.all.support)
+              - else
+                = target.service_fee
+            | 円

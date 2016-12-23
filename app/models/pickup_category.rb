@@ -14,6 +14,8 @@
 #  long_name         :string           default("")
 #  icon              :string           default("")
 #  icon_small        :string           default("")
+#  longitude         :decimal(9, 6)
+#  latitude          :decimal(9, 6)
 #
 # Indexes
 #

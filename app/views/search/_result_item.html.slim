@@ -4,7 +4,7 @@
       - if result.is_a?(String)
       - elsif result.model_name == 'Listing'
         = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(result), listing: result}
-      - elsif result.model_name == 'Spot'
+      /- elsif result.model_name == 'Spot'
         = render partial: 'shared/spot_card', locals: { profile: user_id_to_profile(result.user_id), spot: result}
       
 /* New Tours

@@ -12,23 +12,35 @@
   -if false
     = f.input_field :longitude, as: :string, placeholder: "経度"
     = f.input_field :latitude, as: :string, placeholder: "緯度"
-  #tour-title.row.row-space-5.row-space-top-5
+  #tour-title.row.row-space-top-5
     .col-lg-12.text-left
       .h4.row-space-2.text-light
-        |  ツアーのタイトル
-    .col-lg-12
+        |  アクティビティのタイトル
+  .row
+    .col-lg-8
       .required-container
-        = f.input_field :title, :class => 'imeoff', placeholder: "Eg. Kamakura vegetable food-fest for girls! "
+        = f.input_field :title, :class => 'imeoff', placeholder: "Eg. Kamakura vegetable", maxlength: 20
         i.fa.fa-asterisk.balloon[title="required"]
+    .col-lg-4.text-left.row-space-top-1
+      span 残り
+      b#title_counter
+      span 文字
+  .row.row-space-top-2
+    .col-lg-8
+      = f.input_field :title_2, :class => 'imeoff', placeholder: "Eg. food-fest for girls! ", maxlength: 20
+    .col-lg-4.text-left.row-space-top-1
+      span 残り
+      b#title_2_counter
+      span 文字
   hr
   .row.row-space-5.row-space-top-5
     .col-lg-12.text-left.listing-manager-intaview
       .h4.row-space-2.border-block.text-light
-        | ツアーのこだわりインタビュー
+        | アクティビティのこだわりインタビュー
   .row.row-space-5.row-space-top-5
     .col-lg-12.text-left
       .h5.row-space-2.text-light
-        | このツアーの一番の見どころは何ですか？
+        | このアクティビティの一番の見どころは何ですか？
     .col-12
       .required-container
         = f.input_field :interview2,:class => 'imeoff'
@@ -36,7 +48,7 @@
   .row.row-space-5.row-space-top-5
     .col-lg-12.text-left
       .h5.row-space-2.text-light
-        | このツアーを作ったきっかけは何ですか？
+        | このアクティビティを作ったきっかけは何ですか？
     .col-12
       .required-container
         = f.input_field :interview1,:class => 'imeoff'
@@ -53,32 +65,67 @@
   #tour-overview.row.row-space-5.row-space-top-5
     .col-lg-12.text-left
       .h4.row-space-2.text-light
-        |  ツアーの概要
+        |  アクティビティの概要
     .col-lg-12
       .required-container
-        = f.input_field :overview, :class => 'imeoff', placeholder: "このツアーのテーマと流れを簡単に入力ください", rows: "12"
+        = f.input_field :overview, :class => 'imeoff', placeholder: "このアクティビティのテーマと流れを簡単に入力ください", rows: "12"
         i.fa.fa-asterisk.balloon[title="required"]
-  /.row.row-space-5.row-space-top-5
+  hr    
+  = f.simple_fields_for :listing_detail do |ff|
+    .row.row-space-2.row-space-top-5
+      .col-lg-12.text-left.listing-manager-intaview
+        .h4.row-space-2.border-block.text-light
+          | アクティビティの条件
+    .row.row-space-5.row-space-top-2
+      .col-lg-5.text-left.row-space-2
+        .h4.text-light.required-container
+          | アクティビティの所要時間（目安）
+          i.fa.fa-asterisk.balloon[title="required"]
+      .col-lg-7.fieldset
+        .row
+          .col-xs-11
+            .select.select-opt.opt-double
+              /= f.select :time_required, [*(0..48)].map{|i| (i * 0.5)}, {}, {class: "value_fragile"}
+              = ff.select :time_required, set_time_required , {}, {class: "value_fragile"}
+              span 時間
+    .row.row-space-8.row-space-top-5
+      .col-lg-5.text-left.row-space-2
+        .h4.text-light.required-container
+          | アクティビティの参加者
+          i.fa.fa-asterisk.balloon[title="required"]
+      .col-lg-7.fieldset
+        .row
+          .col-xs-11
+            .select.select-opt
+              = ff.select :min_num_of_people, [*(1..20)], {}, {class: ""}
+              span 人から
+            .select.select-opt.select_max_num_of_people
+              = ff.select :max_num_of_people, [*(1..20)], {}, {class: ""}
+              span 人まで
+  hr
+  .row.row-space-5.row-space-top-5
     .col-lg-12.text-left
-      .h4.row-space-2
-        | オススメポイント
-      p.input-label
-        strong 1
-        = f.input_field :recommend1, :class => 'imeoff'
-      p.input-label
-        strong 2
-        = f.input_field :recommend2, :class => 'imeoff'
-      p.input-label
-        strong 3
-        = f.input_field :recommend3, :class => 'imeoff'
-
-  /.row.row-space-5.row-space-top-5
+      .h4.text-light
+        | このアクティビティの対応言語
+      .text-red.row-space-top-1.row-space-1
+        | *You can't uncheck. English is required in Huber.
     .col-lg-12.text-left
-      .h4.row-space-2
-        | ツアーのコダワリ
-      .col-lg-12
-        = f.input_field :description, :class => 'imeoff', placeholder: "あなたのツアーの紹介文を入力ください", rows: "12"
-
+      .row
+        = collection_check_boxes(:listing, :language_ids, Language.ordered, :id, :name, checked: checked_listing_language_ids(@listing), disabled: disabled_language_id) do |l|
+          .col-xs-6.col-lg-3
+            = l.label(class: "checkbox-inline") { l.check_box + l.text }
+  .row.row-space-5.row-space-top-5
+    .col-lg-12.text-left
+      .h4.text-light
+        | カテゴリ
+      p.row-space-top-1
+        | Choose 
+        b three categories 
+        | that appeal to you the most. 
+    .col-lg-12.text-left
+      .listing_pickuptag_checkbox
+        = collection_check_boxes(:listing, :pickup_ids, PickupTag.all, :id, :short_name) do |b|
+          = b.label(class: "col-xs-6 col-lg-3 small2 row-space-2") { b.check_box(style: "background-image: url(#{asset_path b.object.icon})") + b.text}
   .row.row-space-5.row-space-top-5.row-table
     .col-lg-12.text-left
       .h4.row-space-2.text-light
@@ -93,14 +140,14 @@
         .modal-content
           .card-header
             = link_to "", "#", class: "modal-close", data: {dismiss: "modal"}
-            | ツアーのエリアを選択してください
+            | アクティビティのエリアを選択してください
           .card-body
             .row
-              = collection_check_boxes(:listing, :pickup_ids, @areas, :id, :short_name) do |b|
+              = collection_check_boxes(:listing, :pickup_ids, PickupArea.all, :id, :short_name) do |b|
                 = b.label(class: "col-lg-4, col-xs-6") { b.check_box + b.text }
           .card-footer
             button.btn.btn-primary.listing-manager-area-submit[type="button"] OK
-
+                
   .row.row-space-5.row-space-top-5
     .col-lg-12.text-left
       .h4.row-space-2.text-light
@@ -134,9 +181,9 @@
       .col-lg-12
         = ff.input_field :place_memo,:class => 'imeoff', placeholder: "Eg. We will meet at the pharmacy next to the South Exit of the station. "
 
-  #tour-notes.row.row-space-5.row-space-top-5
+  .row.row-space-5.row-space-top-5
     .col-lg-12.text-left
-      .h4.row-space-2.text-light
+      .h4.row-space-2.text-light#tour-notes
         | もちもの・注意事項
     .col-lg-12
       = f.input_field :notes, :class => 'imeoff', placeholder: "", rows: "12"

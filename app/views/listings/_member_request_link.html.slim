@@ -1,0 +1,13 @@
+.preview_link
+  .row.row-space-top-2.row-space-2
+    .col-lg-12.text-center
+      p.text-lead.text-light.row-space-2
+        | このActivityを案内したい場合は以下の「このActivityを案内する」ボタンを押してください。
+      = simple_form_for(ListingUser.new, url: listing_listing_users_path(@listing), method: :post) do |f|
+        = f.hidden_field :user_id, value: current_user.id
+        = f.hidden_field :listing_id, value: @listing.id
+        = f.hidden_field :user_status, value: 'member'
+        = f.submit "このActivityを案内する", class: "btn btn-primary"
+        /= link_to "このActivityを案内する", '#', 'data-toggle' => "modal", 'data-target' => '#member_request', class: "btn btn-primary"
+        = link_to "キャンセル", "#", class: "btn btn-default", id: 'cancel_member_request'
+/= render partial: "member_request"

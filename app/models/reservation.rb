@@ -74,6 +74,7 @@ class Reservation < ActiveRecord::Base
   has_many :reviews
   has_one :payment
   has_many :ngevents, dependent: :destroy
+  has_many :reservation_extra_costs, dependent: :destroy
 
   #Progress 4&5 are not used. Should delete records of progress 4 some day.
   enum progress: { requested: 0, canceled: 1, under_construction: 2, accepted: 3, rejected: 4, listing_closed: 5, canceled_after_accepted: 6}

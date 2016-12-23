@@ -1,7 +1,7 @@
     .search-results.touch
       .outer-listings-container.row-space-5.row-space-2-sm
         .row.listings-container
-          = render partial: 'result_item', locals: { results: results, new_listings: new_listings }
+          = render partial: 'search/result_item', locals: { results: results, new_listings: new_listings }
       - if results.num_pages > 1
         .results-footer.text-center
           = paginate results

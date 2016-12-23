@@ -283,7 +283,7 @@ label.error
   .pair_guide_list-trigger
     width: 54px
     height: 54px
-    line-height: 50px
+    line-height: 54px
     color: white
     &:hover
       text-decoration: none
@@ -399,7 +399,8 @@ ul.card-body, ol.card-body
 
 .card-overlay-label
   background-color: rgba(50, 50, 50, 0.9)
-  padding: 10px
+  padding: 8px 10px
+  padding-right: 20px
   color: white
   &.flush-top
     padding-top: 20px
@@ -410,9 +411,14 @@ ul.card-body, ol.card-body
   &.flush-right
     padding-right: 20px
 
+.card-image-container
+  position: relative
+  padding: 12px
 .card-image
   position: relative
-  min-height: 196px
+  //min-height: 196px
+  //min-height: 256px
+  min-height: 165px
   .favorite-btn
     position: absolute
     top: 10px
@@ -455,15 +461,16 @@ a.card-image
   left: 0
   padding: 7px 10px
 
+/* 20161207
 .card-profile-picture
-  width: 60px
-  height: 60px
+  width: 50px
+  height: 50px
   img
-    width: 56px
-    height: 56px
+    width: 46px
+    height: 46px
   > div
-    width: 56px
-    height: 56px
+    width: 46px
+    height: 46px
     background-repeat: no-repeat
     background-position: center top
     background-size: cover
@@ -1150,6 +1157,7 @@ body.paper
 
 /* tour-listing */
 .tour-listing
+  border: 0
   .card-image
     .tour-cover
       width: 100%
@@ -1158,14 +1166,65 @@ body.paper
       background-position: center center
       background-repeat: no-repeat
   .card-body
-    height: 160px
-    padding: 18px
+    //height: 160px
+    padding: 0 12px 12px
+    border: 0
+  .tour-listing-inner
+    height: 67px
+    overflow: hidden
   h5
     line-height: 1.4
-  .listing-area
-    a
-      //display: inline-block
-      //padding-right: 5px
+  .row
+    > div
+      padding-left: 4px
+      padding-right: 4px
+      &.media-container
+        padding-left: 0
+  .media-round.media-photo.media-avatar
+    float: right
+    margin: 2px 0 0 2px
+    border: 0
+  .price-container
+    .small
+      font-size: 70%
+      margin-top: -5px
+  .second-container
+    width: 118px
+    margin-left: 4px
+    overflow: hidden
+  .star-rating
+    .fa
+      font-size: 12px
+      margin: 0 1px -2px 0
+  .categories-container
+    position: absolute
+    bottom: 12px
+    right: 12px
+.card-actions
+  text-align: center
+  padding: 10px
+  border: 0
+  border-top: 1px solid $border1
+  border-bottom: 5px solid $brand-theme
+  background-color: white
+  a
+    display: inline-block
+    width: 24.75%
+    .img-icon
+      display: block
+      margin: 0 auto
+      background-position: 0
+.add-listing-block
+  display: block
+  height: 326px
+  background-color: $brand-theme
+  background-image: image-url('icons/add-plus.png')
+  background-repeat: no-repeat
+  background-size: 74px auto
+  background-position: center
+  overflow: hidden
+  &:hover
+    background-color: $brand-theme-hover
 .additional-comment
   height: 164px
   padding: 12px
@@ -1184,17 +1243,6 @@ body.paper
   color: $border1
   .fa
     font-size: 100px
-
-//#features-tour-list
-  .card-profile-picture-offset
-    padding: 0
-    margin-left: 0
-  a.text-normal
-    h5
-      font-size: 15px
-  .size28
-    width: 24px
-    height: 24px
 
 .feature-banner
   @media (max-width: 767px)
@@ -1351,6 +1399,8 @@ body.paper
   .card.tour-listing
     height: 358px
     overflow: hidden
+  .card-image
+    min-height: 260px
 
 @media (max-width: 1099px) and (min-width: 768px)
   .col-switch-pickup
@@ -1522,9 +1572,6 @@ body.paper
       margin-bottom: 12.5px
       font-size: 15px
       word-break: break-all
-      //overflow: hidden
-      //white-space: nowrap
-      //text-overflow: ellipsis
       a
         color: $brand-theme
         margin-right: 5px
@@ -1559,7 +1606,7 @@ body.paper
     //.va-container
       min-height: 100px
   .title-container
-    min-height: 200px
+    min-height: 240px
     @media (max-width: 767px)
       min-height: 100px
       //padding-right: 0
@@ -2500,7 +2547,7 @@ body.paper
   margin-left: 20px
 .border-block
   border: 1px solid $brand-theme
-  padding: 5px 15px
+  padding: 7px 12px
   background: white
   display: inline-block
   color: $brand-theme
@@ -2511,6 +2558,10 @@ body.paper
   background: white
   margin-bottom: 15px
   border: solid 1px $border1
+  span.fa.fa-question-circle
+    cursor: pointer
+    &:hover
+      color: $brand-theme-hover
 .manage-listing-content
   .collapse-panel:hover,
   .collapse-panel.active

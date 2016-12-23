@@ -53,14 +53,30 @@
 
 class ListingDetail < ActiveRecord::Base
   belongs_to :listing
+  has_many :listing_detail_extra_costs, dependent: :destroy
+  
   before_save :set_price
+  before_create :set_default_price
 
   validates :listing_id, uniqueness: true
-  validates :time_required, numericality: {greater_than: 0.0}, on: :update, if: 'register_detail?'
+  validate :check_extra_cost
+  #validates :time_required, numericality: {greater_than: 0.0}, on: :update, if: 'register_detail?'
+  
+  accepts_nested_attributes_for :listing_detail_extra_costs
   
   scope :available_num_of_people, -> num_of_people { where('min_num_of_people <= ? and ? <= max_num_of_people', num_of_people, num_of_people) }
   scope :available_time_required, -> duration_min, duration_max { where('? <= time_required and time_required <= ?', duration_min, duration_max) } 
 
+  def check_extra_cost
+    self.listing_detail_extra_costs.each do |extra_cost|
+      if extra_cost.description.blank? && (extra_cost.price.blank? || extra_cost.price == 0) && extra_cost.for_each.blank?
+        self.listing_detail_extra_costs.delete(extra_cost)
+      elsif extra_cost.description.blank? || extra_cost.price.blank? || extra_cost.for_each.blank?
+        errors.add(:base, Settings.listing_detail_extra_costs.save.blank)
+      end
+    end
+  end
+  
   def set_lon_lat
     hash = Hash.new
     if self.location.present?
@@ -99,11 +115,11 @@ class ListingDetail < ActiveRecord::Base
     
   def display_amount
     total = self.basic_amount
-    if self.max_num_of_people > 1
-      if self.bicycle_option
-        total += self.bicycle_rental
-      end
-    end
+    #if self.max_num_of_people > 1
+    #  if self.bicycle_option
+    #    total += self.bicycle_rental
+    #  end
+    #end
     total
   end
     
@@ -113,7 +129,7 @@ class ListingDetail < ActiveRecord::Base
 
   def basic_amount
     #total = self.price + self.price_for_support + self.price_for_both_guides
-    total = self.price + self.price_for_support
+    total = self.price + self.price_for_support + self.transportation_cost_main + self.transportation_cost_support
     total + option_amount
   end
 
@@ -129,52 +145,38 @@ class ListingDetail < ActiveRecord::Base
 
   def option_amount
     total = 0
-    #if self.space_option
-    #  self.space_options.each do |option|
-    #    total += self[option]
-    #  end
-    #end
-
-    if self.car_option
-      self.car_options.each do |option|
-        total += self[option]
-      end
-    end
-
-    if self.bicycle_option
-      bicycle_per = self.bicycle_rental
-      total += bicycle_per * self.min_num_of_people
-    end
-
-    if self.other_option
-      self.other_options.each do |option|
-        total += self[option]
+    self.listing_detail_extra_costs.each do |listing_detail_extra_cost|
+      if listing_detail_extra_cost.person?
+        total += listing_detail_extra_cost.price * self.min_num_of_people
+      else
+        total += listing_detail_extra_cost.price
       end
     end
     total
   end
 
-  def service_fee
-    basic_amount < 2000 ? 500 : (basic_amount * 0.145).ceil
+  def service_fee(amount)
+    #basic_amount < 2000 ? 500 : (basic_amount * 0.145).ceil
+    (Settings.reservation.service_rate * amount).ceil
   end
 
   def set_price
     self.price = 0 if self.price.blank?
     self.price_for_support = 0 if self.price_for_support.blank?
     self.price_for_both_guides = 0 if self.price_for_both_guides.blank?
-
-    self.space_options.each do |option|
-      self[option] = 0 if self[option].blank?
-    end
-
-    self.car_options.each do |option|
-      self[option] = 0 if self[option].blank?
-    end
+    self.transportation_cost_main = 0 if self.transportation_cost_main.blank?
+    self.transportation_cost_support = 0 if self.transportation_cost_support.blank?
 
     self.guests_cost = 0 if self.guests_cost.blank?
-    self.bicycle_rental = 0 if self.bicycle_rental.blank?
-    self.other_cost = 0 if self.other_cost.blank?
+    self.listing_detail_extra_costs.each do |listing_detail_extra_cost|
+      listing_detail_extra_cost.price = 0 if listing_detail_extra_cost.price.blank?
+    end
     self
+  end
+  
+  def set_default_price
+    self.price = self.recommended_main_price
+    self.price_for_support = self.recommended_support_price
   end
 
   def space_options
@@ -192,4 +194,32 @@ class ListingDetail < ActiveRecord::Base
   def other_options
     ['other_cost']
   end
+  
+  #---------listing_detail manage page---------------
+  def total_group_extra_cost
+    self.listing_detail_extra_costs.team.sum(:price)
+  end
+  
+  def total_person_extra_cost
+    self.listing_detail_extra_costs.person.sum(:price)
+  end
+  
+  def payment_amount_main
+    #self.price + self.transportation_cost_main + self.option_amount - self.service_fee
+    Settings.listings.price.all.main + Settings.listings.price.transportation_cost + self.option_amount - self.service_fee(Settings.listings.price.all.main)
+  end
+  
+  def payment_amount_support
+    #self.price_for_support + self.transportation_cost_support - self.service_fee
+    Settings.listings.price.all.support + Settings.listings.price.transportation_cost - self.service_fee(Settings.listings.price.all.support)
+  end
+  
+  def recommended_main_price
+    (self.time_required * 1500).floor
+  end
+  
+  def recommended_support_price
+    (self.time_required * 500).floor
+  end
+  #--------------------------------------------------
 end

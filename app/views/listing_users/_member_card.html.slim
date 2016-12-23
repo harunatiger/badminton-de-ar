@@ -1,0 +1,34 @@
+/! member_card
+.accepted-activity-container
+  .row
+    .col-md-4.col-lg-3.text-center
+      = link_to profile_path(profile) do
+        .media-photo.media-round.media-avatar
+          div[style="background-image: url('#{asset_path profile_to_image_thumb(profile)}')"]
+    .col-md-8.col-lg-9
+      .profile-name.row-space-1
+        span
+          = profile.first_name
+        small.text-muted
+          = "Registerd #{profile.created_at.strftime("%Y/%m")}"
+      .profile-rating.row-space-1.clear-both
+        .star-rating
+          = render partial: 'shared/stars', locals: { rate: profile.ave_total }
+        span.badge-pill-count.small1
+          | review
+          |(
+          b
+            = Review.my_reviewed_count(profile.user_id)
+          |)
+      .talk_to_me-wrapper
+        = render partial: 'shared/talk_to_member', locals: { user_id: profile.user_id }
+  /- if show_leader_contents?(current_user, listing) && listing_user.present?
+    .select.select-listing-user
+      select.js-change-member-status-trigger
+        option(value=0)
+        option(value=1 selected=listing_user.receptionist?) Select as a receptionist
+        option(value=2) Remove from this group
+      /remove form
+      = simple_form_for(listing, url: listing_listing_user_path(listing,listing_user), method: :DELETE, html: {class: 'js-remove-member-trigger'}) do
+      /add receptionist form
+      = simple_form_for(listing, url: add_receptionist_listing_listing_user_path(listing,listing_user), method: :PATCH, html: {class: 'js-add-receptionist-trigger'}) do

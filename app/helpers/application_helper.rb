@@ -521,28 +521,28 @@ module ApplicationHelper
     profile.categories.exists?(:name => Settings.categories.sport)
   end
 
-  def language_ja?(profile)
-    profile.languages.exists?(:name => Settings.languages.ja)
+  def language_ja?(target)
+    target.languages.exists?(:name => Settings.languages.ja)
   end
 
-  def language_en?(profile)
-    profile.languages.exists?(:name => Settings.languages.en)
+  def language_en?(target)
+    target.languages.exists?(:name => Settings.languages.en)
   end
 
-  def language_zh?(profile)
-    profile.languages.exists?(:name => Settings.languages.zh)
+  def language_zh?(target)
+    target.languages.exists?(:name => Settings.languages.zh)
   end
 
-  def language_de?(profile)
-    profile.languages.exists?(:name => Settings.languages.de)
+  def language_de?(target)
+    target.languages.exists?(:name => Settings.languages.de)
   end
 
-  def language_fr?(profile)
-    profile.languages.exists?(:name => Settings.languages.fr)
+  def language_fr?(target)
+    target.languages.exists?(:name => Settings.languages.fr)
   end
 
-  def language_es?(profile)
-    profile.languages.exists?(:name => Settings.languages.es)
+  def language_es?(target)
+    target.languages.exists?(:name => Settings.languages.es)
   end
 
   def out_put_error(target)
@@ -664,7 +664,9 @@ module ApplicationHelper
   def set_time_required
     time_required_hash = Hash.new()
     0.step(24.5,0.5) do |i|
-      if i == 24.5
+      if i == 0.0
+        next
+      elsif i == 24.5
         time_required_hash.store('24.0以上', i)
       else
         time_required_hash.store(i, i)
@@ -851,7 +853,11 @@ module ApplicationHelper
   end
 
   def checked_language_ids(profile)
-    profile.language_ids.index(disabled_language_id) ? @profile.language_ids : @profile.language_ids.push(disabled_language_id)
+    profile.language_ids.index(disabled_language_id) ? profile.language_ids : profile.language_ids.push(disabled_language_id)
+  end
+  
+  def checked_listing_language_ids(listing)
+    listing.language_ids.index(disabled_language_id) ? listing.language_ids : listing.language_ids.push(disabled_language_id)
   end
 
   def what_talk_about_contents
@@ -1028,5 +1034,12 @@ module ApplicationHelper
       'feature_kyoto/card_bg09.jpg'
     end
   end
-
+  
+  def show_leader_contents?(user, listing)
+    ListingUser.is_receptionist?(user.id, listing.id) || listing.user_id == user.id
+  end
+  
+  def member_section_guides(listing)
+    ListingUser.members(listing.id).order("RANDOM()")
+  end
 end

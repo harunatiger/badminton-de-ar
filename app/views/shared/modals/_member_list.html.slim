@@ -1,0 +1,23 @@
+/ modal member_list
+- members = member_section_guides(listing)
+#pair_guide_list.modal[role="dialog" aria-hidden="true"]
+  .modal-table
+    .modal-cell
+      .modal-content
+        .card-header
+          = link_to "", "#", class: "modal-close", data: { dismiss: "modal" }
+          | List of guides
+        form
+          .card-body
+            /p
+              | On the day of the tour, the main guide will be joined by a support guide
+            .row
+              - members.each do |member|
+                .col-xs-4.col-md-3.text-center.row-space-1
+                  = link_to profile_path(user_id_to_profile_id(member.user_id)) do
+                    .media-photo.media-round.media-avatar
+                      .size90[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(member.user_id)}')"]
+                    .row-space-top-1.text-center.text-truncate
+                      = user_id_to_name(member.user_id)
+          .card-footer
+            = link_to "Close", "#", data: {dismiss:"modal"}, class: "btn"

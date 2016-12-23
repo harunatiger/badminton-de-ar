@@ -1,4 +1,19 @@
 #listings.coffee
+helpScrollEdit = (plasa) ->
+  titleTop = $('#tour-title').offset().top
+  overviewTop = $('#tour-overview').offset().top
+  notesTop = $('#tour-notes').offset().top
+  conditionTop = $('#tour-condition').offset().top
+  
+  titleHelp = $('.listing_help_block #tour-title-help')
+  overviewHelp = $('.listing_help_block #tour-overview-help')
+  notesHelp = $('.listing_help_block #tour-notes-help')
+  conditionHelp = $('.listing_help_block #tour-condition-help')
+
+  titleHelp.offset(top: titleTop)
+  overviewHelp.offset(top: overviewTop)
+  notesHelp.offset(top: notesTop + plasa)
+  conditionHelp.offset(top: conditionTop + plasa)
 $ ->
 
   # listings#new
@@ -224,7 +239,23 @@ $ ->
           $('#search_latitude').val ''
           $('#search_longitude').val　''
         return
+        
+      # area list
+      inputs.combobox
+        data: gon.pickup_areas
+        height: 200
+        width: '100%'
+        filterType: 'blank'
+        onSelect: ->
+          active = $(".cb-wrapper li.active")
+          index = $(".cb-wrapper li").index(active)
+          inputs.each ->
+            $(this).val gon.pickup_areas[index].key
+          $('#search_form').find('#search_latitude').val gon.pickup_areas[index].lat
+          $('#search_form').find('#search_longitude').val　gon.pickup_areas[index].lon
+          $('#search_form').submit()
       return
+      
     #! auto complete activate
     initPAC()
 
@@ -261,20 +292,20 @@ $ ->
       return
 
     # bootstrap datepicker
-    $('.datepicker')
-      .datepicker
-        autoclose: true,
-        startDate: '+1d',
-        language: 'en',
-        orientation: 'top auto'
-      .on 'show', (e) ->
-        $('#search_schedule').blur()
-    # for touch devices
-    if $('html').hasClass('touch')
-      $('.datepicker').attr('readonly', 'readonly')
-      $('.datepicker').on 'touchstart', (e) ->
-        $(this).datepicker('show')
-        e.preventDefault()
+    # $('.datepicker')
+    #   .datepicker
+    #     autoclose: true,
+    #     startDate: '+1d',
+    #     language: 'en',
+    #     orientation: 'top auto'
+    #   .on 'show', (e) ->
+    #     $('#search_schedule').blur()
+    # # for touch devices
+    # if $('html').hasClass('touch')
+    #   $('.datepicker').attr('readonly', 'readonly')
+    #   $('.datepicker').on 'touchstart', (e) ->
+    #     $(this).datepicker('show')
+    #     e.preventDefault()
 
     # duration range
     if $("#duration-range").val()
@@ -295,12 +326,8 @@ $ ->
     # show filetr
     $('.show-sort-filter').on 'click', (e) ->
       $('.default-buttons').hide()
-      $('.sort-filter, .apply-buttons').show()
-      $('.filter-text').show()
-      if $('#search_sort_by').val() == 'Tour'
-        $(".sort-filter a[class='tour_tab']").tab('show')
-      else if $('#search_sort_by').val() == 'Spot'
-        $(".sort-filter a[class='spot_tab']").tab('show')
+      $('.apply-buttons').show()
+      $("#tab-tour").removeClass('hide')
       e.preventDefault()
 
     # reset filetr
@@ -311,22 +338,15 @@ $ ->
       # pc
       else
         $('.default-buttons').show()
-        $('.sort-filter, .apply-buttons').hide()
-        $('#tab-spot, #tab-tour').removeClass('active')
-        $('.sort-filter li').removeClass('active')
-        $('.filter-text').hide()
+        $('.apply-buttons').hide()
 
       # clear search params
-      $('#search_sort_by').val ''
-      $('#search_spot_category').val ''
       $("input[name='search[category1]']").each ->
         $(this).attr('checked', false)
       $("input[name='search[category2]']").each ->
         $(this).attr('checked', false)
       $("input[name='search[category3]']").each ->
         $(this).attr('checked', false)
-      $('#search_schedule').val ''
-      $('#search_num_of_people').val ''
       $("#duration-range").val ''
       $("input[name*='search[language_ids]']").each ->
         $(this).attr('checked', false)
@@ -336,25 +356,14 @@ $ ->
       e.preventDefault()
       return false
 
-    # sp sort-tab toggle
-    $('.sort-filter a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
-      if $('.filters').css('position') == 'fixed'
-        $('.apply-buttons').show()
-      $('.filter-text').hide()
-      return
-
     # sp filter show/hide
     $('.js-small-filter-show').on 'click', (e) ->
       $('.filters').show()
       # clear duration range
       $('#duration-range').val ''
-      if !$('.sort-filter .nav-tabs li').hasClass('active')
-        $('.filter-text').show()
 
-      if $('#search_sort_by').val() == 'Tour'
-        $(".sort-filter a[class='tour_tab']").tab('show')
-      else if $('#search_sort_by').val() == 'Spot'
-        $(".sort-filter a[class='spot_tab']").tab('show')
+      $('.apply-buttons').show()
+      $("#tab-tour").removeClass('hide')
       e.preventDefault()
     $('.js-small-filters-close').on 'click', (e) ->
       $('.filters').hide()
@@ -617,53 +626,53 @@ $ ->
   if $('body').hasClass('listings show') || $('body').hasClass('listing_details manage') || $('body').hasClass('listings preview')
 
     # price calc
-    tourPriceSingleContainer = $('#tour-price-single')
-    tourPriceSingle = 0
-    tourPriceBase = Number($('#tour-price-base').text())
-    tourPriceOption = Number($('#tour-price-option').text())
-    tourPriceOptionSingle = Number($('#tour-price-option-single').text())
+    # tourPriceSingleContainer = $('#tour-price-single')
+    # tourPriceSingle = 0
+    # tourPriceBase = Number($('#tour-price-base').text())
+    # tourPriceOption = Number($('#tour-price-option').text())
+    # tourPriceOptionSingle = Number($('#tour-price-option-single').text())
 
-    tourMemberCalcedContainer = $('#tour-member_calced')
-    tourPriceBaseCalcedContainer = $('#tour-price-base_calced')
-    tourPriceOptionCalcedContainer = $('#tour-price-option_calced')
-    tourPriceOptionSingleCalcedContainer = $('#tour-price-option-single_calced')
-    serviceCostCalcedContainer = $('#service-cost_calced')
-    tourPriceResultCalcedContainer = $('#tour-price-result_calced')
+    # tourMemberCalcedContainer = $('#tour-member_calced')
+    # tourPriceBaseCalcedContainer = $('#tour-price-base_calced')
+    # tourPriceOptionCalcedContainer = $('#tour-price-option_calced')
+    # tourPriceOptionSingleCalcedContainer = $('#tour-price-option-single_calced')
+    # serviceCostCalcedContainer = $('#service-cost_calced')
+    # tourPriceResultCalcedContainer = $('#tour-price-result_calced')
 
-    tourPriceSingle = tourPriceBase + tourPriceOption + tourPriceOptionSingle
-    tourPriceSingleContainer.text(tourPriceSingle)
+    # tourPriceSingle = tourPriceBase + tourPriceOption + tourPriceOptionSingle
+    # tourPriceSingleContainer.text(tourPriceSingle)
 
-    priceCulc = ->
-      $('#culc-container').show()
-      numOfPeople = Number($('#num-of-people option:selected').text())
-      tourPriceBaseCalcedContainer.text(tourPriceBase)
-      tourMemberCalcedContainer.text(numOfPeople)
-      tourPriceOptionCalcedContainer.text(tourPriceOption)
-      tourPriceOptionSingleCalced = tourPriceOptionSingle * numOfPeople
-      tourPriceOptionSingleCalcedContainer.text(tourPriceOptionSingleCalced)
-      if tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced < 2000
-        serviceCostCalced = 500
-      else
-        serviceCostCalced = Math.ceil((tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced) * 0.145)
-      serviceCostCalcedContainer.text(serviceCostCalced)
-      tourPriceResultCalcedContainer.text(tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced + serviceCostCalced)
-      return
+    # priceCulc = ->
+    #   $('#culc-container').show()
+    #   numOfPeople = Number($('#num-of-people option:selected').text())
+    #   tourPriceBaseCalcedContainer.text(tourPriceBase)
+    #   tourMemberCalcedContainer.text(numOfPeople)
+    #   tourPriceOptionCalcedContainer.text(tourPriceOption)
+    #   tourPriceOptionSingleCalced = tourPriceOptionSingle * numOfPeople
+    #   tourPriceOptionSingleCalcedContainer.text(tourPriceOptionSingleCalced)
+    #   if tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced < 2000
+    #     serviceCostCalced = 500
+    #   else
+    #     serviceCostCalced = Math.ceil((tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced) * 0.145)
+    #   serviceCostCalcedContainer.text(serviceCostCalced)
+    #   tourPriceResultCalcedContainer.text(tourPriceBase + tourPriceOption + tourPriceOptionSingleCalced + serviceCostCalced)
+    #   return
 
-    $('#num-of-people select').on 'change', ->
-      priceCulc()
+    # $('#num-of-people select').on 'change', ->
+    #   priceCulc()
 
-    $('#checkin').on 'changeDate', ->
-      priceCulc()
+    # $('#checkin').on 'changeDate', ->
+    #   priceCulc()
 
-    calcExchagedPrice = (amount)->
-      currency_code = gon.currency.currency_code
-      rate = gon.currency.rate
-      if currency_code == 'JPY'
-        return amount
-      else if currency_code == 'HUF' or currency_code == 'TWD'
-        return Math.ceil(amount * rate)
-      else
-        return (amount * rate).toFixed(2)
+    # calcExchagedPrice = (amount)->
+    #   currency_code = gon.currency.currency_code
+    #   rate = gon.currency.rate
+    #   if currency_code == 'JPY'
+    #     return amount
+    #   else if currency_code == 'HUF' or currency_code == 'TWD'
+    #     return Math.ceil(amount * rate)
+    #   else
+    #     return (amount * rate).toFixed(2)
 
 #     calcExchagedPriceWithFee = (amount)->
 #       currency_code = gon.currency.currency_code
@@ -677,31 +686,31 @@ $ ->
 #         exchange_fee = calcExchangeFee(amount)
 #         return (amount * rate + parseFloat(exchange_fee)).toFixed(2)
 
-    calcExchangeFee = (amount)->
-      currency_code = gon.currency.currency_code
-      rate = gon.currency.rate
-      exhange_fee_rate = gon.currency.exhange_fee_rate
+    # calcExchangeFee = (amount)->
+    #   currency_code = gon.currency.currency_code
+    #   rate = gon.currency.rate
+    #   exhange_fee_rate = gon.currency.exhange_fee_rate
 
-      result = Math.ceil(amount * exhange_fee_rate)
-      result = result * rate
+    #   result = Math.ceil(amount * exhange_fee_rate)
+    #   result = result * rate
 
-      if currency_code == 'HUF' or currency_code == 'TWD'
-        return Math.ceil(result)
-      else
-        return result.toFixed(2)
+    #   if currency_code == 'HUF' or currency_code == 'TWD'
+    #     return Math.ceil(result)
+    #   else
+    #     return result.toFixed(2)
 
-    $('#reservation_num_of_people').on 'change', ->
-      numOfPeople = Number($('#reservation_num_of_people option:selected').text())
+    # $('#reservation_num_of_people').on 'change', ->
+    #   numOfPeople = Number($('#reservation_num_of_people option:selected').text())
 
-      basicPrice = Number($('#reservation_price').val()) + Number($('#reservation_price_for_support').val())
-      bycycleCost = Number($('#reservation_bicycle_rental').val()) * numOfPeople
-      carCost = Number($('#reservation_car_rental').val()) + Number($('#reservation_gas').val()) + Number($('#reservation_highway').val()) + Number($('#reservation_parking').val())
-      otherCost = Number($('#reservation_other_cost').val())
-      optionAmount = carCost + bycycleCost + otherCost
-      basicPrice = basicPrice + optionAmount
-      $('#tour-option-bicycle').text(calcExchagedPrice(bycycleCost))
-      $('#tour-option-amount').text(calcExchagedPrice(optionAmount))
-      $('#tour-basic-amount').text(calcExchagedPrice(basicPrice))
+    #   basicPrice = Number($('#reservation_price').val()) + Number($('#reservation_price_for_support').val())
+    #   bycycleCost = Number($('#reservation_bicycle_rental').val()) * numOfPeople
+    #   carCost = Number($('#reservation_car_rental').val()) + Number($('#reservation_gas').val()) + Number($('#reservation_highway').val()) + Number($('#reservation_parking').val())
+    #   otherCost = Number($('#reservation_other_cost').val())
+    #   optionAmount = carCost + bycycleCost + otherCost
+    #   basicPrice = basicPrice + optionAmount
+    #   $('#tour-option-bicycle').text(calcExchagedPrice(bycycleCost))
+    #   $('#tour-option-amount').text(calcExchagedPrice(optionAmount))
+    #   $('#tour-basic-amount').text(calcExchagedPrice(basicPrice))
       #$('#tour-basic-amount').text(calcExchagedPriceWithFee(basicPrice))
       #if currency_code != 'JPY'
       #  $('#exchange-fee').text(calcExchangeFee(basicPrice))
@@ -1178,11 +1187,13 @@ $ ->
       if markers.length == 0
         $('#map').parents('#map-wrapper').slideUp()
         $('#map').parents('#map-wrapper').removeClass('in')
+        helpScrollEdit(-500)
         show = false
       else
         $('#map').parents('#map-wrapper').slideDown()
         $('#map').parents('#map-wrapper').addClass('in')
         $('#map').css 'height', '300px'
+        helpScrollEdit(0)
         show = true
 
     google.maps.event.addDomListener window, 'load', initialize
@@ -1287,6 +1298,7 @@ $ ->
 
           google.maps.event.addListener markers[index], 'dragend', (e) ->
             geocodeLatLng e.latLng.lat(), e.latLng.lng(), index
+          
       return
 
     autoComplete()
@@ -1360,3 +1372,33 @@ $ ->
           if tempP.is('a')
             return false
         return
+        
+  # cancel member request      
+  if $('body').hasClass('listings show')
+    $('#cancel_member_request').on 'click', ->
+      $('.preview_link').hide("slow")
+      return
+      
+  # add params for member request link
+  if $('body').hasClass('listings search')
+    $("a[href^='/listings/']").each () ->
+      href = $(this).attr('href')
+      $(this).attr('href', href + '?member_request_link=true')
+      
+  # regulate categories count
+  if $('body').hasClass('listings new') || $('body').hasClass('listings edit') || $('body').hasClass('listings create') || $('body').hasClass('listings update')
+    $(".listing_pickuptag_checkbox input[type='checkbox']").on 'change', ->
+      if $(".listing_pickuptag_checkbox input[type='checkbox']:checked").length > 3
+        $(this).attr('checked', false)
+        alert 'You can register a maximum of 3 categories.'
+        return false
+      return
+      
+    # title counter
+    $("#title_counter").text(20 - $("#listing_title").val().length)
+    $("#title_2_counter").text(20 - $("#listing_title_2").val().length)
+    $("#listing_title").on 'keyup', ->
+      $("#title_counter").text(20 - $(this).val().length)
+    $("#listing_title_2").on 'keyup', ->
+      $("#title_2_counter").text(20 - $(this).val().length)
+    

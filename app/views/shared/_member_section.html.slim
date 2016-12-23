@@ -1,0 +1,8 @@
+.pair-guide-list-container
+  - if member_section_guides(listing).present?
+    - member_section_guides(listing).each_with_index do |guide, i|
+      - break if i == 4
+      .media-photo.media-round.media-avatar
+        .size50[style="background-image: url('#{asset_path user_id_to_profile_image_thumb(guide.user_id)}')"]
+    = link_to "#", class: "pair_guide_list-trigger media-photo media-round text-center" do
+      b more

@@ -13,6 +13,7 @@
 //= require jquery
 //= require lib/jquery.balloon
 //= require lib/jquery.flicker.min
+//= require lib/combobox
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery-ui/droppable
@@ -36,6 +37,7 @@
 //= require dashboard
 //= require message
 //= require listings
+//= require listing_users
 //= require reservation
 //= require listingdetails
 //= require profiles

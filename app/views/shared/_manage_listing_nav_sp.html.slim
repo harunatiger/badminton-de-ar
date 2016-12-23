@@ -109,20 +109,6 @@
             = link_to '#' , class: "disable-item" do
               | STEP3
 
-      - if controller_name == "calendar"
-        li.nav-item-sp.nav-active-sp.col-xs-2
-          = link_to listing_calendar_index_path(@listing) do
-            | STEP4
-      - else
-        - if @listing.id.present?
-          li.nav-item-sp.col-xs-2
-            = link_to listing_calendar_index_path(@listing) do
-              | STEP4
-        - else
-          li.nav-item-sp.col-xs-2
-            = link_to '#', class: "disable-item" do
-              | STEP4
-
       li.nav-item-sp.col-xs-2
         - if @listing.id.present?
           = link_to listing_preview_path(@listing) do
