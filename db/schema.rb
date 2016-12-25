@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220135612) do
+ActiveRecord::Schema.define(version: 20161225081924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -602,17 +602,19 @@ ActiveRecord::Schema.define(version: 20161220135612) do
   end
 
   create_table "pickups", force: :cascade do |t|
-    t.string   "short_name",        default: ""
-    t.string   "cover_image",       default: ""
+    t.string   "short_name",                                default: ""
+    t.string   "cover_image",                               default: ""
     t.integer  "selected_listing"
     t.string   "type"
     t.integer  "order_number"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "cover_image_small", default: ""
-    t.string   "long_name",         default: ""
-    t.string   "icon",              default: ""
-    t.string   "icon_small",        default: ""
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.string   "cover_image_small",                         default: ""
+    t.string   "long_name",                                 default: ""
+    t.string   "icon",                                      default: ""
+    t.string   "icon_small",                                default: ""
+    t.decimal  "longitude",         precision: 9, scale: 6
+    t.decimal  "latitude",          precision: 9, scale: 6
   end
 
   add_index "pickups", ["short_name"], name: "index_pickups_on_short_name", using: :btree
@@ -863,6 +865,7 @@ ActiveRecord::Schema.define(version: 20161220135612) do
     t.integer  "insurance_fee",                                       default: 0
     t.integer  "transportation_cost_main",                            default: 0
     t.integer  "transportation_cost_support",                         default: 0
+    t.integer  "plan"
   end
 
   add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree
@@ -1046,6 +1049,8 @@ ActiveRecord::Schema.define(version: 20161220135612) do
     t.uuid     "uuid"
     t.string   "access_token"
     t.string   "access_token_expires_at"
+    t.datetime "became_main_guide_at"
+    t.datetime "became_support_guide_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

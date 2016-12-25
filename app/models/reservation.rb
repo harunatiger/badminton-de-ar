@@ -50,6 +50,7 @@
 #  insurance_fee               :integer          default(0)
 #  transportation_cost_main    :integer          default(0)
 #  transportation_cost_support :integer          default(0)
+#  plan                        :integer
 #
 # Indexes
 #

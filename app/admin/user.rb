@@ -6,8 +6,10 @@ ActiveAdmin.register User do
   after_update do |user|
     if @user_type_was != user.user_type and user.support_guide?
       PairGuideMailer.become_support_guide_notification(user).deliver_now!
+      user.update(became_support_guide_at: Time.zone.now)
     elsif @user_type_was != user.user_type and user.main_guide?
       PairGuideMailer.become_main_guide_notification(user).deliver_now!
+      user.update(became_main_guide_at: Time.zone.now)
     end
   end
   
