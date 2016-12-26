@@ -61,7 +61,7 @@
               i.fa.fa-book[data-toggle="tooltip" data-placement="top" title="total reservations"]
               b = data.reservations_monthly_count(listings)
             .col-xs-3
-              i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="total sales"]
+              i.fa.fa-jpy[data-toggle="tooltip" data-placement="top" title="total sales"]
               b = data.sales_monthly_amount(listings)
 
       - if data.tour == Settings.chart_data.tours.all
@@ -88,23 +88,23 @@
                   i.fa.fa-book[data-toggle="tooltip" data-placement="top" title="reservations"]
                   b = listing.reservations_monthly_count(data)
                 .col-xs-3
-                  i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="sales"]
+                  i.fa.fa-jpy[data-toggle="tooltip" data-placement="top" title="sales"]
                   b = listing.sales_monthly_amount(data)
-        .row
-          .col-md-12
-            .row.text-center.text-muted.text-left--sp
-              .col-xs-6.col-md-3
-                i.fa.fa-check
-                small  PREVIEWS
-              .col-xs-6.col-md-3
-                i.fa.fa-heart
-                small  FAVORITES
-              .col-xs-6.col-md-3
-                i.fa.fa-book
-                small  RESERVATIONS
-              .col-xs-6.col-md-3
-                i.fa.fa-usd
-                small  SALES
+      .row
+        .col-md-12
+          .row.text-center.text-muted.text-left--sp
+            .col-xs-6.col-md-3
+              i.fa.fa-check
+              small  PREVIEWS
+            .col-xs-6.col-md-3
+              i.fa.fa-heart
+              small  FAVORITES
+            .col-xs-6.col-md-3
+              i.fa.fa-book
+              small  RESERVATIONS
+            .col-xs-6.col-md-3
+              i.fa.fa-jpy
+              small  SALES
 
 
     .table-container.row-space-top-2
@@ -126,7 +126,7 @@
               i.fa.fa-book[data-toggle="tooltip" data-placement="top" title="reservations whole count"]
               b = data.reservations_whole_count(listings)
             .col-xs-3
-              i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="sales whole amount"]
+              i.fa.fa-jpy[data-toggle="tooltip" data-placement="top" title="sales whole amount"]
               b = data.sales_whole_amount(listings)
 
       - if data.tour == Settings.chart_data.tours.all
@@ -153,5 +153,5 @@
                   i.fa.fa-book[data-toggle="tooltip" data-placement="top" title="reservations"]
                   b = listing.reservations_whole_count
                 .col-xs-3
-                  i.fa.fa-usd[data-toggle="tooltip" data-placement="top" title="sales"]
+                  i.fa.fa-jpy[data-toggle="tooltip" data-placement="top" title="sales"]
                   b = listing.sales_whole_amount

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221151349) do
+ActiveRecord::Schema.define(version: 20161225081924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -865,6 +865,7 @@ ActiveRecord::Schema.define(version: 20161221151349) do
     t.integer  "insurance_fee",                                       default: 0
     t.integer  "transportation_cost_main",                            default: 0
     t.integer  "transportation_cost_support",                         default: 0
+    t.integer  "plan"
   end
 
   add_index "reservations", ["campaign_id"], name: "index_reservations_on_campaign_id", using: :btree
@@ -1048,6 +1049,8 @@ ActiveRecord::Schema.define(version: 20161221151349) do
     t.uuid     "uuid"
     t.string   "access_token"
     t.string   "access_token_expires_at"
+    t.datetime "became_main_guide_at"
+    t.datetime "became_support_guide_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
