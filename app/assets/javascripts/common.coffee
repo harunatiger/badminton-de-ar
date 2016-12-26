@@ -798,6 +798,13 @@ $ ->
           $('#search_form').find('#search_latitude').val gon.pickup_areas[index].lat
           $('#search_form').find('#search_longitude').val　gon.pickup_areas[index].lon
           $('#search_form').submit()
+          
+      $('#search_form').submit ->
+        if $('#location-search').val() == ''
+          $('#search_form').find('#search_latitude').val gon.pickup_areas[0].lat
+          $('#search_form').find('#search_longitude').val　gon.pickup_areas[0].lon
+          $('#location-search').val gon.pickup_areas[0].key
+          return
       return
       
     #! auto complete activate
@@ -846,6 +853,13 @@ $ ->
           $('#headroom-header').find('#search_latitude').val gon.pickup_areas[index].lat
           $('#headroom-header').find('#search_longitude').val　gon.pickup_areas[index].lon
           $('#header_search_form').submit()
+          
+      $('#header_search_form').submit ->
+        if $('#header-location-search').val() == ''
+          $('#headroom-header').find('#search_latitude').val gon.pickup_areas[0].lat
+          $('#headroom-header').find('#search_longitude').val　gon.pickup_areas[0].lon
+          $('#header-location-search').val gon.pickup_areas[0].key
+          return
       return
       
     #! header auto complete activate
