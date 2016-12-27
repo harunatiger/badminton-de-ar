@@ -45,6 +45,8 @@ en:
         number: '口座番号'
       profile_identity:
         image: 'ID picture'
+      profile_pickups:
+        pickup_id: 'category'
       review:
         msg: 'Message'
         total: 'Rating'

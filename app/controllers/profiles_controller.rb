@@ -100,7 +100,12 @@ class ProfilesController < ApplicationController
         format.json { render :show, status: :ok, location: @profile }
       else
         @not_update_previous_url = true if session[:previous_url].index("send_message").present?
-        format.html { render 'edit' }
+        if params[:page_self_introduction].present?
+          render_action = 'self_introduction'
+        else
+          render_action = 'edit'
+        end
+        format.html { render render_action }
         format.json { render json: @profile.errors, status: :unprocessable_entity }
       end
     end
