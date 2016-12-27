@@ -96,6 +96,12 @@ module ApplicationHelper
       "#{@listing.title}！Make Friend, Start Trip!"
     elsif controller_name == 'profiles' and action_name == 'show'
       "#{@profile.try('first_name')}'s self-Introduction！Make Friend, Start Trip!"
+    elsif controller_name == 'features'
+      if action_name == 'index'
+        "Only one hour from Tokyo - Kamakura -"
+      elsif action_name == 'kyoto'
+        "Step in Kyoto - Kyoto -"
+      end
     else
       'Dive into the real Japan! Friendly Locals as Your Guides.'
     end
@@ -113,6 +119,12 @@ module ApplicationHelper
         @profile.thumb_images.present? ? "#{request.host + @profile.thumb_images.first.image.url}" : "http://huber-japan.com/assets/og.png"
       else
         @profile.thumb_images.present? ? @profile.thumb_images.first.image.url : "http://huber-japan.com/assets/og.png"
+      end
+    elsif controller_name == 'features'
+      if action_name == 'index'
+        asset_url("feature/hero-image.jpg")
+      elsif action_name == 'kyoto'
+        asset_url('feature_kyoto/hero-image.jpg')
       end
     else
       "http://huber-japan.com/assets/og.png"
