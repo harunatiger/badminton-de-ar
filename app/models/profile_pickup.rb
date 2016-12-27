@@ -19,6 +19,8 @@ class ProfilePickup < ActiveRecord::Base
   belongs_to :profile
   belongs_to :pickup
   
+  validates :pickup_id, :uniqueness => {:scope => :profile_id}
+  
   scope :order_by_created_at_asc, -> { order('created_at asc') }
   
   def tag_list_sort_by_created_at
