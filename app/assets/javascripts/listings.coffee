@@ -254,8 +254,16 @@ $ ->
           $('#search_form').find('#search_latitude').val gon.pickup_areas[index].lat
           $('#search_form').find('#search_longitude').val　gon.pickup_areas[index].lon
           $('#search_form').submit()
+      $('#search_form').submit ->
+        if $('#location-search').val() == ''
+          $('#search_form').find('#search_latitude').val gon.pickup_areas[0].lat
+          $('#search_form').find('#search_longitude').val　gon.pickup_areas[0].lon
+          inputs.each ->
+            $(this).val gon.pickup_areas[0].key
+          return
+        
       return
-      
+        
     #! auto complete activate
     initPAC()
 
@@ -370,21 +378,26 @@ $ ->
       e.preventDefault()
 
     # search result map
-    initialize = ->
-      if gon.locations.length != 0
+    called_count = 0
+    initialize = (locations, center, zoom) ->
+      if locations.length == 0
+        return false
+      else
         bounds = new google.maps.LatLngBounds()
         mapOptions =
           scrollwheel: false
           zoom: 13
-          center: new (google.maps.LatLng)(gon.locations[0].latitude, gon.locations[0].longitude)
           mapTypeId: google.maps.MapTypeId.TERRAIN
 
         map = new (google.maps.Map)(document.getElementById('map'), mapOptions)
+        
+        if center
+          map.setCenter(center)
 
         # Multiple Markers
         # Info Window Content
         markers = new Array()
-        gon.locations.map (l) ->
+        locations.map (l) ->
           tmp_marker = new Array()
           tmp_marker.push(l.title, l.latitude, l.longitude, l.id, l.listing_id)
           markers.push(tmp_marker)
@@ -430,10 +443,42 @@ $ ->
             return
 
           # Automatically center the map fitting all markers on the screen
-          map.fitBounds bounds
           i++
+        unless zoom
+          map.fitBounds bounds
+        else
+          map.setZoom(zoom)
+        
+        google.maps.event.addListener map, 'dragend', ->
+          research()
+        google.maps.event.addListener map, 'zoom_changed', ->
+          called_count += 1
+          if called_count != 1
+            research()
+          
+        #research when move
+        research = ->
+          unless initializing
+            center = new google.maps.LatLng(map.getCenter().lat(), map.getCenter().lng())
+            zoom = map.getZoom()
+            bounds_sw = map.getBounds().getSouthWest()
+            bounds_ne = map.getBounds().getNorthEast()
+            search_bounds = [bounds_sw.lng(), bounds_sw.lat(), bounds_ne.lng(), bounds_ne.lat()]
+            $.ajax
+              type: 'GET'
+              url: location.href + '&[search]bounds=' + search_bounds
+              success: (data) ->
+                $('#result_block').html(data.html)
+                initializing = true
+                initialize(data.locations, center, zoom)
+                initializing = false
+                return false
+              error: ->
+                return false
 
-    google.maps.event.addDomListener window, 'load', initialize
+    initializing = true
+    google.maps.event.addDomListener window, 'load', initialize(gon.locations)
+    initializing = false
 
     #set hidden_feild
     $(document).on 'click', "a[data-toggle='tab']", ->

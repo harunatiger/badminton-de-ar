@@ -60,4 +60,15 @@ module Search
     deg = Math::sin(from_y) * Math::sin(to_y) + Math::cos(from_y) * Math::cos(to_y) * Math::cos(to_x - from_x)
     distance = earth_r * (Math::atan(-deg / Math::sqrt(-deg * deg + 1)) + Math::PI / 2) / 1000
   end
+  
+  def self.inner_bounds?(bounds, lon, lat)
+    # js => [bounds_sw.lng(), bounds_sw.lat(), bounds_ne.lng(), bounds_ne.lat()]
+    bounds_array = bounds.split(',')
+    west = bounds_array[0].to_f
+    south = bounds_array[1].to_f
+    east = bounds_array[2].to_f
+    north = bounds_array[3].to_f
+    return true if (west < lon && lon < east) && (south < lat && lat < north )
+    false
+  end
 end

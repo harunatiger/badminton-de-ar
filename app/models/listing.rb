@@ -208,11 +208,18 @@ class Listing < ActiveRecord::Base
       listing_id_array = []
       listing_destination_id_array = []
       listing_destinations.each do |listing_destination|
-        distance = Search.distance(search_params["longitude"].to_f, search_params["latitude"].to_f, listing_destination.longitude, listing_destination.latitude)
-        
-        if distance <= max_distance
-          listing_id_array.push(listing_destination.listing_id)
-          listing_destination_id_array.push(listing_destination.id)
+        if search_params["bounds"].present?
+          if Search.inner_bounds?(search_params["bounds"], listing_destination.longitude, listing_destination.latitude)
+            listing_id_array.push(listing_destination.listing_id)
+            listing_destination_id_array.push(listing_destination.id)
+          end
+        else
+          distance = Search.distance(search_params["longitude"].to_f, search_params["latitude"].to_f, listing_destination.longitude, listing_destination.latitude)
+          
+          if distance <= max_distance
+            listing_id_array.push(listing_destination.listing_id)
+            listing_destination_id_array.push(listing_destination.id)
+          end
         end
       end
       [listing_id_array, listing_destination_id_array]

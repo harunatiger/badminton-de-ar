@@ -3,16 +3,17 @@ class CommonSearchController < ApplicationController
     session[:dummy_count] = nil if params[:page].blank?
     
     search_result = Search.search_listings_and_spots(search_params)
-    @new_listings = []
-    
-    max_distance = Settings.search.distance
-    while search_result[:results].blank? or search_result[:results].length < Settings.search.display_count
-      max_distance += Settings.search.distance
-      search_result = Search.search_listings_and_spots(search_params, max_distance)
-      search_result[:results] = search_result[:results].take(10) if search_result[:results].present?
-      break if max_distance == Settings.search.distance * 10
+    if search_result['bounds'].blank?
+      max_distance = Settings.search.distance
+      while search_result[:results].blank? or search_result[:results].length < Settings.search.display_count
+        max_distance += Settings.search.distance
+        search_result = Search.search_listings_and_spots(search_params, max_distance)
+        search_result[:results] = search_result[:results].take(10) if search_result[:results].present?
+        break if max_distance == Settings.search.distance * 10
+      end
     end
     
+    @new_listings = []
     if search_result[:results].present?
       @results = search_result[:results]
       gon.locations = search_result[:gon_locations]
@@ -47,7 +48,7 @@ class CommonSearchController < ApplicationController
   
   private
   def search_params
-    params.require(:search).permit(:location, :latitude, :longitude, :sort_by, :spot_category, :category1, :category2, :category3, :schedule, :num_of_people, :duration_range, :official, language_ids: [])
+    params.require(:search).permit(:location, :latitude, :longitude, :sort_by, :spot_category, :category1, :category2, :category3, :schedule, :num_of_people, :duration_range, :official, :bounds, language_ids: [])
   end
     
 end
