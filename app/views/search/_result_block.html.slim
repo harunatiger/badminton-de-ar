@@ -1,3 +1,10 @@
+#result_block
+  - if results.blank?
+    .no-listings-block
+      div
+        p
+        | There aren't any results matching your search terms. Please change your search terms and try again.
+  - else
     .search-results.touch
       .outer-listings-container.row-space-5.row-space-2-sm
         .row.listings-container

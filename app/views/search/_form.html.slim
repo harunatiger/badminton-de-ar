@@ -3,6 +3,7 @@
   = f.hidden_field :longitude, value: @conditions['longitude']
   = f.hidden_field :sort_by, value: @conditions['sort_by']
   = f.hidden_field :official, value: @conditions['official']
+  = f.hidden_field :bounds, value: ''
   .map-search-container
     .sidebar
       .search-trigger--sp.show--sp.page-container
@@ -23,13 +24,7 @@
 
       = render partial: 'search/filter', locals: { hit_count: @hit_count, conditions: @conditions, f: f }
       .sidebar-header-placeholder.show--sp
-      - if @results.blank?
-        .no-listings-block
-          div
-            p
-              | There aren't any results matching your search terms. Please change your search terms and try again.
-      - else
-        = render partial: 'search/result_block', locals: { results: @results, conditions: @conditions, new_listings: @new_listings }
+      = render partial: 'search/result_block', locals: { results: @results, conditions: @conditions, new_listings: @new_listings }
     .map.hide--sp
       - if @results.blank?
         .no-listings-map
