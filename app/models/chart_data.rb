@@ -3,10 +3,10 @@ class ChartData
   attr_accessor :day, :tour, :data, :benchmark, :chart_data, :reservation_date_list
   
   def set_chart_data(listings)
+    self.reservation_date_list = []
     if listings.present?
       result = []
       benchmark_result = []
-      self.reservation_date_list = []
       if self.tour == Settings.chart_data.tours.all
         if self.data == Settings.chart_data.data.pv
           (Date.parse(self.day.beginning_of_month.to_s)..Date.parse(self.day.end_of_month.to_s)).each do |date|
