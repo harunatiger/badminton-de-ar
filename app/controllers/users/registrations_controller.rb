@@ -3,6 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   def new
     session[:reservation_params] = nil
+    @favorite_added = params[:favorite].present?
     super
   end
 
@@ -13,7 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       super
     else
       super
-      profile = Profile.create(user_id: resource.id)
+      #profile = Profile.create(user_id: resource.id)
     end
   end
   
@@ -75,6 +76,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
   
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up).push(profile_attributes: [:first_name, :xhr])
+    devise_parameter_sanitizer.for(:sign_up).push(profile_attributes: [:first_name, :first_name_needed])
   end
 end

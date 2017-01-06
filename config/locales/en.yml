@@ -40,6 +40,7 @@ en:
       profile:
         phone: 'Phone number'
         free_field: 'Introduction field'
+        first_name: 'First name'
       profile_bank:
         name: '銀行名'
         branch_name: '支店名'

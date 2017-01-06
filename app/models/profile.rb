@@ -73,22 +73,18 @@ class Profile < ActiveRecord::Base
   accepts_nested_attributes_for :profile_pickups, allow_destroy: true
   accepts_nested_attributes_for :profile_video, allow_destroy: true
 
-  validates :user_id, presence: true, unless: :exist_xhr?
+  validates :user_id, presence: true, on: :update
   validates :user_id, uniqueness: true
   validate :last_name_presence, if: :enable_strict_validation, on: :update
   validates :first_name, :country, :phone, presence: true, if: :enable_strict_validation, on: :update
   VALID_PHONE_REGEX = /\A[-+0-9]+\z/
   validates :phone, format: { with: VALID_PHONE_REGEX, if: :enable_strict_validation, on: :update }
-  validates :first_name, presence: true, if: :xhr
+  validates :first_name, presence: true, if: :first_name_needed
   
-  attr_accessor :xhr
+  attr_accessor :first_name_needed
   
   scope :contains?, -> name { where('last_name ILIKE ? or first_name ILIKE ?', '%' + name + '%', '%' + name + '%') }
   scope :order_by_created_at_asc, -> { order('created_at asc') }
-
-  def exist_xhr?
-    self.xhr.present?
-  end
   
   def last_name_presence
     if self.last_name.empty?
