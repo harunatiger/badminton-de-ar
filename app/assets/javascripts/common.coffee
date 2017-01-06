@@ -777,9 +777,6 @@ $ ->
 
       $('#location-search').keydown (e) ->
         if e.keyCode == 13
-          if location_being_changed
-            e.preventDefault()
-            e.stopPropagation()
         else
           $('#search_form').find('#search_latitude').val ''
           $('#search_form').find('#search_longitude').val　''
@@ -799,12 +796,39 @@ $ ->
           $('#search_form').find('#search_longitude').val　gon.pickup_areas[index].lon
           $('#search_form').submit()
           
-      $('#search_form').submit ->
+      $('#search_form').submit (e)->
         if $('#location-search').val() == ''
           $('#search_form').find('#search_latitude').val gon.pickup_areas[0].lat
           $('#search_form').find('#search_longitude').val　gon.pickup_areas[0].lon
           $('#location-search').val gon.pickup_areas[0].key
           return
+        else if $('#search_form').find('#search_latitude').val() == ''
+          SelectFirstResult(0, $('#location-search'))
+          e.preventDefault()
+          e.stopPropagation()
+          $('#search_form').off( 'submit' )
+          setTimeout (->
+            $('#search_form').submit()
+          ), 1000
+      return
+      
+    # select first prediction
+    SelectFirstResult = (index, input) ->
+      if input.val() != ''
+        firstResult = $('.pac-container').eq(index).find('.pac-item:first').text()
+        query = $('.pac-container').eq(index).find('.pac-item:first .pac-item-query').text()
+        firstResult = firstResult.replace(query,query + ', ')
+        
+        geocoder = new (google.maps.Geocoder)
+        geocoder.geocode { 'address': firstResult }, (results, status) ->
+          if status == google.maps.GeocoderStatus.OK
+            lat = results[0].geometry.location.lat()
+            lng = results[0].geometry.location.lng()
+            $('#search_form').find('#search_latitude').val lat
+            $('#search_form').find('#search_longitude').val lng
+            $('#headroom-header').find('#search_latitude').val lat
+            $('#headroom-header').find('#search_longitude').val lng
+            input.val firstResult
       return
       
     #! auto complete activate
@@ -832,9 +856,6 @@ $ ->
 
       $('#header-location-search').keydown (e) ->
         if e.keyCode == 13
-          if location_being_changed
-            e.preventDefault()
-            e.stopPropagation()
         else
           $('#headroom-header').find('#search_latitude').val ''
           $('#headroom-header').find('#search_longitude').val　''
@@ -854,12 +875,20 @@ $ ->
           $('#headroom-header').find('#search_longitude').val　gon.pickup_areas[index].lon
           $('#header_search_form').submit()
           
-      $('#header_search_form').submit ->
+      $('#header_search_form').submit (e)->
         if $('#header-location-search').val() == ''
           $('#headroom-header').find('#search_latitude').val gon.pickup_areas[0].lat
           $('#headroom-header').find('#search_longitude').val　gon.pickup_areas[0].lon
           $('#header-location-search').val gon.pickup_areas[0].key
           return
+        else if $('#header_search_form').find('#search_latitude').val() == ''
+          SelectFirstResult(1, $('#header-location-search'))
+          e.preventDefault()
+          e.stopPropagation()
+          $('#header_search_form').off( 'submit' )
+          setTimeout (->
+            $('#header_search_form').submit()
+          ), 1000
       return
       
     #! header auto complete activate

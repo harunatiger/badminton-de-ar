@@ -210,23 +210,23 @@ $ ->
         autocompletes[index] = new (google.maps.places.Autocomplete)(document.getElementById($(this).attr('id')))
       location_being_changed = undefined
 
-      $.each autocompletes, ->
+      $.each autocompletes, (index)->
         google.maps.event.addListener this, 'place_changed', ->
           place = this.getPlace()
           if place.geometry
             inputs.each ->
-              $(this).val place.formatted_address
+              #$(this).val place.formatted_address
+              $(this).val $(inputs[index]).val()
             $('#search_latitude').val place.geometry.location.lat()
             $('#search_longitude').val　place.geometry.location.lng()
             $('#search_form').submit()
           location_being_changed = false
           return
-
+          
+      input_index = 0
       inputs.keydown (e) ->
+        input_index = inputs.index(this)
         if e.keyCode == 13
-          if location_being_changed
-            e.preventDefault()
-            e.stopPropagation()
         else
           location_being_changed = true
         return
@@ -236,8 +236,10 @@ $ ->
         val = $(this).val()
         inputs.each ->
           $(this).val val
-          $('#search_latitude').val ''
-          $('#search_longitude').val　''
+        if location_being_changed
+          if e.keyCode != 13 && e.keyCode != 40 && e.keyCode != 38
+            $('#search_latitude').val ''
+            $('#search_longitude').val　''
         return
         
       # area list
@@ -254,14 +256,42 @@ $ ->
           $('#search_form').find('#search_latitude').val gon.pickup_areas[index].lat
           $('#search_form').find('#search_longitude').val　gon.pickup_areas[index].lon
           $('#search_form').submit()
-      $('#search_form').submit ->
+            
+      $('#search_form').submit (e)->
         if $('#location-search').val() == ''
           $('#search_form').find('#search_latitude').val gon.pickup_areas[0].lat
           $('#search_form').find('#search_longitude').val　gon.pickup_areas[0].lon
           inputs.each ->
             $(this).val gon.pickup_areas[0].key
           return
+        else if $('#search_form').find('#search_latitude').val() == ''
+          SelectFirstResult(input_index)
+          e.preventDefault()
+          e.stopPropagation()
+          $('#search_form').off( 'submit' )
+          setTimeout (->
+            $('#search_form').submit()
+          ), 1000
+          
+      return
+      
+    # select first prediction
+    SelectFirstResult = (index) ->
+      inputs = $("input[name='search[location]']")
+      if inputs.eq(index).val() != ''
+        firstResult = $('.pac-container').eq(index).find('.pac-item:first').text()
+        query = $('.pac-container').eq(index).find('.pac-item:first .pac-item-query').text()
+        firstResult = firstResult.replace(query,query + ', ')
         
+        geocoder = new (google.maps.Geocoder)
+        geocoder.geocode { 'address': firstResult }, (results, status) ->
+          if status == google.maps.GeocoderStatus.OK
+            lat = results[0].geometry.location.lat()
+            lng = results[0].geometry.location.lng()
+            $('#search_latitude').val lat
+            $('#search_longitude').val lng
+            inputs.each ->
+              $(this).val firstResult
       return
         
     #! auto complete activate
@@ -321,11 +351,11 @@ $ ->
       duration_value[0] = parseInt(duration_value[0])
       duration_value[1] = parseInt(duration_value[1])
     else
-      duration_value = [2,8]
+      duration_value = [0.5,24]
     $("#duration-range").slider
-      min: 1
+      min: 0.5
       max: 24
-      step: 1
+      step: 0.5
       range: true
       value: duration_value
       tooltip: 'always'
@@ -459,22 +489,23 @@ $ ->
         #research when move
         research = ->
           unless initializing
-            center = new google.maps.LatLng(map.getCenter().lat(), map.getCenter().lng())
-            zoom = map.getZoom()
-            bounds_sw = map.getBounds().getSouthWest()
-            bounds_ne = map.getBounds().getNorthEast()
-            search_bounds = [bounds_sw.lng(), bounds_sw.lat(), bounds_ne.lng(), bounds_ne.lat()]
-            $.ajax
-              type: 'GET'
-              url: location.href + '&[search]bounds=' + search_bounds
-              success: (data) ->
-                $('#result_block').html(data.html)
-                initializing = true
-                initialize(data.locations, center, zoom)
-                initializing = false
-                return false
-              error: ->
-                return false
+            if $('.map').css('display') != 'none'
+              center = new google.maps.LatLng(map.getCenter().lat(), map.getCenter().lng())
+              zoom = map.getZoom()
+              bounds_sw = map.getBounds().getSouthWest()
+              bounds_ne = map.getBounds().getNorthEast()
+              search_bounds = [bounds_sw.lng(), bounds_sw.lat(), bounds_ne.lng(), bounds_ne.lat()]
+              $.ajax
+                type: 'GET'
+                url: location.href + '&[search]bounds=' + search_bounds
+                success: (data) ->
+                  $('#result_block').html(data.html)
+                  initializing = true
+                  initialize(data.locations, center, zoom)
+                  initializing = false
+                  return false
+                error: ->
+                  return false
 
     initializing = true
     google.maps.event.addDomListener window, 'load', initialize(gon.locations)
