@@ -4,6 +4,7 @@ module Search
     gon_locations = []
     
     # search listings
+    #search_params = self.set_lon_lat(search_params)
     result_array = Listing.search(search_params, max_distance)
     if result_array.present?
       listing_ids = result_array[0]
@@ -70,5 +71,38 @@ module Search
     north = bounds_array[3].to_f
     return true if (west < lon && lon < east) && (south < lat && lat < north )
     false
+  end
+  
+  def self.set_lon_lat(params)
+    hash = Hash.new
+    if params['location'].present? && (params["longitude"].blank? || params["latitude"].blank?)
+      hash = self.geocode_with_google_map_api(params['location'])
+    end
+    if hash['success'].present?
+      params['longitude'] = hash['lng']
+      params['latitude'] = hash['lat']
+      params
+    end
+    params
+  end
+
+  def self.geocode_with_google_map_api(location)
+    base_url = "http://maps.google.com/maps/api/geocode/json"
+    address = URI.encode(location)
+    hash = Hash.new
+    reqUrl = "#{base_url}?address=#{address}&sensor=false&language=ja"
+    response = Net::HTTP.get_response(URI.parse(reqUrl))
+    case response
+    when Net::HTTPSuccess then
+      data = JSON.parse(response.body)
+      hash['lat'] = data['results'][0]['geometry']['location']['lat']
+      hash['lng'] = data['results'][0]['geometry']['location']['lng']
+      hash['success'] = true
+    else
+      hash['lat'] = 0.00
+      hash['lng'] = 0.00
+      hash['success'] = false
+    end
+    hash
   end
 end
