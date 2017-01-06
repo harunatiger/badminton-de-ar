@@ -759,7 +759,6 @@ $ ->
     initPAC = ->
       input = document.getElementById('location-search')
       options = {
-        #types: [ '(cities)' ],
         componentRestrictions: {
           country: "jp"
         }
@@ -819,16 +818,20 @@ $ ->
         query = $('.pac-container').eq(index).find('.pac-item:first .pac-item-query').text()
         firstResult = firstResult.replace(query,query + ', ')
         
-        geocoder = new (google.maps.Geocoder)
-        geocoder.geocode { 'address': firstResult }, (results, status) ->
-          if status == google.maps.GeocoderStatus.OK
-            lat = results[0].geometry.location.lat()
-            lng = results[0].geometry.location.lng()
-            $('#search_form').find('#search_latitude').val lat
-            $('#search_form').find('#search_longitude').val lng
-            $('#headroom-header').find('#search_latitude').val lat
-            $('#headroom-header').find('#search_longitude').val lng
-            input.val firstResult
+        service = new google.maps.places.AutocompleteService()
+        service.getQueryPredictions { input: firstResult }, (predictions, status) ->
+          if status == 'OK'
+            place_id = predictions[0].place_id
+            geocoder = new (google.maps.Geocoder)
+            geocoder.geocode { 'placeId': place_id }, (results, status) ->
+              if status == google.maps.GeocoderStatus.OK
+                lat = results[0].geometry.location.lat()
+                lng = results[0].geometry.location.lng()
+                $('#search_form').find('#search_latitude').val lat
+                $('#search_form').find('#search_longitude').val lng
+                $('#headroom-header').find('#search_latitude').val lat
+                $('#headroom-header').find('#search_longitude').val lng
+                input.val firstResult
       return
       
     #! auto complete activate
