@@ -76,3 +76,21 @@ $ ->
       fjs.parentNode.insertBefore js, fjs
       return
     ) document, 'script', 'facebook-jssdk'
+    
+    
+  if $('#sign_up_form')
+    message_href = $('#new_user').attr('action')
+    message_sns_href = $('#sns_button').attr('href')
+    $("#sign_up_form").on 'shown.bs.modal', (relatedTarget) ->
+      button = $(relatedTarget.relatedTarget)
+      if button.hasClass('favorite-btn')
+        $('#sign_up_form').find('.lead-text').text('Make an account and add to your Favourites!').append('<br />Free registration!')
+        href = '/users?favorite[type]=' + button.attr('type') + '&favorite[target_id]=' + button.attr('target_id')
+        href_sns = '/users/before_omniauth?favorite[type]=' + button.attr('type') + '&favorite[target_id]=' + button.attr('target_id')
+        $('#new_user').attr('action', href)
+        $('#sns_button').attr('href', href_sns)
+      else
+        $('#sign_up_form').find('.lead-text').text('Make an account to message Guides!').append('<br />Free registration!')
+        $('#new_user').attr('action', message_href)
+        $('#sns_button').attr('href', message_sns_href)
+      return

@@ -1,5 +1,11 @@
 <% if @user.persisted? %>
-  <% if session[:reservation_params].present? %>
+  <% if session[:favorite].present? %>
+    <% favorite_params = session[:favorite] %>
+    <% favorite_params[:user_id] = @user.id %>
+    <% Favorite.create_or_restore_from_params(session[:favorite], @user) %>
+    <% session[:favorite] = nil %>
+    location.reload();
+  <% elsif session[:reservation_params].present? %>
     <% session[:reservation_params_after_sign_up] = session[:reservation_params] %>
     <% session[:reservation_params] = nil %>
     <% listing = Listing.find_by_id(session[:reservation_params_after_sign_up]['listing_id']) %>

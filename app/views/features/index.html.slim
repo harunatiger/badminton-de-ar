@@ -511,3 +511,6 @@
           = image_tag 'feature/accessmap_a.png', class: "img-responsive", alt: "accessmap A"
         .col-md-5.row-space-8
           = image_tag 'feature/accessmap_b.png', class: "img-responsive", alt: "accessmap B"
+          
+- unless user_signed_in?
+  = render partial: 'shared/modals/sign_up_form'

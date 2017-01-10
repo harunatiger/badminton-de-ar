@@ -92,7 +92,9 @@ module ApplicationHelper
   end
 
   def og_description
-    if controller_name == 'listings' and (action_name == 'show' || action_name == 'preview')
+    if controller_name == 'welcome'
+      Settings.site_info.base_description
+    elsif controller_name == 'listings' and (action_name == 'show' || action_name == 'preview')
       "#{@listing.title}！Make Friend, Start Trip!"
     elsif controller_name == 'profiles' and action_name == 'show'
       "#{@profile.try('first_name')}'s self-Introduction！Make Friend, Start Trip!"
@@ -108,17 +110,29 @@ module ApplicationHelper
   end
 
   def og_image
-    if controller_name == 'listings' and (action_name == 'show' || action_name == 'preview')
-      if Rails.env.development?
-        @listing.listing_images.present? and @listing.listing_images.first.image.present? ? "#{request.host + @listing.listing_images.first.image.url}" : "http://huber-japan.com/assets/og.png"
+    if controller_name == 'static_pages'
+      if action_name == 'about'
+        asset_url('photo/learn-more001.jpg')
+      elsif action_name.index('plan4U')
+        asset_url('plan4U/second/top_image.png')
       else
-        @listing.listing_images.present? and @listing.listing_images.first.image.present? ? @listing.listing_images.first.image.url : "http://huber-japan.com/assets/og.png"
+        asset_url('top-slider/slide1.jpg')
+      end
+    elsif controller_name == 'welcome'
+      asset_url('top-slider/slide1.jpg')
+    elsif controller_name == 'pickups'
+      @pickup.cover_image.url
+    elsif controller_name == 'listings' and (action_name == 'show' || action_name == 'preview')
+      if Rails.env.development?
+        @listing.listing_images.present? and @listing.listing_images.first.image.present? ? "#{request.host + @listing.listing_images.first.image.url}" : asset_url('top-slider/slide1.jpg')
+      else
+        @listing.listing_images.present? and @listing.listing_images.first.image.present? ? @listing.listing_images.first.image.url : asset_url('top-slider/slide1.jpg')
       end
     elsif controller_name == 'profiles' and action_name == 'show'
       if Rails.env.development?
-        @profile.thumb_images.present? ? "#{request.host + @profile.thumb_images.first.image.url}" : "http://huber-japan.com/assets/og.png"
+        @profile.thumb_images.present? ? "#{request.host + @profile.thumb_images.first.image.url}" : asset_url('top-slider/slide1.jpg')
       else
-        @profile.thumb_images.present? ? @profile.thumb_images.first.image.url : "http://huber-japan.com/assets/og.png"
+        @profile.thumb_images.present? ? @profile.thumb_images.first.image.url : asset_url('top-slider/slide1.jpg')
       end
     elsif controller_name == 'features'
       if action_name == 'index'
@@ -127,7 +141,7 @@ module ApplicationHelper
         asset_url('feature_kyoto/hero-image.jpg')
       end
     else
-      "http://huber-japan.com/assets/og.png"
+      asset_url('top-slider/slide1.jpg')
     end
   end
 
