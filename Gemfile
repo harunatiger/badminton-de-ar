@@ -172,6 +172,12 @@ gem 'geoip'
 # get language from http header
 gem 'http_accept_language', '2.0.5'
 
+group :development do
+  # JSON Schema
+  gem 'prmd'
+  gem 'rack-json_schema'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '4.0.3'

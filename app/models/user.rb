@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   has_friendship
   devise :database_authenticatable, :registerable, :lockable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
-
+  
   has_many :auths, dependent: :destroy
   has_one :profile, dependent: :destroy
   #has_many :wishlists, dependent: :destroy
@@ -397,5 +397,41 @@ class User < ActiveRecord::Base
   
   def has_listing_admin_authority?
     self.main_guide? || self.official_account?
+  end
+  
+  ####### FOR API ##########
+  def set_uuid_to_only_user
+    if self.uuid.blank?
+      self.uuid = SecureRandom.uuid
+    end
+    self.save
+  end
+  
+  def check_access_token
+    if self.access_token.blank?
+      self.generate_access_token
+    end
+  end
+  
+  def generate_access_token
+    self.access_token = SecureRandom.uuid
+    self.access_token_expires_at = User.generate_exp
+    #self.refresh_token = User.generate_token
+    #self.password_digest = self.password_digest
+    self.save
+  end
+  
+  def self.generate_exp
+    time_now = Time.zone.now
+    exp = time_now + 36.month
+    exp.to_i
+  end
+  
+  def login_count_up
+    self.sign_in_count += 1
+    self.last_sign_in_at = self.current_sign_in_at
+    self.current_sign_in_at = Time.zone.now
+    #self.password_digest = self.password_digest
+    self.save
   end
 end

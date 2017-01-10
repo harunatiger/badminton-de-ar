@@ -259,6 +259,13 @@ Rails.application.routes.draw do
   get "weekly_payment_report" => 'admin/payment#payment_weekly_report'
   get "payment_report_index" => 'admin/payment#index'
   root 'welcome#index'
+  
+  namespace :api, format: 'json' do
+    namespace :v1 do
+      post 'users/sign_in_via_email'     => 'users#sign_in_via_email'
+      get 'listings'     => 'listings#index'
+    end
+  end
 
   get '*path', controller: 'application', action: 'render_404'
 end
