@@ -103,40 +103,40 @@ class User < ActiveRecord::Base
       )
     end
     user.skip_confirmation! if !create_email and !user.unconfirmed?
-    user.save
-
-    unless Profile.exists?(user_id: user.id)
-      profile = Profile.new(
-        user_id: user.id,
-        last_name: auth.info.last_name || '',
-        first_name: auth.info.first_name || ''
-      )
-      profile.save
-
-      unless ProfileImage.exists?(user_id: user.id, profile_id: profile.id)
-        profile_image = ProfileImage.new(
+    
+    if user.save
+      unless Profile.exists?(user_id: user.id)
+        profile = Profile.new(
           user_id: user.id,
-          profile_id: profile.id,
-          caption: ''
+          last_name: auth.info.last_name || '',
+          first_name: auth.info.first_name || ''
         )
-        profile_image.remote_image_url = auth['info']['image'].gsub('http://','https://')
-        profile_image.save
+        profile.save
+  
+        unless ProfileImage.exists?(user_id: user.id, profile_id: profile.id)
+          profile_image = ProfileImage.new(
+            user_id: user.id,
+            profile_id: profile.id,
+            caption: ''
+          )
+          profile_image.remote_image_url = auth['info']['image'].gsub('http://','https://')
+          profile_image.save
+        end
       end
+  
+      auth_obj = Auth.where(user_id: user.id, provider: auth.provider).first
+      if auth_obj.present?
+        auth_obj.access_token = auth.credentials.token
+      else
+        auth_obj = Auth.new(
+          user_id: user.id,
+          provider: auth.provider,
+          uid: auth.uid,
+          access_token: auth.credentials.token
+        )
+      end
+      auth_obj.save
     end
-
-    auth_obj = Auth.where(user_id: user.id, provider: auth.provider).first
-    if auth_obj.present?
-      auth_obj.access_token = auth.credentials.token
-    else
-      auth_obj = Auth.new(
-        user_id: user.id,
-        provider: auth.provider,
-        uid: auth.uid,
-        access_token: auth.credentials.token
-      )
-    end
-    auth_obj.save
-
     user
   end
 

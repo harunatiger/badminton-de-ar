@@ -89,7 +89,7 @@ $ ->
         href_sns = '/users/before_omniauth?favorite[type]=' + button.attr('type') + '&favorite[target_id]=' + button.attr('target_id')
         $('#new_user').attr('action', href)
         $('#sns_button').attr('href', href_sns)
-      else
+      else unless button.hasClass('listing_request')
         $('#sign_up_form').find('.lead-text').text('Make an account to message Guides!').append('<br />Free registration!')
         $('#new_user').attr('action', message_href)
         $('#sns_button').attr('href', message_sns_href)
