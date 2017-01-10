@@ -6,23 +6,7 @@ class FavoritesController < ApplicationController
   def create
     if request.xhr?
       user = User.find(params[:user_id])
-      favorite = Favorite.new(from_user_id: user.id, type: params[:type])
-      
-      if favorite.favorite_listing?
-        favorite.listing_id = params[:target_id]
-      elsif favorite.favorite_user?
-        favorite.to_user_id = params[:target_id]
-      elsif favorite.favorite_spot?
-        favorite.spot_id = params[:target_id]
-      end
-      
-      if favorite_old = favorite.old
-        favorite_old.restore
-        favorite = favorite_old
-      else
-        favorite.save
-      end
-      target = favorite.target
+      target = Favorite.create_or_restore_from_params(params, user)
       render partial: 'shared/favorite', locals: { user: user, target: target}
     end
   end

@@ -7,12 +7,6 @@
         .card-header
           = link_to "", root_path, class: "header-logo pull-center"
         .card-body
-          - if @favorite_added
-            .text-center.row-space-3
-              small
-                | Make an account and add to your Favourites!
-                br
-                | Free registration!
           = simple_form_for(resource, as: resource_name, url: user_registration_path) do |f|
             .signup-form
               = f.error_notification

@@ -66,4 +66,24 @@ class Favorite < ActiveRecord::Base
       FavoriteSpot.only_soft_destroyed.where(from_user_id: self.from_user_id, spot_id: self.spot_id).first
     end
   end
+  
+  def self.create_or_restore_from_params(params, user)
+    favorite = Favorite.new(from_user_id: user.id, type: params['type'])
+    
+    if favorite.favorite_listing?
+      favorite.listing_id = params['target_id']
+    elsif favorite.favorite_user?
+      favorite.to_user_id = params['target_id']
+    elsif favorite.favorite_spot?
+      favorite.spot_id = params['target_id']
+    end
+    
+    if favorite_old = favorite.old
+      favorite_old.restore
+      favorite = favorite_old
+    else
+      favorite.save
+    end
+    favorite.target
+  end
 end

@@ -38,3 +38,5 @@
             label.checkbox
               input.map-auto-refresh-checkbox checked="checked" type="checkbox"
               small マップを動かして自動検索
+- unless user_signed_in?
+  = render partial: 'shared/modals/sign_up_form'

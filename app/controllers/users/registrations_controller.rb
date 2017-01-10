@@ -3,7 +3,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   def new
     session[:reservation_params] = nil
-    @favorite_added = params[:favorite].present?
     super
   end
 
@@ -11,6 +10,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if request.xhr?
       session[:reservation_params] = params[:reservation_params] if params[:reservation_params].present?
       session[:to_user_id] = params[:to_user_id]
+      session[:favorite] = params[:favorite]
       super
     else
       super
@@ -21,6 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def before_omniauth
     session[:to_user_id] = params[:to_user_id]
     session[:reservation_params] = params[:reservation_params] if params[:reservation_params].present?
+    session[:favorite] = params[:favorite]
     redirect_to omniauth_authorize_path(:user, 'facebook')
   end
   

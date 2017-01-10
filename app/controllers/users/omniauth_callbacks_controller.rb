@@ -23,7 +23,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
   
   def after_sign_in_path_for(resource)
-    if session[:reservation_params].present?
+    if session[:favorite].present?
+      favorite_params = session[:favorite]
+      favorite_params[:user_id] = resource.id
+      Favorite.create_or_restore_from_params(session[:favorite], resource)
+      session[:favorite] = nil
+      session[:previous_url] || root_path
+    elsif session[:reservation_params].present?
       session[:reservation_params_after_sign_up] = session[:reservation_params]
       session[:reservation_params] = nil
       listing = Listing.find_by_id(session[:reservation_params_after_sign_up]['listing_id'])
