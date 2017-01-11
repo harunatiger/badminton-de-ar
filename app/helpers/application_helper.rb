@@ -121,18 +121,18 @@ module ApplicationHelper
     elsif controller_name == 'welcome'
       asset_url('top-slider/slide1.jpg')
     elsif controller_name == 'pickups'
-      @pickup.cover_image.url
+      @pickup.cover_image_small.present? ? @pickup.cover_image_small.url : asset_url('top-slider/slide1.jpg')
     elsif controller_name == 'listings' and (action_name == 'show' || action_name == 'preview')
       if Rails.env.development?
-        @listing.listing_images.present? and @listing.listing_images.first.image.present? ? "#{request.host + @listing.listing_images.first.image.url}" : asset_url('top-slider/slide1.jpg')
+        @listing.listing_images.present? and @listing.listing_images.first.image.present? ? "#{request.host + @listing.listing_images.first.image.thumb.url}" : asset_url('top-slider/slide1.jpg')
       else
-        @listing.listing_images.present? and @listing.listing_images.first.image.present? ? @listing.listing_images.first.image.url : asset_url('top-slider/slide1.jpg')
+        @listing.listing_images.present? and @listing.listing_images.first.image.present? ? @listing.listing_images.first.image.thumb.url : asset_url('top-slider/slide1.jpg')
       end
     elsif controller_name == 'profiles' and action_name == 'show'
       if Rails.env.development?
-        @profile.thumb_images.present? ? "#{request.host + @profile.thumb_images.first.image.url}" : asset_url('top-slider/slide1.jpg')
+        @profile.thumb_images.present? ? "#{request.host + @profile.thumb_images.first.image.thumb.url}" : asset_url('top-slider/slide1.jpg')
       else
-        @profile.thumb_images.present? ? @profile.thumb_images.first.image.url : asset_url('top-slider/slide1.jpg')
+        @profile.thumb_images.present? ? @profile.thumb_images.first.image.thumb.url : asset_url('top-slider/slide1.jpg')
       end
     elsif controller_name == 'features'
       if action_name == 'index'
