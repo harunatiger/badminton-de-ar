@@ -1,59 +1,44 @@
 - # registrations#new
 = out_put_error(resource)
-.page-container.page-container-auth.row-space-top-6.row-space-8
+.signup-card.page-container.page-container-auth.row-space-top-6.row-space-8
   .row
     .pop
       .card
+        .card-header
+          = link_to "", root_path, class: "header-logo pull-center"
         .card-body
-          .sns-buttons
-            - resource_class.omniauth_providers.each do |provider|
-              = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-large btn-block facebook_button signup_facebook js-google-tag-manager' do
-                i.fa.fa-facebook
-                | Sign up with Facebook account
-          .text-center.social-links.hide
-            - resource_class.omniauth_providers.each do |provider|
-              = link_to "Sign up with Facebook account", omniauth_authorize_path(resource_name, provider), class: 'facebook_link signup_facebook js-google-tag-manager'
-          .textInclude-separator
-            h6.text
-              | or
-            hr
-          .text-center
-            = link_to "#", id: "to-signup-form", class: 'btn btn-primary btn-large btn-block signup_email js-google-tag-manager' do
-              i.fa.fa-envelope-o
-              | Sign up with your email address
           = simple_form_for(resource, as: resource_name, url: user_registration_path) do |f|
-            .signup-form.hide
+            .signup-form
               = f.error_notification
               .control-group.row-space-1
                 = f.input_field :email, class: "decorative-input", placeholder: "E-mail address", required: true, type: "email"
               .control-group.row-space-1
                 = f.input_field :password, class: "decorative-input", placeholder: "Password", required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable)
               .control-group.row-space-1
-                = f.input_field :password_confirmation, class: "decorative-input", placeholder: "Confirm password", required: true
-              .row-space-2.row-space-top-2
-                small
-                  | By registering with Huber, you agree to 
-                  = link_to "our terms of service", static_pages_service_agreement_en_path
-                  | , 
-                  = link_to "privacy policy", static_pages_privacy_policy_en_path
-                  /| , 
-                  /= link_to "refund policy", "#"
-                  | , 
-                  = link_to "and special commercial code.", static_pages_specific_commercial_transactions_en_path
+                = f.fields_for :profile, resource.build_profile do |p|
+                  = p.hidden_field :first_name_needed, value: true
+                  = p.input_field :first_name, class: "decorative-input", placeholder: "First name", required: true, class: 'imeoff'
               .form-actions
-                = f.button :submit, "Register", class: "btn btn-primary btn-large btn-block signup_email_register js-google-tag-manager"
+                = f.button :submit, "Register", class: "btn btn-primary btn-block signup_email_register js-google-tag-manager"
+          .textInclude-separator.hide
+            h6.text
+              | or
+            hr
+          .sns-buttons.hide
+            - resource_class.omniauth_providers.each do |provider|
+              = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-block facebook_button signup_facebook js-google-tag-manager' do
+                i.fa.fa-facebook-square.fa-2x
+                /| Sign up with Facebook account
           .policy-wrapper.row-space-top-2
             small
               | By registering with Huber, you agree to 
               = link_to "our terms of service", static_pages_service_agreement_en_path
               | , 
               = link_to "privacy policy", static_pages_privacy_policy_en_path
-              /| , 
-              /= link_to "refund policy", "#"
               | , 
               = link_to "and special commercial code.", static_pages_specific_commercial_transactions_en_path
-        .card-body
-          p.small1
-            | Do you have your account? 
-            = link_to "Login", new_user_session_path, class: ''
+        .card-footer
+          p.text-center.row-space-1
+            | If you already have an account
+          = link_to "Login", new_user_session_path, class: 'btn btn-default btn-block'
 = render partial: 'shared/modals/create_email' if session["omniauth.auth"].present?

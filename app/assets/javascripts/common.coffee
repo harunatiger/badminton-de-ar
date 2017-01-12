@@ -527,21 +527,21 @@ $ ->
       return false
 
   # registrations#new & registrations#create
-  if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show') || $('body').hasClass('static_pages plan4U') || $('body').hasClass('static_pages plan4U_kyoto') || $('body').hasClass('static_pages plan4U_hokkaido') || $('body').hasClass('static_pages plan4U_kyushu') || $('body').hasClass('spots show')
+  # if $('body').hasClass('registrations new') || $('body').hasClass('registrations create') || $('body').hasClass('listings show') || $('body').hasClass('profiles show') || $('body').hasClass('static_pages plan4U') || $('body').hasClass('static_pages plan4U_kyoto') || $('body').hasClass('static_pages plan4U_hokkaido') || $('body').hasClass('static_pages plan4U_kyushu') || $('body').hasClass('spots show')
 
-    loginReady = ->
-      $('.sns-buttons').addClass('hide')
-      $('.signup-form').removeClass('hide')
-      $('.social-links').removeClass('hide')
-      $('#to-signup-form').addClass('hide')
-      $('.policy-wrapper').addClass('hide')
-      return false
+  #   loginReady = ->
+  #     $('.sns-buttons').addClass('hide')
+  #     $('.signup-form').removeClass('hide')
+  #     $('.social-links').removeClass('hide')
+  #     $('#to-signup-form').addClass('hide')
+  #     $('.policy-wrapper').addClass('hide')
+  #     return false
 
-    if $('.alert-error > div').length
-      loginReady()
+  #   if $('.alert-error > div').length
+  #     loginReady()
 
-    $('#to-signup-form').on 'click', ->
-      loginReady()
+  #   $('#to-signup-form').on 'click', ->
+  #     loginReady()
 
   #pair_guide_list-trigger
   if $('body').hasClass('profiles show') || $('body').hasClass('listings show') || $('body').hasClass('listings preview')

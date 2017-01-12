@@ -10,16 +10,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if request.xhr?
       session[:reservation_params] = params[:reservation_params] if params[:reservation_params].present?
       session[:to_user_id] = params[:to_user_id]
+      session[:favorite] = params[:favorite]
       super
     else
       super
-      profile = Profile.create(user_id: resource.id)
+      #profile = Profile.create(user_id: resource.id)
     end
   end
   
   def before_omniauth
     session[:to_user_id] = params[:to_user_id]
     session[:reservation_params] = params[:reservation_params] if params[:reservation_params].present?
+    session[:favorite] = params[:favorite]
     redirect_to omniauth_authorize_path(:user, 'facebook')
   end
   
@@ -75,6 +77,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
   
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up).push(profile_attributes: [:first_name, :xhr])
+    devise_parameter_sanitizer.for(:sign_up).push(profile_attributes: [:first_name, :first_name_needed])
   end
 end

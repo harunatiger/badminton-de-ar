@@ -17,6 +17,12 @@ ActiveAdmin.register Listing do
         column col
       end
     end
+    column :area do |listing|
+      areas = listing.pickups.where(type: 'PickupArea')
+      if areas.present?
+        areas.pluck(:short_name).join(",")
+      end
+    end
     actions defaults: true do |listing|
       item 'create destination', new_admin_listing_destination_path(:listing_destination => { :listing_id => listing.id }), class: 'view_link member_link'
       if listing.admin_closed_at.blank?
@@ -37,6 +43,12 @@ ActiveAdmin.register Listing do
         end
       else
         column col
+      end
+    end
+    column :area do |listing|
+      areas = listing.pickups.where(type: 'PickupArea')
+      if areas.present?
+        areas.pluck(:short_name).join(",")
       end
     end
   end

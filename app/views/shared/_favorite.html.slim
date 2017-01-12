@@ -1,4 +1,11 @@
 #favorite
+  - if target.model_name == 'Spot'
+    - type = 'FavoriteSpot'
+  - elsif target.model_name == 'User'
+    - type = 'FavoriteUser'
+  - elsif target.model_name == 'Listing'
+    - type = 'FavoriteListing'
+    
   - if user
     - if favorite = user.get_favorite_of_this_target(target)
       = link_to '#', class: "favorite-btn del", favorite_id: favorite.id do
@@ -6,19 +13,12 @@
         i.fa.fa-heart.unfavorite.hide
         i.fa.fa-heart-o.outline.hide.fav-balloon
     - else
-      - if target.model_name == 'Spot'
-        - type = 'FavoriteSpot'
-      - elsif target.model_name == 'User'
-        - type = 'FavoriteUser'
-      - elsif target.model_name == 'Listing'
-        - type = 'FavoriteListing'
-
       = link_to '#', class: "favorite-btn post", target_id: target.id, type: type, user_id: current_user.id do
         i.fa.fa-heart.favorited.hide
         i.fa.fa-heart.unfavorite
         i.fa.fa-heart-o.outline.fav-balloon
   - else
-    = link_to new_profile_path, class: "favorite-btn" do
+    = link_to '#sign_up_form', class: "favorite-btn", data: { toggle: "modal" }, target_id: target.id, type: type do
       i.fa.fa-heart.unfavorite
       i.fa.fa-heart-o.outline.fav-balloon
 

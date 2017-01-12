@@ -37,6 +37,6 @@
           | Meeting place for your tour
         .locations
           #tour-map
+= render partial: 'shared/modals/about_response_rate'
 - unless user_signed_in?
   = render partial: 'shared/modals/sign_up_form'
-= render partial: 'shared/modals/about_response_rate'

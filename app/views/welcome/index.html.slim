@@ -41,3 +41,5 @@
 = render partial: 'guest_book'
 /= render partial: 'difference'
 /= render partial: 'charmer'
+- unless user_signed_in?
+  = render partial: 'shared/modals/sign_up_form'

@@ -10,3 +10,5 @@
           = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
 
   = render partial: "other_pickups"
+- unless user_signed_in?
+  = render partial: 'shared/modals/sign_up_form'

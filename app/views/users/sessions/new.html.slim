@@ -1,21 +1,11 @@
 - # sessions#new
-.page-container.page-container-auth.row-space-top-6.row-space-8
+.signup-card.page-container.page-container-auth.row-space-top-6.row-space-8
   .row
     .pop
       .card
+        .card-header
+          = link_to "", root_path, class: "header-logo pull-center"
         .card-body
-          .sns-buttons
-            - resource_class.omniauth_providers.each do |provider|
-              = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-large btn-block facebook_button login_facebook js-google-tag-manager' do
-                i.fa.fa-facebook
-                | Log in with 
-                br
-                |your Facebook account
-
-          .textInclude-separator
-            h6.text
-              | or
-            hr
           = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
             .signin-form
               = f.error_notification
@@ -29,9 +19,18 @@
                   | Do you want your computer to remember your login ID?
                 = link_to "Forgot your password?", new_password_path(resource_name), class: "pull-right row-space-top-2"
               .form-actions
-                = f.button :submit, "Log in", class: "btn btn-primary btn-large btn-block login_email js-google-tag-manager"
-        .card-body
-          p.small1.row-space-2
+                = f.button :submit, "Log in", class: "btn btn-primary btn-block login_email js-google-tag-manager"
+          .textInclude-separator.hide
+            h6.text
+              | or
+            hr
+          .sns-buttons.hide
+            - resource_class.omniauth_providers.each do |provider|
+              = link_to omniauth_authorize_path(resource_name, provider), class: 'btn btn-fb btn-block facebook_button signup_facebook js-google-tag-manager' do
+                i.fa.fa-facebook-square.fa-2x
+                /| Sign up with Facebook account
+        .card-footer
+          p.small1.row-space-2.text-left
             | Don't have an acount? 
             = link_to "Sign up", new_user_registration_path, class: ''
           p.small1
