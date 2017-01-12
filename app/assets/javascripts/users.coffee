@@ -58,7 +58,8 @@ $ ->
               $(".textInclude-separator").removeClass('hide')
               $(".sns-buttons").removeClass('hide')
               return
-        else if response.status == 'not_authorized'
+        #else if response.status == 'not_authorized'
+        else
           $(".facebook_button").each ->
             $(this).append("Sign up with Facebook account")
           $(".textInclude-separator").removeClass('hide')
