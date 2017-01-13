@@ -430,9 +430,11 @@ $ ->
           scrollwheel: false
           zoom: 13
           mapTypeId: google.maps.MapTypeId.TERRAIN
+          zoomControlOptions: {
+            position: google.maps.ControlPosition.TOP_LEFT
+          }
 
         map = new (google.maps.Map)(document.getElementById('map'), mapOptions)
-        
         if center
           map.setCenter(center)
 
@@ -500,7 +502,7 @@ $ ->
         research = ->
           unless initializing
             called_count += 1
-            if $('.map').css('display') != 'none' && called_count > 2
+            if called_count > 2
               center = new google.maps.LatLng(map.getCenter().lat(), map.getCenter().lng())
               zoom = map.getZoom()
               bounds_sw = map.getBounds().getSouthWest()
@@ -531,6 +533,22 @@ $ ->
     $(document).on 'click', "a[data-toggle='tab']", ->
       $('#search_sort_by').val $(this).text()
       return
+      
+    #change map and list
+    $(document).on 'click', "#map-or-list-bun", ->
+      if $(this).text() == 'Map'
+        $('.map').removeClass('hide--sp')
+        $('#result_block').addClass('hide--sp')
+        if called_count <= 2
+          initialize(gon.locations)
+        $(this).text('List')
+        $('#chamo-waiting').addClass('hide--sp')
+      else
+        $('.map').addClass('hide--sp')
+        $('#result_block').removeClass('hide--sp')
+        $(this).text('Map')
+        $('#chamo-waiting').removeClass('hide--sp')
+      return false
 
   # listings#search
   ###
