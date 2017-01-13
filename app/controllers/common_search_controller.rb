@@ -3,7 +3,7 @@ class CommonSearchController < ApplicationController
     session[:dummy_count] = nil if params[:page].blank?
     
     search_result = Search.search_listings_and_spots(search_params)
-    if search_result['bounds'].blank?
+    if search_params['bounds'].blank?
       max_distance = Settings.search.distance
       while search_result[:results].blank? or search_result[:results].length < Settings.search.display_count
         max_distance += Settings.search.distance
@@ -18,7 +18,7 @@ class CommonSearchController < ApplicationController
       @results = search_result[:results]
       gon.locations = search_result[:gon_locations]
       
-      if params[:page].blank? and search_result[:listings].present?
+      if params[:page].blank? and search_result[:listings].present? and search_params['bounds'].blank?
         @new_listings = search_result[:listings].created_new.order_by_created_at_desc.limit(4)
       end
     else
@@ -27,22 +27,30 @@ class CommonSearchController < ApplicationController
     end
     
     # set new tours and dummy for pagenation
-    if @new_listings.length > 0 && @results.length > Settings.search.display_count
-      session[:dummy_count] = @new_listings.length
-      session[:dummy_count] += 1 if !@new_listings.length.even?
-    elsif @results.length <= Settings.search.display_count
-      @new_listings = nil
-    end
-    
-    if session[:dummy_count].present?
-      dummy_start = Settings.search.display_count - session[:dummy_count]
-      session[:dummy_count].times do |i|
-        dummy_start + i
-        @results.insert(dummy_start + i, 'dummy' + i.to_s)
+    if search_params['bounds'].blank?
+      if @new_listings.length > 0 && @results.length > Settings.search.display_count
+        session[:dummy_count] = @new_listings.length
+        session[:dummy_count] += 1 if !@new_listings.length.even?
+      elsif @results.length <= Settings.search.display_count
+        @new_listings = nil
+      end
+      
+      if session[:dummy_count].present?
+        dummy_start = Settings.search.display_count - session[:dummy_count]
+        session[:dummy_count].times do |i|
+          dummy_start + i
+          @results.insert(dummy_start + i, 'dummy' + i.to_s)
+        end
       end
     end
     
-    @results = Kaminari.paginate_array(@results).page(params[:page]).per(Settings.search.display_count)
+    if search_params['bounds'].blank?
+      @results = Kaminari.paginate_array(@results).page(params[:page]).per(Settings.search.display_count)
+    else
+      @results = Kaminari.paginate_array(@results).page(1).per(@results.length)
+    end
+    ids = @results.map { |listing| listing.id unless listing.kind_of?(String)}
+    gon.locations = gon.locations.select {|location| ids.include?(location.listing_id) }
     @conditions = search_params
   end
   

@@ -25,67 +25,41 @@
             h2.text-brand.row-space-6
               span My Activities
             .row
-              / my activities
-              - @listings.each do |listing|
+              / my activities - open
+              - @listings.where(open: true).each do |listing|
                 .col-md-6.col-lg-4.row-space-4
-                  - if left_step_count_and_elements(listing)[0] > 0
-                    / editing
-                    .editing-card-container
-                      = link_to "", edit_listing_path(listing)
-                      = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
-                  - elsif listing.closed?
-                    / unpublish
-                    .unpublish-card-container
-                      = link_to "", listing_preview_path(listing)
-                      = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
-                  - elsif listing.open?
-                    / open
-                    /= link_to listing_path(listing) do
-                    = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
-                    
-                  .card-body.card-actions
-                    / actions
-                    /= link_to '#', class: "copy-listing" do
-                      .img-icon.img-icon-commenting-o
-                      small Chat
-                    = link_to edit_listing_path(listing), class: "edit-listing" do
-                      .img-icon.img-icon-new-o
-                      small Edit
-                    = link_to listing_copy_path(listing), class: "copy-listing", method: 'POST' do
-                      .img-icon.img-icon-copy-o
-                      small Copy
-                    - if current_user.official_account?
-                      = link_to listing_listing_users_path(listing), class: "copy-listing" do
-                        .img-icon.img-icon-user-plus-o
-                        small Member
-                    /- if current_user.main_guide?
-                      = link_to new_listing_unscheduled_tour_path(listing), class: "copy-listing show--sp" do
-                        .img-icon.img-icon-copy-o
-                        small Review
-                  
-                  
-              
-              / official activities
-              - @listing_users.each do |listing_user|
+                  = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
+                  = render partial: 'index_actions', locals: { listing: listing }
+              / official activities - open
+              - @listing_users_open.each do |listing_user|
                 - listing = listing_user.listing
                 .col-md-6.col-lg-4.row-space-4
                   = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
-                  /- if listing_user.pending?
-                    / pending
-                    .pending-card-container
-                      = link_to "", listing_path(listing)
-                      = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
-                  /- else
-                    / open
+                  = render partial: 'index_actions', locals: { listing: listing }
+              / my activities - close
+              - @listings.not_opened.each do |listing|
+                - if left_step_count_and_elements(listing)[0] == 0
+                  .col-md-6.col-lg-4.row-space-4
+                    .unpublish-card-container
+                      = link_to "", listing_preview_path(listing)
+                      = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
+                    = render partial: 'index_actions', locals: { listing: listing }
+              / official activities - close
+              - @listing_users_close.each do |listing_user|
+                - listing = listing_user.listing
+                .col-md-6.col-lg-4.row-space-4
+                  .unpublish-card-container
+                    = link_to "", "#"
                     = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
-                  
-                  .card-body.card-actions
-                    /= link_to '#', class: "copy-listing" do
-                      .img-icon.img-icon-commenting-o
-                      small Chat
-                    = link_to listing_listing_users_path(listing), class: "copy-listing" do
-                      .img-icon.img-icon-user-plus-o
-                      small Member
+                  = render partial: 'index_actions', locals: { listing: listing }
+              / my activities - edit
+              - @listings.not_opened.each do |listing|
+                - if left_step_count_and_elements(listing)[0] > 0
+                  .col-md-6.col-lg-4.row-space-4
+                    .editing-card-container
+                      = link_to "", edit_listing_path(listing)
+                      = render partial: 'shared/listing_card', locals: { profile: current_user.profile, listing: listing}
+                    = render partial: 'index_actions', locals: { listing: listing }
                     
               
               /new activity

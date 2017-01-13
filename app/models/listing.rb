@@ -171,7 +171,7 @@ class Listing < ActiveRecord::Base
   end
 
   def self.search(search_params, max_distance=Settings.search.distance)
-    if search_params["longitude"].present? && search_params["latitude"].present?
+    if (search_params["longitude"].present? && search_params["latitude"].present?) || search_params["official"].present?
       listings = Listing.select('id, user_id').opened
       if search_params["official"].present?
         listings = listings.where(user_id: User.official_account.ids)
@@ -213,6 +213,9 @@ class Listing < ActiveRecord::Base
             listing_id_array.push(listing_destination.listing_id)
             listing_destination_id_array.push(listing_destination.id)
           end
+        elsif search_params["official"].present? && search_params["longitude"].blank? && search_params["latitude"].blank?
+          listing_id_array.push(listing_destination.listing_id)
+          listing_destination_id_array.push(listing_destination.id)
         else
           distance = Search.distance(search_params["longitude"].to_f, search_params["latitude"].to_f, listing_destination.longitude, listing_destination.latitude)
           
