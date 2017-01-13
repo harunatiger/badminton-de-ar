@@ -14,7 +14,9 @@ class ListingsController < CommonSearchController
   # GET /listings.json
   def index
     @listings = Listing.mine(current_user.id).without_soft_destroyed.order_by_updated_at_desc
-    @listing_users = ListingUser.mine(current_user.id).opened.includes(:listing)
+    listing_users = ListingUser.mine(current_user.id)
+    @listing_users_open = listing_users.opened.includes(:listing)
+    @listing_users_close = listing_users.where.not(id: @listing_users_open.ids).includes(:listing)
     @pre_mail = current_user.pre_mail
   end
 

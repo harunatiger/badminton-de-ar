@@ -25,35 +25,26 @@
     .section-header.row-space-1
       | アクティビティ詳細
     ul.list-unstyled.row-space-4
-      - if controller_name == "listings" && controller.action_name == "new"
+      - if controller_name == "listings" && (action_name == "new" || action_name == "edit")
         li.nav-item.nav-active
           = link_to new_listing_path(@listing) do
-            | アクティビティの概要
+            | 概要
             - if listing_active.blank?
               i.fa.fa-exclamation-circle
             - else
               i.fa.fa-check
       - else
-        - if @listing.id.present?
-          li.nav-item
-            = link_to edit_listing_path(@listing) do
-              | アクティビティの概要
-              - if listing_active.blank?
-                i.fa.fa-exclamation-circle
-              - else
-                i.fa.fa-check
-        - else
-          li.nav-item.nav-active
-            = link_to new_listing_path(@listing) do
-              | アクティビティの概要
-              - if listing_active.blank?
-                i.fa.fa-exclamation-circle
-              - else
-                i.fa.fa-check
+        li.nav-item
+          = link_to edit_listing_path(@listing) do
+            | 概要
+            - if listing_active.blank?
+              i.fa.fa-exclamation-circle
+            - else
+              i.fa.fa-check
       - if controller_name == "listing_images"
         li.nav-item.nav-active
           = link_to manage_listing_listing_images_path(@listing.id) do
-            | 紹介画像・紹介動画
+            | 紹介(画像・動画)
             - if listing_image_active.blank?
               i.fa.fa-exclamation-circle
             - else
@@ -62,7 +53,7 @@
         -if @listing.id.present?
           li.nav-item
             = link_to manage_listing_listing_images_path(@listing.id) do
-              | 紹介画像・紹介動画
+              | 紹介(画像・動画)
               - if listing_image_active.blank?
                 i.fa.fa-exclamation-circle
               - else
@@ -70,12 +61,12 @@
         - else
           li.nav-item
             = link_to '#', class: 'link-disabled' do
-              | 紹介画像・紹介動画
+              | 紹介(画像・動画)
               i.fa.fa-exclamation-circle
       - if controller_name == "listing_details"
         li.nav-item.nav-active
           = link_to manage_listing_listing_details_path(@listing.id) do
-            | 料金・条件など
+            | 料金
             - if listing_detail_active.blank?
               i.fa.fa-exclamation-circle
             - else
@@ -84,7 +75,7 @@
         -if @listing.id.present?
           li.nav-item
             = link_to manage_listing_listing_details_path(@listing.id) do
-              | 料金・条件など
+              | 料金
               - if listing_detail_active.blank?
                 i.fa.fa-exclamation-circle
               - else
@@ -92,7 +83,7 @@
         - else
           li.nav-item
             = link_to '#', class: 'link-disabled' do
-              | 料金・条件など
+              | 料金
               i.fa.fa-exclamation-circle
 
       li.nav-item

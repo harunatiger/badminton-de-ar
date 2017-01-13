@@ -194,6 +194,13 @@ $ ->
 
   # listings#search =================
   if $('body').hasClass('search')
+    
+    # add params for member request link
+    AddMemberRequestLink = ->
+      if $('body').hasClass('listings search')
+        $("a[href^='/listings/']").each () ->
+          href = $(this).attr('href')
+          $(this).attr('href', href + '?member_request_link=true')
 
     #! auto complete
     initPAC = ->
@@ -300,6 +307,7 @@ $ ->
         
     #! auto complete activate
     initPAC()
+    AddMemberRequestLink()
 
     # category selector show
     $('.category-selected').on 'click', (e) ->
@@ -486,19 +494,20 @@ $ ->
         google.maps.event.addListener map, 'dragend', ->
           research()
         google.maps.event.addListener map, 'zoom_changed', ->
-          called_count += 1
-          if called_count != 1
-            research()
+          research()
           
         #research when move
         research = ->
           unless initializing
-            if $('.map').css('display') != 'none'
+            called_count += 1
+            if $('.map').css('display') != 'none' && called_count > 2
               center = new google.maps.LatLng(map.getCenter().lat(), map.getCenter().lng())
               zoom = map.getZoom()
               bounds_sw = map.getBounds().getSouthWest()
               bounds_ne = map.getBounds().getNorthEast()
               search_bounds = [bounds_sw.lng(), bounds_sw.lat(), bounds_ne.lng(), bounds_ne.lat()]
+              
+              $('#listing-image-loading').modal()
               $.ajax
                 type: 'GET'
                 url: location.href + '&[search]bounds=' + search_bounds
@@ -507,8 +516,11 @@ $ ->
                   initializing = true
                   initialize(data.locations, center, zoom)
                   initializing = false
+                  AddMemberRequestLink()
+                  $('#listing-image-loading').modal('hide')
                   return false
                 error: ->
+                  $('#listing-image-loading').modal('hide')
                   return false
 
     initializing = true
@@ -1454,16 +1466,10 @@ $ ->
         return
         
   # cancel member request      
-  if $('body').hasClass('listings show')
-    $('#cancel_member_request').on 'click', ->
-      $('.preview_link').hide("slow")
-      return
-      
-  # add params for member request link
-  if $('body').hasClass('listings search')
-    $("a[href^='/listings/']").each () ->
-      href = $(this).attr('href')
-      $(this).attr('href', href + '?member_request_link=true')
+  # if $('body').hasClass('listings show')
+  #   $('#cancel_member_request').on 'click', ->
+  #     $('.preview_link').hide("slow")
+  #     return
       
   # regulate categories count
   if $('body').hasClass('listings new') || $('body').hasClass('listings edit') || $('body').hasClass('listings create') || $('body').hasClass('listings update')

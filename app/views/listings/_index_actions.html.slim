@@ -1,0 +1,20 @@
+.card-body.card-actions
+  / actions
+  /= link_to '#', class: "copy-listing" do
+    .img-icon.img-icon-commenting-o
+    small Chat
+  - if current_user.id == listing.user_id
+    = link_to edit_listing_path(listing), class: "edit-listing" do
+      .img-icon.img-icon-new-o
+      small Edit
+    = link_to listing_copy_path(listing), class: "copy-listing", method: 'POST' do
+      .img-icon.img-icon-copy-o
+      small Copy
+  - if listing.official?
+    = link_to listing_listing_users_path(listing), class: "copy-listing" do
+      .img-icon.img-icon-user-plus-o
+      small Member
+  /- if current_user.main_guide?
+    = link_to new_listing_unscheduled_tour_path(listing), class: "copy-listing show--sp" do
+      .img-icon.img-icon-copy-o
+      small Review

@@ -20,7 +20,7 @@
                 small
                   i.fa.fa-angle-left
                   span<
-                  | Search Activities
+                  | My Activities
 
       = render partial: 'search/filter', locals: { hit_count: @hit_count, conditions: @conditions, f: f }
       .sidebar-header-placeholder.show--sp
@@ -42,3 +42,4 @@
             label.checkbox
               input.map-auto-refresh-checkbox checked="checked" type="checkbox"
               small マップを動かして自動検索
+= render partial: 'shared/modals/listing_image_loading'

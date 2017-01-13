@@ -3,6 +3,6 @@
 .header-link
   = link_to listings_path, aria: {selected: "false"}, class: "sidenav-item" do
     i.fa.fa-angle-left
-    | Search Activities
+    | My Activities
         
 = render partial: 'search/form', locals: { path: search_listings_path }

@@ -217,4 +217,9 @@ class Profile < ActiveRecord::Base
       ''
     end
   end
+  
+  def official_account?
+    user = User.find_by_id(self.user_id)
+    user.present? && user.official_account?
+  end
 end

@@ -10,9 +10,9 @@
       .h4.row-space-2.border-block.text-light
         | 料金
       p.text-left
-        | アクティビティの料金は、ペアで行うガイドの料金と、アクティビティにかかる経費（自分たちの食事や交通費など）の合計額になります。サポートメンバーの収入にはガイドが集合場所にくるまでの費用も含みます。
+        | Huber.では、ガイド料金と集合場所までの交通費は固定で、当日発生する全ての費用は当日ゲストに負担してもらいますので、基本的にはこちらで入力する項目はありません。
         br
-        | ガイド料金は０円から設定できます。国際交流を楽しみたい人や初心者の方は、低い金額での登録がおすすめです。
+        | 事前予約などで支払いが発生するもののみ、先に支払ってもらえるよう「ガイド料金以外にかかるお金と説明」の欄で設定しましょう。
   
   .fee-container#tour-guidefee-height
     = render partial: 'shared/credit', locals: { target: @listing_detail, option_amount: @listing_detail.option_amount}
@@ -86,8 +86,8 @@
             .pull-right.row-space-top-2.text-lead
               | 小計
         
-
-  .row.row-space-2.row-space-top-8
+  #tour-guests_cost-height
+  /.row.row-space-2.row-space-top-8
     .col-lg-12.text-left
       .h4.border-block.text-light#tour-guests_cost-height
         | ゲストが当日負担する費用
@@ -95,7 +95,7 @@
       span.text-red Huber.では、食事や交通費、体験費など、個別に発生する費用についてはゲストが当日自己負担します。
       br
       | あなたのアクティビティを体験する際、ゲスト１名あたりいくら必要になるかを伝えてあげましょう。
-  .row.row-space-5.row-space-top-2.row-table
+  /.row.row-space-5.row-space-top-2.row-table
     .col-lg-5.text-left.col-middle
       .h4.text-light
         | ゲストの費用（概算）
@@ -104,7 +104,7 @@
         .col-xs-11
           .select.select-opt.opt-double
             = f.select :guests_cost, [*(0..200)].map{|i| (i * 500)}, {}, {class: "value_fragile"}
-  .row.row-space-8.row-space-top-5.row-table
+  /.row.row-space-8.row-space-top-5.row-table
     .col-lg-5.text-left.col-middle
       .h4.text-light
         | 上記費用の内訳

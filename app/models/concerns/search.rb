@@ -15,7 +15,11 @@ module Search
 
       # sort
       if listings.present?
-        listings = listings.sort_for_search
+        if search_params["official"].present?
+          listings = listings.order_by_created_at_desc
+        else
+          listings = listings.sort_for_search
+        end
       end
 
       results += listings
@@ -23,7 +27,7 @@ module Search
     
     # =========sort by (uniq user) and (in alternate)=========
     # TODO delete spot search
-    if results.present?
+    if results.present? && search_params["official"].blank?
       uniq_results = results.uniq {|e| e.model_name.to_s + e.user_id.to_s }
       duplicated_results = results - uniq_results
       results_buf = uniq_results.concat(duplicated_results).partition{|r| r.model_name == 'Listing' }
