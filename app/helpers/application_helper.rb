@@ -28,13 +28,9 @@ module ApplicationHelper
       else
         "Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
       end
-    elsif controller_name == 'listings' and action_name == 'show'
-      profile = Profile.find_by_user_id(@listing.user_id)
-      if profile.present?
-        "See #{profile.first_name} who is a local tour guide #{profile.prefecture.present? ? 'in ' + profile.prefecture : ''} #{profile.country_name.present? ? 'in ' + profile.country_name : ''} - Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
-      else
-        "Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
-      end
+    elsif controller_name == 'listings' and (action_name == 'show' || action_name == 'preview')
+      area = @listing.pickups.areas.first.try('short_name')
+      "#{@listing.title} #{area.present? ? 'in ' + area : ''} - Planning a trip in Japan with locals and private guide - TOMODACHI GUIDE"
     elsif controller_name == 'spots' and action_name == 'show'
       area = @spot.pickups.areas.first.try('short_name')
       "#{@spot.title} #{area.present? ? 'in ' + area : ''} - TOMODACHI GUIDE"
