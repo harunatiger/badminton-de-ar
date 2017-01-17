@@ -8,7 +8,8 @@
       - @listings.each do | listing |
         .col-lg-4.col-md-6.col-sm-12.row-space-4
           = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(listing), listing: listing}
-
+    .text-center
+      = paginate @listings
   = render partial: "other_pickups"
 - unless user_signed_in?
   = render partial: 'shared/modals/sign_up_form'

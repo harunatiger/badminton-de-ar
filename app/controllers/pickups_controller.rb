@@ -16,6 +16,7 @@ class PickupsController < ApplicationController
       @listings = @pickup.listings_by_listing_images.includes(:listing_detail).order_by_updated_at_desc
     end
     @pickups = Pickup.where.not(id: @pickup.id).where.not(selected_listing: nil)
+    @listings = @listings.page(params[:page]).per(Settings.pickup.page_count)
     @announcement = Announcement.display_at('pickup').first
   end
 
