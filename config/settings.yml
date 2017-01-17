@@ -40,6 +40,8 @@ profile_keywords:
   save:
     success: "Profile updated successfully"
     failure: "Please fill in all sections"
+pickup:
+  page_count: 12
 categories:
   food: 'Food'
   alcohol: 'Alcohol'
