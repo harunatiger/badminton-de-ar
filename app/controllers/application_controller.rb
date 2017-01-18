@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
         request.fullpath != "/users/sign_up" &&
         request.fullpath != "/users" &&
         request.fullpath !~ Regexp.new("users/before_omniauth") &&
+        request.fullpath !~ Regexp.new("users/auth/facebook/callback") &&
         request.fullpath !~ Regexp.new("\\A/users/password.*\\z") &&
         request.fullpath !~ Regexp.new("\\A/users/confirmation.*\\z") &&
         !request.xhr? && # don't store ajax calls
