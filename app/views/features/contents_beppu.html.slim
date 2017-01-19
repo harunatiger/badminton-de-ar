@@ -318,23 +318,23 @@
             |.  Recommended Tours
     .row.row-space-8
       - if @content_id == 1
-        - feature_listing_ids = [516, 492, 388]
+        - feature_listing_ids = [620, 551, 550]
       - elsif @content_id == 2
-        - feature_listing_ids = [513, 526, 392]
+        - feature_listing_ids = [682, 686, 625]
       - elsif @content_id == 3
-        - feature_listing_ids = [493, 467, 406]
+        - feature_listing_ids = [685, 686, 575]
       - elsif @content_id == 4
-        - feature_listing_ids = [514, 450, '']
+        - feature_listing_ids = [624, 691, 684]
       - elsif @content_id == 5
-        - feature_listing_ids = [451, 377, '']
+        - feature_listing_ids = [700, 623, 685]
       - elsif @content_id == 6
-        - feature_listing_ids = [525, 535, '']
+        - feature_listing_ids = [426, 625, 628]
       - elsif @content_id == 7
-        - feature_listing_ids = [515, 534, '']
+        - feature_listing_ids = [632, 413, 628]
       - elsif @content_id == 8
-        - feature_listing_ids = [527, '', '']
+        - feature_listing_ids = [572, 632, 413]
       - elsif @content_id == 9
-        - feature_listing_ids = [494, 385, '']
+        - feature_listing_ids = [575, 623, '']
       - feature_listing_ids.each do |id|
         .col-md-6.col-lg-4.row-space-4
           - if feature_listing(id).present?
