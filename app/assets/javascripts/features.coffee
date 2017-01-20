@@ -84,7 +84,7 @@ $ ->
       effect: 'fadeIn'
 
   # if features#index
-  if $('body').hasClass('features') && !$('body').hasClass('kyoto') && !$('body').hasClass('contents_kyoto')
+  if $('body').hasClass('features') && !$('body').hasClass('kyoto') && !$('body').hasClass('contents_kyoto') && !$('body').hasClass('beppu') && !$('body').hasClass('contents_beppu')
 
     setTimeout (->
       # Responsive
@@ -148,7 +148,7 @@ $ ->
       return
 
   # if features#kyoto or features#contents_kyoto
-  if $('body').hasClass('features kyoto') || $('body').hasClass('features contents_kyoto')
+  if $('body').hasClass('features kyoto') || $('body').hasClass('features contents_kyoto') || $('body').hasClass('features beppu') || $('body').hasClass('features contents_beppu')
     # read more
     $('.js-read-more').on 'click', (e) ->
       $('.js-fk-hide').removeClass('hide--sp')

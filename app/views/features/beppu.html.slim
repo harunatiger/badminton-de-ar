@@ -1,0 +1,41 @@
+/! features#bepppu
+- provide(:description, "Beppu is Japan’s “hot spring heaven,” famed for the outstanding range of hot springs it has to offer.")
+#features
+  .features-header
+    = image_tag 'feature_beppu/hero-image.jpg', class: "img-responsive hide--sp"
+    = image_tag 'feature_beppu/hero-image--sp.jpg', class: "img-responsive show--sp"
+
+  .features-intro
+    .page-container
+      .row.row-space-top-8.row-space-8
+        .col-md-12.text-readable.row-space-top-8.text-center
+          h2.text-brand.text-black.row-space-8 
+            | What is Beppu like?
+          .row-space-4
+            p Beppu is Japan’s “hot spring heaven,” famed for the outstanding range of hot springs it has to offer. Naturally there are hot springs you can visit to look at and those you can enter, but hot springs are also a part of life in Beppu. However, Beppu is the only place to describe its hot springs as “hells,” from the cobalt-blue Sea Hell, the milky White Pond Hell, to the red Blood Pond Hell. Beppu is the only place in Japan where steam from many differently-colored hot springs rises up between old traditional streets with over a thousand years of history. There are also many areas that have their own appeal even without entering a hot spring. 
+            p.hide--sp.js-fk-hide If you stretch your legs and explore the city, you’ll come across Japan’s famous landscapes and natural beauty, such as stunning rice terraces and lakes bustling with wildlife.  As you explore this city full of hot spring hells, you’ll find yourself moved by their unique beauty. And if you decide to go into the hot springs, you’ll be in heaven.
+          .text-center.row-space-8.show--sp
+            = link_to "#", class: "btn btn-primary js-read-more" do
+              | Read more
+
+  = render partial: "cards_beppu"
+
+#area-section.features-section.row-space-4
+  .page-container.row-space-top-4
+    .row.row-space-top-8.row-space-4
+      .col-md-12
+        h3.text-black.text-primary.center-lined
+          span BEPPU MAP
+    .row.row-space-8
+      .col-md-10.col-md-offset-1.row-space-4
+        = image_tag 'feature_beppu/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+
+#access-section.features-section.row-space-4
+  .page-container.row-space-top-4
+    .row.row-space-top-8.row-space-4
+      .col-md-12
+        h3.text-black.text-primary.center-lined
+          span ACCESS
+    .row.row-space-8
+      .col-md-12.row-space-4
+        = image_tag 'feature_beppu/map_access.png', class: "img-responsive", alt: "ACCESS"

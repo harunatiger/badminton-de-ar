@@ -1,0 +1,350 @@
+/! features/contents_beppu
+- if @content_id == 1
+  - provide(:description, "Don’t Stop at the Entrance - Fushimi Inari Shrine. Most travelers who come to see the famous senbon torii (the thousand gates) never go beyond the postcard shot. Yet there is so much more to see—the torii are only the entrance.")
+  .features-beppu-header.row-space-4
+    = image_tag(feature_beppu_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_beppu_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 01.
+              .sub.text-light.row-space-2.hide--sp The Capital of Food
+              .text.text-light Kitahama Area
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Kitahama Area
+        .row-space-4.text-readable
+          p Kitahama is the area around the JR Beppu Station, home to Beppu Tower and a bustling nightlife. People from all over the world live in Beppu, so the food culture is international. There are restaurants serving traditional Beppu dishes made from the finest of local produce, as well as a wide range of international cuisines, from Asian foods such as Korean or Indian to tasty European cuisine such as Spanish or French.
+          p.hide--sp.js-fk-hide In Kitahama, there are many ryokan rich with history that you can stay at during your trip, such as Takegawara Onsen, which has been open for almost 150 years. Many ryokan hotels also provide Western-style showers for those who aren’t quite ready for the full onsen experience of communal showering. Under the railway, there is a farmer's market where you can see and experience the life of the locals. There are also flea markets on Saturdays. With the help of a Huber host, you can even have the experience of talking and haggling with the local shopkeepers.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_beppu/01/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+    .row.row-space-top-8
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/01/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/01/photo2.jpg", class: "img-responsive"
+
+- elsif @content_id == 2
+  - provide(:description, "The Myoban area is a 30-minute drive from Beppu Station, 300 meters above sea level.")
+  .features-beppu-header.row-space-4
+    = image_tag(feature_beppu_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_beppu_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 02.
+              .sub.text-light.row-space-2.hide--sp The Entrance of Hell
+              .text.text-light Myoban Area
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Myoban Area
+        .row-space-4.text-readable
+          p The Myoban area is a 30-minute drive from Beppu Station, 300 meters above sea level. The area was named after a type of mineral found in the hot springs, which has brought people to the area to soak up its healing properties since the Edo period. The Myoban area offers beautiful natural scenery from the hill tops. It is especially gorgeous in autumn, when you can see breathtaking views of the leaves changing colors. Myoban is known for its many milky-white sulfur hot springs with mineral healing properties. 
+          p.hide--sp.js-fk-hide It is also home to Beppu Onsen Hoyo Land, where you can find Beppu’s only “hell hot springs” as well as mineral mud baths.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_beppu/02/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+    .row.row-space-top-6
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/02/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/02/photo2.jpg", class: "img-responsive"
+
+- elsif @content_id == 3
+  - provide(:description, "The Hotta area is easily accessible, as it is located right off the Beppu interchange.")
+  .features-beppu-header.row-space-4
+    = image_tag(feature_beppu_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_beppu_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 03.
+              .sub.text-light.row-space-2.hide--sp Why don't you go to drive?
+              .text.text-light Kannonji Hotta Area
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Kannonji Hotta Area
+        .row-space-4.text-readable
+          p The Hotta area is easily accessible, as it is located right off the Beppu interchange. It sits at the entrance of the road that connects to the famous driving course known as Yamanami Highway.
+          p.hide--sp.js-fk-hide Kaikanji is located on the high hills of Beppu City, offering grand views of the whole city as well as Beppu Bay. But the most spectacular sight is from the terrace hot springs that are unique to this area. The baths are stacked in tiers, and as you relax in the deep blue waters surrounded by steam, you’ll feel as if the sea and the sky have merged together. As you soak in the baths and look over the city nightscape, it’s as if you’re floating in space. Kaikanji is also where you’ll find the retro theme park featured in the “Spamusement park” viral video that shot to fame in 2016, so if you’re interested in seeing the place where this video was shot, you should definitely give it a visit!
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_beppu/03/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+    .row.row-space-top-6
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/03/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/03/photo2.jpg", class: "img-responsive"
+
+- elsif @content_id == 4
+  - provide(:description, "The Hamawaki area is a 15-minute walk away from Beppu Station. Today, you can still see many streets lined with old houses, as this area did not suffer from many air raids during the war.")
+  .features-beppu-header.row-space-4
+    = image_tag(feature_beppu_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_beppu_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 04.
+              .sub.text-light.row-space-2.hide--sp Enjoy Good-old Local
+              .text.text-light Hamawaki Area
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Hamawaki Area
+        .row-space-4.text-readable
+          p The Hamawaki area is a 15-minute walk away from Beppu Station. Today, you can still see many streets lined with old houses, as this area did not suffer from many air raids during the war. It can be relaxing to rent a bike and explore the old neighborhood. This area is where you’ll find Hamawaki Onsen, known as the origin of hot springs in Beppu.
+          p.hide--sp.js-fk-hide At the time, people would use the hot springs that welled up at the beach, so this area was named “Hamawaki” (literally “beach hot spring”). There are more than 20 hot springs within walking distance, with some even open till 1:00 am, so it's a popular area among local people. Most hot springs in Hamawaki don’t have showers, and people wash themselves with hot water and buckets (this style of bathing is known as “Beppu style”), making it less popular amongst tourists. However, if you're after an authentic onsen experience in Beppu, this is the place for you.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_beppu/04/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+    .row.row-space-top-6
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/04/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/04/photo2.jpg", class: "img-responsive"
+
+- elsif @content_id == 5
+  - provide(:description, "Respect for Nature - Bamboo Forest, Togetsukyo Bridge & Tenryuji This area, 30 minutes by train from the center of BEPPU, is where the city meets the mountains that border the west side of BEPPU.")
+  .features-beppu-header.row-space-4
+    = image_tag(feature_beppu_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_beppu_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 05.
+              .sub.text-light.row-space-2.hide--sp Breath-taking Nature
+              .text.text-light
+                | Shidaka-kogen Area
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Shidaka-kogen Area
+        .row-space-4.text-readable
+          p There are many different ways to enjoy Shidaka Lake, surrounded by beautiful trees and meadows, depending on the season. Lakeside camping and barbecues are especially good in spring and autumn. With a Huber guide, you can have your own cooking experience by the lake. The romantic at heart can rent a swan boat and row out over the lake to enjoy watching the swans and ducks swim across the surface.
+          p.hide--sp.js-fk-hide Meanwhile, Kagurame Lake offers the perfect proposal spot in June, when the irises bloom around the entire lake. Take the mountain ropeway on Mt. Tsurumi to see breathtaking views of Beppu in every season: cherry blossom in spring, autumn leaves in fall, and snow in winter. The mountain is also perfect for hiking in summer. Meanwhile, Kijimakogen Park is the place for adrenaline junkies, offering a thrilling experience on Jupiter, the wooden roller coaster.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_beppu/05/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+    .row.row-space-top-8
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/05/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/05/photo2.jpg", class: "img-responsive"
+
+- elsif @content_id == 6
+  - provide(:description, "Deeper into Nature - Jojakkoji & Atago Shrine. Take the Torokko train through this riverside forest to experience truly Japanese nature, or ride on the fast-flowing rapids of Hozugawa River for a thrilling journey.")
+  .features-beppu-header.row-space-4
+    = image_tag(feature_beppu_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_beppu_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 06.
+              .sub.text-light.row-space-2.hide--sp Time travel to the old Japan
+              .text.text-light Kamegawa Area
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Kamegawa Area
+        .row-space-4.text-readable
+          p Kamegawa is an area that has flourished as a hot spring health resort at the north gate of Beppu since the Edo era. There are many hot springs that gush forth from the bay, so you can enjoy the luxury of a natural sand bath as you listen to the sound of the waves. The Kamegawa shopping arcade has thrived since the Meiji era, and today you can still see solidly-built traditional Japanese houses that call back to that period. If you walk from the shopping arcade into the residential areas, you will find that a lot of narrow roads and you can take a stroll down streets that are unique to this area.
+          p.hide--sp.js-fk-hide Kamegawa is home to Beppu’s main fishing port, so there is an abundance of fresh seafood. Ask a guide to take you to a hidden restaurant that only locals know, and be astounded at the culinary delights to be found.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_beppu/06/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+    .row.row-space-top-8
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/06/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/06/photo2.jpg", class: "img-responsive"
+
+- elsif @content_id == 7
+  - provide(:description, "1,300 Years Hidden Away from the Outside World - Kifune Shrine & Kuramadera. We can't help but wonder if there isn't some kind of conspiracy to keep the town of Kifune a secret from foreign travelers, as very few travelers from overseas ever come to visit here.")
+  .features-beppu-header.row-space-4
+    = image_tag(feature_beppu_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_beppu_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 07.
+              .sub.text-light.row-space-2.hide--sp The Town of Hot Spring Steam
+              .text.text-light Kannawa Area
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Kannawa Area
+        .row-space-4.text-readable
+          p Kannawa is a hot spring area which is famous for its rich historical background as a health resort, which began 800 years ago in the Kamakura era. It is one of the most beautiful regions in Beppu, making it a must-go area for sightseeing! White steam from the hot springs rises up everywhere you look in the town, making the hot springs a deeply entwined part of everyday life. This scenery is one like no other, which is why it was chosen as one of the Important Cultural Landscapes of Japan.
+          p.hide--sp.js-fk-hide In Kannawa, you can relax in saunas or sand baths that use this natural hot spring steam. Feeling hungry?  Make sure you try some dishes cooked using the unique method of jigokumushi,  or cooking food using the steam from the hot springs.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_beppu/07/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+    .row.row-space-top-8
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/07/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/07/photo2.jpg", class: "img-responsive"
+
+- elsif @content_id == 8
+  - provide(:description, "From a Forest Village to a Seaside Town - Miyamacho, Amanohashidate & Ine. If you feel like diving even deeper into Japanese culture, go by car to stretch your legs by the ocean. On the way is the town of Miyamacho, just an hour and a half from BEPPU.")
+  .features-beppu-header.row-space-4
+    = image_tag(feature_beppu_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_beppu_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 08.
+              .sub.text-light.row-space-2.hide--sp Welcome to Hell
+              .text.text-light Hells Area
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Hells Area
+        .row-space-4.text-readable
+          p The most popular sightseeing activity is the tour of the eight “hells”—hot springs that release huge amounts of steam and hot water like real-life hells on earth. They are known as Sea Hell, Blood Pond Hell, White Pond Hell, Tornado Hell, Mountain Hell, Stone of the Monk Hell, Pod Hell, and Veil Mountain Hell. Although all are called "hells," each has its own unique features. For instance, Sea Hell is a beautiful cobalt blue, and does not conjure up images of a hell at all.
+          p.hide--sp.js-fk-hide Meanwhile, Blood Pond Hell is a scarlet mud pond, and Pod Hell is a fun place where guides can show you how to experience hot springs in many unique ways. Each hell offers eggs that have been boiled by the steam released by the hot springs, so you can also have a meal during your visits. Many of the hells also provide foot baths, so you can relax on this tour with foot baths and food rather going inside the hot springs.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_beppu/08/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+    .row.row-space-top-6
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/08/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/08/photo2.jpg", class: "img-responsive"
+
+- elsif @content_id == 9
+  - provide(:description, "Something to Enjoy in Every Season - Cherry Blossoms, Festivals, Autumn Leaves, & Snow. There is something different to enjoy in each of the four seasons in Japan, but in BEPPU, these distinctions stand out even more. In spring, you can take a stroll down Philosopher's Walk and be surrounded by blooming cherry blossoms, from up above to the river flowing below.")
+  .features-beppu-header.row-space-4
+    = image_tag(feature_beppu_top_image(@content_id), class: "img-responsive hide--sp")
+    = image_tag(feature_beppu_top_image_sp(@content_id), class: "img-responsive show--sp")
+    .img-content
+      .va-container.va-container-wh
+        .va-middle.text-center
+          .text-center
+            .img-content-inner.text-left.text-contrast
+              .num.text-black.row-space-2.hide--sp 09.
+              .sub.text-light.row-space-2.hide--sp Sea, Mountain and Tanada (Terassed Rice Field)
+              .text.text-light
+                | Nishi Oita and Uchinari Area
+  .page-container
+    .row.row-space-top-8
+      .col-md-6
+        .h3.text-brand.row-space-2.hide--sp
+          | Nishi Oita and Uchinari Area
+        .row-space-4.text-readable
+          p In Nishi Oita, you can enjoy the beautiful nature of Beppu to the fullest. Nishi Oita is home to Umitamago, Oita's own aquarium where you can enjoy the wonder of underwater life, and Mt. Takasaki, where you can encounter wild monkeys. At Mt. Takasaki, you can play with and watch wild monkeys as they roam freely to gather food. If you take a walk by the shore, you will soon find yourself on Tanoura Beach, a famous lover’s spot with yellow sand and lush green trees. There are many stylish cafes along the beach front where you can chill with coffee and refreshments. You can even cycle from Beppu to Nishi Oita to enjoy the great beach views, then refresh yourself with a relaxing cup of coffee.
+          p.hide--sp.js-fk-hide Uchinari is 50 minutes away from Beppu Station by bus, at the most southern end of Beppu City. It is a tiny district with a population of only 300 and home to only 85 households, but it holds deep significance as one of the remaining traditional Japanese agricultural villages. It has a long history, with some shrines and temples that were built 1,300 years ago still standing till this day. The main sightseeing feature in Uchinari is the Uchinari Rice Terraces. There are about 1,300 terraces covering a total area of 41.7 hectares (about nine football stadiums), they were selected as one of Japan’s top 100 rice terraces. The rice harvested there is grown with fresh spring water, and on summer nights, you can see the dreamlike sight of fireflies lighting up the waterways.
+        .text-center.show--sp
+          = link_to "#", class: "btn btn-primary js-read-more" do
+            | Read more
+      .col-md-6.row-space-4.hide--sp
+        = image_tag 'feature_beppu/09/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+    .row.row-space-top-8
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/09/photo1.jpg", class: "img-responsive"
+      .col-md-6.row-space-4
+        = image_tag "feature_beppu/09/photo2.jpg", class: "img-responsive"
+
+.page-container
+  - unless @content_id == 9
+    #area-section.row-space-8.show--sp
+      - if @content_id == 1
+        = image_tag 'feature_beppu/01/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+      - elsif @content_id == 2
+        = image_tag 'feature_beppu/02/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+      - elsif @content_id == 3
+        = image_tag 'feature_beppu/03/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+      - elsif @content_id == 4
+        = image_tag 'feature_beppu/04/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+      - elsif @content_id == 5
+        = image_tag 'feature_beppu/05/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+      - elsif @content_id == 6
+        = image_tag 'feature_beppu/06/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+      - elsif @content_id == 7
+        = image_tag 'feature_beppu/07/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+      - elsif @content_id == 8
+        = image_tag 'feature_beppu/08/map_area.png', class: "img-responsive", alt: "BEPPU AREA MAP"
+      - else
+
+  .features-tourlist
+    .row.row-space-top-8.row-space-4
+      .col-md-12
+        h3.text-black.center-lined
+          span
+            | 0
+            = @content_id
+            |.  Recommended Tours
+    .row.row-space-8
+      - if @content_id == 1
+        - feature_listing_ids = [620, 551, 550]
+      - elsif @content_id == 2
+        - feature_listing_ids = [682, 686, 625]
+      - elsif @content_id == 3
+        - feature_listing_ids = [685, 686, 575]
+      - elsif @content_id == 4
+        - feature_listing_ids = [624, 691, 684]
+      - elsif @content_id == 5
+        - feature_listing_ids = [700, 623, 685]
+      - elsif @content_id == 6
+        - feature_listing_ids = [426, 625, 628]
+      - elsif @content_id == 7
+        - feature_listing_ids = [632, 413, 628]
+      - elsif @content_id == 8
+        - feature_listing_ids = [572, 632, 413]
+      - elsif @content_id == 9
+        - feature_listing_ids = [575, 623, '']
+      - feature_listing_ids.each do |id|
+        .col-md-6.col-lg-4.row-space-4
+          - if feature_listing(id).present?
+            = render partial: 'shared/listing_card', locals: { profile: listing_to_profile(feature_listing(id)), listing: feature_listing(id)}
+          - else
+            .tour-listing-empty.text-black.text-brand.text-center
+
+.row-space-4
+  = render partial: "cards_beppu"
+- unless user_signed_in?
+  = render partial: 'shared/modals/sign_up_form'

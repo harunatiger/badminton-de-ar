@@ -6,12 +6,12 @@ Rails.application.routes.draw do
     collection do
       get 'contents'
       resources :kyoto, :controller => 'features', only: [] do
-        collection do
-          get '/' => 'features#kyoto'
-        end
-        member do
-          get '/' => 'features#contents_kyoto'
-        end
+        get '/' => 'features#kyoto', on: :collection
+        get '/' => 'features#contents_kyoto', on: :member
+      end
+      resources :beppu, :controller => 'features', only: [] do
+        get '/' => 'features#beppu', on: :collection
+        get '/' => 'features#contents_beppu', on: :member
       end
     end
   end

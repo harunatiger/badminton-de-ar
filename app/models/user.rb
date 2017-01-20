@@ -33,9 +33,8 @@
 #  admin_closed_at         :datetime
 #  remarks                 :text
 #  star_guide              :boolean          default(FALSE)
-#  uuid                    :uuid
-#  access_token            :string
-#  access_token_expires_at :string
+#  became_main_guide_at    :datetime
+#  became_support_guide_at :datetime
 #
 # Indexes
 #

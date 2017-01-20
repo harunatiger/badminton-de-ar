@@ -1056,6 +1056,50 @@ module ApplicationHelper
       'feature_kyoto/card_bg09.jpg'
     end
   end
+
+  def feature_beppu_top_image(content_id)
+    if content_id == 1
+      'feature_beppu/01/hero_bg.jpg'
+    elsif content_id == 2
+      'feature_beppu/02/hero_bg.jpg'
+    elsif content_id == 3
+      'feature_beppu/03/hero_bg.jpg'
+    elsif content_id == 4
+      'feature_beppu/04/hero_bg.jpg'
+    elsif content_id == 5
+      'feature_beppu/05/hero_bg.jpg'
+    elsif content_id == 6
+      'feature_beppu/06/hero_bg.jpg'
+    elsif content_id == 7
+      'feature_beppu/07/hero_bg.jpg'
+    elsif content_id == 8
+      'feature_beppu/08/hero_bg.jpg'
+    elsif content_id == 9
+      'feature_beppu/09/hero_bg.jpg'
+    end
+  end
+
+  def feature_beppu_top_image_sp(content_id)
+    if content_id == 1
+      'feature_beppu/card_bg01.jpg'
+    elsif content_id == 2
+      'feature_beppu/card_bg02.jpg'
+    elsif content_id == 3
+      'feature_beppu/card_bg03.jpg'
+    elsif content_id == 4
+      'feature_beppu/card_bg04.jpg'
+    elsif content_id == 5
+      'feature_beppu/card_bg05.jpg'
+    elsif content_id == 6
+      'feature_beppu/card_bg06.jpg'
+    elsif content_id == 7
+      'feature_beppu/card_bg07.jpg'
+    elsif content_id == 8
+      'feature_beppu/card_bg08.jpg'
+    elsif content_id == 9
+      'feature_beppu/card_bg09.jpg'
+    end
+  end
   
   def show_leader_contents?(user, listing)
     ListingUser.is_receptionist?(user.id, listing.id) || listing.user_id == user.id
@@ -1064,4 +1108,5 @@ module ApplicationHelper
   def member_section_guides(listing)
     ListingUser.members(listing.id).order("RANDOM()")
   end
+
 end
