@@ -1,5 +1,12 @@
-- @counts.each do |count|
-  | player name : #{ count.player_id}
+br
+br
+br
+br
+.name.text-center
+  | Haruka vs Atsushi
+.vs.text-center
+  = @counts[0].count
   span<
-  | count: #{count.count}
-  br
+  | :
+  span<
+  = @counts[1].count
