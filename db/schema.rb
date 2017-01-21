@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161225081924) do
+ActiveRecord::Schema.define(version: 20170121042316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,6 +154,13 @@ ActiveRecord::Schema.define(version: 20161225081924) do
 
   add_index "confections", ["listing_id", "name"], name: "index_confections_on_listing_id_and_name", unique: true, using: :btree
   add_index "confections", ["listing_id"], name: "index_confections_on_listing_id", using: :btree
+
+  create_table "counts", force: :cascade do |t|
+    t.integer  "player_id"
+    t.integer  "count",      default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "dress_codes", force: :cascade do |t|
     t.integer  "listing_id"

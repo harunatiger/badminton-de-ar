@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   resources :listing_destinations
 
   resources :features, only: [:index] do
@@ -264,8 +263,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'users/sign_in_via_email'     => 'users#sign_in_via_email'
       get 'listings'     => 'listings#index'
+      post 'count_up'     => 'counts#add'
     end
   end
+  
+  resources :counts, only: [:index, :show]
 
-  get '*path', controller: 'application', action: 'render_404'
+  #get '*path', controller: 'application', action: 'render_404'
 end

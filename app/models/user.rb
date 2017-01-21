@@ -35,6 +35,9 @@
 #  star_guide              :boolean          default(FALSE)
 #  became_main_guide_at    :datetime
 #  became_support_guide_at :datetime
+#  uuid                    :uuid
+#  access_token            :string
+#  access_token_expires_at :string
 #
 # Indexes
 #

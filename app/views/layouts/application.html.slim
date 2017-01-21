@@ -27,7 +27,7 @@ html
     '
     = action_name
     | ">
-  = render partial: 'shared/header'
+  /= render partial: 'shared/header'
   - if notice
     .alert.alert-notice
       div
@@ -37,7 +37,7 @@ html
       div
         = alert
   = yield
-  = render partial: 'shared/footer'
+  /= render partial: 'shared/footer'
   = render partial: 'shared/tooltip'
   = render partial: 'shared/modals/flow'
   = render partial: 'shared/modals/about_guide'
