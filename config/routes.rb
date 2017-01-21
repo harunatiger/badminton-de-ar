@@ -37,13 +37,13 @@ Rails.application.routes.draw do
 
   post 'currencies/change_currency'
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin::Devise.config
-  begin
-    ActiveAdmin.routes(self)
-  rescue Exception => e
-    puts "ActiveAdmin: #{e.class}: #{e}"
-  end
+  # devise_for :admin_users, ActiveAdmin::Devise.config
+  # ActiveAdmin::Devise.config
+  # begin
+  #   ActiveAdmin.routes(self)
+  # rescue Exception => e
+  #   puts "ActiveAdmin: #{e.class}: #{e}"
+  # end
 
   resources :announcements, param: :page_url, only: [:show, :index]
   resources :reports, only: [:create]
